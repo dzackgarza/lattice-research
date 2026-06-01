@@ -13,10 +13,6 @@ from ..homsets import (
     SetAutCategory,
     SetEndCategory,
     SetHomCategory,
-    _SetAutomorphisms,
-    _SetEndomorphisms,
-    _SetHomCategoryObjectMethods,
-    _SetMorphisms,
 )
 
 if TYPE_CHECKING:
@@ -69,7 +65,6 @@ class PartitionedSetsCategory(CategoryWithAxiom):
             return self.an_element()
 
     class ElementMethods: ...
-
 
 
 # ---------------------------------------------------------------------------
@@ -306,7 +301,6 @@ class PartitionsCategory(Category):
             ...
 
 
-
 # ---------------------------------------------------------------------------
 # TotallyOrdered axiom
 # ---------------------------------------------------------------------------
@@ -341,16 +335,16 @@ class TotallyOrderedSetsCategory(CategoryWithAxiom):
 
 PartitionedSetsObject = PartitionedSetsCategory.ParentMethods
 PartitionedSetsElement = PartitionedSetsCategory.ElementMethods
-PartitionedSetsMorphism = _SetMorphisms
+PartitionedSetsMorphism = SetHomCategory.ElementMethods
 PartitionedSetsHomCategory = SetHomCategory
 PartitionedSetsEndCategory = SetEndCategory
 PartitionedSetsAutCategory = SetAutCategory
-PartitionedSetsHom = _SetHomCategoryObjectMethods
+PartitionedSetsHom = SetHomCategory.ParentMethods
 PartitionedSetsEnd = SetEndCategory.ParentMethods
 PartitionedSetsAut = SetAutCategory.ParentMethods
-PartitionedSetsEndomorphism = _SetEndomorphisms
-PartitionedSetsAutomorphism = _SetAutomorphisms
+PartitionedSetsEndomorphism = SetEndCategory.ElementMethods
+PartitionedSetsAutomorphism = SetAutCategory.ElementMethods
 
 PartitionsObject = PartitionsCategory.ParentMethods
 PartitionsElement = PartitionsCategory.ElementMethods
-PartitionsMorphism = _SetMorphisms
+PartitionsMorphism = SetHomCategory.ElementMethods

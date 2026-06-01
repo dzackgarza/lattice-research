@@ -12,6 +12,15 @@ This is the stable contract for the object-method resolution repair goal.
 Use it when resuming, advancing, reviewing, decomposing, or claiming completion of the
 cache-priming/refinement work.
 
+The key names are legacy. They must not import a "provider satisfaction" or
+refinement-enforcement model into the repo. The governing model is:
+
+- specs state object-method obligations;
+- refinement declares category view and imposes the category contract;
+- refinement does not validate satisfaction;
+- Sage objects are expected to be partial relative to project specs;
+- smokes expose the implementation gap.
+
 ## Vocabulary Discipline
 
 `ParentMethods` records the method surface of mathematical objects in a category.
@@ -27,10 +36,10 @@ mathematical statement before editing source.
 
 This is not an optics or naming rule. In mathematical spec code, strange metaclass
 manipulation, dynamic-class splicing, MRO surgery, descriptor replacement, or post-hoc
-method installation is presumptive evidence of a slop hack. Do not accept it as a
-repair unless the source-reconstruction state proves the relevant Sage integration
-boundary already owns that exact mechanism and that the object/category method relation
-cannot be expressed without it.
+method installation is presumptive evidence of a slop hack. The exception is the
+project-owned Sage integration boundary itself: local dynamic metaclasses that minimally
+compose Sage's dynamic metaclasses with `ABCMeta` are a valid way to represent project
+abstract methods in Python's class system. They are not a refinement validator.
 
 Required sentence shape:
 
@@ -39,17 +48,17 @@ Required sentence shape:
 
 ## Request completion witness
 
-The goal is complete only when committed artifacts show that `category_specs`
-refinement satisfies this relation:
+The goal is complete only when committed artifacts show that `category_specs` preserves
+this relation:
 
-> A refined Sage object belongs to a project category exactly when the project category
-> contract is true for that object: every declared object method is either a
-> mathematical requirement still visible as abstract, or a concrete object operation
-> already supplied by Sage or by a project category surface. Python `abc.abstractmethod`
-> and Sage `abstract_method` markers are requirements, not implementations. A concrete
-> object operation must not be hidden by an earlier abstract requirement with the same
-> name, and genuinely missing requirements must remain visible through natural
-> abstract-method or smoke failure.
+> Refinement declares that an existing Sage object is viewed as an object of a project
+> category. The project category contract is then present on the category method surface:
+> every declared object method is either a mathematical requirement still visible as
+> abstract, or a concrete object operation supplied by Sage or by a project category
+> surface through ordinary lookup. Python `abc.abstractmethod` and Sage
+> `abstract_method` markers are requirements, not implementations. Missing requirements
+> remain visible to smokes and later implementation work; refinement itself does not
+> validate or reject the object for failing them.
 
 The completion artifacts must let a cold reviewer answer:
 
@@ -59,7 +68,7 @@ The completion artifacts must let a cold reviewer answer:
   involved;
 - what relation the source fix makes true;
 - how abstract obligations remain in specs without turning into implementations;
-- which commands prove the relation and which obligations still fail visibly.
+- which commands expose the relation and which obligations still fail visibly.
 
 ## Canonical state surface
 
@@ -118,9 +127,9 @@ recent commits, and command output. Treat state as a claim.
 
 `SYNTHESIZE`: before any source edit, produce the relation statement:
 
-> This edit changes the relation ___ between refined object ___, target contract ___,
-> abstract object-method requirement ___, concrete object method ___, false abstract
-> method surface ___, and missing requirement ___.
+> This edit changes the category declaration/method-surface relation for refined object
+> ___, target category ___, abstract object-method requirement ___, concrete object
+> method ___, and missing requirement ___.
 
 If that sentence cannot be filled from source evidence, do not edit source.
 
@@ -145,6 +154,8 @@ These do not satisfy the contract:
 - adding implementation bodies to spec obligations;
 - deleting or weakening abstract obligations because Sage has a method;
 - treating abstract markers as concrete object methods;
+- making `refine_category` validate, reject, or interrogate object-method satisfaction;
+- treating an abstract joined parent class as a refinement blocker;
 - priming `_cached_methods`, prefetching lookup state, or depending on test order;
 - adding `typing.cast`, `# type: ignore`, `NotImplementedError`, local QC bypasses, or
   static-only reports;

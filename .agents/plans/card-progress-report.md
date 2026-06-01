@@ -2,9 +2,9 @@
 
 ## Overall
 
-- Total cards: **319**
-- Completed cards: **292**
-- Overall progress: `[######################--]  91.5%`
+- Total cards: **320**
+- Completed cards: **293**
+- Overall progress: `[######################--]  91.6%`
 - Active feature trees: **12**
 - Completed feature trees: **8**
 
@@ -12,7 +12,7 @@
 
 | Type | Total | Completed | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| decision | 22 | 22 | 0 | 0 | 0 | 0 |
+| decision | 23 | 23 | 0 | 0 | 0 | 0 |
 | feature | 20 | 8 | 3 | 0 | 1 | 0 |
 | phase | 28 | 25 | 0 | 0 | 0 | 0 |
 | plan | 13 | 12 | 1 | 0 | 0 | 0 |
@@ -35,7 +35,7 @@
 
 | Feature | Progress | Done/Total | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| Category specs and Sage surface admission | `[################] 100.0%` | 166/166 | 0 | 0 | 0 | 0 |
+| Category specs and Sage surface admission | `[################] 100.0%` | 167/167 | 0 | 0 | 0 | 0 |
 | Geometry category interfaces | `[################] 100.0%` | 28/28 | 0 | 0 | 0 | 0 |
 | Historical discriminant and morphism recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[################] 100.0%` | 4/4 | 0 | 0 | 0 | 0 |

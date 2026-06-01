@@ -13,11 +13,6 @@ from ...utils import with_axiom
 from .join_semilattice import _JoinSemilatticePosets
 from .meet_semilattice import _MeetSemilatticePosets
 
-if TYPE_CHECKING:
-    def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
-else:
-    from sage.misc.cachefunc import cached_method
-
 
 class _LatticePosets(Category):
     r"""Posets in which every pair has a meet and join.
@@ -32,7 +27,6 @@ class _LatticePosets(Category):
         return [_MeetSemilatticePosets(), _JoinSemilatticePosets(), SageLatticePosets()]
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Finite(self) -> Category:
             r"""Return the finite lattice-poset subcategory."""

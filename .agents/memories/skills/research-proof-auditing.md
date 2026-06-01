@@ -109,3 +109,7 @@ Stop acceptance and route follow-up when the evidence proves a cheaper proxy ins
 the requested claim, when exactness is replaced by numerics or sampling, when theorem
 hypotheses are unchecked, when witnesses are missing, or when the target theorem has
 drifted.
+
+## Referenced documents
+
+[Research Proof Auditing Reference](research-proof-auditing/proof-auditing)

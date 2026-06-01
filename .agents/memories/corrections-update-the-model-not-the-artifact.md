@@ -34,3 +34,20 @@ If the correction is cross-cutting, update every affected governing memory inste
 creating a standalone correction note. The corrected model should surface naturally
 when agents learn the repo, review work, check themselves, handle corrections, or work
 in the affected category/spec area.
+
+When a correction exposes a repo-purpose or architecture misunderstanding, record it as
+a false-model/correct-model rule. Do not write a self-report about the agent's mistake,
+and do not hide the correction in a task-local phase note. The durable destination is
+the memory or guidance file that future agents already load for that repo concept.
+
+If the user asks whether every nuance has been captured, audit the durable record
+against the corrected model before answering. A complete capture must include:
+
+- the positive model;
+- the assumptions that make the model apply;
+- the allowed implementation shape;
+- the explicit forbidden substitutes;
+- the verification question a future reviewer should ask.
+
+If any item is missing, patch the governing memory first and answer only after the diff
+shows the missing guidance was added.

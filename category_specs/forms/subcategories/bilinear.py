@@ -6,7 +6,6 @@ from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Protocol, final, override
 
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -19,12 +18,6 @@ from .with_forms import (
 
 if TYPE_CHECKING:
     from ...types import Category, Matrix, RingElement, RModuleElement
-
-
-def _bilinear_cached_method[_BilinearCachedMethod: Callable[..., object]](
-    method: _BilinearCachedMethod,
-) -> _BilinearCachedMethod:
-    return cached_method(method)
 
 
 class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -137,35 +130,26 @@ class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     ParentMethods = BilinearModulesCategory.ParentMethods
 
     class SubcategoryMethods:
-        @_bilinear_cached_method
         @final
         def Symmetric(self) -> Category:
             from .symmetric import OverPIDSymmetricBilinearModulesCategory
 
             return OverPIDSymmetricBilinearModulesCategory(self)
-
-        @_bilinear_cached_method
         @final
         def Alternating(self) -> Category:
             from .alternating import OverPIDAlternatingBilinearModulesCategory
 
             return OverPIDAlternatingBilinearModulesCategory(self)
-
-        @_bilinear_cached_method
         @final
         def Nondegenerate(self) -> Category:
             from .nondegenerate import OverPIDNondegenerateBilinearModulesCategory
 
             return OverPIDNondegenerateBilinearModulesCategory(self)
-
-        @_bilinear_cached_method
         @final
         def Integral(self) -> Category:
             from .integral import OverPIDIntegralBilinearModulesCategory
 
             return OverPIDIntegralBilinearModulesCategory(self)
-
-        @_bilinear_cached_method
         @final
         def Rational(self) -> Category:
             from .rational import OverPIDRationalBilinearModulesCategory

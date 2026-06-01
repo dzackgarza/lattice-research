@@ -41,3 +41,17 @@ This skill owns Sage category-framework design references migrated from the reti
   Decide whether the spec implementation belongs at a downstream ABC implementation
   boundary or whether QC tooling must model inherited category promotion; do not
   normalize local cast patterns as framework glue.
+
+## Referenced documents
+
+[How Endset Categories Are Constructed](category-framework-design/autset-categories-path)
+
+[Autset Integration Plan](category-framework-design/autset-integration-plan)
+
+[Axioms: WithGenerators, FinitelyPresented, and Structural Patterns](category-framework-design/axioms-with-generators-finitely-presented)
+
+[Category Creation: Base Rings and Module Categories](category-framework-design/category-creation-notes)
+
+[Category Refinement Phases](category-framework-design/category-refinement-phases)
+
+[Homsets — the Structural Core](category-framework-design/homsets-structural-core)

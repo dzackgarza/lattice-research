@@ -43,6 +43,34 @@ The types of abstract methods are defined entirely within the spec's own type sy
 A mypy error on an abstract method definition is a spec issue (missing base, wrong
 owner, incomplete graph) — never a stub issue.
 
+### Abstract methods record spec obligations
+
+`ParentMethods` abstract methods are the vocabulary of the category contract.
+They say what an object in the category must provide; they do not make any claim that a
+particular refined Sage object currently provides it.
+
+This is why most spec methods remain abstract.
+A non-abstract method belongs in the spec only when the category itself defines it from
+other spec methods or from subcategory-internal mathematics.
+
+Do not replace abstract spec methods with generated bodies, `assert False`, or
+`NotImplementedError`. Those are runtime failure mechanisms, not specifications.
+
+### Abstractness is not refinement validation
+
+ABC abstractness belongs to the class model so inherited abstract obligations and
+concrete methods interact through normal Python MRO.
+It is not a reason for `refine_category` to inspect the object being refined or reject
+the declaration.
+
+Correct class-system behavior:
+
+- concrete Sage methods can realize project obligations when ordinary lookup reaches
+  them;
+- concrete project methods can provide defaults when the spec owns the mathematics;
+- missing methods remain abstract and visible;
+- smokes reveal the remaining implementation gap.
+
 ## The concrete failure
 
 In the vault conversation, an agent wrote:
@@ -83,3 +111,10 @@ for a `ParentMethods` method.** The answer is always no.
 It is an abstract specification.
 The question to ask is: "what is the largest category on which this method makes sense,
 and does that category define it?"
+
+## Related
+
+- `specs-do-not-contain-runtime-notimplemented-gaps`: the concrete rule that follows
+  from this principle — abstract obligations must stay abstract.
+- `category-spec-architectural-boundary`: the three-layer architecture that separates
+  abstract specs from Sage implementations.

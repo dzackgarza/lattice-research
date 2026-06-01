@@ -40,7 +40,6 @@ from typing import TYPE_CHECKING, TypeVar, cast, final, overload, override
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import (
@@ -70,7 +69,6 @@ from .subcategories.constructions.subquotients import _Subquotients
 from .subcategories.constructions.tensor_products import _TensorProducts
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 _RepresentationModules = LazyImport(
     "category_specs.modules.subcategories.representation_modules",
@@ -235,8 +233,6 @@ class _RModObjects:
 
     @abstractmethod
     def is_ring_object_as_module(self) -> bool: ...
-
-    @_cached_method
     @final
     def tensor_square(self) -> RModule | Ring:
         return self.tensor_power(2)
@@ -1465,8 +1461,6 @@ class Modules(Category_module):
             return self._refine_constructed_module(
                 S, [self.category().RingObjectsAsModules()]
             )
-
-    @_cached_method
     @final
     def Constructors(self) -> Modules._Constructors:
         r"""Return the Sage module constructor collector over ``self.base_ring()``."""
@@ -1541,109 +1535,70 @@ class Modules(Category_module):
     # ------------------------------------------------------------------
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Constructors(self) -> Modules._Constructors:
             r"""Return the module constructor collector for this module category."""
             return Modules._Constructors(cast(Modules, self))
-
-        @_cached_method
         @final
         def base_ring(self) -> Ring:
             return cast("Ring", self.base_category().base_ring())
 
         ## Ring properties
-
-        @_cached_method
         @final
         def OverIntegralDomain(self) -> Category:
             return cast(Category, with_axiom(self, "OverIntegralDomain"))
-
-        @_cached_method
         @final
         def OverDedekindDomain(self) -> Category:
             return cast(Category, with_axiom(self, "OverDedekindDomain"))
-
-        @_cached_method
         @final
         def OverPID(self) -> Category:
             return cast(Category, with_axiom(self, "OverPID"))
-
-        @_cached_method
         @final
         def OverCommutativeRing(self) -> Category:
             return cast(Category, with_axiom(self, "OverCommutativeRing"))
-
-        @_cached_method
         @final
         def OverField(self) -> Category:
             return cast(Category, with_axiom(self, "OverField"))
-
-        @_cached_method
         @final
         def OverLocalRing(self) -> Category:
             return cast(Category, with_axiom(self, "OverLocalRing"))
-
-        @_cached_method
         @final
         def OverCompleteRing(self) -> Category:
             return cast(Category, with_axiom(self, "OverCompleteRing"))
 
         ## Homological properties
-
-        @_cached_method
         @final
         def Free(self) -> Category:
             return cast(Category, with_axiom(self, "Free"))
-
-        @_cached_method
         @final
         def Torsion(self) -> Category:
             return cast(Category, with_axiom(self, "Torsion"))
-
-        @_cached_method
         @final
         def Torsionfree(self) -> Category:
             return cast(Category, with_axiom(self, "Torsionfree"))
-
-        @_cached_method
         @final
         def Projective(self) -> Category:
             return cast(Category, with_axiom(self, "Projective"))
 
         ## Generation properties
-
-        @_cached_method
         @final
         def WithBasis(self) -> Category:
             return cast(Category, with_axiom(self, "WithBasis"))
-
-        @_cached_method
         @final
         def WithOrderedBasis(self) -> Category:
             return cast(Category, with_axiom(self, "WithOrderedBasis"))
-
-        @_cached_method
         @final
         def WithOrderedGeneratingSet(self) -> Category:
             return cast(Category, with_axiom(self, "WithOrderedGeneratingSet"))
-
-        @_cached_method
         @final
         def FinitelyGenerated(self) -> Category:
             return cast(Category, with_axiom(self, "FinitelyGenerated"))
-
-        @_cached_method
         @final
         def FinitelyPresented(self) -> Category:
             return cast(Category, with_axiom(self, "FinitelyPresented"))
-
-        @_cached_method
         @final
         def TensorProducts(self) -> Category:
             return cast(Category, TensorProductsCategory.category_of(self))
-
-        @_cached_method
         @final
         def DualObjects(self) -> Category:
             return cast(Category, DualObjectsCategory.category_of(self))
@@ -1651,65 +1606,41 @@ class Modules(Category_module):
         dual = DualObjects
 
         ## Extra structure
-
-        @_cached_method
         @final
         def Filtered(self) -> Category:
             return cast(Category, FilteredModulesCategory.category_of(self))
-
-        @_cached_method
         @final
         def Graded(self) -> Category:
             return cast(Category, with_axiom(self, "Graded"))
-
-        @_cached_method
         @final
         def Super(self) -> Category:
             return cast(Category, SuperModulesCategory.category_of(self))
 
         ## Forms
-
-        @_cached_method
         @final
         def WithForms(self) -> Category:
             return cast(Category, with_axiom(self, "WithForms"))
-
-        @_cached_method
         @final
         def RIdeals(self) -> Category:
             return cast(Category, with_axiom(self, "RIdeals"))
-
-        @_cached_method
         @final
         def RepresentationModules(self) -> Category:
             return cast(Category, _RepresentationModules(self.base_ring()))
-
-        @_cached_method
         @final
         def FreeGradedModules(self) -> Category:
             return cast(Category, _FreeGradedModules(self.base_ring()))
-
-        @_cached_method
         @final
         def FinitelyPresentedGradedModules(self) -> Category:
             return cast(Category, _FinitelyPresentedGradedModules(self.base_ring()))
-
-        @_cached_method
         @final
         def OreModules(self) -> Category:
             return cast(Category, _OreModules(self.base_ring()))
-
-        @_cached_method
         @final
         def IntegerLattices(self) -> Category:
             return cast(Category, _IntegerLattices(self.base_ring()))
-
-        @_cached_method
         @final
         def TorsionQuadraticModules(self) -> Category:
             return cast(Category, TorsionQuadraticModulesCategory(self.base_ring()))
-
-        @_cached_method
         @final
         def RingObjectsAsModules(self) -> Category:
             return cast(Category, _RingObjectsAsModules(self.base_ring()))

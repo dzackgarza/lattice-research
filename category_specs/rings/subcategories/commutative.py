@@ -7,17 +7,12 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
-
-
-def _cached_method[_F: Callable[..., object]](method: _F) -> _F:
-    return cached_method(method)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -63,12 +58,9 @@ class _CommutativeRings(CategoryWithAxiom):
     Reduced = LazyImport("category_specs.rings.subcategories.reduced", "_ReducedRings")
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def IntegralDomains(self) -> Category:
             return self._with_axiom("IntegralDomains")
-
-        @_cached_method
         @final
         def Field(self) -> Category:
             return (
@@ -79,18 +71,12 @@ class _CommutativeRings(CategoryWithAxiom):
                 .Euclidean()
                 .Field()
             )
-
-        @_cached_method
         @final
         def Noetherian(self) -> Category:
             return self._with_axiom("Noetherian")
-
-        @_cached_method
         @final
         def Local(self) -> Category:
             return self._with_axiom("Local")
-
-        @_cached_method
         @final
         def Reduced(self) -> Category:
             return self._with_axiom("Reduced")

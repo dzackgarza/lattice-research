@@ -7,7 +7,6 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast, final, overload, override
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
@@ -17,7 +16,6 @@ from ...utils import with_axiom
 from .global_field import _GlobalFields as _GlobalFields
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -64,17 +62,12 @@ class _NumberFields(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def QuadraticNumberField(self) -> Category:
             return cast(Category, with_axiom(self, "QuadraticNumberField"))
-
-        @_cached_method
         @final
         def Quadratic(self) -> Category:
             return self.QuadraticNumberField()
-
-        @_cached_method
         @final
         def Cyclotomic(self) -> Category:
             return cast(Category, with_axiom(self, "Cyclotomic"))

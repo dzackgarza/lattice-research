@@ -138,3 +138,12 @@ A simple script should:
 - Output a plain-text tree for human mathematical review.
 
 Without this tool, the graph will continue to accumulate absurdities.
+
+## Related
+
+- `mathematical-sanity-check`: the mandatory sanity gate before committing mathematical
+  code.
+- `category-spec-interface-collisions-are-code-problems`: the rule that method name
+  collisions are internal code problems, not design questions.
+- `category-spec-graph-minimality`: the rule that super_categories() must list immediate
+  parents only.

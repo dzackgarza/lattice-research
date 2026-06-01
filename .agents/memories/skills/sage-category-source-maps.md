@@ -21,3 +21,9 @@ This skill owns Sage source maps migrated from the retired `.agents/plans/` dire
 - Verify Sage source/docs before admitting constructors.
 - Separate Sage entry point, mathematical owner, and project-facing API.
 - Source maps are research inputs; executable work belongs in Nimbalyst cards.
+
+## Referenced documents
+
+[SageMath Ring Construction Entry Points](sage-category-source-maps/ring-integration)
+
+[SageMath Set Implementations: Comprehensive Reference](sage-category-source-maps/set-spec)

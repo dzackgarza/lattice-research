@@ -12,6 +12,10 @@ where every method is owned by the largest category on which it makes sense, and
 subcategories refine via internal `@override` on `ParentMethods` / `ElementMethods` /
 `SubcategoryMethods`.
 
+Its purpose is specification, not enforcement.
+It states category contracts that current Sage implementations often do not yet
+satisfy.
+
 ## What this means
 
 ### Internal hierarchy, not Sage wrapper
@@ -40,11 +44,33 @@ Its method obligations are owned by the internal category graph, not by Sage stu
 
 Refinement at that boundary is a declaration that an existing Sage object is being
 viewed inside the local category universe as an object of a more specific project
-category. It imports the Sage object as a partial implementation of the project spec:
-concrete Sage providers may satisfy declared abstract obligations, while missing
-obligations must remain visible through instantiation or smoke failure. Refinement is
-not the implementation phase and must not hide the gap between current Sage behavior
-and the ideal spec.
+category.
+It imposes the category contract by declaration.
+It does not inspect the object, validate satisfaction, reject abstract methods, or
+instantiate missing implementation.
+
+The Sage object is a partial implementation witness for the project spec.
+Concrete Sage methods may realize declared obligations when ordinary lookup reaches
+them.
+Missing obligations must remain visible through smokes and later implementation work.
+Refinement is not the implementation phase and must not hide the gap between current
+Sage behavior and the ideal spec.
+
+The constructor/refinement boundary is also the quarantine line for unavoidable Sage
+interop complexity.
+If the repair requires dynamic-class or metaclass work, keep it in the project-owned
+construction bridge and delegate ordinary behavior back to Sage and Python.
+Do not push that complexity into category specs, method bodies, smokes, or
+refinement-time satisfaction checks.
+
+The correct implementation shape is minimal reuse:
+
+- branch from Sage's solved category-construction mechanisms instead of reimplementing
+  them;
+- use Python's abstract-method machinery instead of a repo-local abstractness
+  algorithm;
+- add only the glue needed for project categories to compose those systems;
+- leave ordinary spec files readable as mathematical category definitions.
 
 ### The plugin exists to bridge static and dynamic inheritance
 
@@ -70,6 +96,12 @@ The first question is: **"Does the base method exist in an internal ancestor
 - A replacement for Sage's category system (it runs parallel to it).
 - A project whose mypy errors are automatically evidence for stub work.
 - A system where removing `@override` markers is an acceptable fix.
+- A runtime validator that proves refined Sage objects satisfy project specs.
+- An enforcement layer that rejects category declarations because project methods remain
+  abstract.
+- A place to generate failure bodies for missing methods.
+- A place to reinvent Sage dynamic classes, Python ABC semantics, or backend algorithms
+  in local helper code when mature mechanisms already exist.
 
 ## The test for any analysis
 
@@ -124,6 +156,6 @@ Do not expand `category_specs` horizontally unless the expansion supports a conc
 mathematical vocabulary needed by the current research phase.
 
 Specs may declare operations that Sage already implements. The spec obligation records
-the mathematical contract; the Sage method is only a possible concrete provider for
-refined Sage objects. Do not remove, weaken, or move an abstract obligation merely
+the mathematical contract; the Sage method is only a possible concrete implementation
+for refined Sage objects. Do not remove, weaken, or move an abstract obligation merely
 because an existing Sage category or parent has a method with the same name.

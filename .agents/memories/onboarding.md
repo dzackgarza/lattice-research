@@ -62,6 +62,15 @@ The test is:
 If the answer is only "a card is clearer," "a plan is more detailed," or "handoff
 context improved," presume no mathematical progress occurred.
 
+The implementation philosophy is minimal reuse at owned boundaries.
+Use mature mechanisms for solved non-research problems: Sage for category construction,
+Python for abstract-method semantics, and mature mathematical backends for exact
+algebra.
+Project-owned glue is justified only when it is the smallest bridge needed to compose
+those mechanisms and keep ordinary mathematical specs readable.
+Quarantine unavoidable Sage/Python internals in the interop layer; do not spread them
+through specs, refinement-time satisfaction checks, smokes, or local helper systems.
+
 Downstream Coble/lattice goals must NOT be attacked by raw matrix computations.
 The repo is in the category-spec phase.
 See `mem:repo-purpose-mathematical-research-machine`.
@@ -175,7 +184,7 @@ Read these when their situation arises:
 
 | Situation | Memory |
 | --- | --- |
-| Learning what the repo is for | `mem:repo-purpose-mathematical-research-machine` and `mem:what-category-specs-actually-is` |
+| Learning what the repo is for | `mem:repo-purpose-mathematical-research-machine`, `mem:what-category-specs-actually-is`, and `mem:category-spec-repo-model-corrections` |
 | Reviewing recent commits, prior agent output, or suspicious category-spec work | `mem:category-spec-rotten-core-indicators` and `mem:mathematical-sanity-check` |
 | Before any surface edit, decorator change, or mapping | `mem:category-spec-epistemic-foundation` |
 | Writing, editing, or retrieving a memory | `mem:memory-management-discipline` |
@@ -183,7 +192,7 @@ Read these when their situation arises:
 | About to classify a mypy override error | `mem:analysis-must-be-grounded` |
 | About to produce or polish cards, ledgers, reports, plans, handoffs, or notes | `mem:paperwork-is-a-routing-layer-not-progress` |
 | User correction affected repo purpose, architecture, or mathematical claims | `mem:corrections-update-the-model-not-the-artifact` |
-| Refinement, provider ordering, constructor refinement, or abstract-method satisfaction | `mem:category-spec-refinement-purpose-and-provider-satisfaction` |
+| Refinement, object-method resolution, constructor refinement, abstract methods, ABCMeta, or smoke gaps | `mem:category-spec-repo-model-corrections`, `mem:category-spec-refinement-category-declaration`, and `mem:category-spec-methods-are-abstract` |
 | Two methods with the same name collide | `mem:mathematics-first-not-engineering-options` |
 | Found an embarrassing category-graph bug | `mem:process-before-patches-policy` |
 | About to produce a strategy doc instead of code | `mem:foundation-serves-research-not-itself` |

@@ -6,7 +6,6 @@ from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, cast, final, override
 
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -19,12 +18,6 @@ if TYPE_CHECKING:
         RingElement,
         Valuation,
     )
-
-
-def _valued_cached_method[_ValuedCachedMethod: Callable[..., object]](
-    method: _ValuedCachedMethod,
-) -> _ValuedCachedMethod:
-    return cached_method(method)
 
 
 class _ValuedRings(CategoryWithAxiom):
@@ -53,7 +46,6 @@ class _ValuedRings(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @_valued_cached_method
         @final
         def DiscretelyValued(self) -> Category:
             return cast(Category, with_axiom(self, "DiscretelyValued"))

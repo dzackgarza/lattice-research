@@ -10,7 +10,6 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import TYPE_CHECKING, cast, final
 
-from sage.misc.cachefunc import cached_method
 
 if TYPE_CHECKING:
     from ..types import (
@@ -20,12 +19,6 @@ if TYPE_CHECKING:
         CategoryOfEndCategories,
         CategoryOfHomCategories,
     )
-
-
-def _cat_cached_method[_SubcategoryMethod: Callable[..., object]](
-    method: _SubcategoryMethod,
-) -> _SubcategoryMethod:
-    return cached_method(method)
 
 
 class UniversalSubcategoryMethods:
@@ -47,8 +40,6 @@ class UniversalSubcategoryMethods:
     @final
     def _category_self(self) -> Category:
         return cast("Category", self)
-
-    @_cat_cached_method
     @final
     def Subobjects(self) -> Category:
         r"""Return the subobject construction category of this category."""
@@ -60,8 +51,6 @@ class UniversalSubcategoryMethods:
         )
 
     Subsets = Subobjects
-
-    @_cat_cached_method
     @final
     def Quotients(self) -> Category:
         r"""Return the quotient-object construction category of this category."""
@@ -71,8 +60,6 @@ class UniversalSubcategoryMethods:
             "Category",
             QuotientsCategory.category_of(self._category_self()),
         )
-
-    @_cat_cached_method
     @final
     def Subquotients(self) -> Category:
         r"""Return the subquotient construction category of this category."""
@@ -82,8 +69,6 @@ class UniversalSubcategoryMethods:
             "Category",
             SubquotientsCategory.category_of(self._category_self()),
         )
-
-    @_cat_cached_method
     @final
     def ObjectsOver(self, structure_object: CategoryObject) -> Category:
         r"""Return the category of objects over ``structure_object``."""
@@ -93,8 +78,6 @@ class UniversalSubcategoryMethods:
             "Category",
             _ObjectsOver.category_of(self._category_self(), structure_object),
         )
-
-    @_cat_cached_method
     @final
     def ObjectsUnder(self, structure_object: CategoryObject) -> Category:
         r"""Return the category of objects under ``structure_object``."""
@@ -107,8 +90,6 @@ class UniversalSubcategoryMethods:
 
     Slice = ObjectsOver
     Coslice = ObjectsUnder
-
-    @_cat_cached_method
     @final
     def CartesianProducts(self) -> Category:
         r"""Return the Cartesian-product construction category of this category."""
@@ -118,8 +99,6 @@ class UniversalSubcategoryMethods:
             "Category",
             CartesianProductsCategory.category_of(self._category_self()),
         )
-
-    @_cat_cached_method
     @final
     def HomCategory(self) -> CategoryOfHomCategories:
         r"""Return the hom-category construction over this category."""
@@ -129,14 +108,10 @@ class UniversalSubcategoryMethods:
             "CategoryOfHomCategories",
             HomCategoryConstruction.category_of(self._category_self()),
         )
-
-    @_cat_cached_method
     @final
     def Homsets(self) -> CategoryOfHomCategories:
         r"""Return Sage's homset spelling as an interop alias for ``HomCategory``."""
         return self.HomCategory()
-
-    @_cat_cached_method
     @final
     def EndCategory(self) -> CategoryOfEndCategories:
         r"""Return the endomorphism-category construction over this category."""
@@ -149,14 +124,10 @@ class UniversalSubcategoryMethods:
             "CategoryOfEndCategories",
             category.HomCategory().EndCategory(),
         )
-
-    @_cat_cached_method
     @final
     def Endsets(self) -> CategoryOfEndCategories:
         r"""Return Sage's endset spelling as an interop alias for ``EndCategory``."""
         return self.EndCategory()
-
-    @_cat_cached_method
     @final
     def AutCategory(self) -> CategoryOfAutCategories:
         r"""Return the automorphism-category construction over this category."""

@@ -105,3 +105,7 @@ possible downstream-poisoning risk, choose the lightest safe route:
 
 Do not bury follow-up work in chat, commit messages, or inline comments as the only
 record.
+
+## Referenced documents
+
+[Category Spec Workflow Reference](category-spec-workflow/workflow)

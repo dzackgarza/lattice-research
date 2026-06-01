@@ -7,7 +7,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.metric_spaces import MetricSpaces as SageMetricSpaces
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -18,7 +17,6 @@ from .. import TopologicalSpaces
 from ..homsets import MetricSpaceHomCategory
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ...types import MetricBall, RealNumber, SetElement, SetMorphism
@@ -90,7 +88,6 @@ class MetricSpacesCategory(CategoryWithAxiom):
         return [SageMetricSpaces(), TopologicalSpaces()]
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Complete(self) -> Category:
             r"""Return the complete metric-space subcategory."""

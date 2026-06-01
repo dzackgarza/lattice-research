@@ -13,6 +13,7 @@ CATEGORY_DIAGNOSTIC_LOGGER_NAME = "category_specs.diagnostics"
 _FoldParent = TypeVar("_FoldParent", contravariant=True)
 _FoldElement = TypeVar("_FoldElement")
 _ParentT = TypeVar("_ParentT", bound=Parent)
+_ParentClassT = TypeVar("_ParentClassT", bound=type[Parent])
 _CATEGORY_DIAGNOSTICS_ENABLED = False
 _CATEGORY_DIAGNOSTIC_LOGGER = logging.getLogger(CATEGORY_DIAGNOSTIC_LOGGER_NAME)
 _EMITTED_CATEGORY_DIAGNOSTICS: set[str] = set()
@@ -146,14 +147,32 @@ def foldable_operation[FoldParent, FoldElement](
     return folded_operation
 
 
+@overload
 def refine_category[_ParentT: Parent](
     X: _ParentT,
     C: Category | Sequence[Category],
     test: bool = True,
-) -> _ParentT:
-    from .cat.base_category_types import refine_parent_category
+) -> _ParentT: ...
+
+
+@overload
+def refine_category[_ParentClassT: type[Parent]](
+    X: _ParentClassT,
+    C: Category | Sequence[Category],
+    test: bool = True,
+) -> _ParentClassT: ...
+
+
+def refine_category(
+    X: _ParentT | _ParentClassT,
+    C: Category | Sequence[Category],
+    test: bool = True,
+) -> _ParentT | _ParentClassT:
+    from .cat.base_category_types import refine_parent_category, refine_parent_class
 
     categories = tuple(C) if isinstance(C, (list, tuple)) else (C,)
+    if isinstance(X, type):
+        return refine_parent_class(X, categories)
     refine_parent_category(X, categories)
     return X
 

@@ -11,7 +11,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Protocol, TypeVar, cast, final
 
 from sage.categories.category import Category
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import CategoryWithAxiom_over_base_ring
@@ -21,7 +20,6 @@ from .subcategories.free_bilinear import FreeBilinearModulesMorphism
 from .subcategories.with_forms import FormedModulesMorphism
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..types import (
@@ -254,7 +252,6 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
 
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Lattice(self) -> Category:
             return with_axiom(self, "Lattice")

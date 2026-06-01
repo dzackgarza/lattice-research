@@ -8,15 +8,15 @@ tags: [goal-phase, category-specs, object-method-resolution, refinement]
 
 ## Phase objective
 
-Verify that the source repair satisfies the contract and obtain substantive review
-before completion is claimed.
+Verify that the source repair preserves the corrected category-spec model and obtain
+substantive review before completion is claimed.
 
 ## Verification surfaces
 
 Run and record evidence for:
 
-- targeted Sage witness commands that exercise object-method resolution on the
-  reconstructed refined object(s);
+- targeted Sage witness commands that exercise object-method resolution on reconstructed
+  refined object(s) without treating refinement as validation;
 - targeted smokes or tests for the affected category;
 - `just --justfile category_specs/justfile check-banned-spec-patterns`;
 - relevant `category_specs` just recipes after source coherence;
@@ -26,6 +26,8 @@ Run and record evidence for:
 Command success is not enough.
 Each command must be tied to the contract fact it proves or the remaining obligation it
 exposes.
+Reject any evidence whose meaning is only "refinement rejected the object" or
+"`refine_category` detected a missing method"; that is the wrong repo model.
 
 ## Review gate
 
@@ -40,15 +42,20 @@ The reviewer must read:
 
 The reviewer prompt must ask whether the request completion witness is true in
 artifacts and must treat the worker's summary as a claim, not evidence.
+The prompt must also ask whether the patch preserves the spec/refinement/implementation
+/smoke separation recorded in `category-spec-repo-model-corrections`.
 
 ## Completion conditions
 
 Completion requires:
 
 - cache or lookup priming is purged or source-proven necessary;
-- concrete object methods satisfy abstract requirements without deleting requirements;
+- concrete object methods are reachable by ordinary lookup without deleting
+  requirements;
 - abstract markers do not count as implementations;
 - missing obligations remain visible;
+- refinement remains declaration rather than admission control or satisfaction
+  validation;
 - all added method/helper names read as mathematical object/category facts,
   propositions, operations, or requirements, not engineering policy;
 - banned-pattern output is understood and routed;

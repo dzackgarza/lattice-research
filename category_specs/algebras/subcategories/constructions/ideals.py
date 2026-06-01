@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category, Category_module
 from ....modules import Modules
-from ....modules.homsets import _RModMorphisms
+from ....modules.homsets import RModuleHomCategory
 
 if TYPE_CHECKING:
     from ....types import Algebra
@@ -59,7 +59,6 @@ class AlgebraIdealsCategory(Category_module):
     class ElementMethods: ...
 
 
-
 AlgebraIdealsObject = AlgebraIdealsCategory.ParentMethods
 AlgebraIdealsElement = AlgebraIdealsCategory.ElementMethods
-AlgebraIdealsMorphism = _RModMorphisms
+AlgebraIdealsMorphism = RModuleHomCategory.ElementMethods

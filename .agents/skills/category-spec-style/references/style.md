@@ -353,6 +353,16 @@ category. The existing Sage object is a partial implementation of the project sp
 some specified methods are already present, and smoke tests should expose the missing
 ones.
 
+Refinement does not interrogate the object being refined. It does not validate that the
+object satisfies the project category, reject because project methods remain abstract,
+or instantiate the missing implementation. The declaration imposes the category
+contract; it does not certify satisfaction of that contract.
+
+This distinction is structural. The project invented specifications Sage does not know,
+so most refined Sage implementations are expected to be incomplete relative to the
+project spec. That incompleteness is the evidence smokes are meant to surface, not a
+reason to weaken the spec or add refinement-time checks.
+
 Do not turn refinement into method-search repair. If a refinement task starts with
 method search, cache state, dynamic class mutation, type-checker appeasement, smoke
 ordering, hook output, or any other programming mechanism before it names the category
@@ -379,6 +389,12 @@ interop, but it cannot replace the mathematical sentence.
 describe it primarily as a method-provider class, dispatch layer, integration hook, or
 implementation hook. Those are implementation witnesses after the mathematical sentence
 has been stated.
+
+Abstract `ParentMethods` are not runtime failure hooks. Use Python `abc.abstractmethod`
+to represent abstract obligations in the class system, then let Python MRO and ABC
+machinery carry abstractness. Do not generate failure bodies, add `assert False`,
+insert `NotImplementedError`, manually compute which abstract names are satisfied, or
+special-case method names.
 
 Every added helper, test, smoke, task title, and guidance phrase touching category
 methods must read like a mathematical fact, proposition, operation, requirement, or

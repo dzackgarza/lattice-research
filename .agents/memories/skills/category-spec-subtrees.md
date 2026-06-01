@@ -26,3 +26,7 @@ category.
   delegation.
 - Use this skill for local ownership rules: which subtree owns which mathematical
   surface.
+
+## Referenced documents
+
+[Category Spec Subtree Ownership](category-spec-subtrees/subtrees)

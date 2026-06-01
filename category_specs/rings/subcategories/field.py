@@ -7,7 +7,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.fields import Fields as SageFields
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -31,12 +30,6 @@ if TYPE_CHECKING:
         Ideal,
         RingElement,
     )
-
-
-def _field_cached_method[_FieldCachedMethod: Callable[..., object]](
-    method: _FieldCachedMethod,
-) -> _FieldCachedMethod:
-    return cached_method(method)
 
 
 class _Fields(CategoryWithAxiom):
@@ -85,37 +78,24 @@ class _Fields(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @_field_cached_method
         @final
         def NumberFields(self) -> Category:
             return self.GlobalFields().NumberFields()
-
-        @_field_cached_method
         @final
         def AlgebraicallyClosed(self) -> Category:
             return self._with_axiom("AlgebraicallyClosed")
-
-        @_field_cached_method
         @final
         def LocalFields(self) -> Category:
             return self._with_axiom("LocalFields")
-
-        @_field_cached_method
         @final
         def GlobalFields(self) -> Category:
             return self._with_axiom("GlobalFields")
-
-    @_field_cached_method
     @final
     def QQ(self) -> Any:
         return _QQ()
-
-    @_field_cached_method
     @final
     def RR(self) -> Any:
         return _RR()
-
-    @_field_cached_method
     @final
     def CC(self) -> Any:
         return _CC()

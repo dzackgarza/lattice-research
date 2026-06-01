@@ -39,7 +39,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, TypeVar, cast, final
 
 from sage.categories.category import Category
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import CategoryWithAxiom_over_base_ring
@@ -63,7 +62,6 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
@@ -116,60 +114,41 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         def base_ring(self) -> Ring:
             base_ring: Ring = self.category().base_ring()
             return base_ring
-
-    @_cached_method
     @final
     def Constructors(self) -> LatticesCategory._Constructors:
         r"""Return the lattice constructor collector over ``self.base_ring()``."""
         return self.__class__._Constructors(self)
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def OverDedekindDomain(self) -> Category:
             return with_axiom(self, "OverDedekindDomain")
-
-        @_cached_method
         @final
         def OverPID(self) -> Category:
             return with_axiom(self, "OverPID")
-
-        @_cached_method
         @final
         def OverIntegers(self) -> Category:
             return with_axiom(self, "OverIntegers")
-
-        @_cached_method
         @final
         def Even(self) -> Category:
             return with_axiom(self, "Even")
-
-        @_cached_method
         @final
         def Unimodular(self) -> Category:
             return with_axiom(self, "Unimodular")
-
-        @_cached_method
         @final
         def DualObjects(self) -> Category:
             return cast(Category, LatticeDualObjectsCategory.category_of(self))
-
-        @_cached_method
         @final
         def DualLattices(self) -> Category:
             r"""Return the metric-dual lattice construction category."""
             from .subcategories.constructions.dual_lattices import DualLatticesCategory
 
             return DualLatticesCategory(self.base_ring())
-
-        @_cached_method
         @final
         def Overlattices(self) -> Category:
             from .subcategories.constructions.overlattices import OverlatticesCategory
 
             return OverlatticesCategory(self.base_ring())
-
-        @_cached_method
         @final
         def OrthogonalDirectSums(self) -> Category:
             from .subcategories.constructions.orthogonal_direct_sums import (
@@ -177,8 +156,6 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             )
 
             return OrthogonalDirectSumsCategory(self.base_ring())
-
-        @_cached_method
         @final
         def DiscriminantGroups(self) -> Category:
             from .subcategories.constructions.discriminant_groups import (

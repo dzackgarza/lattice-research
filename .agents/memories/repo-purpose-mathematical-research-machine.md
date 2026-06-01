@@ -31,9 +31,37 @@ detailed," or "handoff context improved," presume no mathematical progress has o
 
 During category-spec work, most legitimate progress should look mathematical on its
 face: category edges, method owners, constructors, morphisms, abstract obligations,
-concrete providers, source-grounded definitions, representation splits, or tests that
-expose those relations. Engineering-shaped work in this phase is suspicious until it
+concrete implementations, source-grounded definitions, representation splits, or tests
+that expose those relations. Engineering-shaped work in this phase is suspicious until it
 names the mathematical deficiency it repaired.
+
+Engineering is acceptable only as minimal enabling infrastructure for that research
+language.
+Prefer mature existing mechanisms over local invention: Sage should own Sage category
+construction, Python should own Python abstract-method semantics, and exact algebra
+should be delegated to mature mathematical backends whenever possible.
+When this repo must bridge those systems, the bridge should be narrow, owned, and
+quarantined so ordinary mathematical specs remain readable without expertise in Sage or
+Python internals.
+
+The alignment check for a proposed implementation is:
+
+- Does this make a mathematical object, operation, interface, or proof path available?
+- Does it reuse the simplest existing mechanism that already solves the non-research
+  problem?
+- Is any unavoidable machinery confined to the smallest interop layer the repo owns?
+- Does it avoid creating a parallel local system that future research code must trust?
+
+For `category_specs`, the central object is the mathematical specification, not runtime
+enforcement. Refinement declares that an implementation is regarded as an object of a
+category; it does not prove that implementation satisfies the category. Current Sage
+objects are expected to be partial relative to project specs because the specs are new.
+Smoke tests expose that gap so later implementation work has a precise mathematical
+target.
+
+Do not turn this repo into a mechanism that hides or preempts the gap: no generated
+failure bodies, refinement-time satisfaction checks, cache priming, source-shape tests,
+or QC-passing substitutes for category contracts.
 
 ## Downstream ordering
 

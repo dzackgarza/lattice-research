@@ -1,6 +1,6 @@
 ---
 title: Object Method Resolution Goal State
-status: active-partial
+status: active-correction
 tags: [goal-state, category-specs, object-method-resolution, refinement]
 ---
 
@@ -8,91 +8,78 @@ tags: [goal-state, category-specs, object-method-resolution, refinement]
 
 ## Preserved Object
 
-This note preserves the object-method-resolution contract for category refinement:
-`ParentMethods` abstract methods are requirements on objects, concrete Sage/project
-object methods satisfy those requirements only when dynamic lookup reaches the concrete
-method, and genuinely missing requirements must fail at the refinement/class-system
-boundary.
+This note preserves the corrected category-spec model for object-method resolution:
+`ParentMethods` abstract methods are mathematical object-method obligations, refinement
+declares category view, and smokes expose gaps between current implementations and the
+spec.
 
 ## Current Mode
 
-`RECONCILE` with targeted ABC-boundary commits through `3734d409`. Do not claim this
-goal complete.
-Do not treat `bac2ab28` or `1c6f3b65` as acceptance evidence; they recorded a false
-completion state before the missing-obligation leak was tested at the right boundary.
+`ACTIVE-CORRECTION`: the previous ABC-boundary state treated refinement as an
+enforcement or validation boundary. That model is invalid for this repo.
 
-The current patch targets the Sage dynamic `parent_class` abstract set and the
-`refine_category` boundary. Do not patch by method name, cache state, source-shape
-checks, or assertion-body methods.
+Do not use the prior generated-body/assert patch, refinement-rejection tests, or
+"strict enforcement" language as design evidence. They record a failed local objective
+frame, not the semantics of `category_specs`.
 
-## Red Witness
+## Corrected Repo Model
 
-Authoritative adversarial-test commits:
+The governing facts are:
 
-- `ecac9da8` records the default/optimized missing-obligation regression in
-  `category_specs/rings/tests/regression/object_method_resolution.sage`.
-- `5f3cd1cd` adds the joined-parent-class abstract propagation guard in
-  `category_specs/rings/tests/regression/object_method_resolution.sage`.
-- `ce1ed355` adds the failed-refinement atomicity guard: rejection must not leave the
-  parent in the rejected category.
+- `category_specs` is specification work inside Sage's category/object universe.
+- Project specs state mathematical obligations Sage did not know.
+- Refined Sage objects are expected to be partial relative to those specs.
+- `refine_category(X, C)` declares that `X` is to be regarded as an object of `C`.
+- Refinement imposes the category contract conceptually; it does not validate
+  satisfaction.
+- Refinement must not interrogate the object for method satisfaction.
+- Refinement must not reject because project abstract methods remain.
+- Smoke tests instantiate or exercise surfaces to expose implementation gaps.
+- Missing methods after refinement are expected gap evidence, not refinement failures.
+- ABCMeta may be used only to represent project abstract methods faithfully in Python's
+  class system and MRO.
+- Concrete Sage/project methods satisfy obligations only by ordinary lookup.
+- Missing obligations remain abstract/visible for smokes and later implementation work.
 
-Run:
+## Invalidated Prior State
 
-```bash
-just -f category_specs/justfile smoke-file rings/tests/regression/object_method_resolution.sage
-```
+The following prior state claims are invalid for future work:
 
-Former failure:
+- "invalid refined Sage objects cannot enter project categories";
+- "`refine_category` rejects unresolved obligations before mutating the parent";
+- "strict enforcement exposes root ring-surface obligations";
+- "failed refinement is atomic" as an acceptance criterion for abstract method gaps;
+- checking `__abstractmethods__` as a refinement blocker;
+- generated missing-obligation bodies as an enforcement substitute;
+- accepting or rejecting ABC strategies based on raw Sage refinement rather than the
+  project-owned category/refinement/constructor pathway.
 
-```text
-AssertionError: default refine_category accepted missing ParentMethods obligation
-default refine_category returned after missing obligation
-optimized refine/call accepted missing ParentMethods obligation
-optimized refine_category returned after missing obligation
-optimized missing object method call returned silently
-```
+Tests, commits, and reports built around those claims are historical evidence of the
+misframed attempt. They are not acceptance criteria for the corrected spec model.
 
-These tests guard three request-witness facts:
+## Valid Direction
 
-- default `refine_category(ZZ, [C])` accepts an incomplete `ParentMethods` obligation;
-- the generated `assert False` method body is not enforcement, because `sage -python -O`
-  strips it and the missing method call returns silently.
-- a joined Sage dynamic `parent_class` can lose inherited abstract obligations.
+The viable local strategy remains structural:
 
-## Positive Residue
-
-The targeted regression now checks the concrete-method shadowing symptom with a live
-Sage-backed category whose `ParentMethods` declares abstract `ideal_monoid`: refinement
-keeps Sage's concrete `sage.categories.rngs.Rngs.parent_class.ideal_monoid` as the
-winning method.
-
-This positive residue is not enough for the larger provider-satisfaction goal.
-Strict enforcement now exposes separate root ring-surface obligations that are not yet
-resolved for `Rings().Constructors().ZZ()`/`QQ()`.
-
-## Required Source Direction
-
-The ABC-boundary patch makes these relation claims true in the targeted regression:
-
-- the actual Sage dynamic `X.category().parent_class` has a computed
-  `__abstractmethods__` set after category joins/refinement;
-- abstract markers remain requirements, not implementations;
-- concrete inherited object methods remove their names from the abstract set only when
-  refined lookup reaches the concrete method;
-- `refine_category` checks `X.category().parent_class.__abstractmethods__`, not
-  `type(X).__abstractmethods__`, because existing Sage parents such as `ZZ` remain
-  `IntegerRing_class`;
-- no generated missing-obligation method body may rely on `assert`.
-
-The low-level implementation path applies ABCMeta's abstract-set algorithm to Sage's
-preferred dynamic parent class and rejects unresolved obligations in `refine_category`
-before mutating the parent. For existing Sage/Cython parents, concrete methods on the
-actual parent type are accepted as realizations; unresolved names remain refinement
-blockers.
+- project-owned category base wrappers may construct project `parent_class` objects
+  through dynamic metaclasses that minimally compose Sage's dynamic metaclasses with
+  `ABCMeta`;
+- all non-ABC dynamic behavior should defer to Sage's existing mechanisms;
+- project abstract methods should participate in normal Python abstractmethod/MRO
+  behavior;
+- no project code should manually compute satisfaction, subtract abstract names,
+  special-case method names, or generate call-time failure bodies;
+- `refine_category` should stay a declaration mechanism, not become a validator.
 
 ## Next Pickup
 
-Commit or review the current ABC-boundary patch, then source-ground and repair the root
-`Rings().Constructors().ZZ()`/`QQ()` abstract obligations revealed by strict
-enforcement. Do not loosen `refine_category` or restore import-time eager refinement to
-make those constructors pass.
+Repair source and tests against the corrected model:
+
+- remove or replace refinement-time abstract-method rejection logic;
+- replace adversarial tests that assert rejection before `refine_category` returns with
+  tests that prove refinement declares the category contract and smokes expose missing
+  implementations;
+- preserve tests proving generated bodies, `assert False`, cache priming, source-shape
+  checks, and name special-casing are invalid substitutes for abstract spec structure;
+- keep root `Rings().Constructors().ZZ()`/`QQ()` obligations visible as implementation
+  gaps unless separate source work actually supplies them.

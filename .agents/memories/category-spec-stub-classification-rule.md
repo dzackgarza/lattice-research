@@ -283,3 +283,12 @@ specification. They are hypotheses to be tested.
 - Contaminated ledger: `reports/workstreams/category-specs-mypy-ledger/latest.json`
 - True stub surface: `category_specs/spec_core/constructor_adapters.py`,
   `category_specs/rings/docs/SAGE_INVENTORY.md`
+
+## Related
+
+- `category-spec-interface-collisions-are-code-problems`: the RealSet/topological-space
+  name collision that agents misclassified as variance/Liskov instead of reading code.
+- `analysis-must-be-grounded`: the expanded rule requiring agents to quote conflicting
+  definitions from code before classifying.
+- `private-stubs-are-not-types`: the adjacent private-container return-type
+  misclassification pattern.

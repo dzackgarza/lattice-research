@@ -9,7 +9,8 @@ tags: [goal-phase, category-specs, object-method-resolution, refinement]
 ## Phase objective
 
 Produce a source-grounded reconstruction of the cache-priming/refinement defect before
-any source edit.
+any source edit. Reconstruction must use the corrected model: refinement declares a
+category view and does not validate object-method satisfaction.
 
 This phase advances only when the reconstruction identifies, from current artifacts:
 
@@ -17,8 +18,8 @@ This phase advances only when the reconstruction identifies, from current artifa
 - target category contract(s);
 - abstract object-method requirements;
 - concrete object methods already available on Sage/project category surfaces;
-- false abstract method surfaces selected before concrete object methods;
-- missing object-method requirements;
+- false runtime mechanisms that hide or replace abstract spec obligations;
+- missing object-method requirements that should remain visible to smokes;
 - the mathematical relation hidden by cache or `_cached_methods` awareness.
 
 ## Required source surfaces
@@ -41,8 +42,9 @@ runtime evidence:
 
 > Refined object ___ is being viewed as an object of target contract ___. Contract ___
 > declares object-method requirement ___. Concrete object method ___ exists at ___.
-> False abstract method surface ___ currently shadows or is counted before it at ___.
-> Requirements ___ remain missing. The cache patch hid ___ by ___.
+> Runtime mechanism ___ currently hides, replaces, or misrepresents that obligation at
+> ___. Requirements ___ remain missing and should stay visible to smokes. The cache or
+> enforcement-shaped patch hid ___ by ___.
 
 If this statement cannot be filled, enter `DECOMPOSE` from the contract: choose the next
 smaller source claim, record it in `provider-satisfaction-goal-state`, and attempt that
@@ -57,6 +59,7 @@ Reject reconstruction that:
 - uses name-presence tests such as `abstract_method_has_name` as semantic evidence;
 - starts from `_cached_methods`, Cython lookup, or test order before the category
   contract and object-method relation are stated;
+- treats refinement as validation, admission control, or enforcement;
 - describes `ParentMethods` primarily as an engineering method-supply layer instead of
   the method surface of mathematical objects in a category;
 - names helpers or phases around runtime mechanisms instead of object/category/method

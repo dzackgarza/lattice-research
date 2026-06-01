@@ -37,3 +37,11 @@ This skill owns the canonical lattice-redesign source doctrine migrated from the
 - Backend group matrices must be normalized once at the backend boundary before they
   enter public orthogonal-group semantics.
 - Do not preserve compatibility shims unless explicitly requested.
+
+## Referenced documents
+
+[ModulesWithForms Category: ABC Contracts](lattice-redesign/category-abc-spec)
+
+[Lattice Interface Style Guide](lattice-redesign/lattice-interface-style-guide)
+
+[Lattice Redesign Corrections Spec](lattice-redesign/lattice-redesign-corrections-spec)

@@ -40,3 +40,7 @@ whether a scheduled action should exist.
 - Load `research-proof-auditing` when the scheduled work audits proof or computation
   evidence.
 - Load `research-repo-structure` before scheduled cleanup or pruning.
+
+## Referenced documents
+
+[Research Scheduling Cadence](research-scheduling/cadence)

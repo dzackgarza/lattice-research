@@ -6,7 +6,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.rings import Rings as SageRings
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -16,7 +15,6 @@ from ...utils import with_axiom
 from .. import Rings
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     pass
@@ -49,7 +47,6 @@ class _TopologicalRings(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Complete(self) -> Category:
             return cast(Category, with_axiom(self, "Complete"))

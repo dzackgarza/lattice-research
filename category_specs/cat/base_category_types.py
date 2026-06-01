@@ -593,6 +593,39 @@ def _make_named_parent_class_with_abc(
     )
 
 
+def _make_named_element_class_without_abstract_methods(
+    category: SageCategory,
+    delegate: Callable[..., type],
+    name: str,
+    method_provider: str,
+    cache: bool = False,
+    picklable: bool = True,
+) -> type:
+    assert name == "element_class", "element bridge only owns element_class construction"
+    assert method_provider == "ElementMethods", (
+        "element bridge only owns ElementMethods construction"
+    )
+
+    local_provider = getattr(category, method_provider, None)
+    if local_provider is None:
+        return delegate(name, method_provider, cache=cache, picklable=picklable)
+    concrete_provider = _concrete_method_provider(local_provider)
+    if concrete_provider is None:
+        concrete_provider = type(
+            f"{local_provider.__qualname__}ConcreteMethods",
+            (),
+            _method_provider_namespace(local_provider, abstract=False),
+        )
+
+    temporary_provider = "_cat_concrete_element_methods"
+    setattr(category, temporary_provider, concrete_provider)
+    generated_class = delegate(
+        name, temporary_provider, cache=cache, picklable=picklable
+    )
+    delattr(category, temporary_provider)
+    return generated_class
+
+
 def _project_join_category(categories: tuple[SageCategory, ...]) -> SageCategory:
     joined_categories = tuple(SageCategory.join(categories, as_list=True))
     assert joined_categories, "category refinement requires at least one category"
@@ -632,6 +665,21 @@ def refine_parent_category(
     return parent
 
 
+def refine_parent_class(
+    parent_class: type[Parent], categories: tuple[SageCategory, ...]
+) -> type[Parent]:
+    r"""Return ``parent_class`` refined by project category parent methods."""
+    assert issubclass(parent_class, Parent), (
+        "project class refinement requires a Sage Parent subclass"
+    )
+    category = _project_join_category(categories)
+    return _dynamic_abc_class(
+        f"{parent_class.__name__}_with_category",
+        (parent_class, category.parent_class),
+        doccls=parent_class,
+    )
+
+
 def _make_named_class_with_cat_subcategory_methods(
     category: SageCategory,
     delegate: Callable[..., type],
@@ -657,6 +705,16 @@ def _make_named_class_with_cat_subcategory_methods(
     if name == "parent_class" and method_provider == "ParentMethods":
         return _make_named_parent_class_with_abc(
             category,
+            name,
+            method_provider,
+            cache=cache,
+            picklable=picklable,
+        )
+
+    if name == "element_class" and method_provider == "ElementMethods":
+        return _make_named_element_class_without_abstract_methods(
+            category,
+            delegate,
             name,
             method_provider,
             cache=cache,

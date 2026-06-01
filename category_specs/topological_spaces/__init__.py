@@ -33,7 +33,6 @@ from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
@@ -56,7 +55,6 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
@@ -166,27 +164,20 @@ class TopologicalSpaces(CategoryWithAxiom):
                 owner_category="TopologicalSpaces()",
                 id_prefix="topological_spaces",
             )
-
-    @_cached_method
     @final
     def Constructors(self) -> TopologicalSpaces._Constructors:
         r"""Return the topological-space constructor collector."""
         return self.__class__._Constructors()
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Connected(self) -> Category:
             r"""Return the connected-space subcategory."""
             return cast(Category, with_axiom(self, "Connected"))
-
-        @_cached_method
         @final
         def Compact(self) -> Category:
             r"""Return the compact-space subcategory."""
             return cast(Category, with_axiom(self, "Compact"))
-
-        @_cached_method
         @final
         def Metric(self) -> Category:
             r"""Return the metric-space subcategory."""

@@ -75,3 +75,7 @@ Escalate to the user when:
 - Living paper changes: `just paper-build` when the LaTeX toolchain is available.
 - Reports and paper sections must link back to cards, sources, computations, or review
   artifacts; unsupported prose is not a research artifact.
+
+## Referenced documents
+
+[Co-Mathematician Workflow Architecture](research-co-mathematician-workflow/architecture)

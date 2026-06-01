@@ -7,7 +7,6 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.tensor import TensorProductFunctor
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ....cat import Category, TensorProductsCategory
@@ -20,7 +19,6 @@ _TensorAlgebraComponents = LazyImport(
 )
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 
 class _TensorProducts(TensorProductsCategory):
@@ -28,8 +26,6 @@ class _TensorProducts(TensorProductsCategory):
 
     Canonical chain: ``Modules(R).TensorProducts()``.
     """
-
-    @_cached_method
     @override
     @final
     def extra_super_categories(self) -> list[Category]:
@@ -53,8 +49,6 @@ class _TensorProducts(TensorProductsCategory):
     class SubcategoryMethods:
         @abstractmethod
         def base_category(self) -> RMod: ...
-
-        @_cached_method
         @final
         def TensorAlgebraComponents(self) -> Category:
             r"""Return the category of graded pieces ``T_R(M)[p,q]``."""

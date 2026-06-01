@@ -22,6 +22,24 @@ Before acting, confirm the user's stated directive, the action you plan, and why
   A smoke failure is normally evidence for an implementation, wrapper, constructor,
   or compliance card; it is not evidence that the spec obligation should be weakened,
   deleted, or moved without a grounded replacement owner.
+- Refinement is declaration, not validation. It says that an implementation is to be
+  regarded as an object of a project category and therefore carries that category's
+  contract. It does not interrogate the object, prove satisfaction, reject because
+  project methods remain abstract, or instantiate a missing implementation. Smokes
+  expose those implementation gaps.
+- `ParentMethods` are mathematical object-method obligations, not provider
+  implementations or runtime failure hooks. Use Python `abc.abstractmethod` to
+  represent abstract spec obligations in the class system; do not replace them with
+  generated bodies, `assert False`, `NotImplementedError`, name-specific logic, or
+  refinement-time satisfaction checks.
+- For ABCMeta/refinement work, use the project-owned category/refinement/constructor
+  path, not raw Sage refinement, as the boundary under test. Do not add admission
+  control, instantiate inside refinement, or perform MRO surgery when the intended
+  relation can be expressed by local dynamic-metaclass composition that delegates
+  ordinary behavior to Sage and ABCMeta. If a project abstract requirement has the
+  same name as a concrete method already supplied by the Sage parent-class bases, keep
+  Sage's MRO as the source of satisfaction; do not let the abstract spec method shadow
+  that concrete implementation.
 - Before advancing a category-spec task, phase, or plan, review the staged diff, the
   unstaged diff, and any commits created during the work for spec weakening. Deleted
   abstract methods, removed constructor obligations, narrowed smoke assertions,
@@ -43,9 +61,11 @@ Before acting, confirm the user's stated directive, the action you plan, and why
   `mem:category-spec-rotten-core-indicators`, `mem:mathematical-sanity-check`,
   `mem:analysis-must-be-grounded`, `mem:paperwork-is-a-routing-layer-not-progress`,
   and `mem:corrections-update-the-model-not-the-artifact`.
-  If the work touches refinement, provider ordering, constructor refinement, or
-  abstract-method satisfaction, also retrieve
-  `mem:category-spec-refinement-purpose-and-provider-satisfaction` and
+  If the work touches refinement, provider ordering, constructor refinement,
+  abstract methods, ABCMeta, or smoke gaps, also retrieve
+  `mem:category-spec-repo-model-corrections`,
+  `mem:category-spec-refinement-category-declaration`,
+  `mem:category-spec-methods-are-abstract`, and
   `mem:what-category-specs-actually-is`.
   Use `iwe find` with the relevant topic words if the exact memory key is not known.
 - Before editing a spec, mapping, method surface, constructor, Hom/End/Aut rule,

@@ -2,8 +2,8 @@
 
 Sources for this pass:
 
-- Sage docs: `sage.categories.topological_spaces`,
-  `sage.categories.metric_spaces`, and `sage.sets.real_set`.
+- Sage docs: `sage.categories.topological_spaces`, `sage.categories.metric_spaces`, and
+  `sage.sets.real_set`.
 - Installed Sage source:
   `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/topological_spaces.py`,
   `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/metric_spaces.py`,
@@ -47,14 +47,14 @@ Sources for this pass:
 | `RealSet.unbounded_above_closed(bound, **kwds)` | `sage/sets/real_set.py` | Construct `[a, +oo)`. | Named ray constructor. |
 | `RealSet.unbounded_above_open(bound, **kwds)` | `sage/sets/real_set.py` | Construct `(a, +oo)`. | Named ray constructor. |
 | `RealSet.real_line(**kwds)` | `sage/sets/real_set.py` | Construct the full real line `(-oo, +oo)`. | Named ambient-space constructor. |
-| `RealSet.is_open()` | `sage/sets/real_set.py` | Test whether a real subset is open in the real-line topology. | Predicate on the subset object. |
-| `RealSet.is_closed()` | `sage/sets/real_set.py` | Test whether a real subset is closed in the real-line topology. | Predicate on the subset object. |
-| `RealSet.closure()` | `sage/sets/real_set.py` | Return topological closure as a new `RealSet`. | Subset transform. |
-| `RealSet.interior()` | `sage/sets/real_set.py` | Return topological interior as a new `RealSet`. | Subset transform. |
-| `RealSet.boundary()` | `sage/sets/real_set.py` | Return topological boundary as a new `RealSet`. | Subset transform. |
-| `RealSet.ambient()` | `sage/sets/real_set.py` | Return the ambient real line. | Subobject method. |
-| `RealSet.n_components()` and `RealSet.get_interval(i)` | `sage/sets/real_set.py` | Return connected-component data for normalized finite unions of intervals. | Real-line decomposition methods. |
-| `RealSet.union`, `intersection`, `complement`, `difference`, `is_disjoint`, `is_subset`, `are_pairwise_disjoint`, `convex_hull` | `sage/sets/real_set.py` | Boolean and order operations on real subsets. | Set/subobject operations with real-line interval representations. |
+| `RealSet.is_open()` | `sage/sets/real_set.py` | Test whether a real subset is open in the real-line topology. Owned by `TopologicalSpaces().Subobjects().ParentMethods.is_open`. | Predicate on the subset object. |
+| `RealSet.is_closed()` | `sage/sets/real_set.py` | Test whether a real subset is closed in the real-line topology. Owned by `TopologicalSpaces().Subobjects().ParentMethods.is_closed`. | Predicate on the subset object. |
+| `RealSet.closure()` | `sage/sets/real_set.py` | Return topological closure as a new `RealSet`. Owned by `TopologicalSpaces().Subobjects().ParentMethods.closure`. | Subset transform. |
+| `RealSet.interior()` | `sage/sets/real_set.py` | Return topological interior as a new `RealSet`. Owned by `TopologicalSpaces().Subobjects().ParentMethods.interior`. | Subset transform. |
+| `RealSet.boundary()` | `sage/sets/real_set.py` | Return topological boundary as a new `RealSet`. Owned by `TopologicalSpaces().Subobjects().ParentMethods.boundary`. | Subset transform. |
+| `RealSet.ambient()` | `sage/sets/real_set.py` | Return the ambient real line. Owned by `Subsets.ParentMethods.ambient`. | Subobject method. |
+| `RealSet.n_components()` and `RealSet.get_interval(i)` | `sage/sets/real_set.py` | Return connected-component data for normalized finite unions of intervals. Owned by `_RealSets.ParentMethods.interval_components`. | Real-line basis-expression method. |
+| `RealSet.union`, `intersection`, `complement`, `difference`, `is_disjoint`, `is_subset`, `are_pairwise_disjoint`, `convex_hull` | `sage/sets/real_set.py` | Boolean and order operations on real subsets. Owned by `Subsets.ParentMethods` (union, intersection, complement, difference, is_universe), `Sets().ParentMethods` (is_subset, is_empty), or derivable from spec methods (is_disjoint, are_pairwise_disjoint, convex_hull). | Set/subobject operations; Sage implementation is evidence, not owner. |
 
 ## Numeric Interval and Ball Surfaces
 
@@ -81,7 +81,8 @@ outside this pure topological-space inventory by directive:
 
 - Sage does not expose a standalone pure `TopologicalSpace(...)` constructor in the
   inventoried category source.
-- The pure `RealSet` constructor is variadic. Its named interval constructors provide
-  the finite candidate list for future closed overloads.
+- The pure `RealSet` constructor is variadic.
+  Its named interval constructors provide the finite candidate list for future closed
+  overloads.
 - Sage's numeric interval and ball rings are inventoried here only as topology-bearing
   evidence. Their algebraic constructors are owned by ring/field inventory.

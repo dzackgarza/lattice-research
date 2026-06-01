@@ -7,16 +7,11 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .commutative import _CommutativeRings as _CommutativeRings
-
-
-def _cached_method[_F: Callable[..., object]](method: _F) -> _F:
-    return cached_method(method)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -55,32 +50,21 @@ class _IntegralDomains(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Gcd(self) -> Category:
             return self._with_axiom("Gcd")
-
-        @_cached_method
         @final
         def UniqueFactorization(self) -> Category:
             return self.Gcd().UniqueFactorization()
-
-        @_cached_method
         @final
         def PrincipalIdeal(self) -> Category:
             return self.Gcd().UniqueFactorization().PrincipalIdeal()
-
-        @_cached_method
         @final
         def Euclidean(self) -> Category:
             return self.Gcd().UniqueFactorization().PrincipalIdeal().Euclidean()
-
-        @_cached_method
         @final
         def IntegrallyClosed(self) -> Category:
             return self._with_axiom("IntegrallyClosed")
-
-        @_cached_method
         @final
         def Dedekind(self) -> Category:
             return self.IntegrallyClosed().Dedekind()

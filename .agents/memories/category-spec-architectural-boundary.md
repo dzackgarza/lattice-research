@@ -47,3 +47,10 @@ Before adding any row to `sage-stubs`, identify:
 - The admitted input shape and local refined output type.
 
 If these cannot be named, it is not a stub row.
+
+## Related
+
+- `private-method-containers-are-not-return-types`: private method containers like
+  `_RingObjectMethods` are implementation artifacts, not public types in any layer.
+- `category-spec-root-bridge-vs-internal`: the binary boundary between root bridges and
+  internal inheritance.

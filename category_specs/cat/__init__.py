@@ -42,7 +42,6 @@ from typing import TYPE_CHECKING, Any, cast, final, override
 from sage.categories.category_singleton import (
     Category_singleton as SageCategorySingleton,
 )
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
 
@@ -148,12 +147,6 @@ _make_named_class_with_cat_subcategory_methods = (
 if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
     from ..types import Hom
-
-
-def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
-    method: _CatCachedMethod,
-) -> _CatCachedMethod:
-    return cached_method(method)
 
 
 class _CatObjectMethods:
@@ -280,8 +273,6 @@ class Cat(SageCategorySingleton):
 
     class SubcategoryMethods:
         r"""Category-level construction methods supplied by Sage's machinery."""
-
-        @_cat_cached_method
         @final
         def JoinCategories(self) -> Category:
             r"""Return the subcategory of join objects in ``Cat()``."""

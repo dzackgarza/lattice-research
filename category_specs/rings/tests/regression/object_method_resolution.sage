@@ -285,3 +285,100 @@ require_success(
     "concrete project method satisfies matching obligation by lookup",
     run_sage_python(CONCRETE_PROJECT_METHOD_SOURCE),
 )
+
+
+ORDER_TWO_GROUP_CONSTRUCTOR_SOURCE = """
+from abc import abstractmethod
+import sys
+
+from sage.structure.parent import Parent
+
+sys.path.insert(0, '/home/dzack/research')
+
+from category_specs.cat import Category_singleton
+from category_specs.utils import refine_category
+
+
+class OrderTwoGroups(Category_singleton):
+    def super_categories(self):
+        return []
+
+    def additional_structure(self):
+        return None
+
+    def Constructors(self):
+        return self.__class__._Constructors(self)
+
+    class _Constructors:
+        def __init__(self, category):
+            self._category = category
+
+        def Partial(self):
+            refined_class = refine_category(PartialOrderTwoGroup, [self._category], test=False)
+            return refined_class(self._category)
+
+        def Complete(self):
+            refined_class = refine_category(CompleteOrderTwoGroup, [self._category], test=False)
+            return refined_class(self._category)
+
+    class ParentMethods:
+        @abstractmethod
+        def order(self):
+            ...
+
+        @abstractmethod
+        def is_finite(self):
+            ...
+
+        @abstractmethod
+        def is_abelian(self):
+            ...
+
+
+class PartialOrderTwoGroup(Parent):
+    def __init__(self, category):
+        Parent.__init__(self, category=category)
+
+    def order(self):
+        return 2
+
+    def is_finite(self):
+        return True
+
+
+class CompleteOrderTwoGroup(PartialOrderTwoGroup):
+    def is_abelian(self):
+        return True
+
+
+C = OrderTwoGroups()
+try:
+    C.Constructors().Partial()
+except TypeError as exc:
+    message = str(exc)
+else:
+    raise AssertionError('partial order-two group constructor returned a defective object')
+if 'is_abelian' not in message:
+    raise AssertionError(f'ABC instantiation error did not report is_abelian: {message}')
+if 'order' in message or 'is_finite' in message:
+    raise AssertionError(f'ABC error listed implemented methods: {message}')
+G = C.Constructors().Complete()
+if G not in C:
+    raise AssertionError('complete order-two group was not constructed in OrderTwoGroups')
+if G.order() != 2:
+    raise AssertionError('complete order-two group has wrong order')
+if G.is_finite() is not True:
+    raise AssertionError('complete order-two group should be finite')
+if G.is_abelian() is not True:
+    raise AssertionError('complete order-two group should be abelian')
+missing_methods = getattr(type(G), '__abstractmethods__', frozenset())
+if missing_methods:
+    raise AssertionError(f'complete constructor left abstract methods: {sorted(missing_methods)}')
+print('order-two-group-constructor-boundary', flush=True)
+"""
+
+
+require_success(
+    "order-two group constructor enforces partial and returns complete implementation",
+    run_sage_python(ORDER_TWO_GROUP_CONSTRUCTOR_SOURCE),
+)

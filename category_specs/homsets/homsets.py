@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.structure.parent import Parent
@@ -14,6 +14,10 @@ from ..cat import Homsets as SageHomsetsBase
 
 if TYPE_CHECKING:
     from ..types import CategoryElement, CategoryObject, Hom, Morphism
+
+
+def _category_class_declares_functor(category: Category, functor_name: str) -> bool:
+    return any(functor_name in cls.__dict__ for cls in category.__class__.mro())
 
 
 class UniversalHomObjectMethods:
@@ -112,11 +116,11 @@ class HomCategory(SageHomsetsBase):
     @override
     def super_categories(self) -> list[Category]:
         r"""Return Sage's base hom-category supercategories."""
-        return cast(list[Category], super().super_categories())
+        super_categories: list[Category] = super().super_categories()
+        return super_categories
 
     ParentMethods = UniversalHomObjectMethods
     ElementMethods = UniversalHomElementMethods
-
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport("category_specs.homsets.endsets", "EndCategory")
@@ -140,25 +144,26 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
     ParentMethods = UniversalHomObjectMethods
     ElementMethods = UniversalHomElementMethods
 
-
     def Of(self, domain: CategoryObject, codomain: CategoryObject) -> Hom:
         r"""Return ``Hom_C(domain, codomain)`` for ``C = self.base_category()``."""
         category = self.base_category()
         assert domain in category, "domain must be an object of the base category"
         assert codomain in category, "codomain must be an object of the base category"
-        return cast("Hom", Parent.Hom(domain, codomain, category=category))
+        hom: Hom = Parent.Hom(domain, codomain, category=category)
+        return hom
 
     @classmethod
     def default_super_categories(cls, category: Category) -> Category:
         r"""Lift Cat-level supercategories through the hom-category construction."""
         hom_supercategories = [
-            super_category.HomCategory()
+            cls.category_of(super_category)
             for super_category in category.super_categories()
             if super_category in Cat()
+            and _category_class_declares_functor(super_category, cls._functor_category)
         ]
         if not hom_supercategories:
             return HomCategory()
-        return Category.join(hom_supercategories)
+        return Cat().join(hom_supercategories)
 
 
 class HomCategoryOf(HomCategoryConstruction):

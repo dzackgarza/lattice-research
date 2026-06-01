@@ -7,7 +7,6 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.category import Category
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.modules.free_module import FreeModule as SageFreeModule
 from sage.modules.free_module import FreeModule_generic as SageFreeModuleGeneric
@@ -32,7 +31,6 @@ if TYPE_CHECKING:
     )
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 
 class _Free(CategoryWithAxiom_over_base_ring):
@@ -55,7 +53,6 @@ class _Free(CategoryWithAxiom_over_base_ring):
         return M in self.base_category() and M.is_free()
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def FiniteRank(self) -> Category:
             return with_axiom(self, "FiniteRank")

@@ -941,10 +941,13 @@ class Sets(Category_singleton):
             from .subcategories.image import ImageSubobject as ProjectImageSubobject
             from .subcategories.image import _ImageSets
 
-            return refine_category(
-                ProjectImageSubobject(f, domain_subset),
+            refined_class = refine_category(
+                ProjectImageSubobject,
                 [Sets(), _ImageSets()],
+                test=False,
             )
+            image = refined_class(f, domain_subset)
+            return refine_category(image, [Sets(), _ImageSets()])
 
         @final
         def TotallyOrderedFiniteSet(

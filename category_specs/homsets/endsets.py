@@ -83,7 +83,6 @@ class EndCategory(CategoryWithAxiom_singleton):
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
 
-
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport("category_specs.homsets.autsets", "AutCategory")
 
@@ -100,7 +99,6 @@ class EndCategoryConstruction(HomCategoryConstruction):
 
     class ElementMethods: ...
 
-
     def Of(self, domain: CategoryObject) -> End:  # type: ignore[override]  # DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
         return cast("End", self.base_category().HomCategory().Of(domain, domain))
@@ -114,7 +112,7 @@ class EndCategoryConstruction(HomCategoryConstruction):
         super_categories = category.super_categories()
         if not super_categories:
             return EndCategory()
-        return Category.join(
+        return Cat().join(
             [_end_categories_of(super_category) for super_category in super_categories]
         )
 
@@ -150,7 +148,6 @@ class EndCategoryOf(CategoryWithAxiom):
 
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
-
 
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport("category_specs.homsets.autsets", "AutCategoryOf")

@@ -71,3 +71,7 @@ or interpreting root `.agents/plans/` tracker files.
   maintenance, autonomous cadence, or migration from fixed schedule thinking.
 - Load `research-planning-cleanup` when scanning completed cards for shallow work,
   cleaning up planning debt, or auditing review quality across cards.
+
+## Referenced documents
+
+[Research Project Workflow Reference](research-project-workflow/project-workflow)

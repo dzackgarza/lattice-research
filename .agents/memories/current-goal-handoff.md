@@ -14,69 +14,69 @@ work has named objects, morphisms, and invariants, not raw matrices.
 
 ## Current next action
 
-The provider-satisfaction/object-method-resolution branch must be reconciled with the
-corrected category-spec model in `mem:category-spec-repo-model-corrections`.
-Prior ABC-boundary commits and tests that require refinement-time rejection, failed
-refinement atomicity, or "invalid refined objects cannot enter project categories" are
-not acceptance criteria.
+Branch `fix/spec-refinement-class-api` exists to correct the ABC/refinement API boundary.
+The bridge target is now narrow: class/type-returning refinement for project-owned spec
+implementation classes. Instance-level `refine_category(X, ...) -> X` remains an
+existing-Sage-parent declaration path and a post-construction category declaration path
+after a project-owned class has already been instantiated through its refined class.
 
-Next pickup: continue from committed bridge repair `6c7e6648`, not from old summaries.
-That commit removes a local subclass-filter from `_abc_parent_class_bases`, so the
-project bridge uses Sage's `_super_categories_for_classes` base sequence instead of
-recomputing a smaller MRO base set. That clears the finite ring/finite-field
-parent-class MRO layer while preserving the corrected model: refinement declares
-category view, and Python/Sage MRO handles concrete parent methods without method-name
-satisfaction logic.
+Do not reintroduce refinement-time validation, abstract-name subtraction, generated
+failure bodies, cache priming, casts, or method-name cases. The model is:
 
-Current hard core: the parent-class MRO layer is no longer the first failure, but the
-goal is not complete. `rings/tests/regression/finite_fields.sage` now reaches
-`F7(3).inverse()` and fails because project `ElementMethods.inverse` is still installed
-as an ellipsis body that shadows Sage's concrete element inverse path. A trial
-generalization of the ABC bridge to `element_class` made that inverse witness pass but
-broke `sets/smoketest.sage`: Sage later builds concrete element classes with upstream
-`dynamic_class`, which cannot compose with an ABCMeta category `element_class`. Do not
-resume that blanket element-class route.
+- `refine_category(ProjectParentClass, categories)` returns a dynamic class combining
+  the implementation class with the target category `parent_class`;
+- canonical project constructors instantiate that refined class so ABCMeta raises at
+  construction for missing project `ParentMethods` obligations;
+- existing Sage constructors may build a Sage parent and then declare it into project
+  categories by instance refinement;
+- Sage `__init__` methods that overwrite the instance category may require the sequence
+  class-refined instantiation first, then instance category declaration. That is the
+  current `Sets().Constructors().ImageSubobject(...)` pattern because Sage
+  `ImageSubobject.__init__` computes its own subobject category via `Parent.__init__`.
 
-`rings/tests/regression/integer_mod_rings.sage` is committed as red witness `0d042624`
-and reaches later constructor behavior before failing in the Hom/coercion path:
-`JoinCategory_with_category` lacks `HomCategory`. This is a separate category/Hom
-join-surface gap, not evidence for reintroducing abstract-name filtering or refinement
-validation.
+Current verified bridge evidence:
+
+- abstract-only project `ElementMethods` are declaration surfaces and are not installed
+  as runtime ellipsis bodies on Sage element lookup;
+- Hom-category lifting skips raw Sage join categories whose class MRO does not declare
+  the project functor category;
+- `OrderTwoGroups().Constructors().Partial()` fails during refined-class instantiation
+  with ABCMeta naming only `is_abelian`; `Complete()` returns a usable object in
+  `OrderTwoGroups`;
+- AST/probe route audit found `constructor_redefinitions.py`, `rings`, `modules`,
+  `sets`, `posets`, `algebras`, hom/end/aut, and tensor-component routes. The only
+  project-owned wrapper route found using raw instance refinement was
+  `Sets().Constructors().ImageSubobject`, now routed through refined-class
+  instantiation before instance declaration.
 
 Current verification frontier:
 
+- `python3 -m py_compile category_specs/sets/__init__.py category_specs/utils.py
+  category_specs/cat/base_category_types.py category_specs/homsets/homsets.py` passes.
 - `rings/tests/regression/object_method_resolution.sage` passes.
+- `rings/tests/regression/finite_fields.sage` passes.
+- `rings/tests/regression/integer_mod_rings.sage` passes.
 - `sets/tests/regression/set_partitions.sage` passes.
 - `sets/smoketest.sage` passes, with existing Sage warning noise about topological-set
-  axiom binding and set-hom element-provider superclass shape.
-- `posets/smoketest.sage` passes.
-- `python3 -m py_compile category_specs/cat/base_category_types.py` passes.
-- `just --justfile category_specs/justfile check-banned-spec-patterns` reports 442
-  inherited repo-wide findings and zero staged findings.
-- `rings/tests/regression/finite_fields.sage` fails at `F7(3).inverse() == F7(5)`.
-- `rings/tests/regression/integer_mod_rings.sage` fails later at
-  `R7.multiplicative_generator()` through the Hom/coercion path.
-- Full `just --justfile category_specs/justfile test` is not clean. The latest broad
-  run still failed in `types_smoketest.sage`, `tensor_algebra_components`,
-  `algebras`, `rings`, `modules`, and `lattices`; rerun only after deciding whether
-  the remaining element/Hom failures are in the current bridge boundary or separate
-  source-grounded implementation cards.
+  axiom binding.
+- `homsets/smoketest.sage` passes.
+- `just --justfile category_specs/justfile check-banned-spec-patterns` reports 439
+  repo-wide findings and 13 staged findings in
+  `category_specs/rings/subcategories/rational_field.py`.
+  Treat those staged rational-field findings as a separate QC/staging issue unless the
+  live constructor/refinement task explicitly touches that file.
+- `rings/smoketest.sage` still fails on number-field base-category identity, p-adic/Zq
+  keyword drift, deferred lattice-precision extension constructors, multivariate
+  power-series keyword drift, and a Puiseux-series metaclass conflict.
 
-Do not widen this into a Sage hook, method-only parallel hierarchy, or refinement
-validator. The next code change should preserve the intended model: extend Sage's
-dynamic classes with ABC-compatible metaclasses and use those dynamic classes in this
-category hierarchy; refinement declares category view; ordinary lookup may reach
-concrete Sage/project methods; missing project obligations remain visible to smokes and
-later implementation work.
-
-Do not claim the larger provider-satisfaction goal complete. Root
-`Rings().Constructors().ZZ()`/`QQ()` obligations remain visible implementation gaps
-unless separate source-grounded work supplies those methods.
-
-Before further category-spec edits, run
-`just --justfile category_specs/justfile check-banned-spec-patterns`. It is warning-only
-while inherited repo-wide findings remain, but new `typing.cast`, `with_axiom(self, ...)`,
-cache-priming, or post-hoc object mutation would be a fresh defect.
+Next pickup should keep the constructor/refinement objective narrow: every project-owned
+canonical constructor must class-refine before instantiation, while existing Sage
+parents and singletons use named instance-declaration compatibility paths. Treat the
+rings smoke frontier and staged rational-field banned-pattern findings as separate
+failures unless a route is shown to be a raw-then-refined project-owned constructor
+violation. Do not restart from `finite_fields.sage`, `integer_mod_rings.sage`,
+`sets/smoketest.sage`, `homsets/smoketest.sage`, or the OrderTwoGroup fixture unless
+one of those regressions fails again.
 
 ## Required context
 

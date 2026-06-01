@@ -20,7 +20,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category, CategoryWithAxiom
@@ -55,7 +54,6 @@ if TYPE_CHECKING:
     )
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 
 # ---------------------------------------------------------------------------
@@ -81,8 +79,6 @@ class _RModHomCategoryObjectMethods(UniversalHomObjectMethods):
     ) -> RModMorphism:
         r"""Coerce module-morphism data into this hom object."""
         ...
-
-    @_cached_method
     @final
     def zero(self) -> RModMorphism:
         from sage.misc.constant_function import ConstantFunction
@@ -216,7 +212,6 @@ class RModuleHomCategory(HomCategoryOf):
         return [HomCategoryOf(self.base_category()), self.base_category()]
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Forms(self) -> Category:
             return cast(Category, with_axiom(self, "Forms"))
@@ -259,49 +254,34 @@ class _Forms(CategoryWithAxiom):
             ...
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Rational(self) -> Category:
             r"""Forms with target ``S = K`` in ``Hom_R(T_R(M)[p,q], S)``."""
             return cast(Category, with_axiom(self, "Rational"))
-
-        @_cached_method
         @final
         def Integral(self) -> Category:
             r"""Forms with target ``S = R`` in ``Hom_R(T_R(M)[p,q], S)``."""
             return cast(Category, with_axiom(self, "Integral"))
-
-        @_cached_method
         @final
         def Linear(self) -> Category:
             r"""Linear forms: domain ``T_R(M)[1,0]=M``, represented type ``(0,1)``."""
             return cast(Category, with_axiom(self, "Linear"))
-
-        @_cached_method
         @final
         def Bilinear(self) -> Category:
             r"""Bilinear forms: domain ``T_R(M)[2,0]``, represented type ``(0,2)``."""
             return cast(Category, with_axiom(self, "Bilinear"))
-
-        @_cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Quadratic forms on ``M``."""
             return cast(Category, with_axiom(self, "Quadratic"))
-
-        @_cached_method
         @final
         def NonDegenerate(self) -> Category:
             r"""Forms with trivial kernels."""
             return cast(Category, with_axiom(self, "NonDegenerate"))
-
-        @_cached_method
         @final
         def Symmetric(self) -> Category:
             r"""Symmetric forms: represented type ``(0,n)``."""
             return cast(Category, with_axiom(self, "Symmetric"))
-
-        @_cached_method
         @final
         def Alternating(self) -> Category:
             r"""Alternating forms: represented type ``(0,n)``."""

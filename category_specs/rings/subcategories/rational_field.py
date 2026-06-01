@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast, final, overload, override
 
-from sage.misc.cachefunc import cached_method
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
@@ -16,7 +15,6 @@ from ._lazy_subcategories import (
 )
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -77,8 +75,6 @@ class _QQ(Category_singleton):
             from sage.all import QQbar
 
             return cast("Field", QQbar)
-
-        @_cached_method
         @final
         def as_number_field(self) -> NumberField:
             from sage.all import ZZ, PolynomialRing

@@ -9,7 +9,8 @@ tags: [goal-phase, category-specs, object-method-resolution, refinement]
 ## Phase objective
 
 Edit source so the object-method relation reconstructed in the previous phase is true
-without cache priming, spec implementations, or obligation deletion.
+without cache priming, spec implementations, obligation deletion, or refinement-time
+validation.
 
 ## Entry condition
 
@@ -23,7 +24,7 @@ Before each source edit, state the object-level delta:
 
 > This edit makes concrete object method ___ available to refined object ___ under
 > category contract ___, while preserving abstract requirement ___ and missing
-> requirement ___ as visible.
+> requirement ___ as visible to smokes and later implementation work.
 
 If the edit cannot be stated this way, it is not authorized by this phase.
 
@@ -37,9 +38,11 @@ The repair must preserve these facts:
 - Python `abc.abstractmethod` and Sage `abstract_method` markers do not count as
 - object methods;
 - concrete object methods are resolved before abstract requirements with the same name;
-- missing obligations still fail naturally;
+- missing obligations remain visible; refinement does not reject them;
 - `ParentMethods` is the method surface of objects in a category, not a generic
   engineering method-supply layer;
+- `refine_category` declares category view and must not become an object-satisfaction
+  validator;
 - cache, `_cached_methods`, performance, and lookup-priming mechanisms are absent unless
   a source-grounded theorem in the state proves they are mathematically necessary.
 
@@ -49,6 +52,7 @@ Stop and return to `SYNTHESIZE` or `DECOMPOSE` if the proposed patch:
 
 - adds method bodies to spec obligations merely to call Sage;
 - deletes an abstract obligation because Sage implements it;
+- makes `refine_category` check abstract method completeness;
 - changes a smoke to assert only name or file existence;
 - adds casts, ignores, `NotImplementedError`, local QC bypasses, or report-only fixes;
 - improves hooks, reports, ledgers, or mypy output before changing the object-method

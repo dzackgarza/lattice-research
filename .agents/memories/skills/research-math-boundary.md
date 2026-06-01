@@ -48,3 +48,7 @@ Lean/Aristotle work, literature extraction, or Sage/GAP/Julia integration.
   work.
 - Load `category-spec-style` when the work touches category specs or Sage constructor
   mapping.
+
+## Referenced documents
+
+[Research Math Boundary Reference](research-math-boundary/math-boundary)

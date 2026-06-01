@@ -33,7 +33,6 @@ from sage.categories.associative_algebras import (
     AssociativeAlgebras as SageAssociativeAlgebras,
 )
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import (
@@ -61,7 +60,6 @@ from .subcategories.constructions.subquotients import _Subquotients
 from .subcategories.constructions.tensor_products import _TensorProducts
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
@@ -346,37 +344,26 @@ class Algebras(Category_module):
     HomCategory = AlgebraHomCategory
 
     class SubcategoryMethods:
-        @_cached_method
         @final
         def Commutative(self) -> Category:
             r"""Return the subcategory of commutative algebras."""
             return cast(Category, with_axiom(self, "Commutative"))
-
-        @_cached_method
         @final
         def WithBasis(self) -> Category:
             r"""Return the subcategory of algebras with a distinguished basis."""
             return cast(Category, with_axiom(self, "WithBasis"))
-
-        @_cached_method
         @final
         def FiniteDimensional(self) -> Category:
             r"""Return the subcategory of finite-dimensional algebras."""
             return cast(Category, with_axiom(self, "FiniteDimensional"))
-
-        @_cached_method
         @final
         def Semisimple(self) -> Category:
             r"""Return the subcategory of semisimple algebras."""
             return cast(Category, with_axiom(self, "Semisimple"))
-
-        @_cached_method
         @final
         def TensorProducts(self) -> Category:
             r"""Return the tensor-product construction category of algebras."""
             return cast(Category, _TensorProducts.category_of(self))
-
-        @_cached_method
         @final
         def DualObjects(self) -> Category:
             r"""Return the dual-object construction category of algebras."""
@@ -674,8 +661,6 @@ class Algebras(Category_module):
                         ]
                     )
             return self._refine_constructed_magmatic_algebra(algebra, categories)
-
-    @_cached_method
     @final
     def Constructors(self) -> Algebras._Constructors:
         r"""Return the named algebra constructor collector over this base ring."""

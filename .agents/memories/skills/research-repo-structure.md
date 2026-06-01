@@ -43,3 +43,7 @@ artifact belongs.
 - Mathematical notes go in `notes/`.
 - Shared theory, reference, and tooling docs go in `theory/`.
 - Tracker cards and plans go in `.agents/`.
+
+## Referenced documents
+
+[Research Repo Structure Reference](research-repo-structure/repo-structure)

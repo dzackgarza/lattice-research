@@ -19,7 +19,6 @@ from typing import (
     override,
 )
 
-from sage.misc.cachefunc import cached_method
 
 from ..cat import Category, Category_over_base_ring, DualObjectsCategory
 from ..modules import Modules
@@ -32,7 +31,6 @@ from ..modules.homsets import (
 from ..utils import refine_category
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
@@ -193,8 +191,6 @@ class TensorAlgebraComponents(Category_over_base_ring):
         r"""Return the module categories satisfied by tensor-algebra components."""
         RMod = Modules(self.base_ring())
         return [RMod.TensorProducts(), RMod.Free().FiniteRank()]
-
-    @_cached_method
     @final
     def DualObjects(self) -> Category:
         r"""Return dual tensor components, equivalently integral forms."""
@@ -411,8 +407,6 @@ class TensorAlgebraComponents(Category_over_base_ring):
             return self._from_components(
                 base_module, tensor_type, matrices, name=name, latex_name=latex_name
             )
-
-    @_cached_method
     @final
     def Constructors(self) -> TensorAlgebraComponents._Constructors:
         r"""Return the tensor-component constructor collector."""
