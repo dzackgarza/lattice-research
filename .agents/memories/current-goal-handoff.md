@@ -37,10 +37,11 @@ broke `sets/smoketest.sage`: Sage later builds concrete element classes with ups
 `dynamic_class`, which cannot compose with an ABCMeta category `element_class`. Do not
 resume that blanket element-class route.
 
-`rings/tests/regression/integer_mod_rings.sage` now reaches later constructor behavior
-and fails in the Hom/coercion path: `JoinCategory_with_category` lacks `HomCategory`.
-This is a separate category/Hom join-surface gap, not evidence for reintroducing
-abstract-name filtering or refinement validation.
+`rings/tests/regression/integer_mod_rings.sage` is committed as red witness `0d042624`
+and reaches later constructor behavior before failing in the Hom/coercion path:
+`JoinCategory_with_category` lacks `HomCategory`. This is a separate category/Hom
+join-surface gap, not evidence for reintroducing abstract-name filtering or refinement
+validation.
 
 Current verification frontier:
 
