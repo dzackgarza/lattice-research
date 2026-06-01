@@ -58,7 +58,7 @@ C = _MissingRequirement()
 refined = refine_category(ZZ, [C], test=False)
 if refined is not ZZ:
     raise AssertionError('refinement must keep the existing Sage parent object')
-if C not in ZZ.category().super_categories():
+if refined not in C:
     raise AssertionError('refinement did not declare the project category')
 print('refinement-declaration-returned', flush=True)
 """
@@ -216,9 +216,16 @@ ZZ = refine_category(SageZZ, [_IdealMonoidRequirement()], test=False)
 ideal_monoid = ZZ.ideal_monoid()
 if ideal_monoid is None or 'Monoid of ideals' not in repr(ideal_monoid):
     raise AssertionError('Sage ideal_monoid implementation did not win lookup')
+refined_type = type(ZZ)
+abstracts = getattr(refined_type, '__abstractmethods__', frozenset())
+if 'ideal_monoid' in abstracts:
+    raise AssertionError('refined parent type left concrete Sage method abstract')
+lookup_class = refined_type
+if not any('ideal_monoid' in cls.__dict__ for cls in lookup_class.__mro__):
+    lookup_class = ZZ.category().parent_class
 winning_method = next(
     cls.__dict__['ideal_monoid']
-    for cls in ZZ.category().parent_class.__mro__
+    for cls in lookup_class.__mro__
     if 'ideal_monoid' in cls.__dict__
 )
 if getattr(winning_method, '__isabstractmethod__', False):

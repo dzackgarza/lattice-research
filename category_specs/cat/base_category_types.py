@@ -15,11 +15,12 @@ re-exports in this file instead of raw ``sage.categories.*`` bases.
 
 from __future__ import annotations
 
+import copyreg
 import inspect
-from abc import abstractmethod
+from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 from functools import wraps
-from typing import TYPE_CHECKING, Any, cast, final, overload, override
+from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
 from sage.categories.cartesian_product import (
@@ -29,6 +30,7 @@ from sage.categories.category import Category as SageCategory
 from sage.categories.category import (
     CategoryWithParameters as SageCategoryWithParameters,
 )
+from sage.categories.category import JoinCategory as SageJoinCategory
 from sage.categories.category_singleton import (
     Category_singleton as SageCategorySingleton,
 )
@@ -84,13 +86,23 @@ from sage.categories.tensor import TensorProductsCategory as SageTensorProductsC
 from sage.categories.with_realizations import (
     WithRealizationsCategory as SageWithRealizationsCategory,
 )
+from sage.misc.classcall_metaclass import ClasscallMetaclass
 from sage.misc.constant_function import ConstantFunction
+from sage.misc.inherit_comparison import (
+    InheritComparisonMetaclass,
+)
+from sage.cpython.type import can_assign_class
 from sage.structure.category_object import CategoryObject
-from sage.structure.dynamic_class import DynamicMetaclass
+from sage.structure.dynamic_class import (
+    DynamicClasscallMetaclass,
+    DynamicInheritComparisonClasscallMetaclass,
+    DynamicInheritComparisonMetaclass,
+    DynamicMetaclass,
+    dynamic_class as sage_dynamic_class,
+)
 from sage.structure.parent import Parent
 
 from .universal_subcategory_methods import UniversalSubcategoryMethods
-from ..utils import is_concrete_object_method, is_object_method_requirement
 
 if TYPE_CHECKING:
     from ..types import CategoryElement, Hom, Morphism
@@ -116,7 +128,8 @@ _SageHomsetsOf = SageHomsetsOf
 
 
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
-_OBJECT_METHOD_SURFACE_CACHE: dict[tuple[type, frozenset[str]], type] = {}
+_ABC_METHOD_PROVIDER_CACHE: dict[type, type] = {}
+_CONCRETE_METHOD_PROVIDER_CACHE: dict[type, type | None] = {}
 _CAT_CONSTRUCTOR_METADATA_NAMES = frozenset(
     {"base_ring", "category", "names", "provenance"}
 )
@@ -124,11 +137,212 @@ _CAT_CONSTRUCTOR_CLASS: type | None = None
 _CAT_CONSTRUCTOR_OWNERS: dict[str, SageCategory] = {}
 
 
+class _DynamicABCMetaclass(DynamicMetaclass, ABCMeta):
+    pass
+
+
+class _DynamicABCClasscallMetaclass(
+    DynamicClasscallMetaclass, _DynamicABCMetaclass
+):
+    pass
+
+
+class _DynamicABCInheritComparisonMetaclass(
+    DynamicInheritComparisonMetaclass, _DynamicABCMetaclass
+):
+    pass
+
+
+class _DynamicABCInheritComparisonClasscallMetaclass(
+    DynamicInheritComparisonClasscallMetaclass,
+    _DynamicABCClasscallMetaclass,
+    _DynamicABCInheritComparisonMetaclass,
+):
+    pass
+
+
+for _abc_dynamic_metaclass in (
+    _DynamicABCMetaclass,
+    _DynamicABCClasscallMetaclass,
+    _DynamicABCInheritComparisonMetaclass,
+    _DynamicABCInheritComparisonClasscallMetaclass,
+):
+    copyreg.pickle(_abc_dynamic_metaclass, _abc_dynamic_metaclass.__reduce__)
+
+
+def _abc_dynamic_metaclass_for(bases: tuple[type, ...]) -> type:
+    metaclass: type = _DynamicABCMetaclass
+    for base in bases:
+        if isinstance(base, ClasscallMetaclass):
+            if not issubclass(metaclass, ClasscallMetaclass):
+                if metaclass is _DynamicABCMetaclass:
+                    metaclass = _DynamicABCClasscallMetaclass
+                elif metaclass is _DynamicABCInheritComparisonMetaclass:
+                    metaclass = _DynamicABCInheritComparisonClasscallMetaclass
+                else:
+                    raise TypeError(
+                        "no ABC dynamic metaclass composes with "
+                        f"ClasscallMetaclass for {metaclass!r}"
+                    )
+        if isinstance(base, InheritComparisonMetaclass):
+            if not issubclass(metaclass, InheritComparisonMetaclass):
+                if metaclass is _DynamicABCMetaclass:
+                    metaclass = _DynamicABCInheritComparisonMetaclass
+                elif metaclass is _DynamicABCClasscallMetaclass:
+                    metaclass = _DynamicABCInheritComparisonClasscallMetaclass
+                else:
+                    raise TypeError(
+                        "no ABC dynamic metaclass composes with "
+                        f"InheritComparisonMetaclass for {metaclass!r}"
+                    )
+    return metaclass
+
+
+def _requires_abc_dynamic_class(bases: tuple[type, ...], cls: type | None) -> bool:
+    if any(isinstance(base, ABCMeta) for base in bases):
+        return True
+    if cls is None:
+        return False
+    return any(
+        bool(getattr(value, "__isabstractmethod__", False))
+        for value in cls.__dict__.values()
+    )
+
+
+def _dynamic_abc_class(
+    name: str,
+    bases: tuple[type, ...],
+    cls: type | None = None,
+    reduction: object = None,
+    doccls: type | None = None,
+    prepend_cls_bases: bool = True,
+) -> type:
+    if len(bases) > 1 and object in bases:
+        bases = tuple(base for base in bases if base is not object)
+
+    if not _requires_abc_dynamic_class(bases, cls):
+        return sage_dynamic_class(
+            name,
+            bases,
+            cls,
+            reduction=reduction,
+            doccls=doccls,
+            prepend_cls_bases=prepend_cls_bases,
+        )
+
+    if reduction is None:
+        reduction = (
+            _dynamic_abc_class,
+            (name, bases, cls, reduction, doccls, prepend_cls_bases),
+        )
+    if cls is None:
+        methods: dict[str, Any] = {}
+    else:
+        methods = dict(cls.__dict__)
+        for key in ("__dict__", "__weakref__"):
+            if key in methods:
+                del methods[key]
+        if prepend_cls_bases:
+            all_bases: set[type] = set()
+            for base in bases:
+                all_bases.update(base.mro())
+            cls_bases = tuple(base for base in cls.__bases__ if base not in all_bases)
+            bases = cls_bases + bases
+
+    if doccls is None:
+        if cls is not None:
+            doccls = cls
+        else:
+            assert bases, "dynamic ABC class construction requires a doc source"
+            doccls = bases[0]
+
+    methods["_reduction"] = reduction
+    methods["_doccls"] = (doccls,)
+    methods["__doc__"] = doccls.__doc__
+    methods["__module__"] = doccls.__module__
+
+    if all(not base.__dictoffset__ for base in bases):
+        methods["__slots__"] = ()
+
+    return _abc_dynamic_metaclass_for(bases)(name, bases, methods)
+
+
+def _append_unique_class(classes: list[type], cls: type) -> None:
+    if cls not in classes:
+        classes.append(cls)
+
+
+def _method_provider_namespace(
+    provider: type,
+    *,
+    abstract: bool | None = None,
+) -> dict[str, Any]:
+    namespace: dict[str, Any] = {
+        "__doc__": getattr(provider, "__doc__", None),
+        "__module__": provider.__module__,
+    }
+    for name, value in provider.__dict__.items():
+        if name in {"__dict__", "__module__", "__weakref__"}:
+            continue
+        if name.startswith("__") and name.endswith("__"):
+            continue
+        is_abstract = bool(getattr(value, "__isabstractmethod__", False))
+        if abstract is not None and is_abstract is not abstract:
+            continue
+        namespace[name] = value
+    return namespace
+
+
+def _abc_method_provider(provider: type) -> type:
+    cached_provider = _ABC_METHOD_PROVIDER_CACHE.get(provider)
+    if cached_provider is not None:
+        return cached_provider
+    provider_bases = tuple(
+        _abc_method_provider(base)
+        for base in provider.__bases__
+        if base is not object
+    )
+    provider_class = ABCMeta(
+        f"{provider.__qualname__}ABC",
+        provider_bases,
+        _method_provider_namespace(provider),
+    )
+    _ABC_METHOD_PROVIDER_CACHE[provider] = provider_class
+    return provider_class
+
+
+def _concrete_method_provider(provider: type) -> type | None:
+    cached_provider = _CONCRETE_METHOD_PROVIDER_CACHE.get(provider)
+    if provider in _CONCRETE_METHOD_PROVIDER_CACHE:
+        return cached_provider
+    namespace = _method_provider_namespace(provider, abstract=False)
+    if len(namespace) == 2:
+        _CONCRETE_METHOD_PROVIDER_CACHE[provider] = None
+        return None
+    provider_class = type(f"{provider.__qualname__}ConcreteMethods", (), namespace)
+    _CONCRETE_METHOD_PROVIDER_CACHE[provider] = provider_class
+    return provider_class
+
+
+def _abc_parent_class_bases(category: SageCategory) -> tuple[type, ...]:
+    bases: list[type] = []
+    for source_category in category._super_categories_for_classes:
+        _append_unique_class(bases, source_category.parent_class)
+    return tuple(
+        base
+        for base in bases
+        if not any(base is not other and issubclass(other, base) for other in bases)
+    )
+
+
 def _static_category_class(category: SageCategory) -> type:
     cls = category.__class__
     if isinstance(cls, DynamicMetaclass):
-        return cast(type, cls.__base__)
-    return cast(type, cls)
+        base = cls.__base__
+        if base is None:
+            raise TypeError("dynamic Sage category class must have a base class")
+        return base
+    return cls
 
 
 def _identifier_fragment(text: str) -> str:
@@ -217,7 +431,7 @@ def _cat_constructor_forwarder(
     forwarded_constructor.__doc__ = (
         f"Forward to ``{prefix}.Constructors().{constructor_name}``."
     )
-    cast(Any, forwarded_constructor)._cat_constructor_generated_forwarder = True
+    setattr(forwarded_constructor, "_cat_constructor_generated_forwarder", True)
     return forwarded_constructor
 
 
@@ -315,22 +529,14 @@ def _validate_defining_predicates(
 def _cat_category() -> SageCategory:
     from . import Cat
 
-    return cast(SageCategory, Cat())
+    category = Cat()
+    if not isinstance(category, SageCategory):
+        raise TypeError("Cat() must construct a Sage category")
+    return category
 
 
-def _copy_method_provider_namespace(
-    provider: type,
-    namespace: dict[str, Any],
-    excluded_names: frozenset[str] = frozenset(),
-) -> None:
-    for name, value in provider.__dict__.items():
-        if name in excluded_names:
-            continue
-        if name in {"__dict__", "__module__", "__weakref__"}:
-            continue
-        if name.startswith("__") and name.endswith("__"):
-            continue
-        namespace[name] = value
+def _copy_method_provider_namespace(provider: type, namespace: dict[str, Any]) -> None:
+    namespace.update(_method_provider_namespace(provider))
 
 
 def _combined_subcategory_methods(local_provider: type | None) -> type:
@@ -351,131 +557,83 @@ def _combined_subcategory_methods(local_provider: type | None) -> type:
     return provider
 
 
-def _object_method_requirement_names(method_surface: type) -> frozenset[str]:
-    return frozenset(
-        name
-        for name, value in method_surface.__dict__.items()
-        if is_object_method_requirement(value)
-    )
-
-
-def _abc_abstract_method_names(named_class: type) -> frozenset[str]:
-    abstract_names = {
-        name
-        for name, value in named_class.__dict__.items()
-        if is_object_method_requirement(value)
-    }
-    for base in named_class.__bases__:
-        for name in getattr(base, "__abstractmethods__", frozenset()):
-            value = inspect.getattr_static(named_class, name, None)
-            if is_object_method_requirement(value):
-                abstract_names.add(name)
-    return frozenset(abstract_names)
-
-
-def _install_abc_abstractmethods(named_class: type) -> type:
-    named_class.__abstractmethods__ = _abc_abstract_method_names(named_class)
-    return named_class
-
-
-def _object_method_surface(
-    method_surface: type,
-    realized_requirements: frozenset[str],
-) -> type:
-    cache_key = (method_surface, realized_requirements)
-    cached_surface = _OBJECT_METHOD_SURFACE_CACHE.get(cache_key)
-    if cached_surface is not None:
-        return cached_surface
-
-    namespace: dict[str, Any] = {
-        "__doc__": getattr(method_surface, "__doc__", None),
-        "__module__": method_surface.__module__,
-    }
-    _copy_method_provider_namespace(
-        method_surface,
-        namespace,
-        excluded_names=realized_requirements,
-    )
-
-    surface = type(
-        f"{method_surface.__qualname__}ObjectMethodSurface",
-        (),
-        namespace,
-    )
-    _OBJECT_METHOD_SURFACE_CACHE[cache_key] = surface
-    return surface
-
-
-def _first_object_method_in_resolution_order(
-    named_class: type,
-    method_name: str,
-) -> object | None:
-    for cls in named_class.__mro__:
-        method = cls.__dict__.get(method_name)
-        if method is not None:
-            return method
-    return None
-
-
-def _concrete_object_methods_inherited_by(
-    named_class: type,
-    requirement_names: frozenset[str],
-) -> frozenset[str]:
-    return frozenset(
-        method_name
-        for method_name in requirement_names
-        if is_concrete_object_method(
-            _first_object_method_in_resolution_order(named_class, method_name)
-        )
-    )
-
-
-def _make_named_parent_class_with_object_methods(
+def _make_named_parent_class_with_abc(
     category: SageCategory,
-    delegate: Callable[..., type],
     name: str,
     method_provider: str,
     cache: bool = False,
     picklable: bool = True,
+    bases: tuple[type, ...] | None = None,
 ) -> type:
-    method_surface = getattr(category, method_provider, None)
-    if method_surface is None:
-        return delegate(name, method_provider, cache=cache, picklable=picklable)
+    assert name == "parent_class", "ABC bridge only owns parent_class construction"
+    assert method_provider == "ParentMethods", (
+        "ABC bridge only owns ParentMethods construction"
+    )
+    assert cache is False, "category lazy attributes own parent_class caching"
 
-    assert isinstance(method_surface, type), (
-        f"{type(category).__name__}.{method_provider} should be a class"
-    )
-    requirement_names = _object_method_requirement_names(method_surface)
-    if not requirement_names:
-        return delegate(name, method_provider, cache=cache, picklable=picklable)
+    cls = _static_category_class(category)
+    class_name = f"{cls.__name__}.{name}"
+    if bases is None:
+        bases = _abc_parent_class_bases(category)
 
-    probe_surface = _object_method_surface(
-        method_surface,
-        realized_requirements=requirement_names,
-    )
-    temporary_probe = "_cat_object_method_surface_probe"
-    setattr(category, temporary_probe, probe_surface)
-    probe_class = delegate(name, temporary_probe, cache=False, picklable=False)
-    delattr(category, temporary_probe)
+    method_provider_cls = getattr(category, method_provider, None)
+    doccls = cls
+    if method_provider_cls is not None:
+        assert inspect.isclass(method_provider_cls), (
+            f"{cls.__name__}.{method_provider} should be a class"
+        )
+        doccls = method_provider_cls
+        bases = (*bases, _abc_method_provider(method_provider_cls))
+        method_provider_cls = _concrete_method_provider(method_provider_cls)
 
-    realized_requirements = _concrete_object_methods_inherited_by(
-        probe_class,
-        requirement_names,
+    reduction = (getattr, (category, name)) if picklable else None
+    return _dynamic_abc_class(
+        class_name,
+        bases,
+        method_provider_cls,
+        prepend_cls_bases=False,
+        doccls=doccls,
+        reduction=reduction,
     )
-    final_surface = _object_method_surface(
-        method_surface,
-        realized_requirements=realized_requirements,
+
+
+def _project_join_category(categories: tuple[SageCategory, ...]) -> SageCategory:
+    joined_categories = tuple(SageCategory.join(categories, as_list=True))
+    assert joined_categories, "category refinement requires at least one category"
+    if len(joined_categories) == 1:
+        return joined_categories[0]
+    joined_category = SageJoinCategory(joined_categories)
+    joined_category.parent_class = _make_named_parent_class_with_abc(
+        joined_category,
+        "parent_class",
+        "ParentMethods",
+        bases=_abc_parent_class_bases(joined_category),
     )
-    temporary_surface = "_cat_object_method_surface"
-    setattr(category, temporary_surface, final_surface)
-    named_class = delegate(
-        name,
-        temporary_surface,
-        cache=cache,
-        picklable=picklable,
-    )
-    delattr(category, temporary_surface)
-    return named_class
+    return joined_category
+
+
+def refine_parent_category(
+    parent: Parent, categories: tuple[SageCategory, ...]
+) -> Parent:
+    current_category = parent.category()
+    category = _project_join_category((current_category, *categories))
+    if category is current_category:
+        return parent
+
+    CategoryObject._init_category_(parent, category)
+    if can_assign_class(parent):
+        base = parent.__class__.__base__
+        assert base is not None, "refined Sage parent class must have a base class"
+        parent.__class__ = _dynamic_abc_class(
+            f"{base.__name__}_with_category",
+            (base, category.parent_class),
+            doccls=base,
+        )
+    instance_dict = getattr(parent, "__dict__", None)
+    if instance_dict is not None:
+        instance_dict.pop("element_class", None)
+        instance_dict.pop("_abstract_element_class", None)
+    return parent
 
 
 def _make_named_class_with_cat_subcategory_methods(
@@ -501,9 +659,8 @@ def _make_named_class_with_cat_subcategory_methods(
     wrapped bases.
     """
     if name == "parent_class" and method_provider == "ParentMethods":
-        return _make_named_parent_class_with_object_methods(
+        return _make_named_parent_class_with_abc(
             category,
-            delegate,
             name,
             method_provider,
             cache=cache,
@@ -522,40 +679,6 @@ def _make_named_class_with_cat_subcategory_methods(
     )
     delattr(category, temporary_provider)
     return generated_class
-
-
-def _install_sage_parent_class_abstracts_patch() -> None:
-    current_make_named_class = SageCategory._make_named_class
-    if getattr(
-        current_make_named_class,
-        "_category_specs_parent_class_abstracts_patch",
-        False,
-    ):
-        return
-
-    def make_named_class_with_parent_abstracts(
-        self: SageCategory,
-        name: str,
-        method_provider: str,
-        cache: bool = False,
-        picklable: bool = True,
-    ) -> type:
-        named_class = current_make_named_class(
-            self,
-            name,
-            method_provider,
-            cache=cache,
-            picklable=picklable,
-        )
-        if name == "parent_class":
-            _install_abc_abstractmethods(named_class)
-        return named_class
-
-    make_named_class_with_parent_abstracts._category_specs_parent_class_abstracts_patch = True  # type: ignore[attr-defined]
-    SageCategory._make_named_class = make_named_class_with_parent_abstracts
-
-
-_install_sage_parent_class_abstracts_patch()
 
 
 class _CatObjectMixin:
@@ -594,8 +717,7 @@ class _CatObjectMixin:
         initializer = cls.__dict__.get("__init__")
         if initializer is None:
             return
-        initializer_any = cast(Any, initializer)
-        if getattr(initializer_any, "_cat_constructor_registration_wrapper", False):
+        if getattr(initializer, "_cat_constructor_registration_wrapper", False):
             return
 
         @wraps(initializer)
@@ -605,8 +727,11 @@ class _CatObjectMixin:
             initializer(self, *args, **kwargs)
             _register_cat_constructor_owner(self)
 
-        initialize_and_register_any = cast(Any, initialize_and_register)
-        initialize_and_register_any._cat_constructor_registration_wrapper = True
+        setattr(
+            initialize_and_register,
+            "_cat_constructor_registration_wrapper",
+            True,
+        )
         setattr(cls, "__init__", initialize_and_register)
 
     @final
@@ -666,7 +791,7 @@ class _CatObjectMixin:
     def Hom(self, codomain: SageCategory) -> Hom:
         r"""Return ``Hom_{Cat}(self, codomain)``."""
         assert codomain in self.category(), "codomain must be an object of Cat()"
-        return cast("Hom", Parent.Hom(self, codomain))
+        return Parent.Hom(self, codomain)
 
     @final
     def _make_named_class(
@@ -683,7 +808,7 @@ class _CatObjectMixin:
         """
         return _make_named_class_with_cat_subcategory_methods(
             self,
-            cast(Any, super())._make_named_class,
+            super()._make_named_class,
             name,
             method_provider,
             cache=cache,
@@ -720,7 +845,7 @@ class _SingletonClasscallMixin:
     def __classcall__(cls: type[SageCategorySingleton]) -> SageCategory:
         if isinstance(cls, DynamicMetaclass):
             cls = cls.__base__
-        obj = cast(Any, super(SageCategorySingleton, cls)).__classcall__(cls)
+        obj = super(SageCategorySingleton, cls).__classcall__(cls)
         cls._set_classcall(ConstantFunction(obj))
         obj.__class__._set_classcall(ConstantFunction(obj))
         return obj
@@ -753,7 +878,7 @@ class _SingletonAxiomClasscallMixin:
             cls = cls.__base__
         if base_category is None:
             return SageCategoryWithAxiom.__classcall__(cls)
-        obj = cast(Any, super(SageCategorySingleton, cls)).__classcall__(
+        obj = super(SageCategorySingleton, cls).__classcall__(
             cls, base_category
         )
         cls._set_classcall(ConstantFunction(obj))

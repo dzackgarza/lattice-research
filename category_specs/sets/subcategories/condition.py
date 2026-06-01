@@ -8,11 +8,9 @@ keeps Sage's raw constructor localized behind that mathematical surface.
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
-
-from ...cat import Category
 
 if TYPE_CHECKING:
     from ...types import Set, SetElement, Subset
@@ -23,10 +21,6 @@ def condition_subset(
     predicates: Sequence[Callable[[SetElement], bool]],
     *,
     names: str | tuple[str, ...] | None = None,
-    category: Category | None = None,
 ) -> Subset:
     r"""Return Sage's predicate-backed subset object."""
-    return cast(
-        "Subset",
-        SageConditionSet(ambient, *predicates, names=names, category=category),
-    )
+    return SageConditionSet(ambient, *predicates, names=names)

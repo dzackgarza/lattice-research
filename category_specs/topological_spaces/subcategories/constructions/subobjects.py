@@ -3,7 +3,7 @@ r"""Subobject construction category for topological spaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import final, override
+from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category, SubobjectsCategory
 
@@ -23,7 +23,11 @@ class _Subobjects(SubobjectsCategory):
         r"""Return project subobject categories without Sage axiom reapplication."""
         from ....sets import Sets
 
-        return [self.base_category(), Sets().Subobjects()]
+        return [
+            self.base_category(),
+            self.base_category().Subquotients(),
+            Sets().Subobjects(),
+        ]
 
     class ParentMethods:
         @abstractmethod

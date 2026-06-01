@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, cast, final, override
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
 
@@ -48,9 +48,8 @@ class Subsets(SubobjectsCategory):
             ambient,
             predicates,
             names=names,
-            category=subset_category,
         )
-        return refine_category(subset, [Sets(), self])
+        return refine_category(subset, [Sets(), subset_category])
 
     class ParentMethods:
         @abstractmethod
@@ -69,10 +68,14 @@ class Subsets(SubobjectsCategory):
             return self.ambient()
 
         @final
+        def is_universe(self) -> bool:
+            r"""Return whether this subset equals its ambient set."""
+            return self == self.ambient()
+
+        @final
         def lift(self, x: SetElement) -> SetElement:
             r"""Include an element of this subobject into its ambient set."""
-            if x not in self:
-                raise ValueError(f"{x} is not in {self}")
+            assert x in self, f"{x} is not in {self}"
             return self.ambient()(x)
 
         @final
@@ -124,30 +127,26 @@ class Subsets(SubobjectsCategory):
         def _subobjects_category(self) -> Subsets:
             from ... import Sets
 
-            return cast("Subsets", Sets().Subobjects())
+            return Sets().Subobjects()
 
-        @final
         def union(self, X: Subset) -> Subset:
             r"""Return the condition-backed union of ``self`` and ``X``."""
             return self._subobjects_category().Of(
                 self.ambient(), (lambda x: x in self or x in X,)
             )
 
-        @final
         def intersection(self, X: Subset) -> Subset:
             r"""Return the condition-backed intersection of ``self`` and ``X``."""
             return self._subobjects_category().Of(
                 self.ambient(), (lambda x: x in self and x in X,)
             )
 
-        @final
         def difference(self, X: Subset) -> Subset:
             r"""Return the condition-backed set-theoretic difference ``self \ X``."""
             return self._subobjects_category().Of(
                 self.ambient(), (lambda x: x in self and x not in X,)
             )
 
-        @final
         def symmetric_difference(self, X: Subset) -> Subset:
             r"""Return the condition-backed symmetric difference with ``X``."""
             return self._subobjects_category().Of(

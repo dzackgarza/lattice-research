@@ -3,7 +3,7 @@ r"""Aut categories and automorphism method surfaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, final, override
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
 
@@ -28,7 +28,9 @@ def _aut_categories_of(category: Category) -> Category:
         end_category = category.EndCategory()
     else:
         end_category = category.HomCategory().EndCategory()
-    return cast("Category", end_category.AutCategory())
+    aut_category = end_category.AutCategory()
+    assert isinstance(aut_category, Category)
+    return aut_category
 
 
 def _is_invertible_endomorphism(endomorphism: UniversalEndElementMethods) -> bool:
@@ -36,17 +38,11 @@ def _is_invertible_endomorphism(endomorphism: UniversalEndElementMethods) -> boo
     return bool(endomorphism.is_invertible())
 
 
-def _condition_aut_object_from_end_category(
-    end_category: End, aut_category: Category
-) -> Aut:
+def _condition_aut_object_from_end_category(end_category: End) -> Aut:
     r"""Return the private Sage condition subset backing an aut object."""
-    return cast(
-        "Aut",
-        SageConditionSet(
-            end_category,
-            _is_invertible_endomorphism,
-            category=aut_category,
-        ),
+    return SageConditionSet(
+        end_category,
+        _is_invertible_endomorphism,
     )
 
 
@@ -54,7 +50,7 @@ def _aut_object_from_end_category(end_category: End, aut_category: Category) -> 
     r"""Return the project aut object backed by a private Sage condition subset."""
     from ..utils import refine_category
 
-    aut_object = _condition_aut_object_from_end_category(end_category, aut_category)
+    aut_object = _condition_aut_object_from_end_category(end_category)
     return refine_category(aut_object, [aut_category])
 
 
@@ -134,7 +130,6 @@ class AutCategory(CategoryWithAxiom_singleton):
     ElementMethods = UniversalAutElementMethods
 
 
-
 class AutCategoryConstruction(EndCategoryConstruction):
     r"""Functorial construction category for ``C.AutCategory()``.
 
@@ -146,7 +141,6 @@ class AutCategoryConstruction(EndCategoryConstruction):
     class ParentMethods: ...
 
     class ElementMethods: ...
-
 
     @final
     def from_end_category(self, end_category: End) -> Aut:
@@ -168,7 +162,7 @@ class AutCategoryConstruction(EndCategoryConstruction):
         super_categories = category.super_categories()
         if not super_categories:
             return AutCategory()
-        return Category.join(
+        return Cat().join(
             [_aut_categories_of(super_category) for super_category in super_categories]
         )
 

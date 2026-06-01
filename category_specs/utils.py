@@ -1,16 +1,13 @@
 import logging
 import os
-import inspect
 from collections.abc import Callable, Sequence
 from functools import wraps
 from textwrap import dedent
-from typing import Any, Protocol, TypeVar, cast, overload
+from typing import Any, Protocol, TypeVar, overload, runtime_checkable
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import AbstractMethod
 from sage.structure.parent import Parent
 
-PROJECT_MODULE_PREFIX = "category_specs."
 CATEGORY_DIAGNOSTIC_LOGGER_NAME = "category_specs.diagnostics"
 
 _FoldParent = TypeVar("_FoldParent", contravariant=True)
@@ -96,13 +93,16 @@ class _MissingFoldArgument: ...
 _MISSING_FOLD_ARGUMENT = _MissingFoldArgument()
 
 
+@runtime_checkable
 class _CategoryAxiomRefiner(Protocol):
     def _with_axiom(self, axiom: str) -> Category: ...
 
 
 def with_axiom(category: object, axiom: str) -> Category:
     r"""Return Sage's dynamic axiom refinement for ``category``."""
-    return cast(_CategoryAxiomRefiner, category)._with_axiom(axiom)
+    if not isinstance(category, _CategoryAxiomRefiner):
+        raise TypeError(f"{type(category).__name__} does not expose _with_axiom")
+    return category._with_axiom(axiom)
 
 
 def _fold_nonempty_binary_operation[FoldParent, FoldElement](
@@ -132,99 +132,18 @@ def foldable_operation[FoldParent, FoldElement](
             assert isinstance(left_or_elements, Sequence), (
                 "sequence overload requires a finite sequence"
             )
-            sequence = cast(Sequence[FoldElement], left_or_elements)
             return _fold_nonempty_binary_operation(
                 operation,
                 parent,
-                sequence,
+                left_or_elements,
             )
         return operation(
             parent,
-            cast(FoldElement, left_or_elements),
-            cast(FoldElement, right),
+            left_or_elements,
+            right,
         )
 
-    return cast(_FoldableOperation[FoldParent, FoldElement], folded_operation)
-
-
-def _is_project_method_provider(cls: type) -> bool:
-    return getattr(cls, "__module__", "").startswith(PROJECT_MODULE_PREFIX)
-
-
-def is_object_method_requirement(method: object) -> bool:
-    r"""Return whether ``method`` is an abstract object-method requirement."""
-    return isinstance(method, AbstractMethod) or bool(
-        getattr(method, "__isabstractmethod__", False)
-    )
-
-
-def is_concrete_object_method(method: object) -> bool:
-    r"""Return whether ``method`` is a concrete object method."""
-    return callable(method) and not is_object_method_requirement(method)
-
-
-def _abstract_method_owner(cls: type, name: str) -> type | None:
-    for base in cls.__mro__:
-        attr = base.__dict__.get(name)
-        if (
-            attr is not None
-            and is_object_method_requirement(attr)
-            and _is_project_method_provider(base)
-        ):
-            return base
-    return None
-
-
-def _abstract_method_classes(
-    X: Parent,
-    category: Category | None = None,
-) -> tuple[type, ...]:
-    category_parent_class = (category or X.category()).parent_class
-    if category_parent_class is type(X):
-        return (type(X),)
-    return (type(X), category_parent_class)
-
-
-def _has_concrete_parent_type_method(X: Parent, name: str) -> bool:
-    return is_concrete_object_method(inspect.getattr_static(type(X), name, None))
-
-
-def _validate_no_missing_abc_methods(
-    X: Parent,
-    category: Category | None = None,
-) -> None:
-    abstract_classes = _abstract_method_classes(X, category)
-    missing = sorted(
-        {
-            name
-            for cls in abstract_classes
-            for name in getattr(cls, "__abstractmethods__", frozenset())
-            if not _has_concrete_parent_type_method(X, name)
-        }
-    )
-    if not missing:
-        return
-
-    details = []
-    for name in missing:
-        owner = next(
-            (
-                abstract_owner
-                for cls in abstract_classes
-                if (abstract_owner := _abstract_method_owner(cls, name)) is not None
-            ),
-            None,
-        )
-        if owner is None:
-            details.append(name)
-        else:
-            details.append(f"{name} ({owner.__name__})")
-
-    detail_str = ", ".join(details)
-    raise TypeError(
-        f"Can't refine category of {type(X).__name__}: "
-        f"unimplemented abstract methods: {detail_str}"
-    )
+    return folded_operation
 
 
 def refine_category[_ParentT: Parent](
@@ -232,12 +151,10 @@ def refine_category[_ParentT: Parent](
     C: Category | Sequence[Category],
     test: bool = True,
 ) -> _ParentT:
+    from .cat.base_category_types import refine_parent_category
+
     categories = tuple(C) if isinstance(C, (list, tuple)) else (C,)
-    refined_category = Category.join((X.category(), *categories))
-    _validate_no_missing_abc_methods(X, refined_category)
-    X._refine_category_(categories)
-    if test:
-        X._test_not_implemented_methods()
+    refine_parent_category(X, categories)
     return X
 
 

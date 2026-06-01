@@ -5,7 +5,7 @@ from __future__ import annotations
 import builtins
 from abc import abstractmethod
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, Any, cast, final, override
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.finite_posets import FinitePosets as SageFinitePosets
 from sage.combinat.posets.posets import FinitePoset as SageFinitePoset
@@ -38,7 +38,9 @@ class _FinitePosets(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return posets and Sage finite posets as supercategories."""
-        return [Posets(), SageFinitePosets()]
+        from ...sets import Sets
+
+        return [Posets(), Sets().Finite(), SageFinitePosets()]
 
     class ParentMethods:
         @abstractmethod
@@ -139,10 +141,7 @@ class _FinitePosets(CategoryWithAxiom):
         @final
         def height_certificate(self) -> tuple[Integer, builtins.list[PosetElement]]:
             r"""Return the height with a maximum-cardinality chain."""
-            return cast(
-                "tuple[Integer, builtins.list[PosetElement]]",
-                SageFinitePoset.height(cast(Any, self), certificate=True),
-            )
+            return SageFinitePoset.height(self, certificate=True)
 
         @abstractmethod
         def width(self) -> Integer:
@@ -152,10 +151,7 @@ class _FinitePosets(CategoryWithAxiom):
         @final
         def width_certificate(self) -> tuple[Integer, builtins.list[PosetElement]]:
             r"""Return the width with a maximum-cardinality antichain."""
-            return cast(
-                "tuple[Integer, builtins.list[PosetElement]]",
-                SageFinitePoset.width(cast(Any, self), certificate=True),
-            )
+            return SageFinitePoset.width(self, certificate=True)
 
         @abstractmethod
         def is_ranked(self) -> bool:
@@ -170,19 +166,13 @@ class _FinitePosets(CategoryWithAxiom):
         @final
         def is_poset_morphism(self, f: PosetMorphism, codomain: Poset) -> bool:
             r"""Return whether ``f`` is order-preserving into ``codomain``."""
-            return cast(
-                bool,
-                SageFinitePosets.ParentMethods.is_poset_morphism(self, f, codomain),
-            )
+            return SageFinitePosets.ParentMethods.is_poset_morphism(self, f, codomain)
 
         @final
         def order_ideals_lattice(self, facade: bool = True) -> FiniteLatticePoset:
             r"""Return the finite distributive lattice of order ideals."""
-            return cast(
-                "FiniteLatticePoset",
-                SageFinitePosets.ParentMethods.order_ideals_lattice(
-                    self, as_ideals=True, facade=facade
-                ),
+            return SageFinitePosets.ParentMethods.order_ideals_lattice(
+                self, as_ideals=True, facade=facade
             )
 
         @abstractmethod
@@ -195,12 +185,7 @@ class _FinitePosets(CategoryWithAxiom):
             self,
         ) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a meet when false."""
-            return cast(
-                "tuple[bool, tuple[PosetElement, PosetElement] | None]",
-                SageFinitePoset.is_meet_semilattice(
-                    cast(Any, self), certificate=True
-                ),
-            )
+            return SageFinitePoset.is_meet_semilattice(self, certificate=True)
 
         @abstractmethod
         def is_join_semilattice(self) -> bool:
@@ -212,12 +197,7 @@ class _FinitePosets(CategoryWithAxiom):
             self,
         ) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a join when false."""
-            return cast(
-                "tuple[bool, tuple[PosetElement, PosetElement] | None]",
-                SageFinitePoset.is_join_semilattice(
-                    cast(Any, self), certificate=True
-                ),
-            )
+            return SageFinitePoset.is_join_semilattice(self, certificate=True)
 
         @abstractmethod
         def chains(self) -> Iterable[PosetSubset]:
