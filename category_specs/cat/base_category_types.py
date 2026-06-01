@@ -328,11 +328,7 @@ def _abc_parent_class_bases(category: SageCategory) -> tuple[type, ...]:
     bases: list[type] = []
     for source_category in category._super_categories_for_classes:
         _append_unique_class(bases, source_category.parent_class)
-    return tuple(
-        base
-        for base in bases
-        if not any(base is not other and issubclass(other, base) for other in bases)
-    )
+    return tuple(bases)
 
 
 def _static_category_class(category: SageCategory) -> type:
