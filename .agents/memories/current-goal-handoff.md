@@ -14,95 +14,80 @@ work has named objects, morphisms, and invariants, not raw matrices.
 
 ## Current next action
 
-Branch `fix/spec-refinement-class-api` exists to correct the ABC/refinement API boundary.
-The bridge target is now narrow: class/type-returning refinement for project-owned spec
-implementation classes. Instance-level `refine_category(X, ...) -> X` remains an
-existing-Sage-parent declaration path and a post-construction category declaration path
-after a project-owned class has already been instantiated through its refined class.
+Continue the Sage-surface inventory and mapping closure for
+`category_specs/lattices` from the remaining active cards in
+`PHASE-HOM-END-AUT-WORK-QUEUE` plus the broader lattice/subtree completion audit.
 
-Do not reintroduce refinement-time validation, abstract-name subtraction, generated
-failure bodies, cache priming, casts, or method-name cases. The model is:
+Handoff constraints to preserve:
 
-- `refine_category(ProjectParentClass, categories)` returns a dynamic class combining
-  the implementation class with the target category `parent_class`;
-- canonical project constructors instantiate that refined class so ABCMeta raises at
-  construction for missing project `ParentMethods` obligations;
-- existing Sage constructors may build a Sage parent and then declare it into project
-  categories by instance refinement;
-- Sage `__init__` methods that overwrite the instance category may require the sequence
-  class-refined instantiation first, then instance category declaration. That is the
-  current `Sets().Constructors().ImageSubobject(...)` pattern because Sage
-  `ImageSubobject.__init__` computes its own subobject category via `Parent.__init__`.
+- Keep `SPEC-MAPPING-LATTICES` as the lattice/spec routing source for lattice, module,
+  torsion, Homset, and form-adjacent surfaces.
+- Treat `invariants()` and `invariant_factors()` as `Modules(R).FinitelyPresented().OverPID()`
+  surfaces; lattice and torsion categories only inherit as appropriate.
+- Keep `TASK-FORMED-COKERNEL-DESCENDED-FORM` closed until a new source-backed contradiction
+  appears; do not reopen it as implementation work.
+- Do not add package-level import aliases as new mathematical constructors.
+- Treat `BinaryQF`, `BQFClassGroup`, and `TernaryQF` via forms-subtree obligations, not as
+  `Lattices(ZZ)` constructors.
 
-Current verified bridge evidence:
+Concrete routing state established in this segment:
 
-- abstract-only project `ElementMethods` are declaration surfaces and are not installed
-  as runtime ellipsis bodies on Sage element lookup;
-- Hom-category lifting skips raw Sage join categories whose class MRO does not declare
-  the project functor category;
-- `OrderTwoGroups().Constructors().Partial()` fails during refined-class instantiation
-  with ABCMeta naming only `is_abelian`; `Complete()` returns a usable object in
-  `OrderTwoGroups`;
-- AST/probe route audit found `constructor_redefinitions.py`, `rings`, `modules`,
-  `sets`, `posets`, `algebras`, hom/end/aut, and tensor-component routes. The only
-  project-owned wrapper route found using raw instance refinement was
-  `Sets().Constructors().ImageSubobject`, now routed through refined-class
-  instantiation before instance declaration.
+- Package-level import-route closure is in-scope only:
+  - `category_specs/lattices/docs/SAGE_INVENTORY.md`: add `sage/modules/all.py`,
+    `sage/quadratic_forms/genera/all.py`, and `sage/geometry/all.py` package routes.
+  - `SPEC-MAPPING-LATTICES.md`: map those aliases only to export-boundary status; keep constructor
+    ownership with `SPEC-MAPPING-MODULES` for `FreeModule`, `VectorSpace`, `span`,
+    `vector`, `free_module_element`, `zero_vector`, `random_vector`, `linear_transformation`,
+    `FilteredVectorSpace`, `MultiFilteredVectorSpace`; keep `IntegralLattice`/`TorsionQuadraticForm`
+    route ownership unchanged.
+  - The handoff must treat `sage.geometry.all` exports outside `ToricLattice` (for example:
+    cone/fan/polytope helpers, `PolyhedralComplex`, Voronoi, ribbon graph, hyperplane arrangement)
+    as non-lattice routing context.
+- Required read-before-edit check for this frontier remains:
+  - `category_specs/lattices/docs/SAGE_INVENTORY.md`
+  - `SPEC-MAPPING-LATTICES.md`
 
-Current verification frontier:
+Current unresolved obligation:
 
-- `python3 -m py_compile category_specs/sets/__init__.py category_specs/utils.py
-  category_specs/cat/base_category_types.py category_specs/homsets/homsets.py` passes.
-- `rings/tests/regression/object_method_resolution.sage` passes.
-- `rings/tests/regression/finite_fields.sage` passes.
-- `rings/tests/regression/integer_mod_rings.sage` passes.
-- `sets/tests/regression/set_partitions.sage` passes.
-- `sets/smoketest.sage` passes, with existing Sage warning noise about topological-set
-  axiom binding.
-- `homsets/smoketest.sage` passes.
-- `just --justfile category_specs/justfile check-banned-spec-patterns` reports 439
-  repo-wide findings and 13 staged findings in
-  `category_specs/rings/subcategories/rational_field.py`.
-  Treat those staged rational-field findings as a separate QC/staging issue unless the
-  live constructor/refinement task explicitly touches that file.
-- `rings/smoketest.sage` still fails on number-field base-category identity, p-adic/Zq
-  keyword drift, deferred lattice-precision extension constructors, multivariate
-  power-series keyword drift, and a Puiseux-series metaclass conflict.
-
-Next pickup should keep the constructor/refinement objective narrow: every project-owned
-canonical constructor must class-refine before instantiation, while existing Sage
-parents and singletons use named instance-declaration compatibility paths. Treat the
-rings smoke frontier and staged rational-field banned-pattern findings as separate
-failures unless a route is shown to be a raw-then-refined project-owned constructor
-violation. Do not restart from `finite_fields.sage`, `integer_mod_rings.sage`,
-`sets/smoketest.sage`, `homsets/smoketest.sage`, or the OrderTwoGroup fixture unless
-one of those regressions fails again.
+- Final symbol-by-symbol lattice/form/module audit for complete constructor ownership and
+  surface admission, with a hard gate that only the lattice subtree can add accepted lattice
+  constructor owners.
 
 ## Required context
 
 Before the next source edit, load:
 
+- `mem:onboarding`
+- `mem:repo-purpose-mathematical-research-machine`
 - `mem:category-spec-epistemic-foundation`
-- `mem:category-spec-repo-model-corrections`
-- `mem:category-spec-refinement-category-declaration`
-- `mem:category-spec-methods-are-abstract`
-- `mem:provider-satisfaction-goal-contract`
-- `mem:provider-satisfaction-goal-state`
+- `mem:category-spec-constructor-routes-are-category-owned`
+- `mem:category-spec-tests-use-category-api-not-private-classes`
+- `mem:category-spec-methods-live-at-most-general-owner`
 - `mem:category-spec-rotten-core-indicators`
 - `mem:mathematical-sanity-check`
-- `mem:sage-axiom-binding-is-descriptor-binding`
+- `mem:skills/category-spec-sage-mapping`
+- `mem:skills/category-spec-workflow`
 - `category_specs/AGENTS.md`
 - `category-spec-style`
 - `research-state-machine`
 
 ## Constraints
 
-- No sage-stubs writing.
+- Mapping and spec surfaces before downstream implementation.
+- No invented constructor names.
+- No ambient/global mutation as constructor compatibility.
+- No broad optional or variadic public APIs.
 - No downstream Coble work.
-- No `# type: ignore`.
-- No `typing.cast` additions in category-spec code.
-- No refinement-time abstract-method satisfaction checks.
-- No generated failure bodies for missing spec obligations.
-- No `with_axiom(self, "...")`; use Sage's direct `self._with_axiom("...")`
-  idiom where the descriptor binding is correct.
-- `NotImplementedError` remains rejected by pre-commit hook.
+- Methods live at the most general mathematical owner. Downstream objects inherit
+  surfaces unless they genuinely add new structure or refine hypotheses.
+- No documentation laundering: if a Sage surface is not admitted, classify it as
+  backend-only, interop/display/runtime, or an explicit missing-category/spec
+  obligation.
+- `SPEC-MAPPING-LATTICES` routes the formed-cokernel obligation through
+  `TASK-FORMED-COKERNEL-DESCENDED-FORM`, now task-level complete: the quotient object
+  with descended bilinear/quadratic form data is specified and reviewed. Do not call
+  this partially implemented; runtime implementation is outside the current spec
+  workflow.
+- The parent feature, `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`,
+  `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`, and five reopened phases are now
+  `in-progress` rather than falsely `complete` because new unstarted child tasks remain.
