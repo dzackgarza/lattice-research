@@ -139,6 +139,7 @@ barriers, and toric subobject/quotient parent preservation.
 | Line | Method | Signature | Notes |
 |------|--------|-----------|-------|
 | 401 | `__call__` | `(self, *args, **kwds)` | element constructor/coercion; variadic coordinate shortcut and quotient-element lift path |
+| 466 | `_coerce_map_from_` | `(self, other)` | coercion barrier for toric lattices with different ambient modules; returns `None` so element conversion is rejected by `__call__` rather than silently depending only on rank |
 | 486 | `__contains__` | `(self, point)` | parent membership via attempted coercion |
 | 527 | `construction` | `(self)` | returns `None` to prevent arithmetic between different toric lattices through Sage construction functors |
 | 544 | `direct_sum` | `(self, other)` | toric direct sum when `other` is a toric lattice, otherwise inherited free-module direct sum |
