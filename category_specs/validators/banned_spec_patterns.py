@@ -6,6 +6,7 @@ from __future__ import annotations
 import re
 import subprocess
 import sys
+import ast
 from collections import Counter
 from collections import defaultdict
 from dataclasses import dataclass
@@ -19,6 +20,7 @@ class Rule:
     pattern: re.Pattern[str]
     message: str
     action: str
+    hard_fail: bool = False
 
 
 @dataclass(frozen=True)
@@ -109,12 +111,101 @@ RULES = (
             "quiet typing or imitate prior agent output."
         ),
     ),
+    Rule(
+        name="attribute-rebinding-call",
+        pattern=re.compile(r"\b(?:setattr|delattr)\s*\(|__setattr__\s*\("),
+        message=(
+            "category_specs spec code must not mutate attributes to install, "
+            "replace, or temporarily inject category behavior"
+        ),
+        action=(
+            "Replace attribute rebinding with explicit category-owned surfaces. "
+            "Constructor routes belong on Cat().Constructors(); method/provider "
+            "relations belong in the category graph or a source-grounded interop "
+            "boundary, not in ambient mutation."
+        ),
+        hard_fail=True,
+    ),
+    Rule(
+        name="ambient-attribute-assignment",
+        pattern=re.compile(
+            r"^\s*(?!self\.)(?:\w+_module|sage_all|category|cls)\.[A-Za-z_]\w*\s*="
+        ),
+        message=(
+            "category_specs spec code must not publish mathematical behavior "
+            "by direct assignment to module, category, or class attributes"
+        ),
+        action=(
+            "Expose the constructor or method on the owning category class. "
+            "Direct ambient assignment is a monkeypatch-shaped substitute for "
+            "category graph or constructor-surface ownership."
+        ),
+        hard_fail=True,
+    ),
+    Rule(
+        name="dynamic-namespace-mutation",
+        pattern=re.compile(
+            r"\b(?:globals|locals)\s*\(\s*\)\s*\[|\bvars\s*\([^)]*\)\s*\["
+        ),
+        message=(
+            "category_specs spec code must not mutate dynamic namespaces to "
+            "publish or redirect mathematical surfaces"
+        ),
+        action=(
+            "Declare the public surface on the mathematical owner directly. "
+            "If a dynamic namespace bridge is truly unavoidable, move it out "
+            "of spec code into an explicit interop boundary with source-grounded "
+            "justification before relaxing this QC rule."
+        ),
+        hard_fail=True,
+    ),
+    Rule(
+        name="multi-category-refinement",
+        pattern=re.compile(r"a^"),
+        message=(
+            "category_specs spec code must refine to the smallest correct "
+            "category, not manually list several categories"
+        ),
+        action=(
+            "Replace refine_category(X, [A, B, ...]) with refinement to the "
+            "single mathematically minimal category. The category hierarchy owns "
+            "supercategory closure; manually stacking categories violates the "
+            "purpose of having a category hierarchy."
+        ),
+        hard_fail=True,
+    ),
+    Rule(
+        name="constructor-cast-call",
+        pattern=re.compile(r"a^"),
+        message=(
+            "category constructor collectors must not use typing.cast to assert "
+            "category membership or constructor result type"
+        ),
+        action=(
+            "Return the Sage-constructed object through refine_category to the "
+            "single source-grounded target category. If the type checker cannot "
+            "see the result, fix the constructor surface or static model instead "
+            "of casting inside the constructor collector."
+        ),
+        hard_fail=True,
+    ),
 )
 
 SPEC_PATH_PREFIX = "category_specs/"
 EXCLUDED_PREFIXES = ("category_specs/validators/",)
+ATTRIBUTE_REBINDING_INTEROP_BOUNDARIES = frozenset(
+    {
+        "category_specs/cat/base_category_types.py",
+    }
+)
 AXIOM_HELPER_PATTERN = re.compile(
     r"\bwith_axiom\s*\(\s*self\s*,\s*['\"](?P<axiom>[^'\"]+)['\"]"
+)
+MULTI_CATEGORY_REFINEMENT_RULE = next(
+    rule for rule in RULES if rule.name == "multi-category-refinement"
+)
+CONSTRUCTOR_CAST_RULE = next(
+    rule for rule in RULES if rule.name == "constructor-cast-call"
 )
 
 
@@ -129,7 +220,17 @@ def tracked_spec_python_paths() -> list[str]:
         path
         for path in result.stdout.splitlines()
         if path.endswith(".py") and not path.startswith(EXCLUDED_PREFIXES)
+        and Path(path).is_file()
     ]
+
+
+def rule_applies(path: str, rule: Rule) -> bool:
+    if (
+        rule.name == "attribute-rebinding-call"
+        and path in ATTRIBUTE_REBINDING_INTEROP_BOUNDARIES
+    ):
+        return False
+    return True
 
 
 def staged_spec_python_paths() -> set[str]:
@@ -244,6 +345,143 @@ def print_repair_frontier(title: str, findings: list[Finding]) -> None:
                 "source-grounded Sage category identity/cache requirement is visible"
             )
 
+        attribute_rebinding_findings = by_rule.get("attribute-rebinding-call", [])
+        if attribute_rebinding_findings:
+            print(
+                "  - remove attribute rebinding calls at lines "
+                f"{location_list(attribute_rebinding_findings)}; category specs "
+                "must expose constructors and methods through their mathematical "
+                "owners, not through ambient mutation"
+            )
+
+        ambient_assignment_findings = by_rule.get("ambient-attribute-assignment", [])
+        if ambient_assignment_findings:
+            print(
+                "  - remove ambient attribute assignments at lines "
+                f"{location_list(ambient_assignment_findings)}; publish the "
+                "constructor or method on the owning category surface instead"
+            )
+
+        dynamic_namespace_findings = by_rule.get("dynamic-namespace-mutation", [])
+        if dynamic_namespace_findings:
+            print(
+                "  - remove dynamic namespace mutation at lines "
+                f"{location_list(dynamic_namespace_findings)}; publish the surface "
+                "on the owning category or move a proven interop bridge out of "
+                "spec code"
+            )
+
+        multi_refinement_findings = by_rule.get("multi-category-refinement", [])
+        if multi_refinement_findings:
+            print(
+                "  - replace multi-category refinements at lines "
+                f"{location_list(multi_refinement_findings)} with the single "
+                "smallest mathematically correct category; inherited categories "
+                "belong to the category graph"
+            )
+
+        constructor_cast_findings = by_rule.get("constructor-cast-call", [])
+        if constructor_cast_findings:
+            print(
+                "  - remove constructor-local casts at lines "
+                f"{location_list(constructor_cast_findings)}; constructor results "
+                "must be admitted by refine_category into the source-grounded "
+                "target category, not asserted by typing.cast"
+            )
+
+
+def ast_multi_category_refinement_findings(
+    path: str, text: str, staged: bool
+) -> list[Finding]:
+    try:
+        tree = ast.parse(text, filename=path)
+    except SyntaxError:
+        return []
+
+    lines = text.splitlines()
+    findings: list[Finding] = []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        function = node.func
+        if isinstance(function, ast.Name):
+            function_name = function.id
+        elif isinstance(function, ast.Attribute):
+            function_name = function.attr
+        else:
+            continue
+        if function_name != "refine_category" or len(node.args) < 2:
+            continue
+        categories = node.args[1]
+        if not isinstance(categories, ast.List | ast.Tuple):
+            continue
+        if len(categories.elts) <= 1:
+            continue
+        line_number = node.lineno
+        line = lines[line_number - 1] if 0 < line_number <= len(lines) else ""
+        findings.append(
+            Finding(
+                path=path,
+                line_number=line_number,
+                rule=MULTI_CATEGORY_REFINEMENT_RULE,
+                line=line,
+                staged=staged,
+            )
+        )
+    return findings
+
+
+def ast_constructor_cast_findings(path: str, text: str, staged: bool) -> list[Finding]:
+    try:
+        tree = ast.parse(text, filename=path)
+    except SyntaxError:
+        return []
+
+    lines = text.splitlines()
+    findings: list[Finding] = []
+
+    class ConstructorCastVisitor(ast.NodeVisitor):
+        def __init__(self) -> None:
+            self.class_stack: list[str] = []
+
+        def visit_ClassDef(self, node: ast.ClassDef) -> None:
+            self.class_stack.append(node.name)
+            self.generic_visit(node)
+            self.class_stack.pop()
+
+        def visit_Call(self, node: ast.Call) -> None:
+            if any(
+                class_name in {"Constructors", "_Constructors"}
+                for class_name in self.class_stack
+            ):
+                function = node.func
+                if isinstance(function, ast.Name):
+                    function_name = function.id
+                elif isinstance(function, ast.Attribute):
+                    function_name = function.attr
+                else:
+                    function_name = ""
+                if function_name == "cast":
+                    line_number = node.lineno
+                    line = (
+                        lines[line_number - 1]
+                        if 0 < line_number <= len(lines)
+                        else ""
+                    )
+                    findings.append(
+                        Finding(
+                            path=path,
+                            line_number=line_number,
+                            rule=CONSTRUCTOR_CAST_RULE,
+                            line=line,
+                            staged=staged,
+                        )
+                    )
+            self.generic_visit(node)
+
+    ConstructorCastVisitor().visit(tree)
+    return findings
+
 
 def print_exact_findings(title: str, findings: list[Finding]) -> None:
     print(title)
@@ -268,6 +506,8 @@ def main() -> int:
         text = Path(path).read_text(encoding="utf-8")
         for line_number, line in enumerate(text.splitlines(), start=1):
             for rule in RULES:
+                if not rule_applies(path, rule):
+                    continue
                 if rule.pattern.search(line):
                     findings.append(
                         Finding(
@@ -278,11 +518,23 @@ def main() -> int:
                             staged=path in staged_paths,
                         )
                     )
+        findings.extend(
+            ast_multi_category_refinement_findings(
+                path, text, path in staged_paths
+            )
+        )
+        findings.extend(ast_constructor_cast_findings(path, text, path in staged_paths))
 
     if findings:
         staged_findings = [finding for finding in findings if finding.staged]
+        hard_fail_findings = [
+            finding for finding in findings if finding.rule.hard_fail
+        ]
         by_rule = Counter(finding.rule.name for finding in findings)
         staged_by_rule = Counter(finding.rule.name for finding in staged_findings)
+        hard_fail_by_rule = Counter(
+            finding.rule.name for finding in hard_fail_findings
+        )
         by_file = Counter(finding.path for finding in findings)
         print("WARNING: category_specs spec code contains banned patterns.")
         print()
@@ -290,9 +542,12 @@ def main() -> int:
         print(f"- scanned files: {len(tracked_spec_python_paths())}")
         print(f"- affected files: {len(by_file)}")
         print(f"- total findings: {len(findings)}")
+        print(f"- hard-fail findings: {len(hard_fail_findings)}")
         print(f"- staged affected files: {len({f.path for f in staged_findings})}")
         print(f"- staged findings: {len(staged_findings)}")
         print(f"- mode: {'fail on staged findings' if fail_on_staged else 'warning only'}")
+        print()
+        print_repair_frontier("Hard-fail repair frontier:", hard_fail_findings)
         print()
         print_repair_frontier("Immediate staged repair frontier:", staged_findings)
         print()
@@ -301,7 +556,9 @@ def main() -> int:
             total = by_rule[rule.name]
             staged = staged_by_rule[rule.name]
             if total:
-                print(f"- {rule.name}: {total} total, {staged} staged")
+                hard = hard_fail_by_rule[rule.name]
+                hard_marker = f", {hard} hard-fail" if hard else ""
+                print(f"- {rule.name}: {total} total, {staged} staged{hard_marker}")
                 print(f"  Action: {rule.action}")
         print()
         print("Repo-wide inherited debt by file:")
@@ -315,6 +572,15 @@ def main() -> int:
         print_exact_findings("Exact staged findings:", staged_findings)
         print()
         print_exact_findings("Exact inherited findings:", inherited_findings)
+
+        if hard_fail_findings:
+            print()
+            print(
+                "QC rejected: category_specs contains hard-fail patterns that "
+                "can hide constructor ownership, provider routing, category "
+                "graph defects, or constructor result/category obligations."
+            )
+            return 1
 
         if fail_on_staged and staged_findings:
             print()

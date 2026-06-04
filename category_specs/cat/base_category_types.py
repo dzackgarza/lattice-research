@@ -11,6 +11,13 @@ ambient category of 1-categories in this spec, not an object of itself, so it
 inherits directly from Sage's singleton category base in ``cat/__init__.py``.
 Every ordinary project category below that root should inherit from the
 re-exports in this file instead of raw ``sage.categories.*`` bases.
+
+This file is also the only category-spec Python file allowed to perform
+attribute rebinding.  The rebinding here is not a mathematical surface: it is
+the source-grounded bridge to Sage's generated ``parent_class`` /
+``subcategory_class`` machinery and to the aggregate ``Cat().Constructors()``
+view.  Spec categories, constructor collectors, smokes, and mapping code must
+not copy this pattern.
 """
 
 from __future__ import annotations
@@ -579,8 +586,6 @@ def _make_named_parent_class_with_abc(
             f"{cls.__name__}.{method_provider} should be a class"
         )
         doccls = method_provider_cls
-        bases = (*bases, _abc_method_provider(method_provider_cls))
-        method_provider_cls = _concrete_method_provider(method_provider_cls)
 
     reduction = (getattr, (category, name)) if picklable else None
     return _dynamic_abc_class(
