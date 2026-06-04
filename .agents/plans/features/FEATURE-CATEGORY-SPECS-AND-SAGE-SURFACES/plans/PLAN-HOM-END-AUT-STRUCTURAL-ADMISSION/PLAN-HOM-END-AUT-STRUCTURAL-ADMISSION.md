@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
 title: Hom End Aut structural admission
-status: complete
+status: in-progress
 priority: critical
 owner: Zack
 description: Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups

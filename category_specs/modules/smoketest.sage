@@ -26,16 +26,19 @@ from category_specs.modules.subcategories.torsion import _Torsion
 from category_specs.modules.subcategories.torsionfree import _Torsionfree
 from category_specs.modules.subcategories.with_ordered_generating_set import _WithOrderedGeneratingSet
 from category_specs.modules.subcategories.with_basis import _WithBasis, _WithOrderedBasis
+from category_specs.rings import Rings
 from category_specs.sets import Sets
 from category_specs.utils import assert_smoke_statements, refine_category
 from sage.modules.fp_graded.free_module import FreeGradedModule
 
 
-R6 = IntegerModRing(6)
+NR = Rings().Constructors()
+
+R6 = NR.IntegerModRing(order=6)
 NM6 = Modules(R6).Constructors()
 MR6 = Modules(R6)
 
-PZ = PolynomialRing(ZZ, "x")
+PZ = NR.PolynomialRing(base_ring=ZZ, name="x")
 NMPZ = Modules(PZ).Constructors()
 MPZ = Modules(PZ)
 
@@ -44,12 +47,12 @@ NMQQ = Modules(QQ).Constructors()
 MZZCat = Modules(ZZ)
 MQQCat = Modules(QQ)
 
-V = VectorSpace(QQ, 3)
+V = NMQQ.VectorSpace(dimension=3)
 W = V.subspace([V.gen(0), V.gen(1)])
 Wb = V.subspace_with_basis([V.gen(0), V.gen(1)])
 Q = V.quotient_module(W)
 
-M = FreeModule(ZZ, 3)
+M = NMZZ.FreeModule(rank=3)
 S = M.submodule([2 * M.gen(0), 3 * M.gen(1)])
 Sb = M.submodule_with_basis([2 * M.gen(0), 3 * M.gen(1)])
 Qfree = M.quotient_module(S)
@@ -67,7 +70,7 @@ E = ExteriorAlgebra(QQ, names=("x", "y"))
 xE, yE = E.gens()
 NME = Modules(E).Constructors()
 
-K = GF(5**3, "z")
+K = NR.GF(order=5**3, name="z")
 z = K.gen()
 Sore = OrePolynomialRing(K, K.frobenius_endomorphism(), names="X")
 X = Sore.gen()
@@ -76,17 +79,17 @@ NMK = Modules(K).Constructors()
 
 def fp_module_from_identity_cokernel():
     F = FreeGradedModule(E, [0, 1])
-    return NME.FPModuleFromCokernelMap(Hom(F, F).identity())
+    return NME.FPModule(defining_map=Hom(F, F).identity())
 
 
 def integer_lattice_from_cyclotomic_order_element():
-    K5 = CyclotomicField(5)
+    K5 = NR.CyclotomicField(n=5, names="zeta")
     O5 = K5.ring_of_integers()
-    return NMZZ.IntegerLatticeFromOrderElement(O5(K5.gen()))
+    return NMZZ.IntegerLattice(basis=O5(K5.gen()))
 
 
 def rational_quotient_split_methods_have_one_dimensional_outputs():
-    V = VectorSpace(QQ, 3)
+    V = NMQQ.VectorSpace(dimension=3)
     W = V.subspace([V.gen(2)])
     Q = V.quotient_module(W)
     methods = ModuleQuotients.ParentMethods
@@ -100,16 +103,6 @@ def rational_quotient_split_methods_have_one_dimensional_outputs():
     assert quotient_by_relation_matrix.dimension() == 1
     assert quotient_by_relation_rows.dimension() == 1
     return True
-
-
-class _BasisWitness(_WithBasis.ParentMethods):
-    def basis(self):
-        return {"a": a, "b": b}
-
-
-class _OrderedBasisWitness(_WithOrderedBasis.ParentMethods):
-    def basis(self):
-        return {"a": a, "b": b}
 
 
 class _BaseModulePredicateWitness(_RModObjects):
@@ -139,18 +132,18 @@ def refine_for_membership(parent, categories):
 
 SMOKE_STATEMENTS = (
     (
-        "Modules(Zmod(6)).Constructors().FreeModule(2) is finite-rank free",
-        lambda _: NM6.FreeModule(2) in MR6.Free().FiniteRank().WithOrderedBasis(),
+        "Modules(Zmod(6)).Constructors().FreeModule(rank=2) is finite-rank free",
+        lambda _: NM6.FreeModule(rank=2) in MR6.Free().FiniteRank().WithOrderedBasis(),
     ),
     (
-        "Modules(Zmod(6)).Constructors().FreeModule(2) is finite over finite base ring",
-        lambda _: NM6.FreeModule(2) in MR6.Finite(),
+        "Modules(Zmod(6)).Constructors().FreeModule(rank=2) is finite over finite base ring",
+        lambda _: NM6.FreeModule(rank=2) in MR6.Finite(),
     ),
     (
-        "Modules(Zmod(6)).Constructors().FreeModule(2) has ordered basis",
-        lambda _: NM6.FreeModule(2) in MR6.WithOrderedBasis(),
+        "Modules(Zmod(6)).Constructors().FreeModule(rank=2) has ordered basis",
+        lambda _: NM6.FreeModule(rank=2) in MR6.WithOrderedBasis(),
     ),
-    ("Modules(Zmod(6)).Constructors().FreeModule(2) has base ring Zmod(6)", lambda _: NM6.FreeModule(2).base_ring() is R6),
+    ("Modules(Zmod(6)).Constructors().FreeModule(rank=2) has base ring Zmod(6)", lambda _: NM6.FreeModule(rank=2).base_ring() is R6),
     (
         "module Hom category owns scalar multiplication and form-refinement surfaces",
         lambda _: abstract_method_has_name(_RModMorphisms.scale, "scale")
@@ -183,6 +176,8 @@ SMOKE_STATEMENTS = (
     (
         "finite-presentation module categories own presentation and Smith surfaces",
         lambda _: abstract_method_has_name(_FinitelyPresentedGradedModules.ParentMethods.presentation, "presentation")
+        and abstract_method_has_name(FinitelyPresentedModulesOverPID.ParentMethods.invariants, "invariants")
+        and abstract_method_has_name(FinitelyPresentedModulesOverPID.ParentMethods.invariant_factors, "invariant_factors")
         and abstract_method_has_name(FinitelyPresentedModulesOverPID.ParentMethods.smith_form_gens, "smith_form_gens")
         and abstract_method_has_name(FinitelyPresentedModulesOverPID.Torsion.ParentMethods.is_p_elementary, "is_p_elementary"),
     ),
@@ -190,71 +185,71 @@ SMOKE_STATEMENTS = (
         "Ore modules own companion-matrix surface",
         lambda _: abstract_method_has_name(_OreModules.ParentMethods.companion_matrix, "companion_matrix"),
     ),
-    ("Modules(Zmod(6)).Constructors().FreeModule(2) has rank 2", lambda _: NM6.FreeModule(2).rank() == 2),
+    ("Modules(Zmod(6)).Constructors().FreeModule(rank=2) has rank 2", lambda _: NM6.FreeModule(rank=2).rank() == 2),
     (
-        "Modules(QQ).Constructors().FreeModuleWithBasisKeys({a, b}) has two basis keys",
-        lambda _: NMQQ.FreeModuleWithBasisKeys(Sets().Constructors().FiniteEnumeratedSet(["a", "b"])).basis().keys().cardinality()
+        "Modules(QQ).Constructors().FreeModule(basis_keys={a, b}) has two basis keys",
+        lambda _: NMQQ.FreeModule(basis_keys=Sets().Constructors().FiniteEnumeratedSet(["a", "b"])).basis().keys().cardinality()
         == 2,
     ),
     (
-        "Modules(Zmod(6)).Constructors().FreeModuleWithoutBasis(2) has rank 2",
-        lambda _: NM6.FreeModuleWithoutBasis(2).rank() == 2,
+        "Modules(Zmod(6)).Constructors().FreeModule(rank=2, with_basis=None) has rank 2",
+        lambda _: NM6.FreeModule(rank=2, with_basis=None).rank() == 2,
     ),
     (
-        "Modules(Zmod(6)).Constructors().FreeModuleWithInnerProductRows(...) records the Gram matrix",
-        lambda _: NM6.FreeModuleWithInnerProductRows(2, [[1, 0], [0, 1]]).inner_product_matrix()
+        "Modules(Zmod(6)).Constructors().FreeModule(inner_product_rows=...) records the Gram matrix",
+        lambda _: NM6.FreeModule(rank=2, inner_product_rows=[[1, 0], [0, 1]]).inner_product_matrix()
         == matrix(R6, [[1, 0], [0, 1]]),
     ),
     (
-        "Modules(Zmod(6)).Constructors().FreeModuleWithInnerProductEntries(...) records the Gram matrix",
-        lambda _: NM6.FreeModuleWithInnerProductEntries(2, [1, 0, 0, 1]).inner_product_matrix()
+        "Modules(Zmod(6)).Constructors().FreeModule(inner_product_entries=...) records the Gram matrix",
+        lambda _: NM6.FreeModule(rank=2, inner_product_entries=[1, 0, 0, 1]).inner_product_matrix()
         == matrix(R6, [[1, 0], [0, 1]]),
     ),
     (
-        "Modules(ZZ['x']).Constructors().FreeModule(2) is free over an integral domain",
-        lambda _: NMPZ.FreeModule(2) in MPZ.Free().FiniteRank().WithOrderedBasis(),
+        "Modules(ZZ['x']).Constructors().FreeModule(rank=2) is free over an integral domain",
+        lambda _: NMPZ.FreeModule(rank=2) in MPZ.Free().FiniteRank().WithOrderedBasis(),
     ),
-    ("Modules(ZZ['x']).Constructors().FreeModule(2) has base ring ZZ['x']", lambda _: NMPZ.FreeModule(2).base_ring() is PZ),
-    ("Modules(ZZ['x']).Constructors().FreeModule(2) has rank 2", lambda _: NMPZ.FreeModule(2).rank() == 2),
+    ("Modules(ZZ['x']).Constructors().FreeModule(rank=2) has base ring ZZ['x']", lambda _: NMPZ.FreeModule(rank=2).base_ring() is PZ),
+    ("Modules(ZZ['x']).Constructors().FreeModule(rank=2) has rank 2", lambda _: NMPZ.FreeModule(rank=2).rank() == 2),
     (
-        "Modules(ZZ).Constructors().FreeModule(2) is free over a PID",
-        lambda _: NMZZ.FreeModule(2) in MZZCat.Free().FiniteRank().WithOrderedBasis(),
+        "Modules(ZZ).Constructors().FreeModule(rank=2) is free over a PID",
+        lambda _: NMZZ.FreeModule(rank=2) in MZZCat.Free().FiniteRank().WithOrderedBasis(),
     ),
-    ("Modules(ZZ).Constructors().FreeModule(2) has base ring ZZ", lambda _: NMZZ.FreeModule(2).base_ring() is ZZ),
-    ("Modules(ZZ).Constructors().FreeModule(2) has rank 2", lambda _: NMZZ.FreeModule(2).rank() == 2),
+    ("Modules(ZZ).Constructors().FreeModule(rank=2) has base ring ZZ", lambda _: NMZZ.FreeModule(rank=2).base_ring() is ZZ),
+    ("Modules(ZZ).Constructors().FreeModule(rank=2) has rank 2", lambda _: NMZZ.FreeModule(rank=2).rank() == 2),
     (
-        "Modules(QQ).Constructors().VectorSpace(2) is finite-rank free",
-        lambda _: NMQQ.VectorSpace(2) in MQQCat.Free().FiniteRank().WithOrderedBasis(),
+        "Modules(QQ).Constructors().VectorSpace(dimension=2) is finite-rank free",
+        lambda _: NMQQ.VectorSpace(dimension=2) in MQQCat.Free().FiniteRank().WithOrderedBasis(),
     ),
-    ("Modules(QQ).Constructors().VectorSpace(2) is over a field", lambda _: NMQQ.VectorSpace(2) in MQQCat.OverField()),
-    ("Modules(QQ).Constructors().VectorSpace(2) has base ring QQ", lambda _: NMQQ.VectorSpace(2).base_ring() is QQ),
-    ("Modules(QQ).Constructors().VectorSpace(2) has dimension 2", lambda _: NMQQ.VectorSpace(2).dimension() == 2),
+    ("Modules(QQ).Constructors().VectorSpace(dimension=2) is over a field", lambda _: NMQQ.VectorSpace(dimension=2) in MQQCat.OverField()),
+    ("Modules(QQ).Constructors().VectorSpace(dimension=2) has base ring QQ", lambda _: NMQQ.VectorSpace(dimension=2).base_ring() is QQ),
+    ("Modules(QQ).Constructors().VectorSpace(dimension=2) has dimension 2", lambda _: NMQQ.VectorSpace(dimension=2).dimension() == 2),
     (
-        "Modules(QQ).Constructors().VectorSpaceWithBasisKeys({a, b}) has two basis keys",
-        lambda _: NMQQ.VectorSpaceWithBasisKeys(Sets().Constructors().FiniteEnumeratedSet(["a", "b"])).basis().keys().cardinality()
+        "Modules(QQ).Constructors().VectorSpace(basis_keys={a, b}) has two basis keys",
+        lambda _: NMQQ.VectorSpace(basis_keys=Sets().Constructors().FiniteEnumeratedSet(["a", "b"])).basis().keys().cardinality()
         == 2,
     ),
     (
-        "Modules(QQ).Constructors().VectorSpaceWithoutBasis(2) has dimension 2",
-        lambda _: NMQQ.VectorSpaceWithoutBasis(2).dimension() == 2,
+        "Modules(QQ).Constructors().VectorSpace(dimension=2, with_basis=None) has dimension 2",
+        lambda _: NMQQ.VectorSpace(dimension=2, with_basis=None).dimension() == 2,
     ),
     (
-        "Modules(QQ).Constructors().VectorSpaceWithInnerProductRows(...) records the Gram matrix",
-        lambda _: NMQQ.VectorSpaceWithInnerProductRows(2, [[1, 0], [0, 1]]).inner_product_matrix()
+        "Modules(QQ).Constructors().VectorSpace(inner_product_rows=...) records the Gram matrix",
+        lambda _: NMQQ.VectorSpace(dimension=2, inner_product_rows=[[1, 0], [0, 1]]).inner_product_matrix()
         == matrix(QQ, [[1, 0], [0, 1]]),
     ),
     (
-        "Modules(QQ).Constructors().VectorSpaceWithInnerProductEntries(...) records the Gram matrix",
-        lambda _: NMQQ.VectorSpaceWithInnerProductEntries(2, [1, 0, 0, 1]).inner_product_matrix()
+        "Modules(QQ).Constructors().VectorSpace(inner_product_entries=...) records the Gram matrix",
+        lambda _: NMQQ.VectorSpace(dimension=2, inner_product_entries=[1, 0, 0, 1]).inner_product_matrix()
         == matrix(QQ, [[1, 0], [0, 1]]),
     ),
     (
-        "Modules(RDF).Constructors().FreeModule(2) is finite-rank free",
-        lambda _: Modules(RDF).Constructors().FreeModule(2) in Modules(RDF).Free().FiniteRank().WithOrderedBasis(),
+        "Modules(RDF).Constructors().FreeModule(rank=2) is finite-rank free",
+        lambda _: Modules(RDF).Constructors().FreeModule(rank=2) in Modules(RDF).Free().FiniteRank().WithOrderedBasis(),
     ),
     (
-        "Modules(CDF).Constructors().FreeModule(2) is finite-rank free",
-        lambda _: Modules(CDF).Constructors().FreeModule(2) in Modules(CDF).Free().FiniteRank().WithOrderedBasis(),
+        "Modules(CDF).Constructors().FreeModule(rank=2) is finite-rank free",
+        lambda _: Modules(CDF).Constructors().FreeModule(rank=2) in Modules(CDF).Free().FiniteRank().WithOrderedBasis(),
     ),
     (
         "refine_category(V.subspace(...), Subobjects()) is a module subobject",
@@ -279,20 +274,20 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Modules(ZZ).Constructors().FreeQuadraticModule(...) is quadratic",
-        lambda _: NMZZ.FreeQuadraticModule(2, matrix(ZZ, [[2, 1], [1, 2]])) in MZZCat.WithForms().Quadratic(),
+        lambda _: NMZZ.FreeQuadraticModule(rank=2, inner_product_matrix=matrix(ZZ, [[2, 1], [1, 2]])) in MZZCat.WithForms().Quadratic(),
     ),
     (
         "Modules(ZZ).Constructors().FreeQuadraticModule(...) has rank 2",
-        lambda _: NMZZ.FreeQuadraticModule(2, matrix(ZZ, [[2, 1], [1, 2]])).rank() == 2,
+        lambda _: NMZZ.FreeQuadraticModule(rank=2, inner_product_matrix=matrix(ZZ, [[2, 1], [1, 2]])).rank() == 2,
     ),
     (
-        "Modules(ZZ).Constructors().FreeQuadraticModuleFromRows(...) records the form",
-        lambda _: NMZZ.FreeQuadraticModuleFromRows(2, [[2, 1], [1, 2]]).inner_product_matrix()
+        "Modules(ZZ).Constructors().FreeQuadraticModule(inner_product_rows=...) records the form",
+        lambda _: NMZZ.FreeQuadraticModule(rank=2, inner_product_rows=[[2, 1], [1, 2]]).inner_product_matrix()
         == matrix(ZZ, [[2, 1], [1, 2]]),
     ),
     (
-        "Modules(ZZ).Constructors().FreeQuadraticModuleFromEntries(...) records the form",
-        lambda _: NMZZ.FreeQuadraticModuleFromEntries(2, [2, 1, 1, 2]).inner_product_matrix()
+        "Modules(ZZ).Constructors().FreeQuadraticModule(inner_product_entries=...) records the form",
+        lambda _: NMZZ.FreeQuadraticModule(rank=2, inner_product_entries=[2, 1, 1, 2]).inner_product_matrix()
         == matrix(ZZ, [[2, 1], [1, 2]]),
     ),
     (
@@ -362,9 +357,10 @@ SMOKE_STATEMENTS = (
         and (2 * a + 5 * b).monomials() == [a, b],
     ),
     (
-        "with-basis forwarding helpers expose basis index and ordered basis order",
-        lambda _: list(_BasisWitness().basis_index_set()) == ["a", "b"]
-        and _OrderedBasisWitness().basis_order() == ("a", "b"),
+        "category constructors expose basis index and ordered basis order through refined modules",
+        lambda _: list(NMQQ.CombinatorialFreeModule(Sets().Constructors().FiniteEnumeratedSet(["a", "b"])).basis_index_set())
+        == ["a", "b"]
+        and NMQQ.VectorSpace(dimension=2).basis_order() == (0, 1),
     ),
     (
         "with-basis category owns abstract reduction and morphism construction surfaces",
@@ -397,54 +393,54 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(...) is finitely presented graded",
-        lambda _: NME.FPModule(E, [0, 0], [[xE, yE]]) in Modules(E).FinitelyPresentedGradedModules(),
+        lambda _: NME.FPModule(algebra=E, generator_degrees=[0, 0], relations=[[xE, yE]]) in Modules(E).FinitelyPresentedGradedModules(),
     ),
     (
-        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModuleFromPresentation(...) is finitely presented graded",
-        lambda _: NME.FPModuleFromPresentation(E, generator_degrees=[0, 0], relations=[[xE, yE]])
+        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(algebra=...) is finitely presented graded",
+        lambda _: NME.FPModule(algebra=E, generator_degrees=[0, 0], relations=[[xE, yE]])
         in Modules(E).FinitelyPresentedGradedModules(),
     ),
     (
-        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModuleFromFreeGradedModule(...) is finitely presented graded",
-        lambda _: NME.FPModuleFromFreeGradedModule(NME.FreeGradedModule(E, [0, 1]))
+        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(module=...) is finitely presented graded",
+        lambda _: NME.FPModule(module=NME.FreeGradedModule(E, [0, 1]))
         in Modules(E).FinitelyPresentedGradedModules(),
     ),
     (
-        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModuleFromCokernelMap(identity) is trivial",
+        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(defining_map=identity) is trivial",
         lambda _: fp_module_from_identity_cokernel().is_trivial(),
     ),
     (
-        "Modules(GF(5^3)).Constructors().OreQuotientModule(S, X^2 + z) is an Ore module",
+        "Modules(NR.GF(order=5^3, name='z')).Constructors().OreQuotientModule(S, X^2 + z) is an Ore module",
         lambda _: NMK.OreQuotientModule(Sore, X**2 + z) in Modules(K).OreModules(),
     ),
     (
         "Modules(ZZ).Constructors().IntegerLattice(...) is an integer lattice",
-        lambda _: NMZZ.IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]]) in MZZCat.IntegerLattices(),
+        lambda _: NMZZ.IntegerLattice(basis=[[1, 0, 3], [0, 2, 1], [0, 2, 7]]) in MZZCat.IntegerLattices(),
     ),
     (
         "Modules(ZZ).Constructors().IntegerLattice(...) has rank 3",
-        lambda _: NMZZ.IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]]).rank() == 3,
+        lambda _: NMZZ.IntegerLattice(basis=[[1, 0, 3], [0, 2, 1], [0, 2, 7]]).rank() == 3,
     ),
     (
-        "Modules(ZZ).Constructors().IntegerLatticeFromBasisMatrix(...) has rank 3",
-        lambda _: NMZZ.IntegerLatticeFromBasisMatrix(matrix(ZZ, [[1, 0, 3], [0, 2, 1], [0, 2, 7]])).rank() == 3,
+        "Modules(ZZ).Constructors().IntegerLattice(basis=matrix(...)) has rank 3",
+        lambda _: NMZZ.IntegerLattice(basis=matrix(ZZ, [[1, 0, 3], [0, 2, 1], [0, 2, 7]])).rank() == 3,
     ),
     (
-        "Modules(ZZ).Constructors().IntegerLatticeFromBasisRows(...) has rank 3",
-        lambda _: NMZZ.IntegerLatticeFromBasisRows([[1, 0, 3], [0, 2, 1], [0, 2, 7]]).rank() == 3,
+        "Modules(ZZ).Constructors().IntegerLattice(basis=rows) has rank 3",
+        lambda _: NMZZ.IntegerLattice(basis=[[1, 0, 3], [0, 2, 1], [0, 2, 7]]).rank() == 3,
     ),
     (
-        "Modules(ZZ).Constructors().IntegerLatticeFromOrderElement(zeta_5) has rank 4",
+        "Modules(ZZ).Constructors().IntegerLattice(basis=zeta_5) has rank 4",
         lambda _: integer_lattice_from_cyclotomic_order_element().rank() == 4,
     ),
     (
         "Modules(ZZ).Constructors().TorsionQuadraticForm(...) is a torsion quadratic module",
-        lambda _: NMZZ.TorsionQuadraticForm(matrix(QQ, [[1, QQ(1) / 2], [QQ(1) / 2, 1]]))
+        lambda _: NMZZ.TorsionQuadraticForm(q=matrix(QQ, [[1, QQ(1) / 2], [QQ(1) / 2, 1]]))
         in MZZCat.TorsionQuadraticModules(),
     ),
     (
-        "Modules(ZZ).Constructors().TorsionQuadraticFormFromRows(...) is a torsion quadratic module",
-        lambda _: NMZZ.TorsionQuadraticFormFromRows([[1, QQ(1) / 2], [QQ(1) / 2, 1]])
+        "Modules(ZZ).Constructors().TorsionQuadraticForm(q=rows) is a torsion quadratic module",
+        lambda _: NMZZ.TorsionQuadraticForm(q=[[1, QQ(1) / 2], [QQ(1) / 2, 1]])
         in MZZCat.TorsionQuadraticModules(),
     ),
     (
@@ -485,8 +481,8 @@ SMOKE_STATEMENTS = (
         lambda _: NMZZ.laurent_series_ring_as_module("t") in MZZCat.RingObjectsAsModules(),
     ),
     (
-        "Modules(ZZ).Constructors().laurent_series_ring_from_power_series_as_module(...) is a ring object as a module",
-        lambda _: NMZZ.laurent_series_ring_from_power_series_as_module(PowerSeriesRing(ZZ, "u"))
+        "Modules(ZZ).Constructors().laurent_series_ring_as_module(power_series_ring=...) is a ring object as a module",
+        lambda _: NMZZ.laurent_series_ring_as_module(power_series_ring=NR.PowerSeriesRing(base_ring=ZZ, name="u"))
         in MZZCat.RingObjectsAsModules(),
     ),
     (
@@ -494,8 +490,8 @@ SMOKE_STATEMENTS = (
         lambda _: NMZZ.puiseux_series_ring_as_module("t") in MZZCat.RingObjectsAsModules(),
     ),
     (
-        "Modules(ZZ).Constructors().puiseux_series_ring_from_laurent_series_as_module(...) is a ring object as a module",
-        lambda _: NMZZ.puiseux_series_ring_from_laurent_series_as_module(LaurentSeriesRing(ZZ, "u"))
+        "Modules(ZZ).Constructors().puiseux_series_ring_as_module(laurent_series_ring=...) is a ring object as a module",
+        lambda _: NMZZ.puiseux_series_ring_as_module(laurent_series_ring=NR.LaurentSeriesRing(base_ring=ZZ, name="u"))
         in MZZCat.RingObjectsAsModules(),
     ),
     (

@@ -24,6 +24,14 @@ acceptanceCriteria:
 complexity: 80
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+constructorNameInventories:
+- owner: category_specs.tensor_algebra_components.TensorAlgebraComponents._Constructors
+  sageConstructorNames:
+  - TensorFreeModule
+  - FreeModuleTensor
+  - tensor_module
+  - tensor
+  - Components
 ---
 # Tensor Algebra Components Mapping Spec
 
@@ -77,8 +85,8 @@ inventoried surface has a mapping consequence:
   `display_comp` are recorded as coordinate or display interop, not public
   mathematical objects;
 - matrix, module-element matrix, list-of-matrices, and multidimensional-list inputs
-  are routed through named tensor constructors rather than a catch-all component
-  surface;
+  are routed as named input shapes of the Sage-name `tensor(...)` constructor rather
+  than as invented `from_*` constructor names;
 - `trace` and `contract` are admitted as closed tensor-element operations with
   explicit opposite-variance slot hypotheses and codomains;
 - `TensorWithIndices` and string-index syntax are explicitly rejected as public API,
@@ -112,13 +120,13 @@ This file maps the narrow Sage tensor-free-module surface into the project
 | `tensor_type()` | `tensor_type() -> tuple[Integer, Integer]` | This is the unique public tuple-valued tensor type `(k,l)`, with `k` contravariant and `l` covariant slots. Ordinary rank is inherited from the finite-rank free module structure. |
 | Sage `tensor_rank()` as total tensor order `k + l` | `sum(tensor_type())` when the total tensor order is needed | The project does not expose a second tensor-type/rank method. The tuple is `tensor_type()`; total order is a derived integer. |
 | Module `rank()` / `dimension()` on tensor component parents | inherited from `Modules(R).Free().FiniteRank()` | The tensor component is a finite-rank free module, so ordinary module rank comes from that supercategory. It is not tensor type data. |
-| `t[:]`, `t.set_comp(basis)[:]`, indexed component assignment | Named interop constructors on `TensorAlgebraComponents(R).Constructors()` with an explicit ordered basis or generating frame | Component arrays are coordinate inputs for constructing tensor elements, not public tensor objects. The old catch-all `from_components(...)` surface is private helper code only; public callers use the named matrix, module-element matrix, multidimensional-list, or list-of-matrices route with the frame that makes the coordinates meaningful. |
-| Matrix over `R` | `TensorAlgebraComponents(R).Constructors().from_matrix(base_module=M, frame=e, entries=B)` | A scalar-valued bilinear form `M \otimes_R M -> R` is a covariant `(0,2)` tensor. The matrix is coordinate data relative to `e`; it is not intrinsic tensor data without that frame. |
-| Matrix of module elements `Sequence[Sequence[RModuleElement]]` | `TensorAlgebraComponents(R).Constructors().from_module_element_matrix(base_module=M, frame=e, entries=products)` | A multiplication table with entries in `M` is the bilinear map `M \otimes_R M -> M`, hence a structure tensor in `M \otimes_R M^* \otimes_R M^*` of type `(1,2)`. The table is interpreted relative to the ordered input frame `e`. |
+| `t[:]`, `t.set_comp(basis)[:]`, indexed component assignment | Named input shapes on `TensorAlgebraComponents(R).Constructors().tensor(...)` with an explicit ordered basis or generating frame | Component arrays are coordinate inputs for constructing tensor elements, not public tensor objects. The old catch-all `from_components(...)` surface is private helper code only; public callers use the `tensor(...)` overload matching the data they hold, with the frame that makes the coordinates meaningful. |
+| Matrix over `R` | `TensorAlgebraComponents(R).Constructors().tensor(base_module=M, tensor_type=(0,2), basis=e, matrix=B)` | A scalar-valued bilinear form `M \otimes_R M -> R` is a covariant `(0,2)` tensor. The matrix is coordinate data relative to `e`; it is not intrinsic tensor data without that frame. |
+| Matrix of module elements `Sequence[Sequence[RModuleElement]]` | `TensorAlgebraComponents(R).Constructors().tensor(base_module=M, tensor_type=(1,2), basis=e, module_element_matrix=products)` | A multiplication table with entries in `M` is the bilinear map `M \otimes_R M -> M`, hence a structure tensor in `M \otimes_R M^* \otimes_R M^*` of type `(1,2)`. The table is interpreted relative to the ordered input frame `e`. |
 | Multiplication tensor structure constants | `Tensor.structure_constants(frame=e)` | A tensor of type `(1,2)` determines coordinate structure constants only after choosing an ordered basis or generating frame of its base module. Algebra constructors may read this basis-relative tensor surface instead of accepting Sage table/list shapes directly. |
-| Lists of matrices for component data | `TensorAlgebraComponents(R).Constructors().from_matrices(base_module=M, frame=e, entries=matrices)` | This is an admitted interop shape for old table-like data relative to `e`. The return value is a tensor element. |
-| Multidimensional lists for component data | `TensorAlgebraComponents(R).Constructors().from_multidimensional_list(base_module=M, frame=e, entries=data)` | This is an admitted interop shape for coordinate data relative to `e`. The return value is a tensor element. |
-| Catch-all component data | no public constructor; private `_from_components(...)` helper only | Shape unions are implementation-local. Public callers use the named constructor matching the data they hold. |
+| Lists of matrices for component data | `TensorAlgebraComponents(R).Constructors().tensor(base_module=M, tensor_type=(p,q), basis=e, matrices=matrices)` | This is an admitted interop shape for old table-like data relative to `e`. The return value is a tensor element. |
+| Multidimensional lists for component data | `TensorAlgebraComponents(R).Constructors().tensor(base_module=M, tensor_type=(p,q), basis=e, components=data)` | This is the Sage tensor-module element constructor recovered as an explicit named input shape for coordinate data relative to `e`. The return value is a tensor element. |
+| Raw `Components` storage objects | no public constructor; private `_from_components(...)` helper only | Raw component storage remains implementation-local. Public callers supply coordinate data through `tensor(...)` named input shapes rather than constructing or preserving `Components` as category objects. |
 
 ## Deferred Tensor Surface Freeze
 
@@ -185,7 +193,7 @@ places the result in `FormedModules(R).Bilinear()` or another forms-owned refine
 - `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/tensor/modules/free_module_basis.py` — 44463 bytes; basis and frame infrastructure.
 
 **Verified project source (implements spec claims):**
-- `/home/dzack/research/category_specs/tensor_algebra_components/__init__.py` — 388 lines. `TensorAlgebraComponents(R)` category with `super_categories() -> [RMod.TensorProducts(), RMod.Free().FiniteRank()]`. `DualObjects` refinement with `tensor_type() -> (q, p)`. Constructor surface: `component_module()`, `tensor()`, `from_matrix()`, `from_module_element_matrix()`, `from_multidimensional_list()`, `from_matrices()`, private `_from_components()`. Element methods: `trace(contravariant_position, covariant_position)`, `contract(left_position, other, right_position)`, `structure_constants()`.
+- `/home/dzack/research/category_specs/tensor_algebra_components/__init__.py` — `TensorAlgebraComponents(R)` category with `super_categories() -> [RMod.TensorProducts(), RMod.Free().FiniteRank()]`. `DualObjects` refinement with `tensor_type() -> (q, p)`. Constructor surface: `tensor_module()` and `tensor(...)`, where coordinate data is supplied through named input shapes such as `components`, `matrix`, `module_element_matrix`, and `matrices`; private `_from_components()` remains implementation glue. Element methods: `trace(contravariant_position, covariant_position)`, `contract(left_position, other, right_position)`, `structure_constants()`.
 
 **Dependent cards referenced (all exist):**
 - `TASK-MAPPING-DOC-COMPLETENESS-RESEARCH` — status `complete`; confirms inventory reconciliation.
@@ -215,11 +223,11 @@ Every inventoried surface has a corresponding row in the spec's Converted Mappin
 - Sage `tensor_rank()` → `sum(tensor_type())` (row 113)
 - Module `rank()`/`dimension()` → inherited from category (row 114)
 - Component assignment → Named interop constructors, not public surface (row 115)
-- Matrix over R → `Constructors().from_matrix(...)` (row 116)
-- `Sequence[Sequence[RModuleElement]]` → `Constructors().from_module_element_matrix(...)` (row 117)
+- Matrix over R → `Constructors().tensor(..., matrix=...)` (row 116)
+- `Sequence[Sequence[RModuleElement]]` → `Constructors().tensor(..., module_element_matrix=...)` (row 117)
 - Structure constants → `Tensor.structure_constants(frame=e)` (row 118)
-- Lists of matrices → `Constructors().from_matrices(...)` (row 119)
-- Multidimensional lists → `Constructors().from_multidimensional_list(...)` (row 120)
+- Lists of matrices → `Constructors().tensor(..., matrices=...)` (row 119)
+- Multidimensional lists → `Constructors().tensor(..., components=...)` (row 120)
 - Catch-all component data → Private `_from_components(...)` only (row 121)
 - `sym=`/`antisym=` → Constructor metadata with `Symmetric`/`Alternating` refinements (row 132)
 - `Components`, `comp()`, `set_comp()` → Private coordinate interop (row 133)
@@ -268,9 +276,9 @@ Project code (`__init__.py` line 81-92): `contract(left_position, other, right_p
 
 **3e. Constructor routes:**
 
-- `from_matrix(base_module=M, frame=e, entries=B)` → (0,2) tensor. Mathematically: a matrix over R encodes a bilinear form `M × M → R` relative to a chosen basis. The spec correctly notes the frame-relative nature.
-- `from_module_element_matrix(base_module=M, frame=e, entries=products)` → (1,2) tensor. Mathematically: a multiplication table with entries in M encodes the structure tensor of a bilinear map `M × M → M` in `M ⊗ M* ⊗ M*`. Type (1,2) is correct for a (1,2)-tensor representing such a map relative to a basis.
-- `from_matrices` / `from_multidimensional_list` → Admitted interop shapes.
+- `tensor(base_module=M, tensor_type=(0,2), basis=e, matrix=B)` → (0,2) tensor. Mathematically: a matrix over R encodes a bilinear form `M × M → R` relative to a chosen basis. The spec correctly notes the frame-relative nature.
+- `tensor(base_module=M, tensor_type=(1,2), basis=e, module_element_matrix=products)` → (1,2) tensor. Mathematically: a multiplication table with entries in M encodes the structure tensor of a bilinear map `M × M → M` in `M ⊗ M* ⊗ M*`. Type (1,2) is correct for a (1,2)-tensor representing such a map relative to a basis.
+- `tensor(..., matrices=...)` and `tensor(..., components=...)` → admitted coordinate interop shapes under the Sage-name tensor constructor.
 - Private `_from_components` → correctly marked as non-public.
 
 **3f. Dual objects:**
@@ -318,7 +326,7 @@ Spec row 118 states `Tensor.structure_constants(frame=e)` as accepting a frame p
 
 **Checked for weakening patterns:**
 - No abstract methods deleted: The project's `_TensorElementMethods` class retains `trace()`, `contract()`, `base_module()`, `tensor_type()`. Spec does not remove any abstract obligation.
-- No constructor obligations removed: `from_matrix`, `from_module_element_matrix`, `from_multidimensional_list`, `from_matrices` are all admitted with explicit signatures. Private `_from_components` is retained as interop glue.
+- No constructor obligations removed: matrix, module-element matrix, multidimensional-list, and list-of-matrices coordinate inputs are all admitted as explicit named input shapes of `tensor(...)`. Private `_from_components` is retained as interop glue.
 - No smoke assertions narrowed: The spec's acceptance criteria (lines 15-23) require source review, complete row data, mathematical well-definedness, nonmathematical rejection, and ambiguity routing — all preserved.
 - Sage-gap-driven shrinkage avoided: The spec rejects Sage surfaces (display, index notation, raw Components) on mathematical grounds (they are coordinate/rendering artifacts), not because Sage has gaps. The specified project API is strictly stronger: typed `trace`/`contract` vs Sage's defaulted overloads; frame-aware constructors vs Sage's catch-all component assignment.
 - Symmetry/antisymmetry preserved: Row 132 admits `sym=`/`antisym=` as constructor metadata with `Symmetric(slot_blocks)` and `Alternating(slot_blocks)` refinements. Mathematical submodule structure is preserved. Old code treating symmetry as its own container is retired but the mathematical structure is not weakened.

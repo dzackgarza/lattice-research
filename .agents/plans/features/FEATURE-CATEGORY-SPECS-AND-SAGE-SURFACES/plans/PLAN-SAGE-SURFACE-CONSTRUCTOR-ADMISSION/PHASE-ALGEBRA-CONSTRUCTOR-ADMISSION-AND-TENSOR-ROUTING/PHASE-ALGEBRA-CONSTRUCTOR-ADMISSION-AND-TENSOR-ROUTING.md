@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 title: Sprint algebra constructor admission and tensor multiplication routing
-status: complete
+status: in-progress
 priority: high
 description: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.

@@ -133,37 +133,16 @@ def test_constructor_registry_filters_by_obligation() -> None:
     )
 
 
-def test_constructor_registry_filters_deferred_constructor_records() -> None:
-    deferred = ConstructorSpec(
-        id="rings-q-adic-extension-lattice-cap",
-        owner_category="Rings()",
-        method_name="QqWithPrecisionCaps",
-        sage_entry_point="Rings._Constructors.QqWithPrecisionCaps",
-        sage_source="category_specs.rings.__init__",
-        target_category="Rings().CompleteDiscreteValuationField()",
-        target_refinement_route=("Rings()",),
-        status="deferred",
-        deferred_reason="Sage has no split lattice-cap extension route.",
-    )
-    registry = ConstructorRegistry(constructors=(_RING_ZZ, deferred))
-
-    assert registry.admitted() == (_RING_ZZ,)
-    assert registry.deferred() == (deferred,)
-    assert registry.constructor("rings-q-adic-extension-lattice-cap").status == (
-        "deferred"
-    )
-
-
-def test_constructor_spec_rejects_deferred_records_without_reasons() -> None:
+def test_constructor_spec_rejects_admission_status_metadata() -> None:
     with pytest.raises(ValueError):
         ConstructorSpec(
-            id="rings-q-adic-extension-lattice-cap",
-            owner_category="Rings()",
-            method_name="QqWithPrecisionCaps",
-            sage_entry_point="Rings._Constructors.QqWithPrecisionCaps",
-            sage_source="category_specs.rings.__init__",
-            target_category="Rings().CompleteDiscreteValuationField()",
-            status="deferred",
+            id="example-status-tagged-construction",
+            owner_category="ExampleCategory()",
+            method_name="StatusTaggedConstructor",
+            sage_entry_point="ExampleCategory._Constructors.StatusTaggedConstructor",
+            sage_source="tests.category_specs",
+            target_category="ExampleCategory().Target()",
+            status="not-mapped",
         )
 
 

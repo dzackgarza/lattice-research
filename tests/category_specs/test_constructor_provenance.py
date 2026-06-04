@@ -155,16 +155,6 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     assert topology_registry.constructors == ()
     assert lattice_registry.constructors == ()
 
-    assert [constructor.id for constructor in ring_registry.deferred()] == [
-        "rings.ZqWithPrecisionCaps",
-        "rings.QqWithPrecisionCaps",
-    ]
-    assert all(
-        "split lattice relative/absolute precision caps"
-        in constructor.deferred_reason
-        for constructor in ring_registry.deferred()
-    )
-
     cat_ring_zz = cat_registry.constructor("cat.rings.ZZ")
     assert cat_ring_zz.owner_category == "Rings()"
     assert cat_ring_zz.method_name == "rings_ZZ"
@@ -191,9 +181,6 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     assert cat_registry.constructor(
         "cat.tensor_algebra_components_rational_field.component_module"
     ).method_name == "tensor_algebra_components_rational_field_component_module"
-    assert "cat.rings.QqWithPrecisionCaps" in [
-        constructor.id for constructor in cat_registry.deferred()
-    ]
     assert not cat_registry.has_constructor("cat.rings.provenance")
 
 

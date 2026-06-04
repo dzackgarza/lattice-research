@@ -75,6 +75,15 @@ Before acting, confirm the user's stated directive, the action you plan, and why
   approved decision card. Vague migrated cards and old TODO bullets are not enough.
   If the definition is unclear, create or update a decision/source-mining card and
   stop that leaf.
+- Constructor mapping has no deferred state. Every source-grounded Sage constructor
+  shape recorded in mapping docs maps to a named-parameter category-owned overload or
+  spec-layer promotion path. Ungrounded or rejected constructor ideas are absent from
+  constructor mappings, provenance, smokes, decisions, and tasks; do not preserve them
+  as "not admitted", "deferred", blocked, or gap records.
+- Refinement targets one category: the smallest mathematically correct category for
+  the object. Do not pass several categories to `refine_category`; inherited
+  membership must come from the category hierarchy, not from manually listing
+  ancestors at the call site.
 - Do not use `MorphismMethods` in category specs. Morphism behavior belongs on the
   relevant Hom-category element surface, e.g. `C.HomCategory().ElementMethods`, not
   on the object category itself or a nested `MorphismMethods` method-container.

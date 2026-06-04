@@ -63,9 +63,6 @@ class _Fields(CategoryWithAxiom):
     Finite = LazyImport(
         "category_specs.rings.subcategories.finite_field", "_FiniteFields"
     )
-    NumberFields = LazyImport(
-        "category_specs.rings.subcategories.number_field", "_NumberFields"
-    )
     AlgebraicallyClosed = LazyImport(
         "category_specs.rings.subcategories.algebraically_closed_field",
         "_AlgebraicallyClosedFields",

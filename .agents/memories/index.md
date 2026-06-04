@@ -12,6 +12,14 @@
 
 [Category Spec Repo Model Corrections](category-spec-repo-model-corrections)
 
+[Category Spec Properties, Witnesses, And Equipped Structure](category-spec-properties-witnesses-and-equipped-structure)
+
+[Category Spec Tests Use Category APIs, Not Private Classes](category-spec-tests-use-category-api-not-private-classes)
+
+[CRITICAL: Category Spec Constructor Routes Are Category Owned](category-spec-constructor-routes-are-category-owned)
+
+[Category Spec Methods Live At The Most General Owner](category-spec-methods-live-at-most-general-owner)
+
 [Memory-Management Discipline](memory-management-discipline)
 
 ## Agent Shared State

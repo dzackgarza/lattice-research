@@ -124,10 +124,23 @@ Conflating these layers is a category-spec error.
 A set is not its representation.
 A morphism is not its matrix.
 A module is not a chosen basis.
+A module satisfying a property is not the same thing as a module equipped with a
+chosen witness for that property.
+A finitely generated module is not automatically a module with a distinguished finite
+generating set; a free finite-rank module is not automatically a module with a
+distinguished basis.
 A quotient is not a chosen presentation.
 A topological object is not a particular cover.
 A measure is not the subset being measured.
 A backend wrapper is not the mathematical structure it witnesses.
+
+Property categories may still impose witness-producing abstract methods.
+The spec does not enforce proof-relevant satisfaction at refinement time, but it must
+make downstream claims auditable.
+If an object declares finite generation, the category should require a method that can
+produce a finite generating set and a promotion method that equips the object with a
+chosen generating set.
+That is different from saying the object already lives in the equipped category.
 
 Implementation-flavored language must be translated into standard mathematics before
 reasoning proceeds. The transcript's RealSet episode is only an example:

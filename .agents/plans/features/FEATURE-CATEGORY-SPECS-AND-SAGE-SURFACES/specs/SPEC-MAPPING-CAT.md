@@ -24,6 +24,11 @@ acceptanceCriteria:
 complexity: 80
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+constructorNameInventories:
+- owner: category_specs.cat.Cat.Constructors
+  sageConstructorNames: []
+  projectOwnedConstructionNames:
+  - EmptyCategory
 ---
 # Cat Mapping Spec
 

@@ -84,9 +84,8 @@ split.
   frontier is different from the older post-implementation note: many ring and field
   constructor assertions now stop at missing `hilbert_polynomial`; complex interval and
   complex ball field assertions stop at missing `algebraic_closure`; finite quotient
-  ring assertions stop at missing `completion`; p-adic and q-adic constructors stop at
-  missing `_change_print_mode`; and the admitted q-adic precision-cap constructors
-  still record the deferred installed-Sage-extension frontier.
+  ring assertions stop at missing `completion`; and p-adic and q-adic constructors stop
+  at missing `_change_print_mode`.
 
 ## Review Log
 
@@ -100,7 +99,7 @@ split.
 
 - The card's previous verification note preserved an older remaining rings smoke
   frontier (`__richcmp__`, `ideal_monoid`, p-adic `_change_print_mode`, q-adic
-  precision caps, `QuadraticField`, and `MatrixRing` MRO refinement), but the current
+  `QuadraticField`, and `MatrixRing` MRO refinement), but the current
   `rings/smoketest.sage` frontier has shifted. The required smoke-output record was
   therefore stale even though the base-class identity mismatch fix still reproduces.
 
@@ -113,6 +112,6 @@ split.
 #### Residual Risks
 
 - `rings/smoketest.sage` still fails on preserved downstream ring-frontier surfaces:
-  `hilbert_polynomial`, `algebraic_closure`, `completion`, `_change_print_mode`, and
-  deferred q-adic precision-cap constructors. Those are gap evidence for successor
-  work, not a remaining base-class identity mismatch.
+  `hilbert_polynomial`, `algebraic_closure`, `completion`, and `_change_print_mode`.
+  Those are gap evidence for successor work, not a remaining base-class identity
+  mismatch.

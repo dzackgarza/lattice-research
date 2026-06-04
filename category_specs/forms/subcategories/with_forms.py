@@ -15,7 +15,13 @@ from ...modules import Modules
 from ...utils import with_axiom
 
 if TYPE_CHECKING:
-    from ...types import OrthogonalGroup, RModuleMorphism
+    from ...types import (
+        FormedModule,
+        FormedModuleElement,
+        FormedModuleMorphism,
+        OrthogonalGroup,
+        RModuleMorphism,
+    )
 
 
 class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -81,6 +87,37 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class HomCategory(HomCategoryConstruction):
         class ElementMethods(UniversalHomElementMethods):
+            @abstractmethod
+            def kernel(self) -> FormedModule:
+                r"""Return ``ker(f)`` with the restricted form."""
+                ...
+
+            @abstractmethod
+            def image(self, domain_subset: FormedModule | None = None) -> FormedModule:
+                r"""Return the image subobject with the restricted form."""
+                ...
+
+            @abstractmethod
+            def cokernel(self) -> FormedModule:
+                r"""Return ``codomain(f) / image(f)`` with descended form data.
+
+                The underlying quotient is formed in the finitely generated
+                module category.  Bilinear or quadratic form data is attached
+                only when the cross terms from ``image(f)`` vanish in the
+                required quotient codomain.
+                """
+                ...
+
+            @abstractmethod
+            def lift(self, x: FormedModuleElement) -> FormedModuleElement:
+                r"""Return a lift along this morphism when one exists."""
+                ...
+
+            @abstractmethod
+            def projection(self) -> FormedModuleMorphism:
+                r"""Return the quotient projection associated to ``cokernel()``."""
+                ...
+
             def is_isometry(self) -> bool:
                 r"""Return whether this form-preserving morphism is an isomorphism."""
                 return self.is_isomorphism()

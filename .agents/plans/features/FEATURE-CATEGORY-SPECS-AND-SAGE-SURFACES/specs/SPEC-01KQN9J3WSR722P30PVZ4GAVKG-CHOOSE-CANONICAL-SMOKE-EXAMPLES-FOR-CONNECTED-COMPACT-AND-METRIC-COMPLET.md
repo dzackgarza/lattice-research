@@ -115,9 +115,9 @@ smoke examples.
 
 | Target | Canonical object | Owner and witness |
 | --- | --- | --- |
-| `TopologicalSpaces().Connected()` | `Sets().Constructors().OpenRealInterval(0, 1)` | Constructor owner is `Sets().Constructors()` through `RealSet.open(0, 1)`. The witness is object membership in `TopologicalSpaces().Connected()`. |
-| `TopologicalSpaces().Compact()` | `Sets().Constructors().ClosedRealInterval(0, 1)` | Constructor owner is `Sets().Constructors()` through `RealSet.closed(0, 1)`. The witness is object membership in `TopologicalSpaces().Compact()`. |
-| `TopologicalSpaces().Metric().Complete()` | `Sets().Constructors().RR()` / Sage `RR` | The Sage witness is `RR.category()` lying in complete metric spaces. Project implementation is routed through the existing topological ring/field recovery cards before this becomes a live smoke assertion. |
+| `TopologicalSpaces().Connected()` | `Sets().Constructors().open(lower=0, upper=1)` | Constructor owner is `Sets().Constructors()` through `RealSet.open(0, 1)`. The witness is object membership in `TopologicalSpaces().Connected()`. |
+| `TopologicalSpaces().Compact()` | `Sets().Constructors().closed(lower=0, upper=1)` | Constructor owner is `Sets().Constructors()` through `RealSet.closed(0, 1)`. The witness is object membership in `TopologicalSpaces().Compact()`. |
+| `TopologicalSpaces().Metric().Complete()` | `Rings().Constructors().RR()` / Sage `RR` | The Sage witness is `RR.category()` lying in complete metric spaces. Project implementation is routed through the existing topological ring/field recovery cards before this becomes a live smoke assertion. |
 
 Source observations used in this pass:
 
@@ -152,8 +152,8 @@ skip-verification workflow.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-- 2026-05-05: Selected `OpenRealInterval(0, 1)`, `ClosedRealInterval(0, 1)`, and
-  `RR`/`Sets().Constructors().RR()` as the connected, compact, and complete-metric
+- 2026-05-05: Selected `RealSet.open(0, 1)`, `RealSet.closed(0, 1)`, and
+  `RR`/`Rings().Constructors().RR()` as the connected, compact, and complete-metric
   smoke examples. Recorded the complete-metric implementation dependency on
   topological ring/field recovery.
 
@@ -189,9 +189,9 @@ This spec's scope is decision capture for three smoke targets, not a full mappin
 
 | Smoke target | Surface used | Admitted in mapping spec? | Evidence |
 |---|---|---|---|
-| `TopologicalSpaces().Connected()` | `Sets().Constructors().OpenRealInterval(0, 1)` via `RealSet.open(0, 1)` | Yes — tracked spec line 181 | `RealSet.open` is admitted as `Sets().Constructors().OpenRealInterval` |
-| `TopologicalSpaces().Compact()` | `Sets().Constructors().ClosedRealInterval(0, 1)` via `RealSet.closed(0, 1)` | Yes — tracked spec line 182 | `RealSet.closed` is admitted as `Sets().Constructors().ClosedRealInterval` |
-| `TopologicalSpaces().Metric().Complete()` | `Sets().Constructors().RR()` / Sage `RR` | Yes — tracked spec line 179 | `RR` is admitted as `Sets().Constructors().RR()` refining into topological spaces |
+| `TopologicalSpaces().Connected()` | `Sets().Constructors().open(lower=0, upper=1)` via `RealSet.open(0, 1)` | Yes — tracked mapping | `RealSet.open` is admitted as `Sets().Constructors().open` |
+| `TopologicalSpaces().Compact()` | `Sets().Constructors().closed(lower=0, upper=1)` via `RealSet.closed(0, 1)` | Yes — tracked mapping | `RealSet.closed` is admitted as `Sets().Constructors().closed` |
+| `TopologicalSpaces().Metric().Complete()` | `Rings().Constructors().RR()` / Sage `RR` | Yes — tracked ring mapping | `RR` is admitted as a ring constructor and refines into topological spaces through the ring/topological recovery path |
 
 **Exclusion audit — surfaces correctly rejected or deferred:**
 
@@ -261,8 +261,8 @@ This spec's scope is decision capture for three smoke targets, not a full mappin
 
 | Obligation | Preserved? | Evidence |
 |---|---|---|
-| Connected smoke example | Yes — `Sets().Constructors().OpenRealInterval(0, 1)` | Spec lines 116-118; matches tracked spec line 260 |
-| Compact smoke example | Yes — `Sets().Constructors().ClosedRealInterval(0, 1)` | Spec lines 116-119; matches tracked spec line 261 |
+| Connected smoke example | Yes — `Sets().Constructors().open(lower=0, upper=1)` | Spec lines 116-118; matches tracked spec line 260 |
+| Compact smoke example | Yes — `Sets().Constructors().closed(lower=0, upper=1)` | Spec lines 116-119; matches tracked spec line 261 |
 | Complete metric smoke example | Yes — obligation preserved via dependency routing | Spec lines 116-120 with explicit routing to ring/field recovery cards (lines 134-140); matches tracked spec line 262 |
 | Constructor ownership | Preserved under `Sets().Constructors()` | Spec line 118: "Constructor owner is `Sets().Constructors()`" |
 | Ambient-relative method recovery | Preserved | Acceptance criterion line 25: "Prove RealSet method recovery through the ambient-relative route, not by adding pure topological constructors" — checked complete |

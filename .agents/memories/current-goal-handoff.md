@@ -1,93 +1,75 @@
 ---
 title: Current Goal Handoff
 ---
+
 # Handoff
 
-## Anchor
+## Current Phase
 
-Read `mem:repo-purpose-mathematical-research-machine` before any card or plan.
+Category-spec vocabulary.
+The purpose is to give later lattice and Coble work precise mathematical objects,
+morphisms, constructions, and invariants.
 
-## Current phase
+## Next Work
 
-Category-spec vocabulary: building the semantic substrate so downstream lattice/Coble
-work has named objects, morphisms, and invariants, not raw matrices.
+Continue the Sage inventory and mapping audit for `category_specs/lattices`.
+Start with these files:
 
-## Current next action
+- `category_specs/lattices/docs/SAGE_INVENTORY.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`
 
-Continue the Sage-surface inventory and mapping closure for
-`category_specs/lattices` from the remaining active cards in
-`PHASE-HOM-END-AUT-WORK-QUEUE` plus the broader lattice/subtree completion audit.
+The active local repair target is the Hom and morphism block around
+`FreeModuleHomspace`, `FreeModuleMorphism`, and inherited `MatrixMorphism`.
+Then continue the broader symbol-by-symbol audit of the lattice/form/module Sage
+sources.
 
-Handoff constraints to preserve:
+## Mapping Rule
 
-- Keep `SPEC-MAPPING-LATTICES` as the lattice/spec routing source for lattice, module,
-  torsion, Homset, and form-adjacent surfaces.
-- Treat `invariants()` and `invariant_factors()` as `Modules(R).FinitelyPresented().OverPID()`
-  surfaces; lattice and torsion categories only inherit as appropriate.
-- Keep `TASK-FORMED-COKERNEL-DESCENDED-FORM` closed until a new source-backed contradiction
-  appears; do not reopen it as implementation work.
-- Do not add package-level import aliases as new mathematical constructors.
-- Treat `BinaryQF`, `BQFClassGroup`, and `TernaryQF` via forms-subtree obligations, not as
-  `Lattices(ZZ)` constructors.
+Read Sage first to learn which names exist.
+Then write the mathematics that makes each name exist.
+Do not accept a mapping row until it contains a sentence a mathematician can read
+without knowing Sage.
 
-Concrete routing state established in this segment:
+Examples:
 
-- Package-level import-route closure is in-scope only:
-  - `category_specs/lattices/docs/SAGE_INVENTORY.md`: add `sage/modules/all.py`,
-    `sage/quadratic_forms/genera/all.py`, and `sage/geometry/all.py` package routes.
-  - `SPEC-MAPPING-LATTICES.md`: map those aliases only to export-boundary status; keep constructor
-    ownership with `SPEC-MAPPING-MODULES` for `FreeModule`, `VectorSpace`, `span`,
-    `vector`, `free_module_element`, `zero_vector`, `random_vector`, `linear_transformation`,
-    `FilteredVectorSpace`, `MultiFilteredVectorSpace`; keep `IntegralLattice`/`TorsionQuadraticForm`
-    route ownership unchanged.
-  - The handoff must treat `sage.geometry.all` exports outside `ToricLattice` (for example:
-    cone/fan/polytope helpers, `PolyhedralComplex`, Voronoi, ribbon graph, hyperplane arrangement)
-    as non-lattice routing context.
-- Required read-before-edit check for this frontier remains:
-  - `category_specs/lattices/docs/SAGE_INVENTORY.md`
-  - `SPEC-MAPPING-LATTICES.md`
+- In any category, morphisms have domains and codomains and compose.
+- In a concrete category, morphisms can be evaluated on elements.
+- In an additive category, each `Hom(X,Y)` is an abelian group and composition is
+  bilinear.
+- In an `R`-linear category, each `Hom(X,Y)` is an `R`-module and composition is
+  `R`-bilinear.
+- In an abelian category, kernels and cokernels exist, images and coimages are defined,
+  and monomorphisms and epimorphisms are detected by the corresponding kernel and
+  cokernel conditions.
+- `End(X)=Hom(X,X)` contains the identity endomorphism.
+- `Aut(X)` is the group of invertible endomorphisms.
+- A morphism has a matrix only after choosing finite free presentations or bases.
 
-Current unresolved obligation:
+Only after that sentence is present should the row mention the Sage class or method that
+implements the construction in one case.
 
-- Final symbol-by-symbol lattice/form/module audit for complete constructor ownership and
-  surface admission, with a hard gate that only the lattice subtree can add accepted lattice
-  constructor owners.
+## Current Decisions
 
-## Required context
+- `SPEC-MAPPING-LATTICES` is the routing source for lattice, module, torsion, Homset,
+  and form-adjacent Sage names.
+- `IntegralLattice`, `IntegralLatticeDirectSum`, and `IntegralLatticeGluing` are the
+  admitted `Lattices(ZZ).Constructors()` names.
+- `invariants()` and `invariant_factors()` belong to finitely presented modules over a
+  PID. Lattices and discriminant/torsion objects inherit them only through that module
+  structure.
+- `BinaryQF`, `BQFClassGroup`, and `TernaryQF` belong to forms or binary/ternary
+  quadratic-form vocabulary, not to `Lattices(ZZ)` constructors.
+- Package exports such as `sage.modules.all`, `sage.quadratic_forms.genera.all`, and
+  `sage.geometry.all` are import evidence. They do not create mathematical owners.
+- `TASK-FORMED-COKERNEL-DESCENDED-FORM` stays closed unless new source contradicts its
+  formed-cokernel construction.
 
-Before the next source edit, load:
+## Non-Goals
 
-- `mem:onboarding`
-- `mem:repo-purpose-mathematical-research-machine`
-- `mem:category-spec-epistemic-foundation`
-- `mem:category-spec-constructor-routes-are-category-owned`
-- `mem:category-spec-tests-use-category-api-not-private-classes`
-- `mem:category-spec-methods-live-at-most-general-owner`
-- `mem:category-spec-rotten-core-indicators`
-- `mem:mathematical-sanity-check`
-- `mem:skills/category-spec-sage-mapping`
-- `mem:skills/category-spec-workflow`
-- `category_specs/AGENTS.md`
-- `category-spec-style`
-- `research-state-machine`
-
-## Constraints
-
-- Mapping and spec surfaces before downstream implementation.
-- No invented constructor names.
-- No ambient/global mutation as constructor compatibility.
-- No broad optional or variadic public APIs.
-- No downstream Coble work.
-- Methods live at the most general mathematical owner. Downstream objects inherit
-  surfaces unless they genuinely add new structure or refine hypotheses.
-- No documentation laundering: if a Sage surface is not admitted, classify it as
-  backend-only, interop/display/runtime, or an explicit missing-category/spec
-  obligation.
-- `SPEC-MAPPING-LATTICES` routes the formed-cokernel obligation through
-  `TASK-FORMED-COKERNEL-DESCENDED-FORM`, now task-level complete: the quotient object
-  with descended bilinear/quadratic form data is specified and reviewed. Do not call
-  this partially implemented; runtime implementation is outside the current spec
-  workflow.
-- The parent feature, `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`,
-  `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`, and five reopened phases are now
-  `in-progress` rather than falsely `complete` because new unstarted child tasks remain.
+- Do not turn Sage implementation classes into method owners.
+- Do not add lattice methods merely because lattice code uses them.
+- Do not record progress as complete until the final semantic audit proves that every
+  relevant Sage name is inventoried, mapped, mathematically owned, or explicitly rejected
+  with a reason.
+- Do not use this handoff as a changelog. The mapping spec and git history carry past
+  work.

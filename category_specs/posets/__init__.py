@@ -275,9 +275,8 @@ class Posets(Category):
     class _Constructors:
         r"""Poset constructors.
 
-        The acyclic ``DiGraph`` constructor is canonical. Other methods are
-        named adaptations of Sage's documented finite ``Poset(...)`` input
-        cases.
+        The Hasse- and relation-digraph constructors are canonical graph
+        adaptations of Sage's documented finite ``Poset(...)`` input cases.
         """
 
         @final
@@ -315,9 +314,9 @@ class Posets(Category):
 
         @final
         def _refine_constructed_poset(
-            self, poset: SageFinitePoset, categories: Sequence[Category]
+            self, poset: SageFinitePoset, category: Category
         ) -> Poset:
-            return refine_category(poset, [Posets(), Posets().Finite(), *categories])
+            return refine_category(poset, category)
 
         @final
         def _refine_meet_semilattice(
@@ -337,7 +336,7 @@ class Posets(Category):
                     check=False,
                     key=_poset_constructor_identity_key,
                 ),
-                [Posets().MeetSemilattice().Finite()],
+                Posets().MeetSemilattice().Finite(),
             )
 
         @final
@@ -358,7 +357,7 @@ class Posets(Category):
                     check=False,
                     key=_poset_constructor_identity_key,
                 ),
-                [Posets().JoinSemilattice().Finite()],
+                Posets().JoinSemilattice().Finite(),
             )
 
         @final
@@ -378,119 +377,261 @@ class Posets(Category):
                     check=False,
                     key=_poset_constructor_identity_key,
                 ),
-                [Posets().Lattice().Finite()],
+                Posets().Lattice().Finite(),
             )
 
         @final
-        def from_digraph(
+        def _raw_poset_from_named_input(
             self,
-            digraph: DiGraph,
             *,
-            cover_relations: bool = False,
+            hasse_digraph: DiGraph | None = None,
+            relation_digraph: DiGraph | None = None,
+            elements: Iterable[PosetElement] | None = None,
+            relations: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            covers: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            order_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            cover_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
+            | None = None,
+            upper_covers: Sequence[Sequence[PosetElement]] | None = None,
+            existing: Poset | None = None,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset:
-            r"""Return the finite poset represented by ``digraph``."""
-            return self._refine_constructed_poset(
-                self._raw_poset(
-                    digraph,
+        ) -> SageFinitePoset:
+            relation_shape = elements is not None and relations is not None
+            cover_shape = elements is not None and covers is not None
+            order_predicate_shape = (
+                elements is not None and order_predicate is not None
+            )
+            cover_predicate_shape = (
+                elements is not None and cover_predicate is not None
+            )
+            selected_shapes = (
+                hasse_digraph is not None,
+                relation_digraph is not None,
+                relation_shape,
+                cover_shape,
+                order_predicate_shape,
+                cover_predicate_shape,
+                upper_covers_dict is not None,
+                upper_covers is not None,
+                existing is not None,
+            )
+            assert sum(selected_shapes) == 1, (
+                "constructor requires exactly one named Poset input shape"
+            )
+
+            if hasse_digraph is not None:
+                return self._raw_poset(
+                    hasse_digraph,
                     element_labels=element_labels,
-                    cover_relations=cover_relations,
+                    cover_relations=True,
                     linear_extension=linear_extension,
                     facade=facade,
                     key=key,
-                ),
-                [],
-            )
-
-        @final
-        def from_relations(
-            self,
-            elements: Iterable[PosetElement],
-            relations: Iterable[tuple[PosetElement, PosetElement]],
-            *,
-            cover_relations: bool = False,
-            element_labels: Sequence[PosetElement]
-            | dict[PosetElement, PosetElement]
-            | None = None,
-            linear_extension: bool = False,
-            facade: bool | None = None,
-            key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset:
-            r"""Return the finite poset generated by ``relations`` on ``elements``."""
-            return self._refine_constructed_poset(
-                self._raw_poset(
-                    (elements, relations),
-                    element_labels=element_labels,
-                    cover_relations=cover_relations,
-                    linear_extension=linear_extension,
-                    facade=facade,
-                    key=key,
-                ),
-                [],
-            )
-
-        @final
-        def from_order_predicate(
-            self,
-            elements: Iterable[PosetElement],
-            le: Callable[[PosetElement, PosetElement], bool],
-            *,
-            element_labels: Sequence[PosetElement]
-            | dict[PosetElement, PosetElement]
-            | None = None,
-            linear_extension: bool = False,
-            facade: bool | None = None,
-            key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset:
-            r"""Return the finite poset whose order relation is ``le``."""
-            return self._refine_constructed_poset(
-                self._raw_poset(
-                    (elements, le),
+                )
+            if relation_digraph is not None:
+                return self._raw_poset(
+                    relation_digraph,
                     element_labels=element_labels,
                     cover_relations=False,
                     linear_extension=linear_extension,
                     facade=facade,
                     key=key,
-                ),
-                [],
-            )
-
-        @final
-        def from_cover_predicate(
-            self,
-            elements: Iterable[PosetElement],
-            covers: Callable[[PosetElement, PosetElement], bool],
-            *,
-            element_labels: Sequence[PosetElement]
-            | dict[PosetElement, PosetElement]
-            | None = None,
-            linear_extension: bool = False,
-            facade: bool | None = None,
-            key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset:
-            r"""Return the finite poset whose cover relation is ``covers``."""
-            return self._refine_constructed_poset(
-                self._raw_poset(
+                )
+            if relation_shape:
+                return self._raw_poset(
+                    (elements, relations),
+                    element_labels=element_labels,
+                    cover_relations=False,
+                    linear_extension=linear_extension,
+                    facade=facade,
+                    key=key,
+                )
+            if cover_shape:
+                return self._raw_poset(
                     (elements, covers),
                     element_labels=element_labels,
                     cover_relations=True,
                     linear_extension=linear_extension,
                     facade=facade,
                     key=key,
-                ),
-                [],
-            )
+                )
+            if order_predicate_shape:
+                return self._raw_poset(
+                    (elements, order_predicate),
+                    element_labels=element_labels,
+                    cover_relations=False,
+                    linear_extension=linear_extension,
+                    facade=facade,
+                    key=key,
+                )
+            if cover_predicate_shape:
+                return self._raw_poset(
+                    (elements, cover_predicate),
+                    element_labels=element_labels,
+                    cover_relations=True,
+                    linear_extension=linear_extension,
+                    facade=facade,
+                    key=key,
+                )
+            if upper_covers_dict is not None:
+                return self._raw_poset(
+                    upper_covers_dict,
+                    element_labels=element_labels,
+                    linear_extension=linear_extension,
+                    facade=facade,
+                    key=key,
+                )
+            if upper_covers is not None:
+                return self._raw_poset(
+                    upper_covers,
+                    element_labels=element_labels,
+                    linear_extension=linear_extension,
+                    facade=facade,
+                    key=key,
+                )
+            assert existing is not None
+            return self._raw_poset(existing)
+
+        @overload
+        def Poset(
+            self,
+            *,
+            hasse_digraph: DiGraph,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            relation_digraph: DiGraph,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            relations: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            covers: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            order_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            cover_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            upper_covers: Sequence[Sequence[PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> Poset: ...
+
+        @overload
+        def Poset(
+            self,
+            *,
+            existing: Poset,
+        ) -> Poset: ...
 
         @final
-        def from_upper_covers_dict(
+        def Poset(
             self,
-            upper_covers: dict[PosetElement, Sequence[PosetElement]],
             *,
+            hasse_digraph: DiGraph | None = None,
+            relation_digraph: DiGraph | None = None,
+            elements: Iterable[PosetElement] | None = None,
+            relations: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            covers: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            order_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            cover_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
+            | None = None,
+            upper_covers: Sequence[Sequence[PosetElement]] | None = None,
+            existing: Poset | None = None,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
@@ -498,245 +639,503 @@ class Posets(Category):
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
         ) -> Poset:
-            r"""Return the finite poset encoded by an upper-cover dictionary."""
+            r"""Return the finite poset determined by one named input shape."""
             return self._refine_constructed_poset(
-                self._raw_poset(
-                    upper_covers,
+                self._raw_poset_from_named_input(
+                    hasse_digraph=hasse_digraph,
+                    relation_digraph=relation_digraph,
+                    elements=elements,
+                    relations=relations,
+                    covers=covers,
+                    order_predicate=order_predicate,
+                    cover_predicate=cover_predicate,
+                    upper_covers_dict=upper_covers_dict,
+                    upper_covers=upper_covers,
+                    existing=existing,
                     element_labels=element_labels,
                     linear_extension=linear_extension,
                     facade=facade,
                     key=key,
                 ),
-                [],
+                Posets().Finite(),
             )
 
-        @final
-        def from_upper_covers(
+        @overload
+        def MeetSemilattice(
             self,
-            upper_covers: Sequence[Sequence[PosetElement]],
             *,
+            hasse_digraph: DiGraph,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset:
-            r"""Return the finite poset encoded by an ordered upper-cover list."""
-            return self._refine_constructed_poset(
-                self._raw_poset(
-                    upper_covers,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            relation_digraph: DiGraph,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            relations: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            covers: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            order_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            elements: Iterable[PosetElement],
+            cover_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            upper_covers: Sequence[Sequence[PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @overload
+        def MeetSemilattice(
+            self,
+            *,
+            existing: Poset,
+        ) -> FiniteMeetSemilatticePoset: ...
+
+        @final
+        def MeetSemilattice(
+            self,
+            *,
+            hasse_digraph: DiGraph | None = None,
+            relation_digraph: DiGraph | None = None,
+            elements: Iterable[PosetElement] | None = None,
+            relations: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            covers: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            order_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            cover_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
+            | None = None,
+            upper_covers: Sequence[Sequence[PosetElement]] | None = None,
+            existing: Poset | None = None,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteMeetSemilatticePoset:
+            r"""Return the finite meet-semilattice from a named poset input."""
+            return self._refine_meet_semilattice(
+                self._raw_poset_from_named_input(
+                    hasse_digraph=hasse_digraph,
+                    relation_digraph=relation_digraph,
+                    elements=elements,
+                    relations=relations,
+                    covers=covers,
+                    order_predicate=order_predicate,
+                    cover_predicate=cover_predicate,
+                    upper_covers_dict=upper_covers_dict,
+                    upper_covers=upper_covers,
+                    existing=existing,
                     element_labels=element_labels,
                     linear_extension=linear_extension,
                     facade=facade,
                     key=key,
-                ),
-                [],
+                )
             )
 
-        @final
-        def from_existing(self, poset: Poset) -> Poset:
-            r"""Return ``poset`` refined into the project finite-poset category."""
-            return self._refine_constructed_poset(self._raw_poset(poset), [])
-
-        @final
-        def meet_semilattice_from_digraph(
+        @overload
+        def JoinSemilattice(
             self,
-            digraph: DiGraph,
             *,
-            cover_relations: bool = False,
-        ) -> FiniteMeetSemilatticePoset:
-            r"""Return the finite meet-semilattice represented by ``digraph``."""
-            return self._refine_meet_semilattice(
-                self._raw_poset(digraph, cover_relations=cover_relations)
-            )
+            hasse_digraph: DiGraph,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
 
-        @final
-        def meet_semilattice_from_relations(
+        @overload
+        def JoinSemilattice(
             self,
+            *,
+            relation_digraph: DiGraph,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
+
+        @overload
+        def JoinSemilattice(
+            self,
+            *,
             elements: Iterable[PosetElement],
             relations: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
+
+        @overload
+        def JoinSemilattice(
+            self,
             *,
-            cover_relations: bool = False,
-        ) -> FiniteMeetSemilatticePoset:
-            r"""Return the finite meet-semilattice generated by ``relations``."""
-            return self._refine_meet_semilattice(
-                self._raw_poset((elements, relations), cover_relations=cover_relations)
-            )
-
-        @final
-        def meet_semilattice_from_order_predicate(
-            self,
             elements: Iterable[PosetElement],
-            le: Callable[[PosetElement, PosetElement], bool],
-        ) -> FiniteMeetSemilatticePoset:
-            r"""Return the finite meet-semilattice whose order relation is ``le``."""
-            return self._refine_meet_semilattice(self._raw_poset((elements, le)))
+            covers: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
 
-        @final
-        def meet_semilattice_from_cover_predicate(
+        @overload
+        def JoinSemilattice(
             self,
+            *,
             elements: Iterable[PosetElement],
-            covers: Callable[[PosetElement, PosetElement], bool],
-        ) -> FiniteMeetSemilatticePoset:
-            r"""Return the finite meet-semilattice with cover relation ``covers``."""
-            return self._refine_meet_semilattice(
-                self._raw_poset((elements, covers), cover_relations=True)
-            )
+            order_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
 
-        @final
-        def meet_semilattice_from_upper_covers_dict(
+        @overload
+        def JoinSemilattice(
             self,
-            upper_covers: dict[PosetElement, Sequence[PosetElement]],
-        ) -> FiniteMeetSemilatticePoset:
-            r"""Return the meet-semilattice encoded by upper covers."""
-            return self._refine_meet_semilattice(self._raw_poset(upper_covers))
+            *,
+            elements: Iterable[PosetElement],
+            cover_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
 
-        @final
-        def meet_semilattice_from_upper_covers(
+        @overload
+        def JoinSemilattice(
             self,
+            *,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
+
+        @overload
+        def JoinSemilattice(
+            self,
+            *,
             upper_covers: Sequence[Sequence[PosetElement]],
-        ) -> FiniteMeetSemilatticePoset:
-            r"""Return the finite meet-semilattice encoded by an upper-cover list."""
-            return self._refine_meet_semilattice(self._raw_poset(upper_covers))
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteJoinSemilatticePoset: ...
 
-        @final
-        def meet_semilattice_from_existing(
-            self, poset: Poset
-        ) -> FiniteMeetSemilatticePoset:
-            r"""Return ``poset`` refined as a finite meet-semilattice."""
-            return self._refine_meet_semilattice(self._raw_poset(poset))
-
-        @final
-        def join_semilattice_from_digraph(
+        @overload
+        def JoinSemilattice(
             self,
-            digraph: DiGraph,
             *,
-            cover_relations: bool = False,
+            existing: Poset,
+        ) -> FiniteJoinSemilatticePoset: ...
+
+        @final
+        def JoinSemilattice(
+            self,
+            *,
+            hasse_digraph: DiGraph | None = None,
+            relation_digraph: DiGraph | None = None,
+            elements: Iterable[PosetElement] | None = None,
+            relations: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            covers: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            order_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            cover_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
+            | None = None,
+            upper_covers: Sequence[Sequence[PosetElement]] | None = None,
+            existing: Poset | None = None,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
         ) -> FiniteJoinSemilatticePoset:
-            r"""Return the finite join-semilattice represented by ``digraph``."""
+            r"""Return the finite join-semilattice from a named poset input."""
             return self._refine_join_semilattice(
-                self._raw_poset(digraph, cover_relations=cover_relations)
+                self._raw_poset_from_named_input(
+                    hasse_digraph=hasse_digraph,
+                    relation_digraph=relation_digraph,
+                    elements=elements,
+                    relations=relations,
+                    covers=covers,
+                    order_predicate=order_predicate,
+                    cover_predicate=cover_predicate,
+                    upper_covers_dict=upper_covers_dict,
+                    upper_covers=upper_covers,
+                    existing=existing,
+                    element_labels=element_labels,
+                    linear_extension=linear_extension,
+                    facade=facade,
+                    key=key,
+                )
             )
 
-        @final
-        def join_semilattice_from_relations(
+        @overload
+        def LatticePoset(
             self,
+            *,
+            hasse_digraph: DiGraph,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
+
+        @overload
+        def LatticePoset(
+            self,
+            *,
+            relation_digraph: DiGraph,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
+
+        @overload
+        def LatticePoset(
+            self,
+            *,
             elements: Iterable[PosetElement],
             relations: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
+
+        @overload
+        def LatticePoset(
+            self,
             *,
-            cover_relations: bool = False,
-        ) -> FiniteJoinSemilatticePoset:
-            r"""Return the finite join-semilattice generated by ``relations``."""
-            return self._refine_join_semilattice(
-                self._raw_poset((elements, relations), cover_relations=cover_relations)
-            )
-
-        @final
-        def join_semilattice_from_order_predicate(
-            self,
             elements: Iterable[PosetElement],
-            le: Callable[[PosetElement, PosetElement], bool],
-        ) -> FiniteJoinSemilatticePoset:
-            r"""Return the finite join-semilattice whose order relation is ``le``."""
-            return self._refine_join_semilattice(self._raw_poset((elements, le)))
+            covers: Iterable[tuple[PosetElement, PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
 
-        @final
-        def join_semilattice_from_cover_predicate(
+        @overload
+        def LatticePoset(
             self,
-            elements: Iterable[PosetElement],
-            covers: Callable[[PosetElement, PosetElement], bool],
-        ) -> FiniteJoinSemilatticePoset:
-            r"""Return the finite join-semilattice with cover relation ``covers``."""
-            return self._refine_join_semilattice(
-                self._raw_poset((elements, covers), cover_relations=True)
-            )
-
-        @final
-        def join_semilattice_from_upper_covers_dict(
-            self,
-            upper_covers: dict[PosetElement, Sequence[PosetElement]],
-        ) -> FiniteJoinSemilatticePoset:
-            r"""Return the join-semilattice encoded by upper covers."""
-            return self._refine_join_semilattice(self._raw_poset(upper_covers))
-
-        @final
-        def join_semilattice_from_upper_covers(
-            self,
-            upper_covers: Sequence[Sequence[PosetElement]],
-        ) -> FiniteJoinSemilatticePoset:
-            r"""Return the finite join-semilattice encoded by an upper-cover list."""
-            return self._refine_join_semilattice(self._raw_poset(upper_covers))
-
-        @final
-        def join_semilattice_from_existing(
-            self, poset: Poset
-        ) -> FiniteJoinSemilatticePoset:
-            r"""Return ``poset`` refined as a finite join-semilattice."""
-            return self._refine_join_semilattice(self._raw_poset(poset))
-
-        @final
-        def lattice_from_digraph(
-            self, digraph: DiGraph, *, cover_relations: bool = False
-        ) -> FiniteLatticePoset:
-            r"""Return the finite lattice represented by ``digraph``."""
-            return self._refine_lattice(
-                self._raw_poset(digraph, cover_relations=cover_relations)
-            )
-
-        @final
-        def lattice_from_relations(
-            self,
-            elements: Iterable[PosetElement],
-            relations: Iterable[tuple[PosetElement, PosetElement]],
             *,
-            cover_relations: bool = False,
-        ) -> FiniteLatticePoset:
-            r"""Return the finite lattice generated by ``relations``."""
-            return self._refine_lattice(
-                self._raw_poset((elements, relations), cover_relations=cover_relations)
-            )
-
-        @final
-        def lattice_from_order_predicate(
-            self,
             elements: Iterable[PosetElement],
-            le: Callable[[PosetElement, PosetElement], bool],
-        ) -> FiniteLatticePoset:
-            r"""Return the finite lattice whose order relation is ``le``."""
-            return self._refine_lattice(self._raw_poset((elements, le)))
+            order_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
 
-        @final
-        def lattice_from_cover_predicate(
+        @overload
+        def LatticePoset(
             self,
+            *,
             elements: Iterable[PosetElement],
-            covers: Callable[[PosetElement, PosetElement], bool],
-        ) -> FiniteLatticePoset:
-            r"""Return the finite lattice whose cover relation is ``covers``."""
-            return self._refine_lattice(
-                self._raw_poset((elements, covers), cover_relations=True)
-            )
+            cover_predicate: Callable[[PosetElement, PosetElement], bool],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
 
-        @final
-        def lattice_from_upper_covers_dict(
+        @overload
+        def LatticePoset(
             self,
-            upper_covers: dict[PosetElement, Sequence[PosetElement]],
-        ) -> FiniteLatticePoset:
-            r"""Return the finite lattice encoded by an upper-cover dictionary."""
-            return self._refine_lattice(self._raw_poset(upper_covers))
+            *,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]],
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
 
-        @final
-        def lattice_from_upper_covers(
+        @overload
+        def LatticePoset(
             self,
+            *,
             upper_covers: Sequence[Sequence[PosetElement]],
-        ) -> FiniteLatticePoset:
-            r"""Return the finite lattice encoded by an upper-cover list."""
-            return self._refine_lattice(self._raw_poset(upper_covers))
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset: ...
+
+        @overload
+        def LatticePoset(
+            self,
+            *,
+            existing: Poset,
+        ) -> FiniteLatticePoset: ...
 
         @final
-        def lattice_from_existing(self, poset: Poset) -> FiniteLatticePoset:
-            r"""Return ``poset`` refined as a finite lattice."""
-            return self._refine_lattice(self._raw_poset(poset))
+        def LatticePoset(
+            self,
+            *,
+            hasse_digraph: DiGraph | None = None,
+            relation_digraph: DiGraph | None = None,
+            elements: Iterable[PosetElement] | None = None,
+            relations: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            covers: Iterable[tuple[PosetElement, PosetElement]] | None = None,
+            order_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            cover_predicate: Callable[[PosetElement, PosetElement], bool]
+            | None = None,
+            upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
+            | None = None,
+            upper_covers: Sequence[Sequence[PosetElement]] | None = None,
+            existing: Poset | None = None,
+            element_labels: Sequence[PosetElement]
+            | dict[PosetElement, PosetElement]
+            | None = None,
+            linear_extension: bool = False,
+            facade: bool | None = None,
+            key: Callable[[PosetElement], Any] | None = None,
+        ) -> FiniteLatticePoset:
+            r"""Return the finite lattice poset from a named poset input."""
+            return self._refine_lattice(
+                self._raw_poset_from_named_input(
+                    hasse_digraph=hasse_digraph,
+                    relation_digraph=relation_digraph,
+                    elements=elements,
+                    relations=relations,
+                    covers=covers,
+                    order_predicate=order_predicate,
+                    cover_predicate=cover_predicate,
+                    upper_covers_dict=upper_covers_dict,
+                    upper_covers=upper_covers,
+                    existing=existing,
+                    element_labels=element_labels,
+                    linear_extension=linear_extension,
+                    facade=facade,
+                    key=key,
+                )
+            )
     @final
     def Constructors(self) -> Posets._Constructors:
         r"""Return the named Sage poset constructor collector."""

@@ -31,6 +31,8 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import final
 
+from sage.misc.lazy_import import LazyImport
+
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...types import (
     Automorphism,
@@ -64,6 +66,9 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
 
     _base_category_class_and_axiom = (LatticesCategory, "OverDedekindDomain")
     _defining_predicates = ("is_over_dedekind_domain", "is_torsionfree")
+    OverPID = LazyImport(
+        "category_specs.lattices.subcategories.over_pid", "_LatticesOverPID"
+    )
 
     class ParentMethods:
         @final

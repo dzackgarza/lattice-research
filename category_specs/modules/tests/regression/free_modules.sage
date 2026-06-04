@@ -21,11 +21,11 @@ MQQ = Modules(QQ).Constructors()
 # Ambient free modules and vector spaces  (free_module.py examples)
 # ---------------------------------------------------------------------------
 
-F = MZZ.FreeModule(3)
+F = MZZ.FreeModule(rank=3)
 assert F.rank() == 3
 assert F.basis_matrix() == identity_matrix(ZZ, 3)
 
-V = MQQ.VectorSpace(3)
+V = MQQ.VectorSpace(dimension=3)
 assert V.dimension() == 3
 assert V.cardinality() == infinity
 

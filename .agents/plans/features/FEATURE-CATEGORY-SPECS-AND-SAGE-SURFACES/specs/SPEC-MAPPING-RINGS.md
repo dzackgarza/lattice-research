@@ -8,25 +8,62 @@ dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 - '[[DECISION-ROOTS-OF-UNITY-OWNER]]'
 - '[[DECISION-ORE-LOCALIZATION-OWNER]]'
-- '[[DECISION-QADIC-LATTICE-PRECISION]]'
 title: Track rings mapping spec
 status: complete
 priority: critical
-requirement: Convert category_specs/rings/docs/MAPPING.md into a tracked spec surface
-  and audit it for Sage-source completeness, mathematical correctness, and well-typed
-  ring, ideal, quotient, localization, topological, and constructor signatures.
+requirement: Convert category_specs/rings/docs/MAPPING.md into a tracked spec surface and
+  audit it for Sage-source completeness, mathematical correctness, and well-typed ring, ideal,
+  quotient, localization, topological, and constructor signatures.
 acceptanceCriteria:
 - Source paths category_specs/rings/docs/MAPPING.md and category_specs/rings/docs/SAGE_INVENTORY.md
   are reviewed.
-- Every admitted row states caller category, complete input data, hypotheses, return
-  object, and source evidence.
+- Every admitted row states caller category, complete input data, hypotheses, return object,
+  and source evidence.
 - Methods are placed at the highest category where they are mathematically well-defined.
-- Nonmathematical targets and raw Sage implementation containers are rejected or marked
-  interop-only.
+- Nonmathematical targets and raw Sage implementation containers are rejected or marked interop-only.
 - Missing Sage surfaces or mathematical ambiguities become tracked cards or decisions.
 complexity: 85
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+constructorNameInventories:
+- owner: category_specs.rings.Rings._Constructors
+  sageConstructorNames:
+  - AA
+  - CDF
+  - CC
+  - CIF
+  - ComplexBallField
+  - ComplexField
+  - CyclotomicField
+  - FiniteField
+  - GF
+  - IntegerModRing
+  - Integers
+  - LaurentSeriesRing
+  - MatrixRing
+  - MultivariatePowerSeriesRing
+  - NumberField
+  - PolynomialRing
+  - PowerSeriesRing
+  - PuiseuxSeriesRing
+  - QQ
+  - QQbar
+  - Qp
+  - Qq
+  - QuadraticField
+  - RDF
+  - RIF
+  - RR
+  - RealBallField
+  - RealField
+  - Zmod
+  - Zp
+  - Zq
+  projectOwnedConstructionNames:
+  - ZZ
+  - NumberFieldTower
+  - ZeroRing
+  - MultivariatePowerSeriesRingWithGeneratorPrefix
 ---
 # Rings Mapping Spec
 
@@ -118,9 +155,9 @@ split these rows into concrete category files.
 | `QuotientFields.ElementMethods.numerator`, `denominator`, `gcd`, `lcm`, `xgcd`, `factor`, `partial_fraction_decomposition`, `derivative`, `_derivative` | quotient-field elements, with rational-function refinements where polynomial hypotheses are required | Numerator and denominator are abstract quotient-field element data. Partial fractions and derivatives require denominator factorization or polynomial/rational-function structure and should be guarded by those hypotheses in the final spec. |
 | `PolynomialRing` constructor | `Rings().Constructors().PolynomialRing(...)` split into explicit overloads | The installed source confirms the finite documented cases: one name, names, count plus names, and finite `var_array` shapes. Higher-dimensional `var_array` remains excluded until finite-indexing vocabulary exists. |
 | `NumberField` constructor | `Rings().Constructors().NumberField(...)` and `NumberFieldTower(...)` | The installed source confirms a single-polynomial route and a list/tuple polynomial tower route; `implementation` and `prec` are compatibility keywords ignored unless nontrivial values are supplied. |
-| `PowerSeriesRing`, `LaurentSeriesRing`, `PuiseuxSeriesRing` constructors | named power/Laurent/Puiseux series constructors | Univariate, multivariate, and underlying-ring routes remain split. Laurent and Puiseux constructors can accept already-built underlying series rings; those are named constructor paths, not arbitrary variadic admission. |
+| `PowerSeriesRing`, `LaurentSeriesRing`, `PuiseuxSeriesRing` constructors | named power/Laurent/Puiseux series constructors | Univariate, multivariate, and underlying-ring input shapes remain split as named-only overloads under the original Sage constructor names. Laurent and Puiseux constructors can accept already-built underlying series rings; those shapes are not new constructor names. |
 | `MatrixSpace` / square matrix parent | ring constructor plus algebra/module refinement | Square matrix spaces are algebras and rings; rectangular matrix spaces are module homspaces. Matrix element construction remains split into named element constructors. |
-| `Zp`, `Qp`, `Zq`, `Qq` | p-adic and q-adic ring/field constructors | Scalar precision, lattice precision pairs, relaxed precision triples, print controls, and unramified-extension data stay named. Print controls are display interop; precision and valuation data are mathematical. |
+| `Zp`, `Qp`, `Zq`, `Qq` | p-adic and q-adic ring/field constructors | Sage's native input shapes stay under the original constructor names. `Zp`/`Qp` split scalar precision, lattice precision pairs, and relaxed precision tuples as named-only overload shapes on `Zp`/`Qp`. `Zq`/`Qq` split integer prime-power, `(p, degree)`, and one-factor factorization input shapes as named-only overload shapes on `Zq`/`Qq`. Print controls are display interop; precision and valuation data are mathematical. |
 | `FiniteField` / `GF` and `IntegerModRing` | finite field and integer-modulo constructors | `GF` admits prime-power order, name/prefix, modulus, implementation, proof/check data, and display representation. `IntegerModRing` is a quotient-ring constructor for `ZZ/nZZ`, with field refinement only when the modulus is prime. |
 
 ## Interop, Display, Runtime, And Private Helper Classification
@@ -229,18 +266,17 @@ The remaining variadic ring factories are split as follows:
 | --- | --- | --- |
 | `NumberField(polynomial, name=None, check=True, names=None, embedding=None, latex_name=None, assume_disc_small=False, maximize_at_primes=None, structure=None, *, latex_names=None)` | `NumberField(polynomial, name=None, check=True, names=None, embedding=None, latex_name=None, assume_disc_small=False, maximize_at_primes=None, structure=None, *, latex_names=None)` | Single defining-polynomial route. Each admitted Sage option is named explicitly; sequence-valued tower metadata is not accepted here. |
 | `NumberField(polynomials, names, check=True, embeddings=None, latex_names=None, assume_disc_small=False, maximize_at_primes=None, structures=None)` | `NumberFieldTower(polynomials, names, check=True, embeddings=None, latex_names=None, assume_disc_small=False, maximize_at_primes=None, structures=None)` | Tower construction is a separate mathematical case with sequence metadata attached to the tower. |
-| `Zp(p, prec=n, type=...)` / `Qp(p, prec=n, type=...)` | `Zp(p, prec=n, type=...)` / `Qp(p, prec=n, type=...)` | Scalar precision cap route. |
-| `Zp(p, prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qp` analogue | `ZpWithPrecisionCaps(...)` / `QpWithPrecisionCaps(...)` | Pair precision data is meaningful only for lattice precision, so it is named explicitly. |
-| `Zp(p, prec=(default_prec, halting_prec, secure), type='relaxed')` and `Qp` analogue | `ZpRelaxed(...)` / `QpRelaxed(...)` | Relaxed arithmetic has default, halting, and security data; it is not a generic precision tuple. |
-| `Zq(q, ...)` / `Qq(q, ...)` with integer prime power | `Zq(q, ...)` / `Qq(q, ...)` | Cardinality route. |
-| `Zq((p, n), ...)` / `Qq((p, n), ...)` | `ZqFromPrimePower(p, degree=n, ...)` / `QqFromPrimePower(...)` | Prime-power pair route. |
-| `Zq([(p, n)], ...)` / `Qq([(p, n)], ...)` | `ZqFromPrimePowerFactorization(factorization=...)` / `QqFromPrimePowerFactorization(...)` | Factorization route. |
-| `Zq(..., prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qq` analogue | Deferred admitted names `ZqWithPrecisionCaps(...)` / `QqWithPrecisionCaps(...)` | The split is mathematically meaningful, but installed Sage does not expose a working unramified extension parent for lattice precision caps. |
+| `Zp(p, prec=n, type=...)` / `Qp(p, prec=n, type=...)` | `Zp(p=p, prec=n, type=...)` / `Qp(p=p, prec=n, type=...)` | Scalar precision cap route under the original Sage constructor name. |
+| `Zp(p, prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qp` analogue | `Zp(p=p, relative_cap=..., absolute_cap=..., type='lattice-*')` / `Qp(p=p, relative_cap=..., absolute_cap=..., type='lattice-*')` | Pair precision data is meaningful only for lattice precision, so the tuple is split into named parameters under the original Sage constructor name. |
+| `Zp(p, prec=(default_prec, halting_prec, secure), type='relaxed')` and `Qp` analogue | `Zp(p=p, default_prec=..., halting_prec=..., secure=..., type='relaxed')` / `Qp(p=p, default_prec=..., halting_prec=..., secure=..., type='relaxed')` | Relaxed arithmetic has default, halting, and security data; the tuple is split into named parameters under the original Sage constructor name. |
+| `Zq(q, ...)` / `Qq(q, ...)` with integer prime power | `Zq(q=q, ...)` / `Qq(q=q, ...)` | Cardinality route under the original Sage constructor name. |
+| `Zq((p, n), ...)` / `Qq((p, n), ...)` | `Zq(p=p, degree=n, ...)` / `Qq(p=p, degree=n, ...)` | Prime-power pair route under the original Sage constructor name. |
+| `Zq([(p, n)], ...)` / `Qq([(p, n)], ...)` | `Zq(factorization=[(p, n)], ...)` / `Qq(factorization=[(p, n)], ...)` | One-factor factorization route under the original Sage constructor name. |
 | `PowerSeriesRing(R, name, default_prec=...)` | `PowerSeriesRing(base_ring=R, name=..., default_prec=...)` | Univariate power-series route. Sage's deprecated positional precision route maps to the named `default_prec`. |
 | `PowerSeriesRing(R, names=...)` or comma-separated/list names | `MultivariatePowerSeriesRing(base_ring=R, names=..., num_gens=...)` | Multivariate named-generator route. |
 | `PowerSeriesRing(R, n, prefix, ...)` | `MultivariatePowerSeriesRingWithGeneratorPrefix(base_ring=R, prefix=..., num_gens=n, ...)` | Prefix-plus-count route. |
-| `LaurentSeriesRing(PowerSeriesRing(...))` | `LaurentSeriesRingFromPowerSeriesRing(power_series_ring)` | Underlying power-series-ring route. |
-| `PuiseuxSeriesRing(LaurentSeriesRing(...))` | `PuiseuxSeriesRingFromLaurentSeriesRing(laurent_series_ring)` | Underlying Laurent-series-ring route. |
+| `LaurentSeriesRing(PowerSeriesRing(...))` | `LaurentSeriesRing(power_series_ring=...)` | Underlying power-series-ring route as a named-only overload of the existing Sage constructor name. |
+| `PuiseuxSeriesRing(LaurentSeriesRing(...))` | `PuiseuxSeriesRing(laurent_series_ring=...)` | Underlying Laurent-series-ring route as a named-only overload of the existing Sage constructor name. |
 | `MatrixRing(R, n, sparse=False, implementation=None)` | `Rings().Constructors().MatrixRing(base_ring=R, n=n, sparse=False, implementation=None)` | The constructor entry point stays in `rings` because it builds the ambient square-matrix parent itself. Refinement into algebra and module categories happens on the returned parent rather than by relocating the constructor. |
 | `MatrixSpace.matrix(x=None, **kwds)` | `zero_matrix()`, `matrix_from_matrix(matrix, *, coerce=True)`, `matrix_from_entries(entries, *, coerce=True)`, `matrix_from_rows(rows, *, coerce=True)`, `scalar_matrix(scalar, *, coerce=True)` | The no-argument, matrix, flat-entry, row-entry, and scalar cases are separate element constructors. Sage's option bag is not public; the only admitted keyword on data-bearing routes is the named `coerce` flag. |
 
@@ -424,61 +460,6 @@ separate quotient/subobject construction owner.
 | Number-field and finite-field `embeddings(...)`, `automorphisms()`, and family automorphism witnesses | `sage/rings/number_field/number_field.py:9249-9354`; `sage/rings/number_field/number_field_rel.py:2025-2109`; `sage/rings/finite_rings/finite_field_base.pyx:1859-1941` | Routed to field-family hom and aut constructors. Lists or tuples of embeddings are finite families of ring morphisms; the owner of individual maps remains `Rings().HomCategory().ElementMethods` and automorphism objects are recovered through `Rings().AutCategory()`. |
 | Absence of an installed ring-specific `Autsets` category | existing formal negative finding above; checked Sage category files and concrete ring-family sources named in this audit | No new generic ring-autset wrapper is admitted. Project `Rings().AutCategory()` remains local top-level Hom/End/Aut wiring with ring specializations and family witnesses. |
 
-## Deferred Q-Adic Lattice Precision
-
-`ZpWithPrecisionCaps` and `QpWithPrecisionCaps` are concrete because Sage's `Zp` and
-`Qp` base constructors canonicalize lattice precision pairs. The corresponding
-unramified extension names `ZqWithPrecisionCaps` and `QqWithPrecisionCaps` are retained
-as admitted split names, but their bodies assert the installed Sage gap instead of
-passing through to a broken constructor path.
-
-- Searched: `rings/docs/MAPPING.md`, `rings/docs/SAGE_INVENTORY.md`,
-  `rings/smoketest.sage`, `rings/__init__.py`, Sage
-  `sage/rings/padics/factory.py` around `get_key_base`, `Zq`, `Qq`, and
-  `pAdicExtension_class`, Sage `sage/rings/padics/padic_extension_leaves.py`,
-  Sage `sage/rings/padics/generic_nodes.py`, and Sage
-  `sage/rings/padics/local_generic.py`. Runtime probes covered direct Sage
-  `Zq(25, prec=4, type="lattice-cap", names="a")`,
-  `Zq(25, prec=(4, 8), type="lattice-cap", names="a")`,
-  `Qq(25, prec=4, type="lattice-cap", names="a")`,
-  `Qq(25, prec=(4, 8), type="lattice-cap", names="a")`, the analogous
-  `lattice-float` pair routes, `check=False` factorization routes, and explicit
-  `Zp(..., type="lattice-cap").extension(...)` /
-  `Qp(..., type="lattice-cap").extension(...)` routes. Upstream follow-up searched
-  Sage 10.8 p-adics docs for `factory`, `generic_nodes`, and `padic_base_leaves`;
-  Sage `develop` raw source for `factory.py`, `padic_extension_leaves.py`,
-  `padic_base_leaves.py`, and `generic_nodes.py`; GitHub issue/PR searches for
-  `Zq Qq lattice-cap`, `pAdicLatticeGeneric unramified extension`, `lattice precision
-  q-adic`, `pAdicRingLattice pAdicFieldLattice extension`, and `PrecisionLattice`;
-  issues `#23505`, `#24809`, `#25915`, `#28466`, `#30692`, and pull request `#34993`;
-  the stale `sagetrac-mirror` branch for `#25915`; and PR `#34993` branch
-  `roed314/sage:general-extensions`.
-- Found: Sage `Zp`/`Qp` base constructors canonicalize lattice precision pairs through
-  `get_key_base`, and `pAdicLatticeGeneric` stores separate relative and absolute
-  caps. Installed Sage `Zq`/`Qq` extension constructors document q-adic `prec` as an
-  integer cap and coerce non-`Integer` precision with `prec = Integer(prec)` before
-  calling `ExtensionFactory`. Direct q-adic pair precision fails with `TypeError:
-  unable to coerce <class 'tuple'> to an integer`. Scalar lattice-cap q-adic routes
-  and explicit lattice-base extension routes fail before returning a usable extension
-  parent. The installed and `develop` `ext_table` entries have unramified extension
-  leaves for capped-relative, capped-absolute, fixed-modulus, and floating-point bases,
-  but no lattice extension leaf keyed by `pAdicRingLattice` or `pAdicFieldLattice`.
-  Issue `#23505` is the merged base p-adic lattice-precision ticket; open issues
-  `#24809` and `#30692` show remaining lattice-precision performance/API gaps. Open
-  issue `#25915` targets unramified extensions of arbitrary p-adic fields, and open
-  issue `#28466` / draft PR `#34993` target general p-adic extensions, but the searched
-  branches still do not add lattice extension leaves or a q-adic split-cap constructor.
-- Conclusion: inference -- no real installed or searched upstream Sage construction
-  path currently realizes unramified q-adic extensions with split lattice
-  relative/absolute precision caps. These names remain deferred frontiers until Sage
-  exposes an extension-specific lattice-precision route or an upstream fix.
-- Confidence: High.
-- Gaps: GitHub issue comments could not be loaded through `gh issue view --comments`
-  because GitHub's classic-project GraphQL field failed, so the upstream audit used
-  issue bodies, search results, labels, source branches, and PR metadata. Private
-  branches and developer discussions outside public Sage GitHub/Sage docs were not
-  searched.
-
 ## Axiom vs. Implementation Decision
 
 Use direct implementation categories only for genuinely computable implementation
@@ -561,7 +542,7 @@ Verified p-adic constructor dispatch:
 - `Zp = Zp_class("Zp")` at `factory.py:2051` — CONFIRMED (UniqueFactory-based)
 - `Zq(q, prec, type, ...)` as top-level function at `factory.py:2058` — CONFIRMED
 - `Qp = Qp_class("Qp")` at `factory.py:830` — CONFIRMED
-- The spec's decomposition into scalar/lattice-cap/relaxed/prime-power-pair/factorization routes correctly reflects Sage's actual dispatch logic
+- The spec's decomposition into scalar/lattice-cap/relaxed/prime-power-pair/factorization routes correctly reflects Sage's actual dispatch logic, with all such routes exposed as named-only input shapes under the original Sage constructor names `Zp`, `Qp`, `Zq`, and `Qq`
 
 ### Gate Results
 
@@ -594,7 +575,6 @@ Verified p-adic constructor dispatch:
 **Gate 5 (Ambiguity Routing): FAIL — decision cards missing**
 - Line 90: zeta/zeta_order for arbitrary rings needs a "RootsOfUnity or torsion-unit owner" — no corresponding decision card found in `decisions/`
 - Line 91: Noncommutative/Ore localization needs a "separate owner decision" — no corresponding decision card found
-- Deferred q-adic lattice precision (lines 378–431): thorough Sage upstream evidence collected, but no decision card for the deferred frontier names (ZqWithPrecisionCaps, QqWithPrecisionCaps)
 - The Review Gates section (lines 34–40) states that unresolved issues "route to tracked decisions or tasks before implementation proceeds" — this routing has not been executed
 
 **Gate 6 (Obligation Preservation): PASS**
@@ -616,7 +596,6 @@ Verified p-adic constructor dispatch:
 2. **Missing decision cards** (Gate 5 failure):
    - No decision card for roots-of-unity ownership (zeta, zeta_order on non-finite-field rings)
    - No decision card for noncommutative/Ore localization ownership
-   - No decision card for deferred q-adic lattice precision frontier
 
 3. **Ore polynomial rings**: Mentioned in bracket dispatcher (line 92) as needing explicit constructor routes, but no constructor route rows are specified in the Constructor Namespace section. This is a spec gap that should become a tracked task or decision.
 
@@ -630,7 +609,6 @@ The spec is mathematically sound, source-grounded, and complete for its stated p
 
 - DECISION-ROOTS-OF-UNITY-OWNER (zeta/zeta_order owner for non-finite-field rings)
 - DECISION-ORE-LOCALIZATION-OWNER (noncommutative/Ore localization category ownership)
-- DECISION-QADIC-LATTICE-PRECISION (deferred ZqWithPrecisionCaps/QqWithPrecisionCaps frontier)
 
 Additionally, Ore polynomial ring constructor routes should be either added to the Constructor Namespace table or deferred with an explicit decision/task card.
 

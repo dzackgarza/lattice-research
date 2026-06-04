@@ -106,11 +106,13 @@ Decision: RealSet topological methods recover through the ambient-relative
 
 For a real subset `U`, the migration route is:
 
-- `U.is_open()` becomes `U.ambient().is_open(U)`;
-- `U.is_closed()` becomes `U.ambient().is_closed(U)`;
-- `U.closure()` becomes `U.ambient().closure(U)`;
-- `U.interior()` becomes `U.ambient().interior(U)`;
-- `U.boundary()` becomes `U.ambient().boundary(U)`.
+- `U.is_open()` becomes `U.ambient_real_line().is_open_subset(U)`;
+- `U.is_closed()` becomes `U.ambient_real_line().is_closed_subset(U)`;
+- `U.closure()` becomes `U.ambient_real_line().closure_subset(U)`;
+- `U.interior()` becomes `U.ambient_real_line().interior_subset(U)`;
+- `U.boundary()` becomes `U.ambient_real_line().boundary_subset(U)`.
+
+Sage's existing `ambient()` method is not overloaded by this route.
 
 This pass recorded that route in `category_specs/topological_spaces/docs/MAPPING.md`
 and documented the compatibility boundary in `category_specs/sets/subcategories/real_set.py`.
@@ -146,7 +148,7 @@ user-authorized skip-verification workflow for spec checkpoints.
 | MAPPING.md (topological_spaces) | `category_specs/topological_spaces/docs/MAPPING.md` | Yes — redirect stub (6 lines) pointing to tracked spec `SPEC-MAPPING-TOPOLOGICAL-SPACES.md` | Spec lines 51-57 reference "Root Topological Method Mapping" rows. Those rows now live in the tracked spec at `plans/features/.../specs/SPEC-MAPPING-TOPOLOGICAL-SPACES.md` lines 135-141. All five ambient-relative method rows confirmed: `is_open`, `is_closed`, `closure`, `interior`, `boundary` each with target shape, justification, and migration consequence. |
 | SAGE_INVENTORY.md (topological_spaces) | `category_specs/topological_spaces/docs/SAGE_INVENTORY.md` | Yes — 87 lines, 4 sections | Spec lines 58-64 reference inventoried rows for `RealSet.is_open`, `is_closed`, `closure`, `interior`, `boundary`, and `ambient`. All six confirmed at inventory lines 50-55. |
 | MAPPING.md (sets) | `category_specs/sets/docs/MAPPING.md` | Yes — redirect stub (6 lines) pointing to tracked spec `SPEC-MAPPING-SETS.md` | Spec lines 65-67 reference constructor-routing rows. The sets mapping stub confirms the inventory is at `category_specs/sets/docs/SAGE_INVENTORY.md`. Constructor routing is maintained in the tracked sets spec. |
-| `real_set.py` subcategory docstring | `category_specs/sets/subcategories/real_set.py` | Yes — 192 lines | Spec line 116: "documented the compatibility boundary in `category_specs/sets/subcategories/real_set.py`." Verified: docstring lines 35-40 explicitly state: "The project owner is the ambient-relative `TopologicalSpaces()` surface: `U.ambient().closure(U)`, `U.ambient().is_open(U)`, and analogous calls. This category records the real-subset representation; it does not create a second topological owner." Matches the spec's rejection condition (lines 88-92). |
+| `real_set.py` subcategory docstring | `category_specs/sets/subcategories/real_set.py` | Yes — verified | Spec line 116 documents the compatibility boundary in `category_specs/sets/subcategories/real_set.py`. The admitted RealSet-backed route uses `ambient_real_line()` plus the `*_subset` methods instead of overloading Sage's existing `ambient()` method. |
 | Decision card | `plans/features/.../decisions/DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING.md` | Yes — 199 lines | Cross-reference: confirms the warning-acceptance decision (lines 153-160), keeps `Sets().Constructors()` constructor surface, rejects catch-all `RealSet(...)` route. Independent confirmation that no `TopologicalSpaces().Constructors()` path was admitted. |
 | Implementation task | `plans/features/.../tasks/TASK-01KQN9YGCD23ZSZDA3VT3BJ92E-IMPLEMENT-REALSET-NAMED-CONSTRUCTORS-AND-SMOKE-RECOVERY-THROUGH-AMBIENT.md` | Yes | Confirms the follow-up implementation task exists under `PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY`. |
 
@@ -196,7 +198,7 @@ The spec correctly identifies that openness, closedness, closure, interior, and 
 - interior_X(U) = ⋃{O open in X : O ⊆ U}
 - boundary_X(U) = closure_X(U) \ interior_X(U)
 
-The migration from `U.is_open()` to `U.ambient().is_open(U)` is mathematically correct. Sage's `RealSet.is_open()` implicitly uses the real-line topology as the ambient space; the spec makes this relationship explicit and general.
+The migration from `U.is_open()` to `U.ambient_real_line().is_open_subset(U)` is mathematically correct for the admitted RealSet-backed route. Sage's `RealSet.is_open()` implicitly uses the real-line topology as the ambient space; the spec makes this relationship explicit without overloading Sage's existing `ambient()` method.
 
 **2. Hypothesis and codomain obligations (spec lines 80-86):**
 
@@ -210,7 +212,7 @@ All stated obligations are mathematically necessary:
 
 The spec correctly enforces that `TopologicalSpaces().Constructors()` stays empty. Named real-line subsets are first sets, then refined into topological subobjects. The hierarchy is:
 ```
-Sets().Constructors().OpenRealInterval(0, 1)  → refines into TopologicalSpaces().Subobjects()
+Sets().Constructors().open(lower=0, upper=1)  → refines into TopologicalSpaces().Subobjects()
 ```
 
 This is mathematically sound: a set is constructed first, then acquires structure via category refinement. The spec's rejection conditions (lines 88-92) correctly prevent:

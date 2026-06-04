@@ -337,7 +337,7 @@ check-abstract-redefinitions:
         f"across {len(provider_classes)} project method-provider classes."
     )
 
-test: check-banned-spec-patterns validate-super-categories smoke _clean-generated-artifacts
+test: check-banned-spec-patterns check-constructor-name-inventory validate-super-categories smoke _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
@@ -375,8 +375,23 @@ check-banned-spec-patterns:
     cd {{justfile_directory()}}/..
     python3 category_specs/validators/banned_spec_patterns.py
 
-validate-super-categories: check-banned-spec-patterns
+check-constructor-name-inventory:
     #!/usr/bin/env bash
     set -euo pipefail
+    cd {{justfile_directory()}}/..
+    python3 category_specs/validators/constructor_name_inventory_validator.py
+
+validate-super-categories:
+    #!/usr/bin/env bash
+    set -uo pipefail
     cd {{justfile_directory()}}
-    python3 validators/super_categories_validator.py
+    banned_status=0
+    constructor_status=0
+    graph_status=0
+    just --justfile {{justfile()}} check-banned-spec-patterns || banned_status=$?
+    just --justfile {{justfile()}} check-constructor-name-inventory || constructor_status=$?
+    sage validators/super_categories_validator.py
+    graph_status=$?
+    if ((banned_status != 0 || constructor_status != 0 || graph_status != 0)); then
+        exit 1
+    fi

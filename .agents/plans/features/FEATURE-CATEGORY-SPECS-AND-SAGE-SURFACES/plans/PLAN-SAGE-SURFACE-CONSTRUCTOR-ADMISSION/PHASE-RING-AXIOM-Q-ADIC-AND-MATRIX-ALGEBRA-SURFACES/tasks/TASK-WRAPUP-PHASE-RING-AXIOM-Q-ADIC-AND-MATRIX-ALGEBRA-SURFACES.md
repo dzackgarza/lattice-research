@@ -3,31 +3,33 @@ id: TASK-WRAPUP-PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES
 trackerStatus:
   type: task
 parents:
-  - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
+- '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 dependsOn:
-  - '[[TASK-01KQN9J3WXGKSYTRTQDP54C28J-FIX-MODULES-SMOKE-MISSING-ALGEBRA-SYMPY-RICHCMP-REPRESENTATION-LATTICE-A]]'
-  - '[[TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME]]'
-  - '[[TASK-01KQN9J3WZDBZ8D0BPGG8AKVXH-IMPLEMENT-MISSING-SYMPY-SURFACE-FOR-REFINED-RING-CONSTRUCTOR-OUTPUTS]]'
-  - '[[TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED]]'
-  - '[[TASK-01KQN9YGCKBZM1PG5YYQW5A8M6-IMPLEMENT-MATRIX-RING-REFINEMENT-INTO-ALGEBRAS-R-AND-MODULES-R-FREE-FINI]]'
-  - '[[TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION]]'
-  - '[[TASK-1777748120685-4VX3GB-STRIP-IMPORT-AND-LAZYIMPORT-BLOAT-FROM-RING-SUBCATEGORY-CONSTRUCTORS]]'
+- '[[TASK-01KQN9J3WXGKSYTRTQDP54C28J-FIX-MODULES-SMOKE-MISSING-ALGEBRA-SYMPY-RICHCMP-REPRESENTATION-LATTICE-A]]'
+- '[[TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME]]'
+- '[[TASK-01KQN9J3WZDBZ8D0BPGG8AKVXH-IMPLEMENT-MISSING-SYMPY-SURFACE-FOR-REFINED-RING-CONSTRUCTOR-OUTPUTS]]'
+- '[[TASK-01KQN9YGCKBZM1PG5YYQW5A8M6-IMPLEMENT-MATRIX-RING-REFINEMENT-INTO-ALGEBRAS-R-AND-MODULES-R-FREE-FINI]]'
+- '[[TASK-1777748120685-4VX3GB-STRIP-IMPORT-AND-LAZYIMPORT-BLOAT-FROM-RING-SUBCATEGORY-CONSTRUCTORS]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high
-description: Wrap-up and cleanup for phase PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES. Audit card statuses, run
-  meta-review on completed work, update skills and memories, and organize git history.
+description: Wrap-up and cleanup for phase PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES.
+  Audit card statuses, run meta-review on completed work, update skills and memories,
+  and organize git history.
 successCriteria:
 - All cards in this phase have accurate and up-to-date statuses
-- A research-planning-cleanup scan has been run on all recently-completed cards in this phase
+- A research-planning-cleanup scan has been run on all recently-completed cards in
+  this phase
 - Any suspicious cards have been kicked back with specific, actionable feedback
-- Local skills and IWE memories have been updated with lessons learned during this phase
-- Git commits from this phase are reviewed and organized into a coherent narrative milestone
+- Local skills and IWE memories have been updated with lessons learned during this
+  phase
+- Git commits from this phase are reviewed and organized into a coherent narrative
+  milestone
 - The Research Log below documents what was found and what was done
 tags:
-  - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-  - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
-  - PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES
+- FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+- PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
+- PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES
 ---
 
 # Phase Wrap-Up: Planning Cleanup and Card Status Audit

@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Sprint set and topological smoke frontier recovery for root containment rich
   comparison Primes iteration RealSet ambient methods and topological axiom warning
-status: complete
+status: in-progress
 priority: high
 description: The deleted Sets triage recorded the mapped enumeration smoke surface
   and current failures for containment, rich comparison, Primes iteration, RealSet

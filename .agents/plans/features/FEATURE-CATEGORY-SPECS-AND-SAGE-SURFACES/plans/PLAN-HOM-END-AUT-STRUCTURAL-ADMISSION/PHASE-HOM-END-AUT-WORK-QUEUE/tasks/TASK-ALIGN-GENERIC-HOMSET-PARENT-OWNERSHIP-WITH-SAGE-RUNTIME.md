@@ -151,8 +151,7 @@ That still leaves a QC consequence:
     `basis_index_set()` so basis keys are preserved rather than replaced by positional
     indices.
   - Rings: rational-field and algebraic-closure singleton methods now answer the
-    source-forced surfaces needed by rings smoke; q-adic split lattice-cap
-    constructors remain a separately tracked Sage gap.
+    source-forced surfaces needed by rings smoke.
   This card returns to the human approval gate after fresh-context review of the
   runtime repair and validation boundary.
 - 2026-05-18: Fresh-context review found the Hom owner repair coherent but required
@@ -202,7 +201,7 @@ That still leaves a QC consequence:
   - `just --justfile category_specs/justfile smoke-file modules/smoketest.sage`
     exited 0.
   - `just --justfile category_specs/justfile smoke-file rings/smoketest.sage`
-    still reaches the already tracked q-adic split lattice-cap constructor gap.
+    requires separate rings-surface validation.
   - `just --justfile category_specs/justfile smoke-file algebras/smoketest.sage`
     exited 0.
   - `just --justfile category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`
@@ -215,10 +214,6 @@ That still leaves a QC consequence:
     exited 0, with Sage method-provider superclass warnings.
   - `just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage`
     exited 0, with Sage method-provider superclass warnings.
-  - `just --justfile category_specs/justfile smoke` fails only on
-    `rings/smoketest.sage` at the q-adic split lattice-cap constructors already
-    tracked by
-    `TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED`.
 - Fresh-context review:
   - Initial verdict: `revision-required` for the ungrounded mapping-valued
     `ModuleBasis` branch and broad non-Hom repair evidence.

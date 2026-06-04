@@ -42,19 +42,19 @@ C = Sets().Constructors()
 
 
 def fixed_ordered_partition():
-    return C.SetPartitions(3)([[1, 3], [2]])
+    return C.SetPartitions(base_set=3)([[1, 3], [2]])
 
 
 def real_open_interval_01():
-    return C.OpenRealInterval(0, 1)
+    return C.open(lower=0, upper=1)
 
 
 def real_closed_interval_01():
-    return C.ClosedRealInterval(0, 1)
+    return C.closed(lower=0, upper=1)
 
 
 def single_block_ordered_partition():
-    return C.SetPartitions(3)([[1, 2, 3]])
+    return C.SetPartitions(base_set=3)([[1, 2, 3]])
 
 
 def finite_image_subobject_with_ambient():
@@ -72,20 +72,20 @@ SMOKE_STATEMENTS = (
     ("ZZ is already an object of Sets()", lambda _: ZZ in Sets()),
     ("ZZ is not finite as a set", lambda _: not ZZ.is_finite()),
     (
-        "from_iterable([1, 2, 3]) is a finite countable set",
-        lambda _: C.from_iterable([1, 2, 3]) in Sets().Countable().Finite(),
+        "Set(elements=[1, 2, 3]) is a finite countable set",
+        lambda _: C.Set(elements=[1, 2, 3]) in Sets().Countable().Finite(),
     ),
     (
-        "from_iterable([1, 2, 3]) has cardinality 3",
-        lambda _: C.from_iterable([1, 2, 3]).cardinality() == 3,
+        "Set(elements=[1, 2, 3]) has cardinality 3",
+        lambda _: C.Set(elements=[1, 2, 3]).cardinality() == 3,
     ),
     (
-        "from_iterable([1, 2, 3]) ranks 1 as 2",
-        lambda _: C.from_iterable([1, 2, 3])[1] == 2,
+        "Set(elements=[1, 2, 3]) ranks 1 as 2",
+        lambda _: C.Set(elements=[1, 2, 3])[1] == 2,
     ),
     (
-        "from_iterable([1, 2, 3]) is a subset of ZZ",
-        lambda _: C.from_iterable([1, 2, 3]).is_subset(ZZ),
+        "Set(elements=[1, 2, 3]) is a subset of ZZ",
+        lambda _: C.Set(elements=[1, 2, 3]).is_subset(ZZ),
     ),
     (
         "FiniteEnumeratedSet([1, 2, 3]) is a finite countable set",
@@ -116,8 +116,8 @@ SMOKE_STATEMENTS = (
         lambda _: C.FiniteEnumeratedSet([1, 2, 3]).is_subset(ZZ),
     ),
     (
-        "SingletonSet(7) is the one-element finite set {7}",
-        lambda _: C.SingletonSet(7).cardinality() == 1 and 7 in C.SingletonSet(7) and 8 not in C.SingletonSet(7),
+        "Set(elements=[7]) is the one-element finite set {7}",
+        lambda _: C.Set(elements=[7]).cardinality() == 1 and 7 in C.Set(elements=[7]) and 8 not in C.Set(elements=[7]),
     ),
     ("IntegerRange(5) is a finite countable set", lambda _: C.IntegerRange(5) in Sets().Countable().Finite()),
     ("IntegerRange(5) has cardinality 5", lambda _: C.IntegerRange(5).cardinality() == 5),
@@ -144,105 +144,105 @@ SMOKE_STATEMENTS = (
     ("Primes() indexes its first element as 2", lambda _: C.Primes()[0] == 2),
     (
         "RealSet(open interval) is a topological set",
-        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]) in Sets().Topological(),
+        lambda _: C.RealSet(intervals=[SageRealSet.open(0, 1).get_interval(0)]) in Sets().Topological(),
     ),
     (
         "RealSet(open interval) is a subobject",
-        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]) in Sets().Subobjects(),
+        lambda _: C.RealSet(intervals=[SageRealSet.open(0, 1).get_interval(0)]) in Sets().Subobjects(),
     ),
     (
         "RealSet(open interval) contains 1/2",
-        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).contains(1 / 2),
+        lambda _: C.RealSet(intervals=[SageRealSet.open(0, 1).get_interval(0)]).contains(1 / 2),
     ),
     (
         "RealSet(open interval) does not contain 2",
-        lambda _: not C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).contains(2),
+        lambda _: not C.RealSet(intervals=[SageRealSet.open(0, 1).get_interval(0)]).contains(2),
     ),
     (
         "RealSet(open interval) is open through its ambient real line",
-        lambda _: (lambda U: U.ambient().is_open(U))(real_open_interval_01()),
+        lambda _: (lambda U: U.ambient_real_line().is_open_subset(U))(real_open_interval_01()),
     ),
     (
         "RealSet(open interval) is not closed through its ambient real line",
-        lambda _: (lambda U: not U.ambient().is_closed(U))(real_open_interval_01()),
+        lambda _: (lambda U: not U.ambient_real_line().is_closed_subset(U))(real_open_interval_01()),
     ),
     (
         "RealSet(open interval) closes through its ambient real line",
-        lambda _: (lambda U: U.ambient().closure(U) == real_closed_interval_01())(real_open_interval_01()),
+        lambda _: (lambda U: U.ambient_real_line().closure_subset(U) == real_closed_interval_01())(real_open_interval_01()),
     ),
     (
         "RealSet(closed interval) has interior through its ambient real line",
-        lambda _: (lambda U: U.ambient().interior(U) == real_open_interval_01())(real_closed_interval_01()),
+        lambda _: (lambda U: U.ambient_real_line().interior_subset(U) == real_open_interval_01())(real_closed_interval_01()),
     ),
     (
         "RealSet(open interval) has boundary through its ambient real line",
-        lambda _: (lambda U: U.ambient().boundary(U) == SageRealSet.point(0).union(SageRealSet.point(1)))(
+        lambda _: (lambda U: U.ambient_real_line().boundary_subset(U) == SageRealSet.point(0).union(SageRealSet.point(1)))(
             real_open_interval_01()
         ),
     ),
     (
         "RealSet(open interval) has one component",
-        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).n_components() == 1,
+        lambda _: C.RealSet(intervals=[SageRealSet.open(0, 1).get_interval(0)]).n_components() == 1,
     ),
-    ("RealLine() is the universe real subset", lambda _: C.RealLine().is_universe()),
+    ("real_line() is the universe real subset", lambda _: C.real_line().is_universe()),
     (
-        "ClosedRealInterval(0, 1) is disjoint from OpenRealInterval(2, 3)",
-        lambda _: C.ClosedRealInterval(0, 1).is_disjoint(C.OpenRealInterval(2, 3)),
+        "closed(0, 1) is disjoint from open(2, 3)",
+        lambda _: C.closed(lower=0, upper=1).is_disjoint(C.open(lower=2, upper=3)),
     ),
     (
         "real intervals detect pairwise-disjoint families",
-        lambda _: C.ClosedRealInterval(0, 1).are_pairwise_disjoint(
-            C.OpenRealInterval(2, 3), C.OpenRealInterval(4, 5)
+        lambda _: C.closed(lower=0, upper=1).are_pairwise_disjoint(
+            C.open(lower=2, upper=3), C.open(lower=4, upper=5)
         ),
     ),
     (
         "real intervals compute convex hulls of finite real-subset families",
-        lambda _: C.ClosedRealInterval(0, 1).__class__.convex_hull(
-            C.ClosedRealInterval(0, 1), C.OpenRealInterval(2, 3)
+        lambda _: C.closed(lower=0, upper=1).__class__.convex_hull(
+            C.closed(lower=0, upper=1), C.open(lower=2, upper=3)
         )
         == SageRealSet.closed_open(0, 3),
     ),
     (
-        "RealSetInterval(0, 1, open) is a connected topological subobject",
-        lambda _: C.RealSetInterval(0, 1, lower_closed=False, upper_closed=False) in TopologicalSpaces().Connected().Subobjects(),
+        "interval(0, 1, open) is a connected topological subobject",
+        lambda _: C.interval(0, 1, lower_closed=False, upper_closed=False) in TopologicalSpaces().Connected().Subobjects(),
     ),
     (
-        "OpenRealInterval(0, 1) is an open real subobject",
-        lambda _: C.OpenRealInterval(0, 1) in TopologicalSpaces().Connected().Subobjects(),
+        "open(0, 1) is an open real subobject",
+        lambda _: C.open(lower=0, upper=1) in TopologicalSpaces().Connected().Subobjects(),
     ),
     (
-        "ClosedRealInterval(0, 1) is a compact connected real subobject",
-        lambda _: C.ClosedRealInterval(0, 1) in TopologicalSpaces().Compact().Connected().Subobjects(),
+        "closed(0, 1) is a compact connected real subobject",
+        lambda _: C.closed(lower=0, upper=1) in TopologicalSpaces().Compact().Connected().Subobjects(),
     ),
     (
-        "RealPoint(0) is a compact connected real subobject",
-        lambda _: C.RealPoint(0) in TopologicalSpaces().Compact().Connected().Subobjects(),
+        "point(0) is a compact connected real subobject",
+        lambda _: C.point(point=0) in TopologicalSpaces().Compact().Connected().Subobjects(),
     ),
     (
-        "OpenClosedRealInterval(0, 1) is a connected real subobject",
-        lambda _: C.OpenClosedRealInterval(0, 1) in TopologicalSpaces().Connected().Subobjects(),
+        "open_closed(0, 1) is a connected real subobject",
+        lambda _: C.open_closed(lower=0, upper=1) in TopologicalSpaces().Connected().Subobjects(),
     ),
     (
-        "ClosedOpenRealInterval(0, 1) is a connected real subobject",
-        lambda _: C.ClosedOpenRealInterval(0, 1) in TopologicalSpaces().Connected().Subobjects(),
+        "closed_open(0, 1) is a connected real subobject",
+        lambda _: C.closed_open(lower=0, upper=1) in TopologicalSpaces().Connected().Subobjects(),
     ),
     (
-        "UnboundedBelowClosedRealInterval(1) is a connected real subobject",
-        lambda _: C.UnboundedBelowClosedRealInterval(1) in TopologicalSpaces().Connected().Subobjects(),
+        "unbounded_below_closed(1) is a connected real subobject",
+        lambda _: C.unbounded_below_closed(bound=1) in TopologicalSpaces().Connected().Subobjects(),
     ),
     (
-        "UnboundedBelowOpenRealInterval(1) is a connected real subobject",
-        lambda _: C.UnboundedBelowOpenRealInterval(1) in TopologicalSpaces().Connected().Subobjects(),
+        "unbounded_below_open(1) is a connected real subobject",
+        lambda _: C.unbounded_below_open(bound=1) in TopologicalSpaces().Connected().Subobjects(),
     ),
     (
-        "UnboundedAboveClosedRealInterval(0) is a connected real subobject",
-        lambda _: C.UnboundedAboveClosedRealInterval(0) in TopologicalSpaces().Connected().Subobjects(),
+        "unbounded_above_closed(0) is a connected real subobject",
+        lambda _: C.unbounded_above_closed(bound=0) in TopologicalSpaces().Connected().Subobjects(),
     ),
     (
-        "UnboundedAboveOpenRealInterval(0) is a connected real subobject",
-        lambda _: C.UnboundedAboveOpenRealInterval(0) in TopologicalSpaces().Connected().Subobjects(),
+        "unbounded_above_open(0) is a connected real subobject",
+        lambda _: C.unbounded_above_open(bound=0) in TopologicalSpaces().Connected().Subobjects(),
     ),
-    ("RealLine() is a connected real subobject", lambda _: C.RealLine() in TopologicalSpaces().Connected().Subobjects()),
+    ("real_line() is a connected real subobject", lambda _: C.real_line() in TopologicalSpaces().Connected().Subobjects()),
     (
         "RecursivelyEnumeratedSet([0], successors) is countable",
         lambda _: C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth") in Sets().Countable(),
@@ -315,38 +315,38 @@ SMOKE_STATEMENTS = (
         ),
     ),
     (
-        "CartesianProduct(IntegerRange(2), IntegerRange(3)) is finite countable",
-        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3)) in Sets().Countable().Finite(),
+        "CartesianProduct(factors=[IntegerRange(2), IntegerRange(3)]) is finite countable",
+        lambda _: C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)]) in Sets().Countable().Finite(),
     ),
     (
-        "CartesianProduct(IntegerRange(2), IntegerRange(3)) has product cardinality",
-        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3)).cardinality() == 6,
+        "CartesianProduct(factors=[IntegerRange(2), IntegerRange(3)]) has product cardinality",
+        lambda _: C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)]).cardinality() == 6,
     ),
     (
         "IntegerRange(2).cartesian_product(IntegerRange(3)) has product cardinality",
         lambda _: C.IntegerRange(2).cartesian_product(C.IntegerRange(3)).cardinality() == 6,
     ),
     (
-        "CartesianProduct(IntegerRange(2), IntegerRange(3)) exposes its factor keys",
-        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))._sets_keys() == C.IntegerRange(2),
+        "CartesianProduct(factors=[IntegerRange(2), IntegerRange(3)]) exposes its factor keys",
+        lambda _: C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)])._sets_keys() == C.IntegerRange(2),
     ),
     (
-        "CartesianProduct(IntegerRange(2), IntegerRange(3)) has first projection",
-        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3)).cartesian_projection(0)(
-            C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))((1, 2))
+        "CartesianProduct(factors=[IntegerRange(2), IntegerRange(3)]) has first projection",
+        lambda _: C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)]).cartesian_projection(0)(
+            C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)])((1, 2))
         )
         == 1,
     ),
     (
-        "CartesianProduct(IntegerRange(2), IntegerRange(3)) coerces from itself",
-        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))._coerce_map_from_(
-            C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))
+        "CartesianProduct(factors=[IntegerRange(2), IntegerRange(3)]) coerces from itself",
+        lambda _: C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)])._coerce_map_from_(
+            C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)])
         )
         is True,
     ),
     (
-        "CartesianProduct(IntegerRange(2), IntegerRange(3)) elements expose coordinate projections",
-        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))((1, 2)).cartesian_projection(0) == 1,
+        "CartesianProduct(factors=[IntegerRange(2), IntegerRange(3)]) elements expose coordinate projections",
+        lambda _: C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)])((1, 2)).cartesian_projection(0) == 1,
     ),
     (
         "sets own free_algebra as the set-indexed free-algebra constructor surface",
@@ -488,34 +488,34 @@ SMOKE_STATEMENTS = (
         and abstract_method_has_name(GradedSetsCategory.ParentMethods.grading, "grading")
         and abstract_method_has_name(GradedSetsCategory.ParentMethods.generating_series, "generating_series"),
     ),
-    ("AllSetPartitions() is countable", lambda _: C.AllSetPartitions() in Sets().Countable()),
-    ("AllSetPartitions() is not fixed-base partitioned", lambda _: C.AllSetPartitions() not in Sets().Partitioned()),
-    ("SetPartitions([1, 2, 3]) is partitioned", lambda _: C.SetPartitions([1, 2, 3]) in Sets().Partitioned()),
+    ("SetPartitions() is countable", lambda _: C.SetPartitions() in Sets().Countable()),
+    ("SetPartitions() is not fixed-base partitioned", lambda _: C.SetPartitions() not in Sets().Partitioned()),
+    ("SetPartitions(base_set=[1, 2, 3]) is partitioned", lambda _: C.SetPartitions(base_set=[1, 2, 3]) in Sets().Partitioned()),
     (
         "SetPartitions(3) has finite totally ordered base",
-        lambda _: C.SetPartitions(3) in Sets().Partitioned(),
+        lambda _: C.SetPartitions(base_set=3) in Sets().Partitioned(),
     ),
     (
         "SetPartitions(FiniteEnumeratedSet([1, 2, 3])) is partitioned",
-        lambda _: C.SetPartitions(C.FiniteEnumeratedSet([1, 2, 3])) in Sets().Partitioned(),
+        lambda _: C.SetPartitions(base_set=C.FiniteEnumeratedSet([1, 2, 3])) in Sets().Partitioned(),
     ),
     (
-        "SetPartitionsWithBlockCount([1, 2, 3], 2) is partitioned",
-        lambda _: C.SetPartitionsWithBlockCount([1, 2, 3], 2) in Sets().Partitioned(),
+        "SetPartitions(base_set=[1, 2, 3], block_count=2) is partitioned",
+        lambda _: C.SetPartitions(base_set=[1, 2, 3], block_count=2) in Sets().Partitioned(),
     ),
     (
-        "SetPartitionsWithBlockCount(3, 2) has finite totally ordered base",
-        lambda _: C.SetPartitionsWithBlockCount(3, 2) in Sets().Partitioned(),
+        "SetPartitions(base_set=3, block_count=2) has finite totally ordered base",
+        lambda _: C.SetPartitions(base_set=3, block_count=2) in Sets().Partitioned(),
     ),
     (
-        "SetPartitionsWithBlockSizes([1, 2, 3], [2, 1]) is partitioned",
-        lambda _: C.SetPartitionsWithBlockSizes([1, 2, 3], [2, 1]) in Sets().Partitioned(),
+        "SetPartitions(base_set=[1, 2, 3], block_sizes=[2, 1]) is partitioned",
+        lambda _: C.SetPartitions(base_set=[1, 2, 3], block_sizes=[2, 1]) in Sets().Partitioned(),
     ),
     (
-        "SetPartitionsWithBlockSizes(3, [2, 1]) has finite totally ordered base",
-        lambda _: C.SetPartitionsWithBlockSizes(3, [2, 1]) in Sets().Partitioned(),
+        "SetPartitions(base_set=3, block_sizes=[2, 1]) has finite totally ordered base",
+        lambda _: C.SetPartitions(base_set=3, block_sizes=[2, 1]) in Sets().Partitioned(),
     ),
-    ("SetPartition([[1, 3], [2]]) lies over {1,2,3}", lambda _: C.SetPartition([[1, 3], [2]]) in C.SetPartitions([1, 2, 3])),
+    ("SetPartition([[1, 3], [2]]) lies over {1,2,3}", lambda _: C.SetPartition([[1, 3], [2]]) in C.SetPartitions(base_set=[1, 2, 3])),
     (
         "fixed-base set partitions expose blocks as subsets of the powerset",
         lambda _: fixed_ordered_partition().as_subset_of_powerset() == SageSet([SageSet([1, 3]), SageSet([2])]),
@@ -573,29 +573,29 @@ SMOKE_STATEMENTS = (
         lambda _: fixed_ordered_partition() in fixed_ordered_partition().ordered_coarsening_closure(),
     ),
     (
-        "SetPartitionFromRestrictedGrowthWordBlocks([0, 1, 0]) lies over {1,2,3}",
-        lambda _: C.SetPartitionFromRestrictedGrowthWordBlocks([0, 1, 0]) in C.SetPartitions([1, 2, 3]),
+        "from_restricted_growth_word_blocks([0, 1, 0]) lies over {1,2,3}",
+        lambda _: C.from_restricted_growth_word_blocks([0, 1, 0]) in C.SetPartitions(base_set=[1, 2, 3]),
     ),
     (
-        "SetPartitionFromRestrictedGrowthWordIntertwining([0, 1, 0]) lies over {1,2,3}",
-        lambda _: C.SetPartitionFromRestrictedGrowthWordIntertwining([0, 1, 0]) in C.SetPartitions([1, 2, 3]),
+        "from_restricted_growth_word_intertwining([0, 1, 0]) lies over {1,2,3}",
+        lambda _: C.from_restricted_growth_word_intertwining([0, 1, 0]) in C.SetPartitions(base_set=[1, 2, 3]),
     ),
-    ("SetPartitionFromArcs([(1, 3)], 3) lies over {1,2,3}", lambda _: C.SetPartitionFromArcs([(1, 3)], 3) in C.SetPartitions([1, 2, 3])),
+    ("from_arcs([(1, 3)], 3) lies over {1,2,3}", lambda _: C.from_arcs([(1, 3)], 3) in C.SetPartitions(base_set=[1, 2, 3])),
     (
-        "SetPartitionFromRookPlacementArcs([(1, 2)], 3) lies over {1,2,3}",
-        lambda _: C.SetPartitionFromRookPlacementArcs([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
-    ),
-    (
-        "SetPartitionFromRookPlacementGamma([(1, 2)], 3) lies over {1,2,3}",
-        lambda _: C.SetPartitionFromRookPlacementGamma([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
+        "from_rook_placement([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.from_rook_placement([(1, 2)], base_set_cardinality=3) in C.SetPartitions(base_set=[1, 2, 3]),
     ),
     (
-        "SetPartitionFromRookPlacementRho([(1, 2)], 3) lies over {1,2,3}",
-        lambda _: C.SetPartitionFromRookPlacementRho([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
+        "from_rook_placement_gamma([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.from_rook_placement_gamma([(1, 2)], 3) in C.SetPartitions(base_set=[1, 2, 3]),
     ),
     (
-        "SetPartitionFromRookPlacementPsi([(1, 2)], 3) lies over {1,2,3}",
-        lambda _: C.SetPartitionFromRookPlacementPsi([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
+        "from_rook_placement_rho([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.from_rook_placement_rho([(1, 2)], 3) in C.SetPartitions(base_set=[1, 2, 3]),
+    ),
+    (
+        "from_rook_placement_psi([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.from_rook_placement_psi([(1, 2)], 3) in C.SetPartitions(base_set=[1, 2, 3]),
     ),
     (
         "cartesian_product([IntegerRange(2), IntegerRange(3)]) is finite countable",
@@ -606,8 +606,8 @@ SMOKE_STATEMENTS = (
         lambda _: C.cartesian_product([C.IntegerRange(2), C.IntegerRange(3)]).cardinality() == 6,
     ),
     (
-        "CartesianProductFromFactors([IntegerRange(2), IntegerRange(3)]) has product cardinality",
-        lambda _: C.CartesianProductFromFactors([C.IntegerRange(2), C.IntegerRange(3)]).cardinality() == 6,
+        "CartesianProduct(factors=[IntegerRange(2), IntegerRange(3)]) has product cardinality",
+        lambda _: C.CartesianProduct(factors=[C.IntegerRange(2), C.IntegerRange(3)]).cardinality() == 6,
     ),
 )
 

@@ -35,8 +35,8 @@ Subcategory hierarchy::
 
 from __future__ import annotations
 
-from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, cast, final
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Literal, TypeVar, cast, final, overload
 
 from sage.categories.category import Category
 from sage.misc.lazy_import import LazyImport
@@ -46,7 +46,7 @@ from ..forms.chain import (
     IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
 )
 from ..modules import Modules
-from ..utils import with_axiom
+from ..utils import refine_category, with_axiom
 from .homsets import (
     LatticeAutCategory,
     LatticeEndCategory,
@@ -65,7 +65,22 @@ _F = TypeVar("_F", bound=Callable[..., object])
 
 if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
-    from ..types import Ring
+    from ..types import (
+        DiscriminantGroupElement,
+        Integer,
+        Lattice,
+        LatticeMorphism,
+        Matrix,
+        Ring,
+        RingElement,
+        RModuleElement,
+    )
+
+type LatticeBasisData = (
+    Matrix | Sequence[RModuleElement] | Sequence[Sequence[RingElement]]
+)
+type CartanTypeData = str | Sequence[str | Integer | int]
+type LatticeWithEmbeddings = tuple[Lattice, Sequence[LatticeMorphism]]
 
 
 class LatticesCategory(CategoryWithAxiom_over_base_ring):
@@ -114,6 +129,144 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         def base_ring(self) -> Ring:
             base_ring: Ring = self.category().base_ring()
             return base_ring
+
+        @final
+        def _assert_integral_constructor_base_ring(self) -> None:
+            from sage.rings.integer_ring import ZZ
+
+            assert self.base_ring() == ZZ
+
+        @final
+        def _refine_constructed_lattice(self, lattice: Lattice) -> Lattice:
+            return refine_category(lattice, self.category(), test=False)
+
+        @overload
+        def IntegralLattice(
+            self, *, gram_matrix: Matrix, basis: LatticeBasisData | None = None
+        ) -> Lattice: ...
+
+        @overload
+        def IntegralLattice(
+            self, *, rank: Integer | int, basis: LatticeBasisData | None = None
+        ) -> Lattice: ...
+
+        @overload
+        def IntegralLattice(
+            self, *, cartan_type: CartanTypeData, basis: LatticeBasisData | None = None
+        ) -> Lattice: ...
+
+        @overload
+        def IntegralLattice(
+            self,
+            *,
+            hyperbolic_plane: Literal["U", "H"],
+            basis: LatticeBasisData | None = None,
+        ) -> Lattice: ...
+
+        @final
+        def IntegralLattice(
+            self,
+            *,
+            gram_matrix: Matrix | None = None,
+            rank: Integer | int | None = None,
+            cartan_type: CartanTypeData | None = None,
+            hyperbolic_plane: Literal["U", "H"] | None = None,
+            basis: LatticeBasisData | None = None,
+        ) -> Lattice:
+            r"""Construct a Sage integral lattice and refine it into this category."""
+            from sage.modules.free_quadratic_module_integer_symmetric import (
+                IntegralLattice,
+            )
+
+            self._assert_integral_constructor_base_ring()
+            data = [
+                gram_matrix,
+                rank,
+                cartan_type,
+                hyperbolic_plane,
+            ]
+            supplied = [datum for datum in data if datum is not None]
+            assert len(supplied) == 1
+            return self._refine_constructed_lattice(
+                IntegralLattice(supplied[0], basis=basis)
+            )
+
+        @overload
+        def IntegralLatticeDirectSum(
+            self,
+            *,
+            lattices: Sequence[Lattice],
+            return_embeddings: Literal[False] = False,
+        ) -> Lattice: ...
+
+        @overload
+        def IntegralLatticeDirectSum(
+            self,
+            *,
+            lattices: Sequence[Lattice],
+            return_embeddings: Literal[True],
+        ) -> LatticeWithEmbeddings: ...
+
+        @final
+        def IntegralLatticeDirectSum(
+            self,
+            *,
+            lattices: Sequence[Lattice],
+            return_embeddings: bool = False,
+        ) -> Lattice | LatticeWithEmbeddings:
+            r"""Construct the orthogonal direct sum of integral lattices."""
+            from sage.modules.free_quadratic_module_integer_symmetric import (
+                IntegralLatticeDirectSum,
+            )
+
+            self._assert_integral_constructor_base_ring()
+            result = IntegralLatticeDirectSum(
+                list(lattices), return_embeddings=return_embeddings
+            )
+            if return_embeddings:
+                lattice, embeddings = result
+                return (self._refine_constructed_lattice(lattice), tuple(embeddings))
+            return self._refine_constructed_lattice(result)
+
+        @overload
+        def IntegralLatticeGluing(
+            self,
+            *,
+            lattices: Sequence[Lattice],
+            glue: Sequence[Sequence[DiscriminantGroupElement]],
+            return_embeddings: Literal[False] = False,
+        ) -> Lattice: ...
+
+        @overload
+        def IntegralLatticeGluing(
+            self,
+            *,
+            lattices: Sequence[Lattice],
+            glue: Sequence[Sequence[DiscriminantGroupElement]],
+            return_embeddings: Literal[True],
+        ) -> LatticeWithEmbeddings: ...
+
+        @final
+        def IntegralLatticeGluing(
+            self,
+            *,
+            lattices: Sequence[Lattice],
+            glue: Sequence[Sequence[DiscriminantGroupElement]],
+            return_embeddings: bool = False,
+        ) -> Lattice | LatticeWithEmbeddings:
+            r"""Construct the glued overlattice from discriminant-group glue data."""
+            from sage.modules.free_quadratic_module_integer_symmetric import (
+                IntegralLatticeGluing,
+            )
+
+            self._assert_integral_constructor_base_ring()
+            result = IntegralLatticeGluing(
+                list(lattices), [list(row) for row in glue], return_embeddings
+            )
+            if return_embeddings:
+                lattice, embeddings = result
+                return (self._refine_constructed_lattice(lattice), tuple(embeddings))
+            return self._refine_constructed_lattice(result)
     @final
     def Constructors(self) -> LatticesCategory._Constructors:
         r"""Return the lattice constructor collector over ``self.base_ring()``."""
@@ -125,10 +278,10 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             return with_axiom(self, "OverDedekindDomain")
         @final
         def OverPID(self) -> Category:
-            return with_axiom(self, "OverPID")
+            return self.OverDedekindDomain().OverPID()
         @final
         def OverIntegers(self) -> Category:
-            return with_axiom(self, "OverIntegers")
+            return self.OverPID().OverIntegers()
         @final
         def Even(self) -> Category:
             return with_axiom(self, "Even")
@@ -195,19 +348,19 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
     ObjectsUnder = _ObjectsUnder
     CartesianProducts = _CartesianProducts
     DualObjects = LatticeDualObjectsCategory
-    DualLattices = LazyImport(
+    DualLatticesCategoryClass = LazyImport(
         "category_specs.lattices.subcategories.constructions.dual_lattices",
         "DualLatticesCategory",
     )
-    Overlattices = LazyImport(
+    OverlatticesCategoryClass = LazyImport(
         "category_specs.lattices.subcategories.constructions.overlattices",
         "OverlatticesCategory",
     )
-    OrthogonalDirectSums = LazyImport(
+    OrthogonalDirectSumsCategoryClass = LazyImport(
         "category_specs.lattices.subcategories.constructions.orthogonal_direct_sums",
         "OrthogonalDirectSumsCategory",
     )
-    DiscriminantGroups = LazyImport(
+    DiscriminantGroupsCategoryClass = LazyImport(
         "category_specs.lattices.subcategories.constructions.discriminant_groups",
         "LatticeDiscriminantGroupsCategory",
     )

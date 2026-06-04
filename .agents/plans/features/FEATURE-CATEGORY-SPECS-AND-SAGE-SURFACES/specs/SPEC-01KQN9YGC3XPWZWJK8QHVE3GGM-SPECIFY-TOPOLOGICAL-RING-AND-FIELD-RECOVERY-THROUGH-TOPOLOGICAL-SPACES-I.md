@@ -10,9 +10,8 @@ title: Specify topological ring and field recovery through topological_spaces in
   rather than pure topological constructors
 status: complete
 priority: critical
-requirement: Rings mapping records constructor namespace decisions, split p-adic and
-  q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
-  deferred q-adic lattice-precision gaps.
+requirement: Rings mapping records constructor namespace decisions, p-adic and q-adic
+  precision routes, matrix-ring ownership, and topological ring inheritance.
 acceptanceCriteria:
 - The mathematical owner, public surface, and migration consequence are recorded in
   the relevant MAPPING.md or category spec file.
@@ -29,9 +28,8 @@ tags:
 # Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors
 ## Summary
 
-Rings mapping records constructor namespace decisions, split p-adic and q-adic precision
-routes, matrix-ring ownership, topological ring inheritance, and deferred q-adic
-lattice-precision gaps.
+Rings mapping records constructor namespace decisions, p-adic and q-adic precision
+routes, matrix-ring ownership, and topological ring inheritance.
 
 ## Source Provenance
 
@@ -42,8 +40,9 @@ lattice-precision gaps.
 
 ## Context
 
-- ZpWithPrecisionCaps and QpWithPrecisionCaps are concrete because Sage base constructors canonicalize lattice precision pairs.
-- ZqWithPrecisionCaps and QqWithPrecisionCaps are retained admitted split names but remain deferred frontiers because installed Sage lacks a working unramified q-adic extension path with split lattice caps.
+- Sage `Zp` and `Qp` constructors canonicalize scalar precision, lattice precision
+  pairs, and relaxed precision tuples under the original constructor names; the
+  project surface exposes those as named-only `Zp(...)` and `Qp(...)` input shapes.
 - Topological ring structure must inherit topological-space methods rather than duplicate them in ring-only files.
 - Matrix rings are rings, algebras over their base ring, and free finite-rank modules; method ownership follows that split.
 
@@ -211,7 +210,6 @@ specification:
 - Constructor namespace decisions: p-adic (Zp, Qp) and q-adic (Zq, Qq) split ✓
 - Matrix-ring ownership across ring/algebra/module boundaries ✓
 - Topological ring inheritance route via `Rings().Topological()` ✓
-- Deferred q-adic lattice-precision gaps acknowledged ✓
 - Rejection conditions for duplicate constructors and ring-local topological
   method copies ✓
 - Codomain obligations for inherited topological methods ✓

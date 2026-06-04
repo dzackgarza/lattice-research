@@ -11,6 +11,24 @@ A category's `super_categories()` should return only its **immediate** mathemati
 parents. It should not list derived ancestors, consequence closures, or compensatory
 direct attachments to categories that should be reachable through the graph.
 
+The graph authority is Sage itself. Do not reconstruct a shadow category graph with
+AST parsing, string matching, source maps, or sampled edge queries. Sage computes the
+runtime category graph and the corresponding dynamic inheritance order; QC must call
+Sage's graph machinery directly.
+
+The mandatory validator model is:
+
+- build the project category objects inside Sage;
+- call `category.category_graph()` and require Sage to produce a loop-free directed
+  graph;
+- call `category._test_category_graph()` and require Sage's `_all_super_categories`
+  order to match `parent_class.mro()` / `element_class.mro()`;
+- print Sage's graph/MRO diagnostics loudly when either check fails.
+
+If Sage reports a graph loop, an impossible MRO, or a mismatch between
+`_all_super_categories` and the generated classes, that is a category-spec defect. Do
+not replace the Sage check with a local graph parser or a heuristic validator.
+
 ## What violates minimality
 
 - Listing `_Fields()` directly when the category is already under `_NumberFields` or
@@ -26,7 +44,8 @@ direct attachments to categories that should be reachable through the graph.
 
 ## The test
 
-For any category with more than one project-local supercategory, classify each parent:
+First run Sage's whole-graph checks for the project category objects. Then, for any
+category with more than one project-local supercategory, classify each parent:
 
 - **Valid root Sage bridge**: root entry category attaches to Sage root category.
 - **Valid local immediate parent**: ordinary internal spec inheritance.

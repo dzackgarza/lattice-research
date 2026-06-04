@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
 title: Sprint variadic signature closure audit across modules rings tensors algebras
   lattices posets sets and real-set constructors
-status: complete
+status: in-progress
 priority: high
 description: The deleted variadic inventory records the scoping pass for public surfaces
   that had collapsed Sage casework or raw coordinate interop into broad signatures.

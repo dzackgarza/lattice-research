@@ -12,21 +12,23 @@ from category_specs.sets.subcategories.partitioned import PartitionsCategory
 
 constructors = Sets().Constructors()
 
-all_partitions = constructors.AllSetPartitions()
+all_partitions = constructors.SetPartitions()
 if all_partitions not in Sets().Countable():
-    raise AssertionError("AllSetPartitions() did not declare Countable membership")
+    raise AssertionError("SetPartitions() did not declare Countable membership")
 if not issubclass(
     all_partitions.category().parent_class,
     Sets().Countable().parent_class,
 ):
-    raise AssertionError("AllSetPartitions() parent class does not extend Countable")
+    raise AssertionError("SetPartitions() parent class does not extend Countable")
 
 fixed_base_partitions = (
-    ("iterable base", constructors.SetPartitions([1, 2, 3])),
-    ("integer base", constructors.SetPartitions(Integer(3))),
+    ("iterable base", constructors.SetPartitions(base_set=[1, 2, 3])),
+    ("integer base", constructors.SetPartitions(base_set=Integer(3))),
     (
         "finite enumerated base",
-        constructors.SetPartitions(constructors.FiniteEnumeratedSet([1, 2, 3])),
+        constructors.SetPartitions(
+            base_set=constructors.FiniteEnumeratedSet([1, 2, 3])
+        ),
     ),
 )
 

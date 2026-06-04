@@ -29,12 +29,10 @@ class _CartesianProductSets(Category_singleton):
     r"""Cartesian products of sets and their tuple-like elements.
 
     Constructor target:
-    ``Sets().Constructors().CartesianProduct(left, right)`` refines the binary
-    product primitive here after Sage constructs the product parent. The explicit
-    finite-factor compatibility surfaces
-    ``Sets().Constructors().CartesianProductFromFactors(factors)`` and
-    ``Sets().Constructors().cartesian_product(factors)`` refine into the same
-    one-object category.
+    ``Sets().Constructors().CartesianProduct(factors=factors)`` refines Sage's
+    finite-factor product parent here after the original Sage constructor builds it.
+    The lowercase ``Sets().Constructors().cartesian_product(factors)`` compatibility
+    path refines into the same one-object category.
     """
 
     @override

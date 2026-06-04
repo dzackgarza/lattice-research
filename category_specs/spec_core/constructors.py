@@ -14,7 +14,7 @@ category-specific constructor collectors.
 from __future__ import annotations
 
 from functools import cached_property
-from typing import Literal, Self
+from typing import Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -46,17 +46,7 @@ class ConstructorSpec(BaseModel):
     obligation_ids: tuple[str, ...] = ()
     provider_ids: tuple[str, ...] = ()
     witness_ids: tuple[str, ...] = ()
-    status: Literal["admitted", "deferred"] = "admitted"
-    deferred_reason: str = ""
     description: str = ""
-
-    @model_validator(mode="after")
-    def _deferred_records_have_reason(self) -> Self:
-        if self.status == "deferred" and not self.deferred_reason:
-            raise ValueError("deferred constructors must record a reason")
-        if self.status == "admitted" and self.deferred_reason:
-            raise ValueError("admitted constructors cannot record a deferred reason")
-        return self
 
 
 class ConstructorRegistry(BaseModel):
@@ -102,13 +92,6 @@ class ConstructorRegistry(BaseModel):
             for obligation_id, items in grouped.items()
         }
 
-    @cached_property
-    def _constructors_by_status(self) -> dict[str, tuple[ConstructorSpec, ...]]:
-        grouped: dict[str, list[ConstructorSpec]] = {}
-        for constructor in self.constructors:
-            grouped.setdefault(constructor.status, []).append(constructor)
-        return {status: tuple(items) for status, items in grouped.items()}
-
     def has_constructor(self, constructor_id: str) -> bool:
         return constructor_id in self._constructors_by_id
 
@@ -127,12 +110,6 @@ class ConstructorRegistry(BaseModel):
 
     def with_obligation(self, obligation_id: str) -> tuple[ConstructorSpec, ...]:
         return self._constructors_by_obligation.get(obligation_id, ())
-
-    def admitted(self) -> tuple[ConstructorSpec, ...]:
-        return self._constructors_by_status.get("admitted", ())
-
-    def deferred(self) -> tuple[ConstructorSpec, ...]:
-        return self._constructors_by_status.get("deferred", ())
 
     def by_route_target(self, target_category: str) -> tuple[ConstructorSpec, ...]:
         return tuple(

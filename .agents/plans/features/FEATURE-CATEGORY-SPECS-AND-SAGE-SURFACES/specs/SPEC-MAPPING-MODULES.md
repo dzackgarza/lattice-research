@@ -9,21 +9,47 @@ dependsOn:
 title: Track modules mapping spec
 status: complete
 priority: critical
-requirement: Convert category_specs/modules/docs/MAPPING.md into a tracked spec surface
-  and audit it for Sage-source completeness, mathematical correctness, and well-typed
-  module, subobject, quotient, tensor, dual, basis, and constructor signatures.
+requirement: Convert category_specs/modules/docs/MAPPING.md into a tracked spec surface and
+  audit it for Sage-source completeness, mathematical correctness, and well-typed module,
+  subobject, quotient, tensor, dual, basis, and constructor signatures.
 acceptanceCriteria:
 - Source paths category_specs/modules/docs/MAPPING.md and category_specs/modules/docs/SAGE_INVENTORY.md
   are reviewed.
-- Every admitted row states caller category, complete input data, hypotheses, return
-  object, and source evidence.
+- Every admitted row states caller category, complete input data, hypotheses, return object,
+  and source evidence.
 - Methods are placed at the highest category where they are mathematically well-defined.
-- Nonmathematical targets and raw Sage implementation containers are rejected or marked
-  interop-only.
+- Nonmathematical targets and raw Sage implementation containers are rejected or marked interop-only.
 - Missing Sage surfaces or mathematical ambiguities become tracked cards or decisions.
 complexity: 90
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+constructorNameInventories:
+- owner: category_specs.modules.Modules._Constructors
+  sageConstructorNames:
+  - CombinatorialFreeModule
+  - FiniteRankFreeModule
+  - FPModule
+  - FreeGradedModule
+  - FreeModule
+  - FreeQuadraticModule
+  - IntegerLattice
+  - OreQuotientModule
+  - span
+  - TorsionQuadraticForm
+  - VectorSpace
+  projectOwnedConstructionNames:
+  - ideal_as_submodule
+  - invertible_ideal_as_projective_submodule
+  - laurent_series_ring_as_module
+  - matrix_ring_as_module
+  - multivariate_power_series_ring_as_module
+  - multivariate_power_series_ring_with_generator_prefix_as_module
+  - polynomial_ring_as_module
+  - power_series_ring_as_module
+  - puiseux_series_ring_as_module
+  - quotient_module
+  - quotient_of_free_modules
+  - ring_as_rank_one_module
 ---
 # Modules Mapping Spec
 
@@ -223,7 +249,7 @@ category-spec hierarchy.
 | Source surface | Target surface | Rationale |
 | --- | --- | --- |
 | `Modules(R).NamedModules()` | `Modules(R).Constructors()` | Sage constructors create module objects; they are not mathematical subcategories. |
-| `FreeModule(R, n)` and `R^n` | `Modules(R).Constructors().FreeModule(n)` refined into `Modules(R).Free()` plus finite-rank and base-ring restrictions | The constructor is concrete; `Free` is an axiomatic restriction attachable to any module subcategory. |
+| `FreeModule(R, n)` and `R^n` | `Modules(R).Constructors().FreeModule(rank=n)` refined into `Modules(R).Free()` plus finite-rank and base-ring restrictions | The constructor is concrete; `Free` is an axiomatic restriction attachable to any module subcategory. |
 | `CombinatorialFreeModule(R, basis_keys)` | `Modules(R).Constructors().CombinatorialFreeModule(basis_keys)` refined into `Modules(R).Free()` and `Modules(R).WithOrderedGeneratingSet()` | Combinatorial free modules are a Sage constructor family for free modules with explicit basis keys, not a mathematical subcategory. |
 | Plain-set Sage `S.algebra(R)` / `Sets().Algebras(R)` | `Modules(R).Constructors().CombinatorialFreeModule(basis_keys=S)`, exposed by `S.free_module(R)` | Sage's existing path already constructs the free `R`-module with basis indexed by `S`. The spec routes that Sage source surface here instead of treating it as an algebra constructor. |
 | `VectorSpace(K, n)` | `Modules(K).Constructors().VectorSpace(n)` refined into `Modules(K).Free().FiniteRank().OverField()` | Vector spaces are modules over fields with finite-rank structure when the constructor supplies a dimension. |
@@ -233,33 +259,35 @@ category-spec hierarchy.
 | Ring objects viewed as modules | `Modules(R).Constructors().RingObjectAsModule(...)` | The ring object supplies the module structure; ring-specific methods remain in `rings`. |
 | Square `MatrixRing(R, n)` / `MatrixSpace(R, n, n)` viewed over `R` | The same parent refined into `Modules(R).Free().FiniteRank()` | A square matrix parent is a free finite-rank `R`-module on the matrix-unit basis. This is module structure on the same parent, not a second constructor family. |
 
-Constructor signatures expose the finite Sage input casework as named methods instead
-of mirroring Sage's positional dispatch. The canonical rank constructors stay named
-`FreeModule(rank=...)`, `VectorSpace(dimension=...)`, and
-`FreeQuadraticModule(rank=..., inner_product_matrix=...)`. The other documented Sage
-paths are split into `FreeModuleWithBasisKeys`, `FreeModuleWithoutBasis`,
-`FreeModuleWithInnerProductRows`, `FreeModuleWithInnerProductEntries`,
-`VectorSpaceWithBasisKeys`, `VectorSpaceWithoutBasis`,
-`VectorSpaceWithInnerProductRows`, `VectorSpaceWithInnerProductEntries`,
-`FreeQuadraticModuleFromRows`, and `FreeQuadraticModuleFromEntries`. Sage's
+Constructor signatures expose the finite Sage input casework as named-only overload
+shapes under the original Sage constructor names instead of mirroring Sage's positional
+dispatch or inventing new public constructor names. `FreeModule(...)` has overloads
+for `rank=...`, `basis_keys=...`, `rank=..., with_basis=None`,
+`rank=..., inner_product_matrix=...`, `rank=..., inner_product_rows=...`, and
+`rank=..., inner_product_entries=...`. `VectorSpace(...)` has the corresponding
+`dimension=...`, `basis_keys=...`, `dimension=..., with_basis=None`,
+`dimension=..., inner_product_matrix=...`, `dimension=..., inner_product_rows=...`,
+and `dimension=..., inner_product_entries=...` shapes. `FreeQuadraticModule(...)`
+uses `rank=...` together with exactly one of `inner_product_matrix=...`,
+`inner_product_rows=...`, or `inner_product_entries=...`. Sage's
 `inner_product_ring` path is not public because the installed Sage source immediately
 raises `NotImplementedError`.
 
-`FPModule(arg0, ...)` splits into `FPModuleFromPresentation(algebra=...)`,
-`FPModuleFromCokernelMap(defining_map=...)`, and
-`FPModuleFromFreeGradedModule(module=...)`; `FPModule(algebra, generator_degrees, ...)`
-is retained only for the presentation case. `IntegerLattice(basis, ...)` splits into
-`IntegerLatticeFromBasisMatrix`, `IntegerLatticeFromBasisRows`, and
-`IntegerLatticeFromOrderElement`. `TorsionQuadraticForm(q)` splits into matrix and
-row-list routes, with the public Sage-compatible name reserved for the matrix case.
-Quotient construction similarly splits Sage's `quotient_module` data shapes into
-`quotient_by_submodule`, `quotient_by_generators`,
-`quotient_by_relation_matrix`, and `quotient_by_relation_rows`.
+`FPModule(...)` keeps Sage's original constructor name and exposes the three source
+shapes as `algebra=..., generator_degrees=..., relations=...`,
+`defining_map=...`, or `module=...`. `IntegerLattice(...)` keeps the original name
+and exposes `basis=...` for the matrix, row-list, and order-element Sage shapes.
+`TorsionQuadraticForm(...)` keeps the original name and exposes `q=...` for either
+matrix or row-list data. Quotient construction similarly splits Sage's
+`quotient_module` data shapes into `quotient_by_submodule`,
+`quotient_by_generators`, `quotient_by_relation_matrix`, and
+`quotient_by_relation_rows`.
 
 Ring-as-module constructors mirror the ring constructor split: polynomial
 `var_array` admits only one generator-count integer, power-series construction splits
 univariate and multivariate routes, and Laurent/Puiseux series expose explicit
-constructors from their underlying power/Laurent series rings. When upstream Sage
+named-only overloads from their underlying power/Laurent series rings under the same
+constructor names. When upstream Sage
 implements a surface with `*args` or `**kwds`, the spec does not mirror that plumbing
 unless the written Sage documentation proves a genuinely open-ended mathematical input
 family.

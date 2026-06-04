@@ -107,7 +107,7 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
   `TypeError` passed.
 - `just --justfile category_specs/justfile smoke-file rings/smoketest.sage`
   failed on pre-existing smoke-frontier gaps including `hilbert_polynomial`,
-  `boundary`, `ideal_monoid`, q-adic deferred constructors, and matrix-ring MRO.
+  `boundary`, `ideal_monoid`, and matrix-ring MRO.
 - `just --justfile category_specs/justfile smoke-file modules/smoketest.sage`
   failed on pre-existing smoke-frontier gaps including `alternating_algebra`,
   graded-module category-base mismatches, lattice key errors, ideal refinement

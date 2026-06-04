@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Literal, TypeVar, cast, final, overload, override
+from typing import TYPE_CHECKING, Literal, TypeVar, final, overload, override
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
@@ -21,7 +21,7 @@ from sage.rings.number_field.number_field import NumberField_cyclotomic
 
 from ..cat import Category, Category_ideal, Category_singleton
 from ..modules import Modules
-from ..utils import refine_category, with_axiom
+from ..utils import refine_category
 from .homsets import (
     RingAutCategory,
     RingEndCategory,
@@ -592,10 +592,7 @@ class _RingIdeals(Category_ideal):
         cls, sage_ideal: _RingIdealParentMethods
     ) -> _RingIdealParentMethods:
         R = sage_ideal.ring()
-        return cast(
-            "_RingIdealParentMethods",
-            refine_category(sage_ideal.parent(), [cls(R), Modules(R).RIdeals()]),
-        )
+        return refine_category(sage_ideal.parent(), cls(R))
 
     ParentMethods = _RingIdealParentMethods
     ElementMethods = _RingIdealElementMethods
@@ -620,17 +617,6 @@ class Rings(Category_singleton):
         subcategories.
         """
 
-        _deferred_constructor_reasons = {
-            "ZqWithPrecisionCaps": (
-                "Installed Sage has no unramified Zq extension constructor for "
-                "split lattice relative/absolute precision caps."
-            ),
-            "QqWithPrecisionCaps": (
-                "Installed Sage has no unramified Qq extension constructor for "
-                "split lattice relative/absolute precision caps."
-            ),
-        }
-
         @final
         def __repr__(self) -> str:
             return "Sage ring constructors"
@@ -648,75 +634,67 @@ class Rings(Category_singleton):
         def ZZ(self) -> Ring:
             from sage.all import ZZ
 
-            return cast("Ring", refine_category(ZZ, [Rings(), _ZZ()]))
+            return refine_category(ZZ, _ZZ())
 
         @final
         def QQ(self) -> Ring:
             from sage.all import QQ
 
-            return cast("Ring", refine_category(QQ, [Rings(), _QQ()]))
+            return refine_category(QQ, _QQ())
 
         @final
         def ZeroRing(self) -> CompleteRing:
             from sage.all import Integers
 
-            return cast(
-                "CompleteRing",
-                refine_category(
-                    Integers(1),
-                    [Rings(), _IntegerModRings(), _CompleteRings()],
-                ),
-            )
+            return refine_category(Integers(1), _IntegerModRings())
 
         @final
         def QQbar(self) -> Ring:
             from sage.all import QQbar
 
-            return cast("Ring", refine_category(QQbar, [Rings(), _QQbar()]))
+            return refine_category(QQbar, _QQbar())
 
         @final
         def AA(self) -> Ring:
             from sage.all import AA
 
-            return cast("Ring", refine_category(AA, [Rings(), _AA()]))
+            return refine_category(AA, _AA())
 
         @final
         def RR(self) -> Ring:
             from sage.all import RR
 
-            return cast("Ring", refine_category(RR, [Rings(), _RR()]))
+            return refine_category(RR, _RR())
 
         @final
         def CC(self) -> Ring:
             from sage.all import CC
 
-            return cast("Ring", refine_category(CC, [Rings(), _CC()]))
+            return refine_category(CC, _CC())
 
         @final
         def RDF(self) -> Ring:
             from sage.all import RDF
 
-            return cast("Ring", refine_category(RDF, [Rings(), _RealDoubleFields()]))
+            return refine_category(RDF, _RealDoubleFields())
 
         @final
         def CDF(self) -> Ring:
             from sage.all import CDF
 
-            return cast("Ring", refine_category(CDF, [Rings(), _ComplexDoubleFields()]))
+            return refine_category(CDF, _ComplexDoubleFields())
 
         @final
         def RIF(self) -> Ring:
             from sage.all import RIF
 
-            return cast("Ring", refine_category(RIF, [Rings(), _RealIntervalFields()]))
+            return refine_category(RIF, _RealIntervalFields())
 
         @final
         def CIF(self) -> Ring:
             from sage.all import CIF
 
-            return cast(
-                "Ring", refine_category(CIF, [Rings(), _ComplexIntervalFields()])
-            )
+            return refine_category(CIF, _ComplexIntervalFields())
 
         @final
         def RealField(
@@ -725,40 +703,28 @@ class Rings(Category_singleton):
             from sage.all import RR, RealField
 
             R = RealField(prec=prec, sci_not=sci_not, rnd=rnd)
-            categories = [_RealFields()]
-            if R is RR:
-                categories.append(_RR())
-            return cast("Ring", refine_category(R, [Rings(), *categories]))
+            category = _RR() if R is RR else _RealFields()
+            return refine_category(R, category)
 
         @final
         def ComplexField(self, prec: Integer = 53, names: str | None = None) -> Ring:
             from sage.all import CC, ComplexField
 
             R = ComplexField(prec=prec, names=names)
-            categories = [_ComplexFields()]
-            if R is CC:
-                categories.append(_CC())
-            return cast("Ring", refine_category(R, [Rings(), *categories]))
+            category = _CC() if R is CC else _ComplexFields()
+            return refine_category(R, category)
 
         @final
         def RealBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import RealBallField
 
-            return cast(
-                "Ring",
-                refine_category(RealBallField(prec), [Rings(), _RealBallFields()]),
-            )
+            return refine_category(RealBallField(prec), _RealBallFields())
 
         @final
         def ComplexBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import ComplexBallField
 
-            return cast(
-                "Ring",
-                refine_category(
-                    ComplexBallField(prec), [Rings(), _ComplexBallFields()]
-                ),
-            )
+            return refine_category(ComplexBallField(prec), _ComplexBallFields())
 
         @final
         def IntegerModRing(
@@ -769,12 +735,9 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import IntegerModRing
 
-            return cast(
-                "Ring",
-                refine_category(
-                    IntegerModRing(order, is_field=is_field, category=category),
-                    [Rings(), _IntegerModRings()],
-                ),
+            return refine_category(
+                IntegerModRing(order, is_field=is_field, category=category),
+                _IntegerModRings(),
             )
 
         @final
@@ -786,12 +749,9 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zmod
 
-            return cast(
-                "Ring",
-                refine_category(
-                    Zmod(order, is_field=is_field, category=category),
-                    [Rings(), _IntegerModRings()],
-                ),
+            return refine_category(
+                Zmod(order, is_field=is_field, category=category),
+                _IntegerModRings(),
             )
 
         @final
@@ -803,12 +763,9 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Integers
 
-            return cast(
-                "Ring",
-                refine_category(
-                    Integers(order, is_field=is_field, category=category),
-                    [Rings(), _IntegerModRings()],
-                ),
+            return refine_category(
+                Integers(order, is_field=is_field, category=category),
+                _IntegerModRings(),
             )
 
         @final
@@ -828,24 +785,21 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import GF
 
-            return cast(
-                "Ring",
-                refine_category(
-                    GF(
-                        order,
-                        name=name,
-                        modulus=modulus,
-                        names=names,
-                        impl=impl,
-                        proof=proof,
-                        check_prime=check_prime,
-                        check_irreducible=check_irreducible,
-                        prefix=prefix,
-                        repr=repr,
-                        elem_cache=elem_cache,
-                    ),
-                    [Rings(), _FiniteFields()],
+            return refine_category(
+                GF(
+                    order,
+                    name=name,
+                    modulus=modulus,
+                    names=names,
+                    impl=impl,
+                    proof=proof,
+                    check_prime=check_prime,
+                    check_irreducible=check_irreducible,
+                    prefix=prefix,
+                    repr=repr,
+                    elem_cache=elem_cache,
                 ),
+                _FiniteFields(),
             )
 
         @final
@@ -865,24 +819,21 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import FiniteField
 
-            return cast(
-                "Ring",
-                refine_category(
-                    FiniteField(
-                        order,
-                        name=name,
-                        modulus=modulus,
-                        names=names,
-                        impl=impl,
-                        proof=proof,
-                        check_prime=check_prime,
-                        check_irreducible=check_irreducible,
-                        prefix=prefix,
-                        repr=repr,
-                        elem_cache=elem_cache,
-                    ),
-                    [Rings(), _FiniteFields()],
+            return refine_category(
+                FiniteField(
+                    order,
+                    name=name,
+                    modulus=modulus,
+                    names=names,
+                    impl=impl,
+                    proof=proof,
+                    check_prime=check_prime,
+                    check_irreducible=check_irreducible,
+                    prefix=prefix,
+                    repr=repr,
+                    elem_cache=elem_cache,
                 ),
+                _FiniteFields(),
             )
 
         @final
@@ -914,12 +865,13 @@ class Rings(Category_singleton):
                 structure=structure,
                 latex_names=latex_names,
             )
-            categories = [_NumberFields()]
-            if R.degree() == 2:
-                categories.append(_QuadraticNumberFields())
             if isinstance(R, NumberField_cyclotomic):
-                categories.append(_CyclotomicFields())
-            return cast("Ring", refine_category(R, [Rings(), *categories]))
+                category = _CyclotomicFields()
+            elif R.degree() == 2:
+                category = _QuadraticNumberFields()
+            else:
+                category = _NumberFields()
+            return refine_category(R, category)
 
         @final
         def NumberFieldTower(
@@ -945,7 +897,7 @@ class Rings(Category_singleton):
                 maximize_at_primes=maximize_at_primes,
                 structures=structures,
             )
-            return cast("Ring", refine_category(R, [Rings(), _NumberFields()]))
+            return refine_category(R, _NumberFields())
 
         @final
         def QuadraticField(
@@ -958,18 +910,15 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import QuadraticField
 
-            return cast(
-                "Ring",
-                refine_category(
-                    QuadraticField(
-                        D,
-                        name=name,
-                        check=check,
-                        embedding=embedding,
-                        latex_name=latex_name,
-                    ),
-                    [Rings(), _QuadraticNumberFields()],
+            return refine_category(
+                QuadraticField(
+                    D,
+                    name=name,
+                    check=check,
+                    embedding=embedding,
+                    latex_name=latex_name,
                 ),
+                _QuadraticNumberFields(),
             )
 
         @final
@@ -981,106 +930,22 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import CyclotomicField
 
-            return cast(
-                "Ring",
-                refine_category(
-                    CyclotomicField(n, names=names, embedding=embedding),
-                    [Rings(), _CyclotomicFields()],
-                ),
+            return refine_category(
+                CyclotomicField(n, names=names, embedding=embedding),
+                _CyclotomicFields(),
             )
 
         @final
         def Zp(
             self,
+            *,
             p: Integer,
             prec: Integer | None = None,
             type: str = "capped-rel",
-            print_mode: str | None = None,
-            names: str | None = None,
-            ram_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_alphabet: str | None = None,
-            print_max_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            label: str | None = None,
-        ) -> Ring:
-            from sage.all import Zp
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Zp(
-                        p,
-                        prec=prec,
-                        type=type,
-                        print_mode=print_mode,
-                        names=names,
-                        ram_name=ram_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_alphabet=print_alphabet,
-                        print_max_terms=print_max_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        label=label,
-                    ),
-                    [Rings(), _Zp()],
-                ),
-            )
-
-        @final
-        def ZpWithPrecisionCaps(
-            self,
-            p: Integer,
-            relative_cap: Integer,
-            absolute_cap: Integer,
-            type: str = "lattice-cap",
-            print_mode: str | None = None,
-            names: str | None = None,
-            ram_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_alphabet: str | None = None,
-            print_max_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            label: str | None = None,
-        ) -> Ring:
-            assert type.startswith("lattice-"), (
-                f"Precision caps require a lattice p-adic type: {type}"
-            )
-            from sage.all import Zp
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Zp(
-                        p,
-                        prec=(relative_cap, absolute_cap),
-                        type=type,
-                        print_mode=print_mode,
-                        names=names,
-                        ram_name=ram_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_alphabet=print_alphabet,
-                        print_max_terms=print_max_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        label=label,
-                    ),
-                    [Rings(), _Zp()],
-                ),
-            )
-
-        @final
-        def ZpRelaxed(
-            self,
-            p: Integer,
-            default_prec: Integer,
-            halting_prec: Integer,
+            relative_cap: Integer | None = None,
+            absolute_cap: Integer | None = None,
+            default_prec: Integer | None = None,
+            halting_prec: Integer | None = None,
             secure: bool = False,
             print_mode: str | None = None,
             names: str | None = None,
@@ -1091,122 +956,59 @@ class Rings(Category_singleton):
             print_max_terms: Integer | None = None,
             show_prec: bool | None = None,
             check: bool = True,
+            label: str | None = None,
         ) -> Ring:
             from sage.all import Zp
 
-            return cast(
-                "Ring",
-                refine_category(
-                    Zp(
-                        p,
-                        prec=(default_prec, halting_prec, secure),
-                        type="relaxed",
-                        print_mode=print_mode,
-                        names=names,
-                        ram_name=ram_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_alphabet=print_alphabet,
-                        print_max_terms=print_max_terms,
-                        show_prec=show_prec,
-                        check=check,
-                    ),
-                    [Rings(), _Zp()],
-                ),
+            has_lattice_caps = relative_cap is not None or absolute_cap is not None
+            has_relaxed_caps = default_prec is not None or halting_prec is not None
+            if has_lattice_caps and has_relaxed_caps:
+                raise ValueError("Zp accepts one precision shape per constructor call")
+            if has_lattice_caps:
+                if relative_cap is None or absolute_cap is None:
+                    raise ValueError(
+                        "Zp lattice precision requires relative_cap and absolute_cap"
+                    )
+                if not type.startswith("lattice-"):
+                    raise ValueError("Zp precision caps require a lattice p-adic type")
+                prec = (relative_cap, absolute_cap)
+            if has_relaxed_caps:
+                if default_prec is None or halting_prec is None:
+                    raise ValueError(
+                        "Zp relaxed precision requires default_prec and halting_prec"
+                    )
+                if type != "relaxed":
+                    raise ValueError("Zp relaxed precision requires type='relaxed'")
+                prec = (default_prec, halting_prec, secure)
+
+            R = Zp(
+                p,
+                prec=prec,
+                type=type,
+                print_mode=print_mode,
+                names=names,
+                ram_name=ram_name,
+                print_pos=print_pos,
+                print_sep=print_sep,
+                print_alphabet=print_alphabet,
+                print_max_terms=print_max_terms,
+                show_prec=show_prec,
+                check=check,
+                label=label,
             )
+            return refine_category(R, _Zp())
 
         @final
         def Qp(
             self,
+            *,
             p: Integer,
             prec: Integer | None = None,
             type: str = "capped-rel",
-            print_mode: str | None = None,
-            names: str | None = None,
-            ram_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_alphabet: str | None = None,
-            print_max_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            label: str | None = None,
-        ) -> Ring:
-            from sage.all import Qp
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Qp(
-                        p,
-                        prec=prec,
-                        type=type,
-                        print_mode=print_mode,
-                        names=names,
-                        ram_name=ram_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_alphabet=print_alphabet,
-                        print_max_terms=print_max_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        label=label,
-                    ),
-                    [Rings(), _Qp()],
-                ),
-            )
-
-        @final
-        def QpWithPrecisionCaps(
-            self,
-            p: Integer,
-            relative_cap: Integer,
-            absolute_cap: Integer,
-            type: str = "lattice-cap",
-            print_mode: str | None = None,
-            names: str | None = None,
-            ram_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_alphabet: str | None = None,
-            print_max_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            label: str | None = None,
-        ) -> Ring:
-            assert type.startswith("lattice-"), (
-                f"Precision caps require a lattice p-adic type: {type}"
-            )
-            from sage.all import Qp
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Qp(
-                        p,
-                        prec=(relative_cap, absolute_cap),
-                        type=type,
-                        print_mode=print_mode,
-                        names=names,
-                        ram_name=ram_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_alphabet=print_alphabet,
-                        print_max_terms=print_max_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        label=label,
-                    ),
-                    [Rings(), _Qp()],
-                ),
-            )
-
-        @final
-        def QpRelaxed(
-            self,
-            p: Integer,
-            default_prec: Integer,
-            halting_prec: Integer,
+            relative_cap: Integer | None = None,
+            absolute_cap: Integer | None = None,
+            default_prec: Integer | None = None,
+            halting_prec: Integer | None = None,
             secure: bool = False,
             print_mode: str | None = None,
             names: str | None = None,
@@ -1217,34 +1019,56 @@ class Rings(Category_singleton):
             print_max_terms: Integer | None = None,
             show_prec: bool | None = None,
             check: bool = True,
+            label: str | None = None,
         ) -> Ring:
             from sage.all import Qp
 
-            return cast(
-                "Ring",
-                refine_category(
-                    Qp(
-                        p,
-                        prec=(default_prec, halting_prec, secure),
-                        type="relaxed",
-                        print_mode=print_mode,
-                        names=names,
-                        ram_name=ram_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_alphabet=print_alphabet,
-                        print_max_terms=print_max_terms,
-                        show_prec=show_prec,
-                        check=check,
-                    ),
-                    [Rings(), _Qp()],
-                ),
+            has_lattice_caps = relative_cap is not None or absolute_cap is not None
+            has_relaxed_caps = default_prec is not None or halting_prec is not None
+            if has_lattice_caps and has_relaxed_caps:
+                raise ValueError("Qp accepts one precision shape per constructor call")
+            if has_lattice_caps:
+                if relative_cap is None or absolute_cap is None:
+                    raise ValueError(
+                        "Qp lattice precision requires relative_cap and absolute_cap"
+                    )
+                if not type.startswith("lattice-"):
+                    raise ValueError("Qp precision caps require a lattice p-adic type")
+                prec = (relative_cap, absolute_cap)
+            if has_relaxed_caps:
+                if default_prec is None or halting_prec is None:
+                    raise ValueError(
+                        "Qp relaxed precision requires default_prec and halting_prec"
+                    )
+                if type != "relaxed":
+                    raise ValueError("Qp relaxed precision requires type='relaxed'")
+                prec = (default_prec, halting_prec, secure)
+
+            R = Qp(
+                p,
+                prec=prec,
+                type=type,
+                print_mode=print_mode,
+                names=names,
+                ram_name=ram_name,
+                print_pos=print_pos,
+                print_sep=print_sep,
+                print_alphabet=print_alphabet,
+                print_max_terms=print_max_terms,
+                show_prec=show_prec,
+                check=check,
+                label=label,
             )
+            return refine_category(R, _Qp())
 
         @final
         def Zq(
             self,
-            q: Integer,
+            *,
+            q: Integer | None = None,
+            p: Integer | None = None,
+            degree: Integer | None = None,
+            factorization: Sequence[tuple[Integer, Integer]] | None = None,
             prec: Integer | None = None,
             type: str = "capped-rel",
             modulus: Polynomial | None = None,
@@ -1263,165 +1087,54 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zq
 
-            return cast(
-                "Ring",
-                refine_category(
-                    Zq(
-                        q,
-                        prec=prec,
-                        type=type,
-                        modulus=modulus,
-                        names=names,
-                        print_mode=print_mode,
-                        ram_name=ram_name,
-                        res_name=res_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_max_ram_terms=print_max_ram_terms,
-                        print_max_unram_terms=print_max_unram_terms,
-                        print_max_terse_terms=print_max_terse_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        implementation=implementation,
-                    ),
-                    [Rings(), _Zp()],
-                ),
+            supplied_shapes = sum(
+                (
+                    q is not None,
+                    p is not None or degree is not None,
+                    factorization is not None,
+                )
             )
+            if supplied_shapes != 1:
+                raise ValueError("Zq requires exactly one q input shape")
+            if p is not None or degree is not None:
+                if p is None or degree is None:
+                    raise ValueError("Zq prime-power input requires p and degree")
+                q_input = (p, degree)
+            elif factorization is not None:
+                q_input = factorization
+            else:
+                if q is None:
+                    raise ValueError("Zq requires q")
+                q_input = q
 
-        @final
-        def ZqFromPrimePower(
-            self,
-            p: Integer,
-            degree: Integer,
-            prec: Integer | None = None,
-            type: str = "capped-rel",
-            modulus: Polynomial | None = None,
-            names: str | None = None,
-            print_mode: str | None = None,
-            ram_name: str | None = None,
-            res_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_max_ram_terms: Integer | None = None,
-            print_max_unram_terms: Integer | None = None,
-            print_max_terse_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            implementation: str = "FLINT",
-        ) -> Ring:
-            from sage.all import Zq
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Zq(
-                        (p, degree),
-                        prec=prec,
-                        type=type,
-                        modulus=modulus,
-                        names=names,
-                        print_mode=print_mode,
-                        ram_name=ram_name,
-                        res_name=res_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_max_ram_terms=print_max_ram_terms,
-                        print_max_unram_terms=print_max_unram_terms,
-                        print_max_terse_terms=print_max_terse_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        implementation=implementation,
-                    ),
-                    [Rings(), _Zp()],
-                ),
+            R = Zq(
+                q_input,
+                prec=prec,
+                type=type,
+                modulus=modulus,
+                names=names,
+                print_mode=print_mode,
+                ram_name=ram_name,
+                res_name=res_name,
+                print_pos=print_pos,
+                print_sep=print_sep,
+                print_max_ram_terms=print_max_ram_terms,
+                print_max_unram_terms=print_max_unram_terms,
+                print_max_terse_terms=print_max_terse_terms,
+                show_prec=show_prec,
+                check=check,
+                implementation=implementation,
             )
-
-        @final
-        def ZqFromPrimePowerFactorization(
-            self,
-            factorization: Sequence[tuple[Integer, Integer]],
-            prec: Integer | None = None,
-            type: str = "capped-rel",
-            modulus: Polynomial | None = None,
-            names: str | None = None,
-            print_mode: str | None = None,
-            ram_name: str | None = None,
-            res_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_max_ram_terms: Integer | None = None,
-            print_max_unram_terms: Integer | None = None,
-            print_max_terse_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            implementation: str = "FLINT",
-        ) -> Ring:
-            from sage.all import Zq
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Zq(
-                        factorization,
-                        prec=prec,
-                        type=type,
-                        modulus=modulus,
-                        names=names,
-                        print_mode=print_mode,
-                        ram_name=ram_name,
-                        res_name=res_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_max_ram_terms=print_max_ram_terms,
-                        print_max_unram_terms=print_max_unram_terms,
-                        print_max_terse_terms=print_max_terse_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        implementation=implementation,
-                    ),
-                    [Rings(), _Zp()],
-                ),
-            )
-
-        @final
-        def ZqWithPrecisionCaps(
-            self,
-            q: Integer,
-            relative_cap: Integer,
-            absolute_cap: Integer,
-            type: str = "lattice-cap",
-            modulus: Polynomial | None = None,
-            names: str | None = None,
-            print_mode: str | None = None,
-            ram_name: str | None = None,
-            res_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_max_ram_terms: Integer | None = None,
-            print_max_unram_terms: Integer | None = None,
-            print_max_terse_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            implementation: str = "FLINT",
-        ) -> Ring:
-            r"""Return the unramified ``Z_p``-extension with lattice caps.
-
-            ``relative_cap`` bounds relative precision and ``absolute_cap`` bounds
-            absolute lattice precision for the extension ring.
-            """
-            assert type.startswith("lattice-"), (
-                f"Precision caps require a lattice p-adic type: {type}"
-            )
-            assert False, (
-                "Installed Sage has no unramified Zq extension constructor for split "
-                "lattice relative/absolute precision caps; keep this admitted name "
-                "deferred until Sage exposes a lattice-precision extension route."
-            )
+            return refine_category(R, _Zp())
 
         @final
         def Qq(
             self,
-            q: Integer,
+            *,
+            q: Integer | None = None,
+            p: Integer | None = None,
+            degree: Integer | None = None,
+            factorization: Sequence[tuple[Integer, Integer]] | None = None,
             prec: Integer | None = None,
             type: str = "capped-rel",
             modulus: Polynomial | None = None,
@@ -1440,160 +1153,45 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Qq
 
-            return cast(
-                "Ring",
-                refine_category(
-                    Qq(
-                        q,
-                        prec=prec,
-                        type=type,
-                        modulus=modulus,
-                        names=names,
-                        print_mode=print_mode,
-                        ram_name=ram_name,
-                        res_name=res_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_max_ram_terms=print_max_ram_terms,
-                        print_max_unram_terms=print_max_unram_terms,
-                        print_max_terse_terms=print_max_terse_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        implementation=implementation,
-                    ),
-                    [Rings(), _Qp()],
-                ),
+            supplied_shapes = sum(
+                (
+                    q is not None,
+                    p is not None or degree is not None,
+                    factorization is not None,
+                )
             )
+            if supplied_shapes != 1:
+                raise ValueError("Qq requires exactly one q input shape")
+            if p is not None or degree is not None:
+                if p is None or degree is None:
+                    raise ValueError("Qq prime-power input requires p and degree")
+                q_input = (p, degree)
+            elif factorization is not None:
+                q_input = factorization
+            else:
+                if q is None:
+                    raise ValueError("Qq requires q")
+                q_input = Integer(q)
 
-        @final
-        def QqFromPrimePower(
-            self,
-            p: Integer,
-            degree: Integer,
-            prec: Integer | None = None,
-            type: str = "capped-rel",
-            modulus: Polynomial | None = None,
-            names: str | None = None,
-            print_mode: str | None = None,
-            ram_name: str | None = None,
-            res_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_max_ram_terms: Integer | None = None,
-            print_max_unram_terms: Integer | None = None,
-            print_max_terse_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            implementation: str = "FLINT",
-        ) -> Ring:
-            from sage.all import Qq
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Qq(
-                        (p, degree),
-                        prec=prec,
-                        type=type,
-                        modulus=modulus,
-                        names=names,
-                        print_mode=print_mode,
-                        ram_name=ram_name,
-                        res_name=res_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_max_ram_terms=print_max_ram_terms,
-                        print_max_unram_terms=print_max_unram_terms,
-                        print_max_terse_terms=print_max_terse_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        implementation=implementation,
-                    ),
-                    [Rings(), _Qp()],
-                ),
+            R = Qq(
+                q_input,
+                prec=prec,
+                type=type,
+                modulus=modulus,
+                names=names,
+                print_mode=print_mode,
+                ram_name=ram_name,
+                res_name=res_name,
+                print_pos=print_pos,
+                print_sep=print_sep,
+                print_max_ram_terms=print_max_ram_terms,
+                print_max_unram_terms=print_max_unram_terms,
+                print_max_terse_terms=print_max_terse_terms,
+                show_prec=show_prec,
+                check=check,
+                implementation=implementation,
             )
-
-        @final
-        def QqFromPrimePowerFactorization(
-            self,
-            factorization: Sequence[tuple[Integer, Integer]],
-            prec: Integer | None = None,
-            type: str = "capped-rel",
-            modulus: Polynomial | None = None,
-            names: str | None = None,
-            print_mode: str | None = None,
-            ram_name: str | None = None,
-            res_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_max_ram_terms: Integer | None = None,
-            print_max_unram_terms: Integer | None = None,
-            print_max_terse_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            implementation: str = "FLINT",
-        ) -> Ring:
-            from sage.all import Qq
-
-            return cast(
-                "Ring",
-                refine_category(
-                    Qq(
-                        factorization,
-                        prec=prec,
-                        type=type,
-                        modulus=modulus,
-                        names=names,
-                        print_mode=print_mode,
-                        ram_name=ram_name,
-                        res_name=res_name,
-                        print_pos=print_pos,
-                        print_sep=print_sep,
-                        print_max_ram_terms=print_max_ram_terms,
-                        print_max_unram_terms=print_max_unram_terms,
-                        print_max_terse_terms=print_max_terse_terms,
-                        show_prec=show_prec,
-                        check=check,
-                        implementation=implementation,
-                    ),
-                    [Rings(), _Qp()],
-                ),
-            )
-
-        @final
-        def QqWithPrecisionCaps(
-            self,
-            q: Integer,
-            relative_cap: Integer,
-            absolute_cap: Integer,
-            type: str = "lattice-cap",
-            modulus: Polynomial | None = None,
-            names: str | None = None,
-            print_mode: str | None = None,
-            ram_name: str | None = None,
-            res_name: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_max_ram_terms: Integer | None = None,
-            print_max_unram_terms: Integer | None = None,
-            print_max_terse_terms: Integer | None = None,
-            show_prec: bool | None = None,
-            check: bool = True,
-            implementation: str = "FLINT",
-        ) -> Ring:
-            r"""Return the unramified ``Q_p``-extension with lattice caps.
-
-            ``relative_cap`` bounds relative precision and ``absolute_cap`` bounds
-            absolute lattice precision for the extension field.
-            """
-            assert type.startswith("lattice-"), (
-                f"Precision caps require a lattice p-adic type: {type}"
-            )
-            assert False, (
-                "Installed Sage has no unramified Qq extension constructor for split "
-                "lattice relative/absolute precision caps; keep this admitted name "
-                "deferred until Sage exposes a lattice-precision extension route."
-            )
+            return refine_category(R, _Qp())
 
         @overload
         def PolynomialRing(
@@ -1748,13 +1346,10 @@ class Rings(Category_singleton):
                     order=order,
                     implementation=implementation,
                 )
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _PolynomialRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
+            return refine_category(
+                R,
+                _PolynomialRings().RingsUnder(R.base_ring()),
+                test=False,
             )
 
         @final
@@ -1776,13 +1371,10 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 implementation=implementation,
             )
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
+            return refine_category(
+                R,
+                _PowerSeriesRings().RingsUnder(R.base_ring()),
+                test=False,
             )
 
         @final
@@ -1806,13 +1398,10 @@ class Rings(Category_singleton):
                 order=order,
                 num_gens=num_gens,
             )
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
+            return refine_category(
+                R,
+                _PowerSeriesRings().RingsUnder(R.base_ring()),
+                test=False,
             )
 
         @final
@@ -1836,16 +1425,13 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 order=order,
             )
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
+            return refine_category(
+                R,
+                _PowerSeriesRings().RingsUnder(R.base_ring()),
+                test=False,
             )
 
-        @final
+        @overload
         def LaurentSeriesRing(
             self,
             base_ring: Ring,
@@ -1854,40 +1440,52 @@ class Rings(Category_singleton):
             sparse: bool = False,
             default_prec: Integer | None = None,
             implementation: str | None = None,
+        ) -> Ring: ...
+
+        @overload
+        def LaurentSeriesRing(
+            self,
+            *,
+            power_series_ring: Ring,
+        ) -> Ring: ...
+
+        @final
+        def LaurentSeriesRing(
+            self,
+            base_ring: Ring | None = None,
+            name: str | None = None,
+            *,
+            power_series_ring: Ring | None = None,
+            sparse: bool = False,
+            default_prec: Integer | None = None,
+            implementation: str | None = None,
         ) -> Ring:
             from sage.all import LaurentSeriesRing
 
-            R = LaurentSeriesRing(
-                base_ring,
-                name=name,
-                sparse=sparse,
-                default_prec=default_prec,
-                implementation=implementation,
-            )
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
-            )
-
-        @final
-        def LaurentSeriesRingFromPowerSeriesRing(self, power_series_ring: Ring) -> Ring:
-            from sage.all import LaurentSeriesRing
-
-            R = LaurentSeriesRing(power_series_ring)
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
+            if power_series_ring is not None:
+                assert base_ring is None
+                assert name is None
+                assert sparse is False
+                assert default_prec is None
+                assert implementation is None
+                R = LaurentSeriesRing(power_series_ring)
+            else:
+                assert base_ring is not None
+                assert name is not None
+                R = LaurentSeriesRing(
+                    base_ring,
+                    name=name,
+                    sparse=sparse,
+                    default_prec=default_prec,
+                    implementation=implementation,
+                )
+            return refine_category(
+                R,
+                _LaurentSeriesRings().RingsUnder(R.base_ring()),
+                test=False,
             )
 
-        @final
+        @overload
         def PuiseuxSeriesRing(
             self,
             base_ring: Ring,
@@ -1896,39 +1494,64 @@ class Rings(Category_singleton):
             sparse: bool = False,
             default_prec: Integer | None = None,
             implementation: str | None = None,
-        ) -> Ring:
-            from sage.all import PuiseuxSeriesRing
+        ) -> Ring: ...
 
-            R = PuiseuxSeriesRing(
-                base_ring,
-                name=name,
-                sparse=sparse,
-                default_prec=default_prec,
-                implementation=implementation,
-            )
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
-            )
+        @overload
+        def PuiseuxSeriesRing(
+            self,
+            *,
+            laurent_series_ring: Ring,
+        ) -> Ring: ...
 
         @final
-        def PuiseuxSeriesRingFromLaurentSeriesRing(
-            self, laurent_series_ring: Ring
+        def PuiseuxSeriesRing(
+            self,
+            base_ring: Ring | None = None,
+            name: str | None = None,
+            *,
+            laurent_series_ring: Ring | None = None,
+            sparse: bool = False,
+            default_prec: Integer | None = None,
+            implementation: str | None = None,
         ) -> Ring:
-            from sage.all import PuiseuxSeriesRing
+            from sage.misc.classcall_metaclass import typecall
+            from sage.all import LaurentSeriesRing, PuiseuxSeriesRing
 
-            R = PuiseuxSeriesRing(laurent_series_ring)
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())],
-                    test=False,
-                ),
+            if laurent_series_ring is not None:
+                assert base_ring is None
+                assert name is None
+                assert sparse is False
+                assert default_prec is None
+                assert implementation is None
+                try:
+                    R = PuiseuxSeriesRing(laurent_series_ring)
+                except TypeError as error:
+                    if "metaclass conflict" not in str(error):
+                        raise
+                    # Plain LaurentSeriesRing(base, name, ...) can hit Sage's
+                    # unique-representation cache and return this same
+                    # project-refined Laurent parent.  Bypass classcall only
+                    # inside this category constructor so Sage receives an
+                    # ordinary representative before the result is refined.
+                    ordinary_laurent_series_ring = typecall(
+                        LaurentSeriesRing,
+                        laurent_series_ring.power_series_ring(),
+                    )
+                    R = typecall(PuiseuxSeriesRing, ordinary_laurent_series_ring)
+            else:
+                assert base_ring is not None
+                assert name is not None
+                R = PuiseuxSeriesRing(
+                    base_ring,
+                    name=name,
+                    sparse=sparse,
+                    default_prec=default_prec,
+                    implementation=implementation,
+                )
+            return refine_category(
+                R,
+                _PuiseuxSeriesRings().RingsUnder(R.base_ring()),
+                test=False,
             )
 
         @final
@@ -1942,13 +1565,10 @@ class Rings(Category_singleton):
             R = MatrixSpace(
                 base_ring, n, n, sparse=sparse, implementation=implementation
             )
-            return cast(
-                "Ring",
-                refine_category(
-                    R,
-                    [Rings(), _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols())],
-                    test=False,
-                ),
+            return refine_category(
+                R,
+                _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols()),
+                test=False,
             )
     @final
     def Constructors(self) -> Rings._Constructors:
@@ -1980,96 +1600,117 @@ class Rings(Category_singleton):
             return self._with_axiom("Division")
         @final
         def Approximate(self) -> Category:
-            return cast(Category, ApproximateRingsCategory())
+            return ApproximateRingsCategory()
+
         @final
         def WithValuation(self) -> Category:
             return self._with_axiom("WithValuation")
+
         @final
         def Characteristic(self, p: Integer) -> Category:
             from .subcategories.constructions.characteristic import _CharacteristicRings
 
-            return cast(Category, _CharacteristicRings(cast(Category, self), p))
+            return _CharacteristicRings(self, p)
+
         @final
         def KrullDimension(self, n: Integer) -> Category:
             from .subcategories.constructions.krull_dimension import _KrullDimension
 
-            return cast(Category, _KrullDimension(cast(Category, self), n))
+            return _KrullDimension(self, n)
+
         @final
         def Polynomial(self) -> Category:
             return self._with_axiom("Polynomial")
+
         @final
         def PowerSeries(self) -> Category:
             return self.PuiseuxSeries().LaurentSeries().PowerSeries()
+
         @final
         def LaurentSeries(self) -> Category:
             return self.PuiseuxSeries().LaurentSeries()
+
         @final
         def PuiseuxSeries(self) -> Category:
             return self._with_axiom("PuiseuxSeries")
+
         @final
         def RingsUnder(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_under import _RingsUnder
 
-            return cast(Category, _RingsUnder.category_of(self, structure_ring))
+            return _RingsUnder.category_of(self, structure_ring)
+
         @final
         def RingsOver(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_over import _RingsOver
 
-            return cast(Category, _RingsOver.category_of(self, structure_ring))
+            return _RingsOver.category_of(self, structure_ring)
+
         @final
         def AlgebrasOver(self, structure_ring: Ring) -> Category:
             from ..algebras import Algebras
 
-            return cast(Category, Algebras(structure_ring))
+            return Algebras(structure_ring)
+
         @final
         def PolynomialRings(self) -> Category:
             return self.Polynomial()
+
         @final
         def PolynomialRingsOver(self, structure_ring: Ring) -> Category:
-            return cast(Category, self.Polynomial().RingsUnder(structure_ring))
+            return self.Polynomial().RingsUnder(structure_ring)
+
         @final
         def PolynomialOver(self, structure_ring: Ring) -> Category:
             return self.PolynomialRingsOver(structure_ring)
+
         @final
         def PowerSeriesRings(self) -> Category:
             return self.PowerSeries()
+
         @final
         def PowerSeriesRingsOver(self, structure_ring: Ring) -> Category:
-            return cast(Category, self.PowerSeries().RingsUnder(structure_ring))
+            return self.PowerSeries().RingsUnder(structure_ring)
+
         @final
         def PowerSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PowerSeriesRingsOver(structure_ring)
+
         @final
         def LaurentSeriesRings(self) -> Category:
             return self.LaurentSeries()
+
         @final
         def LaurentSeriesRingsOver(self, structure_ring: Ring) -> Category:
-            return cast(Category, self.LaurentSeries().RingsUnder(structure_ring))
+            return self.LaurentSeries().RingsUnder(structure_ring)
+
         @final
         def LaurentSeriesOver(self, structure_ring: Ring) -> Category:
             return self.LaurentSeriesRingsOver(structure_ring)
+
         @final
         def PuiseuxSeriesRings(self) -> Category:
             return self.PuiseuxSeries()
+
         @final
         def PuiseuxSeriesRingsOver(self, structure_ring: Ring) -> Category:
-            return cast(Category, self.PuiseuxSeries().RingsUnder(structure_ring))
+            return self.PuiseuxSeries().RingsUnder(structure_ring)
+
         @final
         def PuiseuxSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PuiseuxSeriesRingsOver(structure_ring)
+
         @final
         def QuotientRingsOf(self, structure_ring: Ring) -> Category:
-            return cast(
-                Category, cast(Category, self).Quotients().RingsUnder(structure_ring)
-            )
+            return self.Quotients().RingsUnder(structure_ring)
+
         @final
         def QuotientsOf(self, structure_ring: Ring) -> Category:
             return self.QuotientRingsOf(structure_ring)
+
         @final
         def SubringsOf(self, structure_ring: Ring) -> Category:
-            return cast(
-                Category, cast(Category, self).Subobjects().RingsOver(structure_ring)
-            )
+            return self.Subobjects().RingsOver(structure_ring)
 
     # ----- Axiomatic subcategories -----------------------------------------
 

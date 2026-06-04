@@ -83,22 +83,17 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
 #### Gate 5 Finding: Whole Ring Smoke Was Not Passing Evidence
 
 - `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` exits 1 on
-  residual ring-frontier failures including `hilbert_polynomial`, `completion`,
-  `_change_print_mode`, and deferred `ZqWithPrecisionCaps` / `QqWithPrecisionCaps`.
+  residual ring-frontier failures including `hilbert_polynomial`, `completion`, and
+  `_change_print_mode`.
 - Those failures are not option-bag constructor regressions, but the previous card
   evidence did not explicitly route them or provide scoped passing verification.
 
 #### Routing And Rework
 
-- Residual `hilbert_polynomial`, `algebraic_closure`, `completion`,
-  `_change_print_mode`, and q-adic precision-cap smoke frontiers are already recorded
-  as downstream ring-frontier evidence in
+- Residual `hilbert_polynomial`, `algebraic_closure`, `completion`, and
+  `_change_print_mode` smoke frontiers are already recorded as downstream
+  ring-frontier evidence in
   `[[TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME]]`.
-- Deferred `ZqWithPrecisionCaps(...)` and `QqWithPrecisionCaps(...)` are explicitly
-  routed through
-  `[[TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED]]`
-  and
-  `[[TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION]]`.
 - The cited ring regression files had stale `plans.category_specs.rings` imports; these
   were mechanically repaired to `category_specs.rings` so future verification reaches
   the actual ring-frontier failures instead of a retired package path.

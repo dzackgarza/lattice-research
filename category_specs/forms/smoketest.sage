@@ -130,6 +130,12 @@ SMOKE_STATEMENTS = (
         and abstract_method_has_name(FiniteRankFreeFormedModulesCategory.ParentMethods.form, "form"),
     ),
     (
+        "formed-module Hom elements own cokernels with descended form data",
+        lambda _: abstract_method_has_name(FormsWithFormsCategory.HomCategory.ElementMethods.cokernel, "cokernel")
+        and abstract_method_has_name(FormsWithFormsCategory.HomCategory.ElementMethods.projection, "projection")
+        and abstract_method_has_name(FormsWithFormsCategory.HomCategory.ElementMethods.lift, "lift"),
+    ),
+    (
         "bilinear formed-module chain owns symmetry and integrality predicates",
         lambda _: abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_symmetric, "is_symmetric")
         and abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_alternating, "is_alternating")

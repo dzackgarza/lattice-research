@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 title: Sprint poset constructor smoke and deferred surface ownership pass for graph
   polytope algebra polynomial and Coxeter surfaces
-status: complete
+status: in-progress
 priority: high
 description: Posets mapping owns constructor names, finite surface methods, certificate
   method split, deferred non-core surface ownership, and slice/coslice structure methods.

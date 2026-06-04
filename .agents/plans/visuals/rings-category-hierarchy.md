@@ -18,8 +18,8 @@ graph TD
     Rings --> Quotients["Quotients()<br/>quotient_map, retract"]
     Rings --> Constructors["Constructors()<br/>ZZ, QQ, PolynomialRing, NumberField, Zp, Qp, Zq, Qq, MatrixRing, PowerSeries"]
     
-    Constructors --> PAdic["p-adic family<br/>Zp, Qp, ZpWithPrecisionCaps"]
-    Constructors --> QAdic["q-adic family<br/>Zq, Qq (scalar), ZqWithPrecisionCaps (deferred)"]
+    Constructors --> PAdic["p-adic family<br/>Zp, Qp<br/>scalar, lattice pair, relaxed tuple"]
+    Constructors --> QAdic["q-adic family<br/>Zq, Qq<br/>integer q, (p, degree), factorization"]
     Constructors --> Polynomial["PolynomialRing<br/>name, names, count+name, var_array"]
     Constructors --> NumberField["NumberField, NumberFieldTower<br/>single polynomial or tower"]
     Constructors --> Series["PowerSeries, LaurentSeries, PuiseuxSeries<br/>univariate, multivariate, underlying-ring"]

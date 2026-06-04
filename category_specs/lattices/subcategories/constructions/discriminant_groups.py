@@ -21,13 +21,25 @@ from ....modules import (
 
 if TYPE_CHECKING:
     from ....cat import Category
-    from ....types import Matrix, RingElement, RModuleElement, SetFamily
+    from ....types import (
+        BilinearForm,
+        Lattice,
+        LatticeMorphism,
+        Matrix,
+        QuadraticForm,
+        RingElement,
+        RModuleElement,
+        SetFamily,
+    )
 
 
 class LatticeDiscriminantGroupsCategory(Category_module):
     r"""Finite torsion modules with the discriminant form of a lattice.
 
     Canonical chain: ``Lattices(R).DiscriminantGroups()``.
+
+    Invariant factors are inherited from the finitely presented PID-module
+    surface.  They are not discriminant-group-specific data.
     """
 
     @final
@@ -46,7 +58,34 @@ class LatticeDiscriminantGroupsCategory(Category_module):
 
     class ParentMethods:
         @abstractmethod
-        def invariants(self) -> tuple[RingElement, ...]: ...
+        def source_lattice(self) -> Lattice:
+            r"""Return the lattice ``L`` whose dual inclusion defines this object."""
+            ...
+
+        @abstractmethod
+        def metric_dual(self) -> Lattice:
+            r"""Return the metric dual ``L^\#`` in the cokernel diagram."""
+            ...
+
+        @abstractmethod
+        def inclusion_morphism(self) -> LatticeMorphism:
+            r"""Return the metric inclusion ``L -> L^\#``."""
+            ...
+
+        @abstractmethod
+        def projection(self) -> LatticeMorphism:
+            r"""Return the quotient projection ``L^\# -> L^\#/L``."""
+            ...
+
+        @abstractmethod
+        def bilinear_form(self) -> BilinearForm:
+            r"""Return the descended bilinear form with codomain ``K/R``."""
+            ...
+
+        @abstractmethod
+        def quadratic_form(self) -> QuadraticForm:
+            r"""Return the descended quadratic form with codomain ``K/2R``."""
+            ...
 
         @abstractmethod
         def gram_matrix_bilinear(self) -> Matrix: ...

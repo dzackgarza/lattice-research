@@ -431,9 +431,8 @@ violations to silence QC rather than addressing the issues they unearthed.
 - Validation for the thirty-second slice:
   `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` still fails
   on the existing ring implementation frontier (`hilbert_polynomial`, `ideal_monoid`,
-  `algebraic_closure`, `_change_print_mode`, matrix MRO, and deferred q-adic
-  precision-cap constructors), but the new ring ownership assertions are not among
-  the reported failures. The vulture-only diagnostic no longer reports any
+  `algebraic_closure`, `_change_print_mode`, and matrix MRO), but the new ring
+  ownership assertions are not among the reported failures. The vulture-only diagnostic no longer reports any
   `category_specs/rings/**` findings. Remaining vulture findings are now isolated to
   `category_specs/lattices/**`.
 - 2026-05-06 thirty-third bounded slice: lattice smoke coverage was added for

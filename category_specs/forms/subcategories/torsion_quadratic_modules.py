@@ -20,6 +20,9 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
 
     Canonical chain:
     ``FinitelyPresentedModulesOverPID(ZZ).Torsion().WithForms().Quadratic()``.
+
+    The invariant-factor surface belongs to
+    ``Modules(R).FinitelyPresented().OverPID()`` and is inherited here.
     """
 
     @final
@@ -45,9 +48,6 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
 
         @abstractmethod
         def gram_matrix_bilinear(self) -> Matrix: ...
-
-        @abstractmethod
-        def invariants(self) -> tuple[RingElement, ...]: ...
 
         @abstractmethod
         def brown_invariant(self) -> RingElement: ...

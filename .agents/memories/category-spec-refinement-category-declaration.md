@@ -22,6 +22,20 @@ satisfaction.
 `C`. It declares that `X` is to be regarded as an object of `C`, thereby imposing the
 category contract that all objects of `C` must satisfy.
 
+## Single-Category Target Rule
+
+`refine_category(X, C)` must declare the single smallest mathematically correct
+category for `X`.
+Do not pass several categories, such as `refine_category(X, [Rings(), _Qp()])`.
+That manually restates inherited structure and violates the purpose of a category
+hierarchy: the target category owns the implementation contract, while its
+`super_categories()` graph owns ancestor membership.
+
+If a refinement call appears to need several categories, the category graph is wrong or
+the target category is not specific enough.
+Fix the graph or name the missing mathematical category; do not stack categories at the
+call site.
+
 This declaration is not proof that the current implementation satisfies the contract.
 During the spec phase, most refined Sage objects are expected to satisfy only part of
 the project contract, because the project invented specifications Sage did not know.

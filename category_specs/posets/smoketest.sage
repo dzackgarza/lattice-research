@@ -37,8 +37,8 @@ def raw_diamond_poset():
     return Poset(diamond_covers)
 
 
-diamond_poset = PC.from_upper_covers_dict(diamond_covers)
-diamond_lattice = PC.lattice_from_upper_covers(diamond_cover_list)
+diamond_poset = PC.Poset(upper_covers_dict=diamond_covers)
+diamond_lattice = PC.LatticePoset(upper_covers=diamond_cover_list)
 
 
 def abstract_method_has_name(method, name):
@@ -81,91 +81,120 @@ SMOKE_STATEMENTS = (
     ("Posets().Subquotients() is an object of Cat()", lambda _: P.Subquotients() in Cat()),
     ("Posets().CartesianProducts() is an object of Cat()", lambda _: P.CartesianProducts() in Cat()),
     ("Posets().HomCategory() is an object of Cat()", lambda _: P.HomCategory() in Cat()),
-    ("from_digraph(...) refines to finite posets", lambda _: PC.from_digraph(diamond_digraph, cover_relations=True) in P.Finite()),
+    ("Poset(hasse_digraph=...) refines to finite posets", lambda _: PC.Poset(hasse_digraph=diamond_digraph) in P.Finite()),
     (
-        "from_relations(...) refines to finite posets",
-        lambda _: PC.from_relations(diamond_elements, diamond_relations, cover_relations=True) in P.Finite(),
-    ),
-    ("from_order_predicate(...) refines to finite posets", lambda _: PC.from_order_predicate(diamond_elements, diamond_le) in P.Finite()),
-    (
-        "from_cover_predicate(...) refines to finite posets",
-        lambda _: PC.from_cover_predicate(chain_elements, chain_covers_predicate) in P.Finite(),
-    ),
-    ("from_upper_covers_dict(...) refines to finite posets", lambda _: PC.from_upper_covers_dict(diamond_covers) in P.Finite()),
-    ("from_upper_covers(...) refines to finite posets", lambda _: PC.from_upper_covers(diamond_cover_list) in P.Finite()),
-    ("from_existing(...) refines to finite posets", lambda _: PC.from_existing(raw_diamond_poset()) in P.Finite()),
-    (
-        "meet_semilattice_from_digraph(...) refines to finite meet-semilattices",
-        lambda _: PC.meet_semilattice_from_digraph(diamond_digraph, cover_relations=True) in P.MeetSemilattice().Finite(),
+        "Poset(elements=..., relations=...) refines to finite posets",
+        lambda _: PC.Poset(elements=diamond_elements, relations=diamond_relations) in P.Finite(),
     ),
     (
-        "meet_semilattice_from_relations(...) refines to finite meet-semilattices",
-        lambda _: PC.meet_semilattice_from_relations(diamond_elements, diamond_relations, cover_relations=True) in P.MeetSemilattice().Finite(),
+        "Poset(elements=..., covers=...) refines to finite posets",
+        lambda _: PC.Poset(elements=diamond_elements, covers=diamond_relations) in P.Finite(),
+    ),
+    ("Poset(elements=..., order_predicate=...) refines to finite posets", lambda _: PC.Poset(elements=diamond_elements, order_predicate=diamond_le) in P.Finite()),
+    (
+        "Poset(elements=..., cover_predicate=...) refines to finite posets",
+        lambda _: PC.Poset(elements=chain_elements, cover_predicate=chain_covers_predicate) in P.Finite(),
+    ),
+    ("Poset(upper_covers_dict=...) refines to finite posets", lambda _: PC.Poset(upper_covers_dict=diamond_covers) in P.Finite()),
+    ("Poset(upper_covers=...) refines to finite posets", lambda _: PC.Poset(upper_covers=diamond_cover_list) in P.Finite()),
+    ("Poset(existing=...) refines to finite posets", lambda _: PC.Poset(existing=raw_diamond_poset()) in P.Finite()),
+    ("Poset(existing=spec-owned poset) stays inside the category constructor surface", lambda _: PC.Poset(existing=diamond_poset) in P.Finite()),
+    (
+        "MeetSemilattice(hasse_digraph=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(hasse_digraph=diamond_digraph) in P.MeetSemilattice().Finite(),
     ),
     (
-        "meet_semilattice_from_order_predicate(...) refines to finite meet-semilattices",
-        lambda _: PC.meet_semilattice_from_order_predicate(diamond_elements, diamond_le) in P.MeetSemilattice().Finite(),
+        "MeetSemilattice(elements=..., relations=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(elements=diamond_elements, relations=diamond_relations) in P.MeetSemilattice().Finite(),
     ),
     (
-        "meet_semilattice_from_cover_predicate(...) refines to finite meet-semilattices",
-        lambda _: PC.meet_semilattice_from_cover_predicate(chain_elements, chain_covers_predicate) in P.MeetSemilattice().Finite(),
+        "MeetSemilattice(elements=..., covers=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(elements=diamond_elements, covers=diamond_relations) in P.MeetSemilattice().Finite(),
     ),
     (
-        "meet_semilattice_from_upper_covers_dict(...) refines to finite meet-semilattices",
-        lambda _: PC.meet_semilattice_from_upper_covers_dict(diamond_covers) in P.MeetSemilattice().Finite(),
+        "MeetSemilattice(elements=..., order_predicate=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(elements=diamond_elements, order_predicate=diamond_le) in P.MeetSemilattice().Finite(),
     ),
     (
-        "meet_semilattice_from_upper_covers(...) refines to finite meet-semilattices",
-        lambda _: PC.meet_semilattice_from_upper_covers(diamond_cover_list) in P.MeetSemilattice().Finite(),
+        "MeetSemilattice(elements=..., cover_predicate=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(elements=chain_elements, cover_predicate=chain_covers_predicate) in P.MeetSemilattice().Finite(),
     ),
     (
-        "meet_semilattice_from_existing(...) refines to finite meet-semilattices",
-        lambda _: PC.meet_semilattice_from_existing(raw_diamond_poset()) in P.MeetSemilattice().Finite(),
+        "MeetSemilattice(upper_covers_dict=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(upper_covers_dict=diamond_covers) in P.MeetSemilattice().Finite(),
     ),
     (
-        "join_semilattice_from_digraph(...) refines to finite join-semilattices",
-        lambda _: PC.join_semilattice_from_digraph(diamond_digraph, cover_relations=True) in P.JoinSemilattice().Finite(),
+        "MeetSemilattice(upper_covers=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(upper_covers=diamond_cover_list) in P.MeetSemilattice().Finite(),
     ),
     (
-        "join_semilattice_from_relations(...) refines to finite join-semilattices",
-        lambda _: PC.join_semilattice_from_relations(diamond_elements, diamond_relations, cover_relations=True) in P.JoinSemilattice().Finite(),
+        "MeetSemilattice(existing=...) refines to finite meet-semilattices",
+        lambda _: PC.MeetSemilattice(existing=raw_diamond_poset()) in P.MeetSemilattice().Finite(),
     ),
     (
-        "join_semilattice_from_order_predicate(...) refines to finite join-semilattices",
-        lambda _: PC.join_semilattice_from_order_predicate(diamond_elements, diamond_le) in P.JoinSemilattice().Finite(),
+        "MeetSemilattice(existing=spec-owned poset) stays inside the category constructor surface",
+        lambda _: PC.MeetSemilattice(existing=diamond_poset) in P.MeetSemilattice().Finite(),
     ),
     (
-        "join_semilattice_from_cover_predicate(...) refines to finite join-semilattices",
-        lambda _: PC.join_semilattice_from_cover_predicate(chain_elements, chain_covers_predicate) in P.JoinSemilattice().Finite(),
+        "JoinSemilattice(hasse_digraph=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(hasse_digraph=diamond_digraph) in P.JoinSemilattice().Finite(),
     ),
     (
-        "join_semilattice_from_upper_covers_dict(...) refines to finite join-semilattices",
-        lambda _: PC.join_semilattice_from_upper_covers_dict(diamond_covers) in P.JoinSemilattice().Finite(),
+        "JoinSemilattice(elements=..., relations=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(elements=diamond_elements, relations=diamond_relations) in P.JoinSemilattice().Finite(),
     ),
     (
-        "join_semilattice_from_upper_covers(...) refines to finite join-semilattices",
-        lambda _: PC.join_semilattice_from_upper_covers(diamond_cover_list) in P.JoinSemilattice().Finite(),
+        "JoinSemilattice(elements=..., covers=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(elements=diamond_elements, covers=diamond_relations) in P.JoinSemilattice().Finite(),
     ),
     (
-        "join_semilattice_from_existing(...) refines to finite join-semilattices",
-        lambda _: PC.join_semilattice_from_existing(raw_diamond_poset()) in P.JoinSemilattice().Finite(),
+        "JoinSemilattice(elements=..., order_predicate=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(elements=diamond_elements, order_predicate=diamond_le) in P.JoinSemilattice().Finite(),
     ),
     (
-        "lattice_from_digraph(...) refines to finite lattices",
-        lambda _: PC.lattice_from_digraph(diamond_digraph, cover_relations=True) in P.Lattice().Finite(),
+        "JoinSemilattice(elements=..., cover_predicate=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(elements=chain_elements, cover_predicate=chain_covers_predicate) in P.JoinSemilattice().Finite(),
     ),
     (
-        "lattice_from_relations(...) refines to finite lattices",
-        lambda _: PC.lattice_from_relations(diamond_elements, diamond_relations, cover_relations=True) in P.Lattice().Finite(),
+        "JoinSemilattice(upper_covers_dict=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(upper_covers_dict=diamond_covers) in P.JoinSemilattice().Finite(),
     ),
-    ("lattice_from_order_predicate(...) refines to finite lattices", lambda _: PC.lattice_from_order_predicate(diamond_elements, diamond_le) in P.Lattice().Finite()),
     (
-        "lattice_from_cover_predicate(...) refines to finite lattices",
-        lambda _: PC.lattice_from_cover_predicate(chain_elements, chain_covers_predicate) in P.Lattice().Finite(),
+        "JoinSemilattice(upper_covers=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(upper_covers=diamond_cover_list) in P.JoinSemilattice().Finite(),
     ),
-    ("lattice_from_upper_covers_dict(...) refines to finite lattices", lambda _: PC.lattice_from_upper_covers_dict(diamond_covers) in P.Lattice().Finite()),
-    ("lattice_from_upper_covers(...) refines to finite lattices", lambda _: PC.lattice_from_upper_covers(diamond_cover_list) in P.Lattice().Finite()),
-    ("lattice_from_existing(...) refines to finite lattices", lambda _: PC.lattice_from_existing(raw_diamond_poset()) in P.Lattice().Finite()),
+    (
+        "JoinSemilattice(existing=...) refines to finite join-semilattices",
+        lambda _: PC.JoinSemilattice(existing=raw_diamond_poset()) in P.JoinSemilattice().Finite(),
+    ),
+    (
+        "JoinSemilattice(existing=spec-owned poset) stays inside the category constructor surface",
+        lambda _: PC.JoinSemilattice(existing=diamond_poset) in P.JoinSemilattice().Finite(),
+    ),
+    (
+        "LatticePoset(hasse_digraph=...) refines to finite lattices",
+        lambda _: PC.LatticePoset(hasse_digraph=diamond_digraph) in P.Lattice().Finite(),
+    ),
+    (
+        "LatticePoset(elements=..., relations=...) refines to finite lattices",
+        lambda _: PC.LatticePoset(elements=diamond_elements, relations=diamond_relations) in P.Lattice().Finite(),
+    ),
+    (
+        "LatticePoset(elements=..., covers=...) refines to finite lattices",
+        lambda _: PC.LatticePoset(elements=diamond_elements, covers=diamond_relations) in P.Lattice().Finite(),
+    ),
+    ("LatticePoset(elements=..., order_predicate=...) refines to finite lattices", lambda _: PC.LatticePoset(elements=diamond_elements, order_predicate=diamond_le) in P.Lattice().Finite()),
+    (
+        "LatticePoset(elements=..., cover_predicate=...) refines to finite lattices",
+        lambda _: PC.LatticePoset(elements=chain_elements, cover_predicate=chain_covers_predicate) in P.Lattice().Finite(),
+    ),
+    ("LatticePoset(upper_covers_dict=...) refines to finite lattices", lambda _: PC.LatticePoset(upper_covers_dict=diamond_covers) in P.Lattice().Finite()),
+    ("LatticePoset(upper_covers=...) refines to finite lattices", lambda _: PC.LatticePoset(upper_covers=diamond_cover_list) in P.Lattice().Finite()),
+    ("LatticePoset(existing=...) refines to finite lattices", lambda _: PC.LatticePoset(existing=raw_diamond_poset()) in P.Lattice().Finite()),
+    (
+        "LatticePoset(existing=spec-owned poset) stays inside the category constructor surface",
+        lambda _: PC.LatticePoset(existing=diamond_poset) in P.Lattice().Finite(),
+    ),
     (
         "finite diamond poset has the expected top and bottom",
         lambda _: diamond_poset.bottom() == 0

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from inspect import Signature, signature
-from typing import Any, Literal, cast
+from typing import Any, cast
 
 from sage.categories.category import Category as SageCategory
 
@@ -49,10 +49,6 @@ def constructor_registry_for_category(
                 target_refinement_route=_constructor_target_refinement_route(
                     provider, constructor_name, owner
                 ),
-                status=_constructor_status(provider, constructor_name),
-                deferred_reason=_constructor_deferred_reason(
-                    provider, constructor_name
-                ),
             )
             for constructor_name in constructor_names
         )
@@ -91,10 +87,6 @@ def cat_constructor_registry() -> ConstructorRegistry:
                         f"{owner}.Constructors()",
                         target_category,
                     ),
-                    status=_constructor_status(provider, constructor_name),
-                    deferred_reason=_constructor_deferred_reason(
-                        provider, constructor_name
-                    ),
                     description=(
                         f"Forward to {owner}.Constructors().{constructor_name}."
                     ),
@@ -113,8 +105,6 @@ def _constructor_spec(
     sage_entry_point: str,
     target_category: str,
     target_refinement_route: tuple[str, ...],
-    status: Literal["admitted", "deferred"] = "admitted",
-    deferred_reason: str = "",
     description: str = "",
 ) -> ConstructorSpec:
     return ConstructorSpec(
@@ -125,24 +115,8 @@ def _constructor_spec(
         sage_source=f"{provider.__module__}.{provider.__qualname__}.{constructor_name}",
         target_category=target_category,
         target_refinement_route=target_refinement_route,
-        status=status,
-        deferred_reason=deferred_reason,
         description=description,
     )
-
-
-def _constructor_deferred_reason(provider: type, constructor_name: str) -> str:
-    reasons = getattr(provider, "_deferred_constructor_reasons", {})
-    reason = reasons.get(constructor_name, "")
-    return str(reason)
-
-
-def _constructor_status(
-    provider: type, constructor_name: str
-) -> Literal["admitted", "deferred"]:
-    if _constructor_deferred_reason(provider, constructor_name):
-        return "deferred"
-    return "admitted"
 
 
 def _constructor_return_label(provider: type, constructor_name: str) -> str:

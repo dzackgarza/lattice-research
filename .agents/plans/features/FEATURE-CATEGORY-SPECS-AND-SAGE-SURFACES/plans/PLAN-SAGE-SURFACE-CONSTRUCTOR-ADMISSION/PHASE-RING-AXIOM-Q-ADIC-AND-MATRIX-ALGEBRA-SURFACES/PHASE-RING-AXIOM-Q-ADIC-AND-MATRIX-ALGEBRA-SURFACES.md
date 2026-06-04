@@ -98,10 +98,10 @@ Each child task independently carries its own source provenance section. Source 
 
 The phase card lists 5 success criteria:
 1. "The sprint has a bounded set of child tracker items and an explicit scope statement." — **Checkable.** Directory listing confirms 7 substantive child tasks + 1 wrapup = 8 bounded items. Scope statement exists in the description.
-2. "Completion requires each child item to be done or explicitly superseded by a linked successor; blocked child cards do not satisfy phase acceptance." — **Checkable.** Child statuses can be audited: 3 tasks `complete`, 3 tasks `needs-human-input` (stale _sympy_ superseded by linked successors; q-adic implementation; modules smoke), 1 task `unstarted` (wrapup). The stale _sympy_ leaf has linked successors documented in its body. Phase acceptance is not yet satisfiable pending wrapup and human signoff.
+2. "Completion requires each child item to be done or explicitly superseded by a linked successor; blocked child cards do not satisfy phase acceptance." — **Checkable.** Child statuses can be audited: remaining tasks are either `complete`, `needs-human-input`, or `unstarted` for wrapup. The stale _sympy_ leaf has linked successors documented in its body. Phase acceptance is not yet satisfiable pending wrapup and human signoff.
 3. "The sprint closing note records smoke/test commands run and any unresolved blockers." — **Checkable.** Requires wrapup task (TASK-WRAPUP-PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES) to execute and record.
 4. "Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes." — **Checkable.** Multiple child tasks have recorded smoke runs with concrete output.
-5. "Confirm failures are reduced without weakening constructor membership assertions." — **Checkable.** Child task review logs include spec-weakening checks; aggregate smoke still fails on preserved frontiers (hilbert_polynomial, algebraic_closure, completion, _change_print_mode, deferred q-adic caps) rather than weakened assertions.
+5. "Confirm failures are reduced without weakening constructor membership assertions." — **Checkable.** Child task review logs include spec-weakening checks.
 
 All criteria are specific enough to be verified by a reviewer with access to the repo and Sage runtime. The criteria referencing smoke files name exact paths. **Pass.**
 
@@ -112,10 +112,8 @@ Child tasks in `tasks/` directory (8 total):
 |---|---------|-------|--------|
 | 1 | TASK-01KQN9J3WY0J7VF8KEY1X7496H | Fix Rings category base-class identity mismatch | complete |
 | 2 | TASK-01KQN9J3WZDBZ8D0BPGG8AKVXH | Implement missing _sympy_ surface | needs-human-input |
-| 3 | TASK-01KQN9YGCJ26WJ2044DVNVNE87 | Implement q-adic lattice precision-cap constructors | needs-human-input |
-| 4 | TASK-01KQN9YGCKBZM1PG5YYQW5A8M6 | Implement matrix-ring refinement | complete |
-| 5 | TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR | Research upstream Sage support for q-adic | complete |
-| 6 | TASK-01KQN9J3WXGKSYTRTQDP54C28J | Fix Modules smoke missing algebra _sympy_ | needs-human-input |
+| 3 | TASK-01KQN9YGCKBZM1PG5YYQW5A8M6 | Implement matrix-ring refinement | complete |
+| 4 | TASK-01KQN9J3WXGKSYTRTQDP54C28J | Fix Modules smoke missing algebra _sympy_ | needs-human-input |
 | 7 | TASK-1777748120685-4VX3GB | Strip import and LazyImport bloat | complete |
 | 8 | TASK-WRAPUP-PHASE-RING... | Phase wrap-up | unstarted |
 
@@ -123,7 +121,10 @@ Coverage against phase scope:
 - **Nested axiom category identity mismatches** → Task 1 (base-class identity mismatch fix; complete, Gates 1-6 passed)
 - **Missing _sympy_ methods on refined parents** → Task 2 (stale _sympy_ leaf; superseded by linked successors in tasks 1, 3, 4, 5; needs-human-input)
 - **Matrix-ring surface split** → Task 4 (matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank(); complete, verified)
-- **Q-adic precision frontier** → Tasks 3 + 5 (implementation of deferred constructors + upstream Sage research; both reviewed)
+- **Q-adic constructor mapping frontier** → Sage `Zq`/`Qq` source admits integer
+  prime-power, `(p, degree)`, and one-factor factorization inputs under the original
+  constructor names; invented `FromPrimePower` constructor names are not part of the
+  source-grounded mapping.
 - **Modules smoke** → Task 6 (cross-category smoke fix; reviewed, Gates 1-6 passed, modules/smoketest.sage now passes)
 - **Import hygiene** → Task 7 (import/LazyImport bloat cleanup; complete)
 - **Phase closure** → Task 8 (wrapup; unstarted, depends on all siblings being done)
@@ -140,7 +141,9 @@ Phase boundaries are explicit:
 Child task scope audit:
 - Task 1: scoped to `category_specs/rings/subcategories/` — eager imports replace LazyImport placeholders for nested ring axiom categories. No cross-category leakage.
 - Task 2: no implementation changes; stale leaf documented with successor links. No scope expansion.
-- Task 3: scoped to `category_specs/rings/__init__.py` (existing deferred constructors). No new surface created.
+- Task 3: scoped to `category_specs/rings/__init__.py` constructor recovery. The
+  source-grounded surface is `Zp`/`Qp`/`Zq`/`Qq` with explicit named input shapes, not
+  deferred or invented constructor names.
 - Task 4: scoped to matrix algebra refinement; touches `category_specs/rings/` and `category_specs/algebras/`. Cross-category but within the constructor-admission plan scope.
 - Task 5: pure research; no code changes. Within upstream Sage investigation scope.
 - Task 6: scoped to `category_specs/modules/`; passes modules smoke. Cross-category but justified as part of broader constructor admission.

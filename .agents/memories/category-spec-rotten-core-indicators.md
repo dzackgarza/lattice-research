@@ -159,6 +159,21 @@ If the task is to audit the graph, produce the audit.
 If the task is to classify rows, produce the classification table.
 If the task is to fix the graph, produce the fixed `super_categories()`.
 
+## Red flag: Tests that inherit private spec classes
+
+**Symptom:** A smoke or regression test defines a dummy class inheriting
+`_SomeCategory.ParentMethods`, `_SomeCategory.ElementMethods`, or another private
+project class name, then calls methods on that dummy object.
+
+**What it means:** The test is exercising Python inheritance internals rather than the
+research-facing category API.
+It bypasses constructor/refinement, bypasses Sage's category graph, and exposes class
+names that downstream consumers should never need to know.
+
+**What to do:** Replace the test with a category-owned constructor or refinement path.
+The assertion should read like a mathematical claim about an object in a named category,
+not like a unit test of a nested implementation class.
+
 **The concrete failure:** In the vault conversation, the user explicitly said: "Add in a
 new comment." The agent drafted a 1500-line comment full of strategy and
 tables-that-should-exist.
@@ -289,6 +304,33 @@ actions. Warning-only mode is acceptable while inherited debt remains, but the
 follow-through is still to remove the violations and make the mathematical relation
 correct. A hook is not completion.
 
+## Red flag: Ambient mutation presented as category integration
+
+**Symptom:** A category-spec patch mutates existing objects, classes, modules, globals,
+temporary providers, or Sage entry points with `setattr`, `delattr`, `globals()`,
+`locals()`, `vars(...)`, or equivalent rebinding. The explanation says this installs
+constructor refinements, preserves compatibility, registers providers, forwards
+constructors, or makes smokes use refined objects.
+
+**What it means:** The agent probably replaced category-owned public API design with
+ambient behavior change. This is especially dangerous for constructor work: the repo's
+constructor model is not "make old names secretly refined." The model is: read Sage
+docs and factory/source code, enumerate every actually valid constructor input shape,
+record those shapes in mapping docs, expose them as named-only overloads on the owning
+category's `Constructors()` collector, call the original Sage constructor, and refine
+the returned object. Attribute rebinding hides ownership and makes import order or
+global state part of the mathematical interface.
+
+**What to do:** Ask the constructor-recovery question before reading the smoke result:
+which Sage constructor shapes were recovered from source, where are they enumerated in
+mapping docs, which named-only category overload exposes each shape, and what object is
+refined afterward? If the answer is "the patch changes what an existing
+global/module/object attribute means," reject the patch as misaligned unless a
+source-grounded interop boundary has already been approved. Do not polish the mutation,
+rename it compatibility, or add documentation that makes the mutation sound deliberate.
+Move the behavior to the mathematical owner or classify the old path as compatibility
+evidence outside spec code.
+
 ## The core principle
 
 **If an artifact is incomprehensible, it is probably wrong.** Clarity is the first test
@@ -306,3 +348,5 @@ An agent that cannot explain it simply is either confused or hiding something.
   prevented the degradation the agent nearly introduced.
 - `private-method-containers-are-not-return-types`: red flag 8 instance — confusing
   implementation containers with public types.
+- `category-spec-constructor-routes-are-category-owned`: constructor-specific invariant
+  for category-owned Sage-backed construction routes and the ambient mutation ban.

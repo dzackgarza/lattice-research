@@ -49,7 +49,7 @@ class Subsets(SubobjectsCategory):
             predicates,
             names=names,
         )
-        return refine_category(subset, [Sets(), subset_category])
+        return refine_category(subset, subset_category)
 
     class ParentMethods:
         @abstractmethod

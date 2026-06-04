@@ -40,14 +40,13 @@ from category_specs.rings import Rings
 
 Rings().Constructors().provenance().constructor("rings.GF")
 Cat().Constructors().provenance().by_owner("Rings()")
-Cat().Constructors().provenance().deferred()
 ```
 
 Constructor records expose the mathematical owner, public method name, Sage entry
 point, source route, target category, refinement route, and optional provider,
-witness, obligation, or deferred-gap metadata. The generic adapter derives the target
-route from explicit constructor metadata when present and otherwise from the public
-return annotation, so the record remains tied to the declared constructor surface.
+witness, or obligation metadata. The generic adapter derives the target route from
+explicit constructor metadata when present and otherwise from the public return
+annotation, so the record remains tied to the declared constructor surface.
 
 ## Constructor Coverage
 
@@ -70,10 +69,9 @@ the category is absent. Topological objects currently enter through set construc
 such as real intervals. Lattice objects currently enter through module-side lattice
 routes until lattice-native constructors are admitted.
 
-Deferred constructors must stay visible in the registry with `status="deferred"` and
-a concrete `deferred_reason`. For example, the q-adic extension precision-cap
-constructors remain registered even though installed Sage does not expose the split
-lattice-cap route.
+Constructor registries contain admitted constructor routes only. A constructor shape
+that is not source-grounded in Sage does not become a registry entry, mapping row,
+smoke target, or "deferred" record.
 
 ## Adding A Sage Implementation
 
@@ -85,10 +83,11 @@ Before adding an implementation, query the spec instead of browsing source by ha
   implementations before writing local methods.
 - Query the appropriate `Constructors().provenance()` registry to find existing Sage
   constructor routes and refinement targets.
-- If no constructor route exists, add the constructor to the mathematical owner
-  category and make `.provenance()` expose it through `ConstructorRegistry`.
-- If Sage lacks the route, keep the constructor visible as deferred and record the
-  source-grounded blocker in `deferred_reason`.
+- If a source-grounded Sage constructor route exists, map it to a named-parameter
+  category-owned overload and make `.provenance()` expose it through
+  `ConstructorRegistry`.
+- If Sage lacks the route, do not add a constructor record. Reconstruct the actual
+  source task instead of preserving the rejected constructor as a named gap.
 - Add or extend focused tests that prove the query result: inherited obligations,
   constructor record, provider or witness evidence, computed values, and missing
   gaps.
@@ -107,5 +106,5 @@ just test-spec-core-vertical-slice
 ```
 
 This target covers report querying, category obligation closure, generated laws,
-constructor registries, Cat aggregation, deferred constructor records, and the
-finite/countable free-module witness slice.
+constructor registries, Cat aggregation, and the finite/countable free-module witness
+slice.

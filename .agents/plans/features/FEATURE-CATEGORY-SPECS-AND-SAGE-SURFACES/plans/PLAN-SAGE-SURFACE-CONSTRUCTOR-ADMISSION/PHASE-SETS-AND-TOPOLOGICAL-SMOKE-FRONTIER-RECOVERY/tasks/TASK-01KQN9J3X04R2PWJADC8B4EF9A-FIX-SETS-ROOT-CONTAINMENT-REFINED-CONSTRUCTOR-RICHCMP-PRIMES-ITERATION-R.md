@@ -93,8 +93,7 @@ construction, and topological axiom resolution.
   - `just smoke-file rings/smoketest.sage` also advanced past the previous root
     `__richcmp__` failures; the current rings frontier is now ring-specific
     implementation gaps such as `hilbert_polynomial`, topological `boundary`,
-    `ideal_monoid`, `_change_print_mode`, q-adic deferred constructors, and matrix
-    algebra/module MRO refinement.
+    `ideal_monoid`, `_change_print_mode`, and matrix algebra/module MRO refinement.
 - 2026-05-05: Removed another layer of local abstract shadowing by delegating
   facade-set defaults to Sage's `FacadeSets`, countable/enumerated defaults to Sage's
   enumerated-set providers, finite random/cardinality defaults to Sage finite

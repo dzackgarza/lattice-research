@@ -21,7 +21,7 @@ tags:
 # Restore binary primitives for module and set product constructors
 Source: pasted backlog 2026-05-02.
 
-Task: restore the binary-only variants of the module and set product constructors, deprecate the n-ary forms, and add missing @final markers to the concrete implementations.
+Task: restore explicit non-variadic module and set product constructors and add missing @final markers to the concrete implementations.
 
 ## Definition Grounding
 
@@ -39,20 +39,20 @@ Task: restore the binary-only variants of the module and set product constructor
   `tensor(self, other)` as primitives with explicit sequence overloads, and Sage
   free-module `direct_sum(self, other)` is binary. Source:
   `category_specs/modules/__init__.py` and `sage.modules.free_module.FreeModule_generic.direct_sum`.
-- Ownership: `CartesianProduct(left, right)` is owned at `Sets()` because every pair of
-  sets has a Cartesian product set. Finite-factor construction is a compatibility
-  aggregate returning the same one-object refinement category, not the primitive
-  owner.
+- Ownership: Sage's set-product constructor name is `CartesianProduct` for a finite
+  factor collection. The project surface keeps that constructor name and exposes the
+  factor collection as the named `factors` parameter.
 
 ## Acceptance Criteria
 
-- [x] `Sets().Constructors().CartesianProduct(left, right)` is the documented binary
-      primitive and refines into Cartesian-product sets.
-- [x] Finite-factor Sage compatibility remains available through an explicit
-      non-variadic sequence surface.
-- [x] Existing two-factor smoke/regression assertions exercise the binary primitive.
-- [x] Multi-factor compatibility is still covered without treating Sage's sequence
-      constructor as the only project surface.
+- [x] `Sets().Constructors().CartesianProduct(factors=factors)` is the documented
+      finite-factor constructor and refines into Cartesian-product sets.
+- [x] Lowercase Sage compatibility remains available through an explicit non-variadic
+      sequence surface.
+- [x] Existing two-factor smoke/regression assertions exercise the named factor
+      constructor.
+- [x] Multi-factor compatibility is still covered through the same Sage constructor
+      name.
 - [x] Module product surfaces are audited for binary primitives and `@final` concrete
       implementations; no module change is made unless the audit finds a real gap.
 - [x] Spec-weakening review confirms no constructor obligation was deleted or narrowed
@@ -71,12 +71,9 @@ Task: restore the binary-only variants of the module and set product constructor
 
 ## Work Log
 
-- 2026-05-06: Restored the set-product binary primitive as
-  `Sets().Constructors().CartesianProduct(left, right)` and kept Sage's finite-factor
-  constructor surface as the explicit `CartesianProductFromFactors(factors)` plus the
-  legacy lowercase `cartesian_product(factors)` compatibility method. Updated set
-  smoke/regression assertions so two-factor products exercise the binary primitive and
-  three-factor products exercise the finite-factor compatibility path.
+- 2026-05-06: Restored the set-product surface, later corrected to preserve Sage's
+  original `CartesianProduct` constructor name with an explicit named `factors`
+  parameter plus the lowercase `cartesian_product(factors)` compatibility method.
 - 2026-05-06: Audited module product surfaces. `category_specs/modules/__init__.py`
   already exposes binary `direct_sum(self, other)` and `tensor(self, other)` primitives
   with sequence overloads, and concrete module Cartesian/tensor product construction
@@ -94,15 +91,14 @@ Task: restore the binary-only variants of the module and set product constructor
   lists have the same length and each target factor coerces from the matching source
   factor. This mirrors Sage's criterion without calling Sage's fallback path, which
   re-enters the refined category method.
-- 2026-05-07: Pre-review audit found that `CartesianProduct` still carried a sequence
-  overload and `right=None` compatibility body even though
-  `CartesianProductFromFactors(factors)` already owns the finite-factor aggregate
-  surface. Removed the optional-argument path so `CartesianProduct(left, right)` is
-  strictly binary.
+- 2026-05-07: Pre-review audit removed an optional-argument product body. Later source
+  repair established that the constructor collector should keep Sage's
+  `CartesianProduct` name and expose the factor collection with the named `factors`
+  parameter, rather than inventing a separate factor-derived name.
 - 2026-05-07: Independent Gate 2 review also found that set-object
   `cartesian_product` still accepted `Set | Sequence[Set]`. Removed that sequence
-  overload so set-object product is binary; the finite-factor aggregate remains on
-  `CartesianProductFromFactors(factors)`.
+  overload so finite-factor construction remains on the category-owned
+  `CartesianProduct(factors=...)` route.
 
 ## Verification
 
@@ -143,20 +139,20 @@ Evidence:
 - Card body lines 28-31 cite `.agents/skills/category-spec-style/references/style.md` sections "Binary Operations Are Foldable" (lines 93-102) and "No Variadic Signatures" (lines 57-58) — confirmed by reading `references/style.md`.
 - Card lines 33-36 cite `sage.sets.cartesian_product.CartesianProduct(sets, category, flatten=False)` — confirmed in SPEC-MAPPING-SETS source coverage ledger.
 - Card lines 38-41 cite `category_specs/modules/__init__.py` binary primitives `direct_sum(self, other)` and `tensor(self, other)` — confirmed at lines 361-377.
-- Ownership: `CartesianProduct(left, right)` at `Sets()` is confirmed in `_CartesianProductSets` class docstring (lines 30-37 of cartesian_product.py).
+- Ownership: `CartesianProduct(factors=factors)` at `Sets()` is confirmed in `_CartesianProductSets` class docstring and `SPEC-MAPPING-SETS`.
 
 #### Gate 2: Acceptance Criteria — PASSED
 
-- AC1: `Sets().Constructors().CartesianProduct(left, right)` is binary-only. Verified at `__init__.py` lines 891-913: `@overload` with `(left: Set, right: Set)` only and `@final` implementation with no sequence overload.
-- AC2: `CartesianProductFromFactors(factors: Sequence[Set])` exists at lines 915-940. Lowercase `cartesian_product(self, factors: Sequence[Set])` at lines 1236-1240.
-- AC3: Smoke lines 317-323 and 325-327 exercise binary primitive. Regression lines 19-27 confirm two-factor binary calls.
-- AC4: Multi-factor covered via three-factor smoke (lines 606-616) and regression (lines 56-66).
+- AC1: `Sets().Constructors().CartesianProduct(factors=factors)` is named-only and delegates to Sage's `CartesianProduct(sets, category, flatten=False)` constructor.
+- AC2: Lowercase `cartesian_product(self, factors: Sequence[Set])` delegates to the same named constructor route.
+- AC3: Smoke and regression assertions exercise two-factor and three-factor named-factor calls.
+- AC4: Multi-factor products are covered through the same constructor name rather than a second invented public name.
 - AC5: Module surfaces audited. `direct_sum` and `tensor` each have binary + sequence overloads with `@final` concrete implementations.
 - AC6: Spec-weakening review section in card confirms no obligations deleted.
 
 #### Gate 3: Spec-Weakening — PASSED
 
-Examined cumulative diff covering all changes. No abstract methods deleted. No constructor obligations removed. No smoke assertions narrowed. The diff adds binary primitive, adds named finite-factor compatibility surface, preserves lowercase Sage compatibility, and strengthens smoke coverage. SPEC-MAPPING-SETS.md gained rows, lost none.
+Examined cumulative diff covering all changes. No abstract methods deleted. No constructor obligations removed. No smoke assertions narrowed. The diff preserves Sage's `CartesianProduct` constructor name, preserves lowercase Sage compatibility, and keeps named factor smoke coverage.
 
 #### Gate 4: Gradient — PASSED
 

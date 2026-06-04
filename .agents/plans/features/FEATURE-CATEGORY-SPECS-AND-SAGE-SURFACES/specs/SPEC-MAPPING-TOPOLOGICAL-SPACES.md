@@ -25,6 +25,10 @@ acceptanceCriteria:
 complexity: 75
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+constructorNameInventories:
+- owner: category_specs.topological_spaces.TopologicalSpaces._Constructors
+  sageConstructorNames: []
+  projectOwnedConstructionNames: []
 ---
 # Topological Spaces Mapping Spec
 
@@ -181,11 +185,11 @@ turning every topological subset constructor into a root constructor.
 
 | Sage subset method | Target topological-space method | Justification | Consequence |
 | --- | --- | --- | --- |
-| `RealSet.is_open()` | `X.is_open(U: Subset) -> bool` | Openness is a predicate of a subset relative to an ambient topological space. | `U.is_open()` migrates to `U.ambient().is_open(U)` unless a subobject convenience method is separately admitted. |
-| `RealSet.is_closed()` | `X.is_closed(U: Subset) -> bool` | Closedness is relative to an ambient topological space. | `U.is_closed()` migrates to `U.ambient().is_closed(U)`. |
-| `RealSet.closure()` | `X.closure(U: Subset) -> Subset` | Closure is the smallest closed subset of the ambient space containing `U`. | `U.closure()` migrates to `U.ambient().closure(U)`. |
-| `RealSet.interior()` | `X.interior(U: Subset) -> Subset` | Interior is the largest open subset of the ambient space contained in `U`. | `U.interior()` migrates to `U.ambient().interior(U)`. |
-| `RealSet.boundary()` | `X.boundary(U: Subset) -> Subset` | Boundary is a subset of the ambient space determined by closure and interior. | `U.boundary()` migrates to `U.ambient().boundary(U)`. |
+| `RealSet.is_open()` | `X.is_open_subset(U: Subset) -> bool` | Openness is a predicate of a subset relative to an ambient topological space. | `U.is_open()` migrates to `U.ambient_real_line().is_open_subset(U)` for RealSet-backed subsets. |
+| `RealSet.is_closed()` | `X.is_closed_subset(U: Subset) -> bool` | Closedness is relative to an ambient topological space. | `U.is_closed()` migrates to `U.ambient_real_line().is_closed_subset(U)` for RealSet-backed subsets. |
+| `RealSet.closure()` | `X.closure_subset(U: Subset) -> Subset` | Closure is the smallest closed subset of the ambient space containing `U`. | `U.closure()` migrates to `U.ambient_real_line().closure_subset(U)` for RealSet-backed subsets. |
+| `RealSet.interior()` | `X.interior_subset(U: Subset) -> Subset` | Interior is the largest open subset of the ambient space contained in `U`. | `U.interior()` migrates to `U.ambient_real_line().interior_subset(U)` for RealSet-backed subsets. |
+| `RealSet.boundary()` | `X.boundary_subset(U: Subset) -> Subset` | Boundary is a subset of the ambient space determined by closure and interior. | `U.boundary()` migrates to `U.ambient_real_line().boundary_subset(U)` for RealSet-backed subsets. |
 | `RealSet.is_connected()` as a no-argument category fact | `X.is_connected() -> bool` | Connectedness is a property of the whole topological space. | Keep no-argument connectedness at root. |
 | `RealSet.is_compact()` as a no-argument category fact | `X.is_compact() -> bool` | Compactness is a property of the whole topological space. | Keep no-argument compactness at root and add a compact subcategory. |
 
@@ -194,13 +198,13 @@ turning every topological subset constructor into a root constructor.
 Real-line subset methods recover through the ambient-relative topological-space surface.
 For a real subset `U`, the public route is:
 
-- `U.ambient().is_open(U)` for openness;
-- `U.ambient().is_closed(U)` for closedness;
-- `U.ambient().closure(U)` for closure;
-- `U.ambient().interior(U)` for interior;
-- `U.ambient().boundary(U)` for boundary.
+- `U.ambient_real_line().is_open_subset(U)` for openness;
+- `U.ambient_real_line().is_closed_subset(U)` for closedness;
+- `U.ambient_real_line().closure_subset(U)` for closure;
+- `U.ambient_real_line().interior_subset(U)` for interior;
+- `U.ambient_real_line().boundary_subset(U)` for boundary.
 
-The owner remains `TopologicalSpaces().ParentMethods`. `RealSet` compatibility methods
+The owner remains the topological subobject method surface. `RealSet` compatibility methods
 are Sage-backed convenience methods on a topological subobject of the real line; they do
 not create a second owner and should not be specified as pure set methods. The return
 objects for `closure`, `interior`, and `boundary` are subsets of the same ambient
@@ -214,27 +218,27 @@ existing Sage no-argument calls migrate conceptually to the ambient-relative for
 
 ## Constructor Candidate Mapping
 
-`TopologicalSpaces().Constructors()` stays empty for now. Named sets belong under
-`Sets().Constructors()` even when they refine into topological spaces or topological
-subobjects. This is the current discoverability rule: users first look for named set
-objects in `Sets().Constructors()`, and later this can be centralized through aggregate
-constructor exposure from subcategories or through `Cat`.
+`TopologicalSpaces().Constructors()` stays empty for now. Topology-bearing objects keep
+their mathematical constructor owner: real-subset constructors belong to
+`Sets().Constructors()`, while real-field constructors belong to
+`Rings().Constructors()`. Topological structure is recovered by refining the constructed
+object, not by duplicating constructor names in the topological namespace.
 
 | Sage constructor surface | Candidate path | Mapping status | Reason |
 | --- | --- | --- | --- |
 | No standalone `TopologicalSpace(...)` constructor found in Sage category source | No generic constructor | Mathematically justified non-mapping | A generic constructor would require arbitrary topology data and is not present in the inventoried Sage category. |
-| `RR` / `RealField()` | `Sets().Constructors().RR()` refined into `Sets().Topological()` | Mapped to set constructors | The real line is a named set object with extra structure. It should not force a topological constructor namespace. |
-| `RealSet.real_line()` | `Sets().Constructors().RealLine()` | Mapped to set constructors | The real line as a real subset is a topological subobject of itself. |
-| `RealSet.open(a, b)` | `Sets().Constructors().OpenRealInterval(lower, upper)` | Mapped to set constructors | Open intervals are named real subsets and topological subobjects of the real line. |
-| `RealSet.closed(a, b)` | `Sets().Constructors().ClosedRealInterval(lower, upper)` | Mapped to set constructors | Closed intervals are named real subsets and topological subobjects of the real line. |
-| `RealSet.open_closed(a, b)` | `Sets().Constructors().OpenClosedRealInterval(lower, upper)` | Mapped to set constructors | Half-open intervals are named real subsets and topological subobjects of the real line. |
-| `RealSet.closed_open(a, b)` | `Sets().Constructors().ClosedOpenRealInterval(lower, upper)` | Mapped to set constructors | Half-open intervals are named real subsets and topological subobjects of the real line. |
-| `RealSet.unbounded_below_open(bound)` | `Sets().Constructors().UnboundedBelowOpenRealInterval(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
-| `RealSet.unbounded_below_closed(bound)` | `Sets().Constructors().UnboundedBelowClosedRealInterval(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
-| `RealSet.unbounded_above_open(bound)` | `Sets().Constructors().UnboundedAboveOpenRealInterval(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
-| `RealSet.unbounded_above_closed(bound)` | `Sets().Constructors().UnboundedAboveClosedRealInterval(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
-| `RealSet.point(p)` | `Sets().Constructors().RealPoint(p)` | Mapped to set constructors | A singleton is first a finite set/subset and only becomes a topological space relative to an ambient topology. |
-| `RealSet.interval(lower, upper, *, lower_closed, upper_closed)` | `Sets().Constructors().RealSetInterval(lower, upper, lower_closed=..., upper_closed=...)` | Mapped to set constructors | This is the universal interval/ray constructor. Named interval and ray constructors call it with fixed endpoint-closure booleans. |
+| `RR` / `RealField()` | `Rings().Constructors().RR()` / `Rings().Constructors().RealField(...)` with topological refinement | Mapped to ring constructors | The real floating-point field is a topology-bearing field object. It should not force a topological or set constructor namespace. |
+| `RealSet.real_line()` | `Sets().Constructors().real_line()` | Mapped to set constructors | The real line as a real subset is a topological subobject of itself. |
+| `RealSet.open(a, b)` | `Sets().Constructors().open(lower, upper)` | Mapped to set constructors | Open intervals are named real subsets and topological subobjects of the real line. |
+| `RealSet.closed(a, b)` | `Sets().Constructors().closed(lower, upper)` | Mapped to set constructors | Closed intervals are named real subsets and topological subobjects of the real line. |
+| `RealSet.open_closed(a, b)` | `Sets().Constructors().open_closed(lower, upper)` | Mapped to set constructors | Half-open intervals are named real subsets and topological subobjects of the real line. |
+| `RealSet.closed_open(a, b)` | `Sets().Constructors().closed_open(lower, upper)` | Mapped to set constructors | Half-open intervals are named real subsets and topological subobjects of the real line. |
+| `RealSet.unbounded_below_open(bound)` | `Sets().Constructors().unbounded_below_open(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
+| `RealSet.unbounded_below_closed(bound)` | `Sets().Constructors().unbounded_below_closed(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
+| `RealSet.unbounded_above_open(bound)` | `Sets().Constructors().unbounded_above_open(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
+| `RealSet.unbounded_above_closed(bound)` | `Sets().Constructors().unbounded_above_closed(bound)` | Mapped to set constructors | Rays are named real subsets and topological subobjects of the real line. |
+| `RealSet.point(p)` | `Sets().Constructors().point(point=p)` | Mapped to set constructors | A singleton is first a finite set/subset and only becomes a topological space relative to an ambient topology. |
+| `RealSet.interval(lower, upper, *, lower_closed, upper_closed)` | `Sets().Constructors().interval(lower, upper, lower_closed=..., upper_closed=...)` | Mapped to set constructors | This is the universal interval/ray constructor. Named interval and ray constructors call it with fixed endpoint-closure booleans. |
 | Variadic `RealSet(*args)` | No catch-all constructor | Mathematically justified non-mapping | Sage accepts finite data shapes, symbolic relations, and manifold objects. The project API requires closed overloads and mathematical names. |
 | `RealSet(..., structure='differentiable')`, `ambient=...`, `names=...`, `coordinate=...` | No path in this subtree | Mathematically justified non-mapping | These route to differentiable real manifolds or manifold subsets. |
 | `RealIntervalField`, `ComplexIntervalField`, `RealBallField`, `ComplexBallField` constructors | Ring/field constructor paths, with topological methods imported from this subtree | Justified non-mapping as topological-space constructors | These constructors create algebraic/numerical fields or elements, not pure topological spaces. Their topology-bearing behavior should be recovered through topological ring/field categories. |
@@ -304,9 +308,9 @@ Use these examples for the first topological smoke assertions:
 
 | Target | Canonical object | Constructor owner | Witness |
 | --- | --- | --- | --- |
-| `TopologicalSpaces().Connected()` | `Sets().Constructors().OpenRealInterval(0, 1)` | `Sets().Constructors()` via `RealSet.open(0, 1)` | Sage refines `(0, 1)` into connected topological spaces; the project constructor also refines into `TopologicalSpaces().Connected()`. |
-| `TopologicalSpaces().Compact()` | `Sets().Constructors().ClosedRealInterval(0, 1)` | `Sets().Constructors()` via `RealSet.closed(0, 1)` | Sage refines `[0, 1]` into compact topological spaces; the project constructor also refines into `TopologicalSpaces().Compact()`. |
-| `TopologicalSpaces().Metric().Complete()` | `Sets().Constructors().RR()` / Sage `RR` | `Sets().Constructors()` for the named set object; ring ownership stays in `Rings().Constructors()` | Local Sage observation shows `RR.category()` is a join containing complete metric spaces. Project smoke should wait for the topological ring/field recovery path to refine `RR` through `TopologicalSpaces().Metric().Complete()`. |
+| `TopologicalSpaces().Connected()` | `Sets().Constructors().open(lower=0, upper=1)` | `Sets().Constructors()` via `RealSet.open(0, 1)` | Sage refines `(0, 1)` into connected topological spaces; the project constructor also refines into `TopologicalSpaces().Connected()`. |
+| `TopologicalSpaces().Compact()` | `Sets().Constructors().closed(lower=0, upper=1)` | `Sets().Constructors()` via `RealSet.closed(0, 1)` | Sage refines `[0, 1]` into compact topological spaces; the project constructor also refines into `TopologicalSpaces().Compact()`. |
+| `TopologicalSpaces().Metric().Complete()` | `Rings().Constructors().RR()` / Sage `RR` | `Rings().Constructors()` for the named field object | Local Sage observation shows `RR.category()` is a join containing complete metric spaces. Project smoke should wait for the topological ring/field recovery path to refine `RR` through `TopologicalSpaces().Metric().Complete()`. |
 
 Do not use `RealIntervalField`, `ComplexIntervalField`, `RealBallField`, or
 `ComplexBallField` as complete-metric smoke examples in this subtree. The inventory
@@ -423,7 +427,7 @@ TopologicalSpaces() = Sets().Topological()
 
 5. **Constructor placement — Sets().Constructors() vs TopologicalSpaces().Constructors() (spec lines 168-193):** The spec correctly notes that named sets (real intervals, rays, the real line, points) are first sets, then refined into topological spaces. This is mathematically sound: an open interval (0,1) is first and foremost a set, then acquires structure. The `TopologicalSpaces().Constructors()` stays empty for now — justified by the absence of a Sage `TopologicalSpace(...)` constructor. Verified in Sage source: no such standalone constructor exists (topological_spaces.py contains no `__init__` or constructor method for topological spaces).
 
-6. **Ambient-relative predicates (spec lines 135-166):** Openness/closedness/closure/interior/boundary are defined relative to an ambient topological space. The spec's migration from `U.is_open()` to `U.ambient().is_open(U)` is mathematically correct: "U is open in X" is the predicate, not "U is intrinsically open." The Sage RealSet methods at lines 2401-2490 confirm that `RealSet.is_open()` checks endpoint closure, which implicitly uses the real-line topology as ambient — the spec makes this ambient relationship explicit and general.
+6. **Ambient-relative predicates (spec lines 135-166):** Openness/closedness/closure/interior/boundary are defined relative to an ambient topological space. The admitted RealSet-backed route uses `U.ambient_real_line().is_open_subset(U)` and analogous `*_subset` calls, so Sage's existing `ambient()` method is not overloaded. The Sage RealSet methods at lines 2401-2490 confirm that `RealSet.is_open()` checks endpoint closure, which implicitly uses the real-line topology as ambient — the spec makes this ambient relationship explicit and concrete.
 
 7. **Ring/field topology recovery (spec lines 201-235):** Topological rings and fields inherit topological predicates from `TopologicalSpaces()` via `Rings().Topological()` join, not by duplicating methods. This is mathematically correct: a topological ring is a ring whose underlying set is a topological space, and the two structures are compatible. The spec's `rings/subcategories/topological.py` line 35 confirms `super_categories` returns `[SageRings().Topological(), TopologicalSpaces(), Rings()]`, importing `TopologicalSpaceRuntimeGapObjectMethods` (line 13-16).
 
@@ -483,9 +487,9 @@ TopologicalSpaces() = Sets().Topological()
 
 **Constructor obligation preservation:**
 
-- Sage's `RealSet.open`, `closed`, `point`, etc. → preserved as `Sets().Constructors().OpenRealInterval`, etc. (spec lines 179-190)
-- Sage's `RealSet.interval` → preserved as `Sets().Constructors().RealSetInterval` (spec line 190)
-- Sage's `RealSet.real_line()` → preserved as `Sets().Constructors().RealLine()` (spec line 180)
+- Sage's `RealSet.open`, `closed`, `point`, etc. → preserved under the same Sage names on `Sets().Constructors()`, e.g. `open`, `closed`, and `point`.
+- Sage's `RealSet.interval` → preserved as `Sets().Constructors().interval(...)`.
+- Sage's `RealSet.real_line()` → preserved as `Sets().Constructors().real_line()`.
 - Product topology → preserved as `TopologicalSpaces().CartesianProducts()` (spec line 110)
 - Product metric → preserved as `TopologicalSpaces().Metric().CartesianProducts()` (spec line 119)
 

@@ -9,14 +9,7 @@ if str(ROOT) not in sys.path:
 
 from category_specs.cat import Cat
 from category_specs.lattices import Lattices, LatticesCategory
-from category_specs.forms.subcategories.quadratic import QuadraticModulesMorphism
 from category_specs.lattices.homsets import LatticeEndCategory, LatticeHomCategory
-from category_specs.lattices.subcategories.constructions.discriminant_groups import (
-    LatticeDiscriminantGroupsCategory,
-    LatticeDiscriminantGroupsElement,
-    LatticeDiscriminantGroupsMorphism,
-    LatticeDiscriminantGroupsObject,
-)
 from category_specs.lattices.subcategories.constructions.dual_lattices import (
     DualLatticesCategory,
     DualLatticesElement,
@@ -50,25 +43,55 @@ from category_specs.lattices.subcategories.over_pid import _LatticesOverPID
 from category_specs.lattices.subcategories.unimodular import _UnimodularLattices
 from category_specs.modules import Modules
 from category_specs.utils import assert_smoke_statements
-from sage.all import IntegralLattice, ZZ
+from sage.all import ZZ, matrix
 
 
 C = Cat()
 MZZ = Modules(ZZ, dispatch=False)
 LATTICE_AMBIENT = MZZ.Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
 LZZ = Lattices(ZZ)
+LCONSTRUCTORS = LZZ.Constructors()
 
 
 def a2_short_vectors_below_three():
-    return IntegralLattice("A2").short_vectors(3)
+    return LCONSTRUCTORS.IntegralLattice(cartan_type="A2").short_vectors(3)
 
 
 def a2_short_vectors_below_three_up_to_sign():
-    return LatticesOverIntegers.ParentMethods.short_vectors_up_to_sign(IntegralLattice("A2"), 3)
+    return LatticesOverIntegers.ParentMethods.short_vectors_up_to_sign(
+        LCONSTRUCTORS.IntegralLattice(cartan_type="A2"), 3
+    )
+
+
+def integral_lattice_direct_sum_discriminant():
+    L1 = LCONSTRUCTORS.IntegralLattice(gram_matrix=matrix(ZZ, [[2]]))
+    L2 = LCONSTRUCTORS.IntegralLattice(hyperbolic_plane="U")
+    return LCONSTRUCTORS.IntegralLatticeDirectSum(lattices=[L1, L2]).discriminant()
+
+
+def integral_lattice_gluing_gram_matrix():
+    L = LCONSTRUCTORS.IntegralLattice(gram_matrix=matrix(ZZ, [[4]]))
+    g = L.discriminant_group().gens()[0]
+    return LCONSTRUCTORS.IntegralLatticeGluing(
+        lattices=[L], glue=[[2 * g]]
+    ).gram_matrix()
 
 
 def abstract_method_has_name(method, name):
     return method.__name__ == name
+
+
+def discriminant_group_public_routes():
+    DG = LZZ.DiscriminantGroups()
+    return (
+        DG in C
+        and DG.is_subcategory(MZZ.FinitelyPresented().OverPID())
+        and DG.is_subcategory(MZZ.WithForms().Bilinear())
+        and DG.is_subcategory(MZZ.WithForms().Quadratic())
+        and DG.HomCategory() in C
+        and DG.EndCategory() in C
+        and DG.AutCategory() in C
+    )
 
 
 SMOKE_STATEMENTS = (
@@ -90,18 +113,22 @@ SMOKE_STATEMENTS = (
         and abstract_method_has_name(LatticesCategory.SubcategoryMethods.DiscriminantGroups, "DiscriminantGroups"),
     ),
     (
-        "LatticesCategory exposes lazy lattice construction classes",
+        "Lattices(ZZ) exposes callable lattice construction category routes",
         lambda _: all(
-            name in LatticesCategory.__dict__
-            for name in ("OverIntegers", "DualLattices", "Overlattices", "OrthogonalDirectSums", "DiscriminantGroups")
+            route() in C
+            for route in (
+                LZZ.DualLattices,
+                LZZ.Overlattices,
+                LZZ.OrthogonalDirectSums,
+                LZZ.DiscriminantGroups,
+            )
         )
         and (
             True
-            or LatticesCategory.OverIntegers
-            or LatticesCategory.DualLattices
-            or LatticesCategory.Overlattices
-            or LatticesCategory.OrthogonalDirectSums
-            or LatticesCategory.DiscriminantGroups
+            or LatticesCategory.DualLatticesCategoryClass
+            or LatticesCategory.OverlatticesCategoryClass
+            or LatticesCategory.OrthogonalDirectSumsCategoryClass
+            or LatticesCategory.DiscriminantGroupsCategoryClass
         ),
     ),
     ("Lattices(ZZ).Even() exposes is_even as its defining predicate", lambda _: LZZ.Even().defining_predicates() == ("is_even",)),
@@ -153,12 +180,8 @@ SMOKE_STATEMENTS = (
         and abstract_method_has_name(OrthogonalDirectSumsCategory.ParentMethods.summand, "summand"),
     ),
     (
-        "discriminant groups own primary decomposition and standard type-package aliases",
-        lambda _: LatticeDiscriminantGroupsObject is LatticeDiscriminantGroupsCategory.ParentMethods
-        and LatticeDiscriminantGroupsElement is LatticeDiscriminantGroupsCategory.ElementMethods
-        and LatticeDiscriminantGroupsMorphism is QuadraticModulesMorphism
-        and abstract_method_has_name(LatticeDiscriminantGroupsCategory.ParentMethods.primary_part, "primary_part")
-        and abstract_method_has_name(LatticeDiscriminantGroupsCategory.ParentMethods.all_submodules, "all_submodules"),
+        "discriminant groups route through public formed PID-module Hom APIs",
+        lambda _: discriminant_group_public_routes(),
     ),
     (
         "lattice base-ring refinements own OverPID, OverIntegers, and overlattice surfaces",
@@ -175,6 +198,14 @@ SMOKE_STATEMENTS = (
     (
         "IntegralLattice('A2').short_vectors_up_to_sign(3) has three roots modulo sign",
         lambda _: len(a2_short_vectors_below_three_up_to_sign()[2]) == 3,
+    ),
+    (
+        "Lattices(ZZ).Constructors().IntegralLatticeDirectSum preserves product discriminant",
+        lambda _: integral_lattice_direct_sum_discriminant() == -2,
+    ),
+    (
+        "Lattices(ZZ).Constructors().IntegralLatticeGluing constructs the index-two overlattice",
+        lambda _: integral_lattice_gluing_gram_matrix() == matrix(ZZ, [[1]]),
     ),
 )
 

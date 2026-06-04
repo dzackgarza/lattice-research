@@ -14,7 +14,7 @@ plans:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
 title: Category specs and Sage surface admission
-status: complete
+status: in-progress
 priority: critical
 description: 'Specify a Sage-compatible categorical language for downstream research:
   sets, modules, Hom/End/Aut objects, modules with forms, lattices, and preliminary
@@ -91,8 +91,8 @@ and the linked ownership decision.
   (`category_specs/lattices/homsets.py` has Hom/End/Aut categories; `category_specs/forms/subcategories/free_bilinear.py` has discriminant, base_change_to; `LatticeAutomorphisms.is_isometry()` in homsets; all return typed project aliases not raw matrices)
 - [x] Active mathematical spec leaves either contain a definition-grounding record or
   are explicitly blocked/split on the missing source, decision, or proof obligation.
-  (All source-mining tasks complete; q-adic and poset-aut surfaces explicitly rejected with evidence)
+  (All source-mining tasks complete; poset-aut surfaces explicitly rejected with evidence)
 - [x] Backend/source gaps are filed as research cards rather than hidden inside implementation work.
-  (q-adic lattice precision cap, poset aut group surface, and Sage-support research cards all filed)
+  (poset aut group surface and Sage-support research cards all filed)
 - [x] Future phase plans have enough prerequisites to block premature downstream work.
   (QC and ModulesWithForms features have proper DAG blocks; Coble features gated on all prerequisites)

@@ -54,12 +54,14 @@ def additive_source():
 def multiplication_tensor(R):
     M = FiniteRankFreeModule(R, 2, name="M")
     e = M.basis("e")
-    return TensorAlgebraComponents(R).Constructors().from_module_element_matrix(
+    return TensorAlgebraComponents(R).Constructors().tensor(
         M,
-        [
-            [e[0], e[1]],
-            [e[1], e[0]],
-        ],
+        (1, 2),
+        module_element_matrix=(
+            (e[0], e[1]),
+            (e[1], e[0]),
+        ),
+        basis=e,
         name="mu",
     )
 
@@ -94,13 +96,37 @@ def abstract_method_has_name(method, name):
     return method.__name__ == name
 
 
-def free_algebra_from_set_records_generator_presentation():
+def FreeAlgebra_records_generator_presentation():
     generators = Sets().Constructors().FiniteEnumeratedSet(["x", "y"])
-    algebra = A().Constructors().free_algebra_from_set(generators)
+    algebra = A().Constructors().FreeAlgebra(generators=generators)
     return (
         algebra in A().WithBasis()
         and algebra._category_specs_generator_set is generators
         and algebra._category_specs_generator_presentation == tuple(zip(tuple(generators), algebra.gens(), strict=True))
+    )
+
+
+def FreeAlgebra_recovers_sage_named_shapes():
+    constructors = A().Constructors()
+    by_names = constructors.FreeAlgebra(generator_names=("a", "b"), degrees=1)
+    by_names_and_count = constructors.FreeAlgebra(
+        generator_names=("u", "v"), generator_count=2
+    )
+    by_count_and_names = constructors.FreeAlgebra(
+        generator_count=2, names=("p", "q")
+    )
+    by_count_and_name = constructors.FreeAlgebra(generator_count=2, name="z")
+    return (
+        by_names in A().WithBasis()
+        and by_names.ngens() == 2
+        and tuple(str(generator) for generator in by_names.gens()) == ("a", "b")
+        and by_names_and_count in A().WithBasis()
+        and by_names_and_count.ngens() == 2
+        and by_count_and_names in A().WithBasis()
+        and tuple(str(generator) for generator in by_count_and_names.gens())
+        == ("p", "q")
+        and by_count_and_name in A().WithBasis()
+        and by_count_and_name.ngens() == 2
     )
 
 
@@ -182,44 +208,48 @@ SMOKE_STATEMENTS = (
         lambda _: matrix_space_principal_split_ideals_route_to_sage_sides(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_set({x, y}) is an algebra with basis",
-        lambda _: free_algebra_from_set_records_generator_presentation(),
+        "Algebras(ZZ).Constructors().FreeAlgebra(generators={x, y}) is an algebra with basis",
+        lambda _: FreeAlgebra_records_generator_presentation(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_magma routes to project magmatic algebras",
-        lambda _: A().Constructors().free_algebra_from_magma(Magmas().example()) in MagmaticAlgebras(ZZ),
+        "Algebras(ZZ).Constructors().FreeAlgebra(...) recovers Sage name/count shapes",
+        lambda _: FreeAlgebra_recovers_sage_named_shapes(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_semigroup routes to project associative nonunital algebras",
-        lambda _: A().Constructors().free_algebra_from_semigroup(Semigroups().example()) in AssociativeAlgebras(ZZ),
+        "MagmaticAlgebras(ZZ).Constructors().algebra(magma=...) routes to project magmatic algebras",
+        lambda _: MagmaticAlgebras(ZZ).Constructors().algebra(magma=Magmas().example()) in MagmaticAlgebras(ZZ),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_monoid(Z/3Z) executes the Sage monoid-algebra route",
-        lambda _: A().Constructors().free_algebra_from_monoid(multiplicative_monoid_source()) in A().WithBasis(),
+        "AssociativeAlgebras(ZZ).Constructors().algebra(semigroup=...) routes to project associative nonunital algebras",
+        lambda _: AssociativeAlgebras(ZZ).Constructors().algebra(semigroup=Semigroups().example()) in AssociativeAlgebras(ZZ),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_group(C3) executes the Sage group-algebra route",
-        lambda _: A().Constructors().free_algebra_from_group(multiplicative_group_source()) in A().WithBasis(),
+        "Algebras(ZZ).Constructors().algebra(monoid=Z/3Z) executes the Sage monoid-algebra route",
+        lambda _: A().Constructors().algebra(monoid=multiplicative_monoid_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_semigroup routes to project associative nonunital algebras",
-        lambda _: A().Constructors().free_algebra_from_additive_semigroup(additive_source()) in AssociativeAlgebras(ZZ),
+        "Algebras(ZZ).Constructors().GroupAlgebra(group=C3) executes the Sage group-algebra route",
+        lambda _: A().Constructors().GroupAlgebra(group=multiplicative_group_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_monoid(GF(3), +) executes the Sage additive-monoid route",
-        lambda _: A().Constructors().free_algebra_from_additive_monoid(additive_source()) in A().WithBasis(),
+        "AssociativeAlgebras(ZZ).Constructors().algebra(additive_semigroup=...) routes to project associative nonunital algebras",
+        lambda _: AssociativeAlgebras(ZZ).Constructors().algebra(additive_semigroup=additive_source()) in AssociativeAlgebras(ZZ),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_group(GF(3), +) executes the Sage additive-group route",
-        lambda _: A().Constructors().free_algebra_from_additive_group(additive_source()) in A().WithBasis(),
+        "Algebras(ZZ).Constructors().algebra(additive_monoid=GF(3), +) executes the Sage additive-monoid route",
+        lambda _: A().Constructors().algebra(additive_monoid=additive_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(QQ).Constructors().from_multiplication_tensor builds a finite-dimensional algebra parent",
-        lambda _: AQ().Constructors().from_multiplication_tensor(multiplication_tensor(QQ)) in AQ().WithBasis().FiniteDimensional(),
+        "Algebras(ZZ).Constructors().algebra(additive_group=GF(3), +) executes the Sage additive-group route",
+        lambda _: A().Constructors().algebra(additive_group=additive_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().from_multiplication_tensor builds a finite-rank algebra parent",
-        lambda _: A().Constructors().from_multiplication_tensor(multiplication_tensor(ZZ)) in MagmaticAlgebras(ZZ),
+        "MagmaticAlgebras(QQ).Constructors().FiniteDimensionalAlgebra(multiplication=...) builds a finite-dimensional algebra parent",
+        lambda _: MagmaticAlgebras(QQ).Constructors().FiniteDimensionalAlgebra(multiplication=multiplication_tensor(QQ)) in AQ().WithBasis().FiniteDimensional(),
+    ),
+    (
+        "MagmaticAlgebras(ZZ).Constructors().FiniteDimensionalAlgebra(multiplication=...) builds a finite-rank algebra parent",
+        lambda _: MagmaticAlgebras(ZZ).Constructors().FiniteDimensionalAlgebra(multiplication=multiplication_tensor(ZZ)) in MagmaticAlgebras(ZZ),
     ),
 )
 

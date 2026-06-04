@@ -24,6 +24,13 @@ acceptanceCriteria:
 complexity: 80
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+constructorNameInventories:
+- owner: category_specs.posets.Posets._Constructors
+  sageConstructorNames:
+  - Poset
+  - MeetSemilattice
+  - JoinSemilattice
+  - LatticePoset
 ---
 # Posets Mapping Spec
 
@@ -96,41 +103,37 @@ belongs first to join-semilattices.
 ## Constructor Mapping
 
 Sage `Poset(...)`, `MeetSemilattice(...)`, `JoinSemilattice(...)`, and
-`LatticePoset(...)` remain inventory evidence for constructor design. They are
-not exposed as project variadic constructors.
+`LatticePoset(...)` are the constructor names recovered by the project
+category-owned constructor collector. They are exposed as named-parameter-only
+overloads under `Posets().Constructors()`, not as project-invented
+`from_*` constructor names and not as variadic public constructors.
 
-The documented `Poset(...)` input cases map to named constructor paths under
-`Posets().Constructors()`:
-- elements plus relations;
-- elements plus an order predicate;
-- elements plus a cover predicate;
-- upper-cover dictionary;
-- upper-cover list;
-- acyclic `DiGraph` whose edges are either declared cover relations or declared order relations;
-- existing poset refinement.
+The documented `Poset(...)` input cases map to these named overloads:
+- `Poset(hasse_digraph=...)` for a finite Hasse diagram whose directed edges
+  are cover relations;
+- `Poset(relation_digraph=...)` for a finite acyclic order-relation digraph,
+  with Sage receiving `cover_relations=False`;
+- `Poset(elements=..., relations=...)` for generators of the order relation;
+- `Poset(elements=..., covers=...)` for generators of the cover relation;
+- `Poset(elements=..., order_predicate=...)` for an order predicate on a
+  finite element set;
+- `Poset(elements=..., cover_predicate=...)` for a cover predicate on a finite
+  element set;
+- `Poset(upper_covers_dict=...)` for Sage's upper-cover dictionary shape;
+- `Poset(upper_covers=...)` for Sage's ordered upper-cover list shape;
+- `Poset(existing=...)` for the Sage existing-poset input shape.
 
-The finite Hasse-diagram constructor is the canonical directed-graph constructor:
-the input graph is acyclic, loop-free, multi-edge-free, and transitively reduced, and
-its directed edges are cover relations. A separate finite relation-digraph constructor
-may accept an acyclic relation graph and take its transitive reduction before forming
-the Hasse diagram. Do not use a bare "acyclic DiGraph" signature without saying
-whether edges are covers or order relations.
+Each overload may also accept the Sage-supported options `element_labels`,
+`linear_extension`, `facade`, and `key`, where that option is meaningful for
+the underlying Sage route.
 
-The implemented constructor names are:
-- `from_hasse_digraph`, the canonical finite-poset constructor;
-- `from_relation_digraph`, which computes the transitive reduction first;
-- `from_relations`;
-- `from_order_predicate`;
-- `from_cover_predicate`;
-- `from_upper_covers_dict`;
-- `from_upper_covers`;
-- `from_existing`.
-
-`MeetSemilattice(...)`, `JoinSemilattice(...)`, and `LatticePoset(...)` map to
-finite refinement constructors over the same named input cases, with the extra
-assertion that meets, joins, or both exist. Their names use the mathematical target
-object, such as `meet_semilattice_from_digraph`, `join_semilattice_from_digraph`, or
-`lattice_from_digraph`.
+`MeetSemilattice(...)`, `JoinSemilattice(...)`, and `LatticePoset(...)` expose
+the same named input shapes under their original Sage constructor names, with
+the extra mathematical obligation that the constructed finite poset admits all
+finite meets, all finite joins, or both. Their implementation first constructs
+the finite poset using the selected named `Poset(...)` shape, then refines
+through the corresponding Sage semilattice or lattice constructor before
+declaring the project category.
 
 `FinitePosets_n(n)` maps to a finite enumerated-set constructor for isomorphism
 classes of posets on `n` elements. It should not become a poset subcategory.
@@ -611,14 +614,19 @@ Verified against mathematical definitions and Sage source hierarchy:
 
 Constructor mapping (lines 93–136):
 
-- Sage variadic `Poset(data, ...)` is decomposed into named constructor paths
-  (`from_hasse_digraph`, `from_relation_digraph`, `from_relations`,
-  `from_order_predicate`, `from_cover_predicate`, `from_upper_covers_dict`,
-  `from_upper_covers`, `from_existing`). This is a mathematically valid refinement:
-  each named path has a well-defined input type and hypothesis.
-- The distinction between `from_hasse_digraph` (edges are cover relations) and
-  `from_relation_digraph` (edges are order relations, transitive reduction applied)
-  is correctly stated. ✓
+- Sage variadic `Poset(data, ...)` is decomposed into named-parameter overloads
+  under the original Sage constructor name:
+  `Poset(hasse_digraph=...)`, `Poset(relation_digraph=...)`,
+  `Poset(elements=..., relations=...)`, `Poset(elements=..., covers=...)`,
+  `Poset(elements=..., order_predicate=...)`,
+  `Poset(elements=..., cover_predicate=...)`,
+  `Poset(upper_covers_dict=...)`, `Poset(upper_covers=...)`, and
+  `Poset(existing=...)`. This is the correct constructor recovery: each named
+  overload has a well-defined input type and hypothesis without inventing a new
+  public constructor name.
+- The distinction between `Poset(hasse_digraph=...)` (edges are cover relations)
+  and `Poset(relation_digraph=...)` (edges are order relations) is correctly
+  stated. ✓
 - `FinitePosets_n(n)` is correctly routed to an enumerated-set constructor, not a
   poset subcategory. ✓
 - `is_poset(dig)` correctly routed to constructor validation. ✓

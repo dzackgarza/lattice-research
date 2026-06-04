@@ -7,7 +7,6 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 from category_specs.cat import Cat
 from category_specs.modules import Modules
 from category_specs.tensor_algebra_components import TensorAlgebraComponents
-from category_specs.types import Tensor
 from category_specs.utils import assert_smoke_statements
 
 
@@ -18,32 +17,46 @@ constructors = C.Constructors()
 
 
 def identity_tensor():
-    return constructors.from_multidimensional_list(M, (1, 1), [[1, 0], [0, 1]], name="t")
+    return constructors.tensor(
+        M, (1, 1), components=[[1, 0], [0, 1]], basis=preferred_generators, name="t"
+    )
 
 
 def multiplication_tensor():
-    return constructors.from_module_element_matrix(
+    return constructors.tensor(
         M,
-        [
-            [preferred_generators[0], 2 * preferred_generators[0] + 3 * preferred_generators[1]],
+        (1, 2),
+        module_element_matrix=[
+            [
+                preferred_generators[0],
+                2 * preferred_generators[0] + 3 * preferred_generators[1],
+            ],
             [
                 5 * preferred_generators[0] + 7 * preferred_generators[1],
                 11 * preferred_generators[0] + 13 * preferred_generators[1],
             ],
         ],
+        basis=preferred_generators,
         name="mu",
     )
 
 
 def scalar_matrix_tensor():
-    return constructors.from_matrix(M, matrix(ZZ, [[2, 1], [1, 3]]), name="b")
+    return constructors.tensor(
+        M,
+        (0, 2),
+        matrix=matrix(ZZ, [[2, 1], [1, 3]]),
+        basis=preferred_generators,
+        name="b",
+    )
 
 
 def legacy_matrix_list_tensor():
-    return constructors.from_matrices(
+    return constructors.tensor(
         M,
         (1, 2),
-        [matrix(ZZ, [[1, 0], [0, 1]]), matrix(ZZ, [[0, 1], [1, 0]])],
+        matrices=[matrix(ZZ, [[1, 0], [0, 1]]), matrix(ZZ, [[0, 1], [1, 0]])],
+        basis=preferred_generators,
         name="mu_legacy",
     )
 
@@ -61,17 +74,28 @@ SMOKE_STATEMENTS = (
         "Modules(ZZ).TensorProducts().TensorAlgebraComponents() returns the tensor component subtree",
         lambda _: Modules(ZZ).TensorProducts().TensorAlgebraComponents() == C,
     ),
-    ("component_module(M, (1, 1)) refines to tensor components", lambda _: constructors.component_module(M, (1, 1)) in C),
+    ("tensor_module(M, (1, 1)) refines to tensor components", lambda _: constructors.tensor_module(M, (1, 1)) in C),
     ("tensor(M, (1, 1)) has tensor-component parent", lambda _: constructors.tensor(M, (1, 1), name="u").parent() in C),
     (
-        "from_multidimensional_list(M, (1, 1), ...) returns a (1,1) tensor",
-        lambda _: constructors.from_multidimensional_list(M, (1, 1), [[1, 0], [0, 1]], name="c").tensor_type()
+        "tensor(M, (1, 1), components=...) returns a (1,1) tensor",
+        lambda _: constructors.tensor(
+            M,
+            (1, 1),
+            components=[[1, 0], [0, 1]],
+            basis=preferred_generators,
+            name="c",
+        ).tensor_type()
         == (1, 1),
     ),
     ("component module recovers base module", lambda _: identity_tensor().parent().base_module() is M),
     ("component module has tensor type", lambda _: identity_tensor().parent().tensor_type() == (1, 1)),
     ("tensor element has tensor type", lambda _: identity_tensor().tensor_type() == (1, 1)),
-    ("Tensor is the tensor element type surface", lambda _: isinstance(Tensor, type)),
+    (
+        "tensor element exposes the tensor component API",
+        lambda _: identity_tensor().parent() in C
+        and identity_tensor().base_module() is M
+        and identity_tensor().tensor_type() == (1, 1),
+    ),
     ("matrix constructor returns a (0,2) tensor", lambda _: scalar_matrix_tensor().tensor_type() == (0, 2)),
     ("matrix constructor leaves parent recoverable", lambda _: scalar_matrix_tensor().parent().base_module() is M),
     ("module-element matrix constructor returns a (1,2) tensor", lambda _: multiplication_tensor().tensor_type() == (1, 2)),

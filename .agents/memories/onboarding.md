@@ -84,6 +84,60 @@ Downstream lattice/Coble work is blocked until this vocabulary exists.
 Read `GOAL.md` once, but the phase is tracked in `.agents/current-goal-phase.md`. Do not
 attempt downstream Coble research.
 
+## CRITICAL constructor interop rule
+
+Before touching constructors, load
+`mem:category-spec-constructor-routes-are-category-owned`.
+
+Constructor work is not constructor redefinition. The workflow is:
+
+- read Sage docs and actual factory/source code;
+- enumerate every valid Sage input shape, especially variadic/positional factories;
+- record the recovered shapes in mapping docs;
+- treat every source-grounded constructor shape recorded in mapping docs as mapped;
+  there is no deferred, not-admitted, or blocked constructor state in source material;
+- expose only named-parameter category-owned overloads on `Cat().Constructors()`;
+- implement each overload by calling the original Sage constructor, refining the
+  returned parent, and returning it;
+- make smokes call category constructor surfaces only.
+
+Any constructor surprise is a red flag that this workflow was skipped. Start auditing
+at the mapping docs and overload surface; do not patch ambient Sage names, widen a
+free-floating wrapper, add "constructor redefinitions", or preserve rejected constructor
+ideas as evidence artifacts. If Sage source does not establish the constructor shape,
+do not mention it in constructor mappings, provenance, smokes, decisions, or tasks.
+Do not polish a suspect constructor artifact in place. Reconstruct the mapping from
+Sage docs/source, then delete or replace the artifact as a consequence of the corrected
+mapping.
+
+Refinement targets are single categories. A constructor returning a `Qp` object refines
+to the `Qp` implementation-spec category; inherited ring/field/local-field membership
+comes from the category hierarchy. Passing several categories to `refine_category`
+manually bypasses the hierarchy and is banned.
+
+## CRITICAL property/witness distinction
+
+Before changing module property categories, load
+`mem:category-spec-properties-witnesses-and-equipped-structure`.
+
+Property categories are not equipped-object categories.
+`FinitelyGenerated` asserts finite generation; `WithFiniteGeneratingSet` or
+`WithOrderedGeneratingSet` adds a chosen witness as part of the object.
+Property categories should still name abstract witness-producing methods so downstream
+consumers can demand evidence for the claim, but the graph edge goes from equipped
+witness to property, not from property to equipped witness.
+
+## CRITICAL smoke-test public API rule
+
+Before editing category-spec smokes or regressions, load
+`mem:category-spec-tests-use-category-api-not-private-classes`.
+
+Tests must mirror downstream mathematical use: category objects, category-owned
+constructors, refinements, membership, and methods reached through those surfaces.
+Tests must not define dummy classes that inherit private spec implementation classes or
+nested `ParentMethods` / `ElementMethods` containers.
+Those class names are internal engineering, not user-facing mathematical vocabulary.
+
 ## Immediate concrete work
 
 Read `mem:current-goal-handoff` for the most recent next action.
@@ -91,7 +145,7 @@ The handoff names **concrete, source-grounded fixes** — read the files it name
 understand the problem, and fix it.
 Do not run tools, produce reports, or create process artifacts instead.
 
-## The six most common agent failure modes
+## The seven most common agent failure modes
 
 Learn these before you act.
 Every one of these has happened.
@@ -169,6 +223,18 @@ Rule: The presence of the bug proves the process is broken.
 Create inspection tooling so the error is discoverable in the future, then fix the
 concrete instance, then add a test that would have caught it.
 See `mem:process-before-patches-policy`.
+
+### 7. Redefining constructors instead of recovering Sage constructor shapes
+
+Error: A smoke fails because raw Sage construction returns an unrefined object, and the
+agent patches Sage globals, module attributes, temporary providers, or a free-floating
+wrapper so the old syntax secretly returns a project-refined object.
+
+Rule: Public project constructor API lives only on category `Constructors()` surfaces.
+Recover Sage's valid constructor shapes from docs and source, enumerate them in mapping
+docs, expose them as named-only overloads on the owning category, call the original Sage
+constructor, refine the result, and make smokes call those category constructors. See
+`mem:category-spec-constructor-routes-are-category-owned`.
 
 ## How to start
 
