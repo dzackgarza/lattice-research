@@ -2,22 +2,22 @@
 
 ## Overall
 
-- Total cards: **320**
-- Completed cards: **293**
-- Overall progress: `[######################--]  91.6%`
-- Active feature trees: **12**
-- Completed feature trees: **8**
+- Total cards: **322**
+- Completed cards: **281**
+- Overall progress: `[#####################---]  87.3%`
+- Active feature trees: **13**
+- Completed feature trees: **7**
 
 ## Counts By Type
 
 | Type | Total | Completed | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| decision | 23 | 23 | 0 | 0 | 0 | 0 |
-| feature | 20 | 8 | 3 | 0 | 1 | 0 |
-| phase | 28 | 25 | 0 | 0 | 0 | 0 |
-| plan | 13 | 12 | 1 | 0 | 0 | 0 |
-| spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 168 | 0 | 0 | 0 | 0 |
+| decision | 22 | 22 | 0 | 0 | 0 | 0 |
+| feature | 20 | 7 | 4 | 0 | 1 | 0 |
+| phase | 28 | 20 | 5 | 0 | 0 | 0 |
+| plan | 13 | 10 | 3 | 0 | 0 | 0 |
+| spec | 59 | 55 | 1 | 1 | 0 | 0 |
+| task | 180 | 167 | 0 | 0 | 0 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -28,14 +28,14 @@
 ### Task Activity Types
 
 - `implementation`: **21**
-- `source-mining`: **12**
+- `source-mining`: **17**
+- `synthesis`: **1**
 - `validation`: **4**
 
 ## Feature Rollup
 
 | Feature | Progress | Done/Total | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| Category specs and Sage surface admission | `[################] 100.0%` | 167/167 | 0 | 0 | 0 | 0 |
 | Geometry category interfaces | `[################] 100.0%` | 28/28 | 0 | 0 | 0 | 0 |
 | Historical discriminant and morphism recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[################] 100.0%` | 4/4 | 0 | 0 | 0 | 0 |
@@ -44,6 +44,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
+| Category specs and Sage surface admission | `[###############-]  91.7%` | 155/169 | 9 | 0 | 0 | 0 |
 | Mypy plugin for Sage category method override checking | `[##############--]  88.9%` | 16/18 | 0 | 1 | 1 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
@@ -58,18 +59,22 @@
 
 ## High-Priority DAG Frontier
 
+- `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
+- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
+- `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (`critical`, `in-progress`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-human-input`)
 - `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)
 
 ## High-Priority DAG-Gated Items
 
-- `feature` `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`: gated by `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`, `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
-- `feature` `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: gated by `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
-- `feature` `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: gated by `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
+- `feature` `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`, `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
+- `feature` `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
+- `feature` `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `feature` `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`: gated by `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `phase` `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
+- `plan` `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: gated by `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` (`critical`, `in-progress`)
 - `task` `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-CATEGORY-PROMOTION-RETURNS`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
@@ -79,7 +84,6 @@
 - `feature` `FEATURE-COBLE-K3-FOLDING-INVOLUTION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-MODULI-COMPARISON`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-STABLE-MODEL-SLC`: gated by `FEATURE-COBLE-MODULI-COMPARISON`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
-- `phase` `PHASE-QC-DOWNSTREAM-TYPE-CLEANUP`: gated by `PHASE-QC-STUB-GENERATION` (`high`, `unstarted`)
 
 ## Blocked Items
 
@@ -87,6 +91,8 @@
 
 ## Most Recently Completed
 
+- 2026-06-01 `decision` `DECISION-20260528-JOIN-MEET-CAT-INSTANCE-OWNERSHIP`: Decide that join/meet are Cat() instance methods, not Category static methods (commit `5ee2c5c`: chore: commit merged messy research state)
+- 2026-06-01 `spec` `SPEC-MAPPING-SETS`: Track sets mapping spec (commit `5ee2c5c`: chore: commit merged messy research state)
 - 2026-05-21 `phase` `PHASE-MYPY-SIDE-HARNESS`: Mypy-side plugin harness (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
 - 2026-05-21 `task` `TASK-MYPY-DEPS-DIAGNOSTICS`: Implement dependency tracking and diagnostic error codes (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
 - 2026-05-21 `task` `TASK-MYPY-HOOK-CALLBACK`: Implement MRO hook callback for base injection (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
@@ -100,8 +106,6 @@
 - 2026-05-21 `phase` `PHASE-TEST-VERIFICATION`: Test and verification (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
 - 2026-05-21 `task` `TASK-MYPY-TEST-ARTIFICIAL`: Create artificial Sage category test fixtures (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
 - 2026-05-21 `task` `TASK-MYPY-TEST-DEBUG-ORACLE`: Test debug oracle against real Sage categories (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-TEST-MYPY-INTEGRATION`: Write mypy integration tests for plugin behavior (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-TEST-THIRD-PARTY-SUBTREES`: Add third-party subtree and config-covered integration tests (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
 
 ## Notes
 
