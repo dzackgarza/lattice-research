@@ -93,8 +93,8 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
                 ...
 
             @abstractmethod
-            def image(self, domain_subset: FormedModule | None = None) -> FormedModule:
-                r"""Return the image subobject with the restricted form."""
+            def image(self) -> FormedModule:
+                r"""Return ``im(f)`` with the restricted form."""
                 ...
 
             @abstractmethod
@@ -102,9 +102,12 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
                 r"""Return ``codomain(f) / image(f)`` with descended form data.
 
                 The underlying quotient is formed in the finitely generated
-                module category.  Bilinear or quadratic form data is attached
-                only when the cross terms from ``image(f)`` vanish in the
-                required quotient codomain.
+                module category.  The form codomain also descends: first take
+                the coefficient-module cokernel of the form-codomain map, then
+                quotient further by the image of cross terms
+                ``b(image(f), codomain(f))``.  Bilinear or quadratic form data
+                is attached exactly when this produces a well-defined form on
+                the quotient object.
                 """
                 ...
 

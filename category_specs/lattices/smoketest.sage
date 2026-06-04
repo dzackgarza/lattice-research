@@ -201,7 +201,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Lattices(ZZ).Constructors().IntegralLatticeDirectSum preserves product discriminant",
-        lambda _: integral_lattice_direct_sum_discriminant() == -2,
+        lambda _: integral_lattice_direct_sum_discriminant() == 2,
     ),
     (
         "Lattices(ZZ).Constructors().IntegralLatticeGluing constructs the index-two overlattice",

@@ -153,7 +153,28 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     assert tensor.target_category == "TensorAlgebraComponent"
 
     assert topology_registry.constructors == ()
-    assert lattice_registry.constructors == ()
+
+    integral_lattice = lattice_registry.constructor("lattices.IntegralLattice")
+    assert integral_lattice.owner_category == f"Lattices({ZZ})"
+    assert integral_lattice.method_name == "IntegralLattice"
+    assert integral_lattice.sage_entry_point.endswith(
+        "LatticesCategory._Constructors.IntegralLattice"
+    )
+    assert integral_lattice.target_refinement_route[0] == f"Lattices({ZZ})"
+
+    direct_sum = lattice_registry.constructor("lattices.IntegralLatticeDirectSum")
+    assert direct_sum.owner_category == f"Lattices({ZZ})"
+    assert direct_sum.method_name == "IntegralLatticeDirectSum"
+    assert direct_sum.sage_entry_point.endswith(
+        "LatticesCategory._Constructors.IntegralLatticeDirectSum"
+    )
+
+    gluing = lattice_registry.constructor("lattices.IntegralLatticeGluing")
+    assert gluing.owner_category == f"Lattices({ZZ})"
+    assert gluing.method_name == "IntegralLatticeGluing"
+    assert gluing.sage_entry_point.endswith(
+        "LatticesCategory._Constructors.IntegralLatticeGluing"
+    )
 
     cat_ring_zz = cat_registry.constructor("cat.rings.ZZ")
     assert cat_ring_zz.owner_category == "Rings()"

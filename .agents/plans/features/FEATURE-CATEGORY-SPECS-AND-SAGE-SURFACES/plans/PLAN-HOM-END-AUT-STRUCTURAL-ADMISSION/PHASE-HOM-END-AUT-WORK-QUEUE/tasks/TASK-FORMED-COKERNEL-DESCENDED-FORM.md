@@ -8,7 +8,7 @@ dependsOn:
 - '[[SPEC-MAPPING-LATTICES]]'
 - '[[SPEC-HISTORICAL-DISCRIMINANT-DESCENT-MORPHISM-SURFACE]]'
 title: Specify formed cokernel with descended form data
-status: needs-agent-review
+status: complete
 priority: critical
 description: Specify the category-spec surface for the generic formed-module cokernel
   required by lattice discriminant descent, including projection morphism and descended
@@ -166,6 +166,22 @@ data and `K/2R` for quadratic data.
 
 ## Work Log
 
+- 2026-06-02: Addressed fresh review findings: replaced the discriminant-group smoke
+  evidence with public `Lattices(ZZ).DiscriminantGroups()` category-route checks,
+  corrected the discriminant projection codomain from lattice morphism to formed-module
+  morphism, and removed the optional `domain_subset` widening from the formed Hom
+  `image()` surface. The Sage submodule-image `__call__` branch is recorded as a
+  separate module Hom/subobject source-mining obligation rather than an optional
+  `image()` argument. A later focused review found a `super_categories()` style
+  violation from an explicit join; the touched torsion/discriminant supercategory
+  methods now use plain single-chain category entries instead.
+- 2026-06-02: Fresh focused review verified the public discriminant-group smoke route,
+  formed projection type, zero-argument formed `image()`, no-join supercategory shape,
+  and finite-presentation-over-PID invariant-factor inheritance. A final narrow
+  fresh-source review checked installed Sage `fgp_morphism.py` and `fgp_module.py`:
+  `FGP_Morphism` exposes `im_gens`, `__call__`, `kernel`, `inverse_image`, `image`, and
+  `lift`, while neither checked FGP source file exposes `cokernel`; the requested local
+  HTML doc path was absent. Task-level review passed.
 - 2026-06-02: Added formed-Hom cokernel/projection/lift spec obligations and
   discriminant-group cokernel-diagram spec surfaces. Corrected invariant-factor
   ownership: `invariants()` is inherited from

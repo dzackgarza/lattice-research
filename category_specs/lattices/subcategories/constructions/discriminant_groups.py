@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from ....cat import Category
     from ....types import (
         BilinearForm,
+        FormedModuleMorphism,
         Lattice,
         LatticeMorphism,
         Matrix,
@@ -50,10 +51,13 @@ class LatticeDiscriminantGroupsCategory(Category_module):
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
-            Modules(R).Torsion(),
-            Modules(R).WithForms().Bilinear(),
-            Modules(R).WithForms().Quadratic(),
-            Modules(R).FinitelyPresented(),
+            Modules(R)
+            .FinitelyPresented()
+            .OverPID()
+            .Torsion()
+            .WithForms()
+            .Bilinear()
+            .Quadratic(),
         ]
 
     class ParentMethods:
@@ -73,7 +77,7 @@ class LatticeDiscriminantGroupsCategory(Category_module):
             ...
 
         @abstractmethod
-        def projection(self) -> LatticeMorphism:
+        def projection(self) -> FormedModuleMorphism:
             r"""Return the quotient projection ``L^\# -> L^\#/L``."""
             ...
 

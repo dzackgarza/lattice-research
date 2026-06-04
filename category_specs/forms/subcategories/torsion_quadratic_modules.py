@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
 
-from ...cat import Cat, Category_over_base_ring
+from ...cat import Category_over_base_ring
 from ...modules import Modules
 from .quadratic import QuadraticModulesMorphism
 
@@ -29,13 +29,12 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
-            Cat().join(
-                [
-                    Modules(R).Torsion(),
-                    Modules(R).WithForms().Quadratic(),
-                    Modules(R).FinitelyPresented(),
-                ]
-            )
+            Modules(R)
+            .FinitelyPresented()
+            .OverPID()
+            .Torsion()
+            .WithForms()
+            .Quadratic(),
         ]
 
     class ParentMethods:

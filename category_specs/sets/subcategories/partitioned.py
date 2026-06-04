@@ -218,12 +218,12 @@ class PartitionsCategory(Category):
         @final
         def refinement_set(self) -> FiniteSet:
             r"""Return the finite set of partition refinements, including ``self``."""
-            return Sets().Constructors().from_iterable(self.refinements())
+            return Sets().Constructors().Set(elements=self.refinements())
 
         @final
         def coarsening_set(self) -> FiniteSet:
             r"""Return the finite set of partition coarsenings, including ``self``."""
-            return Sets().Constructors().from_iterable(self.coarsenings())
+            return Sets().Constructors().Set(elements=self.coarsenings())
 
         @abstractmethod
         def refinements(self) -> list[SetPartition]:
@@ -293,7 +293,7 @@ class PartitionsCategory(Category):
         @final
         def ordered_coarsening_closure(self) -> FiniteSet:
             r"""Return Sage's ordered coarsening closure, including ``self``."""
-            return Sets().Constructors().from_iterable(self.strict_coarsenings())
+            return Sets().Constructors().Set(elements=self.strict_coarsenings())
 
         @abstractmethod
         def strict_coarsenings(self) -> list[SetPartition]:

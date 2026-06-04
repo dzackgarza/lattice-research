@@ -163,7 +163,8 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             r"""Return the orthogonal reflection
             ``s_v: w \mapsto w - \frac{2b(v,w)}{b(v,v)} v``.
 
-            Requires ``b(v,v)`` to be a unit (or invertible) in the base ring.
-            The reflection ``s_v`` is an element of ``O(L)``.
+            The formula is defined first in the scalar extension where
+            ``b(v,v)`` is invertible.  It is an element of ``O(L)`` exactly when
+            ``\frac{2b(v,x)}{b(v,v)} \in R`` for every ``x \in L``.
             """
             ...

@@ -91,21 +91,21 @@
 
 ## Most Recently Completed
 
-- 2026-06-01 `decision` `DECISION-20260528-JOIN-MEET-CAT-INSTANCE-OWNERSHIP`: Decide that join/meet are Cat() instance methods, not Category static methods (commit `5ee2c5c`: chore: commit merged messy research state)
-- 2026-06-01 `spec` `SPEC-MAPPING-SETS`: Track sets mapping spec (commit `5ee2c5c`: chore: commit merged messy research state)
-- 2026-05-21 `phase` `PHASE-MYPY-SIDE-HARNESS`: Mypy-side plugin harness (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-DEPS-DIAGNOSTICS`: Implement dependency tracking and diagnostic error codes (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-HOOK-CALLBACK`: Implement MRO hook callback for base injection (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-NAMESPACE-AGNOSTIC-HOOK-MATCHING`: Remove Sage-prefix-only hook gating (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-PLUGIN-CLASS`: Implement SageCategoryPlugin class and plugin entry point (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `phase` `PHASE-SAGE-SIDE-API`: Sage invariant-core resolver and manifest API (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-DIRECT-BASES`: Project Sage runtime named-class MROs into manifest provider MROs (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-INSTANTIATE`: Resolve configured category factories through Sage runtime instances (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION`: Prove namespace-agnostic admission through invariant-core projections (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-PARSER`: Validate manifest source-module coverage for invariant-core projections (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `phase` `PHASE-TEST-VERIFICATION`: Test and verification (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-TEST-ARTIFICIAL`: Create artificial Sage category test fixtures (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
-- 2026-05-21 `task` `TASK-MYPY-TEST-DEBUG-ORACLE`: Test debug oracle against real Sage categories (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-06-04 `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: Rewrite generic homset ownership for project HomCategory mirroring (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-FORMED-COKERNEL-DESCENDED-FORM`: Specify formed cokernel with descended form data (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `phase` `PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra surface split (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME`: Fix Rings category base-class identity mismatch in nested axiom refinement (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-01KQN9J3WZDBZ8D0BPGG8AKVXH-IMPLEMENT-MISSING-SYMPY-SURFACE-FOR-REFINED-RING-CONSTRUCTOR-OUTPUTS`: Implement missing _sympy_ surface for refined ring constructor outputs (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-WRAPUP-PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-01KQN9J3X04R2PWJADC8B4EF9A-FIX-SETS-ROOT-CONTAINMENT-REFINED-CONSTRUCTOR-RICHCMP-PRIMES-ITERATION-R`: Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-01KQN9YGCHDRNXNEYEH2P134JD-IMPLEMENT-TOPOLOGICAL-RING-AND-FIELD-REFINEMENTS-FOR-TOPOLOGY-BEARING-RI`: Implement topological ring and field refinements for topology-bearing ring objects without duplicating topological-space methods (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-1777748120565-B5H5VY-RESTORE-BINARY-PRIMITIVES-FOR-MODULE-AND-SET-PRODUCT-CONSTRUCTORS`: Restore binary primitives for module and set product constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-1777748120784-23ROWB-CLEAN-SAGE-OPTION-BAGS-FROM-PUBLIC-RING-CONSTRUCTORS`: Clean Sage option bags from public ring constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-1777748120848-FNU6JV-REPLACE-ASSERTION-NARROWED-POLYNOMIAL-AND-MATRIX-RETURN-TYPES`: Replace assertion-narrowed polynomial and matrix return types (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `task` `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`: Resolve category-spec vulture findings through code fixes, not whitelist entries (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `spec` `SPEC-01KQN9J3WSR722P30PVZ4GAVKG-CHOOSE-CANONICAL-SMOKE-EXAMPLES-FOR-CONNECTED-COMPACT-AND-METRIC-COMPLET`: Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `spec` `SPEC-01KQN9YGC2N0VVPYVZBJVA4E68-SPECIFY-REALSET-AMBIENT-RELATIVE-RECOVERY-FOR-IS-OPEN-IS-CLOSED-CLOSURE`: Specify RealSet ambient-relative recovery for is_open is_closed closure interior and boundary through TopologicalSpaces (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-04 `spec` `SPEC-01KQN9YGC3XPWZWJK8QHVE3GGM-SPECIFY-TOPOLOGICAL-RING-AND-FIELD-RECOVERY-THROUGH-TOPOLOGICAL-SPACES-I`: Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 
 ## Notes
 

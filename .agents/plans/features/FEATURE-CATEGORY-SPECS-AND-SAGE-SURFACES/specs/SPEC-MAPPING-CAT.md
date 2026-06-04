@@ -119,6 +119,22 @@ Mapping:
 - `Cat().meet([C, D, ...])` delegates to Sage `Category.meet`, except that the empty
   meet returns `Cat().Constructors().EmptyCategory()`.
 
+`EmptyCategory()` is not a recovered Sage constructor name. It is local mathematical
+content: the bottom object of the project `Cat()` hierarchy needed to make the empty
+meet total.
+
+- Searched: installed Sage 10.7 `sage/categories/category.py`; installed
+  `sage/categories` source tree for `EmptyCategory`, "empty category", "bottom
+  category", and `Bottom`.
+- Found: `Category.meet([])` explicitly raises
+  `ValueError("The meet of an empty list of categories is not implemented")`; the
+  checked source tree contains no `EmptyCategory` constructor.
+- Conclusion: inference from installed Sage 10.7 source -- `EmptyCategory` is a
+  legitimate project-owned constructor for local bottom-category content, not Sage
+  constructor-name recovery.
+- Confidence: High for installed Sage 10.7.
+- Gaps: Sage development branches and external packages were not searched.
+
 This follows Sage's own meaning: `C.is_subcategory(D)` asserts that there is a
 natural forgetful functor from `C` to `D`. The comparison shorthands are specified
 for ordinary category objects only; `Cat()` itself is the root ambient category in

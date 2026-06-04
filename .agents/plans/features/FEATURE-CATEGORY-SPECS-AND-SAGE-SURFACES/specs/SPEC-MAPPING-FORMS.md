@@ -121,6 +121,7 @@ It is the named spelling of `Modules(R, dispatch=False).WithForms()`.
 | `divisibility(v)` for symmetric bilinear elements | `forms.subcategories.symmetric.SymmetricBilinearModulesCategory.ElementMethods` | The invariant definition is the pairing-image submodule `<b(v, M)>` of the form codomain `S`; for `S = R`, this is an ideal. |
 | Form-preserving morphisms between formed modules | `C.HomCategory().Of(M, N)` for `C <= FormedModules(R)` | A candidate map preserves form data exactly when it is contained in the Hom object of the formed-module category. |
 | Isometries of formed modules | `C.HomCategory().Of(M, N)` plus generic isomorphism; automorphism case `C.AutCategory().Of(M)` | Form preservation is already Hom containment. The isometry question is invertibility or isomorphism inside that category. |
+| Formed-module cokernel of a morphism | `C.HomCategory().ElementMethods.cokernel()` for `C <= FormedModules(R)` | Caller is a formed morphism `f: M -> N`. The returned carrier is `Q = codomain(f) / image(f)` with projection. If the form has codomain map `h: S_M -> S_N`, first form `N_0 = coker(h)`, then quotient `N_0` by the images of cross terms `b_N(image(f), codomain(f))`; the descended form has codomain that quotient. Source basis: `category_specs/forms/subcategories/with_forms.py:100-119`, `mem:theory/foundations/bilinear-forms-duals-morphisms`, and `[[SPEC-HISTORICAL-DISCRIMINANT-DESCENT-MORPHISM-SURFACE]]`. |
 | Free bilinear modules | `forms.subcategories.free_bilinear.FreeBilinearModulesCategory` | First tier where Gram matrices, determinant, and discriminant are universally meaningful. |
 | Finite-rank free formed-module chain used by `Lattices(R)` | `forms.chain` | Lattices imports this chain and adds only the named `Lattice` endpoint. |
 | Finite torsion quadratic modules | `forms.subcategories.torsion_quadratic_modules.TorsionQuadraticModulesCategory` | Modules keeps `TorsionQuadraticModules()` as a compatibility constructor route. |
@@ -325,8 +326,8 @@ source:
   (confirmed: `lattices/__init__.py:68-71`).  This is the named endpoint; all
   preceding chain links are forms-owned.  Mathematically valid.
 
-- `TorsionQuadraticModulesCategory.super_categories()` joins Torsion, Quadratic
-  (WithForms), and FinitelyPresented (confirmed:
+- `TorsionQuadraticModulesCategory.super_categories()` returns the single chain
+  `FinitelyPresented().OverPID().Torsion().WithForms().Quadratic()` (confirmed:
   `forms/subcategories/torsion_quadratic_modules.py:24-35`).  The old module
   `TorsionQuadraticModules()` route remains as constructor compatibility.  Valid.
 

@@ -261,12 +261,15 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
             self._assert_integral_constructor_base_ring()
             result = IntegralLatticeGluing(
-                list(lattices), [list(row) for row in glue], return_embeddings
+                list(lattices),
+                [list(row) for row in glue],
+                return_embeddings=return_embeddings,
             )
             if return_embeddings:
                 lattice, embeddings = result
                 return (self._refine_constructed_lattice(lattice), tuple(embeddings))
             return self._refine_constructed_lattice(result)
+
     @final
     def Constructors(self) -> LatticesCategory._Constructors:
         r"""Return the lattice constructor collector over ``self.base_ring()``."""

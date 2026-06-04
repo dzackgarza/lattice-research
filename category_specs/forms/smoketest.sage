@@ -110,6 +110,10 @@ SMOKE_STATEMENTS = (
         lambda _: ModuleTorsionQuadraticModulesCategory is FormsTorsionQuadraticModulesCategory,
     ),
     (
+        "torsion quadratic modules inherit Smith invariants from finite-presentation over PID",
+        lambda _: MZZ.TorsionQuadraticModules().is_subcategory(MZZ.FinitelyPresented().OverPID()),
+    ),
+    (
         "lattice symmetric compatibility path resolves to forms owner",
         lambda _: LatticeSymmetricBilinearModulesCategory is FormsSymmetricBilinearModulesCategory,
     ),
@@ -130,10 +134,11 @@ SMOKE_STATEMENTS = (
         and abstract_method_has_name(FiniteRankFreeFormedModulesCategory.ParentMethods.form, "form"),
     ),
     (
-        "formed-module Hom elements own cokernels with descended form data",
-        lambda _: abstract_method_has_name(FormsWithFormsCategory.HomCategory.ElementMethods.cokernel, "cokernel")
-        and abstract_method_has_name(FormsWithFormsCategory.HomCategory.ElementMethods.projection, "projection")
-        and abstract_method_has_name(FormsWithFormsCategory.HomCategory.ElementMethods.lift, "lift"),
+        "FormedModules(ZZ) routes Hom, End, and Aut through public category objects",
+        lambda _: FZZ.HomCategory() in Cat()
+        and FZZ.HomCategory().is_subcategory(MZZ.HomCategory())
+        and FZZ.EndCategory() in Cat()
+        and FZZ.AutCategory() in Cat(),
     ),
     (
         "bilinear formed-module chain owns symmetry and integrality predicates",
