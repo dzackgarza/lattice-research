@@ -478,11 +478,28 @@ Do not import generic software-engineering meanings of "inventory", "mapping", o
   replacement. Do not write phrases such as "not admitted", "project surface",
   "target mapping", or "excluded interop" in `SAGE_INVENTORY.md`.
 - **Mapping docs** translate each inventoried Sage surface into the project
-  mathematics. Every Sage class, constructor, and method in the inventory must map to
-  exactly one of: a project category surface, a named constructor path, a
-  mathematically justified non-mapping, or an explicit `NEEDS_DECISIONS.md` item.
+  mathematics. Every Sage class and method in the inventory must map to exactly one
+  of: a project category surface, a mathematically justified non-mapping, or an
+  explicit `NEEDS_DECISIONS.md` item. Constructor mappings are stricter: a
+  source-grounded Sage constructor shape recorded in mapping docs maps to a named
+  constructor path or spec-layer promotion path by definition. An ungrounded or
+  rejected constructor idea is removed from constructor mapping source material
+  rather than preserved as `not admitted`, `deferred`, or a decision-shaped gap.
+  If an existing constructor artifact looks suspect, do not edit it into a cleaner
+  artifact. Reconstruct the source mapping from Sage docs/source first, then replace
+  the artifact with the source-grounded mapping result.
   Never delete or ignore a Sage method because the Sage class or constructor around it
   is mathematically wrong.
+- **Mapping starts with a theorem-shaped sentence, not a project label.** For every
+  Sage name, write the ordinary mathematical statement before assigning an owner:
+  "In [standard category], [construction exists/has property], under [hypotheses]."
+  The category must be the weakest standard category where the statement is true. For
+  example, composition belongs to any category; addition of morphisms belongs to
+  additive categories; kernels and cokernels belong to abelian categories; eigenvalue
+  and eigenspace data for an endomorphism belong first to finite-dimensional vector
+  spaces over a field, with scalar-extension hypotheses stated when needed. A row that
+  says only a Sage class, a project category, a software type, or a coined project
+  phrase has not stated the mathematics and must not be accepted.
 - **Mappings must preserve old functionality in migration-grade form.** Breaking API
   changes are allowed when they modernize, standardize, or uniformize old Sage
   surfaces, but the old functionality must still have a documented replacement path.
@@ -574,6 +591,7 @@ delegation is available and appropriate. The review contract is not "find code
 duplication" or "make smokes pass"; it is:
 - classify each method by the mathematical category where the statement first becomes
   true;
+- reject invented terminology when a standard category name exists;
 - compare the surface against standard mathematical references and Sage written docs;
 - flag implementation-convenience ownership, missing strict-supercategory owners, and
   programmer-shaped vocabulary;
@@ -1347,11 +1365,20 @@ No per-subtree `_refine_named_X` wrapper functions (e.g. `_refine_named_set`,
 `_refine_named_ring`, `_refine_named_module`). These are banned — they are redundant
 indirection over the same call.
 
+Refinement declares one category, not a manually assembled category list.
+Always refine to the smallest mathematically correct category for the object.
+Do not write `refine_category(X, [Rings(), _Qp()])`, `refine_category(X,
+[Sets(), _FiniteSets()])`, or any equivalent multi-category list.
+The specific target category's `super_categories()` graph is the source of inherited
+membership; restating ancestors at the call site defeats the purpose of the category
+hierarchy and hides graph defects.
+
 ## Overall Design
 
 This hierarchy is a **non-destructive staged replacement** for Sage's category system.
-The pattern is: intercept existing Sage constructors, call the original implementation,
-then refine the result into the new subcategory hierarchy.
+The pattern is: expose category-owned wrappers for existing Sage constructor shapes,
+call the original implementation behind that category boundary, then refine the result
+into the new subcategory hierarchy.
 Never destructively replace or monkey-patch Sage internals.
 
 ## Category Structure
@@ -1390,6 +1417,26 @@ Each subtree maintains a `docs/` folder with two canonical files:
   how it maps to our hierarchy.
   Must document: what Sage provides, the correct mathematical concept, the
   justification, and the consequence for refinement and regression tests.
+  Mapping starts from the Sage methods and constructors themselves, not from the rows
+  already written in the project document. Before editing a mapping row, enumerate the
+  relevant Sage class or source file and identify every method, constructor branch,
+  accepted input, return object, and helper behavior that must be classified.
+  For every method row, the correct mathematical concept must be a complete sentence
+  that would make sense without Sage. Examples: "In any category, morphisms compose";
+  "In an additive category, `Hom(X,Y)` is an abelian group and composition is
+  bilinear"; "In an abelian category, kernels and cokernels exist." A row that only
+  names a Sage class, source file, project category, or migration consequence has not
+  stated the mathematics.
+  Assign the method to the most general standard category where that sentence is true.
+  Do not leave evaluation, composition, Hom addition, kernels, cokernels, images, or
+  analogous standard constructions on a special Sage class merely because that is where
+  Sage implements them.
+  Do not replace standard mathematical language with local jargon: use categories,
+  objects, morphisms, Hom objects, subobjects, quotient objects, kernels, cokernels,
+  images, tensor products, and chosen presentations when those are the notions meant.
+  Path spelling, row formatting, headings, and prose polish are not mapping progress
+  unless they correct the Sage method set, the mathematical proposition, the weakest
+  owner, the hypotheses, the return object, or the replacement path for Sage behavior.
   Example: Sage's `EnumeratedSets` → our `Countable` axiom, because countability =
   existence of an enumeration f: X → ℕ; the spec must exhibit such a function; all Sage
   enumerated sets must refine to `Sets().Countable()`.
@@ -1472,6 +1519,16 @@ splicing.
 
 - All methods must be defined at the **highest category** for which they are universally
   well-defined.
+- Before placing a method, state the mathematical sentence that makes it exist. If the
+  sentence is "in any category, morphisms compose," the method cannot be owned by
+  modules or lattices. If the sentence is "in an additive category, `Hom(X,Y)` is an
+  abelian group," Hom addition belongs to additive categories. If the sentence is "in
+  an abelian category, kernels and cokernels exist," kernel and cokernel methods belong
+  there unless the row explicitly records a weaker sourced hypothesis.
+- The placement check is a falsification test: push the method upward until the
+  mathematical sentence would become false, then place it at the last valid category.
+  Sage's implementation class is evidence that the method exists in that example; it is
+  not evidence that the example owns the method.
 - Every subcategory should declare the object and element method-surface entry points
   it owns: `ParentMethods`, `ElementMethods`, and the Hom/End/Aut subcategory
   overrides when those surfaces exist. Do not declare `MorphismMethods`; true morphism
