@@ -1,9 +1,10 @@
 r"""Hom, end, and aut categories for lattices.
 
-``LatticeAutCategory`` is the lattice specialization of the orthogonal-group
-surface: its objects are automorphism groups in the lattice category, hence
-isometries of the integral formed module. The general owner remains the
-modules-with-forms aut surface.
+``Hom_Lattices(L, M)`` is the formed-module Hom object specialized to lattices:
+its elements are module morphisms that preserve the specified bilinear form.
+Matrix representatives exist only after finite free presentations or chosen
+bases.  ``Aut_Lattices(L)`` is the lattice orthogonal group ``O(L)`` as a group
+object; generators or presentations belong only to stronger group refinements.
 """
 
 from __future__ import annotations
