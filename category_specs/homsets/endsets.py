@@ -3,7 +3,7 @@ r"""End categories and endomorphism method surfaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, ClassVar, cast, final, override
+from typing import TYPE_CHECKING, ClassVar, final, override
 
 from sage.misc.lazy_import import LazyImport
 
@@ -22,8 +22,10 @@ if TYPE_CHECKING:
 
 def _end_categories_of(category: Category) -> Category:
     if category.is_subcategory(HomCategory()):
-        return cast("Category", category.EndCategory())
-    return cast("Category", category.HomCategory().EndCategory())
+        end_category: Category = category.EndCategory()
+        return end_category
+    hom_end_category: Category = category.HomCategory().EndCategory()
+    return hom_end_category
 
 
 class UniversalEndObjectMethods(UniversalHomObjectMethods):
@@ -106,7 +108,8 @@ class EndCategoryConstruction(HomCategoryConstruction):
 
     def Of(self, domain: CategoryObject) -> End:  # type: ignore[override]  # DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
-        return cast("End", self.base_category().HomCategory().Of(domain, domain))
+        end_object: End = self.base_category().HomCategory().Of(domain, domain)
+        return end_object
 
     @override
     @classmethod
@@ -149,7 +152,8 @@ class EndCategoryOf(CategoryWithAxiom):
     @final
     def Of(self, domain: CategoryObject) -> End:
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
-        return cast("End", self.base_category().Of(domain, domain))
+        end_object: End = self.base_category().Of(domain, domain)
+        return end_object
 
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
