@@ -44,6 +44,7 @@ if TYPE_CHECKING:
         QuadraticForm,
         QuadraticFormsModule,
         QuotientModule,
+        Ring,
         RingMorphism,
         RingElement,
         RModAut,
@@ -71,6 +72,11 @@ class _RModHomCategoryObjectMethods(UniversalHomObjectMethods):
     def codomain(self) -> RModule:
         r"""Return the target module of this hom object."""
         ...
+
+    @final
+    def base_ring(self) -> Ring:
+        r"""Return the scalar ring of this module Hom object."""
+        return self.domain().base_ring()
 
     @abstractmethod
     def __call__(
