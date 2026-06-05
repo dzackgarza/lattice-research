@@ -53,6 +53,19 @@ The engineering exists only to build reliable mathematical language so that futu
 lattice/Coble work can state claims, define objects, and write proofs that read like
 mathematics.
 
+The high-level goal is to build a mathematically semantic, Sage-compatible substrate
+for exact lattice and surface computations, then use it to verify the lattice-theoretic
+claims needed for the moduli space of terminal Coble surfaces of K3 type. `GOAL.md` is
+the staged-program source for that goal.
+
+The downstream computation must be able to express and check `Pic(S)`,
+`f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
+`T_Co = (f^*Pic(S))^\perp <= \Lambda_{\mathrm{K3}}`, together with discriminant forms,
+primitive embeddings, orthogonal complements, isotropic-orbit calculations,
+stabilizers, and involution eigenspaces. The current category-spec phase exists to make
+those objects and morphisms typed mathematical objects, not raw matrices, incidental
+method calls, or ledger rows.
+
 The test of progress is not completed cards, green checkboxes, or process artifacts.
 The test is:
 

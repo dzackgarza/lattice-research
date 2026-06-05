@@ -4,6 +4,33 @@
 Keep durable operational detail in memories (`mem:skills/...`) and load the remaining
 local skills on demand when their always-in-context description triggers matching.
 
+## Actual research goal
+
+The repo's high-level goal is to build a mathematically semantic,
+Sage-compatible substrate for exact lattice and surface computations, then use that
+substrate to verify the lattice-theoretic claims needed for the moduli space of
+terminal Coble surfaces of K3 type.
+
+`GOAL.md` is the staged-program source. The current phase serves it by building
+category/spec vocabulary: sets, rings, modules, modules with bilinear or quadratic
+forms, lattices, Hom/End/Aut spaces, constructors, coercions, and backend bridges.
+Process artifacts are routing aids only. They matter when they preserve or advance a
+mathematical object, operation, invariant, morphism, proof obligation, or
+source-backed computation.
+
+The downstream target is to express and check objects such as
+`Pic(S)`, `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
+`T_Co = (f^*Pic(S))^\perp <= \Lambda_{\mathrm{K3}}`, together with discriminant forms,
+primitive embeddings, orthogonal complements, isotropic-orbit calculations,
+stabilizers, and involution eigenspaces. These computations must run through typed
+mathematical interfaces and mature Sage-backed exact algorithms, not through raw-matrix
+scripts or process ledgers.
+
+Category-spec ownership questions are therefore mathematical questions. A diagnostic
+may indicate an external Sage API stub gap, an internal category-spec owner method, a
+plugin inheritance edge, or a wrong mathematical category graph. Do not reduce that
+choice to mypy cleanup or bookkeeping.
+
 ## HARD GATE: ONBOARDING
 
 **Before reading any other file, running any tool, scanning any plan, or making any

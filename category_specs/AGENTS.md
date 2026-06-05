@@ -2,6 +2,24 @@
 
 This file is the mandatory entry point for agents working under `category_specs/`. Keep it small. Canonical category-spec guidance lives in local skills under `.agents/skills/category-spec-*`.
 
+## Research destination
+
+`category_specs` exists to build the semantic substrate required by `GOAL.md`: a
+Sage-compatible layer of typed mathematical objects, constructors, Hom/End/Aut spaces,
+modules with forms, lattices, and backend bridges. Its purpose is not to maintain
+method inventories, ledgers, or diagnostic classifications for their own sake.
+
+The downstream lattice/Coble computations should eventually read as constructions of
+objects and morphisms such as `Pic(S)`, `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
+`T_Co = (f^*Pic(S))^\perp <= \Lambda_{\mathrm{K3}}`, with discriminant forms,
+primitive embeddings, orthogonal complements, isotropic orbits, stabilizers, and
+involution eigenspaces computed through source-backed mathematical interfaces.
+
+Therefore every category-spec action must preserve or advance a mathematical owner,
+operation, hypothesis, representation split, or missing-category obligation. If an edit
+only makes a report cleaner, a row count smaller, or a diagnostic bucket tidier, it has
+not advanced the category-spec goal.
+
 ## Directive alignment
 
 Before acting, confirm the user's stated directive, the action you plan, and why the action matches that directive rather than a substituted goal.
