@@ -26,43 +26,68 @@ tags:
 
 ## Summary
 
-The isotropic orbit analysis (Tasks 2.1-2.2) requires lifting O(q_T)-orbits in
-the discriminant group A_{T_Co} to O^*(T_Co)-orbits of primitive isotropic vectors
-in the lattice T_Co. This uses Nikulin's surjectivity theorem (Prop. 1.5.2)
-and the Eichler criterion. Verify that the hypotheses hold for T_Co.
+The isotropic orbit analysis asks when finite `O(q_T)`-orbits in `A_{T_Co}` determine
+orbits of primitive isotropic vectors in `T_Co`.  This is not a single theorem.
+
+The source-backed part now established for the Dolgachev-Kondo standard Coble target is:
+
+```text
+N = <2> + E_10(2)
+```
+
+Dolgachev-Kondo identify the K3 orthogonal complement `N_X` with this lattice and state
+that it is two-elementary of signature `(2,9)` with `q_N=-q_M`.  Nikulin's Theorem
+3.6.3 then gives surjectivity
+
+```text
+O(N) -> O(q_N).
+```
+
+The remaining lifting problem is not this surjectivity statement.  The remaining problem
+is to identify the geometrically computed `T_Co=(f^*Pic(S))^\perp` with `N`, compute the
+primitive-vector divisibility and finite discriminant-form orbits from that construction,
+and state the subgroup of `O(T_Co)` whose primitive-isotropic orbit is being asserted.
 
 ## Hypothesis check
 
-T_Co has the following known/expected properties:
-- Rank 11, signature (2, 9)
-- 2-elementary discriminant group A ≅ (Z/2Z)^11
-- Even lattice (all inner products even)
-- Discriminant form q_T: A → Q/2Z
+For the standard target `N=<2>+E_10(2)`, the following hypotheses are source-backed:
 
-Nikulin 1.5.2 gives conditions under which the map O(L) → O(A_L, q_L) is
-surjective. For an even 2-elementary lattice:
+- rank `11` and signature `(2,9)`;
+- even and indefinite;
+- two-elementary discriminant group, inherited from the K3 complement statement
+  `q_N=-q_M` where `A_M=(Z/2Z)^11`;
+- discriminant form `q_N : A_N -> Q/2Z`.
 
-1. The spinor norm on O(L) must be computed (or its image in O(A) via the
-   connecting homomorphism).
-2. The Eichler criterion states that for an indefinite lattice of rank ≥ 3,
-   the spinor norm kernel acts transitively on primitive vectors of given
-   divisibility and given discriminant class, provided the discriminant class
-   is nonzero. For T_Co of rank 11 ≥ 3, this should apply.
+Therefore Nikulin Theorem 3.6.3 applies to the standard target: `O(N)->O(q_N)` is
+surjective.
+
+This does not yet prove the desired Coble primitive-isotropic orbit statement.  The
+following hypotheses or witness data are still required:
+
+- the project construction of `T_Co=(f^*Pic(S))^\perp <= Lambda_K3`, or an accepted
+  isometry witness from that construction to `N`;
+- the divisibility of the primitive isotropic vectors under the actual Gram model;
+- the finite orbit structure in `Iso(A_T,q_T)`;
+- the subgroup of `O(T_Co)` used in the Coble quotient, e.g. full `O(T_Co)`, stable
+  kernel, real-spinor subgroup, stabilizer, or centralizer;
+- an Eichler criterion check such as a verified `2U` hypothesis, or a different
+  primitive-isotropic orbit theorem/backend for the subgroup actually used.
 
 ## Questions
 
-1. Does Nikulin 1.5.2 apply to T_Co given its signature (2, 9) and (r, a, δ)?
-   What are the precise conditions?
-
-2. Is the spinor norm surjectivity known for the Coble lattice? Is O(T_Co) →
-   O(A_{T_Co}) surjective, and if not, what is the image?
-
-3. Does the Eichler criterion apply to vectors of divisibility 2 in T_Co?
-   (The predicted divisibility for primitive isotropic vectors in the even model.)
-
-4. Are the isotropic orbits in A_{T_Co} in bijection with the O^*(T_Co)-orbits
-   of primitive isotropic vectors with divisibility 2? Or does the stable
-   orthogonal group O^* need more careful definition here?
+- For the standard target `N=<2>+E_10(2)`, Nikulin surjectivity for
+  `O(N)->O(q_N)` is answered yes by Theorem 3.6.3.
+- For the geometrically computed project lattice `T_Co`, the same conclusion is
+  available only after the construction or isometry witness identifies it with `N`.
+- Surjectivity of the full orthogonal group does not decide stable-kernel,
+  real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.  Each such
+  subgroup requires its own image or orbit theorem.
+- The Eichler criterion is not yet verified for the Coble claim.  The card must check
+  the required hyperbolic summand hypothesis, or name another theorem/backend for
+  primitive isotropic vectors of the computed divisibility.
+- A bijection between finite isotropic classes in `A_T` and primitive isotropic lattice
+  orbits is not admitted from finite enumeration alone.  It requires the representative
+  existence, divisibility, and subgroup/kernel-action statements above.
 
 ## Output
 
@@ -70,16 +95,38 @@ A theory note under `theory/foundations/` recording:
 - The relevant theorem statements
 - The verification (or blocking issues) for T_Co
 - The orbit-count prediction and its theoretical basis
+- The distinction between full `O(T_Co)` surjectivity and any stable, spinor, stabilizer,
+  centralizer, or Coble arithmetic-subgroup orbit claim
 
 ## Dependency Status
 
-This is not a human deferral decision. The theorem-verification work cannot proceed
-until the Coble lattice, discriminant-form orbit surface, orbit-enumeration input, and
-active mathematical vocabulary are available through the repo's typed category/lattice
-surface. Keep this spec `unstarted` under its declared dependencies rather than asking
-for human input to bypass the phase order.
+This is not a human deferral decision.  The full primitive-isotropic orbit conclusion
+cannot proceed until the Coble lattice construction/isometry, finite discriminant-form
+orbit enumeration, subgroup choice, and active mathematical vocabulary are available
+through the repo's typed category/lattice definitions.  Keep this spec `unstarted` under
+its declared dependencies rather than asking for human input to bypass the phase order.
 
-## 6-Gate Protocol Review Log
+The theorem sourcing above is still valid prerequisite information: it answers the
+full-orthogonal-group surjectivity question for the standard target, but it does not
+discharge the downstream orbit-lifting conclusion.
+
+## Source Evidence
+
+- `theory/references/literature/dolgachev_kondo_2013.md:97-101`: the Coble K3
+  orthogonal complement is two-elementary of signature `(2,9)`, has `q_N=-q_M`, and is
+  isomorphic to `N=<2>+E(2)`.
+- `theory/references/literature/nikulin1979integral.md:1595-1597`: for an even
+  indefinite two-elementary lattice `S`, the homomorphism `O(S)->O(q_S)` is surjective.
+- `theory/foundations/reflective-two-elementary-lattices.md:372-385`: Eichler criterion
+  source used only under its stated hyperbolic-summand and subgroup hypotheses.
+
+## Historical Review Log
+
+The review below predates the source evidence recorded above.  It remains a record of
+the earlier card state, not the current mathematical status.  The current mathematical
+status is: Nikulin full-orthogonal-group surjectivity is sourced for the
+Dolgachev-Kondo standard target, while the Coble construction/isometry, divisibility,
+subgroup, finite-orbit, and Eichler/backend obligations remain unresolved.
 
 ### Review 2026-05-07 (6-Gate Spec Review)
 
