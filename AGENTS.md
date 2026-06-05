@@ -533,7 +533,7 @@ corresponding `mem:skills/...` entry.
 | `category-spec-priority-rubric` | `skills/category-spec-priority-rubric` |
 | `category-spec-retirement` | `skills/category-spec-retirement` |
 | `category-spec-sage-mapping` | `skills/category-spec-sage-mapping` |
-| `category-spec-obligation-test-triage` | `skills/category-spec-obligation-test-triage` |
+| `category-spec-failed-assertion-classification` | `skills/category-spec-failed-assertion-classification` |
 | `category-spec-subtrees` | `skills/category-spec-subtrees` |
 | `category-spec-triage` | `skills/category-spec-triage` |
 | `category-spec-visuals` | `skills/category-spec-visuals` |

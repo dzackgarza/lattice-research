@@ -91,11 +91,11 @@ Sage behavior
   -> source evidence
 ```
 
-Category-spec mathematical inventory or mapping progress exists only when that
-operation map changes: a row gains or corrects the mathematical operation, hypotheses,
-owner category or refinement, witness data, codomain/return object, and source
-evidence; or it records that no such assertion exists because the Sage constructor,
-method, or class is nonmathematical residue or an unresolved mathematical question.
+Category-spec mathematical inventory or mapping progress exists only when a row states
+or corrects the mathematical operation, hypotheses, owner category or refinement,
+witness data, codomain/return object, and source evidence; or when it records that no
+such assertion exists because the Sage constructor, method, or class is
+nonmathematical residue or an unresolved mathematical question.
 
 Compatibility, runtime, display, private, test-helper, package-export, and
 backend-plumbing methods are not a parallel progress object. Discard them after a
@@ -104,9 +104,9 @@ construction of a required spec object.
 
 Do not report progress from row counts, file counts, review prose, current-state
 summaries, handoff edits, broad checkpoints, or mapping-doc edits that do not change
-the operation map. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec rows, cards,
-decisions, and handoffs are evidence for definitions, implementations, and gaps; the
-operation map is the source-backed mathematical object.
+a theorem-shaped operation claim. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec
+rows, cards, decisions, and handoffs are evidence for definitions, implementations,
+and gaps; the map only records source-backed mathematical assertions.
 
 ## Always-active rules
 
@@ -215,7 +215,8 @@ operation map is the source-backed mathematical object.
   lattice-backed Hom/End/Aut objects. For these edits, `category-abc-spec.md` and
   `lattice-interface-style-guide.md` are mandatory context.
 - Load `category-spec-workflow` before any task that touches execution mechanics: tracker item creation or migration, Nimbalyst plans, sprint metadata, tracked work metadata, delegation contracts, subagent instructions, branch/PR policy, failed-assertion classification, validation handoff, stale-document migration, or status changes.
-- Load narrower category-spec skills when their descriptions match the task: audit, planning, retirement, Sage mapping, category-obligation test triage, triage, and visuals.
+- Load narrower category-spec skills when their descriptions match the task: audit,
+  planning, retirement, Sage mapping, failed-assertion classification, and visuals.
 
 ## Removed local docs
 

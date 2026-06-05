@@ -34,18 +34,19 @@ morphisms rather than manipulating raw matrices, vectors, and equations directly
 ## Current Routing Anchor
 
 The active work is governed by `mem:current-goal-handoff`, not by historical plan
-names. The live mathematical object is a source-backed operation map: for each Sage
-constructor or method under consideration, state the Sage behavior, the mathematical
-operation under hypotheses, the weakest category/refinement where that operation is
-defined, the witnesses required by that category, the codomain or return object, and
-the source evidence.
+names. The live mathematical work is the operation or construction stated in each row:
+for each Sage constructor or method under consideration, state the Sage behavior, the
+mathematical operation under hypotheses, the weakest category/refinement where that
+operation is defined, the witnesses required by that category, the codomain or return
+object, and the source evidence. The operation map records those propositions; it is
+not itself the mathematical object.
 
 The current concrete target is the lattice Hom/morphism evidence audit around
 `FreeModuleHomspace`, `FreeModuleMorphism`, and inherited `MatrixMorphism`, using
 `category_specs/lattices/docs/SAGE_INVENTORY.md` and `[[SPEC-MAPPING-LATTICES]]`.
 Broad plan-taxonomy cleanup, checked-status repair, category-obligation repair, or
-QC routing is not progress unless it changes that mathematical operation map or fixes
-a false steering claim in an entrypoint.
+QC routing is not progress unless it adds or corrects a theorem-shaped claim about the
+current Hom/morphism operations or fixes a false steering claim in an entrypoint.
 
 ## Definition Grounding Control
 

@@ -30,11 +30,14 @@ tags:
 ---
 # Sage Constructor and Method Operation Map
 
-## Object Preserved
+## Mathematical Assertions Preserved
 
-This spec preserves the source-backed mathematical operation map for category-spec
-inventory and mapping. The map is a finite list of propositions. A row is complete only
-when it states the Sage behavior and then gives the ordinary mathematical sentence:
+This spec preserves a source-backed record of mathematical assertions for
+category-spec inventory and mapping. The mathematical objects are the operations,
+constructions, categories, morphisms, hypotheses, witnesses, and codomains stated by
+the rows. The map is only the document that records those propositions. A row is
+complete only when it states the Sage behavior and then gives the ordinary
+mathematical sentence:
 for objects of category `C`, under hypotheses `H`, construction, predicate, or morphism
 `m` is defined, has codomain or return object `Y`, and requires witness data or proof
 obligations `W`.

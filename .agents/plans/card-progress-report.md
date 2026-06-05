@@ -3,8 +3,8 @@
 ## Overall
 
 - Total cards: **323**
-- Completed cards: **281**
-- Overall progress: `[#####################---]  87.0%`
+- Completed cards: **280**
+- Overall progress: `[#####################---]  86.7%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -15,7 +15,7 @@
 | decision | 22 | 22 | 0 | 0 | 0 | 0 |
 | feature | 20 | 7 | 4 | 0 | 1 | 0 |
 | phase | 28 | 20 | 5 | 0 | 0 | 0 |
-| plan | 13 | 10 | 3 | 0 | 0 | 0 |
+| plan | 13 | 9 | 4 | 0 | 0 | 0 |
 | spec | 60 | 55 | 2 | 1 | 0 | 0 |
 | task | 180 | 167 | 0 | 0 | 0 | 0 |
 
@@ -44,7 +44,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
-| Category specs and Sage-grounded operations | `[###############-]  91.2%` | 155/170 | 10 | 0 | 0 | 0 |
+| Category specs and Sage-grounded operations | `[##############--]  90.6%` | 154/170 | 11 | 0 | 0 | 0 |
 | Mypy plugin for Sage category method override checking | `[##############--]  88.9%` | 16/18 | 0 | 1 | 1 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
@@ -61,8 +61,8 @@
 
 - `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage-grounded operations (`critical`, `in-progress`)
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
-- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut category objects (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
+- `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Source-backed mathematical operation maps (`critical`, `in-progress`)
 - `spec` `SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER`: Maintain Sage constructor and method operation map (`critical`, `in-progress`)
 - `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (`critical`, `in-progress`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-human-input`)
@@ -76,6 +76,7 @@
 - `feature` `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`: gated by `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `phase` `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
 - `plan` `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: gated by `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` (`critical`, `in-progress`)
+- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `in-progress`)
 - `task` `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-CATEGORY-PROMOTION-RETURNS`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
@@ -84,7 +85,6 @@
 - `feature` `FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `in-progress`)
 - `feature` `FEATURE-COBLE-K3-FOLDING-INVOLUTION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-MODULI-COMPARISON`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
-- `feature` `FEATURE-COBLE-STABLE-MODEL-SLC`: gated by `FEATURE-COBLE-MODULI-COMPARISON`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 
 ## Blocked Items
 

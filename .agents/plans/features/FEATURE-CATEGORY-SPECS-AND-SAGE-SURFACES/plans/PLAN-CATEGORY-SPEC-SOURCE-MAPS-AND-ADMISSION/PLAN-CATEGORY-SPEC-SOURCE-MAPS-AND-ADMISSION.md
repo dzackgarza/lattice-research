@@ -8,7 +8,7 @@ dependsOn:
 - '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
 - '[[PLAN-SPEC-CORE-VERTICAL-SLICE]]'
 title: Source-backed mathematical operation maps
-status: complete
+status: in-progress
 priority: critical
 owner: Zack
 description: >-
@@ -57,6 +57,13 @@ object, and proof obligations for equivalence or Sage translation.
 ## Current State
 
 Several root plan files are source maps or design notes rather than executable implementation plans. They are valuable, but they should not remain free-floating planning authorities outside Nimbalyst.
+
+This plan is not completion evidence while its own review log records missing source
+files or dangling source-plan references. The remaining mathematical work is not to
+repair review metadata; it is to show, for each migrated source idea still used by the
+repo, the definition, construction, hypotheses, weakest category/refinement, witness
+data, codomain or return object, and current source evidence, or else mark the idea as
+provenance only.
 
 Reopened 2026-05-10 on the homset-mirroring path. The current follow-up is no
 longer "repair generic Sage homset inheritance"; it is a renewed mapping audit
