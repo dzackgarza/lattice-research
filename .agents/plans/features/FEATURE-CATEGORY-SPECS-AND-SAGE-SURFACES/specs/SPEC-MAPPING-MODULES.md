@@ -49,6 +49,7 @@ constructorNameInventories:
   - puiseux_series_ring_as_module
   - quotient_module
   - quotient_of_free_modules
+  - rank_one_module_with_ring_isomorphisms
   - ring_as_rank_one_module
 ---
 # Modules Mapping Spec
@@ -257,6 +258,7 @@ category-spec hierarchy.
 | `SubmoduleWithBasis`, free-module submodules, vector subspaces | `Modules(R).Subobjects()` / `Submodules` plus ordered-generating-set refinements | In module categories, subobjects are submodules. |
 | Quotient modules and FGP modules | `Modules(R).Quotients()` plus finite-presentation/base-ring refinements | Quotients are construction categories attachable to arbitrary module subcategories. |
 | Ring objects viewed as modules | `Modules(R).Constructors().RingObjectAsModule(...)` | The ring object supplies the module structure; ring-specific methods remain in `rings`. |
+| Ring `R` with a selected unit basis viewed as a rank-one free module, plus inverse `BaseIsomorphism1D` witnesses | `Modules(R).Constructors().rank_one_module_with_ring_isomorphisms(basis=u)` and its module-only projection `ring_as_rank_one_module()` | Sage's ring-side `free_module` source constructs the free rank-one module together with inverse isomorphisms between `R` and that module. The project-owned constructor name exposes the module object and witness morphisms under the explicit unit-basis hypothesis recorded by Sage source; it is not a generic canonical identification for arbitrary rank-one modules. |
 | Square `MatrixRing(R, n)` / `MatrixSpace(R, n, n)` viewed over `R` | The same parent refined into `Modules(R).Free().FiniteRank()` | A square matrix parent is a free finite-rank `R`-module on the matrix-unit basis. This is module structure on the same parent, not a second constructor family. |
 
 Constructor signatures expose the finite Sage input casework as named-only overload
