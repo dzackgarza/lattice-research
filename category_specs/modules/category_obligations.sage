@@ -155,6 +155,8 @@ CATEGORY_STATEMENTS = (
         "module Hom category owns scalar multiplication and form-refinement surfaces",
         lambda _: abstract_method_has_name(_RModMorphisms.scale, "scale")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ParentMethods.base_ring, "base_ring")
+        and abstract_method_has_name(Modules(ZZ).EndCategory().ParentMethods.base_ring, "base_ring")
+        and abstract_method_has_name(Modules(ZZ).AutCategory().ParentMethods.base_ring, "base_ring")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.kernel, "kernel")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.image, "image")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.direct_image, "direct_image")
