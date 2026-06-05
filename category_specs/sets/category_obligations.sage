@@ -15,7 +15,6 @@ from category_specs.sets.subcategories.facade import _FacadeSets
 from category_specs.sets.subcategories.family import _FamilySets
 from category_specs.sets.subcategories.finite import _FiniteSets
 from category_specs.sets.subcategories.finite_set_maps import _FiniteSetMapsSets
-from category_specs.sets.subcategories.group_actions import _GSets
 from category_specs.sets.subcategories.graded import (
     GradedSetsCategory,
     GradedSetsElement,
@@ -62,6 +61,10 @@ def finite_image_subobject_with_ambient():
     codomain = C.IntegerRange(5)
     f = Hom(domain, codomain, category=Sets())(lambda n: n + 1)
     return C.ImageSubobject(f, domain)
+
+
+def symmetric_group_action_category():
+    return Sets().GSets(SymmetricGroup(3))
 
 
 def abstract_method_has_name(method, name):
@@ -547,10 +550,8 @@ CATEGORY_STATEMENTS = (
         lambda _: fixed_ordered_partition().refinement_set() in Sets().Countable().Finite(),
     ),
     (
-        "G-sets own orbit, fixed-point, and element action surfaces",
-        lambda _: abstract_method_has_name(_GSets.ParentMethods.orbit, "orbit")
-        and abstract_method_has_name(_GSets.ParentMethods.fixed_points, "fixed_points")
-        and abstract_method_has_name(_GSets.ElementMethods.act_by, "act_by"),
+        "Sets().GSets(G) records the acting group through the public category route",
+        lambda _: symmetric_group_action_category().acting_group() == SymmetricGroup(3),
     ),
     (
         "partition refinement_set() contains the source partition",
