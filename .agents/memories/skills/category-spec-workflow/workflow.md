@@ -52,21 +52,29 @@ the appropriate artifact.
 
 Sage constructor/method inventory and mapping work has one canonical status surface:
 `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`. That spec owns the primary finite set
-difference `Remaining_math = U_math - C_math - R_math - Q_math`, where `U_math` contains
-mathematical API, constructor/construction, and codomain-owned construction rows;
-`C_math` is classified; `R_math` is rejected from the mathematical API; and `Q_math`
-requires a decision.
+difference `Remaining_math = U_math - C_math - R_math - Q_math`, where `U_math` is
+generated from the active mathematical ontology and contains mathematical API,
+constructor/construction, and codomain-owned construction rows; `C_math` is classified;
+`R_math` is rejected from the mathematical API; and `Q_math` requires a decision.
+
+The ontology is not optional setup. The first work product for a category family is the
+mathematical theory sheet: objects, operations, standard categorical language, and the
+weakest structures that make each operation meaningful. Sage source is read after that
+to attach implementation evidence and discover compatibility or backend surfaces. Sage
+method placement, helper exports, package imports, display hooks, and backend branches
+do not determine mathematical ownership.
 
 Compatibility, runtime, display, private, test-helper, package-export, and backend
 plumbing rows belong to a separate audit lane. Moving those rows is not mathematical
 progress unless the row blocks a named implementation, smoke, or spec migration.
 
 Before a session edits subtree `SAGE_INVENTORY.md`, subtree `MAPPING.md`, method-owner
-spec rows, or mapping cards, it must identify whether it is populating `U_math`, moving
-specific `frontierId` rows from `Remaining_math` into `C_math`, `R_math`, or `Q_math`,
-or performing compatibility audit work. Mapping docs, cards, decisions, review logs,
-handoffs, and commits are evidence or routing; they are not mathematical progress
-evidence unless the primary frontier changes.
+spec rows, or mapping cards, it must identify whether it is populating the theory sheet,
+populating ontology-grounded `U_math`, moving specific `frontierId` rows from
+`Remaining_math` into `C_math`, `R_math`, or `Q_math`, or performing compatibility audit
+work. Mapping docs, cards, decisions, review logs, handoffs, and commits are evidence or
+routing; they are not mathematical progress evidence unless the primary frontier
+changes.
 
 There is no separate backlog. The active tracked cards are the outstanding work set.
 When work is implemented, resolved, rejected, or superseded, move the card out of active

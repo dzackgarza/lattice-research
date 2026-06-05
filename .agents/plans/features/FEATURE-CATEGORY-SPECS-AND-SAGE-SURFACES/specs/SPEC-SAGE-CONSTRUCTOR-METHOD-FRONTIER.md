@@ -10,13 +10,16 @@ title: Control Sage constructor and method frontier
 status: in-progress
 priority: critical
 complexity: 75
-requirement: Maintain the canonical mathematical and constructor set difference for
-  Sage surfaces in category-spec scope, with compatibility/runtime/display/backend
-  surfaces separated into a non-progress audit lane.
+requirement: Maintain the canonical mathematically typed constructor and method set
+  difference for category-spec scope, with Sage source used as implementation evidence
+  and compatibility/runtime/display/backend surfaces separated into a non-progress
+  audit lane.
 acceptanceCriteria:
 - The file records the active scope, included category families, included Sage source
   roots, and source roots not yet inspected.
-- 'Every source-grounded row belongs to exactly one lane: `mathematical-api`,
+- The active mathematical theory sheet states the objects, operations, and weakest
+  structures that generate `U_math` before Sage source names are classified.
+- 'Every Sage-evidenced row belongs to exactly one lane: `mathematical-api`,
   `constructor-construction`, `codomain-owned-construction`,
   `compatibility-runtime-display-backend`, or `out-of-scope-sage`.'
 - Every mathematical progress claim names rows moved from `Remaining_math` into
@@ -31,19 +34,21 @@ tags:
 
 ## Object Preserved
 
-This spec preserves the finite object-level frontier for category-spec Sage inventory
-and mapping, with the compatibility audit separated from mathematical progress:
+This spec preserves the finite object-level frontier for category-spec inventory and
+mapping. The primary frontier is generated from the mathematical theory sheet first;
+Sage source then supplies implementation evidence for those mathematical slots. The
+compatibility audit is separated from mathematical progress:
 
 ```text
 Remaining_math = U_math - C_math - R_math - Q_math
 Remaining_compat = U_compat - C_compat - R_compat - Q_compat
 ```
 
-where `U_math` is the source-grounded universe of mathematical API,
+where `U_math` is the ontology-grounded universe of mathematical API,
 constructor/construction, and codomain-owned construction rows; `C_math` is classified
-with owner, hypotheses, codomain, and project category surface; `R_math` is rejected from
-the mathematical API; and `Q_math` requires a recorded mathematical, source, or workflow
-decision.
+with weakest owner, minimal structure, hypotheses, codomain, and project category
+surface; `R_math` is rejected from the mathematical API; and `Q_math` requires a
+recorded mathematical, source, or workflow decision.
 
 `U_compat` is the source-grounded universe of compatibility, runtime, display, private,
 test-helper, package-export, and backend-plumbing rows. It is audited so these surfaces
@@ -59,6 +64,12 @@ as mathematical progress.
 No category-spec Sage inventory or mapping session may report mathematical progress
 unless it updates `Remaining_math`. A substantive mathematical commit must identify the
 `frontierId` values moved from `Remaining_math` into `C_math`, `R_math`, or `Q_math`.
+
+The first question is never "where does Sage expose this name?" The first question is
+"what mathematical operation or construction is this, in what standard categorical
+language is it defined, and what is the weakest structure that makes it meaningful?"
+Sage source may prove that a particular implementation exposes a name; it does not
+determine the mathematical owner.
 
 Compatibility/runtime/display/backend rows may be recorded in `U_compat`, but they
 belong to a low-priority compatibility audit unless they block a named implementation or
@@ -76,22 +87,83 @@ the frontier. Unknown counts are not zero.
 
 | Field | Value |
 | --- | --- |
-| Active scope | Category-spec Sage constructors, classes, functions, and methods for the supporting semantic families below. |
+| Active scope | Category-spec mathematical operations, constructors, constructions, and Sage evidence rows for the supporting semantic families below. |
 | Included category families | Sets, topological spaces, rings, ideals through ring/module ownership, algebras, modules, Hom/End/Aut, forms, lattices, tensor algebra components, posets, and geometry-facing source rows when they block the category-spec phase. |
 | Sage source roots included in this ledger | Not populated. |
 | Source roots not yet inspected into this ledger | Not populated. |
+
+## Mathematical Ontology Gate
+
+Before any Sage source row is admitted into `U_math`, the active scope must have a short
+theory sheet that names the mathematical objects, operations, and minimal structures
+being modeled. A Sage method, constructor, helper, display hook, backend route, or
+package export can enter the primary frontier only by mapping to one of those
+mathematical slots.
+
+The theory sheet controls the primary universe:
+
+```text
+theory object + operation + weakest structure
+  -> ontologyOperation
+  -> U_math row
+  -> Sage source evidence
+  -> classified / rejected / decision-needed
+```
+
+If a Sage name has no coherent `ontologyOperation`, it is compatibility audit,
+out-of-scope evidence, or a missing mathematical decision. It is not a mathematical
+frontier row merely because it appears near the subtree in Sage.
 
 ## Active Lattice Frontier
 
 The active worker task underneath the current process repair is
 `category_specs/lattices` Sage-surface inventory and mapping completion. Its next
-substantive artifact is a generated finite symbol universe, not another handoff,
-memory, review note, or local mapping-row patch.
+substantive artifact is an ontology-generated finite mathematical universe, not another
+handoff, memory, review note, local mapping-row patch, or Sage-symbol scrape.
 
-The lattice universe must enumerate Sage category providers, constructors/factories,
-classes reached through those constructors, parent and element methods, construction
-routes, Hom/End/Aut surfaces, and relevant source surfaces already admitted by the
-lattice evidence files. The universe must then assign each row to exactly one lane:
+### Active Lattice Theory Sheet Stub
+
+This stub is not a completion claim. It is the required controlling vocabulary that
+must be populated before Sage source names drive the work.
+
+Objects:
+
+- category, concrete category, preadditive category, additive category, abelian or exact
+  category, and `R`-linear category
+- module category, quotient module, finite free module, finite free module with chosen
+  basis or presentation
+- formed module, nondegenerate formed module, integral lattice, rational lattice
+- torsion module, discriminant group, torsion quadratic or bilinear module
+- Hom, End, and Aut objects and their element surfaces
+
+Operation strata:
+
+- categorical: domain, codomain, identity, composition, isomorphism
+- concrete-category: evaluation of a morphism on an element
+- preadditive/additive: zero morphism, addition of morphisms, abelian-group Hom object,
+  bilinearity of composition
+- abelian/exact: kernel, cokernel, image, coimage, exactness, monomorphism and
+  epimorphism tests through kernels and cokernels
+- `R`-linear/module: scalar action, submodule, quotient, tensor product, dual
+  `Hom_R(M,R)`, and `R`-linear Hom structure
+- finite-free-with-basis/presentation: matrix representative, coordinates, rank,
+  determinant, presentation-dependent lift
+- formed-module/lattice: form evaluation, Gram matrix, discriminant, dual lattice,
+  signature, orthogonal direct-sum and subobject constructions
+- torsion/discriminant quadratic: finite quotient form, descended bilinear or quadratic
+  form, Brown invariant, genus predicates
+
+Every primary lattice row must name one `ontologyOperation` from this sheet or record a
+decision-needed gap in the sheet itself. For example, composition/evaluation cannot be
+owned by a free-module morphism row merely because Sage implements them on an inherited
+matrix morphism class; module or free-module structure begins only where the row needs
+additive, scalar, matrix, kernel/image, presentation, or basis hypotheses.
+
+After the theory sheet exists, the lattice universe must enumerate Sage category
+providers, constructors/factories, classes reached through those constructors, parent
+and element methods, construction routes, Hom/End/Aut surfaces, and relevant source
+surfaces already admitted by the lattice evidence files. The universe must then assign
+each row to exactly one lane:
 
 - `mathematical-api`
 - `constructor-construction`
@@ -123,7 +195,7 @@ Status values are closed. Do not add `pending`, `deferred`, `partial`,
 
 | Set | Row condition | Count |
 | --- | --- | --- |
-| `U_math` | Source-grounded row exists in this ledger and lane is `mathematical-api`, `constructor-construction`, or `codomain-owned-construction`. | Not populated. |
+| `U_math` | Ontology-grounded row exists in this ledger, with Sage evidence attached when a Sage surface realizes it, and lane is `mathematical-api`, `constructor-construction`, or `codomain-owned-construction`. | Not populated. |
 | `C_math` | Primary-frontier row status is `classified`. | Not populated. |
 | `R_math` | Primary-frontier row status is `rejected`. | Not populated. |
 | `Q_math` | Primary-frontier row status is `decision-needed`. | Not populated. |
@@ -155,7 +227,10 @@ location or must point to exactly one replacement artifact.
 | --- | --- |
 | `frontierId` | Stable identifier for the Sage surface row. |
 | `family` | Supporting family such as `sets`, `rings`, `modules`, `lattices`, or `posets`. |
-| `sageSourceRoot` | Sage module, class, package export, written doc, or local source file used to place the row in `U`. |
+| `ontologyOperation` | Standard mathematical operation or construction from the active theory sheet, or `none` for compatibility/out-of-scope rows. |
+| `minimalStructure` | Weakest category, object structure, chosen representation, or hypothesis that makes `ontologyOperation` meaningful. |
+| `mathematicalSentence` | Complete sentence stating why the operation exists without referring to Sage. |
+| `sageSourceRoot` | Sage module, class, package export, written doc, or local source file used as implementation evidence or compatibility/out-of-scope evidence for the row. |
 | `lane` | Exactly one of `mathematical-api`, `constructor-construction`, `codomain-owned-construction`, `compatibility-runtime-display-backend`, or `out-of-scope-sage`. |
 | `sourceSurfaceKind` | One of `constructor`, `class`, `function`, `parent-method`, `element-method`, `hom-parent-method`, `hom-element-method`, `protocol`, `interop`, or `backend-route`. |
 | `constructorOrClass` | Constructor, class, parent, or owning source object that exposes the surface. |
@@ -173,12 +248,13 @@ location or must point to exactly one replacement artifact.
 ## Canonical Ledger Rows
 
 No rows are admitted in this stub. The first source-enumeration task must populate the
-primary mathematical universe before any mathematical classification or mapping progress
-claim is made. For the current lattice task, that means populating `U_lattices_math`
-before claiming progress on `SPEC-MAPPING-LATTICES`.
+primary mathematical universe from the active theory sheet before any mathematical
+classification or mapping progress claim is made. For the current lattice task, that
+means populating `U_lattices_math` before claiming progress on
+`SPEC-MAPPING-LATTICES`.
 
-| frontierId | family | sageSourceRoot | lane | sourceSurfaceKind | constructorOrClass | methodOrFunction | objectLevel | status | projectOwner | hypotheses | codomainOrReturn | evidence | blocksImplementation | decisionOrBlocker | lastMovedBy |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| frontierId | family | ontologyOperation | minimalStructure | mathematicalSentence | sageSourceRoot | lane | sourceSurfaceKind | constructorOrClass | methodOrFunction | objectLevel | status | projectOwner | hypotheses | codomainOrReturn | evidence | blocksImplementation | decisionOrBlocker | lastMovedBy |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 ## Last Commit Movement
 

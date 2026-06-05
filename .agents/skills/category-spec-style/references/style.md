@@ -1408,19 +1408,24 @@ Never let Sage and local names collide silently.
 
 Each subtree maintains a `docs/` folder with two canonical files:
 
-- **`SAGE_INVENTORY.md`**: indexes every Sage class and method relevant to that subtree
-  — full class name, method signatures, and on-disk path to the implementation (e.g.
-  `$SAGE_ROOT/src/sage/categories/sets_cat.py:142`). The canonical reference for Sage
-  internals in that subtree; consult it before searching Sage source directly.
+- **`SAGE_INVENTORY.md`**: indexes Sage classes and methods admitted by the frontier
+  ledger or compatibility audit for that subtree — full class name, method signatures,
+  and on-disk path to the implementation (e.g.
+  `$SAGE_ROOT/src/sage/categories/sets_cat.py:142`). It is the canonical reference for
+  Sage internals after the mathematical frontier has said which objects, operations,
+  constructors, or compatibility surfaces are in scope.
 
 - **`MAPPING.md`**: records, for each Sage category, the mathematical justification for
   how it maps to our hierarchy.
   Must document: what Sage provides, the correct mathematical concept, the
   justification, and the consequence for refinement and regression tests.
-  Mapping starts from the Sage methods and constructors themselves, not from the rows
-  already written in the project document. Before editing a mapping row, enumerate the
-  relevant Sage class or source file and identify every method, constructor branch,
-  accepted input, return object, and helper behavior that must be classified.
+  Mapping starts from the mathematical operation and the weakest structure that makes
+  it meaningful, not from the Sage class where a name happens to be implemented and not
+  from rows already written in the project document. Before editing a mapping row, state
+  the object, operation, standard categorical language, and minimal structure. Then
+  enumerate the relevant Sage class or source file to attach implementation evidence,
+  constructor branches, accepted inputs, return objects, helper behavior, and
+  compatibility surfaces.
   For every method row, the correct mathematical concept must be a complete sentence
   that would make sense without Sage. Examples: "In any category, morphisms compose";
   "In an additive category, `Hom(X,Y)` is an abelian group and composition is

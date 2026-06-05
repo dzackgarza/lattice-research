@@ -11,6 +11,12 @@ Before acting, confirm the user's stated directive, the action you plan, and why
 Before category-spec Sage inventory or mapping work, open
 `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`.
 
+That spec is mathematical-ontology first. The first question is what operation or
+construction is being modeled, what standard categorical language defines it, and what
+weakest structure makes it meaningful. Sage source is implementation evidence and a
+feasibility witness after that question is answered; Sage exposure does not determine
+the owner.
+
 Category-spec mathematical inventory or mapping progress exists only when that spec's
 primary frontier changes:
 
@@ -18,10 +24,10 @@ primary frontier changes:
 Remaining_math = U_math - C_math - R_math - Q_math
 ```
 
-where `U_math` contains mathematical API, constructor/construction, and codomain-owned
-construction rows; `C_math` is classified with owner, hypotheses, codomain, and project
-category surface; `R_math` is rejected from the mathematical API; and `Q_math` requires
-a recorded decision.
+where `U_math` contains ontology-grounded mathematical API, constructor/construction,
+and codomain-owned construction rows; `C_math` is classified with weakest owner,
+minimal structure, hypotheses, codomain, and project category surface; `R_math` is
+rejected from the mathematical API; and `Q_math` requires a recorded decision.
 
 Compatibility, runtime, display, private, test-helper, package-export, and
 backend-plumbing rows belong to the spec's separate compatibility audit lane. Moving

@@ -13,14 +13,15 @@ morphisms, constructions, and invariants.
 ## Next Work
 
 Do not continue Sage inventory or mapping from subtree docs alone.
-Start with `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]` and populate its
-source-grounded primary universe `U_math` for the active scope before reporting any
-mathematical mapping progress.
+Start with `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]` and populate the active
+mathematical theory sheet before reporting any mathematical mapping progress. The first
+question is the object, operation, standard categorical language, and weakest structure;
+Sage source is implementation evidence after that.
 
-For the active lattice task, the first work product is a generated finite symbol
-universe `U_lattices_math`, not another handoff pointer or one-cluster mapping patch.
-Populate it from the lattice Sage-source frontier, then classify rows through
-`Remaining_lattices_math`.
+For the active lattice task, the first work product is a finite mathematical universe
+`U_lattices_math` generated from that theory sheet, not another handoff pointer,
+one-cluster mapping patch, or Sage-symbol scrape. Then map Sage source evidence onto
+those ontology operations and classify rows through `Remaining_lattices_math`.
 
 Compatibility, runtime, display, private, test-helper, package-export, and backend rows
 are a separate audit lane. Do not count them as progress on the mathematical foundation
@@ -36,13 +37,12 @@ When the ledger has the relevant rows, continue the Sage inventory and mapping a
 
 The active local repair target is the Hom and morphism block around
 `FreeModuleHomspace`, `FreeModuleMorphism`, and inherited `MatrixMorphism`.
-Then continue the broader symbol-by-symbol audit of the lattice/form/module Sage
-sources.
+Then continue the broader ontology-row audit of lattice/form/module mathematical
+operations with Sage evidence attached.
 
 ## Mapping Rule
 
-Read Sage first to learn which names exist.
-Then write the mathematics that makes each name exist.
+Write the mathematics that makes an operation exist before using Sage to locate names.
 Do not accept a mapping row until it contains a sentence a mathematician can read
 without knowing Sage.
 
