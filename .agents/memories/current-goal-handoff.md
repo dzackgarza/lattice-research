@@ -36,6 +36,12 @@ Use the explicit representative supplied by the AEGS decomposition
 `delta=u-v` has square `-2`, and `delta^perp = Z(u+v) + U(2) + E_8(2) ~= <2> +
 E_10(2) = T_Co`.
 
+Use the discriminant-gluing description of `Gamma_En,2` before attempting orbit
+computation: `g_T in O(T_En)` belongs to `Gamma_En,2` exactly when its action on
+`A_TEn` matches, via the anti-isometry `A_SEn ~= A_TEn`, the action of some
+`g_S in O(S_En)` fixing `h`.  Thus the finite image to compute first is the image of
+`Stab_{O(S_En)}(h)` on `A_SEn`, transported to `A_TEn`.
+
 Next mathematical obligation: determine the `Gamma_En,2`-orbit of the chosen Heegner
 line `Z delta`, compute or source the image of `Gamma_Co^En(delta)` in
 `O(A_T,q_T)`, and then compare this Enriques-side subgroup with the project

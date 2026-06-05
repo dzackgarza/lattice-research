@@ -239,6 +239,31 @@ lattice.  The unresolved part is not the existence of such a line, but its orbit
 the smaller group $\Gamma_{\mathrm{En},2}$ and the comparison with the project
 folding-involution subgroup.
 
+**Discriminant-action description of $\Gamma_{\mathrm{En},2}$.** Let
+$S_{\mathrm{En}}=L^{I_{\mathrm{En}}}\simeq U(2)\oplus E_8(2)$.  Since $L$ is even
+unimodular and $S_{\mathrm{En}}$ and $T_{\mathrm{En}}$ are primitive orthogonal
+eigenspaces, Nikulin's primitive-unimodular gluing gives an anti-isometry of
+discriminant forms
+
+```text
+gamma : A_{S_En} -> A_{T_En},      q_{T_En} gamma = -q_{S_En}.
+```
+
+AEGS Definition 2.6 then translates to the subgroup
+
+```text
+Gamma_En,2 =
+{ g_T in O(T_En) |
+  exists g_S in O(S_En) with g_S(h)=h and
+  bar(g_T) gamma = gamma bar(g_S) }.
+```
+
+Equivalently, the discriminant-form image of $\Gamma_{\mathrm{En},2}$ is the image,
+transported by $\gamma$, of the stabilizer of $h$ in $O(S_{\mathrm{En}})$.  This gives
+the finite discriminant-action problem that must be solved before computing the
+$\Gamma_{\mathrm{En},2}$-orbit of the Heegner line $\mathbf Z(u-v)$ or the image of
+$\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ in $O(A_{T_{\mathrm{Co}}},q_T)$.
+
 **Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
 smaller intended arithmetic subgroup only after the following data are fixed:
 

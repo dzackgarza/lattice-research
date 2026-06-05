@@ -163,6 +163,12 @@ one `O(A_N,q_N)`-orbit.
   `u,v` of the unimodular `U` summand.  Then `delta=u-v` has square `-2`, and
   `delta^perp = Z(u+v) + U(2) + E_8(2) ~= <2> + E_10(2) = T_Co`.  The Heegner line can
   therefore be represented explicitly; its `Gamma_En,2`-orbit remains unresolved.
+- The finite image of `Gamma_En,2` can be formulated through discriminant gluing:
+  `g_T in O(T_En)` lies in `Gamma_En,2` exactly when its action on `A_TEn` matches,
+  under the anti-isometry `A_SEn ~= A_TEn`, the action of some
+  `g_S in O(S_En)` fixing the polarization vector `h`.  This reduces the finite
+  discriminant-image part of the subgroup problem to
+  `Stab_{O(S_En)}(h) -> O(A_SEn,q_SEn)`.
 - AEGS Corollary 3.12 identifies five `Gamma_En,2`-orbits of primitive isotropic lines
   in `T_En`, equivalently the five Baily-Borel 0-cusps of `F_En,2`.  That statement is
   not a substitute for the missing `Gamma_En,2`-orbit statement for the negative
@@ -232,6 +238,9 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/references/literature/aegs_2023.md:174-186`: AEGS discriminant divisor
   statement for a `(-2)` vector in `T_En` and its rational Coble-surface
   interpretation.
+- `theory/references/literature/nikulin1979integral.md:262-274`: Nikulin's
+  primitive-unimodular embedding statement and discriminant-form anti-isometry
+  criterion.
 - `theory/references/literature/aegs_2023.md:394-452`: AEGS folded-diagram and
   Corollary 3.12 source for the five `Gamma_En,2` 0-cusps, i.e. primitive isotropic
   line orbits, not negative Heegner-root orbits.
