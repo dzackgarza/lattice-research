@@ -43,7 +43,10 @@ Sage implementation class names, wrapper inheritance, or generic LLM guesses.
 This spec records method-owner rows. It is not the live source of truth for remaining
 Sage constructor and method inventory work. Progress on Sage inventory or mapping must
 update `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`, whose object is the finite set
-difference `Remaining = U - C - R - Q`.
+difference `Remaining_math = U_math - C_math - R_math - Q_math`. Compatibility, runtime,
+display, private, package-export, test-helper, and backend-plumbing rows belong to the
+frontier spec's separate audit lane and do not count as mathematical progress unless
+they block a named implementation or spec obligation.
 
 ## Required Row Format
 

@@ -92,8 +92,8 @@
 
 ## Most Recently Completed
 
+- 2026-06-05 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `b3ae71a`: docs: require category frontier ledger for Sage mapping)
 - 2026-06-04 `task` `TASK-FORMED-COKERNEL-DESCENDED-FORM`: Specify formed cokernel with descended form data (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
-- 2026-06-04 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
 - 2026-06-04 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
 - 2026-06-04 `spec` `SPEC-MAPPING-FORMS`: Track forms mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
 - 2026-06-04 `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: Rewrite generic homset ownership for project HomCategory mirroring (commit `3cc8779`: checkpoint: preserve category spec worktree state)

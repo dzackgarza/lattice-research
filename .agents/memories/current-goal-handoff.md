@@ -14,7 +14,12 @@ morphisms, constructions, and invariants.
 
 Do not continue Sage inventory or mapping from subtree docs alone.
 Start with `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]` and populate its
-source-grounded universe `U` for the active scope before reporting any mapping progress.
+source-grounded primary universe `U_math` for the active scope before reporting any
+mathematical mapping progress.
+
+Compatibility, runtime, display, private, test-helper, package-export, and backend rows
+are a separate audit lane. Do not count them as progress on the mathematical foundation
+unless they block a named implementation or spec obligation.
 
 The previous concrete audit target remains lattice Hom and morphism evidence, but it is
 now subordinate to the frontier ledger.

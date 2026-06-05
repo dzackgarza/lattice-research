@@ -51,16 +51,22 @@ not create ad hoc planning, status, audit, or TODO markdown files when a tracked
 the appropriate artifact.
 
 Sage constructor/method inventory and mapping work has one canonical status surface:
-`[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`. That spec owns the finite set difference
-`Remaining = U - C - R - Q`, where `U` is the source-grounded constructor, class,
-function, and method universe; `C` is classified; `R` is rejected; and `Q` requires a
-decision.
+`[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`. That spec owns the primary finite set
+difference `Remaining_math = U_math - C_math - R_math - Q_math`, where `U_math` contains
+mathematical API, constructor/construction, and codomain-owned construction rows;
+`C_math` is classified; `R_math` is rejected from the mathematical API; and `Q_math`
+requires a decision.
+
+Compatibility, runtime, display, private, test-helper, package-export, and backend
+plumbing rows belong to a separate audit lane. Moving those rows is not mathematical
+progress unless the row blocks a named implementation, smoke, or spec migration.
 
 Before a session edits subtree `SAGE_INVENTORY.md`, subtree `MAPPING.md`, method-owner
-spec rows, or mapping cards, it must identify whether it is populating `U` or moving
-specific `frontierId` rows from `Remaining` into `C`, `R`, or `Q`. Mapping docs, cards,
-decisions, review logs, handoffs, and commits are evidence or routing; they are not
-progress evidence unless the frontier set difference changes.
+spec rows, or mapping cards, it must identify whether it is populating `U_math`, moving
+specific `frontierId` rows from `Remaining_math` into `C_math`, `R_math`, or `Q_math`,
+or performing compatibility audit work. Mapping docs, cards, decisions, review logs,
+handoffs, and commits are evidence or routing; they are not mathematical progress
+evidence unless the primary frontier changes.
 
 There is no separate backlog. The active tracked cards are the outstanding work set.
 When work is implemented, resolved, rejected, or superseded, move the card out of active

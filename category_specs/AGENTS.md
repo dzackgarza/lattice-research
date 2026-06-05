@@ -11,23 +11,28 @@ Before acting, confirm the user's stated directive, the action you plan, and why
 Before category-spec Sage inventory or mapping work, open
 `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`.
 
-Category-spec inventory or mapping progress exists only when that spec's finite frontier
-changes:
+Category-spec mathematical inventory or mapping progress exists only when that spec's
+primary frontier changes:
 
 ```text
-Remaining = U - C - R - Q
+Remaining_math = U_math - C_math - R_math - Q_math
 ```
 
-where `U` is the source-grounded universe of Sage constructors, classes, functions, and
-methods in the active scope; `C` is classified with owner, hypotheses, codomain, and
-project category surface; `R` is rejected as non-mathematical, runtime, display, private,
-backend plumbing, or otherwise non-admitted; and `Q` requires a recorded decision.
+where `U_math` contains mathematical API, constructor/construction, and codomain-owned
+construction rows; `C_math` is classified with owner, hypotheses, codomain, and project
+category surface; `R_math` is rejected from the mathematical API; and `Q_math` requires
+a recorded decision.
+
+Compatibility, runtime, display, private, test-helper, package-export, and
+backend-plumbing rows belong to the spec's separate compatibility audit lane. Moving
+those rows is not mathematical progress unless a row is explicitly marked as blocking a
+named implementation or spec obligation.
 
 Do not report progress from row counts, file counts, review prose, current-state
 summaries, handoff edits, broad checkpoints, or mapping-doc edits that do not change
-that frontier. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec rows, cards, decisions,
-and handoffs are evidence and routing surfaces; the frontier spec is the status
-authority for what remains.
+the primary frontier. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec rows, cards,
+decisions, and handoffs are evidence and routing surfaces; the frontier spec is the
+status authority for what remains.
 
 ## Always-active rules
 
