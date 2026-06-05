@@ -81,6 +81,41 @@ the frontier. Unknown counts are not zero.
 | Sage source roots included in this ledger | Not populated. |
 | Source roots not yet inspected into this ledger | Not populated. |
 
+## Active Lattice Frontier
+
+The active worker task underneath the current process repair is
+`category_specs/lattices` Sage-surface inventory and mapping completion. Its next
+substantive artifact is a generated finite symbol universe, not another handoff,
+memory, review note, or local mapping-row patch.
+
+The lattice universe must enumerate Sage category providers, constructors/factories,
+classes reached through those constructors, parent and element methods, construction
+routes, Hom/End/Aut surfaces, and relevant source surfaces already admitted by the
+lattice evidence files. The universe must then assign each row to exactly one lane:
+
+- `mathematical-api`
+- `constructor-construction`
+- `codomain-owned-construction`
+- `compatibility-runtime-display-backend`
+- `out-of-scope-sage`
+
+Only the first three lanes form the primary lattice frontier:
+
+```text
+Remaining_lattices_math =
+  U_lattices_math - C_lattices_math - R_lattices_math - Q_lattices_math
+```
+
+Compatibility/runtime/display/private/test-helper/package-export/backend rows form a
+separate low-priority audit frontier unless `blocksImplementation` is `yes`.
+
+The word "touches" is not a scope rule. A Sage surface enters the primary lattice
+frontier only when it is a mathematical operation, constructor/construction route, or
+codomain-owned construction needed by the lattice/category foundation. Package imports,
+random/test helpers, display hooks, backend options, deprecated aliases, and source
+implementation branches enter the compatibility lane unless they block named
+implementation or spec migration work.
+
 ## Primary Frontier Sets
 
 Status values are closed. Do not add `pending`, `deferred`, `partial`,
@@ -139,7 +174,8 @@ location or must point to exactly one replacement artifact.
 
 No rows are admitted in this stub. The first source-enumeration task must populate the
 primary mathematical universe before any mathematical classification or mapping progress
-claim is made.
+claim is made. For the current lattice task, that means populating `U_lattices_math`
+before claiming progress on `SPEC-MAPPING-LATTICES`.
 
 | frontierId | family | sageSourceRoot | lane | sourceSurfaceKind | constructorOrClass | methodOrFunction | objectLevel | status | projectOwner | hypotheses | codomainOrReturn | evidence | blocksImplementation | decisionOrBlocker | lastMovedBy |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

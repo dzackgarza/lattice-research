@@ -17,6 +17,11 @@ Start with `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]` and populate its
 source-grounded primary universe `U_math` for the active scope before reporting any
 mathematical mapping progress.
 
+For the active lattice task, the first work product is a generated finite symbol
+universe `U_lattices_math`, not another handoff pointer or one-cluster mapping patch.
+Populate it from the lattice Sage-source frontier, then classify rows through
+`Remaining_lattices_math`.
+
 Compatibility, runtime, display, private, test-helper, package-export, and backend rows
 are a separate audit lane. Do not count them as progress on the mathematical foundation
 unless they block a named implementation or spec obligation.
