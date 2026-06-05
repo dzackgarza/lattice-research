@@ -11,17 +11,22 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: settle the remaining backend/theorem evidence around
-discriminant-form orbit computations.  The finite-action conversion for Sage torsion
-quadratic modules now lives in
-`category_specs/lattices/subcategories/constructions/discriminant_form_actions.py`; do
-not redo it as a mapping or terminology task.  The next source-backed claim is whether
-Oscar/Hecke source provides an exact operation for arbitrary finite subset orbit or
-stabilizer computation under a specified subgroup `G <= O(A,q)` beyond the documented
-`TorQuadModule`, stable-submodule, and centralizer constructions.  If it does, record
-the mathematical operation, hypotheses, return object, and source evidence.  If it does
-not, preserve the negative finding and keep using the local Sage/GAP conversion witness
-for finite subsets.
+Next mathematical obligation: classify the lattice Hom/morphism Sage method cluster.
+Determine which behavior belongs to generic category morphisms, additive or
+`R`-linear Hom objects, finite-free matrix representation after choosing bases or
+presentations, and finitely presented module morphisms.  The controlling Sage sources
+are `FreeModuleHomspace`, `FreeModuleMorphism`, inherited `MatrixMorphism` behavior,
+`category_specs/lattices/docs/SAGE_INVENTORY.md`, and `SPEC-MAPPING-LATTICES`.
+
+Success condition: for each method cluster, the mapping spec states the mathematical
+operation, hypotheses, weakest category or refinement, witness data, codomain or
+return object, and source evidence.  Do not record a method merely as a mapping,
+route, stage, or compatibility detail.
+
+Do not reopen the discriminant-form finite-action conversion as a mapping or
+terminology task.  The finite-action conversion for Sage torsion quadratic modules now
+lives in
+`category_specs/lattices/subcategories/constructions/discriminant_form_actions.py`.
 
 The finite formed-module side now has source-backed rows in
 `[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`:
@@ -40,10 +45,11 @@ The finite formed-module side now has source-backed rows in
 - `PermutationGroup.orbit`, `PermutationGroup.orbits`, and
   `PermutationGroup.stabilizer` are Sage/GAP implementation evidence only after the
   typed conversion to and from the finite permutation/action domain is specified.
-- Oscar/Hecke is now classified as exact backend evidence for `TorQuadModule`, isometry
-  tests, stable submodules, and centralizers `O(T,f)` for a torsion quadratic module
-  with a chosen isometry; it is not currently recorded as a generic replacement for
-  arbitrary finite subset orbit/stabilizer enumeration under `G <= O(A,q)`.
+- Oscar/Hecke is source-checked exact backend evidence for `TorQuadModule`, isometry
+  tests, stable submodules, subgroup stabilizers, centralizers `O(T,f)`, and generic
+  finite `GSet` actions; the checked versions do not expose a
+  torsion-quadratic-module-specific operation for arbitrary finite subsets `X <= A`
+  under `G <= O(A,q)`.
 
 The lattice lifting statement has been separated from the finite formed-module orbit
 claims.  The spec now states:
@@ -55,18 +61,9 @@ under im(O(L)->O(A_L,q_L)).  The converse requires a checked Nikulin/Eichler the
 or a named primitive-isotropic orbit backend.
 ```
 
-Controlling source evidence for the next obligation: Oscar/Hecke discriminant-group and
-torsion-quadratic-module-with-isometry docs, exact Oscar/Hecke source for any claimed
-finite subset orbit or stabilizer operation, `theory/backends/oscar-lattices`,
-`theory-backend-routing`, and the remaining missing-evidence bullets in
-`[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.
-
-Success condition: the spec either records a source-backed Oscar/Hecke operation for
-finite discriminant-form subset orbits/stabilizers under `G <= O(A,q)`, or records a
-source-code negative finding that no such operation is exposed in the checked version.
-Do not weaken the finite orbit object or promote lattice-level orbit lifting without a
-checked Nikulin/Eichler theorem, primitive-isotropic backend, or actual Coble lattice
-data.
+Do not weaken the finite orbit object or promote lattice-level orbit lifting without
+the actual Coble lattice data, checked Nikulin/Eichler hypotheses, a
+primitive-isotropic backend, or a theorem proving the required lifting statement.
 
 ## Mapping Rule
 
