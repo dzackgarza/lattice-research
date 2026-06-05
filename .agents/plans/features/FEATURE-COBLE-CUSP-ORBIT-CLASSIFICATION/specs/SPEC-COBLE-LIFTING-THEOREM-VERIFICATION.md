@@ -120,6 +120,19 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/foundations/reflective-two-elementary-lattices.md:372-385`: Eichler criterion
   source used only under its stated hyperbolic-summand and subgroup hypotheses.
 
+## Non-Evidence
+
+`lean/CobleResearchLean/IsotropicPlanes.lean` is not an implementation witness for the
+Coble primitive-plane or lifting claim.  It cites
+`computations/task3_2_isotropic_planes.sage`, but a repo-wide search found no file with
+that name and the repository has no `computations/` directory.  It also presents
+`T_Co` by the diagonal form `diag(2,2,-2,...,-2)`, while the sourced
+Dolgachev-Kondo target recorded here is `N=<2>+E_10(2)`.
+
+Therefore that Lean file may be treated only as an unresolved formalization draft until
+the missing computation witness is supplied and the lattice presentation is reconciled
+with the sourced Coble target.
+
 ## Historical Review Log
 
 The review below predates the source evidence recorded above.  It remains a record of
