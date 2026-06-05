@@ -11,9 +11,13 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: define the finite orbit and stabilizer construction for a
-typed subset `X <= A` of a finite torsion quadratic module `(A,q)` under a certified
-generated subgroup `G <= O(A,q)`.
+Next mathematical obligation: produce the implementation witness for the finite-action
+conversion used by discriminant-form orbit computation.  For a typed finite subset
+`X <= A` of a finite torsion quadratic module `(A,q)` and a certified generated
+subgroup `G <= O(A,q)`, the code or source-backed design must define the bijection
+between elements of `X` and finite action labels, prove each generator preserves `X`,
+and convert orbit/stabilizer backend output back to elements of `A` and subgroups of
+the original generated `G`.
 
 The finite formed-module side now has source-backed rows in
 `[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`:
@@ -26,9 +30,11 @@ The finite formed-module side now has source-backed rows in
   search over form-compatible images of Smith generators.
 - `ActionOnFqf` supplies the right action on `A` and invariant subquotients.
 - `FqfOrthogonalGroup` does not expose public `orbit`, `orbits`, or `stabilizer`
-  methods; orbit/stabilizer enumeration must be specified as a bounded local
-  construction from finite carrier, generated group, and certified action, or as an
-  explicit GAP conversion.
+  methods; the spec now states the bounded construction from finite carrier, generated
+  group, and certified action.
+- `PermutationGroup.orbit`, `PermutationGroup.orbits`, and
+  `PermutationGroup.stabilizer` are Sage/GAP implementation evidence only after the
+  typed conversion to and from the finite permutation/action domain is specified.
 
 The lattice lifting statement has been separated from the finite formed-module orbit
 claims.  The spec now states:
@@ -46,11 +52,12 @@ stabilizers through GAP-backed permutation actions, `sage/modules/torsion_quadra
 for `TorsionQuadraticModule.orthogonal_group()`, and the finite-action rows in
 `[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.
 
-Success condition: the spec states the mathematical construction
-`orbit_G(x)={x*g:g in G}` and `Stab_G(x)={g in G:x*g=x}`, the hypotheses on `X`,
-`G`, and the action, the return objects, and the exact Sage/GAP conversion witness
-needed to compute representatives without treating raw GAP tuples as discriminant-form
-elements.
+Success condition: the project has a source-backed operation row or implementation
+design for the conversion
+`X <-> finite action labels`, the generator-stability check for `X`, and the return
+conversion from backend orbits and stabilizers to discriminant-form elements and
+subgroups of `G`.  Raw GAP tuples, Smith-coordinate lists, or permutation labels must
+not be public return objects.
 
 ## Mapping Rule
 

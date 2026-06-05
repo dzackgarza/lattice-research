@@ -101,6 +101,15 @@ is a finite quotient set.  For `x in X`, the stabilizer is
 
 `Stab_G(x) = {g in G : g(x) = x}`.
 
+When `G` is given by certified generators and the action on `A` is effective on the
+finite set `X`, the representative-level constructions are:
+
+- `orbit_G(x) = {x*g : g in G} <= X`;
+- `orbits_G(X) = {orbit_G(x) : x in X}`;
+- a representative set `R <= X` with one element in each orbit;
+- `Stab_G(x)` as a subgroup of `G`, with generator witnesses only when the finite
+  group-action backend returns them in the same group representation.
+
 Weakest category:
 finite group actions when `G` is finite with an enumerable or generated action; lazy
 group-action objects when `G` is only defined by predicates and membership witnesses.
@@ -109,6 +118,13 @@ Witnesses:
 the subgroup inclusion `G <= O(A,q)`, a certified action on `A`, proof or check that
 `X` is `G`-stable, and finite enumeration or generator witnesses when orbit
 representatives are requested.
+
+Typed computation requirement:
+a finite backend may enumerate orbits only after choosing a bijection between `X` and a
+finite action domain and proving that every generator of `G` preserves `X`.  The backend
+output must be converted back to elements of `A` and subgroups of the original
+generated `G`.  Raw GAP points, tuples, permutation labels, or Smith-coordinate lists
+are not public return objects for discriminant-form orbits.
 
 Public consequences:
 `isotropic_orbits()` is shorthand for `Iso(A,q)/O(A,q)` only when the chosen
@@ -244,6 +260,17 @@ Source evidence:
 `sage/groups/fqf_orthogonal.py:520-536`, `sage/groups/perm_gps/permgroup.py:1672-1948`,
 and runtime probe of `FqfOrthogonalGroup_with_category`.
 
+Sage's `PermutationGroup.orbit(point, action=...)`, `orbits()`, and
+`stabilizer(point, action=...)` are implementation evidence for the finite-action
+backend shape: GAP computes orbits and stabilizers on a finite permutation domain, and
+Sage converts the result back to the permutation group's domain or subgroup
+representation.  This is evidence for a project conversion layer from typed
+discriminant-form elements to finite action labels and back, not evidence that
+`FqfOrthogonalGroup` already owns public typed orbit methods.
+
+Source evidence:
+`sage/groups/perm_gps/permgroup.py:1672-1968`.
+
 Consequence:
 finite orbit and stabilizer enumeration for discriminant-form subsets is not inherited
 as a public Sage method of `FqfOrthogonalGroup`.  The project should specify it as a
@@ -267,8 +294,9 @@ elements and GAP action points is stated.
 This card is not complete until the remaining implementation evidence above is
 source-mined into ordinary mathematical operation rows.  The unresolved claims are:
 
-- the exact local wrapper or GAP conversion that computes orbit representatives and
-  stabilizers for a finite subset `X <= A` under a generated `FqfOrthogonalGroup`;
+- the concrete project implementation witness for the typed conversion
+  `X <-> finite action labels` and for converting GAP/permutation orbit and stabilizer
+  output back to elements of `A` and subgroups of the generated `G <= O(A,q)`;
 - whether Oscar or Hecke supplies an exact discriminant-form automorphism-group route
   that is stronger, faster, or broader than Sage's brute-force `FqfOrthogonalGroup`
   construction;
