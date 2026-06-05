@@ -31,6 +31,7 @@ from sage.all import (
     PermutationGroup,
     WeylGroup,
     block_diagonal_matrix,
+    identity_matrix,
     matrix,
     vector,
 )
@@ -78,6 +79,32 @@ def act_bits(bits, g):
     return sum((1 << i) for i, entry in enumerate(w) if int(entry))
 
 
+def reflection_matrix(root):
+    r"""Return the row-action reflection in a norm ``-2`` root of ``B``."""
+    root_col = vector(ZZ, root).column()
+    root_row = matrix(ZZ, [root])
+    return identity_matrix(ZZ, RANK) + GRAM_B * root_col * root_row
+
+
+def integral_stabilizer_generators():
+    r"""Return generators for the action of ``Stab_{O(S_En)}(h)`` on ``B/2B``."""
+    swap = identity_matrix(ZZ, RANK)
+    swap[0, 0] = 0
+    swap[1, 1] = 0
+    swap[0, 1] = 1
+    swap[1, 0] = 1
+
+    simple_roots = []
+    for i in range(8):
+        root = [0] * RANK
+        root[2 + i] = 1
+        simple_roots.append(root)
+
+    return [swap.change_ring(F)] + [
+        reflection_matrix(root).change_ring(F) for root in simple_roots
+    ]
+
+
 def main():
     r"""Compute the finite orthogonal group and the stabilizer of ``h/2``."""
     general_linear_group = GL(RANK, F)
@@ -105,6 +132,12 @@ def main():
         libgap(H_BITS + 1),
         libgap.OnPoints,
     )
+    integral_image = PermutationGroup(
+        [
+            Permutation([act_bits(bits, g) + 1 for bits in range(1 << RANK)])
+            for g in integral_stabilizer_generators()
+        ]
+    ).gap()
     integral_h_stabilizer_order = 2 * ZZ(WeylGroup(["E", 8], prefix="s").cardinality())
 
     print("fiber_sizes", {value: len(fibers[value]) for value in range(4)})
@@ -116,6 +149,11 @@ def main():
     print(
         "finite_container_index_over_integral_stabilizer",
         ZZ(h_stabilizer.Size()) // integral_h_stabilizer_order,
+    )
+    print("integral_image_order", integral_image.Size())
+    print(
+        "finite_container_index_over_integral_image",
+        ZZ(h_stabilizer.Size()) // ZZ(integral_image.Size()),
     )
 
 

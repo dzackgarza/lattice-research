@@ -274,14 +274,16 @@ $Q(v)=B(v,v)\bmod 4$, and stabilizes the class $h/2$.  It gives
 |O(A_{S_En}, q_{S_En})| = 46998591897600,
 Q(h) mod 4 = 2,
 |Stab_{O(A_{S_En},q)}(h/2)| = 94755225600,
-|Stab_{O(S_En)}(h)| = 2|W(E_8)| = 1393459200.
+|Stab_{O(S_En)}(h)| = 2|W(E_8)| = 1393459200,
+|im(Stab_{O(S_En)}(h) -> O(A_{S_En},q))| = |W(E_8)| = 696729600.
 ```
 
 This is the finite stabilizer in the discriminant form.  The equality between this
 finite stabilizer and the actual image of
 $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ is false by order: the finite stabilizer
-is larger by a factor of $68$.  The next computation is therefore the proper image of
-$\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ in this finite stabilizer.
+is larger than the integral group by a factor of $68$ and larger than the actual
+mod-$2$ image by a factor of $136$.  The computation constructs the actual finite image
+from the $U$-basis swap fixing $h$ and the simple-root reflections in $E_8(-1)$.
 
 **Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
 smaller intended arithmetic subgroup only after the following data are fixed:
@@ -314,10 +316,10 @@ obligations are:
   Heegner divisor;
 - compute or source the image of
   $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)\to O(A_{T_{\mathrm{Co}}},q_T)$;
-- compute the proper image of
+- use the proper image of
   $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)\to
-  \operatorname{Stab}_{O(A_{S_{\mathrm{En}}},q)}(h/2)$; it is not the full finite
-  stabilizer by the order comparison above;
+  \operatorname{Stab}_{O(A_{S_{\mathrm{En}}},q)}(h/2)$, of order $696729600$, when
+  computing $\Gamma_{\mathrm{En},2}$ orbits;
 - prove the primitive-isotropic orbit statement for that image or for its lattice
   subgroup;
 - compare $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ with the project
