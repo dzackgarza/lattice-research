@@ -406,7 +406,12 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.determinant, "determinant")
         and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.trace, "trace")
         and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.characteristic_polynomial, "characteristic_polynomial")
-        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.eigenspaces, "eigenspaces"),
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.factorization_of_characteristic_polynomial, "factorization_of_characteristic_polynomial")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.fcp, "fcp")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.eigenvalues, "eigenvalues")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.eigenvectors, "eigenvectors")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.eigenspaces, "eigenspaces")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.decomposition, "decomposition"),
     ),
     (
         "ordered-basis module Hom owns matrix-unit basis witnesses",

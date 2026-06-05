@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category import Category
 from sage.sets.family import AbstractFamily
+from sage.structure.factorization import Factorization
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -275,8 +276,35 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
                 ...
 
             @abstractmethod
+            def factorization_of_characteristic_polynomial(self) -> Factorization:
+                r"""Return the factorization of the characteristic polynomial."""
+                ...
+
+            @final
+            def fcp(self) -> Factorization:
+                r"""Return the characteristic-polynomial factorization."""
+                return self.factorization_of_characteristic_polynomial()
+
+            @abstractmethod
+            def eigenvalues(self, extend: bool = True) -> Sequence[RingElement]:
+                r"""Return the eigenvalues of a finite-basis endomorphism."""
+                ...
+
+            @abstractmethod
+            def eigenvectors(
+                self, extend: bool = True
+            ) -> Sequence[tuple[RingElement, Sequence[RModuleElement], Integer]]:
+                r"""Return eigenvalue, eigenvector-basis, and multiplicity data."""
+                ...
+
+            @abstractmethod
             def eigenspaces(self, extend: bool = True) -> Sequence[RModule]:
                 r"""Return eigenspace submodules of a finite-basis endomorphism."""
+                ...
+
+            @abstractmethod
+            def decomposition(self) -> Sequence[RModule]:
+                r"""Return invariant-subspace decomposition data."""
                 ...
 
             @abstractmethod
