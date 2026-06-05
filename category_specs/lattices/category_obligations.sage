@@ -137,7 +137,9 @@ CATEGORY_STATEMENTS = (
     ("Lattices(ZZ).AutCategory() is a group category", lambda _: LZZ.AutCategory().is_subcategory(Groups())),
     (
         "lattice Aut objects own discriminant-action Hom and image/kernel subgroups",
-        lambda _: abstract_method_has_name(
+        lambda _: abstract_method_has_name(LatticeAutCategory.ParentMethods.base_ring, "base_ring")
+        and abstract_method_has_name(LatticeAutCategory.ParentMethods.base_module, "base_module")
+        and abstract_method_has_name(
             LatticeAutCategory.ParentMethods.discriminant_action, "discriminant_action"
         )
         and abstract_method_has_name(
@@ -189,6 +191,8 @@ CATEGORY_STATEMENTS = (
     (
         "lattice end objects and slice categories own structure-lattice methods",
         lambda _: abstract_method_has_name(LatticeEndCategory.ParentMethods.base_lattice, "base_lattice")
+        and abstract_method_has_name(LatticeEndCategory.ParentMethods.base_ring, "base_ring")
+        and abstract_method_has_name(LatticeEndCategory.ParentMethods.base_module, "base_module")
         and abstract_method_has_name(_ObjectsOver.ParentMethods.structure_lattice, "structure_lattice")
         and abstract_method_has_name(_ObjectsUnder.ParentMethods.structure_lattice, "structure_lattice"),
     ),
