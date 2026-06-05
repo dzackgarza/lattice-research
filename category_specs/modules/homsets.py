@@ -44,6 +44,7 @@ if TYPE_CHECKING:
         QuadraticForm,
         QuadraticFormsModule,
         QuotientModule,
+        RingMorphism,
         RingElement,
         RModAut,
         RModMorphism,
@@ -170,6 +171,11 @@ class _RModMorphisms(UniversalHomElementMethods):
 
     @abstractmethod
     def tensor(self, f: Self) -> Self: ...
+
+    @abstractmethod
+    def base_change(self, morphism: RingMorphism) -> RModMorphism:
+        r"""Return the scalar extension of this morphism along ``morphism``."""
+        ...
 
     @abstractmethod
     def scale(self, r: RingElement) -> Self:

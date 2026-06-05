@@ -155,6 +155,7 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.restrict, "restrict")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.cokernel, "cokernel")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.coimage, "coimage")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.base_change, "base_change")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.lift, "lift")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_injective, "is_injective")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_surjective, "is_surjective")
