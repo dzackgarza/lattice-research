@@ -80,6 +80,11 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
 
         class ElementMethods:
             @abstractmethod
+            def generator_images(self) -> tuple[RModuleElement, ...]:
+                r"""Return the images of the domain's ordered generators."""
+                ...
+
+            @abstractmethod
             def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
     class ElementMethods: ...

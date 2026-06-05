@@ -191,7 +191,8 @@ CATEGORY_STATEMENTS = (
     (
         "ordered-generator module Hom owns generator-image construction routes",
         lambda _: abstract_method_has_name(_WithOrderedGeneratingSet.HomCategory.ParentMethods.from_images, "from_images")
-        and abstract_method_has_name(_WithOrderedGeneratingSet.HomCategory.ParentMethods.from_function, "from_function"),
+        and abstract_method_has_name(_WithOrderedGeneratingSet.HomCategory.ParentMethods.from_function, "from_function")
+        and abstract_method_has_name(_WithOrderedGeneratingSet.HomCategory.ElementMethods.generator_images, "generator_images"),
     ),
     (
         "finite-presentation module categories own presentation and Smith surfaces",
