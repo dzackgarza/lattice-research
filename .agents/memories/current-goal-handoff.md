@@ -40,10 +40,15 @@ evidence files:
 - `category_specs/lattices/docs/SAGE_INVENTORY.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`
 
-The active local repair target is the Hom and morphism block around
-`FreeModuleHomspace`, `FreeModuleMorphism`, and inherited `MatrixMorphism`.
-Then continue the broader semantic-extraction audit of lattice/form/module method
-clusters.
+The `FreeModuleHomspace`, `FreeModuleMorphism`, and inherited `MatrixMorphism` block
+now has split theorem-shaped rows in `SPEC-MAPPING-LATTICES`. Use those rows as the
+baseline; do not collapse them back into one free-module label.
+
+The next local repair target is the neighboring finitely presented PID-module Hom
+block: `FGP_Module_class.hom`, `_Hom_`, `FGP_Homset`, `FGP_Morphism` operations, and
+the formed `cokernel()` descent boundary. Continue by reading the Sage method
+body/docs/examples first, then write the mathematical sentence, weakest
+category/refinement, witnesses, return object, and source evidence.
 
 ## Mapping Rule
 
