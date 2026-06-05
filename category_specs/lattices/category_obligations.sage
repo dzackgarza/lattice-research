@@ -50,6 +50,7 @@ from category_specs.lattices.subcategories.unimodular import _UnimodularLattices
 from category_specs.modules import Modules
 from category_specs.utils import assert_category_statements
 from sage.all import ZZ, identity_matrix, matrix
+from sage.categories.groups import Groups
 from sage.modules.torsion_quadratic_module import TorsionQuadraticForm
 
 
@@ -129,6 +130,7 @@ CATEGORY_STATEMENTS = (
     ("Lattices(ZZ).HomCategory() is an object of Cat()", lambda _: LZZ.HomCategory() in C),
     ("Lattices(ZZ).EndCategory() is an object of Cat()", lambda _: LZZ.EndCategory() in C),
     ("Lattices(ZZ).AutCategory() is an object of Cat()", lambda _: LZZ.AutCategory() in C),
+    ("Lattices(ZZ).AutCategory() is a group category", lambda _: LZZ.AutCategory().is_subcategory(Groups())),
     ("Lattices(ZZ).Subobjects() is an object of Cat()", lambda _: LZZ.Subobjects() in C),
     ("Lattices(ZZ).DualObjects() is an object of Cat()", lambda _: LZZ.DualObjects() in C),
     (
