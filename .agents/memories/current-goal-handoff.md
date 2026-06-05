@@ -46,32 +46,28 @@ descent, formed/lattice Aut, finite discriminant-form Aut, and
 Sage-class labels, raw matrices, generated-group algorithms, or backend summaries.
 
 Next mathematical obligation:
-For a group object acting on a typed object or finite set, state the exact orbit,
-stabilizer, and centralizer constructions needed by the lattice/Coble pipeline.
-The next mapping must distinguish:
+State the plus/spinor subgroup objects for lattice Aut groups without collapsing them
+into the stable discriminant-kernel subgroup.
+The next mapping or code edit must distinguish:
 
-- the subgroup definition `Stab_G(x) = {g in G | g.x = x}`;
-- the centralizer definition `C_G(h) = {g in G | gh = hg}`;
-- finite orbit enumeration for typed finite carriers such as isotropic elements of
-  `A_L`;
-- generated subgroup computation only when `G` has generator witnesses;
-- lattice/discriminant specializations for `O(L)`, `O(A_L,q_L)`, typed polarization
-  data, and involutions.
+- `SO(L)=ker(det:O(L)->{+-1})`;
+- `~O(L)=ker(O(L)->O(A_L,q_L))`;
+- `O^+(L)=ker(sn_R:O(L_R)->R^*/(R^*)^2)`;
+- `SO^+(L)=SO(L) cap O^+(L)`;
+- `~SO^+(L)=~O(L) cap SO(L)`;
+- implementation witnesses for determinant, discriminant action, and real spinor norm.
 
 Controlling source evidence:
-Read the Sage method bodies/docs/examples for `FqfOrthogonalGroup._get_action_`,
-`ActionOnFqf`, the relevant GAP-backed finite group or matrix-group `orbit`,
-`stabilizer`, and `centralizer` methods, and the current
-`SPEC-MAPPING-LATTICES` finite-action rows before editing. Then state the weakest
-category/refinement, hypotheses, witnesses, codomain or return object, and source
-evidence for each operation.
+Use `SPEC-MAPPING-LATTICES`, `category_specs/lattices/homsets.py`,
+`bilinear-form-category-semantics`, `theory-orbit-and-building-backends`,
+`theory/foundations/reflective-two-elementary-lattices.md`, and Oscar/Hecke evidence
+for `rational_spinor_norm` before adding any plus-subgroup constructor or membership
+method.
 
 Success condition:
-The lattice mapping separates formal subgroup objects from finite/generated algorithms:
-`Stab_G(x)`, `C_G(h)`, orbit sets, and orbit representatives are stated at the category
-where they are defined, while explicit generators, finite enumeration, and GAP-backed
-returns appear only under finite, generated, matrix-group, or project-specific
-refinements with witnesses.
+The lattice Aut category and mapping state `SO(L)`, `~O(L)`, `O^+(L)`, `SO^+(L)`, and
+`~SO^+(L)` as distinct subgroup objects. Generator methods remain absent unless a
+finite/generated/backend refinement supplies generator witnesses.
 
 ## Mapping Rule
 
@@ -120,6 +116,9 @@ assign a project owner.
   `sage.geometry.all` are import evidence. They do not create mathematical owners.
 - `TASK-FORMED-COKERNEL-DESCENDED-FORM` stays closed unless new source contradicts its
   formed-cokernel construction.
+- `stable_orthogonal_group()` denotes `~O(L)=ker(O(L)->O(A_L,q_L))`, not `O^+(L)`.
+  `O^+(L)` is the real-spinor-kernel subgroup and needs separate vocabulary and
+  backend/source witnesses before implementation.
 
 ## Non-Goals
 
