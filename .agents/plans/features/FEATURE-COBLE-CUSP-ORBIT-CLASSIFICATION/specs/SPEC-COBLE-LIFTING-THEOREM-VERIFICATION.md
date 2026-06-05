@@ -89,6 +89,10 @@ following hypotheses or witness data are still required:
   centralizer;
 - for the project notation `Gamma_Co`, the ambient lattice, stabilized polarization
   class, involution, restriction to `T_Co`, and image in `O(A_T,q_T)`;
+- for the source-backed Enriques-side candidate
+  `Gamma_Co^En(delta) = im(Stab_{Gamma_En,2}(Z delta)->O(delta^perp))`, a chosen
+  Heegner line `Z delta`, a `Gamma_En,2`-orbit statement for that line, the restriction
+  image in `O(T_Co)`, and the induced image in `O(A_T,q_T)`;
 - a primitive-isotropic orbit theorem/backend for that smaller subgroup.  The cited
   Eichler criterion requiring a copy of `2U` does not apply to `T_Co ~= N=2B`, because
   all pairings in `2B` are divisible by `2`, so `T_Co` cannot contain a hyperbolic plane
@@ -150,6 +154,11 @@ one `O(A_N,q_N)`-orbit.
   not define the project subgroup `Gamma_Co` as a stabilizer-centralizer intersection
   with specified `theta`, stabilized class, restriction to `T_Co`, or discriminant-form
   image.
+- AEGS source the degree-2 Enriques group `Gamma_En,2` and the `(-2)` discriminant
+  divisor in `D(T_En)/Gamma_En`.  This supports the Enriques-side subgroup
+  `Gamma_Co^En(delta)` for a chosen Heegner line, but it does not by itself identify
+  that subgroup with the project `theta`-centralizer notation or prove its
+  primitive-isotropic orbit structure.
 - The cited Eichler criterion is unavailable for `T_Co`: it requires a copy of `2U`,
   but `T_Co ~= 2(<1>+E_10)` has all pairings divisible by `2`.
 - A one-orbit theorem for full `O(T_Co)` and full `O^+(T_Co)` is available through
@@ -202,8 +211,15 @@ discharge the downstream orbit-lifting conclusion.
   the standard-target finite discriminant form gives `528` isotropic classes in `A_N`
   and full standard-target orbit sizes `[1, 527]`.
 - `theory/foundations/coble-task-background.md`, section `Task 3.1`: records the
-  current distinction between the Dolgachev-Kondo full orthogonal quotient and the
-  unresolved project subgroup `Gamma_Co`.
+  current distinction between the Dolgachev-Kondo full orthogonal quotient, the
+  source-backed Enriques-side subgroup `Gamma_Co^En(delta)`, and the unresolved project
+  stabilizer-centralizer subgroup `Gamma_Co`.
+- `theory/references/literature/aegs_2023.md:122-172`: AEGS definitions of the K3
+  lattice, involutions, Enriques period lattice, degree-2 polarization vector, and
+  `Gamma_En,2`.
+- `theory/references/literature/aegs_2023.md:174-186`: AEGS discriminant divisor
+  statement for a `(-2)` vector in `T_En` and its rational Coble-surface
+  interpretation.
 - `theory/computations/coble_standard_target_discriminant_orbits.sage`: exact
   GAP/Sage witness computing `O(A_N,q_N)` as the stabilizer of the four
   `Q(v)=B(v,v) mod 4` fibers in `GL(B/2B)`.

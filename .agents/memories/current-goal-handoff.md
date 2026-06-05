@@ -24,17 +24,26 @@ isometry class, Dawes/Attwell-Duval give the split maximal condition in signatur
 `(2,n)` for `n>=5`, and Dawes Algorithm 4.4 gives one primitive-isotropic vector orbit
 under `O^+(B)`, hence under `O^+(T_Co)` and `O(T_Co)`.
 
-The next subgroup obligation is not an orbit computation yet.  First define
-`Gamma_Co` as a mathematical subgroup by specifying the ambient lattice, the Heegner
-vector whose orthogonal complement is `T_Co`, the stabilized polarization class
-(`h_Co`, `tilde h_Co`, or a transported Enriques-side class), the involution `theta`,
-and the restriction/image maps to `O(T_Co)` and `O(A_T,q_T)`.  Only after those objects
-and maps are fixed is there an acting group for a smaller-subgroup primitive-isotropic
-orbit theorem.
+The next subgroup obligation is not an orbit computation yet.  The source-backed
+Enriques-side candidate is now
+`Gamma_Co^En(delta)=im(Stab_{Gamma_En,2}(Z delta)->O(delta^perp))`, where AEGS define
+`Gamma_En,2` from K3-lattice isometries commuting with `I_En` and fixing the degree-2
+polarization vector `h=e+f`, and `delta` is a `(-2)` Heegner vector in `T_En` with
+`delta^perp ~= T_Co`.
+
+Next mathematical obligation: determine the `Gamma_En,2`-orbit of the chosen Heegner
+line `Z delta`, compute or source the image of `Gamma_Co^En(delta)` in
+`O(A_T,q_T)`, and then compare this Enriques-side subgroup with the project
+stabilizer-centralizer notation
+`Stab(typed Coble polarization data) ∩ Z(theta)`.  The comparison still requires
+constructing `theta`, the transported polarization class, and the ambient-lattice
+restriction maps.
 
 Dolgachev-Kondo source the full quotient `D(N)/O(N)` for the Coble target and the
-birational quotient of the `(-2)` Heegner divisor by `O(U+E_10(2))`.  That does not
-source the project stabilizer-centralizer subgroup.  The local Sterk extraction symlink
+birational quotient of the `(-2)` Heegner divisor by `O(U+E_10(2))`.  AEGS source the
+degree-2 Enriques group `Gamma_En,2` and the `(-2)` discriminant divisor.  Together
+these source `Gamma_Co^En(delta)` as an Enriques-side subgroup, not yet the project
+`Gamma_Co` until the `theta` comparison is proved.  The local Sterk extraction symlink
 is currently broken, so Sterk-specific subgroup-orbit claims need source restoration or
 another inspected source before use.
 

@@ -189,6 +189,34 @@ $N$ is the orthogonal complement of a $(-2)$ vector in
 $T_{\mathrm{En}}=U\oplus E_{10}(2)$, so the quotient of the corresponding $(-2)$
 Heegner divisor by $O(T_{\mathrm{En}})$ is birational to the Coble moduli space.
 
+**Source-backed Enriques-side subgroup.** AEGS Definition 2.3 fixes the K3 lattice
+$L=II_{3,19}$, the Enriques and del Pezzo involutions $I_{\mathrm{En}}$ and
+$I_{\mathrm{dP}}$, and the Enriques period lattice
+$T_{\mathrm{En}}=L^{-I_{\mathrm{En}}}\simeq U\oplus U(2)\oplus E_8(2)$.  Definition
+2.5 fixes the degree-2 polarization vector $h=e+f\in U(2)$ with $h^2=4$ on the K3
+side.  Definition 2.6 defines
+$\Gamma_{\mathrm{En},2}\subset O(T_{\mathrm{En}})$ as the image of the K3-lattice
+isometries commuting with $I_{\mathrm{En}}$ and fixing $h$, equivalently
+$\Gamma_{\mathrm{En}}\cap\Gamma_{\mathrm{dP}}$.
+
+For a $(-2)$ vector $\delta\in T_{\mathrm{En}}$ with
+$\delta^\perp\simeq T_{\mathrm{Co}}$, the Heegner divisor component is determined by
+the line $\mathbf Z\delta$, not by a choice of sign for $\delta$.  The sourced
+Enriques-side subgroup acting on this Coble lattice is therefore
+
+```text
+Gamma_Co^En(delta)
+  := im(Stab_{Gamma_En,2}(Z delta) -> O(delta^perp)).
+```
+
+Here the map is restriction of isometries preserving the line $\mathbf Z\delta$ to the
+orthogonal complement $\delta^\perp$.  This is a mathematical subgroup of
+$O(T_{\mathrm{Co}})$ once the Heegner line is chosen.  It records the degree-2
+polarization and Enriques involution data supplied by AEGS, but it is not yet the
+project subgroup $\Gamma_{\mathrm{Co}}$ defined by a Coble-side folding involution
+$\theta$ unless a comparison theorem identifies the ambient lattices, stabilized class,
+and involution data.
+
 **Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
 smaller intended arithmetic subgroup only after the following data are fixed:
 
@@ -206,6 +234,23 @@ Until those objects and maps are stated, $\Gamma_{\mathrm{Co}}$ is not an acting
 available for a primitive-isotropic orbit theorem.  The full-group statement
 $\operatorname{PrimIso}(T_{\mathrm{Co}})/O(T_{\mathrm{Co}})$ is a singleton does not
 imply the corresponding statement for this smaller subgroup.
+
+The current source-backed replacement for a completely unspecified smaller group is
+$\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ above.  The remaining mathematical
+obligations are:
+
+- determine the $\Gamma_{\mathrm{En},2}$-orbits of $(-2)$ Heegner lines
+  $\mathbf Z\delta$ whose complements are Coble lattices; AEGS source uniqueness only
+  modulo the full group $\Gamma_{\mathrm{En}}=O(T_{\mathrm{En}})$;
+- compute or source the image of
+  $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)\to O(A_{T_{\mathrm{Co}}},q_T)$;
+- prove the primitive-isotropic orbit statement for that image or for its lattice
+  subgroup;
+- compare $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ with the project
+  stabilizer-centralizer notation
+  $\operatorname{Stab}(\text{typed Coble polarization data})\cap Z(\theta)$ after
+  $\theta$ and the transported polarization class are constructed in the same ambient
+  lattice.
 
 **Moduli interpretation.** The polarization $h_{\mathrm{Co}}$ is the degree-2
 Enriques-type class in $K_S^\perp\subset\mathrm{Pic}(S)$, not the plane hyperplane class
