@@ -39,6 +39,12 @@ class _HomObjectWitness(UniversalHomObjectMethods):
     def codomain(self):
         return self._codomain
 
+    def natural_map(self):
+        return self
+
+    def reversed(self):
+        return _HomObjectWitness(self.codomain(), self.domain())
+
     def __call__(self, data):
         return data
 

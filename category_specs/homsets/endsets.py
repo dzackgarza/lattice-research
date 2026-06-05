@@ -42,6 +42,11 @@ class UniversalEndObjectMethods(UniversalHomObjectMethods):
         r"""Return the identity endomorphism of this end object."""
         ...
 
+    @final
+    def one(self) -> Endomorphism:
+        r"""Sage-compatible spelling for the identity endomorphism."""
+        return self.identity()
+
 
 class UniversalEndElementMethods(UniversalHomElementMethods):
     r"""Methods on elements of end categories."""

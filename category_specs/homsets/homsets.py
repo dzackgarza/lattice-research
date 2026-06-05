@@ -38,6 +38,16 @@ class UniversalHomObjectMethods:
         return bool(self.domain() == self.codomain())
 
     @abstractmethod
+    def natural_map(self) -> Morphism:
+        r"""Return the canonical coercion morphism carried by this hom object."""
+        ...
+
+    @abstractmethod
+    def reversed(self) -> Hom:
+        r"""Return ``Hom_C(B, A)`` for this ``Hom_C(A, B)`` object."""
+        ...
+
+    @abstractmethod
     def __call__(
         self, data: Morphism | Callable[[CategoryElement], CategoryElement]
     ) -> Morphism:
