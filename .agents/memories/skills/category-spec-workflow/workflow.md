@@ -51,7 +51,7 @@ not create ad hoc planning, status, audit, or TODO markdown files when a tracked
 the appropriate artifact.
 
 Sage constructor/method inventory and mapping work has one canonical mathematical
-surface: `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`. That spec owns the
+document: `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`. That spec owns the
 source-backed mathematical operation map. A row is complete when it translates Sage
 method body/docs/examples into a mathematical operation under hypotheses, the weakest
 category owner or refinement claimed, witnesses required by that structure, the
@@ -65,22 +65,24 @@ Sage method placement, helper exports, package imports, display hooks, backend
 branches, and generic category primers do not determine mathematical ownership.
 
 Compatibility, runtime, display, private, test-helper, package-export, and backend
-plumbing surfaces are not a parallel progress object. Discard them after a one-line
+plumbing methods are not a parallel progress object. Discard them after a one-line
 residue classification unless they change the mathematical interface or block
 construction of a required spec object.
 
 Before a session edits subtree `SAGE_INVENTORY.md`, subtree `MAPPING.md`, method-owner
 spec rows, or mapping cards, it must identify whether it is performing semantic
 extraction, adding or correcting a source-backed mathematical assertion, rejecting a
-surface as nonmathematical residue, or recording an unresolved mathematical question.
+Sage method, constructor, or class as nonmathematical residue, or recording an
+unresolved mathematical question.
 Mapping docs, cards, decisions, review logs, handoffs, and commits are evidence or
-routing; they are not mathematical progress evidence unless the operation map changes.
+source pointers; they are not mathematical progress evidence unless the operation map
+changes.
 
 There is no separate backlog. The active tracked cards are the outstanding work set.
 When work is implemented, resolved, rejected, or superseded, move the card out of active
 paths and retire or delete it according to the retired-card policy.
 
-Approved plans and active tracked cards are the concrete continuation surface. During
+Approved plans and active tracked cards are the concrete continuation set. During
 the spec phase, do not replace execution with abstract blocker discussion. Select an
 approved active spec leaf and advance it unless that leaf has a concrete current-phase
 blocker.
@@ -103,8 +105,8 @@ supports it.
 
 Do not mark a card `needs-human-input` merely because clean reviewed work has not been
 human-accepted yet. Parent-plan acceptance, feature approval, or phase transition
-approval is a separate promotion gate; it is not a task-level blocker and must not be
-used as an early-exit condition. If the only question is "approve this reviewed work,"
+approval is a separate promotion prerequisite; it is not a task-level blocker and must
+not be used as an early-exit condition. If the only question is "approve this reviewed work,"
 the card needs agent-owned closure or continued operation-map execution, not human
 input.
 
@@ -112,11 +114,11 @@ If a trivial mathematical fact, obvious category edge, or already sourced owner 
 the user as a decision, treat that as workflow breakage. Inspect why the escalation
 happened: missing owner row, unrecorded subcategory relation, stale migrated status,
 weak review rubric, missing `dependsOn`, or a report that listed paths without the
-source content that controls the conclusion. Patch the workflow artifact so the same
-non-decision is not surfaced again.
+source content that controls the conclusion. Patch the workflow document so the same
+non-decision is not presented again.
 
 Tracker items that touch category specs must carry the project purpose into the local
-work surface. Do not rely on a distant global reminder when the task is likely to see
+task statement. Do not rely on a distant global reminder when the task is likely to see
 Sage failures. Plan, phase, and task bodies should state the applicable ideal-interface
 rule in their acceptance or grounding section:
 
@@ -126,11 +128,11 @@ rule in their acceptance or grounding section:
 - Sage interop is a design constraint where mathematically appropriate;
 - Sage is implementation evidence and a realization witness;
 - Sage inventory helps preserve existing functionality and avoid unimplementable
-  wishlists, but it is not a ceiling on mathematically required spec surfaces;
+  wishlists, but it is not a ceiling on mathematically required category operations;
 - smokes expose gaps between current Sage/refined objects and the ideal spec;
 - a smoke failure is not evidence for deleting, weakening, or moving a spec obligation;
 - an obligation may move only when the replacement owner is source-grounded and the
-replacement path preserves the mathematical surface.
+replacement path preserves the mathematical statement.
 
 Tracker items that touch type checking, method inheritance, constructor collectors, or
 implementation providers must also include a design-direction check. Mathematical
@@ -142,15 +144,15 @@ mathematically aligned. The workflow response is to classify the finding: source
 defect when an owner, codomain, hypothesis, constructor boundary, or named type is
 actually missing; checker-education work when the code already expresses the intended
 category structure and the tool lacks the provider model. The latter must be routed to
-dedicated plugin, generated-stub, static-surface, global-QC, or focused-reproducer work
+dedicated plugin, generated-stub, static-model, global-QC, or focused-reproducer work
 whose acceptance teaches QC to enforce the convention. Do not file these as ignorable
 expected failures, and do not convert them into local casts, trivial re-call wrappers,
-explicit subclassing, or provider-splicing in the mathematical surface. Zero warnings
+explicit subclassing, or provider-splicing in the mathematical category definition. Zero warnings
 is an enforcement target, not permission to distort the codebase into a form the
 checker happens to understand.
 
 Casts are review triggers in tracker work. A single cast may be justified at a true
-untyped interop boundary, validated constructor gate, or documented promotion point,
+untyped interop boundary, validated constructor point, or documented promotion point,
 but non-isolated casts and repeated cast patterns normally indicate QC-silencing or
 code-contortion behavior. Tracker acceptance must force a decision: keep a narrow
 promotion exception with proof obligations, move the type refinement to the downstream
@@ -158,12 +160,12 @@ implementation boundary that actually implements the ABC contract, or create ded
 QC-tooling/static-model work that teaches the checker to enforce inherited-category
 promotion globally.
 
-Constructor admission cards must first identify the construction being performed and
+Constructor definition cards must first identify the construction being performed and
 the category structure that owns it. Do not create constructor-placement reports unless
 two mathematically distinct constructions compete for the same public name or return
 contract. A specific named object may naturally carry several structures: for example,
 a finite field is a field, ring, module, and algebra in different contexts. That alone
-does not create a placement decision. Aggregate surfaces such as `Cat().Constructors()`
+does not create a placement decision. Constructor namespaces such as `Cat().Constructors()`
 can collect canonical user-facing entry points when the mathematical owner is already
 determined.
 
@@ -225,16 +227,16 @@ filter.
 
 Current category-spec theme tags:
 
-- `theme-category-core`: category-object surface, Hom/End/Aut ownership, standard type
-  packages, and foundational vocabulary.
+- `theme-category-core`: category objects, Hom objects, End objects, Aut groups,
+  standard type packages, and foundational vocabulary.
 - `theme-audit-uniformity`: variadic closure, typing uniformity, wrapper cleanup,
   anti-slop checks, import hygiene, and audit cleanup.
-- `theme-constructor-routing`: Sage constructor admission, named constructors,
-  refinement routing, and constructor smoke recovery.
+- `theme-constructor-routing`: Sage constructor definitions, named constructors,
+  refinement declarations, and constructor smoke recovery.
 - `theme-rings-algebras`: rings, fields, algebras, q-adic precision, matrix rings, and
   algebra constructors.
 - `theme-modules-tensors`: modules, tensors, lattices, forms, discriminant groups, and
-  related method surfaces.
+  related methods.
 - `theme-sets-topology`: sets, topological spaces, RealSet, ImageSets, Primes, and
   topology-bearing objects.
 - `theme-posets-partitions`: posets, semilattices, partitions, set partitions, and
@@ -275,7 +277,7 @@ Good candidates for local skills:
 - Auditing category-spec work against the `category-spec-style` skill.
 - Retiring completed cards.
 - Preparing plan decomposition after human plan approval.
-- Spec authoring and subcategory admission workflows.
+- Spec authoring and subcategory-definition procedures.
 - Sage constructor inventory and mapping workflows.
 - Smoke triage workflows.
 - Visual artifact creation for complex system orientation.
@@ -329,8 +331,8 @@ plan metadata aligned with `.nimbalyst/trackers/plan.yaml`.
 
 A plan defines the durable objective, phases, milestones, risks, and validation
 strategy. Executable units belong in dedicated tracked `task` files under plan phases;
-spec surfaces belong in `spec` files, and unresolved ownership or admission choices
-belong in `decision` files.
+category definitions and operations belong in `spec` files, and unresolved definitions
+or owner choices belong in `decision` files.
 
 Do not duplicate one initiative as both a plan and a task. Task files link to the plan;
 they do not replace it.
@@ -340,7 +342,7 @@ they do not replace it.
 Use visual artifacts as windows into complex systems. They crystallize structure that is
 too hard to understand from code, cards, or kanban alone. Their primary purpose is
 orientation: help a human see the shape of a complex codebase, spec tree, plan,
-dependency graph, or audit surface quickly enough to provide high-level organizational
+dependency graph, or audit data quickly enough to provide high-level organizational
 and directional input.
 
 Visuals support plans, task cards, decisions, audits, and reviews; they do not replace
@@ -373,7 +375,7 @@ Use visuals when they answer one of these questions:
 
 - How does this plan break into tasks, bugs, decisions, and audits?
 - Which tasks depend on which decisions or research cards?
-- Which subcategories inherit from which mathematical surfaces?
+- Which subcategories inherit from which category definitions?
 - Where does a Sage constructor route in the project model?
 - What is blocked, validating, accepted, or awaiting human input?
 - Which docs are canonical, superseded, or waiting for migration?
@@ -477,7 +479,7 @@ Use these body sections unless a stricter local template applies:
 
 For category-spec cards that can change mathematical meaning, the `Mathematical
 Grounding` section must record canonical sources consulted, the exact definition being
-specified, owner category or object/morphism surface, hypotheses and choice-dependence,
+specified, owner category or object/morphism, hypotheses and choice-dependence,
 return object/codomain, proof obligations for invariance or equivalence claims, and
 unresolved decisions or source gaps.
 
@@ -519,8 +521,8 @@ The default is to preserve momentum on the assigned task while making the new wo
 durable enough that another agent can recover it.
 
 False global blockers during spec work include downstream research guards, QC failures
-outside a phase transition or requested QC pass, implementation-only validation gates,
-missing backend bridges that can be filed as research/implementation-gap work, and
+outside a phase transition or requested QC pass, implementation-only validation checks,
+missing backend implementations that can be filed as research/implementation-gap work, and
 overscoped cards that can be split or promoted through the approved planning process.
 
 ## Delegation contracts
@@ -577,7 +579,7 @@ During execution:
 
 ## Branch and PR policy
 
-Nimbalyst plans and tracks work. GitHub PRs gate reviewed merges. Use Nimbalyst
+Nimbalyst plans and tracks work. GitHub PRs control reviewed merges. Use Nimbalyst
 worktrees, file-change tracking, visual diffs, and AI-assisted commit drafting to
 prepare clean branches; do not use them to bypass review.
 
@@ -720,7 +722,7 @@ Before merge:
 - Move historical docs to archive paths when they should no longer guide new work.
 - Add `supersededBy` pointers when preserving history.
 - Delete duplicate drafts when they have no archival value.
-- Update root `.agents/plans/` and relevant navigation surfaces.
+- Update root `.agents/plans/` and relevant navigation documents.
 - Update root `AGENTS.md`, subtree `AGENTS.md`, or the relevant category-spec skill if agent
   behavior changed.
 - Update tracker files with final PR and merge metadata.
@@ -752,7 +754,7 @@ Smoke status is not the goal. A smoke run inventories how current Sage implement
 fail to meet the upgraded spec. Passing by weakening a spec, bypassing a constructor,
 catching away an error, or checking a shallow implementation detail is a regression.
 
-Smoke assertions should exercise the mathematical surface directly. Prefer construction
+Smoke assertions should exercise the mathematical claim directly. Prefer construction
 calls such as `C.AutCategory().Of(A)` or `C.Constructors().ZZ()` over proxy checks such
 as `hasattr(C, "AutCategory")`.
 
@@ -769,9 +771,9 @@ Smoke findings and blockers:
 
 - Are recorded as Nimbalyst tracker files, not subtree-local `TRIAGE.md` files.
 - Use `task` files under the relevant plan phase for missing methods, smoke failures,
-  structural blockers, and missing spec surface.
+  structural blockers, and missing category methods or constructors.
 - Use `decision` files under the owning feature's `decisions/` directory for unresolved
-  ownership or admission choices.
+  definitions or owner choices.
 - Cite the source smoke file or mapping/inventory document in the tracker file.
 - Update the tracker file whenever `smoketest.sage` output changes.
 

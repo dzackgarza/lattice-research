@@ -1,6 +1,6 @@
 ---
 name: category-spec-style
-description: Use when editing, reviewing, or authoring category specs, type surfaces,
+description: Use when editing, reviewing, or authoring category specs, type packages,
   Sage wrappers, constructors, method ownership, smoke files, or category-spec implementation
   code.
 ---
@@ -17,22 +17,28 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
 
 ## Use this skill for
 
-- Type signatures, overloads, and variadic Sage surfaces.
+- Type signatures, overloads, and variadic Sage constructors or methods.
 - Standard type packages and `types.py` ownership.
-- Category, object, element, morphism, Hom, End, and Aut surfaces.
-- Constructor admission and named constructor design.
+- Category, object, element, morphism, Hom, End, and Aut objects and method classes.
+- Constructor definitions and named constructor design.
 - Sage wrappers and interop boundaries.
 - Smoke files and compliance checks.
 - Minimal indirection, anti-slop, and mathematical ownership review.
 
 ## Hard reminders
 
+- Every sentence about category-spec work should be expressible as one of: a
+  definition, construction, theorem-shaped assertion, hypothesis, proof obligation,
+  source citation, implementation witness, or implementation gap.
+- For every Sage name, first write the mathematical statement in a standard category
+  under explicit hypotheses; only then mention Sage realization, implementation gaps,
+  tests, or workflow state.
 - The spec defines a Sage-grounded mathematical category/refinement interface inside
   Sage's category/object universe, not an unconstrained ideal API and not a mirror of
   only current Sage coverage.
-- Category membership determines the method surface. `Groups` gives group operations.
+- Category membership determines method obligations. `Groups` gives group operations.
   `FinitelyGeneratedGroups` gives finite-generation structure and a generating-set
-  witness surface. `FinitelyPresentedGroups` gives finite-presentation structure.
+  witness. `FinitelyPresentedGroups` gives finite-presentation structure.
 - Use Sage as implementation evidence and a realization witness: preserve inventoried
   Sage functionality, identify honest refinements, and expose missing implementations
   without weakening mathematically natural objects.
@@ -54,10 +60,10 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
   implementation, wrapper, or missing-witness gap against the spec.
 - A typing fix is a proof obligation, not a way to quiet mypy. Before changing an
   annotation, adding a cast, or narrowing a return, ask whether the change makes the
-  mathematical surface more explicit. If the code already expresses the correct Sage
+  mathematical claim more explicit. If the code already expresses the correct Sage
   category structure and the checker only fails to see dynamic inheritance,
   `category_of`, `_with_axiom`, `refine_category`, or method-container projection,
-  the fix belongs in the static model, plugin, stub, or QC tooling lane, not as a
+  the fix belongs in the static model, plugin, stub, or QC tooling task, not as a
   local cast-only patch.
 - Do not rewrite specs unless the user explicitly requests that exact edit.
 

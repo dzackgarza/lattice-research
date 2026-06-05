@@ -28,7 +28,7 @@ Read `references/workflow.md` before changing workflow state.
 
 - There is no separate backlog; active cards are the outstanding work set.
 - Plans require human + LLM planning and approval before execution.
-- Approved plans plus active cards define the concrete continuation surface.
+- Approved plans plus active cards define the concrete continuation set.
   Do not substitute abstract blocker analysis for selecting and advancing an approved
   active spec leaf.
 - Sage constructor/method inventory and mapping progress is controlled by
@@ -37,7 +37,7 @@ Read `references/workflow.md` before changing workflow state.
   Sage behavior, the mathematical operation under hypotheses, weakest category owner or
   refinement, witnesses required by that structure, codomain/return object, and source
   evidence. Rows without such an assertion are nonmathematical residue or unresolved
-  mathematical questions. Row counts, lane movement, review prose, handoff edits, and
+  mathematical questions. Row counts, row bookkeeping, review prose, handoff edits, and
   broad checkpoints are not completion evidence.
 - Plans, phases, and tasks that touch category specs must put the ideal-interface
   invariant at the local decision point: specs extend Sage's category/object universe,
@@ -53,22 +53,22 @@ Read `references/workflow.md` before changing workflow state.
   provider-splicing when the real issue is that QC tooling lacks the Sage/category
   static model. Create or route a dedicated QC-tooling task that teaches the checker to
   enforce the convention; do not mark the finding as ignorable or silence it in the
-  local code. QC-zero must not be achieved by contorting the mathematical surface into
-  warning-free but conceptually worse code.
+  local code. QC-zero must not be achieved by contorting the mathematical claim into
+  warning-free but conceptually worse category definitions.
 - Casting in category-spec work is a review trigger.
   Non-isolated casts or cast patterns must not be accepted as ordinary hygiene; route a
   decision about whether the spec is doing too much implementation work, whether the
   type obligation belongs at a downstream implementation boundary, or whether QC tooling
   must learn the inherited category-promotion convention.
 - Plans, phases, and tasks that touch category specs must also include a spec-weakening
-  review gate before advancement: inspect staged changes, unstaged changes, and any
-  task-local commits for deleted obligations, narrowed smokes, or moved spec surfaces
+  review before advancement: inspect staged changes, unstaged changes, and any
+  task-local commits for deleted obligations, narrowed smokes, or moved category definitions
   without source-grounded replacement owners.
 - A spec leaf is executable only after definition grounding: it must identify canonical
   mathematical sources, exact definitions, hypotheses, and proof/decision obligations.
   Vague migrated backlog text must be refined before spec editing.
 - A blocker must be tied to the current phase and current leaf.
-  Downstream guards, non-transition QC failures, implementation-only gates, oversized
+  Downstream guards, non-transition QC failures, implementation-only checks, oversized
   cards that can be split, and missing prerequisites that can be carded do not justify
   exiting while approved spec leaves remain.
 - `needs-human-input` is not a parking status for agent uncertainty.
@@ -79,13 +79,13 @@ Read `references/workflow.md` before changing workflow state.
   yes/no on policy-forced routing is not a human decision.
   Route agent-executable work through `needs-agent-review`, `revision-required`, or
   ordinary completion instead.
-- If an obvious mathematical fact or source-forced category edge is surfaced as a human
-  decision, fix the process artifact that let it escalate: missing owner row, missing
+- If an obvious mathematical fact or source-forced category edge is presented as a human
+  decision, fix the process document that let it escalate: missing owner row, missing
   subcategory relationship, stale status, incomplete dependency, or weak review rubric.
 - Constructor placement reports are only needed when two mathematically distinct
   constructions compete for the same public name or return contract. Otherwise the
   mathematical owner is determined by the construction and category structure, and
-  aggregate constructor surfaces can expose canonical entry points.
+  constructor namespaces can expose canonical entry points.
 - Priority and complexity are metadata, not tags.
 - Load `category-spec-priority-rubric` and `category-spec-complexity-rubric` before
   scoring cards.

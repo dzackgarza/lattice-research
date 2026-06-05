@@ -92,7 +92,7 @@
 
 ## Most Recently Completed
 
-- 2026-06-05 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `8e726a1`: docs: separate mathematical frontier from compatibility audit)
+- 2026-06-05 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `3123ea3`: docs: make operation map the spec control object)
 - 2026-06-04 `task` `TASK-FORMED-COKERNEL-DESCENDED-FORM`: Specify formed cokernel with descended form data (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
 - 2026-06-04 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
 - 2026-06-04 `spec` `SPEC-MAPPING-FORMS`: Track forms mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)

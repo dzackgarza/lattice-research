@@ -20,7 +20,7 @@ The controlling rule is categorical: a claimed method follows from the object's 
 category membership, hypotheses, and witness data. The spec does not maintain a second
 computability-tracking layer. An object of `Groups` has the group structure. An object
 of `FinitelyGeneratedGroups` has the finite-generation structure and a generating-set
-witness surface. An object of `FinitelyPresentedGroups` has finite-presentation
+witness. An object of `FinitelyPresentedGroups` has finite-presentation
 structure. An explicitly generated subgroup carries its generators as construction
 data.
 
@@ -28,7 +28,7 @@ The phase must define public vocabulary for the research pipeline: sets, rings,
 modules, free modules, modules with bilinear or quadratic forms, lattices, Hom/End/Aut
 objects, lattice isometry groups such as `O(L)=Aut_Lattices(L)`, embeddings,
 orthogonal complements, discriminant groups/forms, stabilizers, centralizers, orbit
-sets, and related construction surfaces. These objects are in scope when they are
+sets, and related constructions. These objects are in scope when they are
 mathematically canonical and needed by the Coble/K3 argument, even if explicit
 finite-generation, finite-presentation, finiteness, or generated-object refinements
 require additional source evidence.
@@ -45,7 +45,7 @@ The phase invariants are:
   research, including Hom, End, Aut, `O(L)`, discriminant forms, primitive embeddings,
   orthogonal complements, stabilizers, centralizers, and orbit sets, belong in the
   spec at their correct level of structure.
-- Category membership determines the method surface. `Aut(L)` as a lattice
+- Category membership determines method obligations. `Aut(L)` as a lattice
   automorphism group lies first in `Groups`; `gens()` belongs only after `Aut(L)` is
   also placed in `FinitelyGeneratedGroups`, a generated matrix-group category,
   `FinitelyPresentedGroups`, or an explicitly generated-subgroup category.
@@ -69,7 +69,7 @@ stabilizers, and involution eigenspaces. These computations must run through typ
 mathematical interfaces and category-correct obligations, not through raw-matrix
 scripts, false group refinements, or process ledgers.
 
-Process artifacts are routing aids only. They matter when they preserve or advance a
+Process documents are pointers only. They matter when they preserve or advance a
 mathematical object, operation, invariant, morphism, proof obligation, or source-backed
 computation. The success condition for the spec phase is that an implementation agent
 can build the category/spec layer without inventing the mathematics or claiming false
@@ -123,7 +123,7 @@ Every time.
   and operation, then read the canonical reference files named by those skills before
   checkpointing or editing.
   "Nontrivial" includes changes to method ownership, mathematical definitions, type
-  surfaces, inheritance, decorators, constructors, category/Hom/End/Aut structure,
+  packages, inheritance, decorators, constructors, category/Hom/End/Aut structure,
   tests, smokes, specs, mapping docs, tracker state, or agent-facing policy.
   If the relevant skill or reference is not in context, stop and load it; do not patch
   from memory.
@@ -156,9 +156,9 @@ Every time.
   work directly.
 - Do not substitute a nearby task for the user's stated directive.
 - Before accepting, activating, delegating, or resuming a Goalcraft-generated `/goal`,
-  apply the Goalcraft acceptance gate below.
-  Goalcraft form is not enough; a goal with a Sage-surface or process witness is
-  invalid for mathematical/spec work.
+  apply the Goalcraft acceptance test below.
+  Goalcraft form is not enough; a goal with a Sage constructor/method inventory or
+  process witness is invalid for mathematical/spec work.
 - Do not mark parent plans, features, native items, sprint plans, or `GOAL.md` discharge
   accepted, done, or closed without human approval.
   This is not a license to park ordinary reviewed task cards in `needs-human-input`: if
@@ -201,7 +201,7 @@ Every time.
   finding unaddressed.
   If the tool is misconfigured, fix the global config.
   If the code has missing types, add the types.
-  The only acceptable outcomes for a touched-scope or claimed-completion surface are
+  The only acceptable outcomes for touched code or a claimed-complete construction are
   zero findings or a global config change committed to the tool repo.
 - Resist the urge to silence QC or treat it as an obstacle to work around in phase
   transitions. QC findings are signals that something is underspecified, unreferenced, or
@@ -227,7 +227,7 @@ Every time.
   `theory/references/index.md`.
 - Mathematical spec claims require definition grounding before edit.
   Before adding or changing a mathematical definition, method owner, invariant,
-  predicate, equivalence, migration rule, or category surface, identify the canonical
+  predicate, equivalence, migration rule, or category operation, identify the canonical
   repo/source basis: `theory/`, `theory/references/`, `theory/spec_backups/`, Sage
   written docs/source, or an approved decision card.
   Migrated TODO lines, backlog cards, common terminology, and plausible textbook memory
@@ -240,19 +240,19 @@ Every time.
   card or mapping doc that contains the visible object/operation/owner,
   recovery/missing-obligation, or representation-split statement required by
   `mem:category-spec-epistemic-foundation`. "Nontrivial" here means any change to method
-  ownership, category surface, type signature, constructor placement, Hom/End/Aut
+  ownership, category operation, type signature, constructor placement, Hom/End/Aut
   structure, smoke spec, mapping row, or category graph edge.
   The epistemic statement must be visible in the card body, mapping row, or commit
   message — hidden reasoning in the agent session is not sufficient.
 - Do not merge distinct mathematical notions under one name without a recorded proof
   under explicit hypotheses.
-  If two candidate meanings exist, keep separate named surfaces or block on a decision;
-  do not assume they coincide because they do in a familiar special case.
+  If two candidate meanings exist, keep separate named operations or block on a
+  decision; do not assume they coincide because they do in a familiar special case.
 - Mathematical implementation work must prefer wiring mature open-source mathematical
   software over bespoke algorithms.
   Load `research-software-wiring` before writing or delegating mathematical
   implementation code.
-- In `category_specs`, resolve circular imports by separating type surfaces from runtime
+- In `category_specs`, resolve circular imports by separating type names from runtime
   wiring. Mathematical type names and aliases belong in `category_specs/types.py` as the
   single source of truth; annotation-only imports use `TYPE_CHECKING` and import those
   names from `types.py`. Runtime category, subcategory, Hom/End/Aut, and constructor
@@ -263,7 +263,7 @@ Every time.
   The current phase is tracked in `.agents/current-goal-phase.md`; downstream phases are
   blocked until prerequisite vocabulary and specs exist.
 - Human-facing reports, Plannotator plans, and status briefs are forward-facing
-  artifacts. Do not back-explain prior agent failures, include proof-of-work dumps, or
+  documents. Do not back-explain prior agent failures, include proof-of-work dumps, or
   tell the user how to answer; state the current source-grounded classification, the
   consequence, and the next action.
 - QC is phase-transition evidence, not the control loop for spec work.
@@ -274,7 +274,7 @@ Every time.
   See the QC priority rule above for touched-scope vs.
   inherited-failure routing.
 - Blockers are phase-local and path-local unless proven otherwise.
-  A downstream-phase guard, implementation-only gate, QC failure outside a
+  A downstream-phase guard, implementation-only check, QC failure outside a
   transition/integration pass, oversized card, missing vocabulary, or missing backend
   bridge is not a reason to exit the active goal while approved phase-local spec,
   research, decision, or decomposition cards remain.
@@ -286,11 +286,11 @@ Every time.
   for a ready current-phase leaf that cannot proceed because it needs an external
   decision, source, credential, missing theory, or other prerequisite that is not
   currently satisfiable through the DAG.
-- Priority reports must cut the graph at the earliest incomplete dependency frontier.
+- Priority reports must cut the graph at the earliest incomplete dependency layer.
   If `B dependsOn A` and `A` is incomplete, then `B`'s status, partial progress, child
   cards, review state, and apparent readiness are irrelevant for priority.
   Do not rank, discuss, or select work inside `B` until every prerequisite on every
-  incoming dependency path is complete; mention it only as DAG-gated by the incomplete
+  incoming dependency path is complete; mention it only as DAG-blocked by the incomplete
   root.
 - Reserve `needs-human-input` for genuine human judgment that remains after source
   review, mathematical grounding, repo policy, and `dependsOn` have been checked.
@@ -319,11 +319,11 @@ Every time.
   or other repository tooling.
   Carry them forward and report unexpected touched paths.
 
-## Goalcraft acceptance gate
+## Goalcraft Acceptance Test
 
-Apply this gate before accepting, activating, delegating, or resuming a
+Apply this test before accepting, activating, delegating, or resuming a
 Goalcraft-generated `/goal` for long-running work in this repo.
-This is a quality gate on the generated objective, not another worker-progress rule.
+This is a quality test on the generated objective, not another worker-progress rule.
 A generated goal is invalid unless its completion witness is a
 mathematical/research-state witness.
 
@@ -334,8 +334,8 @@ comparison before activation:
 - Draft witness: the facts that would be true if the generated goal were marked
   complete.
 - Acceptance test: the draft witness must entail the request witness without replacing
-  it by a Sage-surface inventory, process state, review state, status note, plan, or
-  compatibility audit.
+  it by a Sage constructor/method inventory, process state, review state, status note,
+  plan, or compatibility audit.
 
 When the failure mode is suspected scope laundering, completion laundering, or dissent
 suppression, the generated goal must not let the worker define, classify, edit, and
@@ -359,7 +359,7 @@ Reject any generated goal that lets the same worker gather the disputed issue li
 decide which issues are real, edit the artifacts that control visibility, and then
 claim completion because no issues remain.
 
-For category-spec work, the completion object is not "all Sage surfaces touching the
+For category-spec work, the completion object is not "all Sage names touching the
 subtree." A valid object is shaped like:
 
 ```text
@@ -378,7 +378,7 @@ Universe U is generated by:
   exported constructors/functions:
   class/provider methods:
   excluded nonmathematical families:
-  queue artifact:
+  queue document:
   residue/subtraction rule:
 ```
 
@@ -394,7 +394,7 @@ Sage method body/examples
 -> mapping/spec row
 ```
 
-Reject any generated goal whose unit of progress is only `row patched`, `surface
+Reject any generated goal whose unit of progress is only `row patched`, `source name
 classified`, `source location found`, `mapping updated`, or `review passed` without a
 mathematical operation statement in ordinary mathematical language.
 
@@ -424,7 +424,7 @@ category/refinement membership, witness data, and source evidence. A file, row
 cluster, package export set, or handoff boundary is invalid unless it is also a
 mathematically coherent operation family.
 
-Completion may be claimed only when the operation-map artifact shows that each relevant
+Completion may be claimed only when the operation map shows that each relevant
 row is one of:
 
 - a source-backed mathematical assertion with operation, hypotheses, weakest owner,
@@ -435,18 +435,18 @@ row is one of:
   membership.
 
 Wrapper compliance, onboarding, handoffs, memories, plans, status labels, review state,
-and proof gates cannot satisfy this witness.
+and proof/review checks cannot satisfy this witness.
 
 Example rejection:
 
 ```text
 Invalid:
 Complete full Sage-sourced inventory of every provider, method, constructor,
-factory, Hom/End/Aut surface, and interop/display/backend surface touching
+factory, Hom object, End object, Aut group, and interop/display/backend method touching
 category_specs/lattices.
 
 Reason:
-The unit is a Sage surface, the scope word "touching" has no finite generator,
+The unit is a Sage name, the scope word "touching" has no finite generator,
 and mathematical vocabulary is not the controlling object.
 ```
 
@@ -465,7 +465,7 @@ map has no unclassified mathematical operation claims.
 
 Reject Goalcraft-generated goals for this repo if they:
 
-- use Sage source surfaces as the primary completion object;
+- use Sage source names as the primary completion object;
 - use `all`, `every`, `full`, `relevant`, `adjacent`, or `touches` without a finite
   generated queue and residue rule;
 - omit the semantic extraction step from Sage behavior to mathematical vocabulary;
@@ -473,7 +473,7 @@ Reject Goalcraft-generated goals for this repo if they:
 - let runtime/display/backend residue become a parallel progress queue;
 - define progress by plans, mappings, status, handoff, or review state rather than
   reduction of unresolved mathematical operation claims;
-- make proof/review gates substitute for establishing the inventory;
+- make proof/review checks substitute for establishing the inventory;
 - in a suspected scope-laundering or dissent-suppression case, let one worker define,
   classify, edit, and close the disputed work set.
 
@@ -485,7 +485,7 @@ Accept Goalcraft-generated goals for this repo only if they:
 - require category/refinement membership, witness data, and source grounding;
 - separate mathematical operations from implementation residue;
 - define one-unit acceptance evidence;
-- preserve completion as artifact truth, not process compliance;
+- preserve completion as operation-map truth, not process compliance;
 - require a read-only obligation inventory first when the remaining work set or
   completion witness is itself disputed.
 
@@ -503,7 +503,7 @@ corresponding `mem:skills/...` entry.
 - `research-orchestration`: delegation contracts, worktrees, self-check, adversarial
   audit, artifact handoff, and acceptance execution.
 - `research-code-style`: contribution policy, mathematical code style, tests,
-  Sage/Pydantic surfaces, constructors, equality, assertions, and implementation
+  Sage/Pydantic objects and methods, constructors, equality, assertions, and implementation
   compliance.
 - `research-software-wiring`: existing-software-first mathematical implementation,
   backend capability routing, bridge-vs-bespoke decisions, and backend-gap research
@@ -512,7 +512,7 @@ corresponding `mem:skills/...` entry.
   Load when work becomes artifact-heavy, engineering-heavy, or unclear in relation to
   mathematical research.
 - `category-spec-style`: mathematical and code/spec compliance for category specs, type
-  surfaces, Sage wrappers, constructors, method ownership, smoke files.
+  packages, Sage wrappers, constructors, method ownership, smoke files.
 - `handling-corrections`: required protocol when the user corrects a mathematical,
   repo-architecture, or task-framing claim.
 - `task`: creation of tracker items under `.agents/plans/`.
@@ -574,14 +574,14 @@ Every new session must:
    Load `research-repo-structure` before startup pruning or cleanup.
    State which `GOAL.md` phase and task will be worked on and why.
    Do not start by reading every file in the repo.
-4. Before category-spec work, review, or source repair, use IWE to surface normal
+4. Before category-spec work, review, or source repair, use IWE to retrieve normal
    governing memories by topic, not by historical session.
    Start from the handoff's named memories, then use `iwe find` for the actual work
    shape: `purpose`, `category specs`, `red flags`, `sanity`, `grounded analysis`,
    `paperwork`, `corrections`, `refinement`, `provider`, `hooks`, or the concrete
    method/category names involved.
    The goal is that repo-purpose, review, artifact-drift, correction, and refinement
-   rules surface during ordinary work; do not rely on remembering any past transcript.
+   rules are visible during ordinary work; do not rely on remembering any past transcript.
 
 ## IWE and memory practice
 
@@ -753,7 +753,7 @@ holding, and phase marker files remain under `.agents/`.
 
 `src.bak/` and `tests.bak/` are a temporary quarantine for stale implementation code and
 implementation tests while phase-one category/spec work is active.
-Do not treat those trees as active first-party surfaces, do not chase lint/type failures
+Do not treat those trees as active first-party code, do not chase lint/type failures
 inside them, and do not reactivate them except during an explicit implementation audit
 or reactivation pass.
 
@@ -767,7 +767,7 @@ standard-claim prose, expected values, or literature-backed justifications.
 
 Trusted shared code is a semantic mathematical base built from explicit nouns with
 methods. If a task cannot be expressed cleanly through the public mathematical
-vocabulary, stop and surface a task-boundary failure instead of adding ad hoc helpers.
+vocabulary, stop and report a task-boundary failure instead of adding ad hoc helpers.
 
 Mathematical algorithms are wired from mature open-source systems first.
 If no preferred wiring is documented, stop implementation and create backend-gap

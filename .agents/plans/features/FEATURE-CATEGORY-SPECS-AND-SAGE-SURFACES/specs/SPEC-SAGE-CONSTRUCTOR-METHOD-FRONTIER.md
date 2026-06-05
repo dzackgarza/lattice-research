@@ -11,7 +11,7 @@ status: in-progress
 priority: critical
 complexity: 75
 requirement: Maintain the source-backed mathematical operation map for category-spec
-  scope. Each admitted row translates Sage behavior into a mathematical operation under
+  scope. Each recorded row translates Sage behavior into a mathematical operation under
   hypotheses, the weakest category or refinement claimed, witness data, return object,
   and source evidence.
 acceptanceCriteria:
@@ -24,7 +24,7 @@ acceptanceCriteria:
   implementation residue or unresolved mathematical questions.
 - Progress claims cite rows whose mathematical assertion was added, corrected, rejected
   as residue, or left as an unresolved mathematical question. Row movement, row counts,
-  lane status, and handoff edits are not progress evidence.
+  bookkeeping labels, and handoff edits are not progress evidence.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
@@ -47,7 +47,7 @@ Sage body/docs/examples
   -> source evidence
 ```
 
-Any set-difference notation, lane count, row status, or compatibility audit is a local
+Any set-difference notation, row status, or compatibility note is a local
 navigation aid only. It is not a second mathematical object and cannot be cited as
 progress by itself.
 
@@ -72,12 +72,13 @@ row introduce the mathematical vocabulary, weakest structure, hypotheses, catego
 membership, refinement membership, and witness requirements.
 
 Compatibility, runtime, display, private, test-helper, package-export, and backend
-plumbing surfaces are not part of the spec unless they change the mathematical
+plumbing methods are not part of the spec unless they change the mathematical
 interface or block construction of a required spec object. Otherwise record a one-line
 residue classification if useful and move on.
 
 Mapping documents, subtree `SAGE_INVENTORY.md` files, task cards, decisions, and
-handoffs remain evidence and routing surfaces. They are not completion evidence unless
+handoffs remain evidence for definitions, implementations, and gaps. They are not
+completion evidence unless
 they change the operation map itself.
 
 ## Scope
@@ -90,15 +91,15 @@ Unknown counts outside that batch are not zero.
 | Active scope | Category-spec mathematical operations, constructors, constructions, and Sage evidence rows for the supporting semantic families below. |
 | Included category families | Sets, topological spaces, rings, ideals through ring/module ownership, algebras, modules, Hom/End/Aut, forms, lattices, tensor algebra components, posets, and geometry-facing source rows when they block the category-spec phase. |
 | Sage source roots included in this map | `sage/modules/free_quadratic_module.py` free-bilinear and field-quadratic factories; `sage/modules/free_quadratic_module_integer_symmetric.py` integral-lattice constructor cluster; `sage/modules/torsion_quadratic_module.py` torsion quadratic constructors; and the local `category_specs/lattices/__init__.py` constructor collector wrapper. |
-| Source roots not yet inspected into this map | Every source root outside the admitted constructor/factory rows in this batch; no non-constructor lattice methods or other category families are populated by this edit. |
+| Source roots not yet inspected into this map | Every source root outside the recorded constructor/factory rows in this batch; no non-constructor lattice methods or other category families are populated by this edit. |
 
-## Semantic Extraction Gate
+## Required Mathematical Statement
 
-Before any Sage source row is admitted into the operation map, the active scope must
-record what the method cluster actually does. A Sage method, constructor, helper,
-display hook, backend route, or package export enters the map only after its behavior
-has been extracted from source body, examples, or written docs deeply enough to state
-the mathematical operation it implements or to classify it as residue.
+Before any Sage method, constructor, class, helper, display hook, backend method, or
+package export is included in the operation map, the active scope must record what the
+source code, examples, or written docs say it does. The row must state the mathematical
+operation it implements, or classify it as implementation residue, out-of-scope
+evidence, or an unresolved mathematical question.
 
 The extraction step controls the row:
 
@@ -121,10 +122,10 @@ subtree in Sage.
 ## Active Lattice Operation Map
 
 The active worker task underneath the current process repair is
-`category_specs/lattices` Sage-surface inventory and mapping completion. Its next
-substantive artifact is a source-backed mathematical operation map, not another
-handoff, memory, review note, local mapping-row patch, Sage-symbol scrape, or a priori
-category primer.
+`category_specs/lattices` Sage constructor and method inventory, followed by
+mathematical mapping. Its next substantive claim is a source-backed mathematical
+operation map, not another handoff, memory, review note, local row edit, Sage-symbol
+scrape, or a priori category primer.
 
 ### Active Lattice Extraction Questions
 
@@ -150,7 +151,7 @@ For each method cluster, record:
 The BinaryQF and FreeModuleMorphism cases are the diagnostic examples for the workflow.
 A compressed Sage row must split when source behavior splits. Evaluation of a binary
 quadratic form at a two-coordinate input, coefficientwise additive operations, Gauss
-composition, and left/right matrix actions are different mathematical surfaces.
+composition, and left/right matrix actions are different mathematical operations.
 Likewise, categorical morphism composition/evaluation, additive or exact Hom behavior,
 finite-free matrix representation, side-dependent matrix conventions, and
 endomorphism-specific spectral algebra cannot be collapsed into one free-module owner
@@ -158,17 +159,19 @@ label.
 
 After semantic extraction, the lattice operation map must cover the relevant Sage
 category providers, constructors/factories, classes reached through those constructors,
-parent and element methods, construction routes, Hom/End/Aut surfaces, and source
-surfaces already admitted by the lattice evidence files. Each row must be one of:
+parent and element methods, construction routes, Hom objects, End objects, Aut groups,
+and source constructors, methods, and classes already recorded by the lattice evidence
+files. Each row must be one of:
 
 - a source-backed mathematical assertion;
 - nonmathematical implementation residue;
 - an unresolved mathematical question;
 - out-of-scope evidence.
 
-The word "touches" is not a scope rule. A Sage surface enters the mathematical operation
-map only when it is a mathematical operation, constructor/construction route,
-codomain-owned construction, or unresolved mathematical question needed by the
+The word "touches" is not a scope rule. A Sage constructor, method, or class enters the
+mathematical operation map only when it is implementation evidence for a mathematical
+operation, constructor/construction route, codomain-owned construction, or unresolved
+mathematical question needed by the
 lattice/category foundation. Package imports, random/test helpers, display hooks,
 backend options, deprecated aliases, and source implementation branches are discarded
 after one-line residue classification unless they change the public mathematical
@@ -178,11 +181,11 @@ interface or block construction of a required object.
 
 Each row must contain these fields. A future implementation may store them as a
 markdown table, CSV, or generated view, but this tracked spec remains the canonical
-location or must point to exactly one replacement artifact.
+location or must point to exactly one replacement document.
 
 | Field | Required meaning |
 | --- | --- |
-| `rowId` | Stable identifier for the Sage surface row. |
+| `rowId` | Stable identifier for the Sage constructor, method, class, or source-evidence row. |
 | `family` | Supporting family such as `sets`, `rings`, `modules`, `lattices`, or `posets`. |
 | `sageSurface` | Constructor, class, parent, element, Hom object, protocol, function, or export spelling. |
 | `sageBehavior` | Summary of the behavior actually observed in the Sage body, examples, or written docs: inputs, outputs, branch cases, side effects, and conventions relevant to classification. |
@@ -198,9 +201,9 @@ location or must point to exactly one replacement artifact.
 
 ## Canonical Operation Rows
 
-The rows currently admitted here are the constructor/factory cluster already visible in
+The rows currently recorded here are the constructor/factory cluster already visible in
 the lattice evidence files: the free bilinear factory route, the field quadratic-space
-wrapper route, the three admitted integral-lattice constructors named by the
+wrapper route, the three integral-lattice constructors named by the
 `constructorNameInventories` lattice collector, and the two torsion quadratic
 constructor routes. This is not a completion claim for non-constructor lattice methods
 or other category families.
@@ -218,7 +221,7 @@ or other category families.
 ## Source Evidence Commits
 
 Every substantive inventory or mapping commit must add or correct a source-backed row
-here or in exactly one replacement structured artifact named by this spec. The commit
+here or in exactly one replacement structured document named by this spec. The commit
 record is provenance for the mathematical assertions, not a second progress ledger.
 
 | Commit | Operation rows added or corrected | Source files used |

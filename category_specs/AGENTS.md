@@ -6,7 +6,8 @@ This file is the mandatory entry point for agents working under `category_specs/
 
 `category_specs` exists to define the mathematically natural category/refinement
 language required by `GOAL.md`: typed objects, constructors, Hom/End/Aut vocabulary,
-modules with forms, lattices, lattice isometry groups, and backend bridges that later
+modules with forms, lattices, lattice isometry groups, and implementations by Sage or
+other exact systems that later
 Coble/K3 work can use without raw-matrix folklore. Its purpose is not to maintain
 method inventories, ledgers, or diagnostic classifications for their own sake, and it
 is not a catalog of every Sage method.
@@ -14,7 +15,7 @@ is not a catalog of every Sage method.
 The spec phase is source-grounded, but Sage coverage does not decide mathematical
 admissibility. Sage inventories decide realization, honest refinement targets, existing
 methods, and implementation gaps. Category membership and witness data decide the
-public mathematical surface.
+public mathematical vocabulary.
 
 The public vocabulary must let later research code construct `R^n` as a free
 `R`-module with the correct module, finite-rank, and basis/witness refinements; define
@@ -58,7 +59,7 @@ Operational invariants:
 - Accept raw matrices only as realizations of maps, forms, embeddings, quotients,
   complements, or orbit problems.
 - Place each operation at the highest mathematically valid owner.
-- Let category membership determine the method surface. `Groups` gives group
+- Let category membership determine method obligations. `Groups` gives group
   operations; `FinitelyGeneratedGroups` gives finite-generation structure.
 - Treat Sage behavior as implementation evidence and compatibility data, not as the
   specification itself.
@@ -93,19 +94,19 @@ Sage behavior
 Category-spec mathematical inventory or mapping progress exists only when that
 operation map changes: a row gains or corrects the mathematical operation, hypotheses,
 owner category or refinement, witness data, codomain/return object, and source
-evidence; or it records that no such assertion exists because the surface is
-nonmathematical residue or an unresolved mathematical question.
+evidence; or it records that no such assertion exists because the Sage constructor,
+method, or class is nonmathematical residue or an unresolved mathematical question.
 
 Compatibility, runtime, display, private, test-helper, package-export, and
-backend-plumbing surfaces are not a parallel progress object. Discard them after a
+backend-plumbing methods are not a parallel progress object. Discard them after a
 one-line residue classification unless they change the mathematical interface or block
 construction of a required spec object.
 
 Do not report progress from row counts, file counts, review prose, current-state
 summaries, handoff edits, broad checkpoints, or mapping-doc edits that do not change
 the operation map. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec rows, cards,
-decisions, and handoffs are evidence and routing surfaces; the operation map is the
-source-backed mathematical object.
+decisions, and handoffs are evidence for definitions, implementations, and gaps; the
+operation map is the source-backed mathematical object.
 
 ## Always-active rules
 
@@ -116,7 +117,8 @@ source-backed mathematical object.
   remain usable by existing Sage code when mathematically appropriate. Inventory and
   mapping preserve existing Sage functionality, identify honest refinements, and expose
   where implementation is weaker than the mathematically natural spec.
-- Spec smokes expose gaps between current Sage/refined objects and the admitted spec.
+- Spec smokes expose gaps between current Sage/refined objects and the stated category
+  obligations.
   A smoke failure asks which mathematical claim failed: false, under-hypothesized,
   unrealized by the implementation, or blocked by a backend/tooling gap. Route the
   answer to the spec, implementation, or backend task; do not treat smoke output as a
@@ -133,10 +135,10 @@ source-backed mathematical object.
   generated bodies, `assert False`, `NotImplementedError`, name-specific logic, or
   refinement-time satisfaction checks.
 - For ABCMeta/refinement work, use the project-owned category/refinement/constructor
-  path, not raw Sage refinement, as the boundary under test. Do not add admission
-  control, instantiate inside refinement, or perform MRO surgery when the intended
-  relation can be expressed by local dynamic-metaclass composition that delegates
-  ordinary behavior to Sage and ABCMeta. If a project abstract requirement has the
+  path, not raw Sage refinement, as the boundary under test. Do not add runtime
+  acceptance checks, instantiate inside refinement, or perform MRO surgery when the
+  intended relation can be expressed by local dynamic-metaclass composition that
+  delegates ordinary behavior to Sage and ABCMeta. If a project abstract requirement has the
   same name as a concrete method already supplied by the Sage parent-class bases, keep
   Sage's MRO as the source of satisfaction; do not let the abstract spec method shadow
   that concrete implementation.
@@ -144,7 +146,7 @@ source-backed mathematical object.
   unstaged diff, and any commits created during the work for spec weakening. Deleted
   abstract methods, removed constructor obligations, narrowed smoke assertions,
   moved obligations without a source-grounded replacement owner, and Sage-gap-driven
-  interface shrinkage fail the gate even if smoke output improves.
+  interface shrinkage fail review even if smoke output improves.
 - Treat spec files, review files, theory notes, TODO files, and durable design artifacts as source material. Do not rewrite, shorten, modernize, or delete them unless the user explicitly asks for that exact edit.
 - Use Nimbalyst tracker files for planning, follow-ups, blockers, decisions, deferred compliance findings, smoke triage, and outstanding work. Do not create ad hoc planning, status, audit, or TODO markdown files when a tracked file is the right durable artifact.
 - Use only standard registered tracker types. Classify category-spec work with tags and `.agents` paths, not custom `x-work` types.
@@ -168,8 +170,8 @@ source-backed mathematical object.
   `mem:category-spec-methods-are-abstract`, and
   `mem:what-category-specs-actually-is`.
   Use `iwe find` with the relevant topic words if the exact memory key is not known.
-- Before editing a spec, mapping, method surface, constructor, Hom/End/Aut rule,
-  invariant, or predicate, perform the definition-grounding gate from
+- Before editing a spec, mapping, method, constructor, Hom/End/Aut rule,
+  invariant, or predicate, perform the definition-grounding prerequisite from
   `category-spec-style`: locate the exact mathematical definition and hypotheses in
   canonical repo theory, Sage written docs/source, references, spec backups, or an
   approved decision card. Vague migrated cards and old TODO bullets are not enough.
@@ -179,35 +181,35 @@ source-backed mathematical object.
   shape recorded in mapping docs maps to a named-parameter category-owned overload or
   spec-layer promotion path. Ungrounded or rejected constructor ideas are absent from
   constructor mappings, provenance, smokes, decisions, and tasks; do not preserve them
-  as "not admitted", "deferred", blocked, or gap records.
+  as "not included in the definition", "deferred", blocked, or gap records.
 - Refinement targets one category: the smallest mathematically correct category for
   the object. Do not pass several categories to `refine_category`; inherited
   membership must come from the category hierarchy, not from manually listing
   ancestors at the call site.
 - Do not use `MorphismMethods` in category specs. Morphism behavior belongs on the
-  relevant Hom-category element surface, e.g. `C.HomCategory().ElementMethods`, not
+  relevant Hom-category element method class, e.g. `C.HomCategory().ElementMethods`, not
   on the object category itself or a nested `MorphismMethods` method-container.
 - For domain-specific terms with multiple plausible meanings, keep the meanings
   separate unless a source-backed proof records exactly when they coincide. Do not
-  write a spec surface by normalizing to the most familiar interpretation of a word.
+  write a category operation by normalizing to the most familiar interpretation of a word.
 
 ## Canonical skills
 
-- Load `category-spec-style` before any task that touches category-spec content or compliance: specs, category surfaces, method surfaces, constructors, morphisms, Hom/End/Aut surfaces, Sage wrappers, type annotations, test files, smoke files, implementations, Sage inventory, or mapping documents.
+- Load `category-spec-style` before any task that touches category-spec content or compliance: specs, category definitions, methods, constructors, morphisms, Hom/End/Aut objects, Sage wrappers, type annotations, test files, smoke files, implementations, Sage inventory, or mapping documents.
 - For nontrivial edits, loading the skill stub is not enough: keep the canonical
   references named by the matching skills in context before editing. Any change to
-  method ownership, inherited method surfaces, `@abstractmethod`/`@override`/`@final`,
+  method ownership, inherited method classes, `@abstractmethod`/`@override`/`@final`,
   type aliases, construction categories, Hom/End/Aut categories, smokes, specs, or
   mapping rows is nontrivial. If the needed reference is not already in context, stop
   and read it before checkpointing or editing.
 - Load `category-spec-subtrees` before editing a specific category subtree or deciding where a method, constructor, Hom/End/Aut rule, or subtree test belongs.
 - Load `category-framework-design` and its relevant references before editing or
   reviewing Hom/End/Aut structure, autsets, construction categories, refinement order,
-  or constructor interception. For Hom/End/Aut surfaces, `homsets-structural-core.md`
+  or constructor interception. For Hom/End/Aut objects, `homsets-structural-core.md`
   is mandatory context.
 - Load `lattice-redesign` and its relevant references before editing forms, formed
   modules, lattices, lattice morphisms, orthogonal groups, discriminant objects, or
-  lattice-backed Hom/End/Aut surfaces. For these edits, `category-abc-spec.md` and
+  lattice-backed Hom/End/Aut objects. For these edits, `category-abc-spec.md` and
   `lattice-interface-style-guide.md` are mandatory context.
 - Load `category-spec-workflow` before any task that touches execution mechanics: tracker item creation or migration, Nimbalyst plans, sprint metadata, tracked work metadata, delegation contracts, subagent instructions, branch/PR policy, smoke triage, validation handoff, stale-document migration, or status changes.
 - Load narrower category-spec skills when their descriptions match the task: audit, planning, retirement, Sage mapping, smoke triage, triage, and visuals.

@@ -39,12 +39,12 @@ Primary work:
   formed modules, lattices, Hom/End/Aut, lattice isometry groups `O(L)`, discriminant
   forms, orthogonal complements, embeddings, typed pullbacks, stabilizers,
   centralizers, and orbit sets.
-- Discover Sage surfaces for each mathematical family under consideration: constructors,
-  categories, parent/element classes, coercions, canonical maps, methods, return types,
-  and documented or runtime-observed limitations.
+- Discover Sage constructors, methods, classes, categories, coercions, canonical maps,
+  return objects, and documented or runtime-observed limitations for each mathematical
+  family under consideration.
 - Translate Sage behavior into category/refinement membership and witness data. An
   object of `Groups` has group structure; an object of `FinitelyGeneratedGroups` has
-  finite-generation structure and a generating-set witness surface; an object of
+  finite-generation structure and a generating-set witness; an object of
   `FinitelyPresentedGroups` has finite-presentation structure; an explicitly generated
   subgroup carries its generators as construction data.
 - Decide category ownership for each operation at the highest mathematically valid
@@ -112,10 +112,10 @@ morphisms, ownership boundaries, category memberships, witness data, hypotheses,
 bridge points, backend evidence, and known gaps are already stated at the
 mathematical level.
 
-## QC gate policy
+## QC policy
 
-QC is a gate for phase transitions and commit-integrated implementation work. It exists
-so quality debt cannot be forgotten indefinitely.
+QC is required for phase transitions and commit-integrated implementation work so
+quality debt cannot be forgotten indefinitely.
 
 QC is not the controlling activity during churn-heavy spec work. Specs undergo human/LLM
 planning, audit, review, and rewrite before settling. During the spec phase, agents
@@ -127,7 +127,7 @@ spec work, record the finding in the appropriate card/TODO/decision only when du
 tracking is needed, then continue another approved active spec leaf.
 
 When a phase transition is proposed, QC becomes mandatory for the affected committed
-implementation surface. Passing QC is evidence for moving between phases; it is not a
+implementation under review. Passing QC is evidence for moving between phases; it is not a
 substitute for mathematical review.
 
 ## Auto-fix policy
