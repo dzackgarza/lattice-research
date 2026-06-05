@@ -6,20 +6,21 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION]]'
-title: Sage surface constructor admission
+title: Category-owned Sage constructor definitions
 status: in-progress
 priority: critical
 owner: Zack
-description: Organize Sage source maps and concrete family specs into a constructor-admission
-  workflow. This branch governs rings, sets, topology-bearing sets, algebras, posets,
-  matrix rings, p-adic precision surfaces, and executable category-spec assertions.
+description: >-
+  Define category-owned constructors from Sage source evidence: the mathematical
+  construction, input hypotheses, codomain object, witness data, and Sage
+  implementation.
 successCriteria:
-- Sage source claims are verified before constructor admission.
-- Constructor cards separate Sage entry point, mathematical owner, and project-facing
-  API.
+- Sage source claims are verified before adding constructor rows.
+- Constructor cards state the mathematical construction, weakest category, Sage entry
+  point, input hypotheses, witnesses, return object, and project-facing name.
 - Existing executable spec files are used as source/validation material, not as planning
   scratchpads.
-- No implementation uses broad variadic option bags as the public project surface.
+- No implementation uses broad variadic option bags as the public project constructor.
 phases:
 - '[[PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES]]'
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
@@ -29,17 +30,21 @@ phases:
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
-# Sage surface constructor admission and concrete category families
+# Category-owned Sage constructor definitions
 
 ## Objective
 
-Organize Sage source maps and concrete family specs into a constructor-admission workflow. This branch governs rings, sets, topology-bearing sets, algebras, posets, matrix rings, p-adic precision surfaces, and executable category-spec assertions.
+Define category-owned constructors from Sage source evidence. Each constructor row must
+state the mathematical construction, input hypotheses, codomain object, witness data,
+Sage implementation, and project-facing name. Historical plan and phase IDs containing
+"surface" or "admission" are tracker addresses only; they are not conceptual
+decompositions.
 
 
 ## Definition Grounding Requirements
 
 This category-core plan coordinates spec work; it does not authorize definitions by
-itself. Each child card must ground any category, axiom, Hom/End/Aut surface,
+itself. Each child card must ground any category, axiom, Hom/End/Aut object,
 constructor, method, predicate, type alias, or mapping decision before spec edits.
 
 Required sources include the relevant `category_specs/*/docs/MAPPING.md`,
@@ -48,31 +53,36 @@ skills, and `theory/references/index.md` when a standard mathematical claim is i
 The card must record exact definition, owner category, hypotheses, codomain/return
 object, and proof obligations for equivalence or Sage translation.
 
-## Source corpus
+## Source Evidence
 
-- `plans/RING_INTEGRATION.md`
-- `plans/SET_SPEC.md`
-- `plans/test_spec.sage`
-- `plans/test_spec2.sage`
-- `plans/test_spec3.sage`
-- Migrated phase cards for rings, sets/topology, algebras, posets, modules, and variadic signature audit.
+Historical root-plan names and `test_spec*.sage` references are provenance only unless
+the relevant constructor behavior is quoted in the migrated bodies below or replaced
+by current Sage docs/source, `category_specs/*/docs/MAPPING.md`,
+`category_specs/*/docs/SAGE_INVENTORY.md`, `theory/`, or `theory/references/`.
 
 ## Workstreams
 
 - Rings and ring constructors: base singletons, quotient rings, finite fields, number fields, p-adics, polynomial/series rings, matrix rings, localizations, completions, and pushout/coercion constructors.
-- Sets and topology: category hierarchy, set constructors, enumerated/facade/topological/metric/complete surfaces, RealSet, ImageSets, Primes, partitions, and posets.
-- Algebra and tensor constructors: multiplication tensors, module-derived algebra surfaces, and object-returning replacements for basis-returning Sage helpers.
+- Sets and topology: category hierarchy, set constructors, enumerated/facade/topological/metric/complete structures, RealSet, ImageSets, Primes, partitions, and posets.
+- Algebra and tensor constructors: multiplication tensors, module-derived algebra constructions, and object-returning replacements for basis-returning Sage helpers.
 - Executable spec corpus: `test_spec*.sage` are mathematical assertion sources, not process notes.
 
 ## Owned existing plans
 
 - `PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES`: set and topological failed category assertions recovery.
-- `PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: ring axiom identity, q-adic precision, and matrix algebra surface split.
-- `PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING`: algebra constructor admission and tensor multiplication routing.
+- `PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: historical phase ID for ring axiom identity, q-adic precision, and matrix algebra construction splits.
+- `PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING`: historical phase ID for algebra constructor definitions and tensor multiplication routing.
 - `PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS`: poset constructor category-obligation example and partition ownership.
 
-Cross-domain signature closure belongs to `PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT` under
-`PLAN-CATEGORY-OBLIGATION-EXAMPLES`.
+Cross-domain signature closure is listed here because constructor definitions expose
+variadic Sage entry points. Treat it as a signature-closure obligation for constructor
+rows, not as a separate plan-taxonomy owner.
+
+## Historical Review Note
+
+The review log and migrated source bodies below preserve provenance and may quote stale
+workflow vocabulary. Route current work from the constructor-definition requirement
+above, not from review-log status or historical plan names.
 
 ## 6-Gate Protocol Review Log
 
@@ -241,11 +251,10 @@ Anti-weakening safeguards in the plan card:
 
 ## Acceptance Criteria
 
-- [ ] Sage source claims are verified before constructor admission.
-- [ ] Constructor cards separate Sage entry point, mathematical owner, and project-facing API.
+- [ ] Sage source claims are verified before adding constructor rows.
+- [ ] Constructor cards state the mathematical construction, weakest category, Sage entry point, input hypotheses, witnesses, return object, and project-facing name.
 - [ ] Existing executable spec files are used as source/validation material, not as planning scratchpads.
-- [ ] No implementation uses broad variadic option bags as the public project surface.
-
+- [ ] No implementation uses broad variadic option bags as the public project constructor.
 
 ## Migrated Source Bodies
 

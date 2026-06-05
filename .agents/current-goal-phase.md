@@ -21,6 +21,13 @@ API detached from realization."
 
 Current phase plan:
 
+The plan paths below are tracker addresses, not mathematical descriptions of the work.
+Several historical IDs still contain terms such as "surface" or "admission"; those
+names must not determine routing. The live object is the source-backed mathematical
+operation map named in `mem:current-goal-handoff`: Sage behavior is read first, then
+translated into an operation under hypotheses, the weakest category/refinement where it
+is defined, required witnesses, codomain or return object, and source evidence.
+
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SPEC-CORE-VERTICAL-SLICE/PLAN-SPEC-CORE-VERTICAL-SLICE.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-PROGRAM/PLAN-CATEGORY-SPEC-PROGRAM.md`
@@ -59,8 +66,9 @@ Primary work:
 - Advance by vertical slices:
   mathematical need -> Sage inventory -> category/refinement claim -> required witness
   or proof obligation -> check/report.
-- Execute the approved spec-core vertical slice: typed obligation/provider/witness
-  reports for `GF(5)^3`, `ZZ^2`, and a missing-obligation claimant.
+- Continue the handoff's concrete source-backed operation-map target, currently the
+  lattice Hom/morphism audit around `FreeModuleHomspace`, `FreeModuleMorphism`, and
+  inherited `MatrixMorphism`.
 - Create and audit category specs extending Sage's category layer.
 - Establish uniform semantic vocabulary for sets, modules, Hom/End/Aut objects, modules
   with forms, lattices, and later scheme/variety interfaces without falsely refining
@@ -69,8 +77,9 @@ Primary work:
 - Research Sage and open-source backend capabilities needed to support those specs.
 - Create plans and cards for implementation gaps discovered during spec work.
 - Preserve mathematical intent in docs that can be reviewed by mathematicians.
-- Treat broad category expansion, global QC cleanup, and broad smoke recovery as
-  non-goals unless they directly change the active slice reports.
+- Treat broad category expansion, global QC cleanup, and broad category-obligation repair as
+  non-goals unless they directly change the current source-backed operation map or
+  correct a false steering claim in an entrypoint.
 
 Blocked by default:
 

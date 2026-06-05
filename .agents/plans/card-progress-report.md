@@ -44,7 +44,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[###############-]  91.2%` | 155/170 | 10 | 0 | 0 | 0 |
+| Category specs and Sage-grounded operations | `[###############-]  91.2%` | 155/170 | 10 | 0 | 0 | 0 |
 | Mypy plugin for Sage category method override checking | `[##############--]  88.9%` | 16/18 | 0 | 1 | 1 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
@@ -59,9 +59,9 @@
 
 ## High-Priority DAG Frontier
 
-- `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
+- `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage-grounded operations (`critical`, `in-progress`)
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
-- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `in-progress`)
+- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut category objects (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
 - `spec` `SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER`: Maintain Sage constructor and method operation map (`critical`, `in-progress`)
 - `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (`critical`, `in-progress`)
@@ -92,21 +92,21 @@
 
 ## Most Recently Completed
 
-- 2026-06-05 `task` `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`: Research category integration for complex varieties (commit `69c1030`: docs: reframe spec docs as mathematical assertions)
-- 2026-06-05 `plan` `PLAN-GEOMETRIC-SOURCE-ADMISSION`: Geometric category source-backed definition research (commit `69c1030`: docs: reframe spec docs as mathematical assertions)
-- 2026-06-05 `spec` `SPEC-HISTORICAL-DISCRIMINANT-GROUP-SURFACE`: Define the discriminant group as a finite torsion formed module (commit `69c1030`: docs: reframe spec docs as mathematical assertions)
-- 2026-06-05 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `3123ea3`: docs: make operation map the spec control object)
-- 2026-06-04 `task` `TASK-FORMED-COKERNEL-DESCENDED-FORM`: Specify formed cokernel with descended form data (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
-- 2026-06-04 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
-- 2026-06-04 `spec` `SPEC-MAPPING-FORMS`: Track forms mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
-- 2026-06-04 `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: Rewrite generic homset ownership for project HomCategory mirroring (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `phase` `PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra surface split (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME`: Fix Rings category base-class identity mismatch in nested axiom refinement (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-01KQN9J3WZDBZ8D0BPGG8AKVXH-IMPLEMENT-MISSING-SYMPY-SURFACE-FOR-REFINED-RING-CONSTRUCTOR-OUTPUTS`: Implement missing _sympy_ surface for refined ring constructor outputs (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-WRAPUP-PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-1777748120565-B5H5VY-RESTORE-BINARY-PRIMITIVES-FOR-MODULE-AND-SET-PRODUCT-CONSTRUCTORS`: Restore binary primitives for module and set product constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-1777748120784-23ROWB-CLEAN-SAGE-OPTION-BAGS-FROM-PUBLIC-RING-CONSTRUCTORS`: Clean Sage option bags from public ring constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-1777748120848-FNU6JV-REPLACE-ASSERTION-NARROWED-POLYNOMIAL-AND-MATRIX-RETURN-TYPES`: Replace assertion-narrowed polynomial and matrix return types (commit `3cc8779`: checkpoint: preserve category spec worktree state)
+- 2026-06-05 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `decision` `DECISION-20260505-PARTITION-ELEMENT-METHOD-SHADOWING`: Decide how partition element methods override Sage list-returning methods (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `decision` `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`: Decide how to handle Sage RealSet inherited Sets.Topological axiom warning (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `task` `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`: Translate external software mappings into method ownership rows (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `task` `TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS`: Build source corpus for literal method ownership inventory (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `task` `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`: Assemble trackable method ownership spec files (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `phase` `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Sprint Cat category-object surface uniformization and constructor aggregation cleanup (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `task` `TASK-1777748120649-EQPN1A-ADD-MISSING-FINAL-MARKERS-AND-RETURN-ANNOTATIONS-ON-CAT-METHODS`: Add missing final markers and return annotations on Cat methods (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `task` `TASK-1777748120881-N0O19F-AUDIT-STANDARD-TYPE-PACKAGE-ALIASES-AFTER-CONCRETE-CAT-MIGRATION`: Audit standard type-package aliases after concrete Cat migration (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `phase` `PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-05 `task` `TASK-01KQN9J3X5APK7MNNH5N1W5XW5-FIX-FORMS-CATEGORY-OBLIGATION-FILE-STALE-BILINEARMODULES-IMPORT-AND-CONFIRM-FORMS-OWNER`: Fix forms category-obligation file stale _BilinearModules import and confirm forms owner identity through compatibility paths (commit `6fdd567`: docs: rename category smokes as obligations)
 
 ## Notes
 

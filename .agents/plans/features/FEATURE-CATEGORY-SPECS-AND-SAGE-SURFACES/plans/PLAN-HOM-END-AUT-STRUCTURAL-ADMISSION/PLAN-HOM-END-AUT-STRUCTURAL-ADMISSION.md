@@ -6,36 +6,44 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
-title: Hom End Aut structural admission
+title: Hom End Aut category objects
 status: in-progress
 priority: critical
 owner: Zack
-description: Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups
-  through the category framework instead of ad hoc group or ConditionSet surfaces.
+description: Define Hom_C(X,Y), End_C(X), dual objects, and Aut_C(X) as category
+  objects with source-backed Sage realizations and representation machinery kept
+  subordinate to those definitions.
 successCriteria:
-- '`Aut(X)` and `End(X)` are category-recognized surfaces, not isolated helper factories.'
-- Automorphism groups have domain/codomain semantics and categorical coercion to End.
-- Public APIs return project-owned aut/subobject surfaces; Sage `ConditionSet` remains
-  an implementation bridge only.
+- '`Hom_C(X,Y)`, `End_C(X)`, and `Aut_C(X) = End_C(X)^\times` are stated as category
+  objects under explicit hypotheses.'
+- Hom objects have domain, codomain, construction, containment, and composition
+  semantics; End and Aut inherit their obligations from category membership.
+- Public APIs return project Hom, End, Aut, or subobject objects; Sage `ConditionSet`
+  remains implementation evidence only.
 phases:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
-# Hom End Aut structural admission
+# Hom End Aut category objects
 
 ## Objective
 
-Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through the category framework instead of ad hoc group or ConditionSet surfaces.
+State the mathematical objects
+`Hom_C(X,Y)`, `End_C(X) = Hom_C(X,X)`, and
+`Aut_C(X) = End_C(X)^\times` first, then record how Sage and project categories
+realize them. Dual objects are Hom objects when the mathematical definition is
+`M^* = Hom_R(M,R)`.
 
 This plan was reopened on 2026-05-10 after a runtime ownership audit during QC
 triage showed that `category_specs.homsets.homsets.HomCategory.parent_class` does
-not currently inherit Sage's concrete `sage.categories.homset.Homset` surface. The
+not currently inherit Sage's concrete `sage.categories.homset.Homset` parent methods. The
 generic Hom/End/Aut mapping spec records those upstream owners as source inventory.
 `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` now carries the
 project-owned semantic-owner split and is human-gated after fresh-context review.
 Remaining runtime MRO proof waits on the Sage import gap; do not treat full-suite mypy
-output as evidence for or against this plan while the plugin lane is active.
+output as evidence for or against these mathematical definitions while the plugin work
+is active.
 
 
 ## Grounded Implementation Contract
@@ -48,25 +56,25 @@ Source anchors for this plan:
 - `category_specs/forms/docs/MAPPING.md`
 - `category_specs/lattices/docs/MAPPING.md`
 
-The structural admission target for this plan is:
+The mathematical target for this plan is:
 
 - `C.HomCategory().Of(A, B)` is `Hom_C(A, B)` with `domain`, `codomain`, construction,
   containment, and composition owned by the hom-category hierarchy.
 - `C.EndCategory().Of(A)` is `End_C(A) = Hom_C(A, A)`; it is the endomorphism monoid
   carried by the same hom-object semantics, with extra algebra structure only where the
-  module mapping admits it.
-- `C.AutCategory().Of(A)` is the invertible part of `End_C(A)`; it is a project-owned
-  aut object whose elements are endomorphisms with `inverse()` and other aut predicates.
-- `AutCategory.from_end_category` may use Sage `ConditionSet` internally, but the public
-  object returned on the category-spec surface is the project aut/subobject object.
-- For formed modules and lattices, `Aut(M, b)` is the orthogonal-group surface because
+  module mapping establishes it.
+- `C.AutCategory().Of(A)` is `Aut_C(A) = End_C(A)^\times`; it is a group object whose
+  elements are invertible endomorphisms in the ambient category.
+- `AutCategory.from_end_category` may use Sage `ConditionSet` internally, but the
+  public return object is the project Aut or subobject object.
+- For formed modules and lattices, `Aut(M, b)` is the orthogonal group because
   form-preserving automorphisms are exactly the invertible endomorphisms in the forms
   category.
 
 Matrix, function, and predicate calculations remain implementation evidence only after
 the categorical Hom/End/Aut parent and element meanings above are fixed.
 
-## Admitted Definitions
+## Reusable Definitions
 
 Hom/End/Aut child cards may use these definitions without re-deriving them:
 
@@ -79,11 +87,11 @@ Hom/End/Aut child cards may use these definitions without re-deriving them:
   `base_space()` are migration conveniences, not new definitions. Source:
   `category_specs/homsets/docs/MAPPING.md`.
 - `C.AutCategory().Of(A)` is the invertible part of `End_C(A)`. The generic aut
-  construction is a project extension over Sage's audited generic homset surface;
-  child work must not duplicate aut construction with raw `ConditionSet` surfaces.
+  construction is a project extension over Sage's audited generic homset behavior;
+  child work must not duplicate aut construction with raw `ConditionSet` objects.
   Source: `category_specs/homsets/docs/MAPPING.md`.
 - For modules, `Hom_R(M,N)` carries `R`-module structure, and `End_R(M)` carries
-  algebra structure where the module mapping doc admits it. For formed modules,
+  algebra structure where the module mapping doc establishes it. For formed modules,
   orthogonal groups are `Aut(M,b)` in the category of modules with forms. Sources:
   `category_specs/modules/docs/MAPPING.md`, `category_specs/forms/docs/MAPPING.md`,
   `category_specs/lattices/docs/MAPPING.md`.
@@ -98,23 +106,32 @@ Hom/End/Aut child cards may use these definitions without re-deriving them:
 
 ## Structural target
 
-- Homsets carry module structure where mathematically valid.
-- Endsets are endomorphism monoids and can specialize to algebra objects.
-- Autsets are invertible endomorphism subsets with group structure.
-- Dual objects are connected to Homsets when `M* = Hom_R(M, R)` is the mathematical meaning.
-- Public category surfaces do not expose raw `ConditionSet` as the final API.
+- Hom objects carry module structure where mathematically valid.
+- End objects are endomorphism monoids and can specialize to algebra objects.
+- Aut objects are groups of invertible endomorphisms in the ambient category.
+- Dual objects are connected to Hom objects when `M* = Hom_R(M, R)` is the mathematical meaning.
+- Public category operations do not expose raw `ConditionSet` as the final API.
 
 ## Owned existing cards
 
 - `spec_01KQN9J3WJE9W76X72DAT10H4Y`: dual-object Hom routing and method ownership.
 - `spec_01KQN9J3WQDJ0Z27BXTY67HA72`: DiscriminantGroup Hom/End/Aut standard names.
-- `task_1777748120385_rrvdig`: remove raw ConditionSet from public Aut-category surface.
+- `task_1777748120385_rrvdig`: remove raw ConditionSet from public Aut-category objects.
 
 ## Acceptance Criteria
 
-- [ ] `Aut(X)` and `End(X)` are category-recognized surfaces, not isolated helper factories.
-- [ ] Automorphism groups have domain/codomain semantics and categorical coercion to End.
-- [ ] Public APIs return project-owned aut/subobject surfaces; Sage `ConditionSet` remains an implementation bridge only.
+- [ ] `Hom_C(X,Y)`, `End_C(X)`, and `Aut_C(X) = End_C(X)^\times` are stated as category objects under explicit hypotheses.
+- [ ] Hom objects have domain, codomain, construction, containment, and composition semantics; End and Aut inherit their obligations from category membership.
+- [ ] Public APIs return project Hom, End, Aut, or subobject objects; Sage `ConditionSet` remains implementation evidence only.
+
+## Historical Source Note
+
+The migrated source bodies and review logs below preserve provenance. They are not
+instructions to start from `Autset` registration, representation methods, or
+`ConditionSet` plumbing.
+For every child task, first write the mathematical statement for `Hom_C(X,Y)`,
+`End_C(X)`, `Aut_C(X)`, or the relevant dual object; only then decide which Sage
+method, category class, or project wrapper realizes that statement.
 
 
 ## Migrated Source Bodies

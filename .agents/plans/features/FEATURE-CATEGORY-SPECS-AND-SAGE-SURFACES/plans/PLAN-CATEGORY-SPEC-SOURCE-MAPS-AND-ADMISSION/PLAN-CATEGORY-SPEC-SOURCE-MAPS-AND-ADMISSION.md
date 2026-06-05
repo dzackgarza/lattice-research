@@ -7,21 +7,22 @@ parents:
 dependsOn:
 - '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
 - '[[PLAN-SPEC-CORE-VERTICAL-SLICE]]'
-title: Category spec source maps and admission
+title: Source-backed mathematical operation maps
 status: complete
 priority: critical
 owner: Zack
-description: Preserve and route the non-lattice root `plans` source maps into an approved
-  research/admission workflow before they drive implementation.
+description: >-
+  Translate historical source notes and Sage evidence into mathematical operation rows:
+  Sage behavior, operation under hypotheses, weakest category/refinement, witnesses,
+  return object, and source evidence.
 successCriteria:
-- The human approves this source-map plan before decomposition.
-- Each source map is classified as canonical reference, research input, phase dependency,
-  or retired provenance.
+- Historical source notes either become source-backed mathematical operation rows or
+  are marked as provenance only.
 - Work that blocks vocabulary or method ownership becomes critical or high-priority
   cards.
 - External/Sage-source claims cite source paths or docs before implementation.
-- Constructor admission cards identify the mathematical owner and the Sage constructor
-  surface separately.
+- Constructor rows identify the mathematical construction, weakest category, input
+  hypotheses, witnesses, return object, and Sage constructor separately.
 - Every `category_specs/*/docs/MAPPING.md` file is represented by a tracked `spec`
   card with completeness and mathematical-correctness review criteria.
 phases:
@@ -29,17 +30,22 @@ phases:
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
-# Category-spec source maps constructor routing and admission research
+# Source-backed mathematical operation maps
 
 ## Objective
 
-Preserve and route the non-lattice root `plans` source maps into an approved research/admission workflow before they drive implementation.
+Translate historical source notes, Sage inventory, and mapping documents into ordinary
+mathematical claims. Each usable row must state a Sage behavior, the mathematical
+operation under hypotheses, the weakest category/refinement where that operation is
+defined, the witnesses required by that category, the codomain or return object, and
+the source evidence. If no such statement is available, the row is provenance only,
+nonmathematical implementation residue, or an unresolved definition/proof question.
 
 
 ## Definition Grounding Requirements
 
 This category-core plan coordinates spec work; it does not authorize definitions by
-itself. Each child card must ground any category, axiom, Hom/End/Aut surface,
+itself. Each child card must ground any category, axiom, Hom/End/Aut object,
 constructor, method, predicate, type alias, or mapping decision before spec edits.
 
 Required sources include the relevant `category_specs/*/docs/MAPPING.md`,
@@ -54,42 +60,40 @@ Several root plan files are source maps or design notes rather than executable i
 
 Reopened 2026-05-10 on the homset-mirroring path. The current follow-up is no
 longer "repair generic Sage homset inheritance"; it is a renewed mapping audit
-for every subtree with a `homsets.py` surface so Sage homset/container methods
+for every subtree with a `homsets.py` implementation so Sage homset/container methods
 kept by the project are explicitly mirrored on the corresponding project Hom
 specs.
 
 The reopened per-subtree homset mirroring audits are currently human-gated after
 source-backed review. The only child leaf left unstarted in that reopened branch is
 the finite-Posets automorphism source-grounding card, which waits on human approval of
-the Posets audit before it becomes an executable DAG frontier item.
+the Posets audit before it becomes an executable DAG leaf.
 
 ## Source Provenance
 
-- `plans/CATEGORY_REFINEMENT_PHASES.md`
-- `plans/RING_INTEGRATION.md`
-- `plans/SET_SPEC.md`
-- `plans/autset_categories_path.md`
-- `plans/autset_integration_plan.md`
-- `plans/axioms_with_generators_finitely_presented.md`
-- `plans/category_creation_notes.md`
-- `plans/homsets_structural_core.md`
+Historical root-plan names are provenance only. They are not definition authority
+unless their content is quoted in a current card or replaced by Sage docs/source,
+`category_specs/*/docs/MAPPING.md`, `category_specs/*/docs/SAGE_INVENTORY.md`,
+`theory/`, or `theory/references/`.
 
 ## Scope
 
-This plan owns research and admission around:
+This plan owns operation-map work around:
 
-- Static category hierarchy and method-surface phases.
+- Static category hierarchy and method placement.
 - Ring construction entry points and constructor routing.
-- Set category hierarchy and concrete set implementation surfaces.
-- Autset admission as an axiom/refinement below Endsets.
+- Set category hierarchy and concrete set implementation evidence.
+- Aut objects as groups of invertible endomorphisms below End objects.
 - WithGenerators, FinitelyPresented, Dedekind/PID module axioms, and structural patterns.
 - Category creation and `_refine_category_` mechanics.
-- Homsets as the structural core for modules, duals, endsets, and autsets.
+- Hom objects as the structural core for modules, duals, End objects, and Aut objects.
 
 ## Subplans
 
-- `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: Sage surface constructor admission and concrete category families.
-- `PLAN-GEOMETRIC-SOURCE-ADMISSION` (under `FEATURE-GEOMETRY-CATEGORY-INTERFACES`): geometric category source admission research.
+- `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: historical tracker address for
+  category-owned Sage constructor definitions.
+- `PLAN-GEOMETRIC-SOURCE-ADMISSION` (under `FEATURE-GEOMETRY-CATEGORY-INTERFACES`):
+  historical tracker address for source-backed geometry definitions.
 
 ## Non-goals
 
@@ -99,22 +103,29 @@ This plan owns research and admission around:
 
 ## Acceptance Criteria
 
-- [ ] The human approves this source-map plan before decomposition.
-- [ ] Each source map is classified as canonical reference, research input, phase dependency, or retired provenance.
+- [ ] Historical source notes either become source-backed mathematical operation rows or are marked as provenance only.
 - [ ] Work that blocks vocabulary or method ownership becomes critical or high-priority cards.
 - [ ] External/Sage-source claims cite source paths or docs before implementation.
-- [ ] Constructor admission cards identify the mathematical owner and the Sage constructor surface separately.
+- [ ] Constructor rows identify the mathematical construction, weakest category, input hypotheses, witnesses, return object, and Sage constructor separately.
 - [ ] Every `category_specs/*/docs/MAPPING.md` file has a tracked spec card and a
       mathematical review path for completeness, well-typedness, and coherent
       highest-category method placement.
 
 ## Decomposition Boundary
 
-After approval, split into research cards for source-map verification and decision cards for unresolved ownership or admission choices. Only create implementation cards after the relevant vocabulary and ownership are fixed.
+After approval, split into research cards for source verification and decision cards
+for unresolved definitions, hypotheses, witnesses, or weakest-category choices. Only
+create implementation cards after the relevant vocabulary and ownership are fixed.
 
 ## Visual Window
 
 See `.agents/visuals/category-spec-plan-hierarchy.mmd` for the current plan hierarchy and dependency sketch.
+
+## Historical Review Note
+
+The review log below preserves provenance and may quote stale workflow vocabulary.
+Route current work from the operation-row requirement above, not from review-log status
+or historical source-map labels.
 
 ## 6-Gate Protocol Review Log
 
