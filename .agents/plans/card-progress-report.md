@@ -92,6 +92,7 @@
 
 ## Most Recently Completed
 
+- 2026-06-05 `spec` `SPEC-MAPPING-MODULES`: Track modules mapping spec (commit `40e2f2f`: feat: expose rank-one module isomorphism witnesses)
 - 2026-06-05 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `6fdd567`: docs: rename category smokes as obligations)
@@ -106,7 +107,6 @@
 - 2026-06-05 `task` `TASK-1777748120649-EQPN1A-ADD-MISSING-FINAL-MARKERS-AND-RETURN-ANNOTATIONS-ON-CAT-METHODS`: Add missing final markers and return annotations on Cat methods (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `task` `TASK-1777748120881-N0O19F-AUDIT-STANDARD-TYPE-PACKAGE-ALIASES-AFTER-CONCRETE-CAT-MIGRATION`: Audit standard type-package aliases after concrete Cat migration (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `phase` `PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `task` `TASK-01KQN9J3X5APK7MNNH5N1W5XW5-FIX-FORMS-CATEGORY-OBLIGATION-FILE-STALE-BILINEARMODULES-IMPORT-AND-CONFIRM-FORMS-OWNER`: Fix forms category-obligation file stale _BilinearModules import and confirm forms owner identity through compatibility paths (commit `6fdd567`: docs: rename category smokes as obligations)
 
 ## Notes
 
