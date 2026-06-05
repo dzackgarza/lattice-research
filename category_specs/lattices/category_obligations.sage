@@ -9,7 +9,7 @@ if str(ROOT) not in sys.path:
 
 from category_specs.cat import Cat
 from category_specs.lattices import Lattices, LatticesCategory
-from category_specs.lattices.homsets import LatticeEndCategory, LatticeHomCategory
+from category_specs.lattices.homsets import LatticeAutCategory, LatticeEndCategory, LatticeHomCategory
 from category_specs.lattices.subcategories.constructions.discriminant_form_actions import (
     discriminant_form_orbit,
     discriminant_form_stabilizer,
@@ -131,6 +131,20 @@ CATEGORY_STATEMENTS = (
     ("Lattices(ZZ).EndCategory() is an object of Cat()", lambda _: LZZ.EndCategory() in C),
     ("Lattices(ZZ).AutCategory() is an object of Cat()", lambda _: LZZ.AutCategory() in C),
     ("Lattices(ZZ).AutCategory() is a group category", lambda _: LZZ.AutCategory().is_subcategory(Groups())),
+    (
+        "lattice Aut objects own discriminant-action Hom and image/kernel subgroups",
+        lambda _: abstract_method_has_name(
+            LatticeAutCategory.ParentMethods.discriminant_action, "discriminant_action"
+        )
+        and abstract_method_has_name(
+            LatticeAutCategory.ParentMethods.image_in_discriminant_orthogonal_group,
+            "image_in_discriminant_orthogonal_group",
+        )
+        and abstract_method_has_name(
+            LatticeAutCategory.ParentMethods.kernel_of_discriminant_action,
+            "kernel_of_discriminant_action",
+        ),
+    ),
     ("Lattices(ZZ).Subobjects() is an object of Cat()", lambda _: LZZ.Subobjects() in C),
     ("Lattices(ZZ).DualObjects() is an object of Cat()", lambda _: LZZ.DualObjects() in C),
     (

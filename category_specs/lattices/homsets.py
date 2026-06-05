@@ -26,7 +26,7 @@ from ..homsets import (
 
 if TYPE_CHECKING:
     from ...cat import Category
-    from ..types import Lattice, LatticeOrthogonalGroup
+    from ..types import Lattice, LatticeOrthogonalGroup, Morphism
 
 
 class _LatticeHomCategoryObjectMethods(UniversalHomObjectMethods):
@@ -96,6 +96,21 @@ class LatticeAutCategory(GenericAutCategory):
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 
     class ParentMethods:
+        @abstractmethod
+        def discriminant_action(self) -> Morphism:
+            r"""Return the action homomorphism ``O(L) -> O(A_L, q_L)``."""
+            ...
+
+        @abstractmethod
+        def image_in_discriminant_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return the image subgroup of ``O(A_L, q_L)``."""
+            ...
+
+        @abstractmethod
+        def kernel_of_discriminant_action(self) -> LatticeOrthogonalGroup:
+            r"""Return the stable subgroup acting trivially on ``A_L``."""
+            ...
+
         @abstractmethod
         def special_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return the determinant-one subgroup of this lattice orthogonal group."""
