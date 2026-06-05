@@ -31,6 +31,32 @@ Stab(h_Co or tilde h_Co) ∩ Z(theta)
 is a mathematical object only after the ambient lattice, stabilized class, involution,
 restriction to $T_{\mathrm{Co}}$, and discriminant-form image are specified.
 
+The Coble-side meaning of this expression is now fixed once the primitive embedding
+$S_{\mathrm{Co}}\subset\Lambda_{\mathrm{K3}}$ is fixed.  Let
+$T_{\mathrm{Co}}=S_{\mathrm{Co}}^\perp$ and let
+
+```text
+gamma_Co : A_{S_Co} -> A_{T_Co}
+```
+
+be the Nikulin gluing anti-isometry.  Since the discriminant groups are
+2-elementary, the sign map `-id` on `S_Co` and `id` on `T_Co` extends over the gluing
+to a lattice involution `theta_Co`.  The restriction of the subgroup
+`Stab(tilde h_Co) ∩ Z(theta_Co)` to `T_Co` is therefore
+
+```text
+{ g_T in O(T_Co) |
+  exists g_S in O(S_Co) with
+  g_S(tilde h_Co)=tilde h_Co and
+  bar(g_T) gamma_Co = gamma_Co bar(g_S) }.
+```
+
+This is the Coble-side gluing-compatible stabilizer.  It is analogous to the AEGS
+description of `Gamma_En,2`, but it is identified with
+`Gamma_Co^En(delta)` only after an explicit isometry carries the Coble primitive
+embedding, polarization condition, and gluing anti-isometry to the Enriques Heegner
+complement data.
+
 A source-backed Enriques-side candidate is now available.  For a $(-2)$ Heegner vector
 $\delta\in T_{\mathrm{En}}$ with $\delta^\perp\simeq T_{\mathrm{Co}}$, AEGS define the
 degree-2 Enriques arithmetic group
@@ -158,6 +184,8 @@ lattice.
 
 - Represent $T_{\mathrm{En}}$, $h_{\mathrm{Co}}$, and $\theta$ through the repo's lattice
   and morphism vocabulary.
+- Represent the Coble-side subgroup as gluing-compatible pairs
+  `(g_S,g_T) in O(S_Co) x O(T_Co)` with `g_S(tilde h_Co)=tilde h_Co`.
 - Specify whether the stabilized class is downstairs $h_{\mathrm{Co}}$, the K3-side
   pullback $\tilde h_{\mathrm{Co}}$, or a transported Enriques-side class.
 - Use the explicit Heegner vector $\delta=u-v$ in the unimodular $U$ summand of
@@ -180,8 +208,15 @@ lattice.
 - Use the induced finite image on $A_{T_{\mathrm{Co}}}$ with isotropic-class orbit
   lengths `[1, 2, 120, 135, 270]` when formulating subgroup cusp questions for this
   Enriques-side Heegner complement.
-- Construct the stabilizer of $h_{\mathrm{Co}}$ in $O(T_{\mathrm{En}})$.
-- Construct the centralizer of $\theta$ in $O(T_{\mathrm{En}})$.
+- Construct the stabilizer of $\tilde h_{\mathrm{Co}}$ in $O(S_{\mathrm{Co}})$, or of
+  the transported polarization class in the corresponding Enriques-side algebraic
+  lattice.
+- Construct the centralizer of $\theta_{\mathrm{Co}}$ in $O(\Lambda_{\mathrm{K3}})$ and
+  its restriction to $O(T_{\mathrm{Co}})$.
+- Compare the Coble-side gluing-compatible stabilizer with
+  $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ by constructing the isometry from
+  $T_{\mathrm{Co}}$ to $\delta^\perp$ and the corresponding transported polarization
+  condition.
 - Compute the intersection defining $\Gamma_{\mathrm{Co}}$ only after the preceding
   objects are typed in one ambient lattice.
 - Construct the restriction of the subgroup to $T_{\mathrm{Co}}$, if it is meant to act
@@ -198,8 +233,9 @@ lattice.
 
 ## Acceptance Criteria
 
-- [ ] $T_{\mathrm{En}}$, $h_{\mathrm{Co}}$, and $\theta$ are constructed from sourced
-  lattice data.
+- [ ] $S_{\mathrm{Co}}$, $T_{\mathrm{Co}}$, $\tilde h_{\mathrm{Co}}$,
+  $\gamma_{\mathrm{Co}}$, and $\theta_{\mathrm{Co}}$ are constructed from sourced
+  lattice data in one primitive K3-lattice embedding.
 - [ ] The source-backed subgroup
   $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)
   =\operatorname{im}(\operatorname{Stab}_{\Gamma_{\mathrm{En},2}}(\mathbf Z\delta)\to
@@ -207,12 +243,15 @@ lattice.
   $\delta^\perp\simeq T_{\mathrm{Co}}$.
 - [x] The $\Gamma_{\mathrm{En},2}$-orbit of the chosen Heegner line is sourced or
   computed; the full $\Gamma_{\mathrm{En}}$-orbit statement is not used as a substitute.
-- [ ] The ambient lattice, Heegner vector, stabilized class, and involution are all
-  stated as objects in the same lattice category.
+- [ ] The Coble-side subgroup is stated as gluing-compatible pairs
+  `(g_S,g_T) in O(S_Co) x O(T_Co)` with the chosen polarization condition on `g_S`.
+- [ ] The comparison with $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ states the
+  isometry $T_{\mathrm{Co}}\simeq\delta^\perp$, the transported polarization condition,
+  and the compatibility of the two gluing anti-isometries.
 - [ ] The restriction of the subgroup to $T_{\mathrm{Co}}$ and its image in
   $O(A_{T_{\mathrm{Co}}},q_T)$ are constructed when the group is used for cusp orbits.
-- [ ] The stabilizer and centralizer are computed by exact group methods or a
-  source-backed backend.
+- [ ] The S-side stabilizer and Lambda_K3 centralizer are computed by exact group
+  methods or a source-backed backend.
 - [ ] The intersection subgroup is computed as $\Gamma_{\mathrm{Co}}$ with explicit
   membership checks.
 - [ ] The claimed generators are verified to generate the same subgroup, not merely to

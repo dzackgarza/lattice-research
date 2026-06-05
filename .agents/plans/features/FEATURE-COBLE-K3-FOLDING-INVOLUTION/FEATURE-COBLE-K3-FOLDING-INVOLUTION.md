@@ -21,6 +21,32 @@ Construct the horizontal folding involution $\theta$ on $\Lambda_{\mathrm{K3}}$ 
 verify its eigenspace lattices. The feature replaces the old unverified glued-lattice
 script obligation with a source-backed lattice construction.
 
+The source-level construction is now fixed at the mathematical level.  For the
+primitive embedding
+
+```text
+S_Co = f^*Pic(S) <= Lambda_K3,
+T_Co = S_Co^perp,
+```
+
+Nikulin primitive-unimodular gluing gives an anti-isometry
+
+```text
+gamma_Co : A_{S_Co} -> A_{T_Co},      q_T gamma_Co = -q_S.
+```
+
+Since both Coble discriminant groups are 2-elementary, the sign map `-id` on `S_Co`
+and `id` on `T_Co` preserve the gluing graph.  Therefore the involution is the lattice
+automorphism
+
+```text
+theta_Co|S_Co = -id,
+theta_Co|T_Co = id.
+```
+
+The matrix is a realization of this automorphism after choosing a primitive embedding
+and basis; it is not the definition of the involution.
+
 ## Source Provenance
 
 - `theory/foundations/coble-task-background.md`, section `Task 5.1: Involution theta on
@@ -32,8 +58,11 @@ script obligation with a source-backed lattice construction.
 
 - Construct the primitive sublattice and orthogonal complement inside
   $\Lambda_{\mathrm{K3}}$.
-- Construct the sign involution acting by $+1$ and $-1$ on the appropriate summands,
-  including gluing constraints.
+- Construct the gluing anti-isometry
+  $\gamma_{\mathrm{Co}}:A_{S_{\mathrm{Co}}}\to A_{T_{\mathrm{Co}}}$ and verify that the
+  sign action preserves its graph.
+- Construct the sign involution acting by `-id` on $S_{\mathrm{Co}}$ and `id` on
+  $T_{\mathrm{Co}}$.
 - Express $\theta$ as a K3-lattice isometry.
 - Verify $\theta^2=I$ and $\theta^T G\theta=G$ in the chosen presentation.
 - Compute and verify the $+1$ and $-1$ eigenspace lattices, signatures, primitive
@@ -49,9 +78,9 @@ theory for θ can be carried out without the geometric Coble surface constructio
 - The primitive embedding of the pullback lattice f*Pic(S) into Λ_K3 is a
   classification problem in lattice theory (Nikulin's primitive embedding theory),
   solvable from the abstract isometry types.
-- θ is then the involution that restricts to +1 on f*Pic(S) and -1 on its
-  orthogonal complement. The existence and uniqueness of such an involution is
-  a purely lattice-theoretic question given the embedding data.
+- θ is then the involution that restricts to `-id` on `f*Pic(S)=S_Co` and `id` on
+  `T_Co=S_Co^perp`.  The existence of this involution follows from the
+  primitive-unimodular gluing data because the discriminant groups are 2-elementary.
 - The geometric construction (Coble surface → K3 cover → pullback lattice) is a
   logical prerequisite for establishing the Coble narrative from first principles
   and proving that the resulting moduli spaces are the correct ones. It does not
@@ -75,6 +104,10 @@ theory for θ can be carried out without the geometric Coble surface constructio
 ## Acceptance Criteria
 
 - [ ] The input primitive embedding and complement are source-grounded.
+- [ ] The gluing anti-isometry
+  $\gamma_{\mathrm{Co}}:A_{S_{\mathrm{Co}}}\to A_{T_{\mathrm{Co}}}$ is constructed.
+- [ ] The sign action on $S_{\mathrm{Co}}\oplus T_{\mathrm{Co}}$ is verified to preserve
+  the gluing graph.
 - [ ] The involution is constructed as a lattice isometry, not postulated as a matrix.
 - [ ] The matrix realization satisfies the involution and isometry equations.
 - [ ] The eigenspace lattices are computed from $\theta$.

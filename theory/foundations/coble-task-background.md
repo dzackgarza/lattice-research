@@ -378,6 +378,45 @@ available for a primitive-isotropic orbit theorem.  The full-group statement
 $\operatorname{PrimIso}(T_{\mathrm{Co}})/O(T_{\mathrm{Co}})$ is a singleton does not
 imply the corresponding statement for this smaller subgroup.
 
+The Coble-side stabilizer-centralizer expression has the following source-level
+lattice meaning once the primitive embedding
+$S_{\mathrm{Co}}\subset\Lambda_{\mathrm{K3}}$ and complement
+$T_{\mathrm{Co}}=S_{\mathrm{Co}}^\perp$ are fixed.  Nikulin primitive-unimodular
+gluing gives an anti-isometry
+
+```text
+gamma_Co : A_{S_Co} -> A_{T_Co},      q_{T_Co} gamma_Co = -q_{S_Co}.
+```
+
+Because both discriminant groups are 2-elementary, the sign map `-id` on
+$S_{\mathrm{Co}}$ and `id` on $T_{\mathrm{Co}}$ preserve the gluing graph.  Hence they
+extend to a lattice involution
+
+```text
+theta_Co in O(Lambda_K3),
+theta_Co|S_Co = -id,
+theta_Co|T_Co = id.
+```
+
+Its eigenspaces are exactly $S_{\mathrm{Co}}$ and $T_{\mathrm{Co}}$ in the primitive
+embedding.  An isometry of $\Lambda_{\mathrm{K3}}$ commutes with $\theta_{\mathrm{Co}}$
+exactly when it preserves these eigenspace lattices.  Therefore the restriction of the
+centralizer-stabilizer subgroup to $T_{\mathrm{Co}}$ is the set of all $g_T\in
+O(T_{\mathrm{Co}})$ for which there exists $g_S\in O(S_{\mathrm{Co}})$ satisfying the
+chosen polarization condition, for example
+
+```text
+g_S(tilde h_Co) = tilde h_Co,
+bar(g_T) gamma_Co = gamma_Co bar(g_S).
+```
+
+This is the Coble-side analogue of the AEGS discriminant-gluing description of
+$\Gamma_{\mathrm{En},2}$.  It is a mathematical subgroup definition, not a generator
+algorithm.  Identifying it with
+$\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ still requires a source-backed isometry
+between the Coble primitive embedding and the Enriques Heegner complement that carries
+the Coble-side polarization condition to the AEGS class $h=e+f$.
+
 The current source-backed replacement for a completely unspecified smaller group is
 $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ above.  The remaining mathematical
 obligations are:
@@ -472,6 +511,23 @@ Literature: AEGS (2023, Section 3), Nikulin (1979, 1980), Bourbaki (Lie Groups, 
 **Nikulin's framework (Section 1.5).** For a primitive embedding S -> Lambda with Lambda
 unimodular, the orthogonal complement T = S^perp satisfies Lambda = S + T and there
 exists a sign involution acting by -I on S and +I on T.
+
+For the Coble primitive embedding, take $S=S_{\mathrm{Co}}$ and
+$T=T_{\mathrm{Co}}$.  Nikulin's primitive-unimodular gluing realizes
+$\Lambda_{\mathrm{K3}}$ from the graph of an anti-isometry
+$\gamma_{\mathrm{Co}}:A_{S_{\mathrm{Co}}}\to A_{T_{\mathrm{Co}}}$.  Since both
+discriminant groups are 2-elementary, the actions of `-id` on $A_{S_{\mathrm{Co}}}$
+and `id` on $A_{T_{\mathrm{Co}}}$ agree on this graph.  Thus the sign involution is
+well-defined as a lattice isometry before any 22-by-22 matrix is written:
+
+```text
+theta_Co|S_Co = -id,
+theta_Co|T_Co = id.
+```
+
+The remaining implementation work is to construct the chosen primitive embedding and
+gluing anti-isometry explicitly, then extract a matrix realization of this already
+defined lattice automorphism.
 
 Tracker: `FEATURE-COBLE-K3-FOLDING-INVOLUTION`.
 

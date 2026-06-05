@@ -74,11 +74,24 @@ gives `O(T_En)->O(A_TEn)` surjective.  Combined with the AEGS/Namikawa full
 `O(T_En)` `(-2)`-root orbit and the computed singleton finite double-coset split, this
 gives one `Gamma_En,2`-orbit of `(-2)` Heegner lines represented by `Z delta`.
 
-Next mathematical obligation: compare the Enriques-side subgroup
-`Gamma_Co^En(delta)=im(Stab_{Gamma_En,2}(Z delta)->O(delta^perp))` with the project
-stabilizer-centralizer notation `Stab(typed Coble polarization data) ∩ Z(theta)`.
-This requires constructing `theta`, the transported polarization class, and the
-ambient-lattice restriction maps in one lattice category.
+The Coble-side stabilizer-centralizer notation now has a source-level lattice meaning.
+For a primitive embedding `S_Co <= Lambda_K3` with `T_Co=S_Co^perp`, Nikulin gluing gives
+`gamma_Co:A_SCo -> A_TCo`.  Since the discriminant groups are 2-elementary, `-id` on
+`S_Co` and `id` on `T_Co` preserve the gluing graph and define
+`theta_Co in O(Lambda_K3)`.  The restriction of
+`Stab(tilde h_Co) ∩ Z(theta_Co)` to `T_Co` is:
+
+```text
+{ g_T in O(T_Co) |
+  exists g_S in O(S_Co) with
+  g_S(tilde h_Co)=tilde h_Co and
+  bar(g_T) gamma_Co = gamma_Co bar(g_S) }.
+```
+
+Next mathematical obligation: compare this Coble-side gluing-compatible stabilizer with
+`Gamma_Co^En(delta)=im(Stab_{Gamma_En,2}(Z delta)->O(delta^perp))`.  This requires a
+source-backed isometry `T_Co ~= delta^perp`, the transported polarization condition,
+and compatibility of `gamma_Co` with the AEGS gluing anti-isometry.
 
 Do not use the five AEGS 0-cusps as the answer to the Heegner-line question.  AEGS
 Corollary 3.12 concerns `Gamma_En,2`-orbits of primitive isotropic lines in `T_En`; the
