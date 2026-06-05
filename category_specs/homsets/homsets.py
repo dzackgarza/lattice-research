@@ -97,6 +97,11 @@ class UniversalHomElementMethods:
         r"""Return whether this morphism and ``other`` agree extensionally."""
         ...
 
+    @final
+    def is_equal_function(self, other: Morphism) -> bool:
+        r"""Sage-compatible spelling of extensional equality."""
+        return self.equals_as_function(other)
+
     @abstractmethod
     def is_invertible(self) -> bool:
         r"""Return whether this morphism has a two-sided inverse."""

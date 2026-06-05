@@ -114,7 +114,8 @@ CATEGORY_OBJECT_EXAMPLES = (
     ("generic Hom object rejects unequal-domain endomorphism sets", lambda _: not _HomObjectWitness(S, R).is_endomorphism_set()),
     (
         "generic Hom element owns extensional equality predicate",
-        lambda _: UniversalHomElementMethods.equals_as_function.__name__ == "equals_as_function",
+        lambda _: UniversalHomElementMethods.equals_as_function.__name__ == "equals_as_function"
+        and UniversalHomElementMethods.is_equal_function.__name__ == "is_equal_function",
     ),
     ("generic End object reports an endomorphism set", lambda _: _EndObjectWitness().is_endomorphism_set()),
     (
