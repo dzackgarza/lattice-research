@@ -390,6 +390,11 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.to_matrix, "to_matrix"),
     ),
     (
+        "ordered-basis module Hom owns matrix-unit basis witnesses",
+        lambda _: abstract_method_has_name(_WithOrderedBasis.HomCategory.ParentMethods.basis, "basis")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ParentMethods.basis_matrix_units, "basis_matrix_units"),
+    ),
+    (
         "refine_category(C.quotient_module(CS), Quotients()+WithBasis()) has a basis",
         lambda _: refine_for_membership(CQ, MQQCat.WithBasis().Quotients()) in MQQCat.WithBasis().Quotients(),
     ),

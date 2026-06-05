@@ -228,6 +228,16 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstractmethod
+            def basis(self) -> ModuleBasis:
+                r"""Return the matrix-unit basis of this ordered-basis Hom module."""
+                ...
+
+            @abstractmethod
+            def basis_matrix_units(self) -> Sequence[RModuleMorphism]:
+                r"""Return the basis morphisms determined by matrix units."""
+                ...
+
+            @abstractmethod
             def from_matrix(self, M: Matrix) -> RModuleMorphism:
                 r"""Return the morphism represented by ``M`` in the ordered bases."""
                 ...
