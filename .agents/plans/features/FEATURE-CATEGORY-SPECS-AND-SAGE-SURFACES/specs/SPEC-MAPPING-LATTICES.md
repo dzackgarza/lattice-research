@@ -410,6 +410,25 @@ generic Hom objects through the shared Hom/End base, module morphism mechanics t
 the module and formed-module layers, and only lattice-specific orthogonal-group
 refinements through `Lattices(R).AutCategory()`.
 
+The research-facing obligation is not to create a lattice-local Hom API.  It is to make
+the later Coble/K3 constructions expressible as typed morphisms whose matrix
+representatives are only witnesses after the parents and presentations have been
+specified.  The active required constructions are:
+
+| Later research construction | Required Hom/morphism statement |
+| --- | --- |
+| `f^*Pic(S) <= H^2(X,Z)` | an embedding of free abelian modules with forms, with domain, codomain, matrix witness after chosen presentations, and form-preservation or index/primitivity checks stated separately |
+| `L -> L^#` | the metric-dual inclusion morphism owned by the nondegenerate integral formed-module/lattice tier, not a raw rational matrix |
+| `A_L = coker(L -> L^#)` | a module cokernel with descended quotient-valued bilinear/quadratic form; Sage FGP morphisms supply kernels/images/lifts but no direct `cokernel()` method |
+| `T = S^\perp <= Lambda_K3` | an orthogonal-complement construction in modules with bilinear forms, plus the inclusion morphism into the parent lattice |
+| `g in O(L)` or `g in Aut_C(X)` | membership of a certified automorphism preserving the category structure; `Aut_C(X)` is a group object, while generators or presentations require stronger group refinements |
+| discriminant action `O(L) -> O(A_L,q_L)` | a group homomorphism induced from the lattice Aut object to the finite formed-module Aut object, requiring discriminant-group construction and action witnesses |
+
+Consequently, the rows below must state the weakest category where each morphism
+operation is defined.  A matrix, `side` choice, cover map, Smith-form generator list,
+or presentation basis is witness data for a typed morphism; it is not the public
+mathematical object.
+
 | Sage or project method | Source evidence | Spec owner or classification | Reconciliation |
 | --- | --- | --- | --- |
 | Generic `Homset` container methods: `Homset.__reduce__`, `Homset.homset_category`, `Homset._abstract_element_class`, `Homset.element_class_set_morphism`, `__contains__`, `Homset.natural_map`, `Homset.identity`, `Homset.one`, `Homset.domain`, `codomain`, `Homset.reversed` | `sage/categories/homset.py:683`, `775`, `975`, `1057`, `1130-1263` | generic Hom/End semantic base | Do not duplicate these in `Lattices`. `domain`, `codomain`, and `reversed` are hom-parent navigation; `identity` and `one` are generic End identity vocabulary; `natural_map` is coercion interop, not a lattice-theoretic natural transformation. Dynamic element-class synthesis and set-morphism wrapping are Homset backend protocol. |
