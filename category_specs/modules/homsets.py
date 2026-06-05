@@ -150,6 +150,16 @@ class _RModMorphisms(UniversalHomElementMethods):
     def is_bijective(self) -> bool: ...
 
     @abstractmethod
+    def inverse(self) -> RModMorphism:
+        r"""Return the inverse morphism when this morphism is an isomorphism."""
+        ...
+
+    @abstractmethod
+    def is_zero(self) -> bool:
+        r"""Return whether this morphism is the zero morphism."""
+        ...
+
+    @abstractmethod
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
 
     @abstractmethod

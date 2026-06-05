@@ -159,6 +159,8 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_injective, "is_injective")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_surjective, "is_surjective")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_bijective, "is_bijective")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.inverse, "inverse")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_zero, "is_zero")
         and RModuleHomCategory.Forms is _Forms
         and abstract_method_has_name(_Forms.SubcategoryMethods.NonDegenerate, "NonDegenerate")
         and _Forms.Bilinear is _Bilinear
