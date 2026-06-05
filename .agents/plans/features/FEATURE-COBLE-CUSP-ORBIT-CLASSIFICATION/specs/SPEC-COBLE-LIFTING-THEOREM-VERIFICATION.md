@@ -81,7 +81,10 @@ following hypotheses or witness data are still required:
 - the divisibility of the primitive isotropic vectors under the actual Gram model, which
   is `2` for the standard target `N` and transfers to `T_Co` only through the
   construction/isometry witness;
-- the finite orbit structure in `Iso(A_T,q_T)`;
+- the finite orbit structure in `Iso(A_T,q_T)`; for the standard target, the finite
+  isotropic set has `528` elements by exact enumeration of `B/2B` for
+  `N=2(<1>+U+E_8(-1))`, but orbit decomposition under a chosen group is a separate
+  group-action computation;
 - the subgroup of `O(T_Co)` used in the Coble quotient, e.g. full `O(T_Co)`, stable
   kernel, real-spinor subgroup, stabilizer, or centralizer;
 - an Eichler criterion check such as a verified `2U` hypothesis, or a different
@@ -95,6 +98,7 @@ following hypotheses or witness data are still required:
   available only after the construction or isometry witness identifies it with `N`.
 - For the standard target `N`, every primitive vector has divisibility `2`, because
   `N=2B` for the unimodular lattice `B=<1>+E_10`.
+- For the standard target, `Iso(A_N,q_N)` has `528` elements, including the zero class.
 - Surjectivity of the full orthogonal group does not decide stable-kernel,
   real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.  Each such
   subgroup requires its own image or orbit theorem.
@@ -138,6 +142,9 @@ discharge the downstream orbit-lifting conclusion.
   indefinite two-elementary lattice `S`, the homomorphism `O(S)->O(q_S)` is surjective.
 - `theory/foundations/reflective-two-elementary-lattices.md:372-385`: Eichler criterion
   source used only under its stated hyperbolic-summand and subgroup hypotheses.
+- `theory/foundations/coble-standard-target-discriminant-form.md`: exact enumeration of
+  the standard-target finite discriminant form gives `528` isotropic classes in
+  `A_N`.
 
 ## Non-Evidence
 

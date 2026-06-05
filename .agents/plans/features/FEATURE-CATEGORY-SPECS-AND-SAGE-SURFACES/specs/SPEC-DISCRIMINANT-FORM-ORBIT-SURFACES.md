@@ -224,6 +224,15 @@ therefore has pairing ideal `Z`, so the pairing ideal in `N` is `2Z`.  This sett
 standard-target divisibility claim, but it transfers to the project `T_Co` only through
 the construction or isometry witness above.
 
+For this standard target, the finite isotropic set is also determined:
+
+`|Iso(A_N,q_N)| = 528`.
+
+This is an exact enumeration of the `2^11` classes in `B/2B` for
+`N=2B`, `B=<1>+U+E_8(-1)`, using the criterion `q_N(a/2+N)=0` iff
+`B(a,a)=0 mod 4`.  It is a finite discriminant-form count, not a lattice orbit
+classification.
+
 Weakest category:
 lattices with discriminant descent plus a specified orthogonal subgroup/refinement.
 
@@ -247,6 +256,8 @@ orthogonal complement as a two-elementary lattice of signature `(2,9)` isomorphi
 `.agents/plans/features/FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION/decisions/DECISION-TCO-DEFINITION-AND-SIGNATURE.md:40-43`
 for the convention `E_10=U+E_8(-1)` and the presentation
 `N=<2>+U(2)+E_8(-2)`,
+`theory/foundations/coble-standard-target-discriminant-form.md` for the exact
+standard-target finite isotropic count,
 `theory/foundations/reflective-two-elementary-lattices.md:372-385` for the Eichler
 criterion, and `theory-orbit-and-building-backends` for the separate
 isotropic-line/plane backend shape.
@@ -455,6 +466,7 @@ specialization and the plane-orbit backend, not the finite orbit object:
   `T_Co=(f^*Pic(S))^\perp`, the accepted isometry witness to the standard
   Dolgachev-Kondo target `N=<2>+E_10(2)` or an equivalent direct Gram computation,
   the discriminant form, the transfer of standard-target divisibility `2`, the
+  standard-target finite isotropic count `528` and the actual group orbit decomposition,
   Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose orbit is being asserted;
 - a named backend or theorem for primitive isotropic plane or flag orbits whenever the
   statement involves `J <= L` rather than a primitive vector class.

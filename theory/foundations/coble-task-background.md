@@ -135,8 +135,11 @@ lattice on the K3 side and verifies its discriminant form.
 then $A_{T_{\mathrm{Co}}}$ has order $2048$ and carries the induced quadratic form
 $q_T: A_{T_{\mathrm{Co}}} \to \mathbf{Q}/2\mathbf{Z}$.
 
-**Isotropic vectors.** v in A_{T_Co} with q_T(v) = 0 (mod 2Z). Count: 528 total (1 zero
-\+ 527 nonzero). This count follows from the theory of quadratic forms over F_2.
+**Isotropic vectors.** v in A_{T_Co} with q_T(v) = 0 (mod 2Z). For the
+Dolgachev-Kondo standard target `N=<2>+E_10(2)`, exact enumeration of
+`B/2B` for `N=2B`, `B=<1>+U+E_8(-1)`, gives 528 total isotropic classes
+(1 zero + 527 nonzero); see
+`theory/foundations/coble-standard-target-discriminant-form.md`.
 
 **Nikulin input.** Task 2 may use Nikulin's surjectivity theorems only after checking
 their hypotheses against the lattice actually computed in Task 1.2. Orbit claims in

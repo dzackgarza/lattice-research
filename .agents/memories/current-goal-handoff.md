@@ -17,15 +17,18 @@ evidence for the Dolgachev-Kondo standard target
 `N=<2>+E_10(2)`: it is even, indefinite, two-elementary of signature `(2,9)`, and
 Nikulin gives surjectivity `O(N)->O(q_N)`.  For this standard target, primitive vectors
 have divisibility `2` because `N=2(<1>+E_10)` and `<1>+E_10` is unimodular.  The
+finite isotropic set `Iso(A_N,q_N)` has `528` elements by exact enumeration of
+`B/2B` for `N=2B`, `B=<1>+U+E_8(-1)`.  The
 remaining claim is the pipeline identification of the geometrically computed
 `T_Co=(f^*Pic(S))^\perp <= Lambda_K3` with that target, together with the subgroup data
 for primitive isotropic vectors.
 
 Success condition: the next spec/code step gives a source-backed construction or
 accepted isometry witness for `T_Co`, records the discriminant form and primitive-vector
-divisibility transfer from that construction, and states which subgroup of `O(T_Co)`
-acts in the orbit claim.  If that construction is not available in the current phase,
-create the source-mining or construction obligation instead of treating finite
+divisibility transfer from that construction, computes the actual group orbit
+decomposition on the `528` finite isotropic classes, and states which subgroup of
+`O(T_Co)` acts in the orbit claim.  If that construction is not available in the current
+phase, create the source-mining or construction obligation instead of treating finite
 discriminant-form orbit enumeration as a lattice-orbit algorithm.
 
 Do not reopen the discriminant-form finite-action conversion as a mapping or
