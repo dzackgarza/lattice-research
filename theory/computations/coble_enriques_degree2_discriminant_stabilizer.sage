@@ -17,8 +17,10 @@ quadratic form, realized as the subgroup of ``GL(B/2B)`` preserving all fibers o
 ``Q``.  The final stabilizer is the stabilizer of the discriminant class ``h/2``.
 
 This computes the finite stabilizer target for the discriminant-action description of
-``Gamma_En,2``.  It is not by itself a proof that every element of this finite
-stabilizer lifts to an integral isometry of ``S_En`` fixing ``h``.
+``Gamma_En,2``.  The integral stabilizer of ``h`` in ``O(S_En)=O(B)`` has complement
+``h^perp = <e-f> + E_8(-1)``, so it has order ``2 |W(E_8)|``.  The finite stabilizer
+below is larger by a factor of ``68``; it is a finite container, not the actual image
+of the integral stabilizer.
 """
 
 from sage.all import (
@@ -27,6 +29,7 @@ from sage.all import (
     ZZ,
     Permutation,
     PermutationGroup,
+    WeylGroup,
     block_diagonal_matrix,
     matrix,
     vector,
@@ -102,12 +105,18 @@ def main():
         libgap(H_BITS + 1),
         libgap.OnPoints,
     )
+    integral_h_stabilizer_order = 2 * ZZ(WeylGroup(["E", 8], prefix="s").cardinality())
 
     print("fiber_sizes", {value: len(fibers[value]) for value in range(4)})
     print("orthogonal_group_order", orthogonal_group.Size())
     print("h_bits", H_BITS)
     print("h_q_mod4", quadratic_value(H_BITS))
     print("h_stabilizer_order", h_stabilizer.Size())
+    print("integral_h_stabilizer_order", integral_h_stabilizer_order)
+    print(
+        "finite_container_index_over_integral_stabilizer",
+        ZZ(h_stabilizer.Size()) // integral_h_stabilizer_order,
+    )
 
 
 if __name__ == "__main__":

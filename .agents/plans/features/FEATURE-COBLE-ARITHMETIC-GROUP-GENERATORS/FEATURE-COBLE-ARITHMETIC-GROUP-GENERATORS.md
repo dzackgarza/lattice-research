@@ -67,11 +67,14 @@ The finite discriminant-form container for that image is now computed by
 ```text
 |O(A_{S_En}, q_{S_En})| = 46998591897600,
 Q(h) mod 4 = 2,
-|Stab_{O(A_{S_En},q)}(h/2)| = 94755225600.
+|Stab_{O(A_{S_En},q)}(h/2)| = 94755225600,
+|Stab_{O(S_En)}(h)| = 2|W(E_8)| = 1393459200.
 ```
 
 This is not yet a generator computation for $\Gamma_{\mathrm{En},2}$ and not yet a
-proof that the integral stabilizer of $h$ surjects onto this finite stabilizer.
+finite image computation for $\Gamma_{\mathrm{En},2}$.  The finite stabilizer of
+$h/2$ is larger than the integral stabilizer of $h$ by a factor of $68$, so the
+integral image is a proper subgroup of this finite container.
 
 ## Source Provenance
 
@@ -114,8 +117,8 @@ proof that the integral stabilizer of $h$ surjects onto this finite stabilizer.
 - Compute the finite discriminant-action image of $\Gamma_{\mathrm{En},2}$ from
   $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ via the gluing anti-isometry
   $A_{S_{\mathrm{En}}}\simeq A_{T_{\mathrm{En}}}$.
-- Prove or compute whether the integral stabilizer of $h$ in $O(S_{\mathrm{En}})$
-  surjects onto the finite stabilizer of $h/2$ in $O(A_{S_{\mathrm{En}}},q)$.
+- Compute the proper image of the integral stabilizer of $h$ in $O(S_{\mathrm{En}})$
+  inside the finite stabilizer of $h/2$ in $O(A_{S_{\mathrm{En}}},q)$.
 - Construct the stabilizer of $h_{\mathrm{Co}}$ in $O(T_{\mathrm{En}})$.
 - Construct the centralizer of $\theta$ in $O(T_{\mathrm{En}})$.
 - Compute the intersection defining $\Gamma_{\mathrm{Co}}$ only after the preceding

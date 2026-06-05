@@ -45,9 +45,10 @@ computation: `g_T in O(T_En)` belongs to `Gamma_En,2` exactly when its action on
 Finite container already computed:
 `theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage` gives
 `|O(A_SEn,q)|=46998591897600`, `Q(h) mod 4=2`, and
-`|Stab_{O(A_SEn,q)}(h/2)|=94755225600`.  Do not treat this as the actual
-`Gamma_En,2` image until the lift/surjectivity of `Stab_{O(S_En)}(h)` onto that finite
-stabilizer is proved or computed.
+`|Stab_{O(A_SEn,q)}(h/2)|=94755225600`.  The integral stabilizer has order
+`|Stab_{O(S_En)}(h)|=2|W(E_8)|=1393459200`, so the finite stabilizer is larger by a
+factor of `68`.  The next finite computation is the proper image of
+`Stab_{O(S_En)}(h)`, not the full finite stabilizer.
 
 Next mathematical obligation: determine the `Gamma_En,2`-orbit of the chosen Heegner
 line `Z delta`, compute or source the image of `Gamma_Co^En(delta)` in
