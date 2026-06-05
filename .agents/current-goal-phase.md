@@ -24,9 +24,10 @@ Current phase plan:
 The plan paths below are tracker addresses, not mathematical descriptions of the work.
 Several historical IDs still contain terms such as "surface" or "admission"; those
 names must not determine routing. The live object is the source-backed mathematical
-operation map named in `mem:current-goal-handoff`: Sage behavior is read first, then
-translated into an operation under hypotheses, the weakest category/refinement where it
-is defined, required witnesses, codomain or return object, and source evidence.
+operation claim: Sage behavior is read first, then translated into an operation under
+hypotheses, the weakest category/refinement where it is defined, required witnesses,
+codomain or return object, and source evidence. The operation-map document records
+those claims; it is not itself the mathematical object of progress.
 
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SPEC-CORE-VERTICAL-SLICE/PLAN-SPEC-CORE-VERTICAL-SLICE.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES.md`
@@ -63,12 +64,13 @@ Primary work:
   primitive embeddings, orthogonal complements, local invariants, base change,
   Nikulin-style criteria, isometry groups, stabilizers, centralizers, and orbit objects,
   with stronger algorithmic methods placed only on stronger categories or constructions.
-- Advance by vertical slices:
+- Advance by vertical examples:
   mathematical need -> Sage inventory -> category/refinement claim -> required witness
   or proof obligation -> check/report.
-- Continue the handoff's concrete source-backed operation-map target, currently the
-  lattice Hom/morphism audit around `FreeModuleHomspace`, `FreeModuleMorphism`, and
-  inherited `MatrixMorphism`.
+- Continue the handoff's concrete source-backed mapping target unless the latest user
+  directive names a broader correction. The lattice Hom/morphism block has split
+  theorem-shaped rows; the next ordinary lattice mapping target is the remaining
+  non-Hom method clusters after that block.
 - Create and audit category specs extending Sage's category layer.
 - Establish uniform semantic vocabulary for sets, modules, Hom/End/Aut objects, modules
   with forms, lattices, and later scheme/variety interfaces without falsely refining
@@ -78,7 +80,7 @@ Primary work:
 - Create plans and cards for implementation gaps discovered during spec work.
 - Preserve mathematical intent in docs that can be reviewed by mathematicians.
 - Treat broad category expansion, global QC cleanup, and broad category-obligation repair as
-  non-goals unless they directly change the current source-backed operation map or
+  non-goals unless they directly change source-backed mathematical operation claims or
   correct a false steering claim in an entrypoint.
 
 Blocked by default:

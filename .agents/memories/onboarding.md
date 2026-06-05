@@ -86,6 +86,13 @@ The test is:
 
 If the answer is only "a card is clearer," "a plan is more detailed," or "handoff
 context improved," presume no mathematical progress occurred.
+If the user's directive names a broader correction, such as entrypoint guidance or
+anti-laundering doctrine, completing the current handoff leaf is not a substitute. The
+handoff tells where to resume ordinary work; it does not override the latest user
+directive or shrink it to the nearest mapping slice.
+Terminology cleanup is not completion unless the rewritten passage states the
+mathematical object, operation, category, hypothesis, witness, source evidence, or
+implementation gap that the old wording hid.
 
 The implementation philosophy is minimal reuse at owned boundaries.
 Use mature mechanisms for solved non-research problems: Sage for category construction,
@@ -135,10 +142,10 @@ Constructor work is not constructor redefinition. The workflow is:
 - expose only named-parameter category-owned overloads on `Cat().Constructors()`;
 - implement each overload by calling the original Sage constructor, refining the
   returned parent, and returning it;
-- make category-obligation examples call category constructor surfaces only.
+- make category-obligation examples call category constructor methods only.
 
 Any constructor surprise is a red flag that this workflow was skipped. Start auditing
-at the mapping docs and overload surface; do not patch ambient Sage names, widen a
+at the mapping docs and overload definitions; do not patch ambient Sage names, widen a
 free-floating wrapper, add "constructor redefinitions", or preserve rejected constructor
 ideas as evidence artifacts. If Sage source does not establish the constructor shape,
 do not mention it in constructor mappings, provenance, category-obligation examples,
@@ -170,7 +177,8 @@ Before editing category-obligation examples or regressions, load
 `mem:category-spec-tests-use-category-api-not-private-classes`.
 
 Tests must mirror downstream mathematical use: category objects, category-owned
-constructors, refinements, membership, and methods reached through those surfaces.
+constructors, refinements, membership, and methods reached through those category
+operations.
 Tests must not define dummy classes that inherit private spec implementation classes or
 nested `ParentMethods` / `ElementMethods` containers.
 Those class names are internal engineering, not user-facing mathematical vocabulary.
@@ -267,7 +275,7 @@ Error: A category assertion fails because raw Sage construction returns an unref
 object, and the agent patches Sage globals, module attributes, temporary providers, or
 a free-floating wrapper so the old syntax secretly returns a project-refined object.
 
-Rule: Public project constructor API lives only on category `Constructors()` surfaces.
+Rule: Public project constructor API lives only on category `Constructors()` methods.
 Recover Sage's valid constructor shapes from docs and source, enumerate them in mapping
 docs, expose them as named-only overloads on the owning category, call the original Sage
 constructor, refine the result, and make category-obligation examples call those
@@ -289,7 +297,7 @@ Read these when their situation arises:
 | --- | --- |
 | Learning what the repo is for | `mem:repo-purpose-mathematical-research-machine`, `mem:what-category-specs-actually-is`, and `mem:category-spec-repo-model-corrections` |
 | Reviewing recent commits, prior agent output, or suspicious category-spec work | `mem:category-spec-rotten-core-indicators` and `mem:mathematical-sanity-check` |
-| Before any surface edit, decorator change, or mapping | `mem:category-spec-epistemic-foundation` |
+| Before any category operation edit, decorator change, or mapping | `mem:category-spec-epistemic-foundation` |
 | Writing, editing, or retrieving a memory | `mem:memory-management-discipline` |
 | About to write a return type for a method | `mem:private-stubs-are-not-types` |
 | About to classify a mypy override error | `mem:analysis-must-be-grounded` |

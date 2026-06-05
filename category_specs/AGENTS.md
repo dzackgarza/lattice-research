@@ -51,6 +51,10 @@ recorded as deferred until the lattice substrate exists.
 
 If an edit only makes a report cleaner, a row count smaller, or a diagnostic bucket
 tidier, it has not advanced the category-spec goal.
+Terminology cleanup is also insufficient. Replacing words such as "surface",
+"admission", "frontier", or "smoke" only matters when the rewritten passage states the
+mathematical object, operation, category, hypothesis, witness, source evidence, or
+implementation gap that the old wording hid.
 
 Operational invariants:
 
@@ -68,9 +72,13 @@ Operational invariants:
 
 ## Directive alignment
 
-Before acting, confirm the user's stated directive, the action you plan, and why the action matches that directive rather than a substituted goal.
+Before acting, confirm the user's stated directive, the action you plan, and why the
+action matches that directive rather than a substituted goal. A handoff leaf, mapping
+block, test repair, or plan cleanup is not automatically the directive. If the user
+asks for entrypoint guidance, anti-laundering doctrine, or repo-wide framing, do not
+substitute the current source-mapping leaf unless that leaf is explicitly named.
 
-## Sage constructor and method operation map
+## Sage constructor and method operation rows
 
 Before category-spec Sage inventory or mapping work, open
 `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`.
@@ -95,7 +103,9 @@ Category-spec mathematical inventory or mapping progress exists only when a row 
 or corrects the mathematical operation, hypotheses, owner category or refinement,
 witness data, codomain/return object, and source evidence; or when it records that no
 such assertion exists because the Sage constructor, method, or class is
-nonmathematical residue or an unresolved mathematical question.
+nonmathematical residue or an unresolved mathematical question. The map document is
+not the mathematical object of progress; the object is the source-backed mathematical
+claim in the row.
 
 Compatibility, runtime, display, private, test-helper, package-export, and
 backend-plumbing methods are not a parallel progress object. Discard them after a

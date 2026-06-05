@@ -398,6 +398,10 @@ Sage method body/examples
 Reject any generated goal whose unit of progress is only `row patched`, `source name
 classified`, `source location found`, `mapping updated`, or `review passed` without a
 mathematical operation statement in ordinary mathematical language.
+Reject any goal or response that answers a broader user directive by completing only the
+nearest executable slice. A handoff leaf, one mapped method cluster, one renamed plan,
+or one passing category-obligation example can be useful work, but it is not completion
+unless the user's requested witness is exactly that slice.
 
 Split queues before activation. A generated goal may include several queues, but it
 must state which queue is active and which queues are subordinate:
@@ -437,6 +441,10 @@ row is one of:
 
 Wrapper compliance, onboarding, handoffs, memories, plans, status labels, review state,
 and proof/review checks cannot satisfy this witness.
+The operation map is a record of mathematical claims, not the claim itself. Completion
+depends on the object-level statements in the rows: operations, hypotheses, weakest
+owners, category/refinement memberships, witnesses, return objects, residue
+classifications, and unresolved mathematical decisions.
 
 Example rejection:
 
