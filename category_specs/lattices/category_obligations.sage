@@ -128,6 +128,10 @@ CATEGORY_STATEMENTS = (
     ("Lattices(ZZ) records the explicit lattice chain as ambient category", lambda _: LZZ.ambient_category() is LATTICE_AMBIENT),
     ("Lattices(ZZ) exposes is_lattice as its defining predicate", lambda _: LZZ.defining_predicates() == ("is_lattice",)),
     ("Lattices(ZZ).HomCategory() is an object of Cat()", lambda _: LZZ.HomCategory() in C),
+    (
+        "lattice Hom objects inherit module Hom scalar-ring witnesses",
+        lambda _: abstract_method_has_name(LatticeHomCategory.ParentMethods.base_ring, "base_ring"),
+    ),
     ("Lattices(ZZ).EndCategory() is an object of Cat()", lambda _: LZZ.EndCategory() in C),
     ("Lattices(ZZ).AutCategory() is an object of Cat()", lambda _: LZZ.AutCategory() in C),
     ("Lattices(ZZ).AutCategory() is a group category", lambda _: LZZ.AutCategory().is_subcategory(Groups())),
