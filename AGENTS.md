@@ -11,12 +11,39 @@ Sage-compatible substrate for exact lattice and surface computations, then use t
 substrate to verify the lattice-theoretic claims needed for the moduli space of
 terminal Coble surfaces of K3 type.
 
-`GOAL.md` is the staged-program source. The current phase serves it by building
-category/spec vocabulary: sets, rings, modules, modules with bilinear or quadratic
-forms, lattices, Hom/End/Aut spaces, constructors, coercions, and backend bridges.
-Process artifacts are routing aids only. They matter when they preserve or advance a
-mathematical object, operation, invariant, morphism, proof obligation, or
-source-backed computation.
+`GOAL.md` is the staged-program source. The current spec phase has a bounded purpose:
+define the minimal mathematical language in which later Coble/K3 lattice computations
+can be written as typed constructions rather than raw Sage-method archaeology.
+
+The phase must define the public mathematical vocabulary needed by the research
+pipeline: sets, rings, modules, free modules, modules with bilinear or quadratic forms,
+lattices, Hom/End/Aut objects, embeddings, orthogonal complements, discriminant
+groups/forms, stabilizers, centralizers, and the related construction surfaces that
+later research code must express. It must not catalog every Sage method.
+
+The phase must also determine category ownership. Each operation belongs at the highest
+mathematically valid layer: set/product/module enumeration before lattice-local vector
+search, form-preserving maps on modules with forms or lattices rather than arbitrary
+modules, and Hom/End/Aut behavior on the relevant categorical object surfaces.
+
+Sage behavior is evidence, not the specification itself. The spec phase tests existing
+Sage enough to decide whether a construction is already available, needs a thin
+wrapper, needs repo-owned categorical semantics, or exposes a Sage/plugin/stub gap.
+Gap classification must preserve mathematical ownership.
+
+The phase invariants are:
+
+- Mathematical objects are typed by their structure. A lattice is a `\mathbb{Z}`-module
+  with a form and specified conventions; a Hom object has a domain, codomain, and
+  preservation law.
+- Matrices may realize maps and forms, but the public object is the map, lattice, form,
+  embedding, quotient, complement, stabilizer, centralizer, or orbit problem.
+- Every operation has a mathematically justified owner. Operations that belong to sets,
+  modules, modules with forms, or Hom categories must not be reimplemented only under a
+  special lattice class.
+- The phase terminates at sufficiency for the research pipeline. It is not a complete
+  redesign of Sage, a full algebraic-geometry library, or a catalog of all category
+  methods.
 
 The downstream target is to express and check objects such as
 `Pic(S)`, `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
@@ -26,8 +53,15 @@ stabilizers, and involution eigenspaces. These computations must run through typ
 mathematical interfaces and mature Sage-backed exact algorithms, not through raw-matrix
 scripts or process ledgers.
 
-Category-spec ownership questions are therefore mathematical questions. A diagnostic
-may indicate an external Sage API stub gap, an internal category-spec owner method, a
+Process artifacts are routing aids only. They matter when they preserve or advance a
+mathematical object, operation, invariant, morphism, proof obligation, or source-backed
+computation. The success condition for the spec phase is that an implementation agent
+can build the category/spec layer without inventing the mathematics: objects,
+morphisms, ownership boundaries, required invariants, Sage bridge points, and known
+gaps are already stated at the mathematical level.
+
+Category-spec ownership questions are mathematical questions. A diagnostic may
+indicate an external Sage API stub gap, an internal category-spec owner method, a
 plugin inheritance edge, or a wrong mathematical category graph. Do not reduce that
 choice to mypy cleanup or bookkeeping.
 

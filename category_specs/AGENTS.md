@@ -4,10 +4,20 @@ This file is the mandatory entry point for agents working under `category_specs/
 
 ## Research destination
 
-`category_specs` exists to build the semantic substrate required by `GOAL.md`: a
-Sage-compatible layer of typed mathematical objects, constructors, Hom/End/Aut spaces,
-modules with forms, lattices, and backend bridges. Its purpose is not to maintain
-method inventories, ledgers, or diagnostic classifications for their own sake.
+`category_specs` exists to define the minimal mathematical language required by
+`GOAL.md`: a Sage-compatible layer of typed mathematical objects, constructors,
+Hom/End/Aut spaces, modules with forms, lattices, and backend bridges. Its purpose is
+not to maintain method inventories, ledgers, or diagnostic classifications for their
+own sake, and it is not a catalog of every Sage method.
+
+The public vocabulary must let later research code construct `R^n` as a free
+`R`-module with known underlying set and basis; define homomorphisms by images of
+generators with checked domain, codomain, linearity, matrix realization, and structure
+preservation; construct modules with bilinear or quadratic forms; ask for Gram
+matrices, orthogonal complements, primitive sublattices, discriminant groups/forms, and
+base changes; construct Hom, End, and Aut as mathematical objects; and move between
+abstract specification and exact Sage-backed realization while retaining enough data to
+verify signatures, ranks, forms, embeddings, and invariants.
 
 The downstream lattice/Coble computations should eventually read as constructions of
 objects and morphisms such as `Pic(S)`, `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
@@ -15,10 +25,30 @@ objects and morphisms such as `Pic(S)`, `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
 primitive embeddings, orthogonal complements, isotropic orbits, stabilizers, and
 involution eigenspaces computed through source-backed mathematical interfaces.
 
-Therefore every category-spec action must preserve or advance a mathematical owner,
-operation, hypothesis, representation split, or missing-category obligation. If an edit
-only makes a report cleaner, a row count smaller, or a diagnostic bucket tidier, it has
-not advanced the category-spec goal.
+Every category-spec action must preserve or advance a mathematical owner, operation,
+hypothesis, representation split, Sage bridge point, or missing-category obligation. A
+spec item is in scope when it is needed to express later lattice or Coble computations
+as typed mathematical constructions, or when omitting it would force raw matrix,
+vector, or group manipulation at the research layer. It is out of scope for this phase
+when it only improves general Sage ergonomics, covers unrelated algebraic structures,
+documents arbitrary concrete methods, or pushes into implementation before the
+mathematical interface is settled. Later geometry vocabulary is recorded as deferred
+until the lattice substrate exists.
+
+If an edit only makes a report cleaner, a row count smaller, or a diagnostic bucket
+tidier, it has not advanced the category-spec goal.
+
+Operational invariants:
+
+- Type mathematical objects by their structure, not by their storage. A lattice is not
+  merely a matrix; a Hom object is not merely a Python method search.
+- Accept raw matrices only as realizations of maps, forms, embeddings, quotients,
+  complements, or orbit problems.
+- Place each operation at the highest mathematically valid owner.
+- Treat Sage behavior as implementation evidence and compatibility data, not as the
+  specification itself.
+- Classify gaps by ownership: external Sage API stub, plugin inheritance edge,
+  category-spec owner method, or wrong category graph.
 
 ## Directive alignment
 

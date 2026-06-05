@@ -58,6 +58,13 @@ for exact lattice and surface computations, then use it to verify the lattice-th
 claims needed for the moduli space of terminal Coble surfaces of K3 type. `GOAL.md` is
 the staged-program source for that goal.
 
+The current spec phase is bounded by this question: what is the minimal mathematical
+language in which later Coble/K3 lattice computations can be written as typed
+constructions rather than raw Sage-method archaeology? The phase defines public
+vocabulary, category ownership, Sage compatibility boundaries, and the invariants
+needed by the lattice layer. It does not specify every Sage method, redesign Sage, or
+start the downstream Coble computation.
+
 The downstream computation must be able to express and check `Pic(S)`,
 `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
 `T_Co = (f^*Pic(S))^\perp <= \Lambda_{\mathrm{K3}}`, together with discriminant forms,
@@ -93,6 +100,15 @@ See `mem:repo-purpose-mathematical-research-machine`.
 **Category-spec vocabulary.** Building the semantic substrate: sets, modules,
 Hom/End/Aut, modules with forms, lattices, morphisms, coercions, backend bridges.
 Downstream lattice/Coble work is blocked until this vocabulary exists.
+
+Spec work is in scope when it is needed to express later lattice or Coble computations
+as typed mathematical constructions, or when Sage investigation shows that omitting it
+would force raw matrix/vector/group manipulation at the research layer. It is out of
+scope when it only improves general Sage ergonomics, catalogs arbitrary concrete
+methods, or pushes into full implementation before the mathematical interface is
+settled. Geometry vocabulary such as schemes, varieties, surfaces, divisors, Picard
+groups, blowups, covers, and families is deferred and recorded until the lattice
+substrate exists.
 
 Read `GOAL.md` once, but the phase is tracked in `.agents/current-goal-phase.md`. Do not
 attempt downstream Coble research.

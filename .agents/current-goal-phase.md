@@ -14,6 +14,10 @@ tracker feature; active tracker cards start at concrete deliverable features und
 
 The repo is currently in the spec phase.
 
+Frame the spec phase as: define the minimal mathematical language in which the later
+Coble/K3 lattice computations can be written as typed constructions rather than raw
+Sage-method archaeology.
+
 Current phase plan:
 
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SPEC-CORE-VERTICAL-SLICE/PLAN-SPEC-CORE-VERTICAL-SLICE.md`
@@ -30,6 +34,21 @@ Current phase plan:
 
 Primary work:
 
+- Define public mathematical vocabulary for the later pipeline: set, ring, module,
+  free module, module with form, lattice, Hom object, End object, Aut object,
+  embedding, orthogonal complement, discriminant group/form, stabilizer, centralizer,
+  and related construction surfaces.
+- Decide category ownership for each operation at the highest mathematically valid
+  layer. For example, deterministic enumeration belongs first to countable
+  sets/products/free modules before becoming lattice-local bounded-vector search, and
+  form-preserving maps belong to modules with forms or lattices rather than arbitrary
+  modules.
+- Discover Sage compatibility boundaries by checking whether each needed construction
+  is already available, needs a thin wrapper, needs repo-owned categorical semantics,
+  or exposes a Sage/plugin/stub gap.
+- Produce specs sufficient for the lattice-theoretic layer: discriminant forms,
+  primitive embeddings, orthogonal complements, local invariants, base change, and
+  Nikulin-style criteria.
 - Execute the approved spec-core vertical slice: typed obligation/provider/witness
   reports for `GF(5)^3`, `ZZ^2`, and a missing-obligation claimant.
 - Create and audit category specs extending Sage's category layer.
@@ -46,6 +65,9 @@ Blocked by default:
 - Downstream Coble experimental research.
 - Ad hoc lattice, matrix, polynomial, orbit, or group computations.
 - Attempts to prove Coble claims before the lattice/category vocabulary exists.
+- Complete redesigns of Sage, full algebraic-geometry library work, arbitrary
+  concrete-method catalogs, or general Sage ergonomics unrelated to the Coble/K3
+  lattice pipeline.
 - QC-driven code cleanup unrelated to an approved phase transition or implementation card.
 - Rolling back formatter, linter, or hook auto-fixes.
 
@@ -64,6 +86,12 @@ Raw computations do not satisfy the project goal. A 21-by-21 matrix calculation 
 not expressed through reviewed mathematical objects, typed morphisms, vetted algorithms,
 and source-backed semantics is not a result for this project. It is exploratory scratch
 at best and should not be promoted as evidence.
+
+The practical success condition for this phase is source-grounded sufficiency for the
+research pipeline: an implementation agent can build the category/spec layer without
+inventing the mathematics because the objects, morphisms, ownership boundaries,
+required invariants, Sage bridge points, and known gaps are already stated at the
+mathematical level.
 
 ## QC gate policy
 
