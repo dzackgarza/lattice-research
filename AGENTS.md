@@ -296,18 +296,20 @@ Every time.
   review, mathematical grounding, repo policy, and `dependsOn` have been checked.
   Source-forced facts, routine plan/card cleanup, and planned downstream dependency
   order are agent work, not user decisions.
+  A current-phase leaf stops only for a missing source, an unresolved mathematical
+  definition or proof obligation, or a missing implementation/backend needed for a
+  claimed construction. Everything else is routing.
 - Never use `needs-human-input` as a reward-hacking stop condition.
   A clean review awaiting bookkeeping, an approval-shaped yes/no on already
   policy-determined routing, or an agent's desire to stop early is not human input.
   To classify a card as `needs-human-input`, record the exact non-agent-resolvable
   question; if the question is merely "approve this reviewed work as complete," continue
   with agent-executable closure or another active leaf instead of reporting a blocker.
-- Constructor placement reports must separate mathematical owner, human naming
-  convention, and code-maintenance owner.
-  Constructors are Sage-backed entry points for building objects in categories; a
-  specific object can carry many structures, while aggregate surfaces such as
-  `Cat().Constructors()` can provide the canonical user entry point independent of the
-  implementation owner.
+- Constructor placement reports are only needed when two mathematically distinct
+  constructions compete for the same public name or return contract.
+  Otherwise the mathematical owner is determined by the construction and category
+  structure, and public availability can be handled by a constructor namespace such as
+  `Cat().Constructors()` or ordinary imports.
 - Do not report "no path forward" until the active phase, approved plans, and active
   leaf cards have been checked and every remaining leaf has a concrete blocker that
   applies to that leaf in the current phase.
@@ -401,7 +403,8 @@ must state which queue is active and which queues are subordinate:
 
 - Mathematical vocabulary/foundation controls research progress.
 - Sage source inventory supports the mathematical queue.
-- Implementation/runtime/display/backend compatibility is a separate residue audit.
+- Implementation/runtime/display/backend compatibility is residue classification unless
+  it changes the mathematical interface or blocks a claimed construction.
 - Testing/review/proof evidence verifies the artifact; it does not substitute for the
   prior act of establishing the mathematical inventory.
 
@@ -418,19 +421,19 @@ How one unit is removed from Remaining:
 For category-spec work, a valid unit is one Sage method cluster with a shared
 mathematical behavior, classified by minimal structure/hypotheses,
 category/refinement membership, witness data, and source evidence. A file, row
-cluster, package export set, or handoff frontier is invalid unless it is also a
+cluster, package export set, or handoff boundary is invalid unless it is also a
 mathematically coherent operation family.
 
-Completion may be claimed only when the queue artifact shows:
+Completion may be claimed only when the operation-map artifact shows that each relevant
+row is one of:
 
-```text
-U = C ⊔ R ⊔ Q
-```
+- a source-backed mathematical assertion with operation, hypotheses, weakest owner,
+  category/refinement membership, witnesses, and return object;
+- nonmathematical/runtime/display/backend residue that does not change the
+  mathematical interface or block a claimed construction;
+- a genuine unresolved mathematical/spec decision or unresolved stronger category
+  membership.
 
-where `C` has mathematical operation statements, weakest owners, category/refinement
-memberships, hypotheses, and witness data; `R` is explicitly
-nonmathematical/runtime/display/backend residue; and `Q` contains only genuine
-unresolved mathematical/spec decisions or unresolved stronger category memberships.
 Wrapper compliance, onboarding, handoffs, memories, plans, status labels, review state,
 and proof gates cannot satisfy this witness.
 
@@ -455,8 +458,9 @@ Build the source-backed mathematical operation map for category_specs/lattices:
 generate the finite Sage method/constructor queue from named source roots,
 read each method cluster, state the mathematical operation and weakest required
 structure, state the category/refinement membership and witness data, classify
-implementation/runtime/display residue separately, and mark complete only when the queue
-artifact has no unclassified mathematical operations.
+implementation/runtime/display residue only where it changes the mathematical
+interface or blocks a claimed construction, and mark complete only when the operation
+map has no unclassified mathematical operation claims.
 ```
 
 Reject Goalcraft-generated goals for this repo if they:
@@ -466,9 +470,9 @@ Reject Goalcraft-generated goals for this repo if they:
   generated queue and residue rule;
 - omit the semantic extraction step from Sage behavior to mathematical vocabulary;
 - omit category/refinement membership and witness data;
-- combine mathematical foundations with runtime/display/backend audits as one queue;
+- let runtime/display/backend residue become a parallel progress queue;
 - define progress by plans, mappings, status, handoff, or review state rather than
-  reduction of a concrete mathematical frontier;
+  reduction of unresolved mathematical operation claims;
 - make proof/review gates substitute for establishing the inventory;
 - in a suspected scope-laundering or dissent-suppression case, let one worker define,
   classify, edit, and close the disputed work set.
@@ -597,8 +601,8 @@ Hermes memory is part of the same corpus: `/home/dzack/.hermes/memories` is a sy
 operational memory namespace instead of copying notes between systems.
 
 The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by
-replacement whenever the resumption path changes: current phase, recent decision delta,
-next pickup cards, non-goals, and validation state.
+replacement when the next mathematical object/question to resume changes, or when a
+non-obvious ruling, source finding, or real blocker would otherwise be lost.
 **It is a routing aid, nothing more.** It exists for exactly one purpose: to tell the
 next session where to start and what to avoid.
 It is NOT a status report, NOT a changelog, NOT a tracker, and NOT an audit log.
@@ -607,16 +611,14 @@ grounding, acceptance, and completed work.
 If the information describes what was done rather than what to do next, it does not
 belong here.
 
-**This is not optional.** After any of the following, update the handoff note
-immediately — before reporting the result in chat:
-- Creating, promoting, or splitting task cards
-- Completing a review pass (cards moving to complete/revision-required)
-- Resolving a blocker or discovering a new one
-- Decomposing a plan into tasks
-- Any state change that alters what the next session should pick up
+**This is not optional.** Update the handoff note immediately before reporting when the
+resumption question changes. Do not update it merely because a card moved status, a
+review happened, or a plan was decomposed unless that changes the operation map or the
+next object/question a cold-start agent should resume.
 
 Chat is the delivery channel; the handoff note is the durable checkpoint.
-If the handoff is stale, the process has failed.
+If the handoff points to the wrong mathematical resumption target, the process has
+failed.
 
 Store short, opinionated, forward-facing notes only.
 **Never store:**

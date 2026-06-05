@@ -63,7 +63,7 @@
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
-- `spec` `SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER`: Control Sage constructor and method frontier (`critical`, `in-progress`)
+- `spec` `SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER`: Maintain Sage constructor and method operation map (`critical`, `in-progress`)
 - `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (`critical`, `in-progress`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-human-input`)
 - `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)

@@ -38,15 +38,15 @@ The output is an ownership inventory, not an implementation pass. It exists so l
 code and smoke work can ask "which category introduces this method?" without relying on
 Sage implementation class names, wrapper inheritance, or generic LLM guesses.
 
-## Frontier Control
+## Operation Map Control
 
 This spec records method-owner rows. It is not the live source of truth for remaining
 Sage constructor and method inventory work. Progress on Sage inventory or mapping must
-update `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`, whose object is the finite set
-difference `Remaining_math = U_math - C_math - R_math - Q_math`. Compatibility, runtime,
-display, private, package-export, test-helper, and backend-plumbing rows belong to the
-frontier spec's separate audit lane and do not count as mathematical progress unless
-they block a named implementation or spec obligation.
+update `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`, whose object is the source-backed
+mathematical operation map. Compatibility, runtime, display, private, package-export,
+test-helper, and backend-plumbing surfaces are discarded after one-line residue
+classification unless they change the mathematical interface or block construction of a
+required spec object.
 
 ## Required Row Format
 
@@ -294,7 +294,7 @@ Unblocked current-phase paths: implementation and smoke-spec cards may use the
 admitted method-owner rows for sets/topology, rings/algebras/modules, Hom/End/Aut,
 forms, lattices, tensor components, posets, and backend routing as source-grounded
 inventory. Geometry candidate rows, Picard bridge rows, malformed backend names, and
-explicit Sage-gap frontiers remain blocked only for their own downstream implementation
+explicit Sage-gap rows remain blocked only for their own downstream implementation
 paths.
 
 ## Set Topology And Metric Method Rows

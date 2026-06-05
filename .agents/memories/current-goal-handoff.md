@@ -20,20 +20,20 @@ mapping progress. The first question is what behavior Sage actually implements. 
 introduce the required vocabulary, weakest structure, hypotheses, owner, return object,
 category/refinement membership, and witness data.
 
-The constructor/factory batch currently populated in the frontier ledger covers
+The constructor/factory batch currently populated in the operation map covers
 `FreeQuadraticModule`, `QuadraticSpace`/`InnerProductSpace`, `IntegralLattice`,
 `IntegralLatticeDirectSum`, `IntegralLatticeGluing`, `TorsionQuadraticForm`, and
 `TorsionQuadraticModule`.
 Do not redo these rows.
 For any future constructor work, derive new constructor names from scoped source
-artifacts and add source-read frontier rows before claiming movement.
+artifacts and add source-backed operation rows before claiming mathematical progress.
 
 Compatibility, runtime, display, private, test-helper, package-export, and backend rows
-are a separate audit lane. Do not count them as progress on the mathematical foundation
-unless they block a named implementation or spec obligation.
+are nonmathematical residue unless they change the mathematical interface or block
+construction of a required spec object. Discard them after a one-line classification.
 
 The concrete next lattice audit target is Hom and morphism evidence, subordinate to the
-frontier ledger.
+operation map.
 Continue the Sage inventory and mapping audit for `category_specs/lattices` from these
 evidence files:
 
@@ -76,7 +76,7 @@ assign a project owner.
 - `SPEC-MAPPING-LATTICES` is the routing source for lattice, module, torsion, Homset,
   and form-adjacent Sage names.
 - `IntegralLattice`, `IntegralLatticeDirectSum`, and `IntegralLatticeGluing` are the
-  admitted `Lattices(ZZ).Constructors()` names and have classified frontier rows.
+  admitted `Lattices(ZZ).Constructors()` names and have source-backed operation rows.
 - `FreeQuadraticModule` is forms/module-owned, not a lattice constructor;
   `QuadraticSpace`/`InnerProductSpace` is the field-valued free bilinear wrapper, not a
   lattice constructor.
@@ -97,8 +97,8 @@ assign a project owner.
 
 - Do not turn Sage implementation classes into method owners.
 - Do not add lattice methods merely because lattice code uses them.
-- Do not record progress as complete until the final semantic audit proves that every
-  relevant Sage name is inventoried, mapped, mathematically owned, or explicitly rejected
-  with a reason.
+- Do not record progress as complete unless the relevant Sage behavior has a
+  source-backed operation row, a one-line residue classification, or an unresolved
+  mathematical question.
 - Do not use this handoff as a changelog. The mapping spec and git history carry past
   work.

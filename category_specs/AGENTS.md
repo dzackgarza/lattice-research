@@ -69,7 +69,7 @@ Operational invariants:
 
 Before acting, confirm the user's stated directive, the action you plan, and why the action matches that directive rather than a substituted goal.
 
-## Sage constructor and method frontier gate
+## Sage constructor and method operation map
 
 Before category-spec Sage inventory or mapping work, open
 `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`.
@@ -80,29 +80,32 @@ vocabulary required by that behavior, state the weakest structure and hypotheses
 only then assign the owner. Sage exposure and an a priori category primer are both
 insufficient owner evidence.
 
-Category-spec mathematical inventory or mapping progress exists only when that spec's
-primary frontier changes:
+A source-mapping row is a mathematical assertion with provenance:
 
 ```text
-Remaining_math = U_math - C_math - R_math - Q_math
+Sage behavior
+  -> mathematical operation under hypotheses H
+  -> weakest category owner or refinement C
+  -> required witnesses and return object
+  -> source evidence
 ```
 
-where `U_math` contains semantically extracted mathematical API,
-constructor/construction, and codomain-owned construction rows; `C_math` is classified
-with Sage behavior, extracted mathematical operation, required vocabulary, weakest
-owner, minimal structure, hypotheses, codomain, and project category surface; `R_math`
-is rejected from the mathematical API; and `Q_math` requires a recorded decision.
+Category-spec mathematical inventory or mapping progress exists only when that
+operation map changes: a row gains or corrects the mathematical operation, hypotheses,
+owner category or refinement, witness data, codomain/return object, and source
+evidence; or it records that no such assertion exists because the surface is
+nonmathematical residue or an unresolved mathematical question.
 
 Compatibility, runtime, display, private, test-helper, package-export, and
-backend-plumbing rows belong to the spec's separate compatibility audit lane. Moving
-those rows is not mathematical progress unless a row is explicitly marked as blocking a
-named implementation or spec obligation.
+backend-plumbing surfaces are not a parallel progress object. Discard them after a
+one-line residue classification unless they change the mathematical interface or block
+construction of a required spec object.
 
 Do not report progress from row counts, file counts, review prose, current-state
 summaries, handoff edits, broad checkpoints, or mapping-doc edits that do not change
-the primary frontier. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec rows, cards,
-decisions, and handoffs are evidence and routing surfaces; the frontier spec is the
-status authority for what remains.
+the operation map. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec rows, cards,
+decisions, and handoffs are evidence and routing surfaces; the operation map is the
+source-backed mathematical object.
 
 ## Always-active rules
 
@@ -114,9 +117,11 @@ status authority for what remains.
   mapping preserve existing Sage functionality, identify honest refinements, and expose
   where implementation is weaker than the mathematically natural spec.
 - Spec smokes expose gaps between current Sage/refined objects and the admitted spec.
-  A smoke failure is normally evidence for an implementation, wrapper, constructor,
-  or compliance card; it is not evidence that the spec obligation should be weakened,
-  deleted, or moved without a grounded replacement owner.
+  A smoke failure asks which mathematical claim failed: false, under-hypothesized,
+  unrealized by the implementation, or blocked by a backend/tooling gap. Route the
+  answer to the spec, implementation, or backend task; do not treat smoke output as a
+  separate epistemic layer or weaken a spec obligation without a grounded replacement
+  owner.
 - Refinement is declaration, not validation. It says that an implementation is to be
   regarded as an object of a project category and therefore carries that category's
   contract. It does not interrogate the object, prove satisfaction, reject because
