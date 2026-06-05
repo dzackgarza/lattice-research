@@ -553,6 +553,8 @@ CATEGORY_STATEMENTS = (
         "Sets().GSets(G) owns orbit and stabilizer surfaces through the public category route",
         lambda _: symmetric_group_action_category().acting_group() == SymmetricGroup(3)
         and abstract_method_has_name(symmetric_group_action_category().ParentMethods.orbit, "orbit")
+        and abstract_method_has_name(symmetric_group_action_category().ParentMethods.orbits, "orbits")
+        and abstract_method_has_name(symmetric_group_action_category().ParentMethods.orbit_representatives, "orbit_representatives")
         and abstract_method_has_name(symmetric_group_action_category().ParentMethods.stabilizer, "stabilizer")
         and abstract_method_has_name(symmetric_group_action_category().ParentMethods.fixed_points, "fixed_points")
         and abstract_method_has_name(symmetric_group_action_category().ElementMethods.act_by, "act_by"),

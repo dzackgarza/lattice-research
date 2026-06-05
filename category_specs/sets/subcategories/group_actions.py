@@ -61,6 +61,18 @@ class _GSets(Category):
             ...
 
         @abstractmethod
+        def orbits(self, subset: Set | None = None) -> tuple[Set, ...]:
+            r"""Return the orbit decomposition of ``subset`` or of this set."""
+            ...
+
+        @abstractmethod
+        def orbit_representatives(
+            self, subset: Set | None = None
+        ) -> tuple[SetElement, ...]:
+            r"""Return one representative for each orbit in ``subset`` or this set."""
+            ...
+
+        @abstractmethod
         def stabilizer(self, x: SetElement) -> Group:
             r"""Return the stabilizer subgroup of ``x``."""
             ...
