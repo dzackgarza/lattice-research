@@ -230,8 +230,10 @@ For this standard target, the finite isotropic set is also determined:
 
 This is an exact enumeration of the `2^11` classes in `B/2B` for
 `N=2B`, `B=<1>+U+E_8(-1)`, using the criterion `q_N(a/2+N)=0` iff
-`B(a,a)=0 mod 4`.  It is a finite discriminant-form count, not a lattice orbit
-classification.
+`B(a,a)=0 mod 4`.  The full finite discriminant orthogonal group is the stabilizer in
+`GL(B/2B)` of the four fibers of `Q(a mod 2B)=B(a,a) mod 4`; exact GAP/Sage
+computation gives orbit sizes `[1, 527]` on `Iso(A_N,q_N)`.  This is a finite
+discriminant-form orbit statement, not a lattice orbit classification.
 
 Weakest category:
 lattices with discriminant descent plus a specified orthogonal subgroup/refinement.
@@ -466,7 +468,8 @@ specialization and the plane-orbit backend, not the finite orbit object:
   `T_Co=(f^*Pic(S))^\perp`, the accepted isometry witness to the standard
   Dolgachev-Kondo target `N=<2>+E_10(2)` or an equivalent direct Gram computation,
   the discriminant form, the transfer of standard-target divisibility `2`, the
-  standard-target finite isotropic count `528` and the actual group orbit decomposition,
-  Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose orbit is being asserted;
+  standard-target finite isotropic count `528` and full-group orbit decomposition
+  `[1, 527]`, Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose orbit is
+  being asserted;
 - a named backend or theorem for primitive isotropic plane or flag orbits whenever the
   statement involves `J <= L` rather than a primitive vector class.

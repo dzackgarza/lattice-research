@@ -39,34 +39,49 @@ q_N(a/2+N)=0  iff  B(a,a)=0 mod 4.
 Exact enumeration of the `2^11` residue classes gives `528` isotropic classes,
 including zero.
 
-The unresolved object is not this finite set.  The unresolved object is the orbit
-decomposition of that set under the relevant group: full `O(A_N,q_N)` for the standard
-finite form, or the image of the chosen Coble arithmetic subgroup once the project
-lattice `T_Co` and subgroup have been constructed.
+The full finite orthogonal-group orbit decomposition is now known for the standard
+finite form.  Let `Q(a mod 2B)=B(a,a) mod 4`.  Then
+
+```text
+O(A_N,q_N) = {g in GL(B/2B) : Q(gx)=Q(x) for all x in B/2B}.
+```
+
+Equivalently, `O(A_N,q_N)` is the stabilizer in `GL(B/2B)` of the four fibers of
+`Q`.  Exact GAP/Sage computation gives fiber sizes `[528, 528, 496, 496]`,
+orthogonal-group order `46998591897600`, and two orbits on `Iso(A_N,q_N)`, with sizes
+`[1, 527]`.  Thus the zero class is one orbit and every nonzero isotropic class lies in
+the other orbit.
+
+The unresolved object is no longer the full standard-target finite orbit
+decomposition.  The unresolved object is the image of the chosen Coble arithmetic
+subgroup once the project lattice `T_Co` and subgroup have been constructed, and the
+lattice-level theorem or backend that transfers this finite result to primitive
+isotropic vectors.
 
 ## Input
 
 - A finite quadratic form q: A → Q/2Z on A ≅ (Z/2Z)^11 (order 2048).
-- The orthogonal group O(A, q) as a finite matrix group.
+- The orthogonal group O(A, q) as the subgroup of `GL(A)` preserving the
+  quotient-valued quadratic form.
 - The set of isotropic elements `{x in A : q(x) = 0 mod 2Z}`; for the standard target,
   this set has `528` elements by
   `theory/foundations/coble-standard-target-discriminant-form.md`.
 
 ## Questions
 
-- **GAP/Sage finite action route**: construct `O(A_N,q_N)` as a finite group with a
-  certified action on `A_N`, then compute orbit decomposition of the 528 isotropic
-  classes.
+- **GAP/Sage finite action route**: complete for the standard full group.  The
+  computation constructs `O(A_N,q_N)` as the stabilizer of the four fibers of
+  `Q(v)=B(v,v) mod 4` inside `GL(B/2B)`, then uses GAP finite-set orbit computation on
+  the `528` isotropic classes.
 - **Sage status**: `TorsionQuadraticForm(G_B/2)` constructs the finite form and exact
   enumeration gives the 528 isotropic classes.  The naive Sage call
   `D.orthogonal_group()` for the rank-11 standard form did not return during this
   session before the process was terminated.  This is a backend limitation finding, not
   evidence for an orbit count.
 - **Oscar/Hecke status**: still unresolved for this specific orbit computation.
-- **Theorem route**: find a finite-quadratic-form theorem giving the orbit
-  decomposition for the standard `2`-elementary form, or prove that full
-  `O(A_N,q_N)` is transitive/nontransitive on the 527 nonzero isotropic classes under
-  stated hypotheses.
+- **Theorem route**: no longer needed for the full standard finite form, because the
+  exact finite computation gives transitivity on the `527` nonzero isotropic classes.
+  A theorem route is still acceptable as independent confirmation.
 - **Coble subgroup route**: if the acting group is not full `O(A_N,q_N)`, compute the
   image of the chosen subgroup first.  Full-group orbits do not determine stable-kernel,
   spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.
@@ -96,7 +111,12 @@ the standard target to the project `T_Co` construction.
 ## Source and Computation Evidence
 
 - `theory/foundations/coble-standard-target-discriminant-form.md`: exact enumeration of
-  `B/2B` for `N=2B`, `B=<1>+U+E_8(-1)`, gives `528` isotropic classes.
+  `B/2B` for `N=2B`, `B=<1>+U+E_8(-1)`, gives `528` isotropic classes and full
+  standard-target orbit sizes `[1, 527]`.
+- `theory/computations/coble_standard_target_discriminant_orbits.sage`: constructs the
+  finite group `O(A_N,q_N)` as the stabilizer of the four `Q`-fibers inside
+  `GL(B/2B)`, then uses GAP/Sage finite group actions to compute the orbit
+  decomposition of `Q^{-1}(0)`.
 - `category_specs/lattices/subcategories/constructions/discriminant_form_actions.py`:
   project helper for finite discriminant-form orbits once a generated finite group and
   certified action are available.
@@ -106,16 +126,18 @@ the standard target to the project `T_Co` construction.
 
 ## Remaining Mathematical Obligation
 
-State and prove or compute:
+For the Dolgachev-Kondo standard target, the finite full-group statement is now:
 
 ```text
-For the standard finite quadratic form (A_N,q_N), the action of the specified group G
-on Iso(A_N,q_N) has orbit decomposition ...
+For (A_N,q_N) attached to N=<2>+E_10(2), the action of O(A_N,q_N) on Iso(A_N,q_N)
+has orbit decomposition [1, 527].
 ```
 
-where `G` is one of `O(A_N,q_N)` or the image of a named Coble subgroup.  Until `G` is
-specified and the orbit decomposition is computed or sourced, no Coble cusp count follows
-from the 528-element set alone.
+This does not settle the Coble subgroup or primitive-lattice claim.  If `G` is the image
+of a stable, spinor, stabilizer, centralizer, or geometric Coble subgroup, the subgroup
+image in `O(A_T,q_T)` must still be constructed and its orbits computed.  Until that
+subgroup and the lattice-lifting theorem/backend are specified, no Coble primitive-cusp
+count follows from the full standard finite orbit decomposition alone.
 
 ---
 

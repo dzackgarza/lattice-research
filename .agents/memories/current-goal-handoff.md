@@ -12,30 +12,30 @@ witness data grounded in Sage/source evidence.
 ## Next Work
 
 Next mathematical obligation: construct or source the actual Coble specialization
-needed by `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  The spec now has theorem
-evidence for the Dolgachev-Kondo standard target
-`N=<2>+E_10(2)`: it is even, indefinite, two-elementary of signature `(2,9)`, and
-Nikulin gives surjectivity `O(N)->O(q_N)`.  For this standard target, primitive vectors
-have divisibility `2` because `N=2(<1>+E_10)` and `<1>+E_10` is unimodular.  The
-finite isotropic set `Iso(A_N,q_N)` has `528` elements by exact enumeration of
-`B/2B` for `N=2B`, `B=<1>+U+E_8(-1)`.  The
-remaining claim is the pipeline identification of the geometrically computed
+needed by `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  The Dolgachev-Kondo standard
+target `N=<2>+E_10(2)` is sourced as even, indefinite, two-elementary of signature
+`(2,9)`, and Nikulin gives surjectivity `O(N)->O(q_N)`.  For this standard target,
+primitive vectors have divisibility `2`, `Iso(A_N,q_N)` has `528` elements, and full
+`O(A_N,q_N)` has two isotropic orbits with sizes `[1, 527]`.  The remaining claim is
+the pipeline identification of the geometrically computed
 `T_Co=(f^*Pic(S))^\perp <= Lambda_K3` with that target, together with the subgroup data
 for primitive isotropic vectors.
 
 Success condition: the next spec/code step gives a source-backed construction or
 accepted isometry witness for `T_Co`, records the discriminant form and primitive-vector
-divisibility transfer from that construction, computes the actual group orbit
-decomposition on the `528` finite isotropic classes, and states which subgroup of
-`O(T_Co)` acts in the orbit claim.  If that construction is not available in the current
-phase, create the source-mining or construction obligation instead of treating finite
-discriminant-form orbit enumeration as a lattice-orbit algorithm.
+divisibility transfer from that construction, constructs the image of the actual Coble
+subgroup in `O(A_T,q_T)` if it is not full `O(A_T,q_T)`, and states which subgroup of
+`O(T_Co)` acts in the primitive-vector orbit claim.  If that construction is not
+available in the current phase, create the source-mining or construction obligation
+instead of treating the standard full finite orbit decomposition as a lattice-orbit
+algorithm.
 
-Backend note: `TorsionQuadraticForm(G_B/2)` constructs the standard finite form and
-enumerates the 528 isotropic classes.  The naive Sage full `D.orthogonal_group()` call
-for this rank-11 form did not return during the session and was terminated.  The next
-orbit-decomposition attempt should use a finite-quadratic-form theorem, a faster
-GAP/Oscar/Hecke route, or a subgroup image with explicit generators.
+Backend note: `theory/computations/coble_standard_target_discriminant_orbits.sage`
+computes the full standard finite action by defining `O(A_N,q_N)` as the stabilizer of
+the four fibers of `Q(v)=B(v,v) mod 4` inside `GL(B/2B)` and then using GAP finite-set
+orbits on `Q^{-1}(0)`.  The naive Sage full `D.orthogonal_group()` call for this
+rank-11 form did not return during the earlier session and remains non-evidence for
+the orbit count.
 
 Do not reopen the discriminant-form finite-action conversion as a mapping or
 terminology task.  The finite-action conversion for Sage torsion quadratic modules now

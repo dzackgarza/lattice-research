@@ -81,10 +81,9 @@ following hypotheses or witness data are still required:
 - the divisibility of the primitive isotropic vectors under the actual Gram model, which
   is `2` for the standard target `N` and transfers to `T_Co` only through the
   construction/isometry witness;
-- the finite orbit structure in `Iso(A_T,q_T)`; for the standard target, the finite
-  isotropic set has `528` elements by exact enumeration of `B/2B` for
-  `N=2(<1>+U+E_8(-1))`, but orbit decomposition under a chosen group is a separate
-  group-action computation;
+- the finite orbit structure in `Iso(A_T,q_T)`; for the standard target, exact
+  computation in `B/2B` for `N=2(<1>+U+E_8(-1))` gives `528` isotropic classes and
+  full-group orbit sizes `[1, 527]` under `O(A_N,q_N)`;
 - the subgroup of `O(T_Co)` used in the Coble quotient, e.g. full `O(T_Co)`, stable
   kernel, real-spinor subgroup, stabilizer, or centralizer;
 - an Eichler criterion check such as a verified `2U` hypothesis, or a different
@@ -98,7 +97,9 @@ following hypotheses or witness data are still required:
   available only after the construction or isometry witness identifies it with `N`.
 - For the standard target `N`, every primitive vector has divisibility `2`, because
   `N=2B` for the unimodular lattice `B=<1>+E_10`.
-- For the standard target, `Iso(A_N,q_N)` has `528` elements, including the zero class.
+- For the standard target, `Iso(A_N,q_N)` has `528` elements, including the zero class,
+  and full `O(A_N,q_N)` has two orbits on it: the zero class and one orbit of the `527`
+  nonzero isotropic classes.
 - Surjectivity of the full orthogonal group does not decide stable-kernel,
   real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.  Each such
   subgroup requires its own image or orbit theorem.
@@ -143,8 +144,11 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/foundations/reflective-two-elementary-lattices.md:372-385`: Eichler criterion
   source used only under its stated hyperbolic-summand and subgroup hypotheses.
 - `theory/foundations/coble-standard-target-discriminant-form.md`: exact enumeration of
-  the standard-target finite discriminant form gives `528` isotropic classes in
-  `A_N`.
+  the standard-target finite discriminant form gives `528` isotropic classes in `A_N`
+  and full standard-target orbit sizes `[1, 527]`.
+- `theory/computations/coble_standard_target_discriminant_orbits.sage`: exact
+  GAP/Sage witness computing `O(A_N,q_N)` as the stabilizer of the four
+  `Q(v)=B(v,v) mod 4` fibers in `GL(B/2B)`.
 
 ## Non-Evidence
 
@@ -164,8 +168,10 @@ with the sourced Coble target.
 The review below predates the source evidence recorded above.  It remains a record of
 the earlier card state, not the current mathematical status.  The current mathematical
 status is: Nikulin full-orthogonal-group surjectivity is sourced for the
-Dolgachev-Kondo standard target, while the Coble construction/isometry, divisibility,
-subgroup, finite-orbit, and Eichler/backend obligations remain unresolved.
+Dolgachev-Kondo standard target, standard-target primitive-vector divisibility is `2`,
+and full standard-target finite discriminant-form orbits have sizes `[1, 527]`.  The
+Coble construction/isometry, subgroup image, and Eichler/backend lattice-lifting
+obligations remain unresolved.
 
 ### Review 2026-05-07 (6-Gate Spec Review)
 
