@@ -11,26 +11,29 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: state or construct the subgroup/lifting data needed by
-`[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  The Dolgachev-Kondo standard target
-`N=<2>+E_10(2)` is sourced as even, indefinite, two-elementary of signature `(2,9)`,
-and the decision card identifies `T_Co=(f^*Pic(S))^\perp` with that target.  For this
-target, primitive vectors have divisibility `2`, `Iso(A_N,q_N)` has `528` elements, and
-full `O(A_N,q_N)` has two isotropic orbits with sizes `[1, 527]`.  The remaining claim
-is the subgroup of `O(T_Co)` whose primitive-isotropic orbit is being asserted, its
-image in `O(A_T,q_T)` if not full, and the theorem/backend that lifts finite
-discriminant-form orbits to primitive lattice-vector orbits.
+Next mathematical obligation: state the smaller subgroup actually used in the Coble
+quotient, if it is not full `O(T_Co)` or full `O^+(T_Co)`.  The Dolgachev-Kondo
+standard target `N=<2>+E_10(2)` is sourced as `T_Co`, and `N=2B` with
+`B=<1>+U+E_8(-1)`.  For this target, primitive vectors have divisibility `2`,
+`Iso(A_N,q_N)` has `528` elements, and full `O(A_N,q_N)` has two isotropic orbits with
+sizes `[1, 527]`.
 
-Success condition: the next spec/code step states the acting subgroup of `O(T_Co)`,
-constructs its image in `O(A_T,q_T)` if it is not full `O(A_T,q_T)`, and records the
-Nikulin/Eichler theorem or backend proving the corresponding primitive-isotropic
-lattice orbit statement.  If later code must build `T_Co` from geometric input rather
-than use the accepted source-level target `N`, create that implementation-constructor
-obligation separately instead of treating it as a blocker for the source-level target.
+The full primitive-isotropic lattice orbit claim is now sourced: `O(N)=O(B)`, `B` is
+odd unimodular of signature `(2,9)`, Milnor/Nikulin identify the odd unimodular
+isometry class, Dawes/Attwell-Duval give the split maximal condition in signature
+`(2,n)` for `n>=5`, and Dawes Algorithm 4.4 gives one primitive-isotropic vector orbit
+under `O^+(B)`, hence under `O^+(T_Co)` and `O(T_Co)`.
+
+Success condition for the next step: name the Coble arithmetic subgroup if it is
+smaller than full `O(T_Co)`, construct or source its image in `O(A_T,q_T)` when needed,
+and record the theorem/backend proving the corresponding primitive-isotropic orbit
+statement.  If later code must build `T_Co` from geometric input rather than use the
+accepted source-level target `N`, create that implementation-constructor obligation
+separately instead of treating it as a blocker for the source-level target.
 
 The cited Eichler criterion requiring a copy of `2U` is not available for
-`T_Co ~= N=2(<1>+E_10)`, because every pairing in `N` is divisible by `2`; the next
-lattice-lifting step needs a different primitive-isotropic orbit theorem or backend.
+`T_Co ~= N=2(<1>+E_10)`, because every pairing in `N` is divisible by `2`; smaller
+subgroup orbit claims still need their own theorem or backend.
 
 Backend note: `theory/computations/coble_standard_target_discriminant_orbits.sage`
 computes the full standard finite action by defining `O(A_N,q_N)` as the stabilizer of
@@ -68,7 +71,8 @@ The finite formed-module side now has source-backed rows in
   under `G <= O(A,q)`.
 
 The lattice lifting statement has been separated from the finite formed-module orbit
-claims.  The spec now states:
+claims.  The full-group statement is settled for the standard target, while smaller
+subgroups still obey the conservative implication:
 
 ```text
 For primitive v in L with div(v)=d, the class v/d + L lies in A_L; if v^2=0,
@@ -78,8 +82,9 @@ or a named primitive-isotropic orbit backend.
 ```
 
 Do not weaken the finite orbit object or promote lattice-level orbit lifting without
-the subgroup choice, subgroup image when needed, checked Nikulin/Eichler hypotheses, a
-primitive-isotropic backend, or a theorem proving the required lifting statement.
+the subgroup choice, subgroup image when needed, checked theorem hypotheses, a
+primitive-isotropic backend, or a theorem proving the required smaller-subgroup lifting
+statement.
 
 ## Mapping Rule
 

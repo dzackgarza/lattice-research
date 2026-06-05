@@ -49,9 +49,10 @@ the K3 cover `X`, identify the divisor classes `e_0,...,e_10` as generating
 identifies this `M_X` with the project pullback lattice `S_Co=f^*Pic(S)` and therefore
 identifies `T_Co=S_Co^\perp` with `N_X ~= N=<2>+E_10(2)`.
 
-The remaining lifting problem is to state the subgroup of `O(T_Co)` whose
-primitive-isotropic orbit is being asserted and to verify the theorem or backend
-relating that subgroup's lattice orbits to the finite discriminant-form orbits.
+For the full orthogonal group, the remaining lifting problem is now resolved by the
+split maximal lattice theorem below.  The unresolved part is narrower: stable-kernel,
+real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbit claims still
+require their own subgroup image or orbit theorem.
 
 For the standard target, the primitive-vector divisibility is also determined:
 
@@ -83,15 +84,50 @@ following hypotheses or witness data are still required:
 - an implementation-level construction of `T_Co=(f^*Pic(S))^\perp <= Lambda_K3` if the
   later code must build the lattice from geometric input rather than use the accepted
   source-level target `N`;
-- the finite orbit structure in `Iso(A_T,q_T)`; for the standard target, exact
-  computation in `B/2B` for `N=2(<1>+U+E_8(-1))` gives `528` isotropic classes and
-  full-group orbit sizes `[1, 527]` under `O(A_N,q_N)`;
-- the subgroup of `O(T_Co)` used in the Coble quotient, e.g. full `O(T_Co)`, stable
-  kernel, real-spinor subgroup, stabilizer, or centralizer;
-- a primitive-isotropic orbit theorem/backend for the subgroup actually used.  The
-  cited Eichler criterion requiring a copy of `2U` does not apply to
-  `T_Co ~= N=2B`, because all pairings in `2B` are divisible by `2`, so `T_Co` cannot
-  contain a hyperbolic plane `U` with pairing `1`.
+- the subgroup of `O(T_Co)` used in the Coble quotient, if it is smaller than the full
+  orthogonal group, e.g. stable kernel, real-spinor subgroup, stabilizer, or
+  centralizer;
+- a primitive-isotropic orbit theorem/backend for that smaller subgroup.  The cited
+  Eichler criterion requiring a copy of `2U` does not apply to `T_Co ~= N=2B`, because
+  all pairings in `2B` are divisible by `2`, so `T_Co` cannot contain a hyperbolic plane
+  `U` with pairing `1`.
+
+## Full orthogonal group primitive-isotropic orbit
+
+Let
+
+```text
+N = T_Co = 2B,  B=<1>+U+E_8(-1).
+```
+
+Then `O(N)=O(B)`: an integral automorphism preserves the Gram form `2B(-,-)` exactly
+when it preserves `B(-,-)`.  The lattice `B` is odd, unimodular, and has signature
+`(2,9)`.  Milnor's theorem, quoted in Nikulin, says that parity and signature determine
+the isomorphism class of an indefinite unimodular lattice.  Hence `B` is the standard
+odd unimodular lattice `I_{2,9}`.
+
+Dawes's isotropic-vector section applies to lattices of signature `(2,n)`.  It defines
+maximal lattices by the absence of nontrivial totally isotropic subgroups in the
+discriminant group, and records the Attwell-Duval result that maximal lattices of
+signature `(2,n)` split as `2U+L_0` for `n>=5`.  Since `B` is unimodular, `D(B)=0`, so
+`B` is maximal; since `n=9`, it is split.
+
+Dawes Algorithm 4.4 states that if `L` is split maximal and `x,y in L` are primitive
+isotropic, then there exists `tau(x,y) in O^+(L)` with `tau(x,y)x=y`.  Applying this to
+`B` gives one primitive-isotropic vector orbit under `O^+(B)`, hence under `O(B)`.
+Transporting through `O(N)=O(B)` gives:
+
+```text
+PrimIso(T_Co)/O^+(T_Co) has one orbit,
+PrimIso(T_Co)/O(T_Co) has one orbit.
+```
+
+This statement is about primitive isotropic vectors, not only their lines: Algorithm
+4.4 sends the vector `x` to the vector `y`.  It is also independent of the finite
+discriminant-form orbit computation, except that the two are compatible: every primitive
+vector in `N=2B` has divisibility `2`, and its class `v/2+N` is a nonzero isotropic
+class in `A_N`; the finite computation shows all such nonzero isotropic classes lie in
+one `O(A_N,q_N)`-orbit.
 
 ## Questions
 
@@ -108,12 +144,13 @@ following hypotheses or witness data are still required:
   real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.  Each such
   subgroup requires its own image or orbit theorem.
 - The cited Eichler criterion is unavailable for `T_Co`: it requires a copy of `2U`,
-  but `T_Co ~= 2(<1>+E_10)` has all pairings divisible by `2`.  The card must name
-  another theorem/backend for primitive isotropic vectors of divisibility `2`, or
-  restrict the orbit claim to a group/theorem whose hypotheses are verified.
+  but `T_Co ~= 2(<1>+E_10)` has all pairings divisible by `2`.
+- A one-orbit theorem for full `O(T_Co)` and full `O^+(T_Co)` is available through
+  `O(T_Co)=O(B)` and Dawes Algorithm 4.4 for split maximal lattices.
 - A bijection between finite isotropic classes in `A_T` and primitive isotropic lattice
-  orbits is not admitted from finite enumeration alone.  It requires the representative
-  existence, divisibility, and subgroup/kernel-action statements above.
+  orbits for smaller subgroups is not admitted from finite enumeration alone.  It
+  requires the representative existence, divisibility, subgroup image, and
+  subgroup/kernel-action statements above.
 
 ## Output
 
@@ -148,6 +185,12 @@ discharge the downstream orbit-lifting conclusion.
   indefinite two-elementary lattice `S`, the homomorphism `O(S)->O(q_S)` is surjective.
 - `theory/foundations/reflective-two-elementary-lattices.md:372-385`: Eichler criterion
   source used only under its stated hyperbolic-summand and subgroup hypotheses.
+- `theory/references/literature/nikulin1979integral.md:42-50`: Nikulin quotes Milnor's
+  theorem that an indefinite unimodular lattice is determined up to isomorphism by
+  parity and signature.
+- `theory/references/literature/dawes2022orbits_source_notes.md`: checked source notes
+  for Dawes's maximal-lattice split statement and Algorithm 4.4 primitive-isotropic
+  transport in `O^+(L)`.
 - `theory/foundations/coble-standard-target-discriminant-form.md`: exact enumeration of
   the standard-target finite discriminant form gives `528` isotropic classes in `A_N`
   and full standard-target orbit sizes `[1, 527]`.
