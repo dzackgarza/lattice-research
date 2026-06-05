@@ -19,6 +19,7 @@ if TYPE_CHECKING:
         Integer,
         Matrix,
         ModuleBasis,
+        Polynomial,
         Ring,
         RingElement,
         RModule,
@@ -256,6 +257,26 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
             @abstractmethod
             def nullity(self) -> Integer:
                 r"""Return the nullity of the chosen matrix representative."""
+                ...
+
+            @abstractmethod
+            def determinant(self) -> RingElement:
+                r"""Return the determinant of an endomorphism matrix representative."""
+                ...
+
+            @abstractmethod
+            def trace(self) -> RingElement:
+                r"""Return the trace of an endomorphism matrix representative."""
+                ...
+
+            @abstractmethod
+            def characteristic_polynomial(self) -> Polynomial:
+                r"""Return the characteristic polynomial of an endomorphism matrix."""
+                ...
+
+            @abstractmethod
+            def eigenspaces(self, extend: bool = True) -> Sequence[RModule]:
+                r"""Return eigenspace submodules of a finite-basis endomorphism."""
                 ...
 
             @abstractmethod

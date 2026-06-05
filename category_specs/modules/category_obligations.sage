@@ -399,7 +399,11 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.to_matrix, "to_matrix")
         and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.base_ring, "base_ring")
         and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.rank, "rank")
-        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.nullity, "nullity"),
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.nullity, "nullity")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.determinant, "determinant")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.trace, "trace")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.characteristic_polynomial, "characteristic_polynomial")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.eigenspaces, "eigenspaces"),
     ),
     (
         "ordered-basis module Hom owns matrix-unit basis witnesses",
