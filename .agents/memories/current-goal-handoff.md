@@ -39,31 +39,39 @@ The concrete lattice Hom and morphism evidence block is mapped in:
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`
 
 The `FreeModuleHomspace`, `FreeModuleMorphism`, inherited `MatrixMorphism`,
-`FGP_Module_class.hom`, `_Hom_`, `FGP_Homset`, `FGP_Morphism` operations, and formed
-`cokernel()` descent rows now have split theorem-shaped mappings in
+`FGP_Module_class.hom`, `_Hom_`, `FGP_Homset`, `FGP_Morphism`, formed `cokernel()`
+descent, formed/lattice Aut, finite discriminant-form Aut, and
+`O(L) -> O(A_L,q_L)` rows have split theorem-shaped mappings in
 `SPEC-MAPPING-LATTICES`. Use those rows as the baseline; do not collapse them back into
-Sage-class labels or backend summaries.
+Sage-class labels, raw matrices, generated-group algorithms, or backend summaries.
 
 Next mathematical obligation:
-For a formed module or lattice with form `(M,b)`, state the exact Aut and
-discriminant-action operations that Sage or the project realizes:
-`O(M,b)=Aut(M,b)`, certified isometry membership, subgroup construction from certified
-generators, finite discriminant-form automorphism groups `O(A_L,q_L)`, and the
-homomorphism `O(L) -> O(A_L,q_L)` with image and kernel.
+For a group object acting on a typed object or finite set, state the exact orbit,
+stabilizer, and centralizer constructions needed by the lattice/Coble pipeline.
+The next mapping must distinguish:
+
+- the subgroup definition `Stab_G(x) = {g in G | g.x = x}`;
+- the centralizer definition `C_G(h) = {g in G | gh = hg}`;
+- finite orbit enumeration for typed finite carriers such as isotropic elements of
+  `A_L`;
+- generated subgroup computation only when `G` has generator witnesses;
+- lattice/discriminant specializations for `O(L)`, `O(A_L,q_L)`, typed polarization
+  data, and involutions.
 
 Controlling source evidence:
-Read the Sage method bodies/docs/examples for `FreeQuadraticModule.orthogonal_group`,
-`TorsionQuadraticModule.orthogonal_group`, `GroupOfIsometries`, and the current
-`SPEC-MAPPING-LATTICES` rows before editing. Then state the weakest
+Read the Sage method bodies/docs/examples for `FqfOrthogonalGroup._get_action_`,
+`ActionOnFqf`, the relevant GAP-backed finite group or matrix-group `orbit`,
+`stabilizer`, and `centralizer` methods, and the current
+`SPEC-MAPPING-LATTICES` finite-action rows before editing. Then state the weakest
 category/refinement, hypotheses, witnesses, codomain or return object, and source
 evidence for each operation.
 
 Success condition:
-The lattice mapping separates `O(L)` as a group object from stronger generated,
-finite, finitely generated, or finitely presented group refinements; separates
-subgroup-from-generators from full automorphism-group computation; and states the
-discriminant-form action bridge without treating raw matrices or backend option bags as
-public lattice operations.
+The lattice mapping separates formal subgroup objects from finite/generated algorithms:
+`Stab_G(x)`, `C_G(h)`, orbit sets, and orbit representatives are stated at the category
+where they are defined, while explicit generators, finite enumeration, and GAP-backed
+returns appear only under finite, generated, matrix-group, or project-specific
+refinements with witnesses.
 
 ## Mapping Rule
 
