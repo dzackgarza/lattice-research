@@ -385,6 +385,11 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(_WithOrderedBasis.ParentMethods.coordinate_module, "coordinate_module"),
     ),
     (
+        "ordered-basis module Hom owns matrix construction and presentation routes",
+        lambda _: abstract_method_has_name(_WithOrderedBasis.HomCategory.ParentMethods.from_matrix, "from_matrix")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.to_matrix, "to_matrix"),
+    ),
+    (
         "refine_category(C.quotient_module(CS), Quotients()+WithBasis()) has a basis",
         lambda _: refine_for_membership(CQ, MQQCat.WithBasis().Quotients()) in MQQCat.WithBasis().Quotients(),
     ),
