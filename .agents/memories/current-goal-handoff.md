@@ -28,27 +28,26 @@ Do not redo these rows.
 For any future constructor work, derive new constructor names from scoped source
 artifacts and add source-backed operation rows before claiming mathematical progress.
 
-Compatibility, runtime, display, private, test-helper, package-export, and backend rows
-are nonmathematical residue unless they change the mathematical interface or block
-construction of a required spec object. Discard them after a one-line classification.
+Compatibility, runtime, display, private, test-helper, package-export, and backend
+methods are nonmathematical residue unless they change the mathematical interface or
+block construction of a required spec object. Discard them after a one-line
+classification.
 
-The concrete next lattice audit target is Hom and morphism evidence, subordinate to the
-operation map.
-Continue the Sage inventory and mapping audit for `category_specs/lattices` from these
-evidence files:
+The concrete lattice Hom and morphism evidence block is mapped in:
 
 - `category_specs/lattices/docs/SAGE_INVENTORY.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`
 
-The `FreeModuleHomspace`, `FreeModuleMorphism`, and inherited `MatrixMorphism` block
-now has split theorem-shaped rows in `SPEC-MAPPING-LATTICES`. Use those rows as the
-baseline; do not collapse them back into one free-module label.
+The `FreeModuleHomspace`, `FreeModuleMorphism`, inherited `MatrixMorphism`,
+`FGP_Module_class.hom`, `_Hom_`, `FGP_Homset`, `FGP_Morphism` operations, and formed
+`cokernel()` descent rows now have split theorem-shaped mappings in
+`SPEC-MAPPING-LATTICES`. Use those rows as the baseline; do not collapse them back into
+Sage-class labels or backend summaries.
 
-The next local repair target is the neighboring finitely presented PID-module Hom
-block: `FGP_Module_class.hom`, `_Hom_`, `FGP_Homset`, `FGP_Morphism` operations, and
-the formed `cokernel()` descent boundary. Continue by reading the Sage method
-body/docs/examples first, then write the mathematical sentence, weakest
-category/refinement, witnesses, return object, and source evidence.
+The next local lattice mapping target is the remaining non-Hom method clusters after
+the Hom block. Continue by reading the Sage method body/docs/examples first, then write
+the mathematical sentence, weakest category/refinement, witnesses, return object, and
+source evidence.
 
 ## Mapping Rule
 
