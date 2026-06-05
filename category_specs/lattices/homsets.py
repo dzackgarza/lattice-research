@@ -21,15 +21,15 @@ from ..homsets import (
     HomCategoryOf,
     UniversalAutElementMethods,
     UniversalEndElementMethods,
-    UniversalHomObjectMethods,
 )
+from ..modules.homsets import RModuleHomCategory
 
 if TYPE_CHECKING:
     from ...cat import Category
     from ..types import Lattice, LatticeOrthogonalGroup, Morphism
 
 
-class _LatticeHomCategoryObjectMethods(UniversalHomObjectMethods):
+class _LatticeHomCategoryObjectMethods(RModuleHomCategory.ParentMethods):
     r"""Lattice hom parent methods; generic hom methods are inherited."""
 
 
