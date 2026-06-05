@@ -11,9 +11,9 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: state the lattice-level lifting claims relating finite
-discriminant-form orbits to primitive isotropic lattice vectors. Do not treat this as a
-method on the finite discriminant group alone.
+Next mathematical obligation: define the finite orbit and stabilizer construction for a
+typed subset `X <= A` of a finite torsion quadratic module `(A,q)` under a certified
+generated subgroup `G <= O(A,q)`.
 
 The finite formed-module side now has source-backed rows in
 `[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`:
@@ -30,27 +30,27 @@ The finite formed-module side now has source-backed rows in
   construction from finite carrier, generated group, and certified action, or as an
   explicit GAP conversion.
 
-The next source-backed statement should classify the lattice lifting problem:
+The lattice lifting statement has been separated from the finite formed-module orbit
+claims.  The spec now states:
 
 ```text
-For an even nondegenerate integral lattice L with discriminant form (A_L,q_L),
-the natural homomorphism O(L) -> O(A_L,q_L) has kernel ~O(L).
-A claim that a finite discriminant-form orbit corresponds to primitive isotropic
-vectors in L requires additional hypotheses or algorithms: Nikulin surjectivity,
-Eichler transvections, stable-plus subgroup data, finite quotient image data, or a
-named building/isotropic-orbit backend.
+For primitive v in L with div(v)=d, the class v/d + L lies in A_L; if v^2=0,
+that class is isotropic.  O(L)-equivalence implies equivalence of these classes
+under im(O(L)->O(A_L,q_L)).  The converse requires a checked Nikulin/Eichler theorem
+or a named primitive-isotropic orbit backend.
 ```
 
-Controlling source evidence: use
-`theory/foundations/reflective-two-elementary-lattices.md`,
-`theory/foundations/coble-task-background.md`, `theory-orbit-and-building-backends`,
-`bilinear-form-category-semantics`, `SPEC-MAPPING-LATTICES`, and
-`SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES` before editing code or specs.
+Controlling source evidence for the next obligation: `sage/groups/fqf_orthogonal.py`
+for `ActionOnFqf`, `sage/groups/perm_gps/permgroup.py` for finite orbits and
+stabilizers through GAP-backed permutation actions, `sage/modules/torsion_quadratic_module.py`
+for `TorsionQuadraticModule.orthogonal_group()`, and the finite-action rows in
+`[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.
 
-Success condition: the spec states exactly which discriminant-form orbit claims are
-finite formed-module statements, which are lattice-level theorems, and which require
-backend/literature algorithms. No method should be placed on `A_L` merely because the
-theorem mentions discriminant classes.
+Success condition: the spec states the mathematical construction
+`orbit_G(x)={x*g:g in G}` and `Stab_G(x)={g in G:x*g=x}`, the hypotheses on `X`,
+`G`, and the action, the return objects, and the exact Sage/GAP conversion witness
+needed to compute representatives without treating raw GAP tuples as discriminant-form
+elements.
 
 ## Mapping Rule
 

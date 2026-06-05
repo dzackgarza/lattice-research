@@ -126,11 +126,49 @@ The natural homomorphism
 is a group homomorphism induced by the action on `L^#/L`.  Its kernel is the stable
 orthogonal group `\widetilde O(L)`.
 
-A statement that a discriminant-form orbit lifts to a class of primitive isotropic
-lattice vectors is not an operation on `A_L` alone.  It is a lattice-level theorem or
-algorithm requiring hypotheses such as Nikulin surjectivity, Eichler-type
-transvections, stable-plus subgroup data, or a named backend for primitive-isotropic
-orbit computation.
+For a primitive lattice vector `v in L`, let
+
+`div(v) = <b(v,w) : w in L> = d Z`
+
+in the scalar-valued integral case.  Then `v/d in L^#`, and the class
+
+`\bar v = v/d + L in A_L`
+
+is the discriminant class attached to `v`.  If `v` is isotropic, then
+`q_L(\bar v) = v^2/d^2 = 0 in Q/2Z`, so `\bar v` lies in `Iso(A_L,q_L)`.
+
+The implication from lattice orbits to discriminant-form orbits is formal: if
+`g in O(L)` and `w=g(v)`, then `div(w)=div(v)` and
+`\bar w = \bar g(\bar v)` under the induced action of `O(L)` on `A_L`.  Thus an
+`O(L)`-orbit of primitive isotropic vectors maps to an orbit for the image subgroup
+`im(O(L) -> O(A_L,q_L))`.
+
+The converse is not a finite discriminant-form operation.  A claim that finite
+`O(A_L,q_L)`-orbits classify primitive isotropic `O(L)`-orbits requires a theorem or
+backend with hypotheses.  The source-backed theorem patterns currently available to
+the spec are:
+
+- Nikulin surjectivity for the actual indefinite lattice under checked rank, length,
+  parity, and discriminant-form hypotheses; this identifies the image of
+  `O(L) -> O(A_L,q_L)` only after those hypotheses are verified for `L`;
+- Eichler-style criteria when the lattice contains the required hyperbolic summands,
+  giving stable-plus equivalence of primitive vectors from the square and the
+  discriminant class;
+- a named primitive-isotropic orbit backend for isotropic line or plane orbit
+  computation when the previous theorem hypotheses are not enough.
+
+Surjectivity of `O(L) -> O(A_L,q_L)` does not by itself construct primitive vector
+representatives, prove divisibility values, or compute stable-subgroup orbits.  Those
+are separate lattice obligations.  Since `\widetilde O(L)` acts trivially on `A_L`,
+stable orbit statements must be made with the actual discriminant class fixed and with
+the additional theorem or backend that controls the kernel action.
+
+For the Coble/K3 pipeline, the admissible statement is therefore: first compute the
+actual Coble lattice `T`, its discriminant form `(A_T,q_T)`, the divisibility of the
+primitive isotropic vectors under consideration, and the finite orbit structure in
+`Iso(A_T,q_T)`; then apply a checked Nikulin, Eichler, stable-plus, or backend theorem
+to convert that finite result into a lattice orbit claim.  The finite orbit
+calculation alone is not a proof of the lattice statement.
 
 Weakest category:
 lattices with discriminant descent plus a specified orthogonal subgroup/refinement.
@@ -139,6 +177,11 @@ Witnesses:
 the lattice `L`, the discriminant descent `L -> L^# -> A_L`, the subgroup of `O(L)`,
 the image subgroup in `O(A_L,q_L)`, and the theorem or backend that identifies the
 lattice orbit with the finite discriminant-form orbit.
+
+Primitive totally isotropic planes are a further lattice-level object.  Their orbit
+statements require a primitive plane `J <= L`, the quotient lattice `J^\perp/J`, and a
+building or isotropic-subspace orbit theorem/backend.  They are not methods on a
+single element of `A_L`.
 
 ## Source-Backed Implementation Evidence
 
@@ -229,5 +272,9 @@ source-mined into ordinary mathematical operation rows.  The unresolved claims a
 - whether Oscar or Hecke supplies an exact discriminant-form automorphism-group route
   that is stronger, faster, or broader than Sage's brute-force `FqfOrthogonalGroup`
   construction;
-- which lattice-level lifting claims require Nikulin surjectivity, Eichler
-  transvections, stable-plus hypotheses, or a named building/orbit backend.
+- the actual Coble lattice data needed before finite discriminant-form orbit results
+  can be lifted: Gram model, signature, discriminant form, divisibility of primitive
+  isotropic vectors, Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose
+  orbit is being asserted;
+- a named backend or theorem for primitive isotropic plane or flag orbits whenever the
+  statement involves `J <= L` rather than a primitive vector class.
