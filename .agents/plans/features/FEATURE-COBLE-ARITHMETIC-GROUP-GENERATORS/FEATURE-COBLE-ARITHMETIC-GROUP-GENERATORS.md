@@ -79,6 +79,21 @@ integral image is a proper subgroup of this finite container.  The actual mod-$2
 image has order $696729600$, so the finite container is larger than the image by a
 factor of $136$.
 
+For the explicit complement
+$\delta^\perp=\mathbf Z(u+v)\oplus U(2)\oplus E_8(2)=2(\langle 1\rangle\oplus U\oplus
+E_8(-1))$, the same Sage/GAP witness constructs the induced finite action on
+$A_{T_{\mathrm{Co}}}$.  In the coordinates of
+$B_{\mathrm{Co}}=\langle 1\rangle\oplus U\oplus E_8(-1)$, this action fixes the first
+coordinate and acts on the remaining coordinates through the actual image of
+$\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$.  It has order `696729600`; on the
+`528` isotropic classes in $A_{T_{\mathrm{Co}}}$, its orbit lengths are
+`[1, 2, 120, 135, 270]`, with bitmask representatives `[0, 2, 14, 40, 42]`.
+
+This is a finite discriminant-action statement.  It is not a primitive-isotropic
+lattice orbit theorem for $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ and not an
+identification with the project $\Gamma_{\mathrm{Co}}$ before the $\theta$ comparison
+is constructed.
+
 ## Source Provenance
 
 - `theory/foundations/coble-task-background.md`, section `Task 3.1: Arithmetic Group
@@ -93,7 +108,9 @@ factor of $136$.
   for primitive embeddings into even unimodular lattices and the anti-isometry
   $q_S\simeq -q_K$ of discriminant forms.
 - `theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`, for the
-  exact Sage/GAP computation of the finite discriminant-form stabilizer of $h/2$.
+  exact Sage/GAP computation of the finite discriminant-form stabilizer of $h/2$, the
+  actual integral-stabilizer image, and the induced finite action on
+  $A_{T_{\mathrm{Co}}}$ for the explicit Heegner complement.
 - Dolgachev-Kondo (2013), through `theory/references/index.md`, for the full
   orthogonal quotient and the Enriques Heegner-divisor quotient.
 - Sterk (1991), through `theory/references/index.md`, remains a source target for the
@@ -123,6 +140,9 @@ factor of $136$.
 - Use the computed proper image of the integral stabilizer of $h$ in
   $O(S_{\mathrm{En}})$, of order $696729600$, inside the finite stabilizer of $h/2$ in
   $O(A_{S_{\mathrm{En}}},q)$.
+- Use the induced finite image on $A_{T_{\mathrm{Co}}}$ with isotropic-class orbit
+  lengths `[1, 2, 120, 135, 270]` when formulating subgroup cusp questions for this
+  Enriques-side Heegner complement.
 - Construct the stabilizer of $h_{\mathrm{Co}}$ in $O(T_{\mathrm{En}})$.
 - Construct the centralizer of $\theta$ in $O(T_{\mathrm{En}})$.
 - Compute the intersection defining $\Gamma_{\mathrm{Co}}$ only after the preceding

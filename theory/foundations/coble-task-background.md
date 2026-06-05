@@ -285,6 +285,31 @@ is larger than the integral group by a factor of $68$ and larger than the actual
 mod-$2$ image by a factor of $136$.  The computation constructs the actual finite image
 from the $U$-basis swap fixing $h$ and the simple-root reflections in $E_8(-1)$.
 
+The same script now computes the finite action induced on the explicit Coble Heegner
+complement
+
+```text
+delta^perp = Z(u+v) + U(2) + E_8(2) = 2(<1> + U + E_8(-1)).
+```
+
+In the coordinates of $B_{\mathrm{Co}}=<1>\oplus U\oplus E_8(-1)$, the action fixes the
+first coordinate, corresponding to $(u+v)/2$, and acts through the actual image of
+$\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ on the remaining
+$U\oplus E_8(-1)$ coordinates.  GAP finite-set orbits give
+
+```text
+|im| = 696729600,
+|Iso(A_TCo,q_T)| = 528,
+orbit lengths on Iso(A_TCo,q_T) = [1, 2, 120, 135, 270],
+representatives as bitmasks = [0, 2, 14, 40, 42].
+```
+
+This is a finite discriminant-form statement for the Enriques-side image attached to
+the chosen Heegner complement.  It does not prove a primitive-isotropic lattice orbit
+classification for $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$, and it does not
+identify that subgroup with the project notation $\Gamma_{\mathrm{Co}}$ before the
+$\theta$ comparison is constructed.
+
 **Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
 smaller intended arithmetic subgroup only after the following data are fixed:
 
@@ -315,7 +340,10 @@ obligations are:
   isotropic lines in $T_{\mathrm{En}}$, whereas $\delta$ is a negative vector defining a
   Heegner divisor;
 - compute or source the image of
-  $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)\to O(A_{T_{\mathrm{Co}}},q_T)$;
+  $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)\to O(A_{T_{\mathrm{Co}}},q_T)$; the
+  current Sage/GAP witness gives the induced finite discriminant image from the actual
+  Enriques stabilizer image and its five isotropic-class orbits, but a lattice-level
+  subgroup lifting theorem is still missing;
 - use the proper image of
   $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)\to
   \operatorname{Stab}_{O(A_{S_{\mathrm{En}}},q)}(h/2)$, of order $696729600$, when

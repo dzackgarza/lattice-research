@@ -21,6 +21,15 @@ This computes the finite stabilizer target for the discriminant-action descripti
 ``h^perp = <e-f> + E_8(-1)``, so it has order ``2 |W(E_8)|``.  The finite stabilizer
 below is larger by a factor of ``68``; it is a finite container, not the actual image
 of the integral stabilizer.
+
+The same integral image acts on the discriminant group of the explicit Coble
+Heegner complement
+
+    delta^perp = <2> + U(2) + E_8(2).
+
+Writing this lattice as ``2B_Co`` with ``B_Co=<1>+U+E_8(-1)``, the induced finite
+action fixes the ``<1>`` coordinate and acts through the actual image of
+``Stab_{O(S_En)}(h)`` on the remaining ``U+E_8(-1)`` coordinates.
 """
 
 from sage.all import (
@@ -39,6 +48,7 @@ from sage.libs.gap.libgap import libgap
 
 F = GF(2)
 RANK = 10
+TCO_RANK = 11
 H_BITS = 0b11
 
 E8 = matrix(
@@ -59,22 +69,27 @@ GRAM_B = block_diagonal_matrix(
     matrix(ZZ, [[0, 1], [1, 0]]),
     -E8,
 )
+GRAM_TCO_B = block_diagonal_matrix(
+    matrix(ZZ, [[1]]),
+    matrix(ZZ, [[0, 1], [1, 0]]),
+    -E8,
+)
 
 
-def residue_vector(bits):
+def residue_vector(bits, rank=RANK):
     r"""Return the element of ``B/2B`` encoded by an integer bitmask."""
-    return vector(ZZ, [(bits >> i) & 1 for i in range(RANK)])
+    return vector(ZZ, [(bits >> i) & 1 for i in range(rank)])
 
 
-def quadratic_value(bits):
+def quadratic_value(bits, gram=GRAM_B, rank=RANK):
     r"""Return ``B(v,v) mod 4`` for a residue vector ``v in B/2B``."""
-    v = residue_vector(bits)
-    return int((v * GRAM_B * v.column())[0]) % 4
+    v = residue_vector(bits, rank)
+    return int((v * gram * v.column())[0]) % 4
 
 
-def act_bits(bits, g):
+def act_bits(bits, g, rank=RANK):
     r"""Return the bitmask for the right action of ``g in GL(B/2B)``."""
-    v = vector(F, [(bits >> i) & 1 for i in range(RANK)])
+    v = vector(F, [(bits >> i) & 1 for i in range(rank)])
     w = v * g
     return sum((1 << i) for i, entry in enumerate(w) if int(entry))
 
@@ -103,6 +118,20 @@ def integral_stabilizer_generators():
     return [swap.change_ring(F)] + [
         reflection_matrix(root).change_ring(F) for root in simple_roots
     ]
+
+
+def induced_tco_generator(g):
+    r"""Embed a generator into the finite action on ``A_TCo``.
+
+    Coordinates are ordered as ``<1>`` followed by ``U+E_8(-1)``.  The first
+    coordinate is the class of ``(u+v)/2`` in the Coble Heegner complement, and the
+    induced Enriques-side discriminant action fixes it.
+    """
+    induced = identity_matrix(F, TCO_RANK)
+    for row in range(RANK):
+        for col in range(RANK):
+            induced[1 + row, 1 + col] = g[row, col]
+    return induced
 
 
 def main():
@@ -138,6 +167,30 @@ def main():
             for g in integral_stabilizer_generators()
         ]
     ).gap()
+    tco_image = PermutationGroup(
+        [
+            Permutation(
+                [
+                    act_bits(bits, induced_tco_generator(g), TCO_RANK) + 1
+                    for bits in range(1 << TCO_RANK)
+                ]
+            )
+            for g in integral_stabilizer_generators()
+        ]
+    ).gap()
+    tco_fibers = {
+        value: [
+            bits + 1
+            for bits in range(1 << TCO_RANK)
+            if quadratic_value(bits, GRAM_TCO_B, TCO_RANK) == value
+        ]
+        for value in range(4)
+    }
+    tco_isotropic_orbits = libgap.OrbitsDomain(
+        tco_image,
+        libgap(tco_fibers[0]),
+        libgap.OnPoints,
+    )
     integral_h_stabilizer_order = 2 * ZZ(WeylGroup(["E", 8], prefix="s").cardinality())
 
     print("fiber_sizes", {value: len(fibers[value]) for value in range(4)})
@@ -154,6 +207,16 @@ def main():
     print(
         "finite_container_index_over_integral_image",
         ZZ(h_stabilizer.Size()) // ZZ(integral_image.Size()),
+    )
+    print("tco_fiber_sizes", {value: len(tco_fibers[value]) for value in range(4)})
+    print("tco_induced_image_order", tco_image.Size())
+    print(
+        "tco_isotropic_orbit_lengths",
+        sorted(int(orbit.Length()) for orbit in tco_isotropic_orbits),
+    )
+    print(
+        "tco_isotropic_representatives_as_bits",
+        sorted(int(orbit[0]) - 1 for orbit in tco_isotropic_orbits),
     )
 
 
