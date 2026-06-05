@@ -171,14 +171,21 @@ The implication from lattice orbits to discriminant-form orbits is formal: if
 The converse is not a finite discriminant-form operation.  A claim that finite
 `O(A_L,q_L)`-orbits classify primitive isotropic `O(L)`-orbits requires a theorem or
 backend with hypotheses.  The source-backed theorem patterns currently available to
-the spec are:
+the spec are the following.
 
-- Nikulin surjectivity for the actual indefinite lattice under checked rank, length,
-  parity, and discriminant-form hypotheses; this identifies the image of
-  `O(L) -> O(A_L,q_L)` only after those hypotheses are verified for `L`;
-- Eichler-style criteria when the lattice contains the required hyperbolic summands,
-  giving stable-plus equivalence of primitive vectors from the square and the
-  discriminant class;
+- Nikulin surjectivity: if `L` is an even indefinite two-elementary lattice, then the
+  homomorphism `O(L) -> O(A_L,q_L)` is surjective.  This lets a finite
+  `O(A_L,q_L)`-orbit be read as an orbit for the image of `O(L)` only after the
+  lattice has been verified to be even, indefinite, and two-elementary.
+- Nikulin's stronger uniqueness/surjectivity theorem for an even indefinite lattice
+  requires the checked local length hypotheses of Theorem 1.14.2: for every `p != 2`,
+  `rank(L) >= ell((A_L)_p)+2`, and in the borderline 2-primary case the 2-primary
+  discriminant form has a required `u_+^(2)(2)` or `v_+^(2)(2)` summand.
+- Eichler criterion: when `L` contains `2U`, two primitive vectors are equivalent under
+  `tilde SO^+(L)` exactly when they have the same square and the same discriminant
+  class `v/div(v) + L`.  For primitive isotropic vectors this reduces stable-plus
+  equivalence to the discriminant class, but only under the `2U` hypothesis and for the
+  stable-plus subgroup.
 - a named primitive-isotropic orbit backend for isotropic line or plane orbit
   computation when the previous theorem hypotheses are not enough.
 
@@ -195,6 +202,18 @@ primitive isotropic vectors under consideration, and the finite orbit structure 
 to convert that finite result into a lattice orbit claim.  The finite orbit
 calculation alone is not a proof of the lattice statement.
 
+For the Dolgachev-Kondo standard Coble target
+
+`N = <2> + E_10(2)`
+
+the source states that the K3 orthogonal complement `N_X` is two-elementary of signature
+`(2,9)`, has discriminant form `q_N = -q_M`, and is isomorphic to this `N`.  Thus
+Nikulin's even indefinite two-elementary surjectivity theorem applies to this standard
+target as a statement about `O(N) -> O(q_N)`.  The project pipeline still owes a
+construction or accepted isometry witness identifying the geometrically computed
+`T_Co = (f^* Pic(S))^\perp` with that target before downstream code may treat the
+target computation as the computed Coble lattice computation.
+
 Weakest category:
 lattices with discriminant descent plus a specified orthogonal subgroup/refinement.
 
@@ -207,6 +226,17 @@ Primitive totally isotropic planes are a further lattice-level object.  Their or
 statements require a primitive plane `J <= L`, the quotient lattice `J^\perp/J`, and a
 building or isotropic-subspace orbit theorem/backend.  They are not methods on a
 single element of `A_L`.
+
+Source evidence:
+`theory/references/literature/nikulin1979integral.md:882-898` for Theorem 1.14.2,
+`theory/references/literature/nikulin1979integral.md:1595-1597` for surjectivity of
+`O(S) -> O(q_S)` for even indefinite two-elementary lattices,
+`theory/references/literature/dolgachev_kondo_2013.md:97-101` for the Coble K3
+orthogonal complement as a two-elementary lattice of signature `(2,9)` isomorphic to
+`N=<2>+E(2)`,
+`theory/foundations/reflective-two-elementary-lattices.md:372-385` for the Eichler
+criterion, and `theory-orbit-and-building-backends` for the separate
+isotropic-line/plane backend shape.
 
 ## Source-Backed Implementation Evidence
 
@@ -401,14 +431,17 @@ the original generated orthogonal group.
 - Do not implement orbit enumeration from first principles before surveying existing
   finite-group orbit methods in GAP/Sage/Oscar.
 
-## Current Missing Evidence
+## Remaining Lattice-Level Obligations
 
-This card is not complete until the remaining implementation evidence above is
-source-mined into ordinary mathematical operation rows.  The unresolved claims are:
+The finite discriminant-form actions and the conditional lattice-lifting theorem
+families above are source-grounded.  The unresolved claims are now the actual Coble
+specialization and the plane-orbit backend, not the finite orbit object:
 
 - the actual Coble lattice data needed before finite discriminant-form orbit results
-  can be lifted: Gram model, signature, discriminant form, divisibility of primitive
-  isotropic vectors, Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose
-  orbit is being asserted;
+  can be lifted in the project pipeline: the geometric construction of
+  `T_Co=(f^*Pic(S))^\perp`, the accepted isometry witness to the standard
+  Dolgachev-Kondo target `N=<2>+E_10(2)` or an equivalent direct Gram computation,
+  the discriminant form, the divisibility of primitive isotropic vectors, the
+  Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose orbit is being asserted;
 - a named backend or theorem for primitive isotropic plane or flag orbits whenever the
   statement involves `J <= L` rather than a primitive vector class.

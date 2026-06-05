@@ -11,17 +11,21 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: settle the lattice-lifting claim separated in
-`[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  For a primitive isotropic vector
-`v in L`, the finite class `v/div(v) + L in A_L` is defined and gives a necessary
-finite discriminant-form orbit invariant.  The unresolved claim is the converse:
-under which checked Nikulin/Eichler hypotheses, Coble lattice data, or named backend
-does a finite isotropic orbit determine a primitive isotropic lattice orbit?
+Next mathematical obligation: construct or source the actual Coble specialization
+needed by `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  The spec now has theorem
+evidence for the Dolgachev-Kondo standard target
+`N=<2>+E_10(2)`: it is even, indefinite, two-elementary of signature `(2,9)`, and
+Nikulin gives surjectivity `O(N)->O(q_N)`.  The remaining claim is the pipeline
+identification of the geometrically computed
+`T_Co=(f^*Pic(S))^\perp <= Lambda_K3` with that target, together with the
+divisibility and subgroup data for primitive isotropic vectors.
 
-Success condition: the spec either states the theorem with hypotheses and source
-evidence for the actual lattice class, or records the exact missing theorem/backend
-without promoting finite discriminant-form orbit enumeration into a lattice-orbit
-algorithm.
+Success condition: the next spec/code step gives a source-backed construction or
+accepted isometry witness for `T_Co`, records the discriminant form and primitive-vector
+divisibility from that construction, and states which subgroup of `O(T_Co)` acts in the
+orbit claim.  If that construction is not available in the current phase, create the
+source-mining or construction obligation instead of treating finite discriminant-form
+orbit enumeration as a lattice-orbit algorithm.
 
 Do not reopen the discriminant-form finite-action conversion as a mapping or
 terminology task.  The finite-action conversion for Sage torsion quadratic modules now
@@ -62,8 +66,9 @@ or a named primitive-isotropic orbit backend.
 ```
 
 Do not weaken the finite orbit object or promote lattice-level orbit lifting without
-the actual Coble lattice data, checked Nikulin/Eichler hypotheses, a
-primitive-isotropic backend, or a theorem proving the required lifting statement.
+the actual Coble construction/isometry data, primitive-vector divisibility, subgroup
+choice, checked Nikulin/Eichler hypotheses, a primitive-isotropic backend, or a theorem
+proving the required lifting statement.
 
 ## Mapping Rule
 
