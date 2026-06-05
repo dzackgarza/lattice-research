@@ -116,6 +116,11 @@ class _RModMorphisms(UniversalHomElementMethods):
         ...
 
     @abstractmethod
+    def direct_image(self, subobject: SubModule) -> SubModule:
+        r"""Return the direct-image submodule ``f(subobject)``."""
+        ...
+
+    @abstractmethod
     def cokernel(self) -> QuotientModule: ...
 
     @abstractmethod
@@ -197,6 +202,11 @@ class _RModMorphisms(UniversalHomElementMethods):
     @abstractmethod
     def lift(self, m: RModuleElement) -> RModuleElement:
         r"""Return any element ``m'`` such that ``f(m') = m``."""
+        ...
+
+    @abstractmethod
+    def preimage_representative(self, m: RModuleElement) -> RModuleElement:
+        r"""Return one representative of a preimage of ``m`` when it exists."""
         ...
 
     @abstractmethod
