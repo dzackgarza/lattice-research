@@ -114,6 +114,15 @@ CATEGORY_STATEMENTS = (
         lambda _: MZZ.TorsionQuadraticModules().is_subcategory(MZZ.FinitelyPresented().OverPID()),
     ),
     (
+        "torsion quadratic modules own finite discriminant-form parent surfaces",
+        lambda _: abstract_method_has_name(FormsTorsionQuadraticModulesCategory.ParentMethods.orthogonal_group, "orthogonal_group")
+        and abstract_method_has_name(FormsTorsionQuadraticModulesCategory.ParentMethods.isotropic_elements, "isotropic_elements")
+        and abstract_method_has_name(FormsTorsionQuadraticModulesCategory.ParentMethods.normal_form, "normal_form")
+        and abstract_method_has_name(FormsTorsionQuadraticModulesCategory.ParentMethods.primary_part, "primary_part")
+        and abstract_method_has_name(FormsTorsionQuadraticModulesCategory.ParentMethods.value_module, "value_module")
+        and abstract_method_has_name(FormsTorsionQuadraticModulesCategory.ParentMethods.value_module_qf, "value_module_qf"),
+    ),
+    (
         "lattice symmetric compatibility path resolves to forms owner",
         lambda _: LatticeSymmetricBilinearModulesCategory is FormsSymmetricBilinearModulesCategory,
     ),
