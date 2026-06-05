@@ -16,7 +16,7 @@
 | feature | 20 | 7 | 4 | 0 | 1 | 0 |
 | phase | 28 | 20 | 5 | 0 | 0 | 0 |
 | plan | 13 | 9 | 4 | 0 | 0 | 0 |
-| spec | 60 | 54 | 3 | 1 | 0 | 0 |
+| spec | 60 | 54 | 2 | 2 | 0 | 0 |
 | task | 180 | 167 | 0 | 0 | 0 | 0 |
 
 ## Co-Mathematician Workflow
@@ -44,7 +44,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
-| Category specs and Sage-grounded operations | `[##############--]  90.0%` | 153/170 | 12 | 0 | 0 | 0 |
+| Category specs and Sage-grounded operations | `[##############--]  90.0%` | 153/170 | 11 | 1 | 0 | 0 |
 | Mypy plugin for Sage category method override checking | `[##############--]  88.9%` | 16/18 | 0 | 1 | 1 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
@@ -64,7 +64,7 @@
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Source-backed mathematical operation maps (`critical`, `in-progress`)
 - `spec` `SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER`: Maintain Sage constructor and method operation map (`critical`, `in-progress`)
-- `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (`critical`, `in-progress`)
+- `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (`critical`, `needs-agent-review`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-human-input`)
 - `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)
 
