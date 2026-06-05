@@ -182,14 +182,32 @@ Source evidence:
 
 Remaining backend evidence to source-mine:
 
-- GAP finite group action methods for orbit representatives and stabilizers once a
-  generated finite action on `A` is available.
 - Oscar/Hecke discriminant-form orthogonal-group and spinor-norm routines when they
   return exact formed-module automorphism witnesses.
 - Stored theory: `theory-orbit-and-building-backends`, `theory-backend-routing`, and
   `theory/foundations/reflective-two-elementary-lattices.md` for the distinction
   between finite discriminant-form orbits and lattice-level stable/plus orbit
   algorithms.
+
+Runtime witness:
+for `D = TorsionQuadraticForm(matrix.identity(2)/2)`, Sage constructs
+`G = D.orthogonal_group()` with `G.gens()`, `G.order()`, `G.subgroup(...)`, and a right
+action `D.gen(0) * G.gen(0)`.  The same object has no public `orbit`, `orbits`, or
+`stabilizer` methods.  The only source-backed orbit code found in this Sage family is
+the private helper inside `_isom_fqf`, which calls GAP `Orbits(..., OnTuples)` while
+searching for generators or isometries.
+
+Source evidence:
+`sage/groups/fqf_orthogonal.py:520-536`, `sage/groups/perm_gps/permgroup.py:1672-1948`,
+and runtime probe of `FqfOrthogonalGroup_with_category`.
+
+Consequence:
+finite orbit and stabilizer enumeration for discriminant-form subsets is not inherited
+as a public Sage method of `FqfOrthogonalGroup`.  The project should specify it as a
+bounded local construction from the finite carrier `X`, the generated finite group
+`G`, and the certified action `x * g`; a GAP-backed implementation may use
+`libgap.Orbits` and `libgap.Stabilizer` only after the conversion between project
+elements and GAP action points is stated.
 
 ## Non-Goals
 
@@ -206,8 +224,8 @@ Remaining backend evidence to source-mine:
 This card is not complete until the remaining implementation evidence above is
 source-mined into ordinary mathematical operation rows.  The unresolved claims are:
 
-- which finite orbit and stabilizer operations are inherited from GAP/Sage finite
-  group actions for the `FqfOrthogonalGroup` action on `A`;
+- the exact local wrapper or GAP conversion that computes orbit representatives and
+  stabilizers for a finite subset `X <= A` under a generated `FqfOrthogonalGroup`;
 - whether Oscar or Hecke supplies an exact discriminant-form automorphism-group route
   that is stronger, faster, or broader than Sage's brute-force `FqfOrthogonalGroup`
   construction;
