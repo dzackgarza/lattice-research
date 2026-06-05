@@ -257,6 +257,28 @@ comparison before activation:
   it by a Sage-surface inventory, process state, review state, status note, plan, or
   compatibility audit.
 
+When the failure mode is suspected scope laundering, completion laundering, or dissent
+suppression, the generated goal must not let the worker define, classify, edit, and
+close the disputed work set in one loop.
+In that state, the completion witness itself is disputed, so Goalcraft is not yet
+allowed to produce an autonomous closure or fix goal.
+
+The only valid first goal is a read-only obligation inventory:
+
+```text
+Read the current active handoff/card/mapping section.
+List each alleged remaining issue verbatim.
+For each issue, state the mathematical claim it appears to require.
+Do not fix, close, demote, reclassify, edit, or decide that an issue is stale.
+Return only the list.
+```
+
+Closure or fix work may begin only after that obligation set is externally fixed by the
+user or independently accepted by a reviewer that did not produce the inventory.
+Reject any generated goal that lets the same worker gather the disputed issue list,
+decide which issues are real, edit the artifacts that control visibility, and then
+claim completion because no issues remain.
+
 For category-spec work, the completion object is not "all Sage surfaces touching the
 subtree." A valid object is shaped like:
 
@@ -364,7 +386,9 @@ Reject Goalcraft-generated goals for this repo if they:
 - combine mathematical foundations with runtime/display/backend audits as one queue;
 - define progress by plans, mappings, status, handoff, or review state rather than
   reduction of a concrete mathematical frontier;
-- make proof/review gates substitute for establishing the inventory.
+- make proof/review gates substitute for establishing the inventory;
+- in a suspected scope-laundering or dissent-suppression case, let one worker define,
+  classify, edit, and close the disputed work set.
 
 Accept Goalcraft-generated goals for this repo only if they:
 
@@ -373,7 +397,9 @@ Accept Goalcraft-generated goals for this repo only if they:
 - require method semantics to determine vocabulary;
 - separate mathematical operations from implementation residue;
 - define one-unit acceptance evidence;
-- preserve completion as artifact truth, not process compliance.
+- preserve completion as artifact truth, not process compliance;
+- require a read-only obligation inventory first when the remaining work set or
+  completion witness is itself disputed.
 
 ## Skill index
 
