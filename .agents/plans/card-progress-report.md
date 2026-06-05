@@ -3,8 +3,8 @@
 ## Overall
 
 - Total cards: **323**
-- Completed cards: **280**
-- Overall progress: `[#####################---]  86.7%`
+- Completed cards: **279**
+- Overall progress: `[#####################---]  86.4%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -16,7 +16,7 @@
 | feature | 20 | 7 | 4 | 0 | 1 | 0 |
 | phase | 28 | 20 | 5 | 0 | 0 | 0 |
 | plan | 13 | 9 | 4 | 0 | 0 | 0 |
-| spec | 60 | 55 | 2 | 1 | 0 | 0 |
+| spec | 60 | 54 | 3 | 1 | 0 | 0 |
 | task | 180 | 167 | 0 | 0 | 0 | 0 |
 
 ## Co-Mathematician Workflow
@@ -44,7 +44,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
-| Category specs and Sage-grounded operations | `[##############--]  90.6%` | 154/170 | 11 | 0 | 0 | 0 |
+| Category specs and Sage-grounded operations | `[##############--]  90.0%` | 153/170 | 12 | 0 | 0 | 0 |
 | Mypy plugin for Sage category method override checking | `[##############--]  88.9%` | 16/18 | 0 | 1 | 1 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
