@@ -331,6 +331,27 @@ bounded local construction from the finite carrier `X`, the generated finite gro
 `libgap.Orbits` and `libgap.Stabilizer` only after the conversion between project
 elements and GAP action points is stated.
 
+Project implementation witness:
+`category_specs/lattices/subcategories/constructions/discriminant_form_actions.py`
+implements this finite-action conversion for Sage torsion quadratic modules.  For
+`G <= O(A,q)` realized as a Sage `FqfOrthogonalGroup`, let `D = G.invariant_form()`
+be the torsion quadratic module and let `B = G.domain()` be Sage's underlying finite
+abelian-group parent.  The action label of `x in D` is the GAP point `B(D(x)).gap()`,
+and a returned GAP point `y` is converted back to the torsion quadratic module by
+`D.linear_combination_of_smith_form_gens(B(y).exponents())`.
+The subset constructor checks that the supplied finite tuple has no duplicate module
+elements and that every generator of `G` preserves the subset.  Point stabilizers are
+computed by `libgap.Stabilizer(G.gap(), label(x), libgap.OnPoints)` and converted back
+to a subgroup of the original generated group by `G._subgroup_constructor`, so the
+public return object is `Stab_G(x) <= G`, not a stabilizer inside a permutation image.
+
+Example witness:
+`category_specs/lattices/category_obligations.sage` constructs
+`D = TorsionQuadraticForm(I_2/2)` and the generated subgroup of `O(D)` swapping the two
+Smith generators.  The category-obligation example verifies that the two generators of
+`D` form one orbit and that the stabilizer of one generator is the trivial subgroup of
+the original generated orthogonal group.
+
 ## Non-Goals
 
 - Do not re-specify the discriminant group's bilinear/quadratic form evaluation (Phase 4).
@@ -346,9 +367,6 @@ elements and GAP action points is stated.
 This card is not complete until the remaining implementation evidence above is
 source-mined into ordinary mathematical operation rows.  The unresolved claims are:
 
-- the concrete project implementation witness for the typed conversion
-  `X <-> finite action labels` and for converting GAP/permutation orbit and stabilizer
-  output back to elements of `A` and subgroups of the generated `G <= O(A,q)`;
 - source-code verification for any future Oscar/Hecke implementation card that tries
   to use `TorQuadModule`, `TorQuadModuleWithIsom`, or `automorphism_group_with_inclusion`
   for finite discriminant-form orbit/stabilizer computation beyond the documented

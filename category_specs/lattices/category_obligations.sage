@@ -10,6 +10,11 @@ if str(ROOT) not in sys.path:
 from category_specs.cat import Cat
 from category_specs.lattices import Lattices, LatticesCategory
 from category_specs.lattices.homsets import LatticeEndCategory, LatticeHomCategory
+from category_specs.lattices.subcategories.constructions.discriminant_form_actions import (
+    discriminant_form_orbit,
+    discriminant_form_stabilizer,
+    discriminant_form_subset_orbits,
+)
 from category_specs.lattices.subcategories.constructions.dual_lattices import (
     DualLatticesCategory,
     DualLatticesElement,
@@ -43,7 +48,8 @@ from category_specs.lattices.subcategories.over_pid import _LatticesOverPID
 from category_specs.lattices.subcategories.unimodular import _UnimodularLattices
 from category_specs.modules import Modules
 from category_specs.utils import assert_category_statements
-from sage.all import ZZ, matrix
+from sage.all import ZZ, identity_matrix, matrix
+from sage.modules.torsion_quadratic_module import TorsionQuadraticForm
 
 
 C = Cat()
@@ -91,6 +97,26 @@ def discriminant_group_public_routes():
         and DG.HomCategory() in C
         and DG.EndCategory() in C
         and DG.AutCategory() in C
+    )
+
+
+def discriminant_form_action_conversion():
+    D = TorsionQuadraticForm(identity_matrix(2) / 2)
+    G = D.orthogonal_group(gens=[matrix(2, [0, 1, 1, 0])])
+    x = D.gen(0)
+    y = D.gen(1)
+    orbit = discriminant_form_orbit(G, x)
+    orbits = discriminant_form_subset_orbits(G, (x, y))
+    stabilizer = discriminant_form_stabilizer(G, x)
+    return (
+        len(orbit) == 2
+        and x in orbit
+        and y in orbit
+        and len(orbits) == 1
+        and x in orbits[0]
+        and y in orbits[0]
+        and stabilizer.order() == 1
+        and stabilizer.gens() == ()
     )
 
 
@@ -182,6 +208,10 @@ CATEGORY_STATEMENTS = (
     (
         "discriminant groups route through public formed PID-module Hom APIs",
         lambda _: discriminant_group_public_routes(),
+    ),
+    (
+        "finite discriminant-form actions return typed orbits and stabilizer subgroups",
+        lambda _: discriminant_form_action_conversion(),
     ),
     (
         "lattice base-ring refinements own OverPID, OverIntegers, and overlattice surfaces",

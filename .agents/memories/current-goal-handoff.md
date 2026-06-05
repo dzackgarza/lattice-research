@@ -11,15 +11,17 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: produce the implementation witness for the finite-action
-conversion used by discriminant-form orbit computation.  For a typed finite subset
-`X <= A` of a finite torsion quadratic module `(A,q)` and a certified generated
-subgroup `G <= O(A,q)`, the code or source-backed design must define the bijection
-between elements of `X` and finite action labels, prove each generator preserves `X`,
-and convert orbit/stabilizer backend output back to elements of `A` and subgroups of
-the original generated `G`.  For stabilizers, a permutation-image stabilizer must be
-pulled back along the action homomorphism `G -> Sym(X)`; otherwise it is only a
-stabilizer in the image group.
+Next mathematical obligation: settle the remaining backend/theorem evidence around
+discriminant-form orbit computations.  The finite-action conversion for Sage torsion
+quadratic modules now lives in
+`category_specs/lattices/subcategories/constructions/discriminant_form_actions.py`; do
+not redo it as a mapping or terminology task.  The next source-backed claim is whether
+Oscar/Hecke source provides an exact operation for arbitrary finite subset orbit or
+stabilizer computation under a specified subgroup `G <= O(A,q)` beyond the documented
+`TorQuadModule`, stable-submodule, and centralizer constructions.  If it does, record
+the mathematical operation, hypotheses, return object, and source evidence.  If it does
+not, preserve the negative finding and keep using the local Sage/GAP conversion witness
+for finite subsets.
 
 The finite formed-module side now has source-backed rows in
 `[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`:
@@ -32,8 +34,9 @@ The finite formed-module side now has source-backed rows in
   search over form-compatible images of Smith generators.
 - `ActionOnFqf` supplies the right action on `A` and invariant subquotients.
 - `FqfOrthogonalGroup` does not expose public `orbit`, `orbits`, or `stabilizer`
-  methods; the spec now states the bounded construction from finite carrier, generated
-  group, and certified action.
+  methods; the spec states the bounded construction from finite carrier, generated
+  group, and certified action, and `discriminant_form_actions.py` is the implementation
+  witness for that construction.
 - `PermutationGroup.orbit`, `PermutationGroup.orbits`, and
   `PermutationGroup.stabilizer` are Sage/GAP implementation evidence only after the
   typed conversion to and from the finite permutation/action domain is specified.
@@ -52,19 +55,18 @@ under im(O(L)->O(A_L,q_L)).  The converse requires a checked Nikulin/Eichler the
 or a named primitive-isotropic orbit backend.
 ```
 
-Controlling source evidence for the next obligation: `sage/groups/fqf_orthogonal.py`
-for `ActionOnFqf`, `sage/groups/perm_gps/permgroup.py` for finite orbits and
-stabilizers through GAP-backed permutation actions, `sage/modules/torsion_quadratic_module.py`
-for `TorsionQuadraticModule.orthogonal_group()`, and the finite-action rows in
-`[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.
+Controlling source evidence for the next obligation: Oscar/Hecke discriminant-group and
+torsion-quadratic-module-with-isometry docs, exact Oscar/Hecke source for any claimed
+finite subset orbit or stabilizer operation, `theory/backends/oscar-lattices`,
+`theory-backend-routing`, and the remaining missing-evidence bullets in
+`[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.
 
-Success condition: the project has a source-backed operation row or implementation
-design for the conversion
-`X <-> finite action labels`, the generator-stability check for `X`, and the return
-conversion from backend orbits and stabilizers to discriminant-form elements and
-subgroups of `G`, including the stabilizer preimage when a permutation image is used.
-Raw GAP tuples, Smith-coordinate lists, or permutation labels must not be public return
-objects.
+Success condition: the spec either records a source-backed Oscar/Hecke operation for
+finite discriminant-form subset orbits/stabilizers under `G <= O(A,q)`, or records a
+source-code negative finding that no such operation is exposed in the checked version.
+Do not weaken the finite orbit object or promote lattice-level orbit lifting without a
+checked Nikulin/Eichler theorem, primitive-isotropic backend, or actual Coble lattice
+data.
 
 ## Mapping Rule
 
