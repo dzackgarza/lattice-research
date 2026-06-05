@@ -244,6 +244,21 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
 
         class ElementMethods:
             @abstractmethod
+            def base_ring(self) -> Ring:
+                r"""Return the scalar ring of the chosen matrix presentation."""
+                ...
+
+            @abstractmethod
+            def rank(self) -> Integer:
+                r"""Return the rank of the chosen matrix representative."""
+                ...
+
+            @abstractmethod
+            def nullity(self) -> Integer:
+                r"""Return the nullity of the chosen matrix representative."""
+                ...
+
+            @abstractmethod
             def to_matrix(self) -> Matrix:
                 r"""Return the matrix representing this morphism in ordered bases."""
                 ...

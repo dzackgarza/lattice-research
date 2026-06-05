@@ -393,7 +393,10 @@ CATEGORY_STATEMENTS = (
     (
         "ordered-basis module Hom owns matrix construction and presentation routes",
         lambda _: abstract_method_has_name(_WithOrderedBasis.HomCategory.ParentMethods.from_matrix, "from_matrix")
-        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.to_matrix, "to_matrix"),
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.to_matrix, "to_matrix")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.base_ring, "base_ring")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.rank, "rank")
+        and abstract_method_has_name(_WithOrderedBasis.HomCategory.ElementMethods.nullity, "nullity"),
     ),
     (
         "ordered-basis module Hom owns matrix-unit basis witnesses",
