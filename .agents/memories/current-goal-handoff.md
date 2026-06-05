@@ -44,10 +44,26 @@ The `FreeModuleHomspace`, `FreeModuleMorphism`, inherited `MatrixMorphism`,
 `SPEC-MAPPING-LATTICES`. Use those rows as the baseline; do not collapse them back into
 Sage-class labels or backend summaries.
 
-The next local lattice mapping target is the remaining non-Hom method clusters after
-the Hom block. Continue by reading the Sage method body/docs/examples first, then write
-the mathematical sentence, weakest category/refinement, witnesses, return object, and
-source evidence.
+Next mathematical obligation:
+For a formed module or lattice with form `(M,b)`, state the exact Aut and
+discriminant-action operations that Sage or the project realizes:
+`O(M,b)=Aut(M,b)`, certified isometry membership, subgroup construction from certified
+generators, finite discriminant-form automorphism groups `O(A_L,q_L)`, and the
+homomorphism `O(L) -> O(A_L,q_L)` with image and kernel.
+
+Controlling source evidence:
+Read the Sage method bodies/docs/examples for `FreeQuadraticModule.orthogonal_group`,
+`TorsionQuadraticModule.orthogonal_group`, `GroupOfIsometries`, and the current
+`SPEC-MAPPING-LATTICES` rows before editing. Then state the weakest
+category/refinement, hypotheses, witnesses, codomain or return object, and source
+evidence for each operation.
+
+Success condition:
+The lattice mapping separates `O(L)` as a group object from stronger generated,
+finite, finitely generated, or finitely presented group refinements; separates
+subgroup-from-generators from full automorphism-group computation; and states the
+discriminant-form action bridge without treating raw matrices or backend option bags as
+public lattice operations.
 
 ## Mapping Rule
 

@@ -82,6 +82,43 @@ indicate an external Sage API stub gap, an internal category-spec owner method, 
 plugin inheritance edge, or a wrong mathematical category graph. Do not reduce that
 choice to mypy cleanup or bookkeeping.
 
+## Mathematical checkpoints
+
+A research checkpoint must state the mathematical state of the project before it names
+plans, phases, cards, feature roots, or route labels. A response shaped as "the real
+work stack is...", "current executable work is...", "the next stage is...", or
+"downstream tasks are gated..." is a project-management summary, not a mathematical
+checkpoint.
+
+For category-spec work, begin the checkpoint with the active mathematical obligation:
+
+```text
+For objects of category C satisfying hypotheses H,
+Sage method or constructor m realizes operation O,
+with codomain or return object Y,
+and requires witness data W.
+```
+
+Then state:
+
+- which definitions, constructions, category obligations, or implementation witnesses
+  are established;
+- which exact mathematical claims remain unresolved;
+- which unresolved claim is next to settle;
+- which source evidence or Sage/backend behavior controls that claim;
+- what mathematical claim becomes true if the next task succeeds.
+
+Do not describe paperwork as a "useful guardrail" unless the same paragraph states the
+mathematical claim it preserved. If no definition, construction, category membership,
+proof obligation, implementation witness, or source-backed computation changed, say
+directly: "This was paperwork, not mathematical progress."
+
+Do not write "finish the substrate" as a task description until the named mathematical
+obligations have been stated. Use the actual obligations: modules with forms,
+quotient-valued forms, metric duals, discriminant groups/forms, Hom/End/Aut objects,
+isometry certification, orthogonal complements, primitive embeddings, stabilizers,
+centralizers, and orbit objects under explicit hypotheses and category refinements.
+
 ## HARD GATE: ONBOARDING
 
 **Before reading any other file, running any tool, scanning any plan, or making any

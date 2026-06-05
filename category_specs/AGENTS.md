@@ -78,6 +78,30 @@ block, test repair, or plan cleanup is not automatically the directive. If the u
 asks for entrypoint guidance, anti-laundering doctrine, or repo-wide framing, do not
 substitute the current source-mapping leaf unless that leaf is explicitly named.
 
+## Mathematical checkpoints
+
+When asked to touch base with high-level tasks, do not answer with feature names, plan
+names, stage names, or a "real work stack" before stating the mathematics. A valid
+category-spec checkpoint names the active mathematical unit:
+
+```text
+For objects of category C satisfying hypotheses H,
+Sage method or constructor m realizes operation O,
+with codomain or return object Y,
+and requires witness data W.
+```
+
+Then state the unresolved mathematical claims, the next claim to settle, the controlling
+source evidence, and the claim that becomes true when the task succeeds. A list of
+routes, mappings, audits, tests, or implementation stages is allowed only after those
+claims are stated.
+
+Do not describe a docs edit, handoff update, renamed plan, mapped row, or category test
+as progress unless it changed a definition, construction, theorem-shaped claim,
+category/refinement membership, proof obligation, implementation witness, or
+source-backed computation. If it did not, say that it was paperwork, not mathematical
+progress, and continue from the current mathematical obligation.
+
 ## Sage constructor and method operation rows
 
 Before category-spec Sage inventory or mapping work, open

@@ -93,6 +93,13 @@ directive or shrink it to the nearest mapping slice.
 Terminology cleanup is not completion unless the rewritten passage states the
 mathematical object, operation, category, hypothesis, witness, source evidence, or
 implementation gap that the old wording hid.
+When asked for a research checkpoint or to touch base with high-level tasks, begin with
+the mathematical state, not a route through plans or features. State what definitions,
+constructions, category obligations, implementation witnesses, or proof obligations are
+established; what exact mathematical claims remain unresolved; which claim is next; what
+source or Sage/backend behavior controls it; and what becomes true if it is settled.
+If prior work did not change any of those objects, call it paperwork, not mathematical
+progress.
 
 The implementation philosophy is minimal reuse at owned boundaries.
 Use mature mechanisms for solved non-research problems: Sage for category construction,
@@ -110,10 +117,12 @@ See `mem:repo-purpose-mathematical-research-machine`.
 
 ## Current phase
 
-**Category-spec vocabulary.** Building the Sage-grounded semantic substrate: sets,
-modules, Hom/End/Aut vocabulary, modules with forms, lattices, morphisms, coercions,
-exact-backend bridge points, category refinements, and witness data. Downstream
-lattice/Coble work is blocked until this vocabulary exists.
+**Category-spec vocabulary.** The current obligations are named mathematical
+structures: sets, modules, Hom/End/Aut objects, modules with forms, lattices,
+morphisms, coercions, exact-backend bridge points, category refinements, and witness
+data. Do not abbreviate this as "the substrate" unless the concrete structures and
+obligations have already been named. Downstream lattice/Coble work is blocked until this
+vocabulary exists.
 
 Spec work is in scope when it is needed to express later lattice or Coble computations
 as typed mathematical constructions, or when Sage investigation shows that omitting it

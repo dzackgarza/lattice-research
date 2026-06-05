@@ -15,18 +15,20 @@ Trigger this check:
 - whenever the agent feels tempted to create a plan, handoff, decision card, or memory
   instead of reading/fixing source.
 
-Answer concretely:
+Start with the mathematical checkpoint, not a route through project artifacts.
+State which mathematical object, operation, theorem, construction, or interface is
+advanced; which source file, proof note, spec method, backend bridge, or research
+computation changes; which definitions, constructions, category obligations,
+implementation witnesses, or proof obligations are established; which exact
+mathematical claims remain unresolved; which unresolved claim is next and what source
+or Sage/backend behavior controls it; and what mathematical claim becomes true if the
+next task succeeds.
 
-1. What mathematical object, operation, theorem, construction, or interface is this work
-   advancing?
-2. What source file, proof note, spec method, backend bridge, or research computation
-   will change?
-3. Is this engineering necessary to make future mathematics safe, or is it process work
-   shaped like progress?
-4. Does this prevent a known failure mode such as raw matrix hacking, oracle-like
-   computations, or ungrounded claims?
-5. If this session stopped now, what would be closer to a publishable mathematical
-   result?
+Do not answer this check with feature names, plan names, route labels, "work stack",
+"stage", "gated", "executable work", or "useful guardrail" language before the
+mathematical state is stated. If prior work did not change a definition, construction,
+category/refinement membership, proof obligation, implementation witness, or
+source-backed computation, call it paperwork, not mathematical progress.
 
-If the answers are vague, stop artifact work.
+If the checkpoint is vague, stop artifact work.
 Read the source/math, fix the source-level issue, or retire the artifact.
