@@ -205,6 +205,10 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(FinitelyPresentedModulesOverPID.Torsion.ParentMethods.is_p_elementary, "is_p_elementary"),
     ),
     (
+        "finite-presentation PID module Hom owns presentation-generator image witnesses",
+        lambda _: abstract_method_has_name(FinitelyPresentedModulesOverPID.HomCategory.ElementMethods.im_gens, "im_gens"),
+    ),
+    (
         "Ore modules own companion-matrix surface",
         lambda _: abstract_method_has_name(_OreModules.ParentMethods.companion_matrix, "companion_matrix"),
     ),
