@@ -111,9 +111,32 @@ class LatticeAutCategory(GenericAutCategory):
 
         @abstractmethod
         def stable_special_subgroup(self) -> LatticeOrthogonalGroup:
-            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
+            r"""Return ``\widetilde{SO}(L) = \widetilde O(L) \cap SO(L)``.
 
             The subgroup is taken inside this lattice orthogonal group.
+            """
+            ...
+
+        @abstractmethod
+        def plus_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return ``O^+(L)``, the real-spinor-kernel subgroup.
+
+            This is the subgroup of ``O(L)`` whose real spinor norm is trivial.
+            Positive-cone preservation is only an equivalent witness under the
+            appropriate hyperbolic hypotheses.
+            """
+            ...
+
+        @abstractmethod
+        def special_plus_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``."""
+            ...
+
+        @abstractmethod
+        def stable_special_plus_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return ``\widetilde{SO}^+(L)``.
+
+            This is ``\widetilde O(L) \cap SO(L) \cap O^+(L)``.
             """
             ...
 
@@ -132,10 +155,25 @@ class LatticeAutCategory(GenericAutCategory):
 
         @final
         def stable_special_orthogonal_group(self) -> LatticeOrthogonalGroup:
-            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
+            r"""Return ``\widetilde{SO}(L) = \widetilde O(L) \cap SO(L)``.
 
             The notation refers to the underlying lattice ``L``.
             """
             return self.stable_special_subgroup()
+
+        @final
+        def plus_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``O^+(L)``, the real-spinor-kernel subgroup."""
+            return self.plus_subgroup()
+
+        @final
+        def special_plus_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``."""
+            return self.special_plus_subgroup()
+
+        @final
+        def stable_special_plus_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``\widetilde{SO}^+(L)``."""
+            return self.stable_special_plus_subgroup()
 
     ElementMethods = _LatticeAutomorphisms
