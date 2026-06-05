@@ -17,7 +17,9 @@ conversion used by discriminant-form orbit computation.  For a typed finite subs
 subgroup `G <= O(A,q)`, the code or source-backed design must define the bijection
 between elements of `X` and finite action labels, prove each generator preserves `X`,
 and convert orbit/stabilizer backend output back to elements of `A` and subgroups of
-the original generated `G`.
+the original generated `G`.  For stabilizers, a permutation-image stabilizer must be
+pulled back along the action homomorphism `G -> Sym(X)`; otherwise it is only a
+stabilizer in the image group.
 
 The finite formed-module side now has source-backed rows in
 `[[SPEC-MAPPING-LATTICES]]` and `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`:
@@ -35,6 +37,10 @@ The finite formed-module side now has source-backed rows in
 - `PermutationGroup.orbit`, `PermutationGroup.orbits`, and
   `PermutationGroup.stabilizer` are Sage/GAP implementation evidence only after the
   typed conversion to and from the finite permutation/action domain is specified.
+- Oscar/Hecke is now classified as exact backend evidence for `TorQuadModule`, isometry
+  tests, stable submodules, and centralizers `O(T,f)` for a torsion quadratic module
+  with a chosen isometry; it is not currently recorded as a generic replacement for
+  arbitrary finite subset orbit/stabilizer enumeration under `G <= O(A,q)`.
 
 The lattice lifting statement has been separated from the finite formed-module orbit
 claims.  The spec now states:
@@ -56,8 +62,9 @@ Success condition: the project has a source-backed operation row or implementati
 design for the conversion
 `X <-> finite action labels`, the generator-stability check for `X`, and the return
 conversion from backend orbits and stabilizers to discriminant-form elements and
-subgroups of `G`.  Raw GAP tuples, Smith-coordinate lists, or permutation labels must
-not be public return objects.
+subgroups of `G`, including the stabilizer preimage when a permutation image is used.
+Raw GAP tuples, Smith-coordinate lists, or permutation labels must not be public return
+objects.
 
 ## Mapping Rule
 

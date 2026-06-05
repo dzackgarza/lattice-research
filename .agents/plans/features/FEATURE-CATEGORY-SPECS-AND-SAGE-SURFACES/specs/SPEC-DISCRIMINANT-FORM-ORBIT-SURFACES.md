@@ -248,14 +248,49 @@ owned by the underlying finite FGP module.
 Source evidence:
 `sage/modules/torsion_quadratic_module.py:420-537` and `[[SPEC-MAPPING-LATTICES]]`.
 
-Remaining backend evidence to source-mine:
+Oscar/Hecke backend evidence:
+the current Oscar/Hecke documentation gives exact `TorQuadModule` discriminant-group
+objects, element lifts, `is_isometric_with_isometry(T,U)`, submodules,
+`stable_submodules(T, G)`, torsion quadratic modules with a chosen isometry
+`(T,f)`, and `automorphism_group_with_inclusion(T,f)`, where `O(T,f)` is the
+centralizer of `f` in `O(T)` with an inclusion into `O(T)`.
 
-- Oscar/Hecke discriminant-form orthogonal-group and spinor-norm routines when they
-  return exact formed-module automorphism witnesses.
-- Stored theory: `theory-orbit-and-building-backends`, `theory-backend-routing`, and
-  `theory/foundations/reflective-two-elementary-lattices.md` for the distinction
-  between finite discriminant-form orbits and lattice-level stable/plus orbit
-  algorithms.
+Source evidence:
+Oscar/Hecke discriminant-group docs, `https://docs.oscar-system.org/v1.4/Hecke/manual/quad_forms/discriminant_group/`;
+Oscar/Hecke torsion-quadratic-module-with-isometry docs,
+`https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/torquadmodwithisom/`;
+`theory/backends/oscar-lattices`; `theory-backend-routing`.
+
+Backend consequence:
+Oscar/Hecke is a candidate exact backend for discriminant-form objects, isometry tests,
+stable submodule enumeration, and centralizer subgroups attached to a specified
+isometry.  It is not recorded here as a replacement for the typed finite
+`G`-action orbit/stabilizer construction on arbitrary finite subsets `X <= A`, because
+the checked docs do not exhibit a public operation that takes `G <= O(A,q)` and `X` and
+returns typed orbit representatives and stabilizers in `G`.
+
+Negative finding:
+
+- Searched: Oscar/Hecke discriminant-group docs; Oscar/Hecke torsion-quadratic-module
+  with isometry docs; local memories `theory/backends/oscar-lattices`,
+  `theory/backends/gap-orbits`, and `theory-backend-routing`.
+- Found: exact `TorQuadModule` construction and invariants, isometry and anti-isometry
+  tests with maps, stable-submodule enumeration under supplied maps, and
+  `automorphism_group_with_inclusion(T,f)` for centralizers in `O(T)`.
+- Conclusion: based on the checked docs, Oscar/Hecke should be recorded as a candidate
+  backend for formed-module objects, stable submodules, centralizers, primitive
+  embeddings, and equivariant extension work, but not as a stronger already-specified
+  backend for arbitrary finite subset orbit/stabilizer enumeration under
+  `G <= O(A,q)`.
+- Confidence: Medium.
+- Gaps: source code or newer examples may still expose such a route; a later backend
+  implementation card should check the exact Oscar/Hecke source before rejecting it for
+  code work.
+
+Stored theory to keep separate:
+`theory-orbit-and-building-backends`, `theory-backend-routing`, and
+`theory/foundations/reflective-two-elementary-lattices.md` distinguish finite
+discriminant-form orbits from lattice-level stable/plus orbit algorithms.
 
 Runtime witness:
 for `D = TorsionQuadraticForm(matrix.identity(2)/2)`, Sage constructs
@@ -314,9 +349,10 @@ source-mined into ordinary mathematical operation rows.  The unresolved claims a
 - the concrete project implementation witness for the typed conversion
   `X <-> finite action labels` and for converting GAP/permutation orbit and stabilizer
   output back to elements of `A` and subgroups of the generated `G <= O(A,q)`;
-- whether Oscar or Hecke supplies an exact discriminant-form automorphism-group route
-  that is stronger, faster, or broader than Sage's brute-force `FqfOrthogonalGroup`
-  construction;
+- source-code verification for any future Oscar/Hecke implementation card that tries
+  to use `TorQuadModule`, `TorQuadModuleWithIsom`, or `automorphism_group_with_inclusion`
+  for finite discriminant-form orbit/stabilizer computation beyond the documented
+  centralizer and stable-submodule cases;
 - the actual Coble lattice data needed before finite discriminant-form orbit results
   can be lifted: Gram model, signature, discriminant form, divisibility of primitive
   isotropic vectors, Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose
