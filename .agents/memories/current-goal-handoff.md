@@ -31,6 +31,12 @@ decomposition on the `528` finite isotropic classes, and states which subgroup o
 phase, create the source-mining or construction obligation instead of treating finite
 discriminant-form orbit enumeration as a lattice-orbit algorithm.
 
+Backend note: `TorsionQuadraticForm(G_B/2)` constructs the standard finite form and
+enumerates the 528 isotropic classes.  The naive Sage full `D.orthogonal_group()` call
+for this rank-11 form did not return during the session and was terminated.  The next
+orbit-decomposition attempt should use a finite-quadratic-form theorem, a faster
+GAP/Oscar/Hecke route, or a subgroup image with explicit generators.
+
 Do not reopen the discriminant-form finite-action conversion as a mapping or
 terminology task.  The finite-action conversion for Sage torsion quadratic modules now
 lives in

@@ -25,30 +25,51 @@ tags:
 
 ## Summary
 
-Survey existing software capabilities for computing orbits of isotropic (norm-0)
-elements under the orthogonal group O(A, q) of a finite quadratic form over Z/2^kZ,
-specifically for discriminant groups of 2-elementary lattices A ≅ (Z/2Z)^11.
+Determine the orbit decomposition of the isotropic elements of the Coble standard-target
+finite discriminant form under the chosen orthogonal group.
+
+The finite set is now known for the Dolgachev-Kondo standard target
+`N=<2>+E_10(2)`.  Writing `N=2B` with `B=<1>+U+E_8(-1)`, the discriminant group is
+`A_N ~= B/2B`, and
+
+```text
+q_N(a/2+N)=0  iff  B(a,a)=0 mod 4.
+```
+
+Exact enumeration of the `2^11` residue classes gives `528` isotropic classes,
+including zero.
+
+The unresolved object is not this finite set.  The unresolved object is the orbit
+decomposition of that set under the relevant group: full `O(A_N,q_N)` for the standard
+finite form, or the image of the chosen Coble arithmetic subgroup once the project
+lattice `T_Co` and subgroup have been constructed.
 
 ## Input
 
 - A finite quadratic form q: A → Q/2Z on A ≅ (Z/2Z)^11 (order 2048).
 - The orthogonal group O(A, q) as a finite matrix group.
-- The set of isotropic elements {x ∈ A : q(x) = 0 mod 2Z} (known count: 528
-  elements for the standard form).
+- The set of isotropic elements `{x in A : q(x) = 0 mod 2Z}`; for the standard target,
+  this set has `528` elements by
+  `theory/foundations/coble-standard-target-discriminant-form.md`.
 
 ## Questions
 
-1. **GAP**: Can `OrbitsDomain(O, elements)` handle a group of size |O(A,q)| on 528
-   points? Is the group small enough to compute directly? What's the expected orbit
-   count and stabilizer structure?
-
-2. **Sage**: Does `QuadraticForm.automorphism_group()` produce the full O(q)?
-   Can its output be used with Sage's `PGroup` or `MatrixGroup` orbit methods?
-
-3. **Oscar/Hecke**: What discriminant-form orbit methods exist?
-
-4. **Burnside**: Can the orbit count be derived from character theory or invariant
-   theory without enumerating the full group?
+- **GAP/Sage finite action route**: construct `O(A_N,q_N)` as a finite group with a
+  certified action on `A_N`, then compute orbit decomposition of the 528 isotropic
+  classes.
+- **Sage status**: `TorsionQuadraticForm(G_B/2)` constructs the finite form and exact
+  enumeration gives the 528 isotropic classes.  The naive Sage call
+  `D.orthogonal_group()` for the rank-11 standard form did not return during this
+  session before the process was terminated.  This is a backend limitation finding, not
+  evidence for an orbit count.
+- **Oscar/Hecke status**: still unresolved for this specific orbit computation.
+- **Theorem route**: find a finite-quadratic-form theorem giving the orbit
+  decomposition for the standard `2`-elementary form, or prove that full
+  `O(A_N,q_N)` is transitive/nontransitive on the 527 nonzero isotropic classes under
+  stated hypotheses.
+- **Coble subgroup route**: if the acting group is not full `O(A_N,q_N)`, compute the
+  image of the chosen subgroup first.  Full-group orbits do not determine stable-kernel,
+  spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.
 
 ## Output
 
@@ -56,6 +77,8 @@ A brief report (theory note or decision card body) recording:
 - Which backends handle this computation for the specific discriminant group
 - Feasibility (can we compute all orbits directly, or do we need theory)
 - Recommended implementation route
+- The orbit decomposition, when established, as a statement about the specified acting
+  group rather than about the finite set alone
 
 ## Dependency Status
 
@@ -65,9 +88,41 @@ than rebuilding the computation from raw matrices or ad hoc finite quadratic for
 Keep this spec `unstarted` until the declared dependencies and active phase gate allow
 the Coble orbit survey to run.
 
+The finite isotropic set is no longer an open input: its standard-target count is
+recorded in `theory/foundations/coble-standard-target-discriminant-form.md`.  The
+remaining dependency is the group-action computation or theorem, plus the transfer from
+the standard target to the project `T_Co` construction.
+
+## Source and Computation Evidence
+
+- `theory/foundations/coble-standard-target-discriminant-form.md`: exact enumeration of
+  `B/2B` for `N=2B`, `B=<1>+U+E_8(-1)`, gives `528` isotropic classes.
+- `category_specs/lattices/subcategories/constructions/discriminant_form_actions.py`:
+  project helper for finite discriminant-form orbits once a generated finite group and
+  certified action are available.
+- `category_specs/lattices/docs/SAGE_INVENTORY.md:561-585`: Sage
+  `TorsionQuadraticModule`/`TorsionQuadraticForm` construction and
+  `orthogonal_group` source inventory for finite torsion quadratic modules.
+
+## Remaining Mathematical Obligation
+
+State and prove or compute:
+
+```text
+For the standard finite quadratic form (A_N,q_N), the action of the specified group G
+on Iso(A_N,q_N) has orbit decomposition ...
+```
+
+where `G` is one of `O(A_N,q_N)` or the image of a named Coble subgroup.  Until `G` is
+specified and the orbit decomposition is computed or sourced, no Coble cusp count follows
+from the 528-element set alone.
+
 ---
 
-## 6-Gate Protocol Review Log
+## Historical Review Log
+
+The review below predates the source and computation evidence recorded above.  It is not
+the current mathematical status of the card.
 
 ### Review 2026-05-07 (6-Gate Spec Review)
 
