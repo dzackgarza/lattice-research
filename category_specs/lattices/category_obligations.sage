@@ -175,8 +175,10 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(_ObjectsUnder.ParentMethods.structure_lattice, "structure_lattice"),
     ),
     (
-        "lattice subobjects own ambient and orthogonal-complement methods",
+        "lattice subobjects own ambient, primitive, and orthogonal-complement methods",
         lambda _: abstract_method_has_name(_Subobjects.ParentMethods.ambient, "ambient")
+        and abstract_method_has_name(_Subobjects.ParentMethods.inclusion, "inclusion")
+        and abstract_method_has_name(_Subobjects.ParentMethods.is_primitive, "is_primitive")
         and abstract_method_has_name(_Subobjects.ParentMethods.orthogonal_complement, "orthogonal_complement"),
     ),
     (
