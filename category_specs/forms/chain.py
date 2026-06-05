@@ -26,7 +26,6 @@ if TYPE_CHECKING:
         Category as CategoryType,
     )
     from ..types import (
-        DiscriminantGroup,
         Lattice,
         OrthogonalGroup,
         RModuleElement,
@@ -222,28 +221,6 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
         @final
         def is_rational(self) -> bool:
             return True
-
-        @abstractmethod
-        def dual_lattice(self) -> Lattice:
-            r"""Return the metric-dual lattice ``L^\#``.
-
-            Diagnostics: when the global category diagnostic flag is enabled, emit a
-            category diagnostic if this call may be confused with the Hom-dual object
-            ``Hom_R(L, R)``.  The diagnostic should name the hypotheses under which
-            the form identifies ``L^\#`` with the Hom dual, or say that no such
-            evaluation-bearing identification is being returned.
-            """
-            ...
-
-        @abstractmethod
-        def inclusion_morphism(self) -> RModuleMorphism: ...
-
-        @abstractmethod
-        def discriminant_group(self) -> DiscriminantGroup: ...
-
-        @final
-        def is_unimodular(self) -> bool:
-            return self.discriminant_group().is_trivial()
 
         @abstractmethod
         def is_even(self) -> bool: ...

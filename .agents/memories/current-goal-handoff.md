@@ -11,17 +11,17 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: classify the lattice Hom/morphism Sage method cluster.
-Determine which behavior belongs to generic category morphisms, additive or
-`R`-linear Hom objects, finite-free matrix representation after choosing bases or
-presentations, and finitely presented module morphisms.  The controlling Sage sources
-are `FreeModuleHomspace`, `FreeModuleMorphism`, inherited `MatrixMorphism` behavior,
-`category_specs/lattices/docs/SAGE_INVENTORY.md`, and `SPEC-MAPPING-LATTICES`.
+Next mathematical obligation: settle the lattice-lifting claim separated in
+`[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  For a primitive isotropic vector
+`v in L`, the finite class `v/div(v) + L in A_L` is defined and gives a necessary
+finite discriminant-form orbit invariant.  The unresolved claim is the converse:
+under which checked Nikulin/Eichler hypotheses, Coble lattice data, or named backend
+does a finite isotropic orbit determine a primitive isotropic lattice orbit?
 
-Success condition: for each method cluster, the mapping spec states the mathematical
-operation, hypotheses, weakest category or refinement, witness data, codomain or
-return object, and source evidence.  Do not record a method merely as a mapping,
-route, stage, or compatibility detail.
+Success condition: the spec either states the theorem with hypotheses and source
+evidence for the actual lattice class, or records the exact missing theorem/backend
+without promoting finite discriminant-form orbit enumeration into a lattice-orbit
+algorithm.
 
 Do not reopen the discriminant-form finite-action conversion as a mapping or
 terminology task.  The finite-action conversion for Sage torsion quadratic modules now

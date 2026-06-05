@@ -1105,12 +1105,11 @@ all l in L}`, and installed Sage source computes it by spanning
 `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain`: freeness gives
 the scalar extension `L_K`, `OverIntegralDomain` gives `K = Frac(R)`, nondegeneracy
 gives the metric-dual identification with a full-rank object, and integrality gives the
-inclusion `L -> L^#` needed for `L^#/L`. The local graph currently has
-`Modules(R).OverIntegralDomain()` but formed and lattice chains only propagate `OverPID`
-and stronger base-ring refinements. That is a visible spec-graph obligation: propagate
-the existing module `OverIntegralDomain()` refinement through formed/lattice categories,
-or record an explicit proof that a stronger owner is intentionally required. It is not
-an implementation-phase concern and does not change the mathematical method owner.
+inclusion `L -> L^#` needed for `L^#/L`. The lattice graph now has
+`Lattices(R).OverIntegralDomain()` as the weakest lattice refinement where these
+operations are required. `OverDedekindDomain()`, `OverPID()`, and `OverIntegers()`
+refine through it instead of being the first owners of metric-dual or discriminant
+constructions.
 
 #### 3c. Discriminant Group Correctness
 
@@ -1132,8 +1131,8 @@ The task requested checking this distinction. The spec `SPEC-MAPPING-LATTICES.md
 **G3 verdict: PASS.** The former reflection, form-degree, discriminant-sign,
 dual-lattice tier, and formed-cokernel advisories are closed at the spec level. No tier
 assignment is wrong. No boundary is misplaced. The discriminant group surface is
-mathematically correct. The remaining dual-lattice graph work is a named
-`OverIntegralDomain()` propagation obligation, not a method-owner ambiguity.
+mathematically correct. The dual-lattice graph work is closed by the
+`Lattices(R).OverIntegralDomain()` refinement.
 
 ---
 
@@ -1209,16 +1208,15 @@ The spec preserves all Sage obligations and adds project-owned ones:
 **Overall verdict: PASS.** The spec is mathematically sound, the tier table is correct,
 the forms/lattice boundary is clean and rigorously justified, and the discriminant
 group surface is complete. The former `dual_lattice()` tier/category graph advisory is
-closed as a source-backed `OverIntegralDomain()` propagation obligation. The former
+closed by the source-backed `Lattices(R).OverIntegralDomain()` refinement. The former
 reflection, form-degree, discriminant-sign, and formed-cokernel gaps are closed at the
 spec level.
 
 **Closed local advisories:**
 - G3-d: `dual_lattice` tier — Sage docs/source settle the metric-dual owner at
-  `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain`; the current
-  graph gap is the explicit spec obligation to propagate existing
-  `Modules(R).OverIntegralDomain()` vocabulary through formed/lattice chains or record
-  a stronger-owner proof.
+  `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain`. The lattice
+  category graph records this by defining `Lattices(R).OverIntegralDomain()` and
+  placing the stronger Dedekind, PID, and integer refinements above it.
 - G3-a: reflection is split between the scalar-extension formula and the
   lattice-preservation/root condition for membership in the original lattice Aut
   object.

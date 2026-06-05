@@ -44,6 +44,7 @@ from category_specs.lattices.subcategories.constructions.subobjects import _Subo
 from category_specs.lattices.subcategories.even import _EvenLattices
 from category_specs.lattices.subcategories.over_dedekind import _LatticesOverDedekindDomain
 from category_specs.lattices.subcategories.over_integers import _LatticesOverIntegers as LatticesOverIntegers
+from category_specs.lattices.subcategories.over_integral_domain import _LatticesOverIntegralDomain
 from category_specs.lattices.subcategories.over_pid import _LatticesOverPID
 from category_specs.lattices.subcategories.unimodular import _UnimodularLattices
 from category_specs.modules import Modules
@@ -166,18 +167,18 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(_UnimodularLattices.ParentMethods.is_unimodular, "is_unimodular"),
     ),
     (
-        "lattice end objects and slice categories own structure-lattice surfaces",
+        "lattice end objects and slice categories own structure-lattice methods",
         lambda _: abstract_method_has_name(LatticeEndCategory.ParentMethods.base_lattice, "base_lattice")
         and abstract_method_has_name(_ObjectsOver.ParentMethods.structure_lattice, "structure_lattice")
         and abstract_method_has_name(_ObjectsUnder.ParentMethods.structure_lattice, "structure_lattice"),
     ),
     (
-        "lattice subobjects own ambient and orthogonal-complement surfaces",
+        "lattice subobjects own ambient and orthogonal-complement methods",
         lambda _: abstract_method_has_name(_Subobjects.ParentMethods.ambient, "ambient")
         and abstract_method_has_name(_Subobjects.ParentMethods.orthogonal_complement, "orthogonal_complement"),
     ),
     (
-        "metric-dual lattice construction owns primal and discriminant-class surfaces",
+        "metric-dual lattice construction owns primal and discriminant-class methods",
         lambda _: DualLatticesObject is DualLatticesCategory.ParentMethods
         and DualLatticesElement is DualLatticesCategory.ElementMethods
         and DualLatticesMorphism is LatticeHomCategory.ElementMethods
@@ -199,7 +200,7 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(OverlatticesCategory.ParentMethods.base_inclusion, "base_inclusion"),
     ),
     (
-        "orthogonal direct sums own summand surfaces and standard type-package aliases",
+        "orthogonal direct sums own summand methods and standard type-package aliases",
         lambda _: OrthogonalDirectSumsObject is OrthogonalDirectSumsCategory.ParentMethods
         and OrthogonalDirectSumsElement is OrthogonalDirectSumsCategory.ElementMethods
         and OrthogonalDirectSumsMorphism is LatticeHomCategory.ElementMethods
@@ -214,7 +215,20 @@ CATEGORY_STATEMENTS = (
         lambda _: discriminant_form_action_conversion(),
     ),
     (
-        "lattice base-ring refinements own OverPID, OverIntegers, and overlattice surfaces",
+        "lattice integral-domain refinement owns metric-dual and discriminant-group obligations",
+        lambda _: LZZ.OverIntegralDomain() in C
+        and LZZ.OverDedekindDomain().is_subcategory(LZZ.OverIntegralDomain())
+        and abstract_method_has_name(LatticesCategory.SubcategoryMethods.OverIntegralDomain, "OverIntegralDomain")
+        and _LatticesOverIntegralDomain._defining_predicates == ("is_over_integral_domain",)
+        and abstract_method_has_name(_LatticesOverIntegralDomain.ParentMethods.is_primitive, "is_primitive")
+        and abstract_method_has_name(_LatticesOverIntegralDomain.ParentMethods.rational_span, "rational_span")
+        and abstract_method_has_name(_LatticesOverIntegralDomain.ParentMethods.dual_lattice, "dual_lattice")
+        and abstract_method_has_name(_LatticesOverIntegralDomain.ParentMethods.inclusion_morphism, "inclusion_morphism")
+        and abstract_method_has_name(_LatticesOverIntegralDomain.ParentMethods.discriminant_group, "discriminant_group")
+        and abstract_method_has_name(_LatticesOverIntegralDomain.ParentMethods.is_unimodular, "is_unimodular"),
+    ),
+    (
+        "lattice Dedekind, PID, and integer refinements own their stronger obligations",
         lambda _: abstract_method_has_name(_LatticesOverPID.ParentMethods.is_over_integers, "is_over_integers")
         and abstract_method_has_name(LatticesOverIntegers.ParentMethods.is_over_integers, "is_over_integers")
         and abstract_method_has_name(LatticesOverIntegers.ParentMethods.minimum, "minimum")
@@ -224,7 +238,7 @@ CATEGORY_STATEMENTS = (
         "IntegralLattice('A2').short_vectors(3) has six roots of norm 2",
         lambda _: len(a2_short_vectors_below_three()[2]) == 6,
     ),
-    ("Lattices(ZZ).OverIntegers().ParentMethods.short_vectors is admitted", lambda _: LatticesOverIntegers.ParentMethods.short_vectors),
+    ("Lattices(ZZ).OverIntegers().ParentMethods.short_vectors is defined", lambda _: LatticesOverIntegers.ParentMethods.short_vectors),
     (
         "IntegralLattice('A2').short_vectors_up_to_sign(3) has three roots modulo sign",
         lambda _: len(a2_short_vectors_below_three_up_to_sign()[2]) == 3,

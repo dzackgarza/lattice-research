@@ -1,4 +1,4 @@
-r"""Lattice category surface.
+r"""Lattice category.
 
 ``Lattices(R)`` is the named endpoint of the actual formed-module axiom chain
 
@@ -6,15 +6,16 @@ r"""Lattice category surface.
 
 The initializer owns the readable public index for the lattice subtree: the
 root category class, constructor namespace, lattice-specific subcategories, and
-standard type package aliases live here.  Detailed lattice method surfaces stay
+standard type package aliases live here.  Detailed lattice methods stay
 in the subcategory files.
 
 Subcategory hierarchy::
 
     Lattices(R)
-    |-- OverDedekindDomain()
-    |   `-- OverPID()
-    |       `-- OverIntegers()
+    |-- OverIntegralDomain()
+    |   `-- OverDedekindDomain()
+    |       `-- OverPID()
+    |           `-- OverIntegers()
     |-- Even()
     |-- Unimodular()
     |-- Subobjects()
@@ -277,6 +278,9 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
     class SubcategoryMethods:
         @final
+        def OverIntegralDomain(self) -> Category:
+            return with_axiom(self, "OverIntegralDomain")
+        @final
         def OverDedekindDomain(self) -> Category:
             return with_axiom(self, "OverDedekindDomain")
         @final
@@ -332,6 +336,10 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
     OverDedekindDomain = LazyImport(
         "category_specs.lattices.subcategories.over_dedekind",
         "_LatticesOverDedekindDomain",
+    )
+    OverIntegralDomain = LazyImport(
+        "category_specs.lattices.subcategories.over_integral_domain",
+        "_LatticesOverIntegralDomain",
     )
     OverPID = LazyImport(
         "category_specs.lattices.subcategories.over_pid", "_LatticesOverPID"
