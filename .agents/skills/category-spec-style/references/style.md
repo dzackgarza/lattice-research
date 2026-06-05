@@ -332,18 +332,18 @@ constructors, algorithms, categories, and documented behaviors that are already
 mathematically useful and often implementable. They help prevent an unbounded wishlist
 of methods with no credible implementation path. Treat Sage as implementation evidence
 and a realization witness, not as mathematical admissibility and not as a license to
-claim stronger category refinements without witnesses.
+place objects in stronger categories without the required proof or witness data.
 
 The spec therefore has two simultaneous obligations:
 
 - preserve existing Sage functionality by inventorying and mapping Sage methods,
   constructors, and documented behavior into project vocabulary; and
 - state mathematically required methods and laws with the category membership,
-  hypotheses, and witnesses that make them obligations.
+  hypotheses, and witness data that make them category facts.
 
 A subcategory definition should read as a mathematical document: what the subcategory
 is, what its supercategories are, what methods an object in it must have, what
-witnesses those methods require, and what methods Sage already provides.
+witness data the category includes, and what methods Sage already provides.
 Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
 
@@ -664,12 +664,12 @@ types.
   orbits, finding automorphism generators). They contain minimal software
   engineering, wiring, or glue, and zero new mathematical assumptions or public
   methods beyond the spec. They are intended to be rarely read.
-- **Stronger group refinements**: Full generator lists, presentations,
+- **Group refinements**: Full generator lists, presentations,
   arithmetic-group orbit decompositions, Vinberg chambers, Coxeter parabolics, and
-  hyperbolic-lattice automorphism-group algorithms are not owed by an abstract group
-  object. They become public obligations only when the object refines to a category
-  such as finitely generated group, finitely presented group, finite group, matrix group
-  with known generators, or a project-specific generated arithmetic group.
+  hyperbolic-lattice automorphism-group algorithms are not structure of an abstract
+  group object. They appear exactly when the object is placed in a category such as
+  finitely generated group, finitely presented group, finite group, generated matrix
+  group, or a project-specific generated arithmetic group.
 - **Categorical Glue**: Categories handle "software engineering" principles like
   routing constructors (e.g., determining if $R$ is a PID to route `FreeModule(R, n)`
   to a specialized constructor).
@@ -1092,8 +1092,8 @@ without hypotheses on `R`. More importantly, any subcategory `C` of `Modules(R)`
 allowed to form `C.Free()` to declare "free objects inside `C`". When `C = Modules(R)`,
 Sage's `base_category_with_axiom`/`_base_category_class_and_axiom` registration may
 return the registered class. For other `C`, the construction primarily records the
-mathematical restriction and enforces a consistent method surface; it is not a promise
-that the category has a complete implementation.
+mathematical restriction and enforces a consistent method surface; it is not the
+assertion that Sage has already implemented every project method for that category.
 
 Do not collapse axiomatic restrictions into implementation categories merely because
 some restricted cases are computable. Further restrictions such as finite generation,
@@ -1191,10 +1191,10 @@ Those names are interop hooks, not public project selectors. Public navigation i
 `HomCategory()`, `EndCategory()`, `AutCategory()`, and evaluated constructors
 `HomCategory().Of(A, B)`, `EndCategory().Of(A)`, `AutCategory().Of(A)`.
 
-This wiring defines `Aut(X)` at the group-object level. It must not be read as a
-generic promise to compute generators, presentations, or orbit decompositions. Those
-methods belong only on stronger categories or explicitly generated constructions whose
-witness obligations are stated.
+This wiring defines `Aut(X)` as an object of `Groups`. It is not the assertion that
+`Aut(X)` lies in `FinitelyGeneratedGroups`, `FinitelyPresentedGroups`, a finite-group
+category, or a generated matrix-group category. Those category memberships carry the
+corresponding generator, presentation, finiteness, or chosen-generator structure.
 
 ### What subtrees own vs. what the top level owns
 
@@ -1436,7 +1436,7 @@ Each subtree maintains a `docs/` folder with two canonical files:
   cases, return objects, side conventions, helper behavior, and compatibility surfaces.
   Then extract the mathematical operation, introduce or reference only the vocabulary
   required by that behavior, and state the weakest structure, hypotheses, claimed
-  category/refinement membership, and required witnesses.
+  category/refinement membership, and witness data.
   For every method row, the correct mathematical concept must be a complete sentence
   that would make sense without Sage. Examples: "In any category, morphisms compose";
   "In an additive category, `Hom(X,Y)` is an abelian group and composition is
@@ -1444,8 +1444,8 @@ Each subtree maintains a `docs/` folder with two canonical files:
   names a Sage class, source file, project category, or migration consequence has not
   stated the mathematics.
   Assign the method to the most general standard category where that sentence is true.
-  If the method requires stronger structure, record the stronger category/refinement and
-  its witnesses rather than adding an external computability label.
+  If the method belongs to a stronger category, record that category/refinement and its
+  witness data rather than adding an external computability label.
   Do not leave evaluation, composition, Hom addition, kernels, cokernels, images, or
   analogous standard constructions on a special Sage class merely because that is where
   Sage implements them.

@@ -13,8 +13,8 @@ is not a catalog of every Sage method.
 
 The spec phase is source-grounded, but Sage coverage does not decide mathematical
 admissibility. Sage inventories decide realization, honest refinement targets, existing
-methods, and implementation gaps. Category membership and required witnesses decide
-what a public surface owes.
+methods, and implementation gaps. Category membership and witness data decide the
+public mathematical surface.
 
 The public vocabulary must let later research code construct `R^n` as a free
 `R`-module with the correct module, finite-rank, and basis/witness refinements; define
@@ -25,10 +25,11 @@ base changes through the categories that make those methods meaningful.
 
 Hom, End, and Aut are mathematical objects. For a lattice `L`, `O(L)` is
 `Aut_Lattices(L)`, the group of lattice automorphisms. It belongs in the spec as a
-canonical group object. It owes identity, multiplication, inverse, equality or
-extensional comparison supported by the representation, and certified elements. It
-does not owe `gens()` unless it refines to a finitely generated group, matrix group with
-known generators, finitely presented group, or explicitly generated subgroup.
+canonical object of `Groups`. Identity, multiplication, inverse, equality or
+extensional comparison, and certified elements are group-level structure. The method
+`gens()` appears only when the same object is also placed in
+`FinitelyGeneratedGroups`, a generated matrix-group category,
+`FinitelyPresentedGroups`, or an explicitly generated-subgroup category.
 
 The downstream lattice/Coble computations should eventually read as constructions of
 objects and morphisms such as `Pic(S)`, `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
@@ -57,8 +58,8 @@ Operational invariants:
 - Accept raw matrices only as realizations of maps, forms, embeddings, quotients,
   complements, or orbit problems.
 - Place each operation at the highest mathematically valid owner.
-- Let category membership determine method obligations. A group does not owe
-  generators; a finitely generated group does.
+- Let category membership determine the method surface. `Groups` gives group
+  operations; `FinitelyGeneratedGroups` gives finite-generation structure.
 - Treat Sage behavior as implementation evidence and compatibility data, not as the
   specification itself.
 - Classify gaps by ownership: external Sage API stub, plugin inheritance edge,

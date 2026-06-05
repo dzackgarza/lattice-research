@@ -61,7 +61,7 @@ by the research and uses Sage inventory to ground realization. Refinement declar
 an implementation is regarded as an object of a category; it does not prove that
 implementation satisfies the category. Current Sage objects may be partial relative to
 project specs, but missing support must remain visible as an unimplemented obligation
-or an unjustified stronger refinement rather than being hidden behind a convenience
+or an unjustified category membership rather than being hidden behind a convenience
 method.
 
 Do not turn this repo into a mechanism that hides or preempts the gap: no generated
@@ -74,7 +74,7 @@ The hierarchy implicit in `GOAL.md`: downstream Coble/lattice goals must not be 
 by ad hoc raw computations.
 The first pass is a Sage-grounded semantic vocabulary of sets, modules, Hom/End/Aut,
 modules with forms, lattices, morphisms, coercions, validation, refinement categories,
-and backend boundaries. Hom/End/Aut vocabulary names mathematical objects; stronger
-algorithmic obligations such as generators arise only from stronger category membership
-or supplied construction witnesses.
+and backend boundaries. Hom/End/Aut vocabulary names mathematical objects; generators
+and presentations appear when those objects lie in finite-generation,
+finite-presentation, or generated-object categories.
 Do not skip this.

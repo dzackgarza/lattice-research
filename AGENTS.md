@@ -17,11 +17,12 @@ research, grounded by Sage/source inventories. It is neither a mirror of only wh
 already implements nor an unconstrained ideal-API exercise.
 
 The controlling rule is categorical: a claimed method follows from the object's stated
-category membership, hypotheses, and required witnesses. The spec does not maintain a
-second computability-tracking layer. A group does not owe generators; a finitely
-generated group does. A finitely presented group owes generators and relations. A finite
-group owes finite enumeration/cardinality structure. A generated subgroup owes its
-generators as construction data.
+category membership, hypotheses, and witness data. The spec does not maintain a second
+computability-tracking layer. An object of `Groups` has the group structure. An object
+of `FinitelyGeneratedGroups` has the finite-generation structure and a generating-set
+witness surface. An object of `FinitelyPresentedGroups` has finite-presentation
+structure. An explicitly generated subgroup carries its generators as construction
+data.
 
 The phase must define public vocabulary for the research pipeline: sets, rings,
 modules, free modules, modules with bilinear or quadratic forms, lattices, Hom/End/Aut
@@ -29,7 +30,8 @@ objects, lattice isometry groups such as `O(L)=Aut_Lattices(L)`, embeddings,
 orthogonal complements, discriminant groups/forms, stabilizers, centralizers, orbit
 sets, and related construction surfaces. These objects are in scope when they are
 mathematically canonical and needed by the Coble/K3 argument, even if explicit
-algorithms for stronger refinements are difficult.
+finite-generation, finite-presentation, finiteness, or generated-object refinements
+require additional source evidence.
 
 Sage behavior is evidence, compatibility data, and a realization guide, not the
 specification itself. Source inventory decides how a natural object is represented,
@@ -43,13 +45,14 @@ The phase invariants are:
   research, including Hom, End, Aut, `O(L)`, discriminant forms, primitive embeddings,
   orthogonal complements, stabilizers, centralizers, and orbit sets, belong in the
   spec at their correct level of structure.
-- Category membership determines obligations. `Aut(L)` as a lattice automorphism group
-  is a group object; it owes group operations and certified elements, not `gens()`.
-  Generator methods appear only after a finite-generation, matrix-group, finitely
-  presented, or explicitly generated-subgroup refinement supplies the witness.
+- Category membership determines the method surface. `Aut(L)` as a lattice
+  automorphism group lies first in `Groups`; `gens()` belongs only after `Aut(L)` is
+  also placed in `FinitelyGeneratedGroups`, a generated matrix-group category,
+  `FinitelyPresentedGroups`, or an explicitly generated-subgroup category.
 - Hypotheses, construction data, and witnesses are part of the method. A proposed
   isometry can be certified from finite exact data; a full generating set for an
-  indefinite lattice automorphism group requires a stronger category claim.
+  indefinite lattice automorphism group is the assertion that the relevant group lies in
+  a category with finite-generation structure.
 - Sage/source inventory grounds realization, not mathematical admissibility. It tells
   agents which refinements and methods are justified by existing code, wrappers, or
   backend work.
@@ -360,7 +363,7 @@ subtree." A valid object is shaped like:
 ```text
 The category-spec foundation for <subtree> has a source-backed mapping from
 Sage methods/constructors to the mathematical structures, category memberships,
-hypotheses, witnesses, and proof obligations they require.
+hypotheses, witness data, and proof obligations they require.
 ```
 
 Reject unbounded scope words unless the generated goal immediately gives a finite
@@ -384,7 +387,7 @@ Sage method body/examples
 -> mathematical behavior implemented
 -> required vocabulary/hypotheses
 -> weakest mathematical owner
--> category/refinement membership and required witnesses
+-> category/refinement membership and witness data
 -> Sage evidence
 -> mapping/spec row
 ```
@@ -414,7 +417,7 @@ How one unit is removed from Remaining:
 
 For category-spec work, a valid unit is one Sage method cluster with a shared
 mathematical behavior, classified by minimal structure/hypotheses,
-category/refinement membership, required witnesses, and source evidence. A file, row
+category/refinement membership, witness data, and source evidence. A file, row
 cluster, package export set, or handoff frontier is invalid unless it is also a
 mathematically coherent operation family.
 
@@ -425,9 +428,9 @@ U = C ⊔ R ⊔ Q
 ```
 
 where `C` has mathematical operation statements, weakest owners, category/refinement
-memberships, hypotheses, and witnesses; `R` is explicitly
+memberships, hypotheses, and witness data; `R` is explicitly
 nonmathematical/runtime/display/backend residue; and `Q` contains only genuine
-unresolved mathematical/spec decisions or missing stronger-refinement obligations.
+unresolved mathematical/spec decisions or unresolved stronger category memberships.
 Wrapper compliance, onboarding, handoffs, memories, plans, status labels, review state,
 and proof gates cannot satisfy this witness.
 
@@ -451,7 +454,7 @@ Valid:
 Build the source-backed mathematical operation map for category_specs/lattices:
 generate the finite Sage method/constructor queue from named source roots,
 read each method cluster, state the mathematical operation and weakest required
-structure, state the category/refinement membership and required witnesses, classify
+structure, state the category/refinement membership and witness data, classify
 implementation/runtime/display residue separately, and mark complete only when the queue
 artifact has no unclassified mathematical operations.
 ```
@@ -462,7 +465,7 @@ Reject Goalcraft-generated goals for this repo if they:
 - use `all`, `every`, `full`, `relevant`, `adjacent`, or `touches` without a finite
   generated queue and residue rule;
 - omit the semantic extraction step from Sage behavior to mathematical vocabulary;
-- omit category/refinement membership and witness obligations;
+- omit category/refinement membership and witness data;
 - combine mathematical foundations with runtime/display/backend audits as one queue;
 - define progress by plans, mappings, status, handoff, or review state rather than
   reduction of a concrete mathematical frontier;
@@ -475,7 +478,7 @@ Accept Goalcraft-generated goals for this repo only if they:
 - state the mathematical/research consequence that becomes true;
 - define the finite work universe and residue subtraction rule;
 - require method semantics to determine vocabulary;
-- require category/refinement membership, witnesses, and source grounding;
+- require category/refinement membership, witness data, and source grounding;
 - separate mathematical operations from implementation residue;
 - define one-unit acceptance evidence;
 - preserve completion as artifact truth, not process compliance;

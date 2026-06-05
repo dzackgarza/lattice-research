@@ -19,7 +19,7 @@ missing.
 
 The false model is "track computability in a separate admission layer." The correct
 model is categorical: obligations come from the object's category membership,
-hypotheses, construction data, and required witnesses.
+hypotheses, construction data, and witness surfaces.
 
 ## What this means
 
@@ -109,8 +109,7 @@ The first question is: **"Does the base method exist in an internal ancestor
   in local helper code when mature mechanisms already exist.
 - A place to present global automorphism-group, stabilizer, orbit-decomposition,
   Vinberg-chamber, Coxeter-parabolic, or hyperbolic-lattice algorithms as ordinary
-  category plumbing without the stronger category/refinement claim and witness
-  obligations those algorithms require.
+  category plumbing without the corresponding category/refinement and witness data.
 
 ## The test for any analysis
 
@@ -159,8 +158,7 @@ Never optimize implementation details while ignoring mathematical incoherence.
 
 `category_specs` is not complete because many cards exist or many abstract classes
 type-check. It is complete only insofar as it gives downstream research code the
-correct nouns, operations, coercions, morphisms, category memberships, and witness
-obligations.
+correct nouns, operations, coercions, morphisms, category memberships, and witness data.
 
 Do not expand `category_specs` horizontally unless the expansion supports a concrete
 mathematical vocabulary needed by the current research phase.

@@ -30,9 +30,9 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
 - The spec defines a Sage-grounded mathematical category/refinement interface inside
   Sage's category/object universe, not an unconstrained ideal API and not a mirror of
   only current Sage coverage.
-- Category membership determines obligations. A group does not owe generators; a
-  finitely generated group does. Stronger methods require stronger refinements or
-  construction witnesses.
+- Category membership determines the method surface. `Groups` gives group operations.
+  `FinitelyGeneratedGroups` gives finite-generation structure and a generating-set
+  witness surface. `FinitelyPresentedGroups` gives finite-presentation structure.
 - Use Sage as implementation evidence and a realization witness: preserve inventoried
   Sage functionality, identify honest refinements, and expose missing implementations
   without weakening mathematically natural objects.

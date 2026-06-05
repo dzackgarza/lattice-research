@@ -65,10 +65,10 @@ API detached from realization.
 
 The object-level rule is categorical. Claimed methods follow from the object's stated
 category membership, hypotheses, and required witnesses. `Aut(L)` or `O(L)` belongs in
-the lattice spec as the automorphism group of a lattice. It owes group-level structure
-and certified elements. It owes generators only after a stronger refinement such as
-finitely generated group, finitely presented group, matrix group with known generators,
-or explicitly generated subgroup.
+the lattice spec as the automorphism group of a lattice. It lies first in `Groups`.
+`gens()` appears only after the same group is also placed in
+`FinitelyGeneratedGroups`, a generated matrix-group category,
+`FinitelyPresentedGroups`, or an explicitly generated-subgroup category.
 
 The downstream computation must be able to express and check `Pic(S)`,
 `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
@@ -104,7 +104,7 @@ See `mem:repo-purpose-mathematical-research-machine`.
 
 **Category-spec vocabulary.** Building the Sage-grounded semantic substrate: sets,
 modules, Hom/End/Aut vocabulary, modules with forms, lattices, morphisms, coercions,
-exact-backend bridge points, category refinements, and witness obligations. Downstream
+exact-backend bridge points, category refinements, and witness data. Downstream
 lattice/Coble work is blocked until this vocabulary exists.
 
 Spec work is in scope when it is needed to express later lattice or Coble computations

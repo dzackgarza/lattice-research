@@ -42,10 +42,11 @@ Primary work:
 - Discover Sage surfaces for each mathematical family under consideration: constructors,
   categories, parent/element classes, coercions, canonical maps, methods, return types,
   and documented or runtime-observed limitations.
-- Translate Sage behavior into category/refinement membership and witness obligations.
-  A group object owes group operations; a finitely generated group owes generator
-  witnesses; a finitely presented group owes generators and relations; a generated
-  subgroup owes the supplied generators as construction data.
+- Translate Sage behavior into category/refinement membership and witness data. An
+  object of `Groups` has group structure; an object of `FinitelyGeneratedGroups` has
+  finite-generation structure and a generating-set witness surface; an object of
+  `FinitelyPresentedGroups` has finite-presentation structure; an explicitly generated
+  subgroup carries its generators as construction data.
 - Decide category ownership for each operation at the highest mathematically valid
   layer. For example, deterministic enumeration belongs first to countable
   sets/products/free modules before becoming lattice-local bounded-vector search, and
@@ -63,7 +64,8 @@ Primary work:
 - Create and audit category specs extending Sage's category layer.
 - Establish uniform semantic vocabulary for sets, modules, Hom/End/Aut objects, modules
   with forms, lattices, and later scheme/variety interfaces without falsely refining
-  canonical objects into categories that owe generators, presentations, or enumeration.
+  canonical objects into finite-generation, finite-presentation, finite, or enumerable
+  categories.
 - Research Sage and open-source backend capabilities needed to support those specs.
 - Create plans and cards for implementation gaps discovered during spec work.
 - Preserve mathematical intent in docs that can be reviewed by mathematicians.
@@ -106,8 +108,8 @@ at best and should not be promoted as evidence.
 The practical success condition for this phase is source-grounded sufficiency for the
 research pipeline: an implementation agent can build the category/spec layer without
 inventing the mathematics or claiming false refinements, because the objects,
-morphisms, ownership boundaries, category memberships, required witnesses, hypotheses,
-Sage bridge points, backend evidence, and known gaps are already stated at the
+morphisms, ownership boundaries, category memberships, witness data, hypotheses, Sage
+bridge points, backend evidence, and known gaps are already stated at the
 mathematical level.
 
 ## QC gate policy

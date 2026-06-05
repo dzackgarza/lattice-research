@@ -20,8 +20,8 @@ Code is then interrogated as a witness.
 
 For mapping docs: begin from the mathematical reading of the Sage surface.
 Determine the abstract owner, recovery formula, missing category obligation,
-category/refinement membership, and required witnesses. The current repo layout is not
-authority.
+category/refinement membership, and witness data carried by that membership. The
+current repo layout is not authority.
 
 For type-error tasks: begin from the conflicting mathematical ownership claim exposed by
 the error.
@@ -47,8 +47,8 @@ already-admitted spec operations.
 **Missing-category obligation.** Surface `m` is meaningful, but its mathematically
 correct owner is absent; therefore category/spec `C` must exist. If the operation
 requires stronger structure such as finite generation, finite presentation, known
-generators, or finite enumeration, that stronger category/refinement and its witnesses
-must be stated explicitly.
+generators, or finite enumeration, that category/refinement and its witness data must be
+stated explicitly.
 
 **Representation split.** The Sage/API surface is not an operation on object `X`; it is
 an operation on a
@@ -78,7 +78,7 @@ visible work product:
 - Is the Sage/API method an operation on the object, an operation on a representation of
   the object, a concrete implementation of an inherited operation, or backend plumbing?
 - What category/refinement membership is being claimed?
-- What witnesses, construction data, or proof obligations does that membership require?
+- What witness data, construction data, or proof identifies that membership?
 - If recovered, what is the formula?
 - If absent, what category/spec obligation has been discovered?
 
@@ -106,10 +106,11 @@ scan, rendering convention, or object-oriented convenience surface.
 Every method must be routed by mathematical ownership.
 The owner is the highest mathematically correct category where the operation is
 naturally defined. Current repository layout is irrelevant to that determination. The
-method also needs the correct category/refinement membership and required witnesses. If
+method also needs the correct category/refinement membership and its witness data. If
 the correct owner does not yet exist in the repository, the mapping has discovered a
-missing category/spec obligation; if a stronger refinement lacks witnesses, the mapping
-has discovered an unjustified stronger claim.
+missing category/spec obligation; if a generator or presentation surface appears
+without finite-generation or finite-presentation membership, the mapping has discovered
+a category error.
 The method is not to be parked on the nearest existing class.
 
 Agents must keep four layers separate:
@@ -224,15 +225,15 @@ Test it as such.
 
 The mapping document translates implementation surfaces into mathematical obligations.
 It is complete only when every surface has a mathematical owner, category/refinement
-membership, required witnesses, recovery formula, representation interpretation, or
-named missing category/spec.
+membership, witness data, recovery formula, representation interpretation, or named
+missing category/spec.
 It is not complete when every row has a label.
 
 The document is allowed to force new categories into existence.
 It is not constrained by current repository layout.
 If the correct owner is absent, the row names the absent owner. If a stronger
-refinement is claimed, the row names the witness or proof obligation that makes the
-claim true.
+refinement is claimed, the row names the category and the witness data or proof that
+places the object there.
 That is a successful mapping result only when the category/refinement claim is visible.
 
 It is not a coverage ledger.
@@ -247,21 +248,21 @@ For every Sage surface, the mapping document asks:
 
 The answer must be one of:
 
-1. An existing category/spec owner with category/refinement membership and witnesses.
+1. An existing category/spec owner with category/refinement membership and witness data.
 2. A higher category where the operation belongs, with the required hypotheses and
-   witnesses.
+   witness data.
 3. A concrete recovery formula from admitted spec methods.
 4. A missing mathematical category/spec obligation that must exist for the mapping to be
    correct.
-5. An unjustified stronger refinement, such as a generator method on a group object
-   that has not been placed in a generator-witness category.
+5. An unjustified category use, such as a generator method on a group object that has
+   not been placed in a finite-generation or generated-subgroup category.
 
 The fourth case is not failure.
 It is one of the primary outputs of the mapping document.
 
 If a Sage method has no current spec home, the mapping document must name the abstract
 home anyway. The gap may be in spec architecture, a missing construction witness, or an
-unjustified stronger refinement; the mapping must not collapse those cases.
+unjustified category membership; the mapping must not collapse those cases.
 The transcript repeatedly corrected this point: the agent moved from "rejected" to
 "abstract" to "pending," but those were all deferrals until the mapping named the
 mathematical category obligation.
@@ -273,7 +274,7 @@ Sage surface: <method or constructor>
 Mathematical reading: <standard mathematical operation>
 Owner: <highest mathematically correct category/spec>
 Category/refinement: <claimed category membership>
-Witnesses/proof obligations: <required data or proof for that membership>
+Witness data/proof: <data or proof placing the object in that category>
 Recovery, if not primitive: <explicit formula>
 Missing obligation, if any: <category/spec/method that must exist>
 Implementation note, if needed: <Sage witness only; not ownership>
@@ -290,16 +291,16 @@ Invalid mapping rows:
 <method> — Sage puts it here
 ```
 
-unless they also name the mathematical owner, category/refinement claim, required
-witnesses, and exact recovery or missing obligation.
+unless they also name the mathematical owner, category/refinement claim, witness data,
+and exact recovery or missing obligation.
 
 The mapping document must actively resist the agent's completion pressure.
 Its purpose is to make missing mathematical structure impossible to hide.
 If a method forces a new measure-theoretic, affine, topological, algebraic, categorical,
 representation, or morphism-level surface, the document must say so even if the current
-repo has no such file. If a method forces a stronger group-theoretic claim, the
-document must name the stronger category and witnesses instead of making the operation
-look like ordinary category plumbing.
+repo has no such file. If a method forces finite generation, finite presentation,
+finiteness, or chosen generators, the document must name that category membership
+instead of making the operation look like ordinary category plumbing.
 
 ## Compressed invariant
 

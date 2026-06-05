@@ -8,7 +8,7 @@ title: Current Goal Handoff
 
 Category-spec vocabulary.
 The purpose is to give later lattice and Coble work precise mathematical objects,
-morphisms, constructions, invariants, category refinements, and witness obligations
+morphisms, constructions, invariants, category refinements, and witness data
 grounded in Sage/source evidence.
 
 ## Next Work
@@ -18,7 +18,7 @@ Start with `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]` and perform semantic extr
 from the relevant Sage method body/docs/examples before reporting any mathematical
 mapping progress. The first question is what behavior Sage actually implements. Then
 introduce the required vocabulary, weakest structure, hypotheses, owner, return object,
-category/refinement membership, and required witnesses.
+category/refinement membership, and witness data.
 
 The constructor/factory batch currently populated in the frontier ledger covers
 `FreeQuadraticModule`, `QuadraticSpace`/`InnerProductSpace`, `IntegralLattice`,
@@ -63,9 +63,9 @@ Examples:
   and monomorphisms and epimorphisms are detected by the corresponding kernel and
   cokernel conditions.
 - `End(X)=Hom(X,X)` contains the identity endomorphism.
-- `Aut(X)` is the group of invertible endomorphisms in the ambient category. It owes
-  group structure. It owes generators only when it refines to a category whose
-  obligations include generator witnesses.
+- `Aut(X)` is the group of invertible endomorphisms in the ambient category. It lies in
+  `Groups`; generator methods belong only to finite-generation or generated-subgroup
+  refinements.
 - A morphism has a matrix only after choosing finite free presentations or bases.
 
 Only after the behavior record and mathematical sentence are present should the row
