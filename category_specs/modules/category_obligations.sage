@@ -88,6 +88,13 @@ def integer_lattice_from_cyclotomic_order_element():
     return NMZZ.IntegerLattice(basis=O5(K5.gen()))
 
 
+def rank_one_module_isomorphisms_are_inverse_witnesses():
+    M1, from_M1, to_M1 = NM6.rank_one_module_with_ring_isomorphisms(basis=R6(5))
+    x = R6(2)
+    v = M1([x])
+    return from_M1(to_M1(x)) == x and to_M1(from_M1(v)) == v
+
+
 def rational_quotient_split_methods_have_one_dimensional_outputs():
     V = NMQQ.VectorSpace(dimension=3)
     W = V.subspace([V.gen(2)])
@@ -495,6 +502,10 @@ CATEGORY_STATEMENTS = (
     (
         "Modules(ZZ).Constructors().ring_as_rank_one_module() is rank-one free",
         lambda _: NMZZ.ring_as_rank_one_module() in MZZCat.Free().FiniteRank().WithOrderedBasis(),
+    ),
+    (
+        "Modules(Zmod(6)).Constructors().rank_one_module_with_ring_isomorphisms(basis=5) gives inverse witnesses",
+        lambda _: rank_one_module_isomorphisms_are_inverse_witnesses(),
     ),
     (
         "Modules(ZZ).Constructors().ideal_as_submodule((6)) is an ideal submodule",
