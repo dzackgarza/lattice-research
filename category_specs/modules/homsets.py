@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, TypeVar, final, override
 
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.lazy_import import LazyImport
@@ -32,7 +32,6 @@ from ..homsets import (
     UniversalHomElementMethods,
     UniversalHomObjectMethods,
 )
-from ..utils import with_axiom
 
 if TYPE_CHECKING:
     from typing import Self
@@ -83,9 +82,8 @@ class _RModHomCategoryObjectMethods(UniversalHomObjectMethods):
     def zero(self) -> RModMorphism:
         from sage.misc.constant_function import ConstantFunction
 
-        zero_function = cast(
-            Callable[[RModuleElement], RModuleElement],
-            ConstantFunction(self.codomain().zero()),
+        zero_function: Callable[[RModuleElement], RModuleElement] = ConstantFunction(
+            self.codomain().zero()
         )
         return self(zero_function)
 
@@ -170,10 +168,7 @@ class _RModMorphisms(UniversalHomElementMethods):
         Sat_B(im(f)) and return ``h := g \circ f`` in Hom_R(A, B) so that
         im(h) is saturated.
         """
-        return cast(
-            "Self",
-            self.image().saturation().inclusion().pre_compose(self),
-        )
+        return self.image().saturation().inclusion().pre_compose(self)
 
 
 # ---------------------------------------------------------------------------
@@ -219,7 +214,7 @@ class RModuleHomCategory(HomCategoryOf):
     class SubcategoryMethods:
         @final
         def Forms(self) -> Category:
-            return cast(Category, with_axiom(self, "Forms"))
+            return self._with_axiom("Forms")
 
     ParentMethods = _RModHomCategoryObjectMethods
     ElementMethods = _RModMorphisms
@@ -262,35 +257,35 @@ class _Forms(CategoryWithAxiom):
         @final
         def Rational(self) -> Category:
             r"""Forms with target ``S = K`` in ``Hom_R(T_R(M)[p,q], S)``."""
-            return cast(Category, with_axiom(self, "Rational"))
+            return self._with_axiom("Rational")
         @final
         def Integral(self) -> Category:
             r"""Forms with target ``S = R`` in ``Hom_R(T_R(M)[p,q], S)``."""
-            return cast(Category, with_axiom(self, "Integral"))
+            return self._with_axiom("Integral")
         @final
         def Linear(self) -> Category:
             r"""Linear forms: domain ``T_R(M)[1,0]=M``, represented type ``(0,1)``."""
-            return cast(Category, with_axiom(self, "Linear"))
+            return self._with_axiom("Linear")
         @final
         def Bilinear(self) -> Category:
             r"""Bilinear forms: domain ``T_R(M)[2,0]``, represented type ``(0,2)``."""
-            return cast(Category, with_axiom(self, "Bilinear"))
+            return self._with_axiom("Bilinear")
         @final
         def Quadratic(self) -> Category:
             r"""Quadratic forms on ``M``."""
-            return cast(Category, with_axiom(self, "Quadratic"))
+            return self._with_axiom("Quadratic")
         @final
         def NonDegenerate(self) -> Category:
             r"""Forms with trivial kernels."""
-            return cast(Category, with_axiom(self, "NonDegenerate"))
+            return self._with_axiom("NonDegenerate")
         @final
         def Symmetric(self) -> Category:
             r"""Symmetric forms: represented type ``(0,n)``."""
-            return cast(Category, with_axiom(self, "Symmetric"))
+            return self._with_axiom("Symmetric")
         @final
         def Alternating(self) -> Category:
             r"""Alternating forms: represented type ``(0,n)``."""
-            return cast(Category, with_axiom(self, "Alternating"))
+            return self._with_axiom("Alternating")
 
     Bilinear = LazyImport(__name__, "_Bilinear")
     Quadratic = LazyImport(__name__, "_Quadratic")
