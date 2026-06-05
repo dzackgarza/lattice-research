@@ -159,6 +159,10 @@ one `O(A_N,q_N)`-orbit.
   `Gamma_Co^En(delta)` for a chosen Heegner line, but it does not by itself identify
   that subgroup with the project `theta`-centralizer notation or prove its
   primitive-isotropic orbit structure.
+- AEGS Corollary 3.12 identifies five `Gamma_En,2`-orbits of primitive isotropic lines
+  in `T_En`, equivalently the five Baily-Borel 0-cusps of `F_En,2`.  That statement is
+  not a substitute for the missing `Gamma_En,2`-orbit statement for the negative
+  Heegner lines `Z delta` with `delta^2=-2`.
 - The cited Eichler criterion is unavailable for `T_Co`: it requires a copy of `2U`,
   but `T_Co ~= 2(<1>+E_10)` has all pairings divisible by `2`.
 - A one-orbit theorem for full `O(T_Co)` and full `O^+(T_Co)` is available through
@@ -220,6 +224,9 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/references/literature/aegs_2023.md:174-186`: AEGS discriminant divisor
   statement for a `(-2)` vector in `T_En` and its rational Coble-surface
   interpretation.
+- `theory/references/literature/aegs_2023.md:394-452`: AEGS folded-diagram and
+  Corollary 3.12 source for the five `Gamma_En,2` 0-cusps, i.e. primitive isotropic
+  line orbits, not negative Heegner-root orbits.
 - `theory/computations/coble_standard_target_discriminant_orbits.sage`: exact
   GAP/Sage witness computing `O(A_N,q_N)` as the stabilizer of the four
   `Q(v)=B(v,v) mod 4` fibers in `GL(B/2B)`.

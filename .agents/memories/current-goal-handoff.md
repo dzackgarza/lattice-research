@@ -39,6 +39,10 @@ stabilizer-centralizer notation
 constructing `theta`, the transported polarization class, and the ambient-lattice
 restriction maps.
 
+Do not use the five AEGS 0-cusps as the answer to the Heegner-line question.  AEGS
+Corollary 3.12 concerns `Gamma_En,2`-orbits of primitive isotropic lines in `T_En`; the
+Coble Heegner datum is a negative line `Z delta` with `delta^2=-2`.
+
 Dolgachev-Kondo source the full quotient `D(N)/O(N)` for the Coble target and the
 birational quotient of the `(-2)` Heegner divisor by `O(U+E_10(2))`.  AEGS source the
 degree-2 Enriques group `Gamma_En,2` and the `(-2)` discriminant divisor.  Together

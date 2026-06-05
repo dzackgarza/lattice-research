@@ -242,6 +242,10 @@ obligations are:
 - determine the $\Gamma_{\mathrm{En},2}$-orbits of $(-2)$ Heegner lines
   $\mathbf Z\delta$ whose complements are Coble lattices; AEGS source uniqueness only
   modulo the full group $\Gamma_{\mathrm{En}}=O(T_{\mathrm{En}})$;
+- do not replace this root-orbit question by the AEGS cusp-orbit statement:
+  Corollary 3.12 identifies five $\Gamma_{\mathrm{En},2}$-orbits of primitive
+  isotropic lines in $T_{\mathrm{En}}$, whereas $\delta$ is a negative vector defining a
+  Heegner divisor;
 - compute or source the image of
   $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)\to O(A_{T_{\mathrm{Co}}},q_T)$;
 - prove the primitive-isotropic orbit statement for that image or for its lattice
