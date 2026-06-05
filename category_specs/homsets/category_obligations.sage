@@ -11,7 +11,7 @@ from category_specs.cat import Cat
 from category_specs.homsets import AutCategory, EndCategory, HomCategory
 from category_specs.homsets.autsets import UniversalAutObjectMethods
 from category_specs.homsets.endsets import UniversalEndObjectMethods
-from category_specs.homsets.homsets import UniversalHomObjectMethods
+from category_specs.homsets.homsets import UniversalHomElementMethods, UniversalHomObjectMethods
 from category_specs.modules import Modules
 from category_specs.posets import Posets
 from category_specs.rings import Rings
@@ -112,6 +112,10 @@ REFINEMENT_EXAMPLES = (
 CATEGORY_OBJECT_EXAMPLES = (
     ("generic Hom object detects equal-domain endomorphism sets", lambda _: _HomObjectWitness(S, S).is_endomorphism_set()),
     ("generic Hom object rejects unequal-domain endomorphism sets", lambda _: not _HomObjectWitness(S, R).is_endomorphism_set()),
+    (
+        "generic Hom element owns extensional equality predicate",
+        lambda _: UniversalHomElementMethods.equals_as_function.__name__ == "equals_as_function",
+    ),
     ("generic End object reports an endomorphism set", lambda _: _EndObjectWitness().is_endomorphism_set()),
     (
         "Sets().AutCategory().from_end_category returns an Aut object",
