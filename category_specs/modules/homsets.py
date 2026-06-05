@@ -118,6 +118,11 @@ class _RModMorphisms(UniversalHomElementMethods):
     def coimage(self) -> SubModule: ...
 
     @abstractmethod
+    def inverse_image(self, subobject: SubModule) -> SubModule:
+        r"""Return the inverse-image submodule ``f^{-1}(subobject)``."""
+        ...
+
+    @abstractmethod
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
 
     @abstractmethod

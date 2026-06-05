@@ -147,6 +147,12 @@ CATEGORY_STATEMENTS = (
     (
         "module Hom category owns scalar multiplication and form-refinement surfaces",
         lambda _: abstract_method_has_name(_RModMorphisms.scale, "scale")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.kernel, "kernel")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.image, "image")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.inverse_image, "inverse_image")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.cokernel, "cokernel")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.coimage, "coimage")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.lift, "lift")
         and RModuleHomCategory.Forms is _Forms
         and abstract_method_has_name(_Forms.SubcategoryMethods.NonDegenerate, "NonDegenerate")
         and _Forms.Bilinear is _Bilinear
