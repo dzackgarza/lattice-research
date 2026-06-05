@@ -168,6 +168,16 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
         class ElementMethods:
             @abstractmethod
+            def generator_images(self) -> tuple[RModuleElement, ...]:
+                r"""Return the images of the domain's presentation generators."""
+                ...
+
+            @final
+            def im_gens(self) -> tuple[RModuleElement, ...]:
+                r"""Sage-compatible spelling for presentation-generator images."""
+                return self.generator_images()
+
+            @abstractmethod
             def to_dict(self) -> dict[RModuleElement, RModuleElement]: ...
 
             @abstractmethod
