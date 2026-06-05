@@ -18,6 +18,7 @@ from category_specs.sets import Sets
 from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_category_statements
 from sage.all import ZZ
+from sage.categories.groups import Groups
 
 
 C = Cat()
@@ -59,6 +60,7 @@ BASIC_CATEGORY_EXAMPLES = (
     ("Cat().AutCategory() is a category", lambda _: C.AutCategory() in C),
     ("Cat().EndCategory() is Cat().HomCategory().EndCategory()", lambda _: C.EndCategory() is C.HomCategory().EndCategory()),
     ("Cat().AutCategory() is Cat().EndCategory().AutCategory()", lambda _: C.AutCategory() is C.EndCategory().AutCategory()),
+    ("AutCategory() is a group category", lambda _: AutCategory().is_subcategory(Groups())),
     ("Sets().HomCategory() is a category", lambda _: S.HomCategory() in C),
     ("Sets().EndCategory() is a category", lambda _: S.EndCategory() in C),
     ("Sets().AutCategory() is a category", lambda _: S.AutCategory() in C),
@@ -82,6 +84,7 @@ REFINEMENT_EXAMPLES = (
         "Sets().AutCategory() refines its end aut category",
         lambda _: S.AutCategory().is_subcategory(S.EndCategory().AutCategory()),
     ),
+    ("Sets().AutCategory() refines Sage group objects", lambda _: S.AutCategory().is_subcategory(Groups())),
     ("Rings().HomCategory() refines set hom categories", lambda _: R.HomCategory().is_subcategory(S.HomCategory())),
     ("Rings().EndCategory() refines set end categories", lambda _: R.EndCategory().is_subcategory(S.EndCategory())),
     ("Rings().AutCategory() refines set aut categories", lambda _: R.AutCategory().is_subcategory(S.AutCategory())),

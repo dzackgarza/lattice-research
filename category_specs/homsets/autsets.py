@@ -118,8 +118,10 @@ class AutCategory(CategoryWithAxiom_singleton):
 
     @override
     def extra_super_categories(self) -> list[Category]:
-        r"""Return the end-category layer refined by automorphism objects."""
-        return [EndCategory()]
+        r"""Return the end-category layer refined by group objects."""
+        from sage.categories.groups import Groups
+
+        return [EndCategory(), Groups()]
 
     @final
     def from_end_category(self, end_category: End) -> Aut:
