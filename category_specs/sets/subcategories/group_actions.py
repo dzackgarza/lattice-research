@@ -25,9 +25,9 @@ class _GSets(Category):
     def __init__(
         self, acting_group: Group, base_category: Category | None = None
     ) -> None:
-        Category.__init__(self)
         self._acting_group = acting_group
         self._base_category = Sets() if base_category is None else base_category
+        Category.__init__(self)
 
     @final
     def acting_group(self) -> Group:

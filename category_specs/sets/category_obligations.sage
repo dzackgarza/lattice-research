@@ -550,8 +550,12 @@ CATEGORY_STATEMENTS = (
         lambda _: fixed_ordered_partition().refinement_set() in Sets().Countable().Finite(),
     ),
     (
-        "Sets().GSets(G) records the acting group through the public category route",
-        lambda _: symmetric_group_action_category().acting_group() == SymmetricGroup(3),
+        "Sets().GSets(G) owns orbit and stabilizer surfaces through the public category route",
+        lambda _: symmetric_group_action_category().acting_group() == SymmetricGroup(3)
+        and abstract_method_has_name(symmetric_group_action_category().ParentMethods.orbit, "orbit")
+        and abstract_method_has_name(symmetric_group_action_category().ParentMethods.stabilizer, "stabilizer")
+        and abstract_method_has_name(symmetric_group_action_category().ParentMethods.fixed_points, "fixed_points")
+        and abstract_method_has_name(symmetric_group_action_category().ElementMethods.act_by, "act_by"),
     ),
     (
         "partition refinement_set() contains the source partition",
