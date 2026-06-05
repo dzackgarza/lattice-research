@@ -28,7 +28,9 @@ from ..homsets import (
     GenericEndCategory,
     HomCategoryOf,
     UniversalAutElementMethods,
+    UniversalAutObjectMethods,
     UniversalEndElementMethods,
+    UniversalEndObjectMethods,
     UniversalHomElementMethods,
     UniversalHomObjectMethods,
 )
@@ -404,6 +406,25 @@ class _Quadratic(CategoryWithAxiom):
 # ---------------------------------------------------------------------------
 
 
+class _RModEndObjectMethods(_RModHomCategoryObjectMethods, UniversalEndObjectMethods):
+    r"""Module End parent methods; ``End_R(M)`` is ``Hom_R(M, M)``."""
+
+    @abstractmethod
+    def base_module(self) -> RModule:
+        r"""If this is End_R(M), return M."""
+        ...
+
+    @abstractmethod
+    def unit_group(self) -> RModAut: ...
+
+    # Do not define ``as_automorphism`` -- promotion of invertible
+    # objects should happen automatically.
+
+
+class _RModAutObjectMethods(_RModEndObjectMethods, UniversalAutObjectMethods):
+    r"""Module-specific aut parent methods; generic aut methods are inherited."""
+
+
 class RModuleEndCategory(GenericEndCategory):
     r"""Canonical chain: ``Modules(R).EndCategory()``."""
 
@@ -426,18 +447,7 @@ class RModuleEndCategory(GenericEndCategory):
             Modules(R),
         ]
 
-    class ParentMethods:
-        @abstractmethod
-        def base_module(self) -> RModule:
-            r"""If this is End_R(M), return M."""
-            ...
-
-        @abstractmethod
-        def unit_group(self) -> RModAut: ...
-
-        # Do not define ``as_automorphism`` -- promotion of invertible
-        # objects should happen automatically.
-
+    ParentMethods = _RModEndObjectMethods
     ElementMethods = _RModEndomorphisms
 
 
@@ -461,7 +471,5 @@ class RModuleAutCategory(GenericAutCategory):
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
         return super().extra_super_categories()
 
-    class ParentMethods:
-        r"""Module-specific aut parent methods; generic aut methods are inherited."""
-
+    ParentMethods = _RModAutObjectMethods
     ElementMethods = _RModAutomorphisms
