@@ -11,24 +11,22 @@ witness data grounded in Sage/source evidence.
 
 ## Next Work
 
-Next mathematical obligation: construct or source the actual Coble specialization
-needed by `[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  The Dolgachev-Kondo standard
-target `N=<2>+E_10(2)` is sourced as even, indefinite, two-elementary of signature
-`(2,9)`, and Nikulin gives surjectivity `O(N)->O(q_N)`.  For this standard target,
-primitive vectors have divisibility `2`, `Iso(A_N,q_N)` has `528` elements, and full
-`O(A_N,q_N)` has two isotropic orbits with sizes `[1, 527]`.  The remaining claim is
-the pipeline identification of the geometrically computed
-`T_Co=(f^*Pic(S))^\perp <= Lambda_K3` with that target, together with the subgroup data
-for primitive isotropic vectors.
+Next mathematical obligation: state or construct the subgroup/lifting data needed by
+`[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]`.  The Dolgachev-Kondo standard target
+`N=<2>+E_10(2)` is sourced as even, indefinite, two-elementary of signature `(2,9)`,
+and the decision card identifies `T_Co=(f^*Pic(S))^\perp` with that target.  For this
+target, primitive vectors have divisibility `2`, `Iso(A_N,q_N)` has `528` elements, and
+full `O(A_N,q_N)` has two isotropic orbits with sizes `[1, 527]`.  The remaining claim
+is the subgroup of `O(T_Co)` whose primitive-isotropic orbit is being asserted, its
+image in `O(A_T,q_T)` if not full, and the theorem/backend that lifts finite
+discriminant-form orbits to primitive lattice-vector orbits.
 
-Success condition: the next spec/code step gives a source-backed construction or
-accepted isometry witness for `T_Co`, records the discriminant form and primitive-vector
-divisibility transfer from that construction, constructs the image of the actual Coble
-subgroup in `O(A_T,q_T)` if it is not full `O(A_T,q_T)`, and states which subgroup of
-`O(T_Co)` acts in the primitive-vector orbit claim.  If that construction is not
-available in the current phase, create the source-mining or construction obligation
-instead of treating the standard full finite orbit decomposition as a lattice-orbit
-algorithm.
+Success condition: the next spec/code step states the acting subgroup of `O(T_Co)`,
+constructs its image in `O(A_T,q_T)` if it is not full `O(A_T,q_T)`, and records the
+Nikulin/Eichler theorem or backend proving the corresponding primitive-isotropic
+lattice orbit statement.  If later code must build `T_Co` from geometric input rather
+than use the accepted source-level target `N`, create that implementation-constructor
+obligation separately instead of treating it as a blocker for the source-level target.
 
 Backend note: `theory/computations/coble_standard_target_discriminant_orbits.sage`
 computes the full standard finite action by defining `O(A_N,q_N)` as the stabilizer of
@@ -76,9 +74,8 @@ or a named primitive-isotropic orbit backend.
 ```
 
 Do not weaken the finite orbit object or promote lattice-level orbit lifting without
-the actual Coble construction/isometry data, primitive-vector divisibility, subgroup
-choice, checked Nikulin/Eichler hypotheses, a primitive-isotropic backend, or a theorem
-proving the required lifting statement.
+the subgroup choice, subgroup image when needed, checked Nikulin/Eichler hypotheses, a
+primitive-isotropic backend, or a theorem proving the required lifting statement.
 
 ## Mapping Rule
 

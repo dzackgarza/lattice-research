@@ -65,19 +65,19 @@ Iso(A_N,q_N)/O(A_N,q_N) has orbit sizes [1, 527].
 Thus the full finite discriminant orthogonal group has exactly two orbits on
 `Iso(A_N,q_N)`: the zero class and one orbit containing every nonzero isotropic class.
 
-This is a finite discriminant-form count for the Dolgachev-Kondo target.  It is not, by
-itself, a primitive-isotropic lattice-orbit statement.  Lifting it to a statement about
-primitive isotropic vectors in the project lattice `T_Co` still requires the
-construction or accepted isometry witness identifying `T_Co=(f^*Pic(S))^\perp` with
-`N`, the chosen subgroup of `O(T_Co)`, and the relevant Nikulin, Eichler, or backend
-orbit theorem.
+This is a finite discriminant-form orbit statement for the Dolgachev-Kondo target.  It
+is not, by itself, a primitive-isotropic lattice-orbit statement.  Lifting it to a
+statement about primitive isotropic vectors in the project lattice `T_Co` uses the
+decision-card identification `T_Co ~= N` and still requires the chosen subgroup of
+`O(T_Co)` and the relevant Nikulin, Eichler, or backend orbit theorem.
 
 Source basis:
 
 - `theory/references/literature/dolgachev_kondo_2013.md:97-101` identifies the Coble
   K3 orthogonal complement as `N=<2>+E(2)`.
 - `.agents/plans/features/FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION/decisions/DECISION-TCO-DEFINITION-AND-SIGNATURE.md:40-43`
-  records the project convention `E_10=U+E_8(-1)`.
+  records the project convention `E_10=U+E_8(-1)` and identifies `T_Co` with the
+  Dolgachev-Kondo target `N`.
 - `theory/computations/coble_standard_target_discriminant_orbits.sage` computes the
   exact full-group orbit decomposition by stabilizing the four `Q`-fibers in
   `GL(B/2B)` and using GAP orbit computation on the finite `Q=0` fiber.

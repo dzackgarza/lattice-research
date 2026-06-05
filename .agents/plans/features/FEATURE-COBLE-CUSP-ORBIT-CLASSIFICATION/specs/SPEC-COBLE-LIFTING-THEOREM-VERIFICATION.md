@@ -43,10 +43,15 @@ that it is two-elementary of signature `(2,9)` with `q_N=-q_M`.  Nikulin's Theor
 O(N) -> O(q_N).
 ```
 
-The remaining lifting problem is not this surjectivity statement.  The remaining problem
-is to identify the geometrically computed `T_Co=(f^*Pic(S))^\perp` with `N`, compute the
-primitive-vector divisibility and finite discriminant-form orbits from that construction,
-and state the subgroup of `O(T_Co)` whose primitive-isotropic orbit is being asserted.
+The source-level target identification is no longer open.  Dolgachev-Kondo construct
+the K3 cover `X`, identify the divisor classes `e_0,...,e_10` as generating
+`M_X ~= <2> + <-2>^10`, and define `N_X = M_X^\perp <= H^2(X,Z)`.  The repo decision
+identifies this `M_X` with the project pullback lattice `S_Co=f^*Pic(S)` and therefore
+identifies `T_Co=S_Co^\perp` with `N_X ~= N=<2>+E_10(2)`.
+
+The remaining lifting problem is to state the subgroup of `O(T_Co)` whose
+primitive-isotropic orbit is being asserted and to verify the theorem or backend
+relating that subgroup's lattice orbits to the finite discriminant-form orbits.
 
 For the standard target, the primitive-vector divisibility is also determined:
 
@@ -56,9 +61,8 @@ N = <2> + E_10(2) = 2(<1> + E_10).
 
 With the repo convention `E_10=U+E_8(-1)`, the lattice `<1>+E_10` is unimodular.
 Therefore a primitive vector `v in N` pairs with `N` in the ideal `2Z`, so
-`div_N(v)=2`.  This proves the divisibility claim for the standard target; the project
-pipeline may use it for `T_Co` only after the construction or accepted isometry witness
-identifies the computed Coble lattice with `N`.
+`div_N(v)=2`.  Via the source-level identification `T_Co ~= N`, this is the
+primitive-vector divisibility for the project Coble target.
 
 ## Hypothesis check
 
@@ -76,11 +80,9 @@ surjective.
 This does not yet prove the desired Coble primitive-isotropic orbit statement.  The
 following hypotheses or witness data are still required:
 
-- the project construction of `T_Co=(f^*Pic(S))^\perp <= Lambda_K3`, or an accepted
-  isometry witness from that construction to `N`;
-- the divisibility of the primitive isotropic vectors under the actual Gram model, which
-  is `2` for the standard target `N` and transfers to `T_Co` only through the
-  construction/isometry witness;
+- an implementation-level construction of `T_Co=(f^*Pic(S))^\perp <= Lambda_K3` if the
+  later code must build the lattice from geometric input rather than use the accepted
+  source-level target `N`;
 - the finite orbit structure in `Iso(A_T,q_T)`; for the standard target, exact
   computation in `B/2B` for `N=2(<1>+U+E_8(-1))` gives `528` isotropic classes and
   full-group orbit sizes `[1, 527]` under `O(A_N,q_N)`;
@@ -93,8 +95,8 @@ following hypotheses or witness data are still required:
 
 - For the standard target `N=<2>+E_10(2)`, Nikulin surjectivity for
   `O(N)->O(q_N)` is answered yes by Theorem 3.6.3.
-- For the geometrically computed project lattice `T_Co`, the same conclusion is
-  available only after the construction or isometry witness identifies it with `N`.
+- For the project lattice `T_Co`, the same conclusion is available by the
+  Dolgachev-Kondo source identification recorded in the decision card.
 - For the standard target `N`, every primitive vector has divisibility `2`, because
   `N=2B` for the unimodular lattice `B=<1>+E_10`.
 - For the standard target, `Iso(A_N,q_N)` has `528` elements, including the zero class,
@@ -122,10 +124,10 @@ A theory note under `theory/foundations/` recording:
 ## Dependency Status
 
 This is not a human deferral decision.  The full primitive-isotropic orbit conclusion
-cannot proceed until the Coble lattice construction/isometry, finite discriminant-form
-orbit enumeration, subgroup choice, and active mathematical vocabulary are available
-through the repo's typed category/lattice definitions.  Keep this spec `unstarted` under
-its declared dependencies rather than asking for human input to bypass the phase order.
+cannot proceed until the subgroup choice, subgroup image when needed, lattice-lifting
+theorem/backend, and active mathematical vocabulary are available through the repo's
+typed category/lattice definitions.  Keep this spec `unstarted` under its declared
+dependencies rather than asking for human input to bypass the phase order.
 
 The theorem sourcing above is still valid prerequisite information: it answers the
 full-orthogonal-group surjectivity question for the standard target, but it does not
@@ -149,6 +151,9 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/computations/coble_standard_target_discriminant_orbits.sage`: exact
   GAP/Sage witness computing `O(A_N,q_N)` as the stabilizer of the four
   `Q(v)=B(v,v) mod 4` fibers in `GL(B/2B)`.
+- `.agents/plans/features/FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION/decisions/DECISION-TCO-DEFINITION-AND-SIGNATURE.md`:
+  accepted repo convention identifying `S_Co` with the K3 pullback lattice `M_X` and
+  `T_Co` with Dolgachev-Kondo's `N_X ~= <2>+E_10(2)`.
 
 ## Non-Evidence
 
@@ -169,9 +174,9 @@ The review below predates the source evidence recorded above.  It remains a reco
 the earlier card state, not the current mathematical status.  The current mathematical
 status is: Nikulin full-orthogonal-group surjectivity is sourced for the
 Dolgachev-Kondo standard target, standard-target primitive-vector divisibility is `2`,
-and full standard-target finite discriminant-form orbits have sizes `[1, 527]`.  The
-Coble construction/isometry, subgroup image, and Eichler/backend lattice-lifting
-obligations remain unresolved.
+full standard-target finite discriminant-form orbit sizes are `[1, 527]`, and the
+source-level identification `T_Co ~= N` is recorded in the decision card.  The subgroup
+image and Eichler/backend lattice-lifting obligations remain unresolved.
 
 ### Review 2026-05-07 (6-Gate Spec Review)
 

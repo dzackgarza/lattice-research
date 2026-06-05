@@ -209,10 +209,11 @@ For the Dolgachev-Kondo standard Coble target
 the source states that the K3 orthogonal complement `N_X` is two-elementary of signature
 `(2,9)`, has discriminant form `q_N = -q_M`, and is isomorphic to this `N`.  Thus
 Nikulin's even indefinite two-elementary surjectivity theorem applies to this standard
-target as a statement about `O(N) -> O(q_N)`.  The project pipeline still owes a
-construction or accepted isometry witness identifying the geometrically computed
-`T_Co = (f^* Pic(S))^\perp` with that target before downstream code may treat the
-target computation as the computed Coble lattice computation.
+target as a statement about `O(N) -> O(q_N)`.  The project decision identifies
+`S_Co=f^*Pic(S)` with Dolgachev-Kondo's `M_X` and identifies
+`T_Co=(f^*Pic(S))^\perp` with `N_X ~= N`, so the source-level Coble target is fixed.
+Implementation code that builds `T_Co` from geometric input still owes the
+corresponding constructor or isometry witness.
 
 For the same standard target, every primitive vector has divisibility `2`: with the
 repo convention `E_10=U+E_8(-1)`, one has
@@ -460,16 +461,14 @@ the original generated orthogonal group.
 ## Remaining Lattice-Level Obligations
 
 The finite discriminant-form actions and the conditional lattice-lifting theorem
-families above are source-grounded.  The unresolved claims are now the actual Coble
-specialization and the plane-orbit backend, not the finite orbit object:
+families above are source-grounded.  The unresolved claims are now the lattice-level
+subgroup/lifting data and the plane-orbit backend, not the finite orbit object:
 
-- the actual Coble lattice data needed before finite discriminant-form orbit results
-  can be lifted in the project pipeline: the geometric construction of
-  `T_Co=(f^*Pic(S))^\perp`, the accepted isometry witness to the standard
-  Dolgachev-Kondo target `N=<2>+E_10(2)` or an equivalent direct Gram computation,
-  the discriminant form, the transfer of standard-target divisibility `2`, the
-  standard-target finite isotropic count `528` and full-group orbit decomposition
-  `[1, 527]`, Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose orbit is
-  being asserted;
+- the subgroup of `O(T_Co)` whose orbit is being asserted, its image in `O(A_T,q_T)` if
+  it is not full `O(A_T,q_T)`, and the Nikulin/Eichler hypotheses or backend theorem
+  controlling primitive-isotropic lattice orbits;
+- the implementation-level construction of `T_Co=(f^*Pic(S))^\perp` from geometric
+  input, if later code must build the lattice rather than use the accepted source-level
+  target `N=<2>+E_10(2)`;
 - a named backend or theorem for primitive isotropic plane or flag orbits whenever the
   statement involves `J <= L` rather than a primitive vector class.
