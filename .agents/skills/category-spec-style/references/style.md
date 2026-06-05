@@ -320,11 +320,11 @@ spec structure. It preserves style and compliance material extracted from `AGENT
 ## Spec Philosophy
 
 The spec's job is to formally declare what objects in a category **are** and **must
-have** - not to implement anything.
-A category spec is an ideal mathematical interface inside Sage's category/object
-universe. Current Sage implementation coverage is not the standard of adequacy. If
-current Sage already satisfied the desired interface, this project would not need a
-category-spec layer.
+have** under source-grounded feasibility constraints - not to implement hard algorithms
+by wishful API design. A category spec is a Sage-grounded, feasibility-classified
+mathematical interface inside Sage's category/object universe. Current Sage
+implementation coverage is not automatically the standard of adequacy, but exact
+feasibility is an admission constraint.
 
 Sage interop is still a design constraint. The project extends Sage without editing
 upstream source yet, and refined objects should remain usable by existing Sage code
@@ -332,18 +332,19 @@ when mathematically appropriate. Existing Sage implementations show methods,
 constructors, algorithms, categories, and documented behaviors that are already
 mathematically useful and often implementable. They help prevent an unbounded wishlist
 of methods with no credible implementation path. Treat Sage as implementation evidence
-and a feasibility witness, not as a ceiling on the spec.
+and a feasibility witness that constrains admission, not as a license to admit
+unsupported global computations.
 
 The spec therefore has two simultaneous obligations:
 
 - preserve existing Sage functionality by inventorying and mapping Sage methods,
   constructors, and documented behavior into project vocabulary; and
-- state mathematically required methods and laws even when current Sage classes do not
-  provide them.
+- state mathematically required methods and laws only with a visible admission status:
+  Sage-backed, backend-backed, bounded local extension, or deferred research algorithm.
 
 A subcategory definition should read as a mathematical document: what the subcategory
-is, what its supercategories are, what methods an object in it must have, and what
-methods Sage already provides.
+is, what its supercategories are, what methods an object in it must have, what
+feasibility status those methods carry, and what methods Sage already provides.
 Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
 
@@ -664,6 +665,10 @@ types.
   orbits, finding automorphism generators). They contain minimal software
   engineering, wiring, or glue, and zero new mathematical assumptions or public
   methods beyond the spec. They are intended to be rarely read.
+- **Global algorithms**: Full automorphism groups, stabilizers, arithmetic-group orbit
+  decompositions, Vinberg chambers, Coxeter parabolics, and hyperbolic-lattice
+  automorphism groups are not ordinary category plumbing. They require a named backend
+  or a separate algorithmic owner before becoming computable public surfaces.
 - **Categorical Glue**: Categories handle "software engineering" principles like
   routing constructors (e.g., determining if $R$ is a PID to route `FreeModule(R, n)`
   to a specialized constructor).
@@ -1165,7 +1170,7 @@ the same organizational principle as other category surfaces.
 ### Aut Categories Are Wired Repo-Wide
 
 Sage has no native generic aut category — it provides `Homsets` and the `Endset` axiom
-hook, but nothing for automorphism groups.
+hook, but nothing for generic automorphism-group computation.
 **Aut categories must be integrated at the top level, once, so that individual subtrees never
 reinvent this wiring.**
 
@@ -1184,6 +1189,12 @@ Sage still requires the axiom hook names `Endset` and `Autset` for `_with_axiom(
 Those names are interop hooks, not public project selectors. Public navigation is
 `HomCategory()`, `EndCategory()`, `AutCategory()`, and evaluated constructors
 `HomCategory().Of(A, B)`, `EndCategory().Of(A)`, `AutCategory().Of(A)`.
+
+This wiring is Level 0/Level 1 vocabulary and certification infrastructure. It must not
+be read as a generic promise to compute the full automorphism group of every object.
+Any computable automorphism-group surface must state its restricted hypotheses and name
+the Sage surface, exact backend, bounded local construction, or deferred algorithmic
+owner.
 
 ### What subtrees own vs. what the top level owns
 
@@ -1423,15 +1434,18 @@ Each subtree maintains a `docs/` folder with two canonical files:
   an abstract category primer. Before editing a mapping row, read the relevant Sage
   body, examples, and written docs deeply enough to record inputs, outputs, branch
   cases, return objects, side conventions, helper behavior, and compatibility surfaces.
-  Then extract the mathematical operation, introduce or reference only the vocabulary
-  required by that behavior, and state the weakest structure and hypotheses.
+	  Then extract the mathematical operation, introduce or reference only the vocabulary
+	  required by that behavior, and state the weakest structure, hypotheses, feasibility
+	  level, and admission status.
   For every method row, the correct mathematical concept must be a complete sentence
   that would make sense without Sage. Examples: "In any category, morphisms compose";
   "In an additive category, `Hom(X,Y)` is an abelian group and composition is
   bilinear"; "In an abelian category, kernels and cokernels exist." A row that only
   names a Sage class, source file, project category, or migration consequence has not
   stated the mathematics.
-  Assign the method to the most general standard category where that sentence is true.
+	  Assign the method to the most general standard category where that sentence is true.
+	  Also classify the method as Sage-backed, backend-backed, bounded local extension, or
+	  deferred research algorithm.
   Do not leave evaluation, composition, Hom addition, kernels, cokernels, images, or
   analogous standard constructions on a special Sage class merely because that is where
   Sage implements them.

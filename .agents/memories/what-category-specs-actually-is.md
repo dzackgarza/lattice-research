@@ -7,14 +7,18 @@ status: active
 
 ## The one-sentence purpose
 
-`category_specs` is a **complete, source-grounded mathematical category hierarchy**
-where every method is owned by the largest category on which it makes sense, and
-subcategories refine via internal `@override` on `ParentMethods` / `ElementMethods` /
-`SubcategoryMethods`.
+`category_specs` is a **source-grounded, feasibility-classified mathematical category
+hierarchy** where every admitted method is owned by the largest category on which it
+makes sense, and subcategories refine via internal `@override` on `ParentMethods` /
+`ElementMethods` / `SubcategoryMethods`.
 
 Its purpose is specification, not enforcement.
-It states category contracts that current Sage implementations often do not yet
-satisfy.
+It states category contracts only after Sage surface discovery, exact-backend evidence,
+a bounded local construction argument, or an explicit deferred-research classification.
+
+The false model is "write the ideal category API and implement it later." The correct
+model is inventory-to-spec translation. A mathematical name is not enough to admit an
+operation as a public surface.
 
 ## What this means
 
@@ -52,9 +56,9 @@ instantiate missing implementation.
 The Sage object is a partial implementation witness for the project spec.
 Concrete Sage methods may realize declared obligations when ordinary lookup reaches
 them.
-Missing obligations must remain visible through smokes and later implementation work.
-Refinement is not the implementation phase and must not hide the gap between current
-Sage behavior and the ideal spec.
+Missing obligations must remain visible through smokes, mapping rows, and feasibility
+classification. Refinement is not the implementation phase and must not hide the gap
+between current Sage behavior and the admitted spec.
 
 The constructor/refinement boundary is also the quarantine line for unavoidable Sage
 interop complexity.
@@ -102,6 +106,9 @@ The first question is: **"Does the base method exist in an internal ancestor
 - A place to generate failure bodies for missing methods.
 - A place to reinvent Sage dynamic classes, Python ABC semantics, or backend algorithms
   in local helper code when mature mechanisms already exist.
+- A place to present global automorphism-group, stabilizer, orbit-decomposition,
+  Vinberg-chamber, Coxeter-parabolic, or hyperbolic-lattice algorithms as ordinary
+  category plumbing without a named backend or algorithmic owner.
 
 ## The test for any analysis
 
@@ -150,12 +157,18 @@ Never optimize implementation details while ignoring mathematical incoherence.
 
 `category_specs` is not complete because many cards exist or many abstract classes
 type-check. It is complete only insofar as it gives downstream research code the
-correct nouns, operations, coercions, morphisms, and obligations.
+correct nouns, operations, coercions, morphisms, obligations, and feasibility
+classifications.
 
 Do not expand `category_specs` horizontally unless the expansion supports a concrete
-mathematical vocabulary needed by the current research phase.
+mathematical vocabulary needed by the current research phase and has one of the
+admission statuses: Sage-backed, backend-backed, bounded local extension, or deferred
+research algorithm.
 
 Specs may declare operations that Sage already implements. The spec obligation records
 the mathematical contract; the Sage method is only a possible concrete implementation
-for refined Sage objects. Do not remove, weaken, or move an abstract obligation merely
-because an existing Sage category or parent has a method with the same name.
+for refined Sage objects. Specs may also define Level 0 vocabulary for objects such as
+Aut, but they must not imply generic computability. Do not remove, weaken, or move an
+abstract obligation merely because an existing Sage category or parent has a method with
+the same name; instead record whether the operation is a check, a finite construction, a
+bounded search, or a deferred global algorithm.

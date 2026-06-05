@@ -11,54 +11,91 @@ Sage-compatible substrate for exact lattice and surface computations, then use t
 substrate to verify the lattice-theoretic claims needed for the moduli space of
 terminal Coble surfaces of K3 type.
 
-`GOAL.md` is the staged-program source. The current spec phase has a bounded purpose:
-define the minimal mathematical language in which later Coble/K3 lattice computations
-can be written as typed constructions rather than raw Sage-method archaeology.
+`GOAL.md` is the staged-program source. The current spec phase is an
+inventory-to-spec translation problem: explore Sage's existing mathematical surfaces,
+determine which constructions are feasible with current exact backends, and admit only
+bounded source-grounded vocabulary plus explicitly justified extensions. It is not an
+abstract DSL design phase and not a broad ideal-API exercise.
 
-The phase must define the public mathematical vocabulary needed by the research
-pipeline: sets, rings, modules, free modules, modules with bilinear or quadratic forms,
-lattices, Hom/End/Aut objects, embeddings, orthogonal complements, discriminant
-groups/forms, stabilizers, centralizers, and the related construction surfaces that
-later research code must express. It must not catalog every Sage method.
+The admission rule is strict. No method, predicate, constructor, Hom/End/Aut surface,
+or invariant enters the spec merely because it is mathematically nameable. Every
+admitted operation must have one of these statuses:
 
-The phase must also determine category ownership. Each operation belongs at the highest
-mathematically valid layer: set/product/module enumeration before lattice-local vector
-search, form-preserving maps on modules with forms or lattices rather than arbitrary
-modules, and Hom/End/Aut behavior on the relevant categorical object surfaces.
+- Sage-backed: Sage provides the exact mathematical behavior under recorded
+  hypotheses.
+- Backend-backed: a named exact package provides the behavior under recorded
+  hypotheses.
+- Bounded local extension: Sage/backends provide the ingredients and the repo-owned
+  code is a thin semantic wrapper, validation layer, or finite exact construction.
+- Deferred research algorithm: the notion is recorded, but the baseline API must not
+  present it as computable.
 
-Sage behavior is evidence, not the specification itself. The spec phase tests existing
-Sage enough to decide whether a construction is already available, needs a thin
-wrapper, needs repo-owned categorical semantics, or exposes a Sage/plugin/stub gap.
-Gap classification must preserve mathematical ownership.
+The phase must still define public vocabulary for the research pipeline: sets, rings,
+modules, free modules, modules with bilinear or quadratic forms, lattices, Hom/End/Aut
+objects, embeddings, orthogonal complements, discriminant groups/forms, stabilizers,
+centralizers, and related construction surfaces. But vocabulary is admitted only after
+Sage surface discovery, exact-backend evidence, a bounded local construction argument,
+or an explicit deferred-algorithm classification.
+
+Operation ownership and feasibility are both part of the spec. Each operation belongs
+at the highest mathematically valid layer, and each admitted surface must state its
+computational level:
+
+- Level 0: definitional vocabulary only. For example, an automorphism is an invertible
+  endomorphism preserving the specified structure; this does not imply a generic
+  computation.
+- Level 1: certification and checking. For example, given a candidate map, check
+  domain/codomain compatibility, integrality, determinant, and form preservation.
+- Level 2: construction from finite data. For example, construct a homomorphism from
+  generator images, compute a Gram matrix from a basis, compute an orthogonal complement
+  in a finite-rank integral lattice, or compute Smith normal form and discriminant data.
+- Level 3: bounded or finite search under explicit bounds or finiteness hypotheses, such
+  as short-vector enumeration up to a norm bound or enumeration inside a finite
+  discriminant group.
+- Level 4: global group or algorithmic computation. Full automorphism groups,
+  stabilizers, orbit decompositions under arithmetic groups, Vinberg chambers, Coxeter
+  parabolics, and hyperbolic-lattice automorphism groups require named algorithmic
+  ownership and do not enter the baseline spec as ordinary methods.
+
+Sage behavior is evidence, compatibility data, and a feasibility witness, not the
+specification itself. The spec phase tests existing Sage enough to decide whether a
+construction is already available, needs a thin wrapper, needs repo-owned categorical
+semantics, exposes a Sage/plugin/stub gap, or must be deferred as a real algorithmic
+gap. Gap classification must preserve mathematical ownership and feasibility status.
 
 The phase invariants are:
 
-- Mathematical objects are typed by their structure. A lattice is a `\mathbb{Z}`-module
-  with a form and specified conventions; a Hom object has a domain, codomain, and
-  preservation law.
-- Matrices may realize maps and forms, but the public object is the map, lattice, form,
-  embedding, quotient, complement, stabilizer, centralizer, or orbit problem.
-- Every operation has a mathematically justified owner. Operations that belong to sets,
-  modules, modules with forms, or Hom categories must not be reimplemented only under a
-  special lattice class.
-- The phase terminates at sufficiency for the research pipeline. It is not a complete
-  redesign of Sage, a full algebraic-geometry library, or a catalog of all category
-  methods.
+- Source-grounded admission controls vocabulary. Every admitted surface has Sage
+  source/docs, a runtime witness, a named exact backend, a bounded local construction
+  sketch, or a deferred-research classification.
+- Hypotheses are part of the method. A surface is not admitted as generic
+  `Lattice.aut()`; if automorphism-group computation is admitted at all, it is admitted
+  only for stated classes with a named backend or algorithmic owner.
+- Checking and finite construction are separated from global computation.
+  `is_isometry(f)` and `automorphism_group()` are different operation classes.
+- Mathematical naming does not imply computability. Hom/End/Aut vocabulary may name
+  objects without promising a generic constructor for every object.
+- Extensions beyond Sage are thin unless explicitly promoted to a separate algorithmic
+  research card.
+- The phase terminates at research sufficiency, not categorical completeness. It is not
+  a complete redesign of Sage, a full algebraic-geometry library, a catalog of all
+  category methods, or a hidden implementation of hard lattice-group algorithms.
 
 The downstream target is to express and check objects such as
 `Pic(S)`, `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
 `T_Co = (f^*Pic(S))^\perp <= \Lambda_{\mathrm{K3}}`, together with discriminant forms,
 primitive embeddings, orthogonal complements, isotropic-orbit calculations,
 stabilizers, and involution eigenspaces. These computations must run through typed
-mathematical interfaces and mature Sage-backed exact algorithms, not through raw-matrix
-scripts or process ledgers.
+mathematical interfaces and feasible exact algorithms, not through raw-matrix scripts,
+unbounded group-method promises, or process ledgers.
 
 Process artifacts are routing aids only. They matter when they preserve or advance a
 mathematical object, operation, invariant, morphism, proof obligation, or source-backed
 computation. The success condition for the spec phase is that an implementation agent
-can build the category/spec layer without inventing the mathematics: objects,
-morphisms, ownership boundaries, required invariants, Sage bridge points, and known
-gaps are already stated at the mathematical level.
+can build the category/spec layer without inventing the mathematics or pretending an
+unavailable computation exists: objects, morphisms, ownership boundaries, feasibility
+levels, required invariants, Sage bridge points, backend witnesses, and known gaps are
+already stated at the mathematical level.
 
 Category-spec ownership questions are mathematical questions. A diagnostic may
 indicate an external Sage API stub gap, an internal category-spec owner method, a
@@ -345,8 +382,8 @@ subtree." A valid object is shaped like:
 
 ```text
 The category-spec foundation for <subtree> has a source-backed mapping from
-Sage methods/constructors to the minimal mathematical structures and hypotheses
-they require.
+Sage methods/constructors to the mathematical structures, hypotheses, feasibility
+level, and admission status they require.
 ```
 
 Reject unbounded scope words unless the generated goal immediately gives a finite
@@ -370,6 +407,7 @@ Sage method body/examples
 -> mathematical behavior implemented
 -> required vocabulary/hypotheses
 -> weakest mathematical owner
+-> feasibility level and admission status
 -> Sage evidence
 -> mapping/spec row
 ```
@@ -398,9 +436,10 @@ How one unit is removed from Remaining:
 ```
 
 For category-spec work, a valid unit is one Sage method cluster with a shared
-mathematical behavior, classified by minimal structure/hypotheses and source evidence.
-A file, row cluster, package export set, or handoff frontier is invalid unless it is
-also a mathematically coherent operation family.
+mathematical behavior, classified by minimal structure/hypotheses, feasibility level,
+admission status, and source evidence. A file, row cluster, package export set, or
+handoff frontier is invalid unless it is also a mathematically coherent operation
+family.
 
 Completion may be claimed only when the queue artifact shows:
 
@@ -408,11 +447,11 @@ Completion may be claimed only when the queue artifact shows:
 U = C ⊔ R ⊔ Q
 ```
 
-where `C` has mathematical operation statements and weakest owners, `R` is explicitly
-nonmathematical/runtime/display/backend residue, and `Q` contains only genuine
-unresolved mathematical/spec decisions. Wrapper compliance, onboarding, handoffs,
-memories, plans, status labels, review state, and proof gates cannot satisfy this
-witness.
+where `C` has mathematical operation statements, weakest owners, feasibility levels,
+and admission statuses; `R` is explicitly nonmathematical/runtime/display/backend
+residue; and `Q` contains only genuine unresolved mathematical/spec decisions or
+deferred research algorithms. Wrapper compliance, onboarding, handoffs, memories,
+plans, status labels, review state, and proof gates cannot satisfy this witness.
 
 Example rejection:
 
@@ -434,8 +473,9 @@ Valid:
 Build the source-backed mathematical operation map for category_specs/lattices:
 generate the finite Sage method/constructor queue from named source roots,
 read each method cluster, state the mathematical operation and weakest required
-structure, classify implementation/runtime/display residue separately, and mark
-complete only when the queue artifact has no unclassified mathematical operations.
+structure, assign feasibility level and admission status, classify
+implementation/runtime/display residue separately, and mark complete only when the queue
+artifact has no unclassified mathematical operations.
 ```
 
 Reject Goalcraft-generated goals for this repo if they:
@@ -444,6 +484,7 @@ Reject Goalcraft-generated goals for this repo if they:
 - use `all`, `every`, `full`, `relevant`, `adjacent`, or `touches` without a finite
   generated queue and residue rule;
 - omit the semantic extraction step from Sage behavior to mathematical vocabulary;
+- omit feasibility level and admission status;
 - combine mathematical foundations with runtime/display/backend audits as one queue;
 - define progress by plans, mappings, status, handoff, or review state rather than
   reduction of a concrete mathematical frontier;
@@ -456,6 +497,7 @@ Accept Goalcraft-generated goals for this repo only if they:
 - state the mathematical/research consequence that becomes true;
 - define the finite work universe and residue subtraction rule;
 - require method semantics to determine vocabulary;
+- require feasibility classification and source/backend/local/deferred admission;
 - separate mathematical operations from implementation residue;
 - define one-unit acceptance evidence;
 - preserve completion as artifact truth, not process compliance;

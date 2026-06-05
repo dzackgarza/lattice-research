@@ -8,7 +8,8 @@ title: Current Goal Handoff
 
 Category-spec vocabulary.
 The purpose is to give later lattice and Coble work precise mathematical objects,
-morphisms, constructions, and invariants.
+morphisms, constructions, invariants, and feasibility classifications grounded in Sage
+or exact backend evidence.
 
 ## Next Work
 
@@ -16,7 +17,9 @@ Do not continue Sage inventory or mapping from subtree docs alone.
 Start with `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]` and perform semantic extraction
 from the relevant Sage method body/docs/examples before reporting any mathematical
 mapping progress. The first question is what behavior Sage actually implements. Then
-introduce the required vocabulary, weakest structure, hypotheses, and owner.
+introduce the required vocabulary, weakest structure, hypotheses, owner, and admission
+status: Sage-backed, backend-backed, bounded local extension, or deferred research
+algorithm.
 
 The constructor/factory batch currently populated in the frontier ledger covers
 `FreeQuadraticModule`, `QuadraticSpace`/`InnerProductSpace`, `IntegralLattice`,
@@ -61,7 +64,9 @@ Examples:
   and monomorphisms and epimorphisms are detected by the corresponding kernel and
   cokernel conditions.
 - `End(X)=Hom(X,X)` contains the identity endomorphism.
-- `Aut(X)` is the group of invertible endomorphisms.
+- `Aut(X)` is the group of invertible endomorphisms as Level 0 vocabulary; a generic
+  computable automorphism-group constructor is not admitted without restricted
+  hypotheses and a named Sage/backend/algorithmic owner.
 - A morphism has a matrix only after choosing finite free presentations or bases.
 
 Only after the behavior record and mathematical sentence are present should the row

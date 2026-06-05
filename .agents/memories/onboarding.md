@@ -58,12 +58,18 @@ for exact lattice and surface computations, then use it to verify the lattice-th
 claims needed for the moduli space of terminal Coble surfaces of K3 type. `GOAL.md` is
 the staged-program source for that goal.
 
-The current spec phase is bounded by this question: what is the minimal mathematical
-language in which later Coble/K3 lattice computations can be written as typed
-constructions rather than raw Sage-method archaeology? The phase defines public
-vocabulary, category ownership, Sage compatibility boundaries, and the invariants
-needed by the lattice layer. It does not specify every Sage method, redesign Sage, or
-start the downstream Coble computation.
+The current spec phase is an inventory-to-spec translation problem. Agents must explore
+Sage's existing mathematical surfaces, determine which constructions are feasible with
+current exact backends, and admit only bounded source-grounded vocabulary plus
+explicitly justified extensions. The phase does not write an ideal categorical API and
+postpone feasibility to later implementation.
+
+The admission rule is the object-level correction. No spec-level operation is admitted
+merely because it is mathematically nameable. It must be Sage-backed, backend-backed by
+a named exact package, locally implementable with bounded effort as a thin exact
+extension, or explicitly marked as a deferred research algorithm. For example, Aut may
+name the group of invertible endomorphisms preserving structure, but the spec must not
+imply a generic computable constructor `L -> Aut(L)` for arbitrary lattices.
 
 The downstream computation must be able to express and check `Pic(S)`,
 `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
@@ -97,18 +103,20 @@ See `mem:repo-purpose-mathematical-research-machine`.
 
 ## Current phase
 
-**Category-spec vocabulary.** Building the semantic substrate: sets, modules,
-Hom/End/Aut, modules with forms, lattices, morphisms, coercions, backend bridges.
-Downstream lattice/Coble work is blocked until this vocabulary exists.
+**Category-spec vocabulary.** Building the Sage-grounded, feasibility-classified
+semantic substrate: sets, modules, Hom/End/Aut vocabulary, modules with forms, lattices,
+morphisms, coercions, exact-backend bridge points, and explicit deferred-algorithm
+records. Downstream lattice/Coble work is blocked until this vocabulary exists.
 
 Spec work is in scope when it is needed to express later lattice or Coble computations
-as typed mathematical constructions, or when Sage investigation shows that omitting it
-would force raw matrix/vector/group manipulation at the research layer. It is out of
-scope when it only improves general Sage ergonomics, catalogs arbitrary concrete
-methods, or pushes into full implementation before the mathematical interface is
-settled. Geometry vocabulary such as schemes, varieties, surfaces, divisors, Picard
-groups, blowups, covers, and families is deferred and recorded until the lattice
-substrate exists.
+as typed mathematical constructions and has a feasibility status, or when Sage
+investigation shows that omitting it would force raw matrix/vector/group manipulation
+at the research layer. It is out of scope when it only improves general Sage ergonomics,
+catalogs arbitrary concrete methods, promotes a mathematical name without exact
+support, or hides Level 4 global algorithms such as arbitrary indefinite-lattice
+automorphism groups inside baseline category plumbing. Geometry vocabulary such as
+schemes, varieties, surfaces, divisors, Picard groups, blowups, covers, and families is
+deferred and recorded until the lattice substrate exists.
 
 Read `GOAL.md` once, but the phase is tracked in `.agents/current-goal-phase.md`. Do not
 attempt downstream Coble research.
