@@ -180,6 +180,11 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(_ObjectsUnder.ParentMethods.structure_module, "structure_module"),
     ),
     (
+        "ordered-generator module Hom owns generator-image construction routes",
+        lambda _: abstract_method_has_name(_WithOrderedGeneratingSet.HomCategory.ParentMethods.from_images, "from_images")
+        and abstract_method_has_name(_WithOrderedGeneratingSet.HomCategory.ParentMethods.from_function, "from_function"),
+    ),
+    (
         "finite-presentation module categories own presentation and Smith surfaces",
         lambda _: abstract_method_has_name(_FinitelyPresentedGradedModules.ParentMethods.presentation, "presentation")
         and abstract_method_has_name(FinitelyPresentedModulesOverPID.ParentMethods.invariants, "invariants")

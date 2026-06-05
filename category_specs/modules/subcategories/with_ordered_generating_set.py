@@ -67,6 +67,13 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstractmethod
+            def from_images(
+                self, images: Sequence[RModuleElement]
+            ) -> RModuleMorphism:
+                r"""Return the morphism determined by images of ordered generators."""
+                ...
+
+            @abstractmethod
             def from_function(
                 self, f: Callable[[RModuleElement], RModuleElement]
             ) -> RModuleMorphism: ...
