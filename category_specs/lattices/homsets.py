@@ -102,9 +102,10 @@ class LatticeAutCategory(GenericAutCategory):
 
         @abstractmethod
         def stable_subgroup(self) -> LatticeOrthogonalGroup:
-            r"""Return the orientation-preserving subgroup.
+            r"""Return the subgroup acting trivially on the discriminant form.
 
-            This subgroup is taken inside this lattice orthogonal group.
+            This is the stable orthogonal subgroup
+            ``\widetilde O(L) = \ker(O(L) -> O(A_L, q_L))``.
             """
             ...
 
@@ -126,7 +127,7 @@ class LatticeAutCategory(GenericAutCategory):
 
         @final
         def stable_orthogonal_group(self) -> LatticeOrthogonalGroup:
-            r"""Return ``O^+(L)``, the stable subgroup of this orthogonal group."""
+            r"""Return ``\widetilde O(L)``, the stable subgroup of this group."""
             return self.stable_subgroup()
 
         @final
