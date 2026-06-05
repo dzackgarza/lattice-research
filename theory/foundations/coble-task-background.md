@@ -264,6 +264,23 @@ the finite discriminant-action problem that must be solved before computing the
 $\Gamma_{\mathrm{En},2}$-orbit of the Heegner line $\mathbf Z(u-v)$ or the image of
 $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ in $O(A_{T_{\mathrm{Co}}},q_T)$.
 
+The finite discriminant-form container for this image is computed by
+`theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`.  With
+$S_{\mathrm{En}}=2B$ and $B=U\oplus E_8(-1)$, the computation identifies
+$A_{S_{\mathrm{En}}}$ with $B/2B$, preserves the fibers of
+$Q(v)=B(v,v)\bmod 4$, and stabilizes the class $h/2$.  It gives
+
+```text
+|O(A_{S_En}, q_{S_En})| = 46998591897600,
+Q(h) mod 4 = 2,
+|Stab_{O(A_{S_En},q)}(h/2)| = 94755225600.
+```
+
+This is the finite stabilizer in the discriminant form.  The equality between this
+finite stabilizer and the actual image of
+$\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ still requires a lifting/surjectivity
+statement or backend witness.
+
 **Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
 smaller intended arithmetic subgroup only after the following data are fixed:
 
@@ -295,6 +312,9 @@ obligations are:
   Heegner divisor;
 - compute or source the image of
   $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)\to O(A_{T_{\mathrm{Co}}},q_T)$;
+- prove or compute whether
+  $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)\to
+  \operatorname{Stab}_{O(A_{S_{\mathrm{En}}},q)}(h/2)$ is surjective;
 - prove the primitive-isotropic orbit statement for that image or for its lattice
   subgroup;
 - compare $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ with the project

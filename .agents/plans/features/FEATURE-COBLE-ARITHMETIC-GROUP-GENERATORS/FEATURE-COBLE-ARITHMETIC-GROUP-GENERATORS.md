@@ -61,6 +61,18 @@ inside the unimodular K3 lattice, an element $g_T\in O(T_{\mathrm{En}})$ lies in
 $\Gamma_{\mathrm{En},2}$ exactly when its discriminant action matches, through
 $\gamma$, the discriminant action of some $g_S\in O(S_{\mathrm{En}})$ fixing $h$.
 
+The finite discriminant-form container for that image is now computed by
+`theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`:
+
+```text
+|O(A_{S_En}, q_{S_En})| = 46998591897600,
+Q(h) mod 4 = 2,
+|Stab_{O(A_{S_En},q)}(h/2)| = 94755225600.
+```
+
+This is not yet a generator computation for $\Gamma_{\mathrm{En},2}$ and not yet a
+proof that the integral stabilizer of $h$ surjects onto this finite stabilizer.
+
 ## Source Provenance
 
 - `theory/foundations/coble-task-background.md`, section `Task 3.1: Arithmetic Group
@@ -74,6 +86,8 @@ $\gamma$, the discriminant action of some $g_S\in O(S_{\mathrm{En}})$ fixing $h$
 - Nikulin (1979), through `theory/references/literature/nikulin1979integral.md:262-274`,
   for primitive embeddings into even unimodular lattices and the anti-isometry
   $q_S\simeq -q_K$ of discriminant forms.
+- `theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`, for the
+  exact Sage/GAP computation of the finite discriminant-form stabilizer of $h/2$.
 - Dolgachev-Kondo (2013), through `theory/references/index.md`, for the full
   orthogonal quotient and the Enriques Heegner-divisor quotient.
 - Sterk (1991), through `theory/references/index.md`, remains a source target for the
@@ -100,6 +114,8 @@ $\gamma$, the discriminant action of some $g_S\in O(S_{\mathrm{En}})$ fixing $h$
 - Compute the finite discriminant-action image of $\Gamma_{\mathrm{En},2}$ from
   $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ via the gluing anti-isometry
   $A_{S_{\mathrm{En}}}\simeq A_{T_{\mathrm{En}}}$.
+- Prove or compute whether the integral stabilizer of $h$ in $O(S_{\mathrm{En}})$
+  surjects onto the finite stabilizer of $h/2$ in $O(A_{S_{\mathrm{En}}},q)$.
 - Construct the stabilizer of $h_{\mathrm{Co}}$ in $O(T_{\mathrm{En}})$.
 - Construct the centralizer of $\theta$ in $O(T_{\mathrm{En}})$.
 - Compute the intersection defining $\Gamma_{\mathrm{Co}}$ only after the preceding

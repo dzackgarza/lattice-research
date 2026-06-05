@@ -169,6 +169,11 @@ one `O(A_N,q_N)`-orbit.
   `g_S in O(S_En)` fixing the polarization vector `h`.  This reduces the finite
   discriminant-image part of the subgroup problem to
   `Stab_{O(S_En)}(h) -> O(A_SEn,q_SEn)`.
+- The script `theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`
+  computes the finite container `Stab_{O(A_SEn,q)}(h/2)`: the full finite
+  discriminant-form orthogonal group has order `46998591897600`, the class `h/2` has
+  `Q(h) mod 4 = 2`, and its finite stabilizer has order `94755225600`.  The missing
+  step is the image/lifting statement for `Stab_{O(S_En)}(h)`.
 - AEGS Corollary 3.12 identifies five `Gamma_En,2`-orbits of primitive isotropic lines
   in `T_En`, equivalently the five Baily-Borel 0-cusps of `F_En,2`.  That statement is
   not a substitute for the missing `Gamma_En,2`-orbit statement for the negative
@@ -241,6 +246,8 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/references/literature/nikulin1979integral.md:262-274`: Nikulin's
   primitive-unimodular embedding statement and discriminant-form anti-isometry
   criterion.
+- `theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`: exact
+  Sage/GAP computation of `O(A_SEn,q_SEn)` and the stabilizer of `h/2`.
 - `theory/references/literature/aegs_2023.md:394-452`: AEGS folded-diagram and
   Corollary 3.12 source for the five `Gamma_En,2` 0-cusps, i.e. primitive isotropic
   line orbits, not negative Heegner-root orbits.

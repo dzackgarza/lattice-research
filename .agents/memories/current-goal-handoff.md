@@ -42,6 +42,13 @@ computation: `g_T in O(T_En)` belongs to `Gamma_En,2` exactly when its action on
 `g_S in O(S_En)` fixing `h`.  Thus the finite image to compute first is the image of
 `Stab_{O(S_En)}(h)` on `A_SEn`, transported to `A_TEn`.
 
+Finite container already computed:
+`theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage` gives
+`|O(A_SEn,q)|=46998591897600`, `Q(h) mod 4=2`, and
+`|Stab_{O(A_SEn,q)}(h/2)|=94755225600`.  Do not treat this as the actual
+`Gamma_En,2` image until the lift/surjectivity of `Stab_{O(S_En)}(h)` onto that finite
+stabilizer is proved or computed.
+
 Next mathematical obligation: determine the `Gamma_En,2`-orbit of the chosen Heegner
 line `Z delta`, compute or source the image of `Gamma_Co^En(delta)` in
 `O(A_T,q_T)`, and then compare this Enriques-side subgroup with the project
