@@ -14,11 +14,10 @@ tracker feature; active tracker cards start at concrete deliverable features und
 
 The repo is currently in the spec phase.
 
-Frame the spec phase as an inventory-to-spec translation problem: explore Sage's
-existing mathematical surfaces, determine which constructions are feasible with current
-exact backends, and admit only bounded source-grounded vocabulary plus explicitly
-justified extensions. The phase is not "write the ideal categorical API and later
-implement it."
+Frame the spec phase as: define the mathematically natural category/refinement
+structure needed by the Coble/K3 lattice research, grounded by Sage/source inventories.
+The phase is not "only specify what Sage already implements" and not "write an ideal
+API detached from realization."
 
 Current phase plan:
 
@@ -36,36 +35,35 @@ Current phase plan:
 
 Primary work:
 
+- Recover the mathematically natural interface from the later pipeline: free modules,
+  formed modules, lattices, Hom/End/Aut, lattice isometry groups `O(L)`, discriminant
+  forms, orthogonal complements, embeddings, typed pullbacks, stabilizers,
+  centralizers, and orbit sets.
 - Discover Sage surfaces for each mathematical family under consideration: constructors,
   categories, parent/element classes, coercions, canonical maps, methods, return types,
   and documented or runtime-observed limitations.
-- Translate mathematical needs to Sage or exact-backend behavior, not to invented API.
-  Free modules, formed modules, lattices, discriminant forms, orthogonal complements,
-  embeddings, isometries, base change, and stabilizers are admitted only through source
-  evidence, named backend support, bounded local construction, or deferred-algorithm
-  classification.
-- Assign every proposed operation an admission status: Sage-backed, backend-backed,
-  bounded local extension, or deferred research algorithm.
-- Stratify every operation by feasibility: Level 0 definitional vocabulary, Level 1
-  certification/checking, Level 2 finite-data construction, Level 3 bounded or finite
-  search, or Level 4 global algorithmic computation.
-- Decide category ownership for each admitted operation at the highest mathematically
-  valid layer. For example, deterministic enumeration belongs first to countable
+- Translate Sage behavior into category/refinement membership and witness obligations.
+  A group object owes group operations; a finitely generated group owes generator
+  witnesses; a finitely presented group owes generators and relations; a generated
+  subgroup owes the supplied generators as construction data.
+- Decide category ownership for each operation at the highest mathematically valid
+  layer. For example, deterministic enumeration belongs first to countable
   sets/products/free modules before becoming lattice-local bounded-vector search, and
   form-preserving maps belong to modules with forms or lattices rather than arbitrary
   modules.
-- Produce specs sufficient for the lattice-theoretic layer only where the operation is
-  actually feasible or explicitly deferred: discriminant forms, primitive embeddings,
-  orthogonal complements, local invariants, base change, and Nikulin-style criteria.
+- Produce specs sufficient for the lattice-theoretic layer: discriminant forms,
+  primitive embeddings, orthogonal complements, local invariants, base change,
+  Nikulin-style criteria, isometry groups, stabilizers, centralizers, and orbit objects,
+  with stronger algorithmic methods placed only on stronger categories or constructions.
 - Advance by vertical slices:
-  mathematical need -> Sage inventory -> admitted vocabulary -> witness object ->
-  proof/check/report.
+  mathematical need -> Sage inventory -> category/refinement claim -> required witness
+  or proof obligation -> check/report.
 - Execute the approved spec-core vertical slice: typed obligation/provider/witness
   reports for `GF(5)^3`, `ZZ^2`, and a missing-obligation claimant.
 - Create and audit category specs extending Sage's category layer.
 - Establish uniform semantic vocabulary for sets, modules, Hom/End/Aut objects, modules
-  with forms, lattices, and later scheme/variety interfaces without implying generic
-  computability of Level 4 operations such as full automorphism groups.
+  with forms, lattices, and later scheme/variety interfaces without falsely refining
+  canonical objects into categories that owe generators, presentations, or enumeration.
 - Research Sage and open-source backend capabilities needed to support those specs.
 - Create plans and cards for implementation gaps discovered during spec work.
 - Preserve mathematical intent in docs that can be reviewed by mathematicians.
@@ -80,11 +78,12 @@ Blocked by default:
 - Complete redesigns of Sage, full algebraic-geometry library work, arbitrary
   concrete-method catalogs, or general Sage ergonomics unrelated to the Coble/K3
   lattice pipeline.
-- Abstract ontology expansion or generic API surfaces admitted only because the
-  mathematical name exists.
-- Generic `Aut(L)`, full automorphism-group, stabilizer, orbit-decomposition, Vinberg
-  chamber, Coxeter-parabolic, or hyperbolic-lattice group computation unless the
-  surface is restricted by hypotheses and has a named Sage/backend/algorithmic owner.
+- False refinements, such as treating `Aut(L)` or `O(L)` as a finitely generated,
+  finitely presented, finite, explicitly generated, or fully enumerable group without
+  the required proof, construction, Sage support, backend support, or witness data.
+- Generator, presentation, orbit-enumeration, Vinberg-chamber, Coxeter-parabolic, or
+  hyperbolic-lattice group algorithms when no category/refinement claim justifies those
+  obligations.
 - QC-driven code cleanup unrelated to an approved phase transition or implementation card.
 - Rolling back formatter, linter, or hook auto-fixes.
 
@@ -106,9 +105,10 @@ at best and should not be promoted as evidence.
 
 The practical success condition for this phase is source-grounded sufficiency for the
 research pipeline: an implementation agent can build the category/spec layer without
-inventing the mathematics or implying unavailable algorithms, because the objects,
-morphisms, ownership boundaries, feasibility levels, required invariants, Sage bridge
-points, backend witnesses, and known gaps are already stated at the mathematical level.
+inventing the mathematics or claiming false refinements, because the objects,
+morphisms, ownership boundaries, category memberships, required witnesses, hypotheses,
+Sage bridge points, backend evidence, and known gaps are already stated at the
+mathematical level.
 
 ## QC gate policy
 

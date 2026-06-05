@@ -58,18 +58,17 @@ for exact lattice and surface computations, then use it to verify the lattice-th
 claims needed for the moduli space of terminal Coble surfaces of K3 type. `GOAL.md` is
 the staged-program source for that goal.
 
-The current spec phase is an inventory-to-spec translation problem. Agents must explore
-Sage's existing mathematical surfaces, determine which constructions are feasible with
-current exact backends, and admit only bounded source-grounded vocabulary plus
-explicitly justified extensions. The phase does not write an ideal categorical API and
-postpone feasibility to later implementation.
+The current spec phase defines the mathematically natural category/refinement structure
+needed by the Coble/K3 lattice research, grounded by Sage/source inventories. The phase
+does not restrict the spec to objects Sage already implements, and it does not write an
+API detached from realization.
 
-The admission rule is the object-level correction. No spec-level operation is admitted
-merely because it is mathematically nameable. It must be Sage-backed, backend-backed by
-a named exact package, locally implementable with bounded effort as a thin exact
-extension, or explicitly marked as a deferred research algorithm. For example, Aut may
-name the group of invertible endomorphisms preserving structure, but the spec must not
-imply a generic computable constructor `L -> Aut(L)` for arbitrary lattices.
+The object-level rule is categorical. Claimed methods follow from the object's stated
+category membership, hypotheses, and required witnesses. `Aut(L)` or `O(L)` belongs in
+the lattice spec as the automorphism group of a lattice. It owes group-level structure
+and certified elements. It owes generators only after a stronger refinement such as
+finitely generated group, finitely presented group, matrix group with known generators,
+or explicitly generated subgroup.
 
 The downstream computation must be able to express and check `Pic(S)`,
 `f^*Pic(S) <= H^2(X, \mathbb{Z})`, and
@@ -103,20 +102,19 @@ See `mem:repo-purpose-mathematical-research-machine`.
 
 ## Current phase
 
-**Category-spec vocabulary.** Building the Sage-grounded, feasibility-classified
-semantic substrate: sets, modules, Hom/End/Aut vocabulary, modules with forms, lattices,
-morphisms, coercions, exact-backend bridge points, and explicit deferred-algorithm
-records. Downstream lattice/Coble work is blocked until this vocabulary exists.
+**Category-spec vocabulary.** Building the Sage-grounded semantic substrate: sets,
+modules, Hom/End/Aut vocabulary, modules with forms, lattices, morphisms, coercions,
+exact-backend bridge points, category refinements, and witness obligations. Downstream
+lattice/Coble work is blocked until this vocabulary exists.
 
 Spec work is in scope when it is needed to express later lattice or Coble computations
-as typed mathematical constructions and has a feasibility status, or when Sage
-investigation shows that omitting it would force raw matrix/vector/group manipulation
-at the research layer. It is out of scope when it only improves general Sage ergonomics,
-catalogs arbitrary concrete methods, promotes a mathematical name without exact
-support, or hides Level 4 global algorithms such as arbitrary indefinite-lattice
-automorphism groups inside baseline category plumbing. Geometry vocabulary such as
-schemes, varieties, surfaces, divisors, Picard groups, blowups, covers, and families is
-deferred and recorded until the lattice substrate exists.
+as typed mathematical constructions, or when Sage investigation shows that omitting it
+would force raw matrix/vector/group manipulation at the research layer. It is out of
+scope when it only improves general Sage ergonomics, catalogs arbitrary concrete
+methods, or places an object in a stronger category without the required proof,
+construction, or witness. Geometry vocabulary such as schemes, varieties, surfaces,
+divisors, Picard groups, blowups, covers, and families is deferred and recorded until
+the lattice substrate exists.
 
 Read `GOAL.md` once, but the phase is tracked in `.agents/current-goal-phase.md`. Do not
 attempt downstream Coble research.

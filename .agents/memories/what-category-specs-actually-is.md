@@ -7,18 +7,19 @@ status: active
 
 ## The one-sentence purpose
 
-`category_specs` is a **source-grounded, feasibility-classified mathematical category
-hierarchy** where every admitted method is owned by the largest category on which it
-makes sense, and subcategories refine via internal `@override` on `ParentMethods` /
-`ElementMethods` / `SubcategoryMethods`.
+`category_specs` is a **source-grounded mathematical category/refinement hierarchy**
+where every method is owned by the largest category on which it makes sense, and
+subcategories refine via internal `@override` on `ParentMethods` / `ElementMethods` /
+`SubcategoryMethods`.
 
 Its purpose is specification, not enforcement.
-It states category contracts only after Sage surface discovery, exact-backend evidence,
-a bounded local construction argument, or an explicit deferred-research classification.
+It states category contracts from mathematical naturality and research need, with Sage
+surface discovery recording how those contracts are realized or where the realization is
+missing.
 
-The false model is "write the ideal category API and implement it later." The correct
-model is inventory-to-spec translation. A mathematical name is not enough to admit an
-operation as a public surface.
+The false model is "track computability in a separate admission layer." The correct
+model is categorical: obligations come from the object's category membership,
+hypotheses, construction data, and required witnesses.
 
 ## What this means
 
@@ -56,9 +57,9 @@ instantiate missing implementation.
 The Sage object is a partial implementation witness for the project spec.
 Concrete Sage methods may realize declared obligations when ordinary lookup reaches
 them.
-Missing obligations must remain visible through smokes, mapping rows, and feasibility
-classification. Refinement is not the implementation phase and must not hide the gap
-between current Sage behavior and the admitted spec.
+Missing obligations must remain visible through smokes, mapping rows, and refinement
+claims. Refinement is not the implementation phase and must not hide the gap between
+current Sage behavior and the spec.
 
 The constructor/refinement boundary is also the quarantine line for unavoidable Sage
 interop complexity.
@@ -108,7 +109,8 @@ The first question is: **"Does the base method exist in an internal ancestor
   in local helper code when mature mechanisms already exist.
 - A place to present global automorphism-group, stabilizer, orbit-decomposition,
   Vinberg-chamber, Coxeter-parabolic, or hyperbolic-lattice algorithms as ordinary
-  category plumbing without a named backend or algorithmic owner.
+  category plumbing without the stronger category/refinement claim and witness
+  obligations those algorithms require.
 
 ## The test for any analysis
 
@@ -157,18 +159,16 @@ Never optimize implementation details while ignoring mathematical incoherence.
 
 `category_specs` is not complete because many cards exist or many abstract classes
 type-check. It is complete only insofar as it gives downstream research code the
-correct nouns, operations, coercions, morphisms, obligations, and feasibility
-classifications.
+correct nouns, operations, coercions, morphisms, category memberships, and witness
+obligations.
 
 Do not expand `category_specs` horizontally unless the expansion supports a concrete
-mathematical vocabulary needed by the current research phase and has one of the
-admission statuses: Sage-backed, backend-backed, bounded local extension, or deferred
-research algorithm.
+mathematical vocabulary needed by the current research phase.
 
 Specs may declare operations that Sage already implements. The spec obligation records
 the mathematical contract; the Sage method is only a possible concrete implementation
-for refined Sage objects. Specs may also define Level 0 vocabulary for objects such as
-Aut, but they must not imply generic computability. Do not remove, weaken, or move an
-abstract obligation merely because an existing Sage category or parent has a method with
-the same name; instead record whether the operation is a check, a finite construction, a
-bounded search, or a deferred global algorithm.
+for refined Sage objects. Specs should define canonical objects such as Aut and `O(L)`
+at their natural level. Do not remove, weaken, or move an abstract obligation merely
+because an existing Sage category or parent has a method with the same name; instead
+record the exact category membership, hypotheses, return object, and witnesses that make
+the operation meaningful.

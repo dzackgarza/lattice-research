@@ -20,7 +20,8 @@ Code is then interrogated as a witness.
 
 For mapping docs: begin from the mathematical reading of the Sage surface.
 Determine the abstract owner, recovery formula, missing category obligation,
-feasibility level, and admission status. The current repo layout is not authority.
+category/refinement membership, and required witnesses. The current repo layout is not
+authority.
 
 For type-error tasks: begin from the conflicting mathematical ownership claim exposed by
 the error.
@@ -44,20 +45,20 @@ mathematical structure needed is `S`.
 already-admitted spec operations.
 
 **Missing-category obligation.** Surface `m` is meaningful, but its mathematically
-correct owner is absent; therefore category/spec `C` must exist under a recorded
-admission status. If the operation is only mathematically nameable and lacks Sage,
-backend, or bounded-local support, it is a deferred research algorithm, not an ordinary
-spec method.
+correct owner is absent; therefore category/spec `C` must exist. If the operation
+requires stronger structure such as finite generation, finite presentation, known
+generators, or finite enumeration, that stronger category/refinement and its witnesses
+must be stated explicitly.
 
 **Representation split.** The Sage/API surface is not an operation on object `X`; it is
 an operation on a
 representation/expression/presentation/basis/chart/matrix/decomposition associated to
 `X`.
 
-**Feasibility classification.** The operation is Level 0 definitional vocabulary, Level
-1 certification, Level 2 finite-data construction, Level 3 bounded or finite search, or
-Level 4 global algorithmic computation; its admission status is Sage-backed,
-backend-backed, bounded local extension, or deferred research algorithm.
+**False-refinement block.** The surface names a natural object, but an implementation or
+mapping tries to place it in too strong a category without the required proof,
+construction, or witness. Example: `Aut(L)` is a group object; it is not a finitely
+generated group unless generator witnesses are part of the claim.
 
 If none of these appears, the work has not happened.
 
@@ -76,9 +77,8 @@ visible work product:
 - What is the highest category where that structure first exists?
 - Is the Sage/API method an operation on the object, an operation on a representation of
   the object, a concrete implementation of an inherited operation, or backend plumbing?
-- What is the feasibility level and admission status?
-- What Sage source, exact backend, bounded local construction, or deferred-algorithm
-  record supports admission?
+- What category/refinement membership is being claimed?
+- What witnesses, construction data, or proof obligations does that membership require?
 - If recovered, what is the formula?
 - If absent, what category/spec obligation has been discovered?
 
@@ -106,10 +106,10 @@ scan, rendering convention, or object-oriented convenience surface.
 Every method must be routed by mathematical ownership.
 The owner is the highest mathematically correct category where the operation is
 naturally defined. Current repository layout is irrelevant to that determination. The
-method also needs a feasibility level and admission status before it can become a
-public spec surface. If the correct owner does not yet exist in the repository, the
-mapping has discovered a missing category/spec obligation; if exact support is absent,
-the same row may also discover a deferred research algorithm.
+method also needs the correct category/refinement membership and required witnesses. If
+the correct owner does not yet exist in the repository, the mapping has discovered a
+missing category/spec obligation; if a stronger refinement lacks witnesses, the mapping
+has discovered an unjustified stronger claim.
 The method is not to be parked on the nearest existing class.
 
 Agents must keep four layers separate:
@@ -131,8 +131,8 @@ Agents must keep four layers separate:
 4. **The category obligation.** This is the abstract owner where the operation is
    defined: `Sets`, subobjects, topological subobjects, measure spaces, affine/convex
    categories, Hom/End/Aut categories, module categories, ring categories, etc. A
-   category obligation names where an operation belongs; it does not by itself promise
-   that the operation is globally computable.
+   category obligation names where an operation belongs. Stronger algorithmic
+   obligations arise only from stronger categories or equipped construction data.
 
 Conflating these layers is a category-spec error.
 
@@ -223,16 +223,17 @@ Test it as such.
 ## The true purpose of the mapping document
 
 The mapping document translates implementation surfaces into mathematical obligations.
-It is complete only when every surface has a mathematical owner, feasibility level,
-admission status, recovery formula, representation interpretation, or named missing
-category/spec.
+It is complete only when every surface has a mathematical owner, category/refinement
+membership, required witnesses, recovery formula, representation interpretation, or
+named missing category/spec.
 It is not complete when every row has a label.
 
 The document is allowed to force new categories into existence.
 It is not constrained by current repository layout.
-If the correct owner is absent, the row names the absent owner and records whether the
-operation is Sage-backed, backend-backed, bounded-local, or deferred.
-That is a successful mapping result only when the feasibility classification is visible.
+If the correct owner is absent, the row names the absent owner. If a stronger
+refinement is claimed, the row names the witness or proof obligation that makes the
+claim true.
+That is a successful mapping result only when the category/refinement claim is visible.
 
 It is not a coverage ledger.
 It is not a parking lot.
@@ -246,22 +247,21 @@ For every Sage surface, the mapping document asks:
 
 The answer must be one of:
 
-1. An existing category/spec owner with feasibility level and admission status.
-2. A higher category where the operation belongs, with feasibility level and admission
-   status.
+1. An existing category/spec owner with category/refinement membership and witnesses.
+2. A higher category where the operation belongs, with the required hypotheses and
+   witnesses.
 3. A concrete recovery formula from admitted spec methods.
 4. A missing mathematical category/spec obligation that must exist for the mapping to be
-   correct, again with feasibility level and admission status.
-5. A deferred research algorithm when the mathematical object is nameable but current
-   Sage/backends/bounded local code do not support the global computation.
+   correct.
+5. An unjustified stronger refinement, such as a generator method on a group object
+   that has not been placed in a generator-witness category.
 
 The fourth case is not failure.
 It is one of the primary outputs of the mapping document.
 
 If a Sage method has no current spec home, the mapping document must name the abstract
-home anyway and record the admission status. The gap may be in spec architecture, exact
-backend support, or an algorithmic research frontier; the mapping must not collapse
-those cases.
+home anyway. The gap may be in spec architecture, a missing construction witness, or an
+unjustified stronger refinement; the mapping must not collapse those cases.
 The transcript repeatedly corrected this point: the agent moved from "rejected" to
 "abstract" to "pending," but those were all deferrals until the mapping named the
 mathematical category obligation.
@@ -272,8 +272,8 @@ A valid mapping row:
 Sage surface: <method or constructor>
 Mathematical reading: <standard mathematical operation>
 Owner: <highest mathematically correct category/spec>
-Feasibility: <Level 0/1/2/3/4>
-Admission: <Sage-backed/backend-backed/bounded local/deferred research algorithm>
+Category/refinement: <claimed category membership>
+Witnesses/proof obligations: <required data or proof for that membership>
 Recovery, if not primitive: <explicit formula>
 Missing obligation, if any: <category/spec/method that must exist>
 Implementation note, if needed: <Sage witness only; not ownership>
@@ -290,15 +290,16 @@ Invalid mapping rows:
 <method> — Sage puts it here
 ```
 
-unless they also name the mathematical owner, feasibility classification, and exact
-recovery or deferred-algorithm reason.
+unless they also name the mathematical owner, category/refinement claim, required
+witnesses, and exact recovery or missing obligation.
 
 The mapping document must actively resist the agent's completion pressure.
 Its purpose is to make missing mathematical structure impossible to hide.
 If a method forces a new measure-theoretic, affine, topological, algebraic, categorical,
 representation, or morphism-level surface, the document must say so even if the current
-repo has no such file. If a method forces a global algorithmic problem, the document
-must say that too instead of making the operation look like ordinary category plumbing.
+repo has no such file. If a method forces a stronger group-theoretic claim, the
+document must name the stronger category and witnesses instead of making the operation
+look like ordinary category plumbing.
 
 ## Compressed invariant
 
