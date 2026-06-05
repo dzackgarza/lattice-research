@@ -18,9 +18,11 @@ from the relevant Sage method body/docs/examples before reporting any mathematic
 mapping progress. The first question is what behavior Sage actually implements. Then
 introduce the required vocabulary, weakest structure, hypotheses, and owner.
 
-The constructor collector batch is already populated in the frontier ledger.
-Do not redo `IntegralLattice`, `IntegralLatticeDirectSum`, or
-`IntegralLatticeGluing`.
+The constructor/factory batch currently populated in the frontier ledger covers
+`FreeQuadraticModule`, `QuadraticSpace`/`InnerProductSpace`, `IntegralLattice`,
+`IntegralLatticeDirectSum`, `IntegralLatticeGluing`, `TorsionQuadraticForm`, and
+`TorsionQuadraticModule`.
+Do not redo these rows.
 For any future constructor work, derive new constructor names from scoped source
 artifacts and add source-read frontier rows before claiming movement.
 
@@ -71,6 +73,12 @@ assign a project owner.
   and form-adjacent Sage names.
 - `IntegralLattice`, `IntegralLatticeDirectSum`, and `IntegralLatticeGluing` are the
   admitted `Lattices(ZZ).Constructors()` names and have classified frontier rows.
+- `FreeQuadraticModule` is forms/module-owned, not a lattice constructor;
+  `QuadraticSpace`/`InnerProductSpace` is the field-valued free bilinear wrapper, not a
+  lattice constructor.
+- `TorsionQuadraticForm` and generic `TorsionQuadraticModule` are forms-owned torsion
+  quadratic constructors. They become lattice discriminant-group constructions only
+  through explicit lattice metric-dual descent `A_L = coker(L -> L^#)`.
 - `invariants()` and `invariant_factors()` belong to finitely presented modules over a
   PID. Lattices and discriminant/torsion objects inherit them only through that module
   structure.
