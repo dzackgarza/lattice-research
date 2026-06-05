@@ -37,7 +37,7 @@ Subcategory hierarchy::
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Literal, TypeVar, cast, final, overload
+from typing import TYPE_CHECKING, Literal, TypeVar, final, overload
 
 from sage.categories.category import Category
 from sage.misc.lazy_import import LazyImport
@@ -47,7 +47,7 @@ from ..forms.chain import (
     IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
 )
 from ..modules import Modules
-from ..utils import refine_category, with_axiom
+from ..utils import refine_category
 from .homsets import (
     LatticeAutCategory,
     LatticeEndCategory,
@@ -279,10 +279,10 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
     class SubcategoryMethods:
         @final
         def OverIntegralDomain(self) -> Category:
-            return with_axiom(self, "OverIntegralDomain")
+            return self._with_axiom("OverIntegralDomain")
         @final
         def OverDedekindDomain(self) -> Category:
-            return with_axiom(self, "OverDedekindDomain")
+            return self._with_axiom("OverDedekindDomain")
         @final
         def OverPID(self) -> Category:
             return self.OverDedekindDomain().OverPID()
@@ -291,13 +291,13 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             return self.OverPID().OverIntegers()
         @final
         def Even(self) -> Category:
-            return with_axiom(self, "Even")
+            return self._with_axiom("Even")
         @final
         def Unimodular(self) -> Category:
-            return with_axiom(self, "Unimodular")
+            return self._with_axiom("Unimodular")
         @final
         def DualObjects(self) -> Category:
-            return cast(Category, LatticeDualObjectsCategory.category_of(self))
+            return LatticeDualObjectsCategory.category_of(self)
         @final
         def DualLattices(self) -> Category:
             r"""Return the metric-dual lattice construction category."""
@@ -393,7 +393,7 @@ def _lattice_chain(base_ring: Ring) -> Category:
 
 def lattice_category(base_ring: Ring) -> LatticesCategory:
     r"""Return ``Lattices(base_ring)`` as the named lattice axiom endpoint."""
-    return cast(LatticesCategory, _lattice_chain(base_ring).Lattice())
+    return _lattice_chain(base_ring).Lattice()
 
 
 def Lattices(base_ring: Ring) -> LatticesCategory:

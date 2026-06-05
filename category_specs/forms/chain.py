@@ -8,14 +8,13 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Protocol, TypeVar, cast, final
+from typing import TYPE_CHECKING, Protocol, TypeVar, final
 
 from sage.categories.category import Category
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import CategoryWithAxiom_over_base_ring
 from ..modules.subcategories.free import _FreeFiniteRank
-from ..utils import with_axiom
 from .subcategories.free_bilinear import FreeBilinearModulesMorphism
 from .subcategories.with_forms import FormedModulesMorphism
 
@@ -71,7 +70,7 @@ class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
             For ``M`` in a formed-module category ``C``, this is
             ``Aut_C(M) = {g in Aut_R(M) : form(gv, gw) = form(v, w)}``.
             """
-            return cast("OrthogonalGroup", self.category().AutCategory().Of(self))
+            return self.category().AutCategory().Of(self)
 
     class ElementMethods: ...
 
@@ -231,7 +230,7 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
     class SubcategoryMethods:
         @final
         def Lattice(self) -> Category:
-            return with_axiom(self, "Lattice")
+            return self._with_axiom("Lattice")
 
     Lattice = LazyImport("category_specs.lattices.chain", "LatticesCategory")
 
