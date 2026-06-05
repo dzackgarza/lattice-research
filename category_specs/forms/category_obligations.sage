@@ -141,6 +141,15 @@ CATEGORY_STATEMENTS = (
         and FZZ.AutCategory() in Cat(),
     ),
     (
+        "formed-module Hom owns restricted and descended form subobject operations",
+        lambda _: abstract_method_has_name(FZZ.HomCategory().ElementMethods.kernel, "kernel")
+        and abstract_method_has_name(FZZ.HomCategory().ElementMethods.image, "image")
+        and abstract_method_has_name(FZZ.HomCategory().ElementMethods.inverse_image, "inverse_image")
+        and abstract_method_has_name(FZZ.HomCategory().ElementMethods.cokernel, "cokernel")
+        and abstract_method_has_name(FZZ.HomCategory().ElementMethods.lift, "lift")
+        and abstract_method_has_name(FZZ.HomCategory().ElementMethods.projection, "projection"),
+    ),
+    (
         "bilinear formed-module chain owns symmetry and integrality predicates",
         lambda _: abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_symmetric, "is_symmetric")
         and abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_alternating, "is_alternating")

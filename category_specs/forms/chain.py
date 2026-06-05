@@ -16,6 +16,7 @@ from sage.misc.lazy_import import LazyImport
 from ..cat import CategoryWithAxiom_over_base_ring
 from ..modules.subcategories.free import _FreeFiniteRank
 from .subcategories.free_bilinear import FreeBilinearModulesMorphism
+from .subcategories.integral import IntegralBilinearModulesCategory
 from .subcategories.with_forms import FormedModulesMorphism
 
 _F = TypeVar("_F", bound=Callable[..., object])
@@ -212,7 +213,7 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
     )
     _defining_predicates = ("is_integral",)
 
-    class ParentMethods:
+    class ParentMethods(IntegralBilinearModulesCategory.ParentMethods):
         @final
         def is_integral(self) -> bool:
             return True

@@ -98,6 +98,11 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
                 ...
 
             @abstractmethod
+            def inverse_image(self, subobject: FormedModule) -> FormedModule:
+                r"""Return ``f^{-1}(subobject)`` with the restricted form."""
+                ...
+
+            @abstractmethod
             def cokernel(self) -> FormedModule:
                 r"""Return ``codomain(f) / image(f)`` with descended form data.
 
