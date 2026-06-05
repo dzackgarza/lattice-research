@@ -87,6 +87,8 @@ following hypotheses or witness data are still required:
 - the subgroup of `O(T_Co)` used in the Coble quotient, if it is smaller than the full
   orthogonal group, e.g. stable kernel, real-spinor subgroup, stabilizer, or
   centralizer;
+- for the project notation `Gamma_Co`, the ambient lattice, stabilized polarization
+  class, involution, restriction to `T_Co`, and image in `O(A_T,q_T)`;
 - a primitive-isotropic orbit theorem/backend for that smaller subgroup.  The cited
   Eichler criterion requiring a copy of `2U` does not apply to `T_Co ~= N=2B`, because
   all pairings in `2B` are divisible by `2`, so `T_Co` cannot contain a hyperbolic plane
@@ -143,6 +145,11 @@ one `O(A_N,q_N)`-orbit.
 - Surjectivity of the full orthogonal group does not decide stable-kernel,
   real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.  Each such
   subgroup requires its own image or orbit theorem.
+- Dolgachev-Kondo source the full quotient `D(N)/O(N)` for the Coble target and the
+  birational Heegner-divisor quotient by `O(U+E_10(2))`.  These source statements do
+  not define the project subgroup `Gamma_Co` as a stabilizer-centralizer intersection
+  with specified `theta`, stabilized class, restriction to `T_Co`, or discriminant-form
+  image.
 - The cited Eichler criterion is unavailable for `T_Co`: it requires a copy of `2U`,
   but `T_Co ~= 2(<1>+E_10)` has all pairings divisible by `2`.
 - A one-orbit theorem for full `O(T_Co)` and full `O^+(T_Co)` is available through
@@ -194,6 +201,9 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/foundations/coble-standard-target-discriminant-form.md`: exact enumeration of
   the standard-target finite discriminant form gives `528` isotropic classes in `A_N`
   and full standard-target orbit sizes `[1, 527]`.
+- `theory/foundations/coble-task-background.md`, section `Task 3.1`: records the
+  current distinction between the Dolgachev-Kondo full orthogonal quotient and the
+  unresolved project subgroup `Gamma_Co`.
 - `theory/computations/coble_standard_target_discriminant_orbits.sage`: exact
   GAP/Sage witness computing `O(A_N,q_N)` as the stabilizer of the four
   `Q(v)=B(v,v) mod 4` fibers in `GL(B/2B)`.

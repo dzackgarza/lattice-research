@@ -182,18 +182,36 @@ Literature: Nikulin (1979, Prop.
 
 ## Task 3.1: Arithmetic Group Gamma_Co
 
-**Definition.** Dolgachev-Kondo relate the Coble moduli quotient to the $(-2)$ Heegner
-divisor in the Enriques period lattice
-$T_{\mathrm{En}} = U \oplus E_{10}(2)$, and $T_{\mathrm{Co}}$ is the orthogonal
-complement of the corresponding $(-2)$ vector. Formulas for $\Gamma_{\mathrm{Co}}$ as a
-stabilizer or centralizer inside $O(T_{\mathrm{En}})$ must name this typed Heegner
-vector and its action on $T_{\mathrm{Co}}$ explicitly.
+**Source-backed quotient.** Dolgachev-Kondo identify the Coble target lattice
+$N=\langle 2\rangle\oplus E_{10}(2)$ and state that the Coble moduli space is an open
+subset of the full orthogonal quotient $\mathcal D(N)/O(N)$.  They also observe that
+$N$ is the orthogonal complement of a $(-2)$ vector in
+$T_{\mathrm{En}}=U\oplus E_{10}(2)$, so the quotient of the corresponding $(-2)$
+Heegner divisor by $O(T_{\mathrm{En}})$ is birational to the Coble moduli space.
 
-**Moduli interpretation.** The Coble moduli space is a quotient of the period domain by
-Gamma_Co. The polarization $h_{\mathrm{Co}}$ is the degree-2 Enriques-type class in
-$K_S^\perp\subset\mathrm{Pic}(S)$, not the plane hyperplane class $H$. Its K3-side
-representative is $\tilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ with square $4$, and
-theta encodes the Enriques involution structure.
+**Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
+smaller intended arithmetic subgroup only after the following data are fixed:
+
+- the ambient lattice, either $T_{\mathrm{En}}$ or an explicitly embedded copy of
+  $T_{\mathrm{Co}}\subset T_{\mathrm{En}}$;
+- the Heegner vector $\delta$ whose orthogonal complement is $T_{\mathrm{Co}}$;
+- the degree-2 polarization class being stabilized, distinguishing the downstairs
+  $h_{\mathrm{Co}}\in K_S^\perp\subset\mathrm{Pic}(S)$ from the K3-side pullback
+  $\tilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ of square $4$;
+- the involution $\theta$ as an isometry of the same ambient lattice;
+- the restriction map, if any, from the stabilizer-centralizer subgroup to
+  $O(T_{\mathrm{Co}})$ and then to $O(A_{T_{\mathrm{Co}}},q_T)$.
+
+Until those objects and maps are stated, $\Gamma_{\mathrm{Co}}$ is not an acting group
+available for a primitive-isotropic orbit theorem.  The full-group statement
+$\operatorname{PrimIso}(T_{\mathrm{Co}})/O(T_{\mathrm{Co}})$ is a singleton does not
+imply the corresponding statement for this smaller subgroup.
+
+**Moduli interpretation.** The polarization $h_{\mathrm{Co}}$ is the degree-2
+Enriques-type class in $K_S^\perp\subset\mathrm{Pic}(S)$, not the plane hyperplane class
+$H$. Its K3-side representative is $\tilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ with
+square $4$, and $\theta$ is the Enriques-side involution data only after it is realized
+as a lattice isometry with the same parent as the subgroup definition.
 
 Tracker: `FEATURE-COBLE-ARITHMETIC-GROUP-GENERATORS`.
 

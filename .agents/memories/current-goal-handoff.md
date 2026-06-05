@@ -24,12 +24,23 @@ isometry class, Dawes/Attwell-Duval give the split maximal condition in signatur
 `(2,n)` for `n>=5`, and Dawes Algorithm 4.4 gives one primitive-isotropic vector orbit
 under `O^+(B)`, hence under `O^+(T_Co)` and `O(T_Co)`.
 
-Success condition for the next step: name the Coble arithmetic subgroup if it is
-smaller than full `O(T_Co)`, construct or source its image in `O(A_T,q_T)` when needed,
-and record the theorem/backend proving the corresponding primitive-isotropic orbit
-statement.  If later code must build `T_Co` from geometric input rather than use the
-accepted source-level target `N`, create that implementation-constructor obligation
-separately instead of treating it as a blocker for the source-level target.
+The next subgroup obligation is not an orbit computation yet.  First define
+`Gamma_Co` as a mathematical subgroup by specifying the ambient lattice, the Heegner
+vector whose orthogonal complement is `T_Co`, the stabilized polarization class
+(`h_Co`, `tilde h_Co`, or a transported Enriques-side class), the involution `theta`,
+and the restriction/image maps to `O(T_Co)` and `O(A_T,q_T)`.  Only after those objects
+and maps are fixed is there an acting group for a smaller-subgroup primitive-isotropic
+orbit theorem.
+
+Dolgachev-Kondo source the full quotient `D(N)/O(N)` for the Coble target and the
+birational quotient of the `(-2)` Heegner divisor by `O(U+E_10(2))`.  That does not
+source the project stabilizer-centralizer subgroup.  The local Sterk extraction symlink
+is currently broken, so Sterk-specific subgroup-orbit claims need source restoration or
+another inspected source before use.
+
+If later code must build `T_Co` from geometric input rather than use the accepted
+source-level target `N`, create that implementation-constructor obligation separately
+instead of treating it as a blocker for the source-level target.
 
 The cited Eichler criterion requiring a copy of `2U` is not available for
 `T_Co ~= N=2(<1>+E_10)`, because every pairing in `N` is divisible by `2`; smaller

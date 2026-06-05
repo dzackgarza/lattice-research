@@ -18,24 +18,43 @@ description: Construct Gamma_Co as a stabilizer-centralizer arithmetic subgroup 
 
 ## Summary
 
-Construct the Coble arithmetic group
-$\Gamma_{\mathrm{Co}}=\mathrm{Stab}_{O(T_{\mathrm{En}})}(h_{\mathrm{Co}})
-\cap Z_{O(T_{\mathrm{En}})}(\theta)$ as a real subgroup of the relevant lattice
-isometry group, then compute explicit generators.
+Define and construct the Coble arithmetic group intended by the notation
+$\Gamma_{\mathrm{Co}}$.  The sourced Dolgachev-Kondo quotient is the full
+$\mathcal D(N)/O(N)$ quotient for $N=T_{\mathrm{Co}}$ and the birational quotient of the
+$(-2)$ Heegner divisor in the Enriques period domain by
+$O(T_{\mathrm{En}})$.  A smaller group written schematically as
+
+```text
+Stab(h_Co or tilde h_Co) ∩ Z(theta)
+```
+
+is a mathematical object only after the ambient lattice, stabilized class, involution,
+restriction to $T_{\mathrm{Co}}$, and discriminant-form image are specified.
 
 ## Source Provenance
 
 - `theory/foundations/coble-task-background.md`, section `Task 3.1: Arithmetic Group
   Gamma_Co`.
-- Sterk (1991) and Dolgachev-Kondo (2013), through `theory/references/index.md`.
+- Dolgachev-Kondo (2013), through `theory/references/index.md`, for the full
+  orthogonal quotient and the Enriques Heegner-divisor quotient.
+- Sterk (1991), through `theory/references/index.md`, remains a source target for the
+  Enriques period-space and cusp framework; the local Sterk extracted note must be
+  restored before Sterk-specific subgroup-orbit claims can be sourced from repo-local
+  text.
 
 ## Scope
 
 - Represent $T_{\mathrm{En}}$, $h_{\mathrm{Co}}$, and $\theta$ through the repo's lattice
   and morphism vocabulary.
+- Specify whether the stabilized class is downstairs $h_{\mathrm{Co}}$, the K3-side
+  pullback $\tilde h_{\mathrm{Co}}$, or a transported Enriques-side class.
+- Specify the Heegner vector whose orthogonal complement is $T_{\mathrm{Co}}$.
 - Construct the stabilizer of $h_{\mathrm{Co}}$ in $O(T_{\mathrm{En}})$.
 - Construct the centralizer of $\theta$ in $O(T_{\mathrm{En}})$.
-- Compute the intersection defining $\Gamma_{\mathrm{Co}}$.
+- Compute the intersection defining $\Gamma_{\mathrm{Co}}$ only after the preceding
+  objects are typed in one ambient lattice.
+- Construct the restriction of the subgroup to $T_{\mathrm{Co}}$, if it is meant to act
+  on Coble cusp data.
 - Produce a generator set and verify that the generated group has the intended
   stabilizer-centralizer property.
 
@@ -50,6 +69,10 @@ isometry group, then compute explicit generators.
 
 - [ ] $T_{\mathrm{En}}$, $h_{\mathrm{Co}}$, and $\theta$ are constructed from sourced
   lattice data.
+- [ ] The ambient lattice, Heegner vector, stabilized class, and involution are all
+  stated as objects in the same lattice category.
+- [ ] The restriction of the subgroup to $T_{\mathrm{Co}}$ and its image in
+  $O(A_{T_{\mathrm{Co}}},q_T)$ are constructed when the group is used for cusp orbits.
 - [ ] The stabilizer and centralizer are computed by exact group methods or a
   source-backed backend.
 - [ ] The intersection subgroup is computed as $\Gamma_{\mathrm{Co}}$ with explicit
