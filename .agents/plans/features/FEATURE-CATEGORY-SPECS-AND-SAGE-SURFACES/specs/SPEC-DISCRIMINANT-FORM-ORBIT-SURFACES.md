@@ -126,6 +126,15 @@ output must be converted back to elements of `A` and subgroups of the original
 generated `G`.  Raw GAP points, tuples, permutation labels, or Smith-coordinate lists
 are not public return objects for discriminant-form orbits.
 
+For stabilizers, the conversion must preserve the acting group.  If the backend acts
+directly with `G.gap()` on encoded elements of `X`, then a GAP stabilizer subgroup can
+be converted back through the same `FqfOrthogonalGroup` subgroup constructor.  If the
+backend first replaces the action by a permutation image `rho(G) <= Sym(X)`, then
+`PermutationGroup.stabilizer(label(x))` returns `Stab_{rho(G)}(label(x))`, not
+`Stab_G(x)`.  The public stabilizer is the preimage
+`rho^{-1}(Stab_{rho(G)}(label(x)))`; returning only the image stabilizer is a different
+object and must be named as such.
+
 Public consequences:
 `isotropic_orbits()` is shorthand for `Iso(A,q)/O(A,q)` only when the chosen
 orthogonal-group realization supplies the finite action data needed to enumerate
@@ -270,6 +279,14 @@ discriminant-form elements to finite action labels and back, not evidence that
 
 Source evidence:
 `sage/groups/perm_gps/permgroup.py:1672-1968`.
+
+`FqfOrthogonalGroup._subgroup_constructor(libgap_subgroup)` is Sage evidence for the
+direct-GAP stabilizer route: a subgroup produced inside the libgap representation of
+`G` can be converted back to a generated `FqfOrthogonalGroup` subgroup by coercing GAP
+generators through the parent group.
+
+Source evidence:
+`sage/groups/fqf_orthogonal.py:344-365`.
 
 Consequence:
 finite orbit and stabilizer enumeration for discriminant-form subsets is not inherited
