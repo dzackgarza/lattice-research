@@ -22,7 +22,7 @@ from ..homsets import (
     UniversalAutElementMethods,
     UniversalEndElementMethods,
 )
-from ..modules.homsets import RModuleHomCategory
+from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 
 if TYPE_CHECKING:
     from ...cat import Category
@@ -79,7 +79,7 @@ class LatticeEndCategory(GenericEndCategory):
     _base_category_class_and_axiom = (LatticeHomCategory, "Endset")
     Autset = LazyImport(__name__, "LatticeAutCategory")
 
-    class ParentMethods:
+    class ParentMethods(RModuleEndCategory.ParentMethods):
         @abstractmethod
         def base_lattice(self) -> Lattice: ...
 
@@ -95,7 +95,7 @@ class LatticeAutCategory(GenericAutCategory):
 
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 
-    class ParentMethods:
+    class ParentMethods(RModuleAutCategory.ParentMethods):
         @abstractmethod
         def discriminant_action(self) -> Morphism:
             r"""Return the action homomorphism ``O(L) -> O(A_L, q_L)``."""
