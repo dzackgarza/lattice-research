@@ -18,7 +18,7 @@ from .endsets import (
 from .homsets import HomCategory
 
 if TYPE_CHECKING:
-    from ..types import Aut, Automorphism, CategoryObject, End
+    from ..types import Aut, Automorphism, CategoryObject, End, Group
 
 
 def _aut_categories_of(category: Category) -> Category:
@@ -84,6 +84,11 @@ class UniversalAutObjectMethods(UniversalEndObjectMethods):
     def identity(self) -> Automorphism:
         r"""Return the identity automorphism."""
         return self.end_category().identity()
+
+    @abstractmethod
+    def centralizer(self, element_or_subgroup: Automorphism | Group) -> Group:
+        r"""Return the subgroup centralizing an automorphism or subgroup."""
+        ...
 
 
 class UniversalAutElementMethods(UniversalEndElementMethods):

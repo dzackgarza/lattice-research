@@ -9,6 +9,7 @@ if str(ROOT) not in sys.path:
 
 from category_specs.cat import Cat
 from category_specs.homsets import AutCategory, EndCategory, HomCategory
+from category_specs.homsets.autsets import UniversalAutObjectMethods
 from category_specs.homsets.endsets import UniversalEndObjectMethods
 from category_specs.homsets.homsets import UniversalHomObjectMethods
 from category_specs.modules import Modules
@@ -119,6 +120,10 @@ CATEGORY_OBJECT_EXAMPLES = (
     (
         "generic Aut object records its defining end category",
         lambda _: aut_object_from_end_category().end_category() is S.EndCategory().Of(ZZ),
+    ),
+    (
+        "generic Aut object owns centralizer subgroup construction",
+        lambda _: UniversalAutObjectMethods.centralizer.__name__ == "centralizer",
     ),
 )
 
