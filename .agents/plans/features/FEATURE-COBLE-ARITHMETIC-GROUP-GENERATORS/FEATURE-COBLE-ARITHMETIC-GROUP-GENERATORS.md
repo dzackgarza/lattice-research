@@ -57,6 +57,21 @@ description of `Gamma_En,2`, but it is identified with
 embedding, polarization condition, and gluing anti-isometry to the Enriques Heegner
 complement data.
 
+The finite discriminant-image comparison is now computed.  Under the coordinate
+anti-isometry
+
+```text
+S_Co = 2(<-1> + U + E_8(-1)),
+T_Co = 2(<1> + U + E_8(-1)),
+```
+
+the class `tilde h_Co/2` is represented by bitmask `0b110`.  Its finite stabilizer in
+`O(A_TCo,q_T)` has order `94755225600`.  The Enriques-induced image of order
+`696729600` is contained in this finite stabilizer with index `136`.  The larger
+Coble-side finite stabilizer has isotropic-class orbit lengths `[1, 255, 272]` on
+`Iso(A_TCo,q_T)`, whereas the Enriques-induced image has orbit lengths
+`[1, 2, 120, 135, 270]`.
+
 A source-backed Enriques-side candidate is now available.  For a $(-2)$ Heegner vector
 $\delta\in T_{\mathrm{En}}$ with $\delta^\perp\simeq T_{\mathrm{Co}}$, AEGS define the
 degree-2 Enriques arithmetic group
@@ -208,6 +223,10 @@ lattice.
 - Use the induced finite image on $A_{T_{\mathrm{Co}}}$ with isotropic-class orbit
   lengths `[1, 2, 120, 135, 270]` when formulating subgroup cusp questions for this
   Enriques-side Heegner complement.
+- Use the computed containment of the Enriques-induced finite image in the Coble-side
+  finite stabilizer of `tilde h_Co/2`; the Coble-side finite stabilizer has order
+  `94755225600`, index `136` over the Enriques image, and isotropic-class orbit lengths
+  `[1, 255, 272]`.
 - Construct the stabilizer of $\tilde h_{\mathrm{Co}}$ in $O(S_{\mathrm{Co}})$, or of
   the transported polarization class in the corresponding Enriques-side algebraic
   lattice.

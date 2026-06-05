@@ -35,6 +35,15 @@ The script also checks the finite gluing condition for the full stabilizer of th
 Heegner line.  The class of ``(u+v)/2`` is fixed by the full finite orthogonal group
 of ``A_TCo``, and the induced action on its orthogonal complement is the full
 orthogonal group of the lower ``U+E_8(-1)`` discriminant form.
+
+For the Coble-side stabilizer-centralizer comparison, the algebraic lattice is
+
+    S_Co = 2B_SCo,  B_SCo = <-1> + U + E_8(-1),
+
+and the K3-side Coble polarization is represented by ``tilde_h=e+f`` in the ``U(2)``
+summand.  The coordinate anti-isometry from ``A_SCo`` to ``A_TCo`` sends this class to
+the same bitmask in ``A_TCo``.  The finite Coble-side stabilizer is therefore the
+stabilizer of that class in ``O(A_TCo,q_T)``.
 """
 
 from sage.all import (
@@ -55,6 +64,7 @@ F = GF(2)
 RANK = 10
 TCO_RANK = 11
 H_BITS = 0b11
+HTILDE_CO_BITS = 0b110
 
 E8 = matrix(
     ZZ,
@@ -76,6 +86,11 @@ GRAM_B = block_diagonal_matrix(
 )
 GRAM_TCO_B = block_diagonal_matrix(
     matrix(ZZ, [[1]]),
+    matrix(ZZ, [[0, 1], [1, 0]]),
+    -E8,
+)
+GRAM_SCO_B = block_diagonal_matrix(
+    matrix(ZZ, [[-1]]),
     matrix(ZZ, [[0, 1], [1, 0]]),
     -E8,
 )
@@ -224,6 +239,16 @@ def main():
         libgap(2),
         libgap.OnPoints,
     )
+    coble_htilde_stabilizer = libgap.Stabilizer(
+        tco_orthogonal_group,
+        libgap(HTILDE_CO_BITS + 1),
+        libgap.OnPoints,
+    )
+    coble_htilde_isotropic_orbits = libgap.OrbitsDomain(
+        coble_htilde_stabilizer,
+        libgap(tco_fibers[0]),
+        libgap.OnPoints,
+    )
     tco_lower_points = [(bits << 1) + 1 for bits in range(1 << RANK)]
     tco_lower_action = libgap.Image(
         libgap.ActionHomomorphism(
@@ -262,6 +287,28 @@ def main():
     print("tco_full_orthogonal_group_order", tco_orthogonal_group.Size())
     print("tco_eta_stabilizer_order", tco_eta_stabilizer.Size())
     print("tco_eta_stabilizer_image_on_lower_order", tco_lower_action.Size())
+    print("sco_htilde_bits", HTILDE_CO_BITS)
+    print("sco_htilde_q_mod4", quadratic_value(HTILDE_CO_BITS, GRAM_SCO_B, TCO_RANK))
+    print(
+        "coble_htilde_finite_stabilizer_order",
+        coble_htilde_stabilizer.Size(),
+    )
+    print(
+        "coble_htilde_stabilizer_contains_enriques_image",
+        libgap.IsSubgroup(coble_htilde_stabilizer, tco_image),
+    )
+    print(
+        "coble_htilde_stabilizer_index_over_enriques_image",
+        ZZ(coble_htilde_stabilizer.Size()) // ZZ(tco_image.Size()),
+    )
+    print(
+        "coble_htilde_isotropic_orbit_lengths",
+        sorted(int(orbit.Length()) for orbit in coble_htilde_isotropic_orbits),
+    )
+    print(
+        "coble_htilde_isotropic_representatives_as_bits",
+        sorted(int(orbit[0]) - 1 for orbit in coble_htilde_isotropic_orbits),
+    )
 
 
 if __name__ == "__main__":

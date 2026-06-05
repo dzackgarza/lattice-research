@@ -88,10 +88,23 @@ For a primitive embedding `S_Co <= Lambda_K3` with `T_Co=S_Co^perp`, Nikulin glu
   bar(g_T) gamma_Co = gamma_Co bar(g_S) }.
 ```
 
-Next mathematical obligation: compare this Coble-side gluing-compatible stabilizer with
-`Gamma_Co^En(delta)=im(Stab_{Gamma_En,2}(Z delta)->O(delta^perp))`.  This requires a
+This is the subgroup to compare with
+`Gamma_Co^En(delta)=im(Stab_{Gamma_En,2}(Z delta)->O(delta^perp))` after choosing the
 source-backed isometry `T_Co ~= delta^perp`, the transported polarization condition,
-and compatibility of `gamma_Co` with the AEGS gluing anti-isometry.
+and the compatibility of `gamma_Co` with the AEGS gluing anti-isometry.
+
+Finite comparison now computed: under the coordinate anti-isometry between
+`S_Co=2(<-1>+U+E8(-1))` and `T_Co=2(<1>+U+E8(-1))`, the class
+`tilde h_Co/2` has bitmask `0b110`.  Its finite stabilizer in `O(A_TCo,q_T)` has order
+`94755225600`.  The Enriques-induced image of order `696729600` is contained in this
+finite stabilizer with index `136`.  The Coble-side finite stabilizer has isotropic
+class orbit lengths `[1,255,272]`; the Enriques-induced image has
+`[1,2,120,135,270]`.
+
+Next mathematical obligation after the finite comparison: prove or source the
+lattice-level relation between the Coble-side gluing-compatible subgroup and
+`Gamma_Co^En(delta)`, including whether the larger finite Coble stabilizer is actually
+the image of the integral S-side stabilizer of `tilde h_Co`.
 
 Do not use the five AEGS 0-cusps as the answer to the Heegner-line question.  AEGS
 Corollary 3.12 concerns `Gamma_En,2`-orbits of primitive isotropic lines in `T_En`; the

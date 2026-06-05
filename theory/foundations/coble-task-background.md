@@ -417,6 +417,36 @@ $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ still requires a source-backed isom
 between the Coble primitive embedding and the Enriques Heegner complement that carries
 the Coble-side polarization condition to the AEGS class $h=e+f$.
 
+The same Sage/GAP witness now compares the finite discriminant images attached to
+these two subgroup descriptions.  Model
+
+```text
+S_Co = 2B_SCo,  B_SCo = <-1> + U + E_8(-1),
+T_Co = 2B_TCo,  B_TCo = <1> + U + E_8(-1),
+```
+
+and use the coordinate anti-isometry between the discriminant forms.  The class
+$\tilde h_{\mathrm{Co}}/2$ is represented by the bitmask `0b110`, i.e. $e+f$ in the
+$U(2)$ summand.  The finite Coble-side stabilizer of this class in
+$O(A_{T_{\mathrm{Co}}},q_T)$ has order
+
+```text
+94755225600.
+```
+
+It contains the Enriques-induced image of order `696729600`, and the index is `136`.
+On the `528` isotropic classes of $A_{T_{\mathrm{Co}}}$, this larger Coble-side finite
+stabilizer has orbit lengths
+
+```text
+[1, 255, 272],
+```
+
+with representatives `[0, 2, 14]` as bitmasks.  This is a finite discriminant-image
+comparison: it shows that the Enriques-side image is a proper subgroup of the natural
+Coble-side finite stabilizer container.  It does not by itself compute generators for
+the lattice subgroup or prove primitive-isotropic orbit statements for either subgroup.
+
 The current source-backed replacement for a completely unspecified smaller group is
 $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ above.  The remaining mathematical
 obligations are:
@@ -436,6 +466,9 @@ obligations are:
   Enriques stabilizer image and its five isotropic-class orbits, but this finite
   isotropic-class split is not yet a primitive-isotropic lattice orbit theorem for that
   restricted subgroup;
+- use the finite comparison with the Coble-side finite stabilizer of
+  $\tilde h_{\mathrm{Co}}/2$: the Enriques image is contained with index `136`, while
+  the Coble-side finite stabilizer has isotropic-class orbit lengths `[1, 255, 272]`;
 - use the proper image of
   $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)\to
   \operatorname{Stab}_{O(A_{S_{\mathrm{En}}},q)}(h/2)$, of order $696729600$, when
