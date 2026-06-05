@@ -66,13 +66,19 @@ and its image on the lower discriminant group `A_TEn` has the same order.  Thus 
 finite double-coset split of the full `O(T_En)` `(-2)`-root orbit by the preimage
 subgroup `Gamma_En,2` is trivial.
 
-Next mathematical obligation: cite/apply the non-isotropic orbit theorem that promotes
-this finite discriminant double-coset calculation to the `Gamma_En,2`-orbit statement
-for the chosen Heegner line `Z delta`, then compare this Enriques-side subgroup with
-the project stabilizer-centralizer notation
-`Stab(typed Coble polarization data) ∩ Z(theta)`.  The comparison still requires
-constructing `theta`, the transported polarization class, and the ambient-lattice
-restriction maps.
+The non-isotropic root-line theorem is now a settled input.  Dawes Algorithm 2.2
+applies to `O_A(L)={g in O(L) | bar(g) in A}` with `L=T_En`,
+`A=im(Gamma_En,2 -> O(A_TEn))`, and `delta=u-v`: `delta` is non-isotropic,
+`delta^perp=T_Co` has signature `(2,9)`, and the Kneser/Nikulin single-genus condition
+gives `O(T_En)->O(A_TEn)` surjective.  Combined with the AEGS/Namikawa full
+`O(T_En)` `(-2)`-root orbit and the computed singleton finite double-coset split, this
+gives one `Gamma_En,2`-orbit of `(-2)` Heegner lines represented by `Z delta`.
+
+Next mathematical obligation: compare the Enriques-side subgroup
+`Gamma_Co^En(delta)=im(Stab_{Gamma_En,2}(Z delta)->O(delta^perp))` with the project
+stabilizer-centralizer notation `Stab(typed Coble polarization data) ∩ Z(theta)`.
+This requires constructing `theta`, the transported polarization class, and the
+ambient-lattice restriction maps in one lattice category.
 
 Do not use the five AEGS 0-cusps as the answer to the Heegner-line question.  AEGS
 Corollary 3.12 concerns `Gamma_En,2`-orbits of primitive isotropic lines in `T_En`; the

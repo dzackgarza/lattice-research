@@ -193,11 +193,21 @@ one `O(A_N,q_N)`-orbit.
   `46998591897600`, and its image on the lower discriminant group
   `A_TEn ~= A_{U(2)+E_8(2)}` also has order `46998591897600`.  Thus the finite
   double-coset split of the full `O(T_En)` `(-2)`-root orbit by the preimage subgroup
-  `Gamma_En,2` is trivial.  A lattice-level root-orbit conclusion still has to cite the
-  non-isotropic orbit theorem that promotes this finite discriminant calculation.
+  `Gamma_En,2` is trivial.
+- Dawes Algorithm 2.2 supplies the non-isotropic vector criterion for this root-line
+  conclusion.  For `O_A(L)={g in O(L) | bar(g) in A}`, with `A<=O(D(L))`, it determines
+  vector equivalence when the vector is non-isotropic, its orthogonal complement is
+  indefinite, and `O(L)->O(D(L))` is surjective, by checking the discriminant gluing of
+  the rank-one generated lattices and their orthogonal complements.  Applying it with
+  `L=T_En`, `A=im(Gamma_En,2 -> O(A_TEn))`, and `delta=u-v` is legitimate because
+  `delta^2=-2`, `delta^perp=T_Co` has signature `(2,9)`, and the Kneser/Nikulin
+  single-genus condition cited by Dawes gives surjectivity for `T_En`.  Together with
+  the AEGS/Namikawa full `O(T_En)` `(-2)`-root orbit and the singleton finite
+  double-coset split above, this gives one `Gamma_En,2`-orbit of `(-2)` Heegner lines
+  represented by `Z delta`.
 - AEGS Corollary 3.12 identifies five `Gamma_En,2`-orbits of primitive isotropic lines
   in `T_En`, equivalently the five Baily-Borel 0-cusps of `F_En,2`.  That statement is
-  not a substitute for the missing `Gamma_En,2`-orbit statement for the negative
+  not a substitute for the separate `Gamma_En,2`-orbit statement for the negative
   Heegner lines `Z delta` with `delta^2=-2`.
 - The cited Eichler criterion is unavailable for `T_Co`: it requires a copy of `2U`,
   but `T_Co ~= 2(<1>+E_10)` has all pairings divisible by `2`.
@@ -245,8 +255,9 @@ discharge the downstream orbit-lifting conclusion.
   theorem that an indefinite unimodular lattice is determined up to isomorphism by
   parity and signature.
 - `theory/references/literature/dawes2022orbits_source_notes.md`: checked source notes
-  for Dawes's maximal-lattice split statement and Algorithm 4.4 primitive-isotropic
-  transport in `O^+(L)`.
+  for Dawes's maximal-lattice split statement, Algorithm 4.4 primitive-isotropic
+  transport in `O^+(L)`, and Algorithm 2.2 non-isotropic vector equivalence in
+  discriminant-preimage subgroups `O_A(L)`.
 - `theory/foundations/coble-standard-target-discriminant-form.md`: exact enumeration of
   the standard-target finite discriminant form gives `528` isotropic classes in `A_N`
   and full standard-target orbit sizes `[1, 527]`.

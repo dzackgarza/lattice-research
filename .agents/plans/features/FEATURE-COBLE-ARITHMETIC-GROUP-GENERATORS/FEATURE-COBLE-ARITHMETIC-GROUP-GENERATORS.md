@@ -109,9 +109,25 @@ $A_{\delta^\perp}$.  In the finite discriminant form,
 Hence the full line stabilizer has full image on
 $A_{T_{\mathrm{En}}}\simeq A_{U(2)+E_8(2)}$, and the finite double-coset split of the
 full $O(T_{\mathrm{En}})$ `(-2)`-root orbit by the preimage subgroup
-$\Gamma_{\mathrm{En},2}$ is trivial.  A lattice-level orbit claim should still name the
-non-isotropic orbit theorem used to pass from this finite discriminant calculation to
-actual root-line equivalence.
+$\Gamma_{\mathrm{En},2}$ is trivial.
+
+Dawes Algorithm 2.2 is the non-isotropic vector criterion used for the lattice-level
+root-line statement.  For
+
+```text
+O_A(L) = { g in O(L) | bar(g) in A },
+```
+
+it determines equivalence of non-isotropic vectors when the first orthogonal complement
+is indefinite and `O(L)->O(D(L))` is surjective, by testing the discriminant gluing of
+the generated rank-one lattices and their complements.  Applying it with
+`L=T_En`, `A=im(Gamma_En,2 -> O(A_TEn))`, and `delta=u-v` is legitimate because
+`delta^perp=T_Co` has signature `(2,9)` and the Kneser/Nikulin single-genus condition
+gives the required surjectivity for `T_En`.  Since AEGS/Namikawa give one full
+`O(T_En)` orbit of `(-2)` roots and the finite double-coset split for this preimage
+subgroup is singleton, the chosen Heegner line `Z delta` is representative of the
+unique `Gamma_En,2` orbit of `(-2)` Heegner lines in the degree-2 Enriques period
+lattice.
 
 ## Source Provenance
 
@@ -152,9 +168,9 @@ actual root-line equivalence.
   $\operatorname{Stab}_{\Gamma_{\mathrm{En},2}}(\mathbf Z\delta)$ and the restriction to
   $\delta^\perp$.
 - Determine the $\Gamma_{\mathrm{En},2}$-orbits of admissible $(-2)$ Heegner lines;
-  AEGS source uniqueness only modulo the full group
-  $\Gamma_{\mathrm{En}}=O(T_{\mathrm{En}})$, while the finite discriminant double-coset
-  split for the preimage subgroup is now computed to be trivial.
+  Dawes Algorithm 2.2 and the computed finite discriminant double-coset split show that
+  the explicit line $\mathbf Z(u-v)$ represents the unique
+  $\Gamma_{\mathrm{En},2}$-orbit of such lines.
 - Compute the finite discriminant-action image of $\Gamma_{\mathrm{En},2}$ from
   $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ via the gluing anti-isometry
   $A_{S_{\mathrm{En}}}\simeq A_{T_{\mathrm{En}}}$.
@@ -189,7 +205,7 @@ actual root-line equivalence.
   =\operatorname{im}(\operatorname{Stab}_{\Gamma_{\mathrm{En},2}}(\mathbf Z\delta)\to
   O(\delta^\perp))$ is constructed for a chosen Heegner line with
   $\delta^\perp\simeq T_{\mathrm{Co}}$.
-- [ ] The $\Gamma_{\mathrm{En},2}$-orbit of the chosen Heegner line is sourced or
+- [x] The $\Gamma_{\mathrm{En},2}$-orbit of the chosen Heegner line is sourced or
   computed; the full $\Gamma_{\mathrm{En}}$-orbit statement is not used as a substitute.
 - [ ] The ambient lattice, Heegner vector, stabilized class, and involution are all
   stated as objects in the same lattice category.
