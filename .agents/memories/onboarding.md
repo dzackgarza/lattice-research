@@ -94,7 +94,8 @@ algebra.
 Project-owned glue is justified only when it is the smallest bridge needed to compose
 those mechanisms and keep ordinary mathematical specs readable.
 Quarantine unavoidable Sage/Python internals in the interop layer; do not spread them
-through specs, refinement-time satisfaction checks, smokes, or local helper systems.
+through specs, refinement-time satisfaction checks, category-obligation examples, or
+local helper systems.
 
 Downstream Coble/lattice goals must NOT be attacked by raw matrix computations.
 The repo is in the category-spec phase.
@@ -134,13 +135,14 @@ Constructor work is not constructor redefinition. The workflow is:
 - expose only named-parameter category-owned overloads on `Cat().Constructors()`;
 - implement each overload by calling the original Sage constructor, refining the
   returned parent, and returning it;
-- make smokes call category constructor surfaces only.
+- make category-obligation examples call category constructor surfaces only.
 
 Any constructor surprise is a red flag that this workflow was skipped. Start auditing
 at the mapping docs and overload surface; do not patch ambient Sage names, widen a
 free-floating wrapper, add "constructor redefinitions", or preserve rejected constructor
 ideas as evidence artifacts. If Sage source does not establish the constructor shape,
-do not mention it in constructor mappings, provenance, smokes, decisions, or tasks.
+do not mention it in constructor mappings, provenance, category-obligation examples,
+decisions, or tasks.
 Do not polish a suspect constructor artifact in place. Reconstruct the mapping from
 Sage docs/source, then delete or replace the artifact as a consequence of the corrected
 mapping.
@@ -162,9 +164,9 @@ Property categories should still name abstract witness-producing methods so down
 consumers can demand evidence for the claim, but the graph edge goes from equipped
 witness to property, not from property to equipped witness.
 
-## CRITICAL smoke-test public API rule
+## CRITICAL category-obligation example public API rule
 
-Before editing category-spec smokes or regressions, load
+Before editing category-obligation examples or regressions, load
 `mem:category-spec-tests-use-category-api-not-private-classes`.
 
 Tests must mirror downstream mathematical use: category objects, category-owned
@@ -261,15 +263,15 @@ See `mem:process-before-patches-policy`.
 
 ### 7. Redefining constructors instead of recovering Sage constructor shapes
 
-Error: A smoke fails because raw Sage construction returns an unrefined object, and the
-agent patches Sage globals, module attributes, temporary providers, or a free-floating
-wrapper so the old syntax secretly returns a project-refined object.
+Error: A category assertion fails because raw Sage construction returns an unrefined
+object, and the agent patches Sage globals, module attributes, temporary providers, or
+a free-floating wrapper so the old syntax secretly returns a project-refined object.
 
 Rule: Public project constructor API lives only on category `Constructors()` surfaces.
 Recover Sage's valid constructor shapes from docs and source, enumerate them in mapping
 docs, expose them as named-only overloads on the owning category, call the original Sage
-constructor, refine the result, and make smokes call those category constructors. See
-`mem:category-spec-constructor-routes-are-category-owned`.
+constructor, refine the result, and make category-obligation examples call those
+category constructors. See `mem:category-spec-constructor-routes-are-category-owned`.
 
 ## How to start
 
@@ -293,7 +295,7 @@ Read these when their situation arises:
 | About to classify a mypy override error | `mem:analysis-must-be-grounded` |
 | About to produce or polish cards, ledgers, reports, plans, handoffs, or notes | `mem:paperwork-is-a-routing-layer-not-progress` |
 | User correction affected repo purpose, architecture, or mathematical claims | `mem:corrections-update-the-model-not-the-artifact` |
-| Refinement, object-method resolution, constructor refinement, abstract methods, ABCMeta, or smoke gaps | `mem:category-spec-repo-model-corrections`, `mem:category-spec-refinement-category-declaration`, and `mem:category-spec-methods-are-abstract` |
+| Refinement, object-method resolution, constructor refinement, abstract methods, ABCMeta, or failed category assertions | `mem:category-spec-repo-model-corrections`, `mem:category-spec-refinement-category-declaration`, and `mem:category-spec-methods-are-abstract` |
 | Two methods with the same name collide | `mem:mathematics-first-not-engineering-options` |
 | Found an embarrassing category-graph bug | `mem:process-before-patches-policy` |
 | About to produce a strategy doc instead of code | `mem:foundation-serves-research-not-itself` |

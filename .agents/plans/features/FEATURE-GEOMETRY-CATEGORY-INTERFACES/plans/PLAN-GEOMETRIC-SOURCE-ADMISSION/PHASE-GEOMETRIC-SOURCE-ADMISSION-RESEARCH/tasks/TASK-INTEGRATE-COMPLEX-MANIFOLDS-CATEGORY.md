@@ -14,7 +14,7 @@ successCriteria:
 - Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
 - Determine how this category relates to existing planned categories, constructors, Hom/End/Aut
-  surfaces, and smoke expectations.
+  objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation cards needed
   to proceed.
@@ -137,7 +137,7 @@ Admit these owner directions for future spec rows:
 ## Dependency And Downstream Routing
 
 Complex manifolds depend on the smooth-manifold surface, topological/complex field
-ownership, Hom/End/Aut surfaces, and tensor/form vocabulary. Kähler, Hodge, period,
+ownership, Hom/End/Aut objects, and tensor/form vocabulary. Kähler, Hodge, period,
 Picard, and K3 surfaces depend additionally on cohomology, sheaf, lattice, and
 proof-audit-ready source cards.
 
@@ -154,17 +154,17 @@ No new follow-up card is needed from this pass. Existing complex-variety, comple
 surface, K3/Coble geometry, lattice, and family/period-domain cards own the stricter
 bridges and invariants.
 
-## Smoke And Implementation Guidance
+## Representative Examples And Implementation Guidance
 
-Future smoke examples should use small complex manifolds, simple holomorphic charts,
+Future category-obligation examples should use small complex manifolds, simple holomorphic charts,
 and Hom construction. Avoid using K3, torus quotient, period-domain, or sheaf-cohomology
-examples as baseline complex-manifold smokes.
+examples as baseline complex-manifold category-obligation examples.
 
 ## Acceptance Criteria
 
 - [x] Identify the mathematical definition and the intended project vocabulary for this category.
 - [x] Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut surfaces, and smoke expectations.
+- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut objects, and representative examples with category obligations.
 - [x] List downstream categories or tasks blocked by this integration.
 - [x] Create any concrete follow-up decision, spec, implementation, or source-curation cards needed to proceed.
 

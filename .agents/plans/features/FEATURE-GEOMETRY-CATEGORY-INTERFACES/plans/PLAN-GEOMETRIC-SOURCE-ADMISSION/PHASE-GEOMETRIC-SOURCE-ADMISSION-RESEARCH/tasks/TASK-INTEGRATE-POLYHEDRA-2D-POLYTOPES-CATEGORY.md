@@ -15,7 +15,7 @@ successCriteria:
 - Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
 - Determine how this category relates to existing planned categories, constructors, Hom/End/Aut
-  surfaces, and smoke expectations.
+  objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation cards needed
   to proceed.
@@ -134,7 +134,7 @@ Admit these owner directions for future spec rows:
   `Polyhedra(R, 2)` or the general `Polyhedra(R, n)` surface.
 - `Polygons(R)` owns full-dimensional bounded 2D-polytope conveniences such as cyclic
   boundary order, oriented edge traversal, polygon edge list, area conventions, and
-  polygon-specific visual/smoke examples.
+  polygon-specific visual and category-obligation examples.
 - `ordered_vertices()` belongs to `LatticePolygons` or a stricter
   cyclically-oriented polygon refinement, not to arbitrary unbounded 2D polyhedra.
   A docstring should say that the first vertex is arbitrary and that degenerate
@@ -176,16 +176,16 @@ enough for the global method inventory/spec pass: use `Polyhedra(R, 2)` for unbo
 2D polyhedra, `Polygons(R)` for bounded full-dimensional 2D polytopes, and
 `LatticePolygons`/`ReflexivePolygons` for lattice and toric-reflexive refinements.
 
-## Smoke And Implementation Guidance
+## Representative Examples And Implementation Guidance
 
-Future 2D smokes should be tiny:
+Future 2D category-obligation examples should be tiny:
 
 - a triangle or square as a bounded polygon;
 - a half-plane or cone as a 2D unbounded polyhedron;
 - a segment or point as a degenerate bounded 2D-ambient polytope;
 - one lattice square for `ordered_vertices()`;
 - one `ReflexivePolytope(2, 0)` or equivalent minimal reflexive polygon only for
-  reflexive/toric bridge smokes.
+  reflexive/toric bridge category-obligation examples.
 
 Spec docstrings should identify diagnostic-warning sites for:
 
@@ -200,7 +200,7 @@ Spec docstrings should identify diagnostic-warning sites for:
 
 - [x] Identify the mathematical definition and the intended project vocabulary for this category.
 - [x] Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut surfaces, and smoke expectations.
+- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut objects, and representative examples with category obligations.
 - [x] List downstream categories or tasks blocked by this integration.
 - [x] Create any concrete follow-up decision, spec, implementation, or source-curation cards needed to proceed.
 

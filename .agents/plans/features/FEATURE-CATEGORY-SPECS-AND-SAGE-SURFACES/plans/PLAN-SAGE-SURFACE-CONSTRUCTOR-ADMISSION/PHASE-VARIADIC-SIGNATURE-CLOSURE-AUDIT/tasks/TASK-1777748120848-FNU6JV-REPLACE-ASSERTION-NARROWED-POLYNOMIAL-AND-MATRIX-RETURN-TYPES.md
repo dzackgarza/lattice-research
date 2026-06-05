@@ -61,7 +61,7 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
 - [x] Remove the redundant `assert isinstance(matrix, SageMatrix)` check from the PID
   matrix-presentation constructor without weakening the `Matrix` annotation.
 - [x] Keep matrix-presentation semantics as `coker(matrix)` over a PID.
-- [x] Run syntax validation and a targeted regression/smoke check, or record the
+- [x] Run syntax validation and a targeted regression/category-obligation example check, or record the
   exact phase-local blocker.
 - [x] Run and record a spec-weakening review before moving the card to
   `needs-agent-review`.
@@ -78,7 +78,7 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
     `category_specs/rings/__init__.py` and
     `category_specs/modules/subcategories/finitely_presented_over_pid.py`.
   - The work preserves existing constructors and result categories, but it touches
-    public constructor type surfaces and therefore needs syntax plus targeted smoke
+    public constructor type surfaces and therefore needs syntax plus targeted category-obligation example
     validation.
 
 ## Work Log
@@ -105,11 +105,11 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
 - `git diff --check -- category_specs/rings/__init__.py category_specs/modules/subcategories/finitely_presented_over_pid.py plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-1777748120848-FNU6JV-REPLACE-ASSERTION-NARROWED-POLYNOMIAL-AND-MATRIX-RETURN-TYPES.md` passed.
 - Direct Sage check for `Rings().Constructors().PolynomialRing(QQ)` raising
   `TypeError` passed.
-- `just --justfile category_specs/justfile smoke-file rings/smoketest.sage`
-  failed on pre-existing smoke-frontier gaps including `hilbert_polynomial`,
+- `just --justfile category_specs/justfile category-obligation-file rings/category_obligations.sage`
+  failed on pre-existing failed category assertions gaps including `hilbert_polynomial`,
   `boundary`, `ideal_monoid`, and matrix-ring MRO.
-- `just --justfile category_specs/justfile smoke-file modules/smoketest.sage`
-  failed on pre-existing smoke-frontier gaps including `alternating_algebra`,
+- `just --justfile category_specs/justfile category-obligation-file modules/category_obligations.sage`
+  failed on pre-existing failed category assertions gaps including `alternating_algebra`,
   graded-module category-base mismatches, lattice key errors, ideal refinement
   gaps, and ring-object-as-module gaps.
 - Direct Sage check of
@@ -145,14 +145,14 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
 ## Spec-Weakening Review
 
 - Reviewed the task-local diff for deleted overloads, removed constructor
-  obligations, narrowed smokes, moved owners, generic Sage call-shape admission, and
+  obligations, narrowed category-obligation examples, moved owners, generic Sage call-shape admission, and
   Sage-gap-driven interface shrinkage.
 - Result: passed. The diff only replaces assertion narrowing with explicit call-shape
   errors and removes a redundant runtime type check whose static `Matrix`
   annotation remains intact.
 - 2026-05-07 re-review of the follow-up diff: passed. The extra change converts an
   invalid closed-overload combination from `assert` to `TypeError`; it does not
-  delete overloads, narrow smokes, move ownership, or shrink the polynomial-ring
+  delete overloads, narrow category-obligation examples, move ownership, or shrink the polynomial-ring
   constructor surface.
 
 ## Review Log
@@ -173,7 +173,7 @@ Gate results:
   `PolynomialRing` overload family, rejects invalid closed shapes with `TypeError`,
   and keeps the PID `matrix: Matrix` annotation with the same `coker(matrix)`
   delegation.
-- Gate 3, spec weakening: passed. No overloads, smoke obligations, or constructor
+- Gate 3, spec weakening: passed. No overloads, category-obligation example obligations, or constructor
   surfaces were deleted or narrowed.
 - Gate 4, gradient: passed. No backsliding against the closed-overload direction was
   found.
@@ -192,7 +192,7 @@ Validation noted by reviewer:
 - `rg -n "assert n is not None|assert variable_spec_count|assert
   isinstance\(matrix, SageMatrix\)" ...` found no remaining targeted sites.
 - `just plan-validate` passed.
-- Rings smoke still fails on the pre-existing ring smoke frontier; modules smoke
+- Rings category-obligation example still fails on the pre-existing ring failed category assertions; modules category-obligation example
   passed in the reviewer rerun with existing warnings.
 
 ### Independent Review - 2026-05-07 (second pass)
@@ -257,14 +257,14 @@ AC4: "Keep matrix-presentation semantics as coker(matrix) over a PID."
     `return module_category.from_invariant_factors(matrix.elementary_divisors())`
   - Same delegation path as before the change.
 
-AC5: "Run syntax validation and a targeted regression/smoke check, or record the
+AC5: "Run syntax validation and a targeted regression/category-obligation example check, or record the
 exact phase-local blocker."
   - `python -m py_compile ...` passed (both files).
   - `git diff --check` passed.
   - `just plan-validate` passed (227 root planning cards).
   - Targeted assertion grep: `rg -n "assert n is not None|assert variable_spec_count|
     assert isinstance\(matrix, SageMatrix\)"` on both files → no matches.
-  - Smoke failures documented: rings smoke pre-existing failures, modules smoke
+  - Failed category assertions documented: rings category-obligation example pre-existing failures, modules category-obligation example
     pre-existing failures, `from_matrix` runtime blocked by `from_invariant_factors`
     exposure gap — all pre-existing, none introduced by this task.
 
@@ -294,7 +294,7 @@ Evidence:
   - Line-wrapping of docstrings and `del` statements for abstract stubs (from
     commit c16ef4a, E501 cleanup, cosmetic only).
 - No deleted abstract methods. No removed constructor obligations. No narrowed
-  smoke assertions. No moved ownership without grounded replacement. No
+  category assertions. No moved ownership without grounded replacement. No
   Sage-gap-driven interface shrinkage.
 - Git history confirmed: 8d866bd (main work), 3b43193 (review-fix follow-up),
   c16ef4a (E501 style only), c6ca242 (I→ideal rename, outside task scope).

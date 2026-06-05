@@ -11,7 +11,7 @@ title: Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupA
 status: complete
 priority: critical
 requirement: The deleted Lattices triage recorded the top-level lattice subtree admission,
-  current smoke coverage, constructor admission boundary, and DiscriminantGroupAut
+  current category-obligation example coverage, constructor admission boundary, and DiscriminantGroupAut
   blocker.
 acceptanceCriteria:
 - The mathematical owner, public surface, and migration consequence are recorded in
@@ -21,7 +21,7 @@ acceptanceCriteria:
 - Any implementation blocker discovered during spec work is split into an implementation-work
   item with source provenance. No new implementation blocker was discovered; the recorded
   blocker was stale.
-- Run just smoke-file lattices/chain_smoketest.sage and just smoke-file lattices/smoketest.sage
+- Run just category-obligation-file lattices/chain_category_obligations.sage and just category-obligation-file lattices/category_obligations.sage
   for lattice-surface changes.
 - Do not admit lattice constructors without completing Sage constructor inventory
   mapping.
@@ -32,7 +32,7 @@ tags:
 ## Summary
 
 The deleted Lattices triage recorded the top-level lattice subtree admission, current
-smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker.
+category-obligation example coverage, constructor admission boundary, and DiscriminantGroupAut blocker.
 
 ## Source Provenance
 
@@ -41,8 +41,8 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 
 ## Context
 
-- Lattice smokes cover Cat registration, the ambient module chain, Hom/End/Aut construction, Subobjects, DualObjects/DualLattices vocabulary, and Even predicate surface.
-- Constructor admission remains outside the current smoke surface and must enter through Lattices(R).Constructors() after Sage constructor inventory mapping.
+- Lattice category-obligation examples cover Cat registration, the ambient module chain, Hom/End/Aut construction, Subobjects, DualObjects/DualLattices vocabulary, and Even predicate surface.
+- Constructor admission remains outside the current category-obligation example and must enter through Lattices(R).Constructors() after Sage constructor inventory mapping.
 - LatticeOrthogonalGroup is Lattices(R).AutCategory().Of(L), specializing the formed-module aut surface.
 - DiscriminantGroupAut export is blocked until discriminant_groups.py defines Hom, End, and Aut standard names.
 
@@ -77,7 +77,7 @@ Grounded target for this card:
 - [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [x] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance. No new implementation blocker was discovered; the recorded blocker was stale.
-- [ ] Run just smoke-file lattices/chain_smoketest.sage and just smoke-file lattices/smoketest.sage for lattice-surface changes.
+- [ ] Run just category-obligation-file lattices/chain_category_obligations.sage and just category-obligation-file lattices/category_obligations.sage for lattice-surface changes.
 - [ ] Do not admit lattice constructors without completing Sage constructor inventory mapping.
 
 ## Dependencies And Boundaries
@@ -95,7 +95,7 @@ Grounded target for this card:
   and `category_specs/types.py`; the standard Hom/End/Aut names already exist and are
   exported. Added the missing mapping note to `category_specs/lattices/docs/MAPPING.md`
   and moved this card to `in-review` because the prior blocker is stale. This was a
-  mapping/card update only; lattice smoke commands were not run because no code surface
+  mapping/card update only; lattice category-obligation commands were not run because no code surface
   changed.
 
 ## 6-Gate Protocol Review Log
@@ -120,8 +120,8 @@ Verify referenced files/cards exist and paths are correct.
 | TRIAGE.md (removed) | `category_specs/lattices/docs/TRIAGE.md` | WRONG PATH | Actual path was `plans/category_specs/lattices/docs/TRIAGE.md`, deleted in commit 8d1c21c. Recovery command `git show 8d1c21c^:category_specs/lattices/docs/TRIAGE.md` fails. Correct command: `git show 8d1c21c^:plans/category_specs/lattices/docs/TRIAGE.md`. TRIAGE content confirmed: "DiscriminantGroupAut type package is still blocked because discriminant_groups.py does not yet define Hom, End, Aut standard names." |
 | Parent feature | `FEATURE-MODULES-WITH-FORMS-AND-LATTICES` | EXISTS | At `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/FEATURE-MODULES-WITH-FORMS-AND-LATTICES.md`, status: in-progress. |
 | Dependency phase | `PHASE-HOM-END-AUT-WORK-QUEUE` | EXISTS | At `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/.../PHASE-HOM-END-AUT-WORK-QUEUE.md`, status: needs-agent-review. Note: this phase lives under a different feature root (FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES) than this spec (FEATURE-MODULES-WITH-FORMS-AND-LATTICES). Cross-feature dependency is valid but unusual. |
-| Smoke: chain | `category_specs/lattices/chain_smoketest.sage` | EXISTS | 31 lines; covers Cat registration, lattice chain, Even predicate. |
-| Smoke: full | `category_specs/lattices/smoketest.sage` | EXISTS | Lattice surface smoke. |
+| Category-obligation example: chain | `category_specs/lattices/chain_category_obligations.sage` | EXISTS | 31 lines; covers Cat registration, lattice chain, Even predicate. |
+| Category-obligation example: full | `category_specs/lattices/category_obligations.sage` | EXISTS | Lattice category-obligation examples. |
 
 G1 Findings:
 - 10 of 12 source anchors verified existing at correct paths.

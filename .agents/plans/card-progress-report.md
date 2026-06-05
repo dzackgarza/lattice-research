@@ -92,7 +92,9 @@
 
 ## Most Recently Completed
 
-- 2026-06-05 `plan` `PLAN-GEOMETRIC-SOURCE-ADMISSION`: Geometric category source-backed definition research (commit `bc688c7`: docs: write spec planning as mathematical claims)
+- 2026-06-05 `task` `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`: Research category integration for complex varieties (commit `69c1030`: docs: reframe spec docs as mathematical assertions)
+- 2026-06-05 `plan` `PLAN-GEOMETRIC-SOURCE-ADMISSION`: Geometric category source-backed definition research (commit `69c1030`: docs: reframe spec docs as mathematical assertions)
+- 2026-06-05 `spec` `SPEC-HISTORICAL-DISCRIMINANT-GROUP-SURFACE`: Define the discriminant group as a finite torsion formed module (commit `69c1030`: docs: reframe spec docs as mathematical assertions)
 - 2026-06-05 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `3123ea3`: docs: make operation map the spec control object)
 - 2026-06-04 `task` `TASK-FORMED-COKERNEL-DESCENDED-FORM`: Specify formed cokernel with descended form data (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
 - 2026-06-04 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
@@ -102,8 +104,6 @@
 - 2026-06-04 `task` `TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME`: Fix Rings category base-class identity mismatch in nested axiom refinement (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 - 2026-06-04 `task` `TASK-01KQN9J3WZDBZ8D0BPGG8AKVXH-IMPLEMENT-MISSING-SYMPY-SURFACE-FOR-REFINED-RING-CONSTRUCTOR-OUTPUTS`: Implement missing _sympy_ surface for refined ring constructor outputs (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 - 2026-06-04 `task` `TASK-WRAPUP-PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-01KQN9J3X04R2PWJADC8B4EF9A-FIX-SETS-ROOT-CONTAINMENT-REFINED-CONSTRUCTOR-RICHCMP-PRIMES-ITERATION-R`: Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-01KQN9YGCHDRNXNEYEH2P134JD-IMPLEMENT-TOPOLOGICAL-RING-AND-FIELD-REFINEMENTS-FOR-TOPOLOGY-BEARING-RI`: Implement topological ring and field refinements for topology-bearing ring objects without duplicating topological-space methods (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 - 2026-06-04 `task` `TASK-1777748120565-B5H5VY-RESTORE-BINARY-PRIMITIVES-FOR-MODULE-AND-SET-PRODUCT-CONSTRUCTORS`: Restore binary primitives for module and set product constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 - 2026-06-04 `task` `TASK-1777748120784-23ROWB-CLEAN-SAGE-OPTION-BAGS-FROM-PUBLIC-RING-CONSTRUCTORS`: Clean Sage option bags from public ring constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 - 2026-06-04 `task` `TASK-1777748120848-FNU6JV-REPLACE-ASSERTION-NARROWED-POLYNOMIAL-AND-MATRIX-RETURN-TYPES`: Replace assertion-narrowed polynomial and matrix return types (commit `3cc8779`: checkpoint: preserve category spec worktree state)

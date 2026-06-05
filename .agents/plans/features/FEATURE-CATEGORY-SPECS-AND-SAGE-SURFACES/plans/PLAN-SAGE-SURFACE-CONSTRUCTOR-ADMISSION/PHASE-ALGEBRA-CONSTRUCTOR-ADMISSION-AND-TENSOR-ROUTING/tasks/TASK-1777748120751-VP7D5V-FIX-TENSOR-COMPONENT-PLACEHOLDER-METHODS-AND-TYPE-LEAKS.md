@@ -18,7 +18,7 @@ successCriteria:
   constructor interop, and inherited module tensor-product obligations.
 - Raw Sage component slices and option-bag-shaped constructor surfaces are kept private
   or converted to explicit typed outputs.
-- Relevant validation evidence is recorded without weakening smokes, mapping decisions,
+- Relevant validation evidence is recorded without weakening category-obligation examples, mapping decisions,
   or abstract obligations.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -70,7 +70,7 @@ Task: fix tensor-component placeholder methods that incorrectly return self or r
 - Changed `Tensor.structure_constants()` to return `tuple[Matrix, ...]` instead of a raw Sage `self[:]` slice surface.
 - Changed constructor-internal module-element coordinate extraction to return `tuple[RingElement, ...]` instead of a raw Sage slice surface before building multiplication tensors.
 - Added the missing return annotation on `TensorAlgebraComponents.Constructors()`.
-- Kept `sym=` and `antisym=` on `tensor(...)` and `component_module(...)` because the mapping admits them as constructor metadata. Kept `name=` and `latex_name=` because they are Sage tensor labels used by the current smoke surface rather than public mathematical option bags.
+- Kept `sym=` and `antisym=` on `tensor(...)` and `component_module(...)` because the mapping admits them as constructor metadata. Kept `name=` and `latex_name=` because they are Sage tensor labels used by the current category-obligation example rather than public mathematical option bags.
 
 ## Negative Finding
 
@@ -85,7 +85,7 @@ Task: fix tensor-component placeholder methods that incorrectly return self or r
 - `python -m py_compile category_specs/tensor_algebra_components/__init__.py`
 - `git diff --check`
 - `just check-abstract-redefinitions` from `category_specs/`
-- `just smoke-file tensor_algebra_components/smoketest.sage` from `category_specs/` still fails on the pre-existing tensor constructor-refinement `__richcmp__` frontier tracked by `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING/tasks/TASK-01KQN9J3X47WFCYHM2CK8G1677-FIX-TENSORALGEBRACOMPONENTS-CONSTRUCTOR-REFINEMENT-RICHCMP-FAILURES-FROM.md`; every failed smoke assertion reports `AssertionError: Not implemented method: __richcmp__`.
+- `just category-obligation-file tensor_algebra_components/category_obligations.sage` from `category_specs/` still fails on the pre-existing tensor constructor-refinement `__richcmp__` frontier tracked by `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING/tasks/TASK-01KQN9J3X47WFCYHM2CK8G1677-FIX-TENSORALGEBRACOMPONENTS-CONSTRUCTOR-REFINEMENT-RICHCMP-FAILURES-FROM.md`; every failed category assertion reports `AssertionError: Not implemented method: __richcmp__`.
 
 ## Review Log
 
@@ -203,9 +203,9 @@ Ran the four verification steps listed at card lines 85-88:
 | Compile check | `python -m py_compile category_specs/tensor_algebra_components/__init__.py` | PASS (exit 0) |
 | Whitespace | `git diff --check` | PASS (exit 0) |
 | Abstract redefinitions | `just check-abstract-redefinitions` (from `category_specs/`) | PASS — "No redundant abstract-method redefinitions found across 848 project method-provider classes." |
-| Smoke | `just smoke-file tensor_algebra_components/smoketest.sage` | FAILS with `ImportError: cannot import name 'PartitionedSetsAut'` — pre-existing, unrelated to this card. Card correctly states the smoke "still fails on the pre-existing tensor constructor-refinement `__richcmp__` frontier tracked by TASK-01KQN9J3X47WFCYHM2CK8G1677". The ImportError is even earlier than `__richcmp__` but equally pre-existing. |
+| Category-obligation example | `just category-obligation-file tensor_algebra_components/category_obligations.sage` | FAILS with `ImportError: cannot import name 'PartitionedSetsAut'` — pre-existing, unrelated to this card. Card correctly states the category-obligation example "still fails on the pre-existing tensor constructor-refinement `__richcmp__` frontier tracked by TASK-01KQN9J3X47WFCYHM2CK8G1677". The ImportError is even earlier than `__richcmp__` but equally pre-existing. |
 
-All actionable verifications pass. The pre-existing smoke failure is honestly
+All actionable verifications pass. The pre-existing failed category assertion is honestly
 acknowledged.
 
 #### Gate 5: Negative Finding Validation — PASS

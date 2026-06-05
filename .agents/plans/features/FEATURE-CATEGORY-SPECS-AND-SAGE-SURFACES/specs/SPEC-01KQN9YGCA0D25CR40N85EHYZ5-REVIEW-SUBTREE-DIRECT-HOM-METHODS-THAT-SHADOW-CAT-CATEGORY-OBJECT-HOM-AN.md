@@ -10,7 +10,7 @@ title: Review subtree direct Hom methods that shadow Cat category-object Hom and
   the uniform owner
 status: complete
 priority: critical
-requirement: The deleted Cat triage recorded structural Cat smoke scope and future
+requirement: The deleted Cat triage recorded structural Cat category-obligation example scope and future
   uniformization work for category-object Hom behavior and functor/autofunctor modeling.
 acceptanceCriteria:
 - The mathematical owner, public surface, and migration consequence are recorded in
@@ -20,7 +20,7 @@ acceptanceCriteria:
 - Any implementation blocker discovered during spec work is split into an implementation-work
   item with source provenance; no current implementation blocker was discovered in
   this pass.
-- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface
+- Run just category-obligation-file cat/category_obligations.sage after any Cat or category-object surface
   change; no Cat or category-object runtime surface changed in this pass.
 - Check that direct subtree Hom methods do not hide the Cat-owned category-object
   operation.
@@ -31,7 +31,7 @@ tags:
 # Review subtree direct Hom methods that shadow Cat category-object Hom and specify the uniform owner
 ## Summary
 
-The deleted Cat triage recorded structural Cat smoke scope and future uniformization
+The deleted Cat triage recorded structural Cat category-obligation example scope and future uniformization
 work for category-object Hom behavior and functor/autofunctor modeling.
 
 ## Source Provenance
@@ -44,7 +44,7 @@ work for category-object Hom behavior and functor/autofunctor modeling.
 - Some subtree classes define direct Hom methods that may shadow Cat-level category-object Hom at runtime.
 - Natural transformations are not modeled; the current Cat morphism surface is Sage functors and construction functors.
 - Generic Sage functors do not provide a uniform invertibility certificate, so concrete autofunctor membership is a future refinement.
-- The Cat smoke is structural: Cat instantiation, category-object membership, functor HomCategory instantiation, and standard construction navigation.
+- The Cat category-obligation example is structural: Cat instantiation, category-object membership, functor HomCategory instantiation, and standard construction navigation.
 
 ## Grounded Review Outcome
 
@@ -72,7 +72,7 @@ this card.
 - [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [x] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance; no current implementation blocker was discovered in this pass.
-- [x] Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change; no Cat or category-object runtime surface changed in this pass.
+- [x] Run just category-obligation-file cat/category_obligations.sage after any Cat or category-object surface change; no Cat or category-object runtime surface changed in this pass.
 - [x] Check that direct subtree Hom methods do not hide the Cat-owned category-object operation.
 
 ## Dependencies And Boundaries
@@ -107,7 +107,7 @@ this card.
   `category_specs/cat/base_category_types.py`. Lower-subtree matches were
   `HomCategory` assignments or nested `class HomCategory(...)` refinements, which are
   allowed by the mapping rule.
-- 2026-05-04: No `just smoke-file cat/smoketest.sage` run was needed because this pass
+- 2026-05-04: No `just category-obligation-file cat/category_obligations.sage` run was needed because this pass
   changed mapping/card documentation only, not the Cat or category-object runtime
   surface.
 
@@ -158,8 +158,8 @@ All five acceptance criteria from the card frontmatter verified:
 3. **"Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance; no current implementation blocker was discovered in this pass."**
    - **Evidence:** Card states "no current implementation blocker was discovered in this pass." No `dependsOn` edges were added to link blocker cards. No blocked status. Consistent.
 
-4. **"Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change; no Cat or category-object runtime surface changed in this pass."**
-   - **Evidence:** `git diff --stat HEAD -- category_specs/cat/ category_specs/homsets/` produces empty output — zero changes to cat/ or homsets/ subtrees. No runtime surface changed. Smoke skip is justified.
+4. **"Run just category-obligation-file cat/category_obligations.sage after any Cat or category-object surface change; no Cat or category-object runtime surface changed in this pass."**
+   - **Evidence:** `git diff --stat HEAD -- category_specs/cat/ category_specs/homsets/` produces empty output — zero changes to cat/ or homsets/ subtrees. No runtime surface changed. Skipping category-obligation examples is justified.
 
 5. **"Check that direct subtree Hom methods do not hide the Cat-owned category-object operation."**
    - **Evidence:** `rg "def Hom\b" category_specs/*.py` returns 0 results outside `cat/__init__.py` and `cat/base_category_types.py`. Lower-subtree Hom references are `HomCategory = ...` assignments, `class SetHomCategory(HomCategoryOf)`, `class RModuleHomCategory(HomCategoryOf)`, and `class HomCategory(HomCategoryConstruction)` — all admissible refinements per the mapping rule. No shadowing `def Hom` found.
@@ -176,7 +176,7 @@ Patch-level inspection of the work commits:
 
 - **Deleted abstract methods:** None. No `@abstract_method` removed.
 - **Removed constructor obligations:** None. `Constructors()` namespaces untouched.
-- **Narrowed smoke assertions:** None. No smoke files changed.
+- **Narrowed category assertions:** None. No category-obligation example files changed.
 - **Orthogonal changes:** `git diff --stat HEAD -- category_specs/cat/ category_specs/homsets/` = empty. Unstaged changes in `sets/`, `posets/`, `tensor_algebra_components/` are unrelated to this card's scope.
 - **Moved obligations without replacement owner:** The prior MAPPING.md language was replaced with a *stronger* replacement owner (Cat), not moved to nowhere.
 
@@ -203,7 +203,7 @@ Baseline artifacts checked in priority order:
 
 4. **Git history:** The commit `d40ef8e` explicitly replaced a weaker prior statement ("local method takes precedence at runtime") with a stronger ownership rule. This is a positive gradient — the spec got stricter.
 
-5. **Smoke gradient:** No smoke files changed; no new failures possible.
+5. **Category-obligation check:** No category-obligation example files changed; no new failures possible.
 
 #### Gate 5: Mathematical Correctness
 

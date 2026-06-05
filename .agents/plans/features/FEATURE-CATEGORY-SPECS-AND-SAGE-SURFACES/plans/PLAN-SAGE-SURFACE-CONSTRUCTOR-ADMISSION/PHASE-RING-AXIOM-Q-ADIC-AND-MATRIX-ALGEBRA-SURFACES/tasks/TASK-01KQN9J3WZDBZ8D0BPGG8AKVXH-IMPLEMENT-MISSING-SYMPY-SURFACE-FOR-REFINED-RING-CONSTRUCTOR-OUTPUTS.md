@@ -8,17 +8,17 @@ dependsOn: []
 title: Implement missing _sympy_ surface for refined ring constructor outputs
 status: complete
 priority: high
-description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+description: 'The deleted Rings triage recorded ring category-obligation example blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the
   matrix-ring surface split.'
 successCriteria:
 - The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
+  category-obligation examples or mapping decisions to make failures disappear.
+- Relevant category-obligation output is updated in this task body or a linked tracker item, with
   exact failing surfaces preserved when work remains.
 - The change uses project category vocabulary rather than Sage fallback helper names
   or wrapper-only categories.
-- Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - Confirm failures are reduced without weakening constructor membership assertions.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -29,7 +29,7 @@ tags:
 
 ## Summary
 
-The deleted Rings triage recorded ring smoke blockers: nested axiom category identity
+The deleted Rings triage recorded ring category-obligation example blockers: nested axiom category identity
 mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
 split.
 
@@ -45,14 +45,14 @@ split.
 - ZZ, field constructors, p-adic constructors, and q-adic constructors fail through nested axiom category class-identity mismatches.
 - IntegerModRing, PolynomialRing, PowerSeriesRing, LaurentSeriesRing, PuiseuxSeriesRing, and MatrixRing refine far enough to expose missing _sympy_.
 - MatrixRing stays reachable from Rings().Constructors(), but the result must refine into Algebras(R) and Modules(R).Free().FiniteRank().
-- The matrix smoke must not be moved or weakened to hide the surface split.
+- The matrix category-obligation example must not be moved or weakened to hide the surface split.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [ ] The implementation changes only the scoped category-spec surface and does not weaken category-obligation examples or mapping decisions to make failures disappear.
+- [ ] Relevant category-obligation output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- [ ] Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - [ ] Confirm failures are reduced without weakening constructor membership assertions.
 
 ## Dependencies And Boundaries
@@ -65,15 +65,15 @@ split.
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
 - 2026-05-06: Audited the current ready leaf against the regenerated DAG and current
-  `rings/smoketest.sage` output. The cited `category_specs/rings/docs/TRIAGE.md` path
+  `rings/category_obligations.sage` output. The cited `category_specs/rings/docs/TRIAGE.md` path
   was not present at `8d1c21c^`, and a broader search found no live `_sympy_` failure
-  in the current ring smoke frontier. The current failures are earlier or separate
+  in the current ring failed category assertions. The current failures are earlier or separate
   surfaces: `hilbert_polynomial`, finite-ring `completion`, complex interval/ball
   `algebraic_closure`, p-adic `_change_print_mode`, and related ring-frontier failures
   preserved in neighboring tracker items.
 - 2026-05-06: No implementation patch was made for this card because the named
-  `_sympy_` target is no longer present in current ring smoke output. This is not a
-  blocked dependency state; it is a stale migrated leaf whose current smoke frontier is
+  `_sympy_` target is no longer present in current ring category-obligation output. This is not a
+  blocked dependency state; it is a stale migrated leaf whose current failed category assertions is
   represented by linked successor work rather than by a live `_sympy_` leaf:
   `[[TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME]]`,
   `[[TASK-01KQN9YGCKBZM1PG5YYQW5A8M6-IMPLEMENT-MATRIX-RING-REFINEMENT-INTO-ALGEBRAS-R-AND-MODULES-R-FREE-FINI]]`,
@@ -84,7 +84,7 @@ split.
 - 2026-05-06: Reworked the archived triage provenance after Gate 1 review found that
   the recoverable source path is `plans/category_specs/rings/docs/TRIAGE.md` in
   `8d1c21c^`, not `category_specs/rings/docs/TRIAGE.md`.
-- 2026-05-06: Reworked the successor and smoke-frontier record after re-review found
+- 2026-05-06: Reworked the successor and failed category assertions record after re-review found
   that the finite-ring frontier is now `completion`, not `ideal_monoid`, and that the
   stale-card successor items must be linked explicitly.
 
@@ -112,8 +112,8 @@ split.
 
 #### Gate 2 Findings: Acceptance Criteria
 
-- The stale smoke-frontier note still said finite-ring `ideal_monoid`, but the current
-  `rings/smoketest.sage` output reports finite-ring `completion` failures for
+- The stale failed category assertions note still said finite-ring `ideal_monoid`, but the current
+  `rings/category_obligations.sage` output reports finite-ring `completion` failures for
   `IntegerModRing`, `Zmod`, and `Integers`.
 - The card said successor work was represented by neighboring tracker items but did
   not link those successor items, even though the parent phase requires superseded
@@ -131,6 +131,6 @@ retirement, or merge into successor work
 - The focused re-review verified the prior Gate 2 findings were resolved: the finite
   ring frontier now records `completion`, and every successor item named in the stale
   card resolution resolves to a real task file.
-- The reviewer did not rerun smoke in this focused read-only pass. Current smoke
-  frontier evidence remains the earlier recorded `rings/smoketest.sage` run in this
+- The reviewer did not rerun category-obligation example in this focused read-only pass. Current category-obligation example
+  frontier evidence remains the earlier recorded `rings/category_obligations.sage` run in this
   card and successor ring-frontier cards.

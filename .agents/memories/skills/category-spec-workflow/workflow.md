@@ -27,17 +27,19 @@ Internal historical mentions of `WORKFLOW.md` refer to this skill reference unle
 - [Commit discipline](#commit-discipline)
 - [Documentation lifecycle](#documentation-lifecycle)
 - [Completed-work migration](#completed-work-migration)
-- [Smoke test and triage workflow](#smoke-test-and-triage-workflow)
+- [Category obligation examples and failed-assertion classification](#category-obligation-examples-and-failed-assertion-classification)
 
 ## Reference Body
 
 # WORKFLOW.md - category_specs
 
-Read this file before planning, delegating, creating tracker items, triaging smoke
-output, preparing PRs, migrating docs, or changing workflow state in this subtree.
+Read this file before planning, delegating, creating tracker items, classifying failed
+category assertions, preparing PRs, migrating docs, or changing workflow state in this
+subtree.
 
 Simple implementation agents usually do not need this file unless their task includes
-tracking, delegation, smoke triage, branch/PR policy, or status changes.
+tracking, delegation, failed-assertion classification, branch/PR policy, or status
+changes.
 
 This file contains workflow rules extracted from `AGENTS.md`. Category-spec style,
 mathematical naming, banned implementation patterns, and compliance rules live in
@@ -88,7 +90,7 @@ approved active spec leaf and advance it unless that leaf has a concrete current
 blocker.
 
 Spec leaves must be definition-grounded before execution. A card migrated from old
-plans, deleted triage files, smoke output, or chat context may identify an area of
+plans, deleted triage files, category-test output, or chat context may identify an area of
 work, but it does not by itself authorize a mathematical definition or method owner.
 Before a spec edit, the card or working note must name the canonical source path,
 definition, hypotheses, return object/codomain, and any invariance or equivalence proof
@@ -129,10 +131,12 @@ rule in their acceptance or grounding section:
 - Sage is implementation evidence and a realization witness;
 - Sage inventory helps preserve existing functionality and avoid unimplementable
   wishlists, but it is not a ceiling on mathematically required category operations;
-- smokes expose gaps between current Sage/refined objects and the ideal spec;
-- a smoke failure is not evidence for deleting, weakening, or moving a spec obligation;
-- an obligation may move only when the replacement owner is source-grounded and the
-replacement path preserves the mathematical statement.
+- category-obligation examples expose gaps between current Sage/refined objects and
+  the ideal spec;
+- a failed category assertion is not evidence for deleting, weakening, or moving a spec
+  obligation;
+- an obligation may move only when the replacement weakest category is source-grounded
+  and the replacement path preserves the mathematical statement.
 
 Tracker items that touch type checking, method inheritance, constructor collectors, or
 implementation providers must also include a design-direction check. Mathematical
@@ -169,34 +173,34 @@ does not create a placement decision. Constructor namespaces such as `Cat().Cons
 can collect canonical user-facing entry points when the mathematical owner is already
 determined.
 
-For smoke and wrapper-migration cards, local acceptance must explicitly reject
-smoke-driven spec weakening. A smoke failure asks which mathematical claim failed:
-false, under-hypothesized, unrealized by the implementation, or blocked by
-backend/tooling. Route the answer to the spec, implementation, or backend task. Passing
-a smoke by shrinking the ideal interface is a failed task, even if the command output
-improves.
+For category-obligation and wrapper-migration cards, local acceptance must explicitly
+reject test-driven spec weakening. A failed assertion asks which mathematical claim
+failed: false, under-hypothesized, unrealized by the implementation, missing
+constructor/refinement, missing source evidence, or blocked by backend/tooling. Route
+the answer to the spec, implementation, or backend task. Passing an example by
+shrinking the ideal interface is a failed task, even if the command output improves.
 
 Before advancing any category-spec task, phase, or plan, run a spec-weakening review
 over the actual repository changes. Inspect `git diff --cached`, `git diff`, and any
 commits created during the work with a patch view. The review fails if it finds deleted
-abstract methods, removed constructor/category obligations, narrowed smoke assertions,
-weakened acceptance criteria, moved obligations without a source-grounded replacement
-owner, or any Sage-gap-driven interface shrinkage. Record the review result in the
-task/phase/plan acceptance notes or leave the item unadvanced.
+abstract methods, removed constructor/category obligations, narrowed category
+assertions, weakened acceptance criteria, moved obligations without a source-grounded
+replacement weakest category, or any Sage-gap-driven interface shrinkage. Record the
+review result in the task/phase/plan acceptance notes or leave the item unadvanced.
 
 Before creating or migrating a tracker item, read `.agents/skills/track/SKILL.md` and
 inspect `.nimbalyst/trackers/*.yaml` for the registered schemas.
 
 Use the central planning tracker types only for active category-spec work: `feature`,
 `spec`, `plan`, `phase`, `task`, and `decision`. Executable implementation, research,
-bug-fix, smoke-triage, and audit work uses `task`; do not create active executable
+bug-fix, failed-assertion classification, and audit work uses `task`; do not create active executable
 cards with legacy `bug`, `feature`, `idea`, or `automation` types.
 
 Do not create or use custom task-like types such as `spec-work`,
 `implementation-work`, `research-work`, `sprint-work`, `task-work`, or `agent-work`.
 Use containment, `dependsOn`, priority, and complexity as primary workflow metadata.
-Tags such as `category-specs`, `spec`, `implementation`, `research`, `smoke`,
-`validation`, and `docs-migration` are secondary grouping aids.
+Tags such as `category-specs`, `spec`, `implementation`, `research`, `validation`, and
+`docs-migration` are secondary grouping aids.
 
 All active Nimbalyst-backed planning and work files live under root `.agents/plans/`:
 
@@ -206,7 +210,8 @@ All active Nimbalyst-backed planning and work files live under root `.agents/pla
 - `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PLAN-ID.md` for approved plans.
 - `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/PHASE-ID.md` for plan phases.
 - `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/TASK-ID.md` for executable
-  tasks, including implementation, research, bug-fix, smoke-triage, and audit work.
+  tasks, including implementation, research, bug-fix, failed-assertion classification,
+  and audit work.
 - `.agents/retired/` only for completed or retired legacy cards kept temporarily before
   deletion.
 
@@ -232,7 +237,7 @@ Current category-spec theme tags:
 - `theme-audit-uniformity`: variadic closure, typing uniformity, wrapper cleanup,
   anti-slop checks, import hygiene, and audit cleanup.
 - `theme-constructor-routing`: Sage constructor definitions, named constructors,
-  refinement declarations, and constructor smoke recovery.
+  refinement declarations, and constructor-obligation recovery.
 - `theme-rings-algebras`: rings, fields, algebras, q-adic precision, matrix rings, and
   algebra constructors.
 - `theme-modules-tensors`: modules, tensors, lattices, forms, discriminant groups, and
@@ -279,7 +284,7 @@ Good candidates for local skills:
 - Preparing plan decomposition after human plan approval.
 - Spec authoring and subcategory-definition procedures.
 - Sage constructor inventory and mapping workflows.
-- Smoke triage workflows.
+- Failed category-assertion classification workflows.
 - Visual artifact creation for complex system orientation.
 
 Do not factor volatile source-of-truth content into skills. A skill should encode how to
@@ -744,39 +749,43 @@ When a PR is merged:
 - Close or defer remaining tracker items.
 - Record carryover as new work items, not vague leftovers in old docs.
 
-## Smoke test and triage workflow
+## Category obligation examples and failed-assertion classification
 
-If design, architectural, layout, or spec violations are known, do not run smoke tests.
-Resolve those violations first. Smoke runs against a flawed architecture produce noise
-that causes thrash.
+If design, architectural, layout, or spec violations are known, do not run
+category-obligation examples. Resolve those violations first. Example runs against a
+flawed architecture produce noise that causes thrash.
 
-Smoke status is not the goal. A smoke run inventories how current Sage implementations
-fail to meet the upgraded spec. Passing by weakening a spec, bypassing a constructor,
-catching away an error, or checking a shallow implementation detail is a regression.
+Passing status is not the goal. A category-obligation example run exhibits how current
+Sage/project implementations satisfy or fail the declared category obligations. Passing
+by weakening a spec, bypassing a constructor, catching away an error, or checking a
+shallow implementation detail is a regression.
 
-Smoke assertions should exercise the mathematical claim directly. Prefer construction
-calls such as `C.AutCategory().Of(A)` or `C.Constructors().ZZ()` over proxy checks such
-as `hasattr(C, "AutCategory")`.
+Category assertions should exercise the mathematical claim directly. Prefer
+construction calls such as `C.AutCategory().Of(A)` or `C.Constructors().ZZ()` over
+proxy checks such as `hasattr(C, "AutCategory")`.
 
-Each subtree's `smoketest.sage` must:
+Each subtree's `category_obligations.sage` must:
 
 - Add the repo root to `sys.path` so `category_specs` is importable.
 - Import only from this spec hierarchy.
-- Declare labeled mathematical statements using the shared smoke assertion helper from
+- Declare labeled mathematical statements using `assert_category_statements` from
   `utils.py`.
 - Include a statement for every constructor in the subtree's `Constructors()` namespace.
 - Let assertion failures exit nonzero.
 
-Smoke findings and blockers:
+Failed category assertions and blockers:
 
 - Are recorded as Nimbalyst tracker files, not subtree-local `TRIAGE.md` files.
-- Use `task` files under the relevant plan phase for missing methods, smoke failures,
-  structural blockers, and missing category methods or constructors.
+- Use `task` files under the relevant plan phase for missing methods, failed category
+  assertions, structural blockers, and missing category methods or constructors.
 - Use `decision` files under the owning feature's `decisions/` directory for unresolved
   definitions or owner choices.
-- Cite the source smoke file or mapping/inventory document in the tracker file.
-- Update the tracker file whenever `smoketest.sage` output changes.
+- Cite the source category-obligation file or mapping/inventory document in the
+  tracker file.
+- Update the tracker file whenever `category_obligations.sage` output changes.
 
-Every subtree's `smoketest.sage` must be listed in the `smoke` recipe in the root
-`justfile`. `just smoke` runs all smoketests. `just test` runs `smoke` first, then all
-`regression/` and `new_spec/` files.
+Every subtree's `category_obligations.sage` must be listed in the
+`category-obligations` recipe in `category_specs/justfile`.
+`just category-obligations` runs all category-obligation example files.
+`just test` runs `category-obligations` first, then all `regression/` and `new_spec/`
+files.

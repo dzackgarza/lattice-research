@@ -36,7 +36,7 @@ Source inventory: `category_specs/homsets/docs/SAGE_INVENTORY.md`.
 - Preserve every inventoried Sage surface by mapping it to a project mathematical surface, a named constructor path, a mathematically justified non-mapping, or a tracked decision.
 - Place every method at the highest category where the operation is mathematically well-defined; subcategories inherit methods from supercategories.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
-- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
+- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
 ## Source Coverage Ledger
@@ -291,7 +291,7 @@ genuinely carries that structure.
 
 - **Explicit rejections found:**
   - "Nonmathematical targets and raw Sage implementation containers are rejected or marked interop-only" (acceptance criteria line 21-22)
-  - "Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening" (Review Gates line 39)
+  - "Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening" (Review Gates line 39)
   - Raw Sage `ConditionSet` is explicitly documented as "an implementation detail of the generic aut construction" (line 121-123). Public aut objects expose `end_category()`, `domain()`, `codomain()`, `identity()` — they do NOT expose a `condition_set()` method. Confirmed in `autsets.py`: `_condition_aut_object_from_end_category` is a private helper, and `UniversalAutObjectMethods` exposes only mathematical methods.
   - Deprecated Sage helper `is_Endset(x)` is kept as "compatibility evidence only" and "the project surface is categorical containment in the end-category owner" (line 71-72) — not admitted as a public method
   - `HomsetsCategory` is classified as "inventory/interop, not a semantic superclass" in the mapping table (line 101)
@@ -301,7 +301,7 @@ genuinely carries that structure.
   - No Sage `__dict__` inspection, no `option` keyword arguments on public surfaces, no variadic `**kwds` pass-through, no `_test_*` methods admitted as mathematical obligations
   - The Sage `_test_homsets_category` is inventoried but not mapped as a mathematical method — it's correctly inventoried as Sage surface without being admitted to the project surface
 
-**G4 VERDICT: PASS.** The spec explicitly rejects Sage implementation containers (ConditionSet), deprecated helpers (is_Endset), and nonmathematical targets. No variadic option bags or smoke-driven interface weakening found. The mapping table clearly distinguishes Sage inventory/interop from project mathematical surfaces.
+**G4 VERDICT: PASS.** The spec explicitly rejects Sage implementation containers (ConditionSet), deprecated helpers (is_Endset), and nonmathematical targets. No variadic option bags or category-obligation example-driven interface weakening found. The mapping table clearly distinguishes Sage inventory/interop from project mathematical surfaces.
 
 ### G5: Ambiguities Routed to Decision Cards
 
@@ -330,7 +330,7 @@ genuinely carries that structure.
   - The spec does NOT weaken the aut construction obligation — it explicitly documents that the project adds `AutCategory` where Sage has none, and provides the construction in `autsets.py`
   - The spec does NOT replace mathematical methods with Sage wrapper classes — `HomsetsCategory` is inventory/interop, not a semantic superclass; methods are declared on project categories (`HomCategory`, `EndCategory`, `AutCategory`)
   - The spec does NOT remove the module end-structure obligation described in "Extra Structure Pattern" — it correctly documents that `Modules(R).HomCategory()` declares additional module and algebra structure
-  - No abstract methods removed, no constructor obligations deleted, no smoke assertions narrowed
+  - No abstract methods removed, no constructor obligations deleted, no category assertions narrowed
 
 - **Weakening signals checked (all negative = good):**
   - No method moved from a higher category to a lower one without justification

@@ -18,8 +18,8 @@ acceptanceCriteria:
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No new implementation blocker was discovered during this docs/spec pass; recovered
-  smoke failures remain unrelated frontiers.
-- No algebra category initialization or constructor code changed, so the `algebras/smoketest.sage`
+  failed category assertions remain unrelated frontiers.
+- No algebra category initialization or constructor code changed, so the `algebras/category_obligations.sage`
   trigger did not apply in this pass.
 - Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not
   to `Algebras(R)`.
@@ -103,14 +103,14 @@ The basis-helper migration is already grounded and preserved:
   later implementation pass; they are not public project codomains.
 
 No code change was required in this pass. The historical `Algebras(ZZ)` and
-`DualObjects()` smoke failures are not basis-helper ownership issues.
+`DualObjects()` failed category assertions are not basis-helper ownership issues.
 
 ## Acceptance Criteria
 
 - [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [x] No new implementation blocker was discovered during this docs/spec pass; recovered smoke failures remain unrelated frontiers.
-- [x] No algebra category initialization or constructor code changed, so the `algebras/smoketest.sage` trigger did not apply in this pass.
+- [x] No new implementation blocker was discovered during this docs/spec pass; recovered failed category assertions remain unrelated frontiers.
+- [x] No algebra category initialization or constructor code changed, so the `algebras/category_obligations.sage` trigger did not apply in this pass.
 - [x] Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not to `Algebras(R)`.
 
 ## Dependencies And Boundaries

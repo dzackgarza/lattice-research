@@ -35,7 +35,7 @@ tags:
 Produce one or more trackable spec files that list the literal expected methods on
 category-spec objects and record where each method first becomes mathematically valid.
 The output is an ownership inventory, not an implementation pass. It exists so later
-code and smoke work can ask "which category introduces this method?" without relying on
+code and category-obligation work can ask "which category introduces this method?" without relying on
 Sage implementation class names, wrapper inheritance, or generic LLM guesses.
 
 ## Operation Map Control
@@ -63,7 +63,7 @@ Each method row must record:
   morphism, group, tensor, ring, module, polyhedron, sheaf, or backend payload;
 - source paths and source sections reviewed;
 - decision status: admitted, rejected, interop-only, deferred, or decision-needed;
-- downstream implementation, test, smoke, or audit card if one already exists.
+- downstream implementation, test, category-obligation example, or audit card if one already exists.
 - diagnostic-warning obligation, when the method has mathematically correct behavior
   that users are likely to misread because of Sage convention, degenerate hypotheses,
   dual-object notation, quotient/value-codomain conventions, or another documented
@@ -290,7 +290,7 @@ candidate geometry or backend method.
 | Picard group versus Picard lattice. | `.agents/memories/theory/backends/abstract-to-external-mapping.md`; `theory/foundations/reflective-two-elementary-lattices.md`; `theory/foundations/coble-task-background.md`; `theory/references/literature/pieroni_2026_coble_surfaces.md`; `theory/references/literature/huybrechts_k3_lectures.md`. | Strong local source material exists for Picard lattices in Coble/K3 surface workflows, while `picard_group()` is a more general Picard group surface in the backend map and literature. | Inference: the two notions must remain separate until a decision records the bridge hypotheses and method owners. | High | Geometry source-admission tasks still need to fix the project nouns for `PicardGroup` and `PicardLattices`. | `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`; malformed spelling remains under `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`. |
 | Backend `bridge-needed` or `candidate-backend` rows. | `.agents/memories/theory/backends/software-capability-map.md`; `.agents/memories/theory/backends/abstract-to-external-mapping.md`; `.agents/memories/theory/backends/oscar-lattices.md`; `.agents/memories/theory/backends/gap-orbits.md`; `.agents/memories/theory/backends/indefinite-jl.md`; `.agents/memories/theory/backends/carat.md`; `.agents/memories/theory/backends/vinberg-algorithm.md`; geometry and lattice backend tracker cards. | Each row has a mature-system route or an explicit candidate/backend-gap label; malformed names are isolated in a decision card. | Inference: these are backend-routing gaps for later implementation and support audits, not blockers for the current method-owner spec phase. | High | Each implementation card must still verify package availability, exact hypotheses, and certificates before code work. | Lattice rows route to `PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER` tasks; q-adic rows route to `SPEC-01KQN9YGC4WXF1DVHNMF79ZXEM-PRESERVE-ADMITTED-ZQWITHPRECISIONCAPS-AND-QQWITHPRECISIONCAPS-NAMES-AS-D` and `TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION`; geometry rows route to `PLAN-GEOMETRIC-SOURCE-ADMISSION` and `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS`. |
 
-Unblocked current-phase paths: implementation and smoke-spec cards may use the
+Unblocked current-phase paths: implementation and category-obligation example-spec cards may use the
 admitted method-owner rows for sets/topology, rings/algebras/modules, Hom/End/Aut,
 forms, lattices, tensor components, posets, and backend routing as source-grounded
 inventory. Geometry candidate rows, Picard bridge rows, malformed backend names, and

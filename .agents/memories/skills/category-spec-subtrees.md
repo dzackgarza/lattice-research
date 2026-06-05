@@ -22,8 +22,8 @@ category.
 - Lower nested `AGENTS.md` files were migrated here to avoid many always-loaded
   mini-manuals.
 - Load `category-spec-style` for spec/code compliance and read
-  `mem:skills/category-spec-workflow` for cards, status, plans, smoke triage, or
-  delegation.
+  `mem:skills/category-spec-workflow` for cards, status, plans, failed-assertion
+  classification, or delegation.
 - Use this skill for local ownership rules: which subtree owns which mathematical
   surface.
 

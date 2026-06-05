@@ -63,7 +63,7 @@ explicitly in the mapping rather than treated as inherited generic Homset owners
 - Do not weaken Cat-owned Hom/End/Aut obligations because Sage category-object
   behavior is inconvenient.
 - Keep this card on Cat hom mapping only; do not survey unrelated Cat constructor or
-  smoke surfaces.
+  category-obligation examples.
 
 ## Work Log
 

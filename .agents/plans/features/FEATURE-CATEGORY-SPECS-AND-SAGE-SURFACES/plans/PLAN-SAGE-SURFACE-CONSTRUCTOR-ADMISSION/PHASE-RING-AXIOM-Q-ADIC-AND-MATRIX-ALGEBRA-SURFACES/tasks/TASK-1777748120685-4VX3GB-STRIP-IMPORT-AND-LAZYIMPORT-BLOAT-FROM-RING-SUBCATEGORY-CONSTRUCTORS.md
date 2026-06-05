@@ -32,7 +32,7 @@ Task: strip import and LazyImport bloat from the ring subcategory constructors, 
 
 - This is implementation-hygiene work inside `category_specs/rings/subcategories/`, not a mathematical ownership change.
 - Preserve the existing ring category/spec obligations and public axiom constructor surface.
-- Do not make smoke tests pass by weakening the ideal interface; Sage gaps route to implementation, wrapper, decision, or source-mining work.
+- Do not make category-obligation tests pass by weakening the ideal interface; Sage gaps route to implementation, wrapper, decision, or source-mining work.
 - Blocked children are not acceptance. This card is review-ready only because its own scoped cleanup has been implemented and validated.
 
 ## Work Completed
@@ -59,7 +59,7 @@ Task: strip import and LazyImport bloat from the ring subcategory constructors, 
 - `rg -n "^_[A-Za-z0-9]+ = LazyImport\(" category_specs/rings/subcategories -g '!_lazy_subcategories.py'` returns no matches.
 - `rg -n "LazyImport\(" category_specs/rings/subcategories -g '!_lazy_subcategories.py'` now finds only indented axiom/subcategory constructor attributes.
 - `python -m compileall -q category_specs/rings/subcategories` passed.
-- Spec-weakening review: this diff centralizes imports and shared runtime class tuples only; it does not delete abstract methods, narrow smoke assertions, move mathematical obligations, or change category ownership.
+- Spec-weakening review: this diff centralizes imports and shared runtime class tuples only; it does not delete abstract methods, narrow category assertions, move mathematical obligations, or change category ownership.
 
 ## Review Log
 
@@ -100,7 +100,7 @@ acceptance.
 - Gate 3: All 4 ACs verified (rg search confirms no private LazyImport outside helper, compileall passes).
 - Gate 4: Only files under rings/subcategories/ modified. No scope creep.
 - Gate 5: Relative imports, _prefix convention, Google docstrings.
-- Gate 6: No abstract methods, constructor obligations, or smokes removed.
+- Gate 6: No abstract methods, constructor obligations, or category-obligation examples removed.
 
 ## Complexity Justification
 

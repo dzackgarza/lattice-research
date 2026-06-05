@@ -22,7 +22,7 @@ acceptanceCriteria:
   item with source provenance.
 - Review the affected public type aliases and category methods against plans/todo.md
   before closing.
-- Run the relevant category_specs smoke file for any changed subtree.
+- Run the relevant category_specs category-obligation example file for any changed subtree.
 complexity: 85
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -67,7 +67,7 @@ split into source-mining or decision work. Do not execute this parent directly.
 - [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
 - [ ] Review the affected public type aliases and category methods against plans/todo.md before closing.
-- [ ] Run the relevant category_specs smoke file for any changed subtree.
+- [ ] Run the relevant category_specs category-obligation example file for any changed subtree.
 
 ## Dependencies And Boundaries
 
@@ -221,7 +221,7 @@ Split Policy (lines 50-62):
 - If a child leaf cannot state those fields, it is blocked only for that leaf
   and must be split into source-mining or decision work.
 - The card itself contains no nonmathematical content, raw Sage implementation
-  containers, variadic option bags, or smoke-driven interface weakening.
+  containers, variadic option bags, or category-obligation example-driven interface weakening.
 
 The dependence on child leaves is a valid nonmathematical boundary: the parent
 card won't execute implementation; it only routes to properly grounded children.

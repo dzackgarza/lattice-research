@@ -117,18 +117,19 @@ operation map is the source-backed mathematical object.
   remain usable by existing Sage code when mathematically appropriate. Inventory and
   mapping preserve existing Sage functionality, identify honest refinements, and expose
   where implementation is weaker than the mathematically natural spec.
-- Spec smokes expose gaps between current Sage/refined objects and the stated category
-  obligations.
-  A smoke failure asks which mathematical claim failed: false, under-hypothesized,
-  unrealized by the implementation, or blocked by a backend/tooling gap. Route the
-  answer to the spec, implementation, or backend task; do not treat smoke output as a
-  separate epistemic layer or weaken a spec obligation without a grounded replacement
-  owner.
+- Category-obligation examples assert that representative Sage/project objects
+  instantiate declared categories and satisfy the obligations of those categories.
+  A failed assertion asks which mathematical claim failed: false,
+  under-hypothesized, unrealized by the implementation, missing constructor or
+  refinement witness, missing source evidence, or blocked by a backend/tooling gap.
+  Route the answer to the spec, implementation, or backend task; do not treat test
+  output as a separate epistemic layer or weaken a spec obligation without a grounded
+  replacement weakest category.
 - Refinement is declaration, not validation. It says that an implementation is to be
   regarded as an object of a project category and therefore carries that category's
   contract. It does not interrogate the object, prove satisfaction, reject because
-  project methods remain abstract, or instantiate a missing implementation. Smokes
-  expose those implementation gaps.
+  project methods remain abstract, or instantiate a missing implementation. Category
+  obligation examples expose those implementation gaps.
 - `ParentMethods` are mathematical object-method obligations, not provider
   implementations or runtime failure hooks. Use Python `abc.abstractmethod` to
   represent abstract spec obligations in the class system; do not replace them with
@@ -144,11 +145,12 @@ operation map is the source-backed mathematical object.
   that concrete implementation.
 - Before advancing a category-spec task, phase, or plan, review the staged diff, the
   unstaged diff, and any commits created during the work for spec weakening. Deleted
-  abstract methods, removed constructor obligations, narrowed smoke assertions,
-  moved obligations without a source-grounded replacement owner, and Sage-gap-driven
-  interface shrinkage fail review even if smoke output improves.
+  abstract methods, removed constructor obligations, narrowed category assertions,
+  moved obligations without a source-grounded replacement weakest category, and
+  Sage-gap-driven interface shrinkage fail review even if category-obligation output
+  improves.
 - Treat spec files, review files, theory notes, TODO files, and durable design artifacts as source material. Do not rewrite, shorten, modernize, or delete them unless the user explicitly asks for that exact edit.
-- Use Nimbalyst tracker files for planning, follow-ups, blockers, decisions, deferred compliance findings, smoke triage, and outstanding work. Do not create ad hoc planning, status, audit, or TODO markdown files when a tracked file is the right durable artifact.
+- Use Nimbalyst tracker files for planning, follow-ups, blockers, decisions, deferred compliance findings, failed-assertion classification, and outstanding work. Do not create ad hoc planning, status, audit, or TODO markdown files when a tracked file is the right durable artifact.
 - Use only standard registered tracker types. Classify category-spec work with tags and `.agents` paths, not custom `x-work` types.
 - Never call `tracker_create` or `create_task` for markdown-backed tracker items.
 - Never mark parent work `accepted`, native items `done`, sprint plans `closed`, or
@@ -164,7 +166,7 @@ operation map is the source-backed mathematical object.
   `mem:analysis-must-be-grounded`, `mem:paperwork-is-a-routing-layer-not-progress`,
   and `mem:corrections-update-the-model-not-the-artifact`.
   If the work touches refinement, provider ordering, constructor refinement,
-  abstract methods, ABCMeta, or smoke gaps, also retrieve
+  abstract methods, ABCMeta, or failed category assertions, also retrieve
   `mem:category-spec-repo-model-corrections`,
   `mem:category-spec-refinement-category-declaration`,
   `mem:category-spec-methods-are-abstract`, and
@@ -180,8 +182,9 @@ operation map is the source-backed mathematical object.
 - Constructor mapping has no deferred state. Every source-grounded Sage constructor
   shape recorded in mapping docs maps to a named-parameter category-owned overload or
   spec-layer promotion path. Ungrounded or rejected constructor ideas are absent from
-  constructor mappings, provenance, smokes, decisions, and tasks; do not preserve them
-  as "not included in the definition", "deferred", blocked, or gap records.
+  constructor mappings, provenance, category-obligation examples, decisions, and tasks;
+  do not preserve them as "not included in the definition", "deferred", blocked, or
+  gap records.
 - Refinement targets one category: the smallest mathematically correct category for
   the object. Do not pass several categories to `refine_category`; inherited
   membership must come from the category hierarchy, not from manually listing
@@ -195,13 +198,13 @@ operation map is the source-backed mathematical object.
 
 ## Canonical skills
 
-- Load `category-spec-style` before any task that touches category-spec content or compliance: specs, category definitions, methods, constructors, morphisms, Hom/End/Aut objects, Sage wrappers, type annotations, test files, smoke files, implementations, Sage inventory, or mapping documents.
+- Load `category-spec-style` before any task that touches category-spec content or compliance: specs, category definitions, methods, constructors, morphisms, Hom/End/Aut objects, Sage wrappers, type annotations, test files, category-obligation examples, implementations, Sage inventory, or mapping documents.
 - For nontrivial edits, loading the skill stub is not enough: keep the canonical
   references named by the matching skills in context before editing. Any change to
   method ownership, inherited method classes, `@abstractmethod`/`@override`/`@final`,
-  type aliases, construction categories, Hom/End/Aut categories, smokes, specs, or
-  mapping rows is nontrivial. If the needed reference is not already in context, stop
-  and read it before checkpointing or editing.
+  type aliases, construction categories, Hom/End/Aut categories, category-obligation
+  examples, specs, or mapping rows is nontrivial. If the needed reference is not
+  already in context, stop and read it before checkpointing or editing.
 - Load `category-spec-subtrees` before editing a specific category subtree or deciding where a method, constructor, Hom/End/Aut rule, or subtree test belongs.
 - Load `category-framework-design` and its relevant references before editing or
   reviewing Hom/End/Aut structure, autsets, construction categories, refinement order,
@@ -211,8 +214,8 @@ operation map is the source-backed mathematical object.
   modules, lattices, lattice morphisms, orthogonal groups, discriminant objects, or
   lattice-backed Hom/End/Aut objects. For these edits, `category-abc-spec.md` and
   `lattice-interface-style-guide.md` are mandatory context.
-- Load `category-spec-workflow` before any task that touches execution mechanics: tracker item creation or migration, Nimbalyst plans, sprint metadata, tracked work metadata, delegation contracts, subagent instructions, branch/PR policy, smoke triage, validation handoff, stale-document migration, or status changes.
-- Load narrower category-spec skills when their descriptions match the task: audit, planning, retirement, Sage mapping, smoke triage, triage, and visuals.
+- Load `category-spec-workflow` before any task that touches execution mechanics: tracker item creation or migration, Nimbalyst plans, sprint metadata, tracked work metadata, delegation contracts, subagent instructions, branch/PR policy, failed-assertion classification, validation handoff, stale-document migration, or status changes.
+- Load narrower category-spec skills when their descriptions match the task: audit, planning, retirement, Sage mapping, category-obligation test triage, triage, and visuals.
 
 ## Removed local docs
 

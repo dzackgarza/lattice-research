@@ -132,17 +132,17 @@ Root causes (by file):
 - `src/sage_patches/module_enrichment.py`: `ZZ`, `Modules as ModulesCategory` — imported but never used.
 - `src/lattices/core/modules_with_forms.py`: `Category` — imported but never used.
 - `src/lattices/morphisms/__init__.py`: `Element` — imported but never used.
-- `tests/category_specs/test_spec_smoke.py`: `refinement` module — imported but doesn't exist.
+- `tests/category_specs/test_spec_obligations.py`: `refinement` module — imported but doesn't exist.
 
 These are genuine dead imports that should be removed.
 
 ### Category H: Line Length (E501) — ~15
 
-In `tests/conftest.py`, `tests/category_specs/test_spec_smoke.py`, `src/sage_patches/ring_base_category.py`, and `.agents/scripts/generate_card_progress_report.py`.
+In `tests/conftest.py`, `tests/category_specs/test_spec_obligations.py`, `src/sage_patches/ring_base_category.py`, and `.agents/scripts/generate_card_progress_report.py`.
 
 ### Category I: Ambiguous Variable Name `I` (E741) — 2
 
-`src/sage_patches/ring_base_category.py:63` and `tests/category_specs/test_spec_smoke.py:39`. Both assign `I = ...ideal(...)`.
+`src/sage_patches/ring_base_category.py:63` and `tests/category_specs/test_spec_obligations.py:39`. Both assign `I = ...ideal(...)`.
 
 **Conflict with style docs**: The variable name `I` for an ideal is standard mathematical notation in algebraic code. The `research-code-style` doc says "code must read like mathematical prose." Ruff's E741 rule flags `I` as ambiguous (confusable with `l`), but in algebraic code, `I` for ideal and `O` for object are universal conventions. This is a tension between general-purpose linting rules and domain-specific mathematical notation.
 

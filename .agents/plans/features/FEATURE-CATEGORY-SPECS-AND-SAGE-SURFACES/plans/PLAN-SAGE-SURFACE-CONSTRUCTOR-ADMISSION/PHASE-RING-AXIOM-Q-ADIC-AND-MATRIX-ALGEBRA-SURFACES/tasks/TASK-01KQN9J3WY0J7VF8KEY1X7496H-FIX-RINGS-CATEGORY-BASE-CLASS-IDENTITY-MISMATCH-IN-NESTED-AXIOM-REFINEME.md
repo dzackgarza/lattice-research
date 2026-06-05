@@ -8,17 +8,17 @@ dependsOn: []
 title: Fix Rings category base-class identity mismatch in nested axiom refinement
 status: complete
 priority: high
-description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+description: 'The deleted Rings triage recorded ring category-obligation example blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the
   matrix-ring surface split.'
 successCriteria:
 - The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
+  category-obligation examples or mapping decisions to make failures disappear.
+- Relevant category-obligation output is updated in this task body or a linked tracker item, with
   exact failing surfaces preserved when work remains.
 - The change uses project category vocabulary rather than Sage fallback helper names
   or wrapper-only categories.
-- Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - Confirm failures are reduced without weakening constructor membership assertions.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -28,7 +28,7 @@ tags:
 # Fix Rings category base-class identity mismatch in nested axiom refinement
 ## Summary
 
-The deleted Rings triage recorded ring smoke blockers: nested axiom category identity
+The deleted Rings triage recorded ring category-obligation example blockers: nested axiom category identity
 mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
 split.
 
@@ -42,14 +42,14 @@ split.
 - ZZ, field constructors, p-adic constructors, and q-adic constructors fail through nested axiom category class-identity mismatches.
 - IntegerModRing, PolynomialRing, PowerSeriesRing, LaurentSeriesRing, PuiseuxSeriesRing, and MatrixRing refine far enough to expose missing _sympy_.
 - MatrixRing stays reachable from Rings().Constructors(), but the result must refine into Algebras(R) and Modules(R).Free().FiniteRank().
-- The matrix smoke must not be moved or weakened to hide the surface split.
+- The matrix category-obligation example must not be moved or weakened to hide the surface split.
 
 ## Acceptance Criteria
 
-- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken category-obligation examples or mapping decisions to make failures disappear.
+- [x] Relevant category-obligation output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [x] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- [x] Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - [x] Confirm failures are reduced without weakening constructor membership assertions.
 
 ## Dependencies And Boundaries
@@ -77,10 +77,10 @@ split.
   - Sage runtime probe confirmed representative `_Fields`, `_IntegralDomains`, and
     `_CompleteRings` base entries are resolved `ClasscallMetaclass` objects, not
     `LazyImport` placeholders.
-  - `just smoke-file rings/smoketest.sage` no longer reports the base category
+  - `just category-obligation-file rings/category_obligations.sage` no longer reports the base category
     class-identity mismatch.
-- 2026-05-06: Re-ran `just --justfile category_specs/justfile smoke-file
-  rings/smoketest.sage` during review rework. The current remaining rings smoke
+- 2026-05-06: Re-ran `just --justfile category_specs/justfile category-obligation-file
+  rings/category_obligations.sage` during review rework. The current remaining rings category-obligation example
   frontier is different from the older post-implementation note: many ring and field
   constructor assertions now stop at missing `hilbert_polynomial`; complex interval and
   complex ball field assertions stop at missing `algebraic_closure`; finite quotient
@@ -97,10 +97,10 @@ split.
 
 #### Gate 2 Findings: Acceptance Criteria
 
-- The card's previous verification note preserved an older remaining rings smoke
+- The card's previous verification note preserved an older remaining rings category-obligation example
   frontier (`__richcmp__`, `ideal_monoid`, p-adic `_change_print_mode`, q-adic
   `QuadraticField`, and `MatrixRing` MRO refinement), but the current
-  `rings/smoketest.sage` frontier has shifted. The required smoke-output record was
+  `rings/category_obligations.sage` frontier has shifted. The required category-obligation example-output record was
   therefore stale even though the base-class identity mismatch fix still reproduces.
 
 ### Re-review 2026-05-06 (Goodall)
@@ -111,7 +111,7 @@ split.
 
 #### Residual Risks
 
-- `rings/smoketest.sage` still fails on preserved downstream ring-frontier surfaces:
+- `rings/category_obligations.sage` still fails on preserved downstream ring-frontier surfaces:
   `hilbert_polynomial`, `algebraic_closure`, `completion`, and `_change_print_mode`.
   Those are gap evidence for successor work, not a remaining base-class identity
   mismatch.

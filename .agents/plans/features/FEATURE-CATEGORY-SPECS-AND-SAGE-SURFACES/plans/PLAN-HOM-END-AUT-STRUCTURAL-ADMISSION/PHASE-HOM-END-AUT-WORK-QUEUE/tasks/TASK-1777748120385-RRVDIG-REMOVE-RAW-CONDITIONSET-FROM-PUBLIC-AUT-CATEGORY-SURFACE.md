@@ -78,9 +78,9 @@ Task: replace public condition_set vocabulary with a project-owned subobject/aut
 - Reworked the constructor path after review: raw `SageConditionSet` construction now
   lives in a distinct private bridge, while `_aut_object_from_end_category(...)`
   refines that backing object into the project aut category before returning it.
-- Added homsets smoke assertions for `from_end_category` returning an Aut object and
+- Added homsets category assertions for `from_end_category` returning an Aut object and
   for the public Aut object exposing `end_category` rather than `condition_set`.
-- `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` passed
+- `just --justfile category_specs/justfile category-obligation-file homsets/category_obligations.sage` passed
   with exit code 0.
 
 ## Acceptance Criteria
@@ -115,8 +115,8 @@ Task: replace public condition_set vocabulary with a project-owned subobject/aut
 - Kept `_aut_object_from_end_category(...)` as the public helper used by
   `from_end_category(...)`, but now it refines the condition-backed object into the
   requested project aut category before returning it.
-- Added targeted homsets smoke coverage for the public Aut object surface.
-- `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` passed
+- Added targeted homsets category-obligation example coverage for the public Aut object surface.
+- `just --justfile category_specs/justfile category-obligation-file homsets/category_obligations.sage` passed
   with exit code 0.
 
 ### Re-review 2026-05-06 (Fermat)
@@ -135,11 +135,11 @@ completion
 - `SPEC-MAPPING-HOMSETS.md` grounds the boundary: raw `ConditionSet` is implementation
   detail, while public aut objects expose `end_category()`, `domain()`, `codomain()`,
   and `identity()`, not `condition_set()`.
-- `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` exited 0.
+- `just --justfile category_specs/justfile category-obligation-file homsets/category_obligations.sage` exited 0.
 
 #### Residual Risks
 
 - The underlying implementation object is still Sage `ConditionSet` by design; raw
   Python type introspection will still reveal the backing class.
-- Full category-spec smoke still fails in unrelated posets and rings smoke files, so
+- Full category-spec category-obligation example still fails in unrelated posets and rings category-obligation example files, so
   this review supports only the Hom/End/Aut card and not a global phase transition.

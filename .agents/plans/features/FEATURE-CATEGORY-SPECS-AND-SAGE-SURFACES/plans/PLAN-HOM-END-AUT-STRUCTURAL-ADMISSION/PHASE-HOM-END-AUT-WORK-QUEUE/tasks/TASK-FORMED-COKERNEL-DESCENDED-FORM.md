@@ -26,7 +26,7 @@ successCriteria:
   descended bilinear or quadratic form data only under verified descent hypotheses.
 - Lattice discriminant descent `A_L = coker(L -> L^#)` is routed through this generic
   cokernel spec path and records quotient-valued codomains `K/R` and `K/2R`.
-- Smokes and mapping rows exercise public Hom/category APIs and do not use raw Sage
+- Category-obligation examples and mapping rows exercise public Hom/category APIs and do not use raw Sage
   morphisms or private project classes.
 complexity: 75
 tags:
@@ -133,7 +133,7 @@ data and `K/2R` for quadratic data.
       unformed approximation.
 - [x] Specify the lattice discriminant descent path `A_L = coker(L -> L^#)` through the
       generic formed cokernel operation.
-- [x] Add or update smoke/mapping evidence through public category/Hom APIs, not raw Sage
+- [x] Add or update category-obligation example/mapping evidence through public category/Hom APIs, not raw Sage
       morphism classes or private project classes.
 - [x] Update `[[SPEC-MAPPING-LATTICES]]` and any affected forms/modules mapping rows if
       source grounding shows the owner must be split more finely.
@@ -158,7 +158,7 @@ data and `K/2R` for quadratic data.
 - Complexity: 75/100, high but below plan-scale.
 - Why this score: the task changes a public categorical morphism specification and must
   coordinate module quotient objects, formed-module descent, projection morphisms,
-  lattice discriminant descent, and public-API smokes.
+  lattice discriminant descent, and public-API category-obligation examples.
 - Item-specific evidence: Sage FGP source supplies adjacent morphism operations but not
   the formed cokernel; historical discriminant specs already name the required object and
   descent hypotheses; the lattice mapping G5/G6 audit requires a tracked category-spec
@@ -166,7 +166,7 @@ data and `K/2R` for quadratic data.
 
 ## Work Log
 
-- 2026-06-02: Addressed fresh review findings: replaced the discriminant-group smoke
+- 2026-06-02: Addressed fresh review findings: replaced the discriminant-group category-obligation example
   evidence with public `Lattices(ZZ).DiscriminantGroups()` category-route checks,
   corrected the discriminant projection codomain from lattice morphism to formed-module
   morphism, and removed the optional `domain_subset` widening from the formed Hom
@@ -175,7 +175,7 @@ data and `K/2R` for quadratic data.
   `image()` argument. A later focused review found a `super_categories()` style
   violation from an explicit join; the touched torsion/discriminant supercategory
   methods now use plain single-chain category entries instead.
-- 2026-06-02: Fresh focused review verified the public discriminant-group smoke route,
+- 2026-06-02: Fresh focused review verified the public discriminant-group category-obligation example route,
   formed projection type, zero-argument formed `image()`, no-join supercategory shape,
   and finite-presentation-over-PID invariant-factor inheritance. A final narrow
   fresh-source review checked installed Sage `fgp_morphism.py` and `fgp_module.py`:
@@ -196,6 +196,6 @@ data and `K/2R` for quadratic data.
   has `kernel`, `inverse_image`, `image`, and `lift` definitions but no `cokernel`
   definition in `FGP_Morphism`. The project owner/formula evidence is visible in
   `category_specs/forms/subcategories/with_forms.py`, `[[SPEC-MAPPING-FORMS]]`, and
-  `[[SPEC-MAPPING-LATTICES]]`; the public route smoke is the `FormedModules(ZZ)` Hom,
-  End, and Aut category-object assertion in `category_specs/forms/smoketest.sage`.
+  `[[SPEC-MAPPING-LATTICES]]`; the public route category-obligation example is the `FormedModules(ZZ)` Hom,
+  End, and Aut category-object assertion in `category_specs/forms/category_obligations.sage`.
   This is a review handoff, not an acceptance claim.

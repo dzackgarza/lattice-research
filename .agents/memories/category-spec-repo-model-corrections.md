@@ -9,8 +9,8 @@ status: active
 
 This memory preserves corrected repo-level semantics for `category_specs`.
 It is not a task-state note.
-Use it when refinement, `ParentMethods`, ABCMeta, constructor smokes, Sage interop, or
-object-method resolution are discussed.
+Use it when refinement, `ParentMethods`, ABCMeta, constructor-obligation examples, Sage
+interop, or object-method resolution are discussed.
 
 ## Core model
 
@@ -34,8 +34,8 @@ satisfies the contract.
 It does not instantiate an implementation, interrogate method satisfaction, or perform
 admission control.
 
-Smoke tests surface the gap.
-They instantiate or exercise project category surfaces to show which project obligations
+Category-obligation examples surface the gap.
+They instantiate or exercise project category objects to show which project obligations
 current Sage/project implementations realize and which remain missing.
 
 ABCMeta participates at the class-system boundary.
@@ -67,7 +67,8 @@ owned subtree.
 
 Complexity is acceptable only where the boundary forces it.
 If Sage/Python interop requires metaclass work, quarantine that work in the interop
-layer and keep category specs, refinement semantics, and smokes mathematically legible.
+layer and keep category specs, refinement semantics, and category-obligation examples
+mathematically legible.
 Do not spread method-resolution, cache-state, abstract-name, or class-mutation logic
 through ordinary spec code.
 
@@ -93,12 +94,12 @@ manipulation outside the bridge, the solution is misaligned even if tests pass.
 | Refinement checks whether an object satisfies a category. | Refinement declares that an implementation is viewed as an object of a category. |
 | Category membership certifies current implementation completeness. | Category membership imposes a contract; implementation completeness is separate. |
 | Refined Sage objects should already satisfy the full project spec. | Refined Sage objects are expected to be partial because the project specs are new. |
-| Missing project methods after refinement are refinement failures. | Missing methods are implementation gaps exposed by specs and smokes. |
-| Smokes prove a refinement enforcement boundary. | Smokes expose which obligations current implementations miss. |
+| Missing project methods after refinement are refinement failures. | Missing methods are implementation gaps exposed by specs and category-obligation examples. |
+| Category-obligation examples prove a refinement enforcement boundary. | Category-obligation examples expose which obligations current implementations miss. |
 | `ParentMethods` are provider implementations. | `ParentMethods` are mathematical object-method obligations. |
 | Abstract methods should become generated failure bodies. | Abstract methods should remain abstract unless the spec itself owns a concrete method. |
 | ABCMeta should reject bad refinements. | ABCMeta should represent project abstractness in the Python class system. |
-| Refinement should instantiate the implementation to trigger ABCMeta. | Instantiation-time ABC behavior belongs to construction/smoke/runtime exercise, not refinement. |
+| Refinement should instantiate the implementation to trigger ABCMeta. | Instantiation-time ABC behavior belongs to construction, category-obligation examples, or runtime exercise, not refinement. |
 | The project needs custom logic to decide which abstract methods Sage satisfies. | Python MRO and ABC machinery determine concrete methods and remaining abstractness. |
 | Sage's `DynamicMetaclass` ownership blocks the simple strategy. | The project owns its subtree and can use local dynamic metaclasses composed with `ABCMeta`. |
 | Local dynamic-metaclass work requires modifying Sage globally. | The branch can be local to project-owned category construction. |
@@ -108,12 +109,12 @@ manipulation outside the bridge, the solution is misaligned even if tests pass.
 | The repair requires MRO surgery or hand-written abstract-name subtraction. | The desired repair is local metaclass/class construction that delegates ordinary behavior to Sage and ABCMeta. |
 | An abstract implementation parent is a category-refinement failure. | Abstractness is class-system state surfaced by construction/runtime exercise, not a refinement blocker. |
 | The project should reimplement Sage/Python internals so tests can target them. | The project should minimally compose existing Sage/Python mechanisms at the owned interop boundary. |
-| Complex class logic is acceptable wherever it makes the smoke pass. | Complex interop logic must be quarantined; ordinary specs should remain mathematical. |
+| Complex class logic is acceptable wherever it makes the category-obligation example pass. | Complex interop logic must be quarantined; ordinary specs should remain mathematical. |
 | Current Sage coverage bounds the spec. | Sage is implementation evidence and a feasibility witness, not the adequacy standard. |
 | Green QC or passing tests prove alignment. | Alignment means preserving the mathematical architecture; green checks can certify slop. |
 | Generated-body/assert patches are partial progress. | Generated bodies encode the wrong model and must not guide design. |
 | Implementation gaps should be hidden or preempted. | Implementation gaps should remain visible until implementation work supplies them. |
-| Refinement, specification, implementation, and smoke testing form one runtime validator. | Specs state obligations; refinement declares category view; implementations satisfy obligations; smokes expose gaps. |
+| Refinement, specification, implementation, and category-obligation examples form one runtime validator. | Specs state obligations; refinement declares category view; implementations satisfy obligations; category-obligation examples expose gaps. |
 
 ## Consequences for source work
 
@@ -150,7 +151,7 @@ manipulation outside the bridge, the solution is misaligned even if tests pass.
   subtree when source evidence shows Sage's dynamic class mechanism can be delegated to
   while adding `ABCMeta`.
 - Do let ordinary MRO decide whether concrete Sage/project methods realize obligations.
-- Do let smokes report missing implementations.
+- Do let category-obligation examples report missing implementations.
 
 ## Allowed low-level strategy shape
 
@@ -164,7 +165,8 @@ structural:
 - delegate non-ABC dynamic behavior back to Sage;
 - rely on `ABCMeta` abstract-set computation, `abc.update_abstractmethods` when
   source-justified, and normal MRO to determine concrete realization;
-- keep refinement as declaration and let smokes/construction/runtime exercise reveal
+- keep refinement as declaration and let category-obligation examples, construction, and
+  runtime exercise reveal
   remaining abstract obligations.
 
 This is not a request for wrappers around final classes, copied method bodies, cache
@@ -179,7 +181,7 @@ Review category-spec work by asking:
 - Which object-method obligations does the category impose?
 - Which obligations does current Sage already realize?
 - Which obligations remain missing and visible?
-- Did the patch preserve the spec/smoke gap, or did it hide the gap with runtime
+- Did the patch preserve the spec/category-obligation-example gap, or did it hide the gap with runtime
   machinery?
 - Did the patch reuse the simplest existing mechanism at the owned boundary, or did it
   add a local substitute for Sage/Python behavior?

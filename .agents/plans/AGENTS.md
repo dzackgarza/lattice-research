@@ -24,7 +24,7 @@ records the active phase gate.
 
 ## Local Feature Buckets
 
-- `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: category specs, Sage-compatible constructors, Hom/End/Aut surfaces, source maps, and smoke/audit stabilization.
+- `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: category specs, Sage-compatible constructors, Hom/End/Aut surfaces, source maps, and category-obligation example/audit stabilization.
 - `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: Sage-backed owned objects, wrappers, coercions, validators, and backend bridges satisfying approved category specs.
 - `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`: inheritable algorithms for countability, enumeration, products, free modules, and other categorical surfaces that must not be lattice-local loops.
 - `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: ModulesWithForms and lattice objects, including duals, discriminant descent, morphisms, and orthogonal-group surfaces.

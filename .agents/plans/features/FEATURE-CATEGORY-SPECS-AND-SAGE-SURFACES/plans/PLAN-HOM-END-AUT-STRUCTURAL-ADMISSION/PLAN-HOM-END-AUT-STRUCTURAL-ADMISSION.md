@@ -1227,13 +1227,13 @@ Phase child task inventory (3 tasks under `tasks/`):
 
 | Card ID | Title | Status |
 |---|---|---|
-| TASK-01KQN9J3W... | Fix Cat smoke Hom End Aut ObjectsOver... | `complete` (passed Gates 1-6, Russell re-review) |
+| TASK-01KQN9J3W... | Fix Cat category-obligation example Hom End Aut ObjectsOver... | `complete` (passed Gates 1-6, Russell re-review) |
 | TASK-1777748120385 | Remove raw ConditionSet from public Aut-category surface | `needs-human-input` (passed Gates 1-6, Fermat re-review; awaiting human approval) |
 | TASK-WRAPUP | Phase wrap-up | `unstarted` (gated behind two work tasks) |
 
 Coverage assessment:
 
-- The Cat smoke task addresses plan criterion 1 (category-recognized Hom/End/Aut surfaces) by fixing interop aliases, slice/coslice dispatch, and WithForms PID specialization.
+- The Cat category-obligation example task addresses plan criterion 1 (category-recognized Hom/End/Aut surfaces) by fixing interop aliases, slice/coslice dispatch, and WithForms PID specialization.
 - The ConditionSet task addresses plan criterion 3 (ConditionSet as implementation bridge) by privatizing raw `SageConditionSet` construction and preserving the project-owned aut-object surface.
 - The wrap-up task provides phase-closure hygiene.
 
@@ -1253,11 +1253,11 @@ The plan also records two owned downstream spec cards in its body:
 The plan's objective is tightly scoped: admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through the category framework. The plan body explicitly partitions the boundary:
 
 - **In scope:** Category-recognized Hom/End/Aut surfaces, domain/codomain semantics, categorical coercion, ConditionSet privatization, dual objects as Hom objects, formed-module automorphism groups as orthogonal-group surfaces.
-- **Out of scope (explicitly deferred):** "Matrix, function, and predicate calculations remain implementation evidence only" (line 56-57); functor/autofunctor modeling is recorded as future work in TASK-01KQN9J3W... (body: "natural transformations are not modeled; the current Cat morphism surface is Sage functors and construction functors"); full category-spec smoke beyond Hom/End/Aut is outside this plan's scope.
+- **Out of scope (explicitly deferred):** "Matrix, function, and predicate calculations remain implementation evidence only" (line 56-57); functor/autofunctor modeling is recorded as future work in TASK-01KQN9J3W... (body: "natural transformations are not modeled; the current Cat morphism surface is Sage functors and construction functors"); full category-spec category-obligation example beyond Hom/End/Aut is outside this plan's scope.
 
 The phase's child tasks respect these boundaries:
 
-- TASK-01KQN9J3W... limits to Cat smoke frontier interop (Homsets/Endsets aliases, ObjectsOver/ObjectsUnder, WithForms PID specialization). Does not expand into functor or natural transformation modeling.
+- TASK-01KQN9J3W... limits to Cat failed category assertions interop (Homsets/Endsets aliases, ObjectsOver/ObjectsUnder, WithForms PID specialization). Does not expand into functor or natural transformation modeling.
 - TASK-1777748120385 limits to a single file (`category_specs/homsets/autsets.py`) for ConditionSet privatization and aut-object surface preservation.
 - TASK-WRAPUP is a process meta-task, not implementation work.
 
@@ -1306,7 +1306,7 @@ The phase card's success criteria are operational gates (child task completion d
 Child task acceptance criteria directly enforce plan criteria:
 
 - TASK-1777748120385 ACs (ConditionSet removal, private helper routing, public aut-object surface preservation, mapping documentation) directly implement plan criterion 3.
-- TASK-01KQN9J3W... ACs (category vocabulary, Cat smoke verification, Hom shadowing audit) directly implement plan criterion 1.
+- TASK-01KQN9J3W... ACs (category vocabulary, Cat category-obligation example verification, Hom shadowing audit) directly implement plan criterion 1.
 
 No acceptance criteria have been weakened, replaced, or diluted at any level of the plan→phase→task hierarchy. The three-tier structure (plan mathematical targets → phase operational gates → task concrete deliverables) is coherent and progressive.
 

@@ -41,7 +41,7 @@ Source inventory: `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`.
 - Preserve every inventoried Sage surface by mapping it to a project mathematical surface, a named constructor path, a mathematically justified non-mapping, or a tracked decision.
 - Place every method at the highest category where the operation is mathematically well-defined; subcategories inherit methods from supercategories.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
-- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
+- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
 ## Source Coverage Ledger
@@ -155,7 +155,7 @@ Negative homset surface finding:
 
 - Searched: `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`,
   `category_specs/topological_spaces/homsets.py`,
-  `category_specs/topological_spaces/smoketest.sage`, installed Sage
+  `category_specs/topological_spaces/category_obligations.sage`, installed Sage
   `sage/categories/topological_spaces.py`, `sage/categories/metric_spaces.py`,
   `sage/categories/homset.py`, `sage/categories/homsets.py`,
   `sage/sets/real_set.py`, and local source searches for `Homsets`,
@@ -302,18 +302,18 @@ Metric elements expose `x.dist(y)` as delegation to the parent metric space. Met
 homsets are the short-map homsets; ordinary continuous maps remain the homsets of the
 root topological category.
 
-## Canonical Smoke Examples
+## Canonical Category-Obligation Examples
 
-Use these examples for the first topological smoke assertions:
+Use these examples for the first topological category assertions:
 
 | Target | Canonical object | Constructor owner | Witness |
 | --- | --- | --- | --- |
 | `TopologicalSpaces().Connected()` | `Sets().Constructors().open(lower=0, upper=1)` | `Sets().Constructors()` via `RealSet.open(0, 1)` | Sage refines `(0, 1)` into connected topological spaces; the project constructor also refines into `TopologicalSpaces().Connected()`. |
 | `TopologicalSpaces().Compact()` | `Sets().Constructors().closed(lower=0, upper=1)` | `Sets().Constructors()` via `RealSet.closed(0, 1)` | Sage refines `[0, 1]` into compact topological spaces; the project constructor also refines into `TopologicalSpaces().Compact()`. |
-| `TopologicalSpaces().Metric().Complete()` | `Rings().Constructors().RR()` / Sage `RR` | `Rings().Constructors()` for the named field object | Local Sage observation shows `RR.category()` is a join containing complete metric spaces. Project smoke should wait for the topological ring/field recovery path to refine `RR` through `TopologicalSpaces().Metric().Complete()`. |
+| `TopologicalSpaces().Metric().Complete()` | `Rings().Constructors().RR()` / Sage `RR` | `Rings().Constructors()` for the named field object | Local Sage observation shows `RR.category()` is a join containing complete metric spaces. Project category-obligation example should wait for the topological ring/field recovery path to refine `RR` through `TopologicalSpaces().Metric().Complete()`. |
 
 Do not use `RealIntervalField`, `ComplexIntervalField`, `RealBallField`, or
-`ComplexBallField` as complete-metric smoke examples in this subtree. The inventory
+`ComplexBallField` as complete-metric category-obligation example examples in this subtree. The inventory
 records them as topology-bearing ring/field evidence, not as Sage metric-space parents.
 Their recovery belongs to the topological ring/field cards.
 
@@ -343,7 +343,7 @@ Their recovery belongs to the topological ring/field cards.
 | `subcategories/constructions/objects_over.py` | Yes — confirmed by `find` output. |
 | `subcategories/constructions/objects_under.py` | Yes — confirmed by `find` output. |
 | `rings/subcategories/topological.py` | `category_specs/rings/subcategories/topological.py` | Yes — 74 lines. `_TopologicalRings` with base axiom (Rings, "Topological"), super_categories includes `SageRings().Topological(), TopologicalSpaces(), Rings()`. Imports `TopologicalSpaceRuntimeGapObjectMethods` for inherited predicates. |
-| smoketest.sage | `category_specs/topological_spaces/smoketest.sage` | Yes — 113 lines. 24 smoke statements covering category containment, axiom ownership, method surface verification for Connected/Compact/Metric/Complete, HomCategory, AutCategory, Subobjects, Quotients, Subquotients, ObjectsOver, ObjectsUnder. |
+| category_obligations.sage | `category_specs/topological_spaces/category_obligations.sage` | Yes — 113 lines. 24 category-obligation example statements covering category containment, axiom ownership, method surface verification for Connected/Compact/Metric/Complete, HomCategory, AutCategory, Subobjects, Quotients, Subquotients, ObjectsOver, ObjectsUnder. |
 | homsets.py | `category_specs/topological_spaces/homsets.py` | Yes — 136 lines. Defines `TopologicalSpaceHomCategory` with `_ContinuousMaps` elements (is_continuous), `TopologicalSpaceAutCategory` with `_Homeomorphisms` (is_homeomorphism), `MetricSpaceHomCategory` with `_ShortMaps` (is_short), `MetricSpaceAutCategory` with `_Isometries` (is_isometry). |
 
 **Referenced installed Sage files verified present:**
@@ -497,7 +497,7 @@ TopologicalSpaces() = Sets().Topological()
 
 - Spec line 231-235: Explicit rejection conditions for future edits — do not admit interval/ball/p-adic fields as `TopologicalSpaces().Constructors()`, do not move constructor ownership from rings, do not create ring-local duplicates of topological predicates.
 - Spec line 39-41 (review gates): "Place every method at the highest category where the operation is mathematically well-defined."
-- Spec line 40 (review gates): "Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening."
+- Spec line 40 (review gates): "Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening."
 - Spec line 41 (review gates): "Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds."
 
 **G6 Verdict: PASS.** All Sage-inventoried surface methods are preserved in the spec, either as abstract methods in the owning category or as concrete methods on subcategory axioms. No method was weakened, deleted, or moved without a grounded replacement owner. The explicit anti-weakening rejection conditions provide forward protection against future editorial weakening.

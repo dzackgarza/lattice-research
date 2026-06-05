@@ -24,7 +24,7 @@ acceptanceCriteria:
   `is_primitive(v)` to a free-module unit-divisibility rule.'
 - '`category_specs/forms/subcategories/free_bilinear.py` documents that rank is inherited
   from `Modules(R).Free()` and that divisibility is not a free-bilinear owner.'
-- Any code/spec edit is accompanied by the relevant category-spec smoke command, or
+- Any code/spec edit is accompanied by the relevant category-spec category-obligation command, or
   the card records why no runtime surface changed.
 complexity: 60
 tags:
@@ -112,7 +112,7 @@ For scalar-valued forms this submodule is an ideal of the base ring.
   element `is_primitive(v)` to a free-module unit-divisibility rule.
 - [x] `category_specs/forms/subcategories/free_bilinear.py` documents that rank is
   inherited from `Modules(R).Free()` and that divisibility is not a free-bilinear owner.
-- [x] Any code/spec edit is accompanied by the relevant category-spec smoke command, or
+- [x] Any code/spec edit is accompanied by the relevant category-spec category-obligation command, or
   the card records why no runtime surface changed.
 
 ## Dependencies And Boundaries
@@ -127,19 +127,19 @@ For scalar-valued forms this submodule is an ideal of the base ring.
 
 ## Validation Requirements
 
-- Run the relevant `category_specs` smoke for any changed module, form, or lattice
+- Run the relevant `category_specs` category-obligation example for any changed module, form, or lattice
   runtime surface.
 - At minimum, rerun the source audit with:
   `rg -n "def (rank|divisibility|is_primitive)\\b" category_specs/modules category_specs/forms category_specs/lattices -g '*.py'`.
 
 ## Validation Notes
 
-Dedicated category-spec smoke recipe:
+Dedicated category-spec category-obligation example recipe:
 
 - Searched: `just --list` in `/home/dzack/research`, and the local `justfile`.
 - Found: exposed recipes are `default`, `test`, `test-ci`, and `uv-setup`.
 - Conclusion: inference - this repo currently exposes only the global `just test`
-  validation entrypoint, not a narrower category-spec smoke recipe.
+  validation entrypoint, not a narrower category-spec category-obligation example recipe.
 - Confidence: High for the repo-local justfile.
 - Gaps: did not inspect hidden recipes inside `~/ai/quality-control/justfile`.
 

@@ -111,7 +111,7 @@ Source inventory: `category_specs/sets/docs/SAGE_INVENTORY.md`.
 - State caller category, input data, hypotheses, return object or codomain, and source
   evidence before implementation depends on the row.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option
-  bags, and smoke-driven interface weakening.
+  bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked
   decisions or tasks before implementation proceeds.
 
@@ -693,7 +693,7 @@ variadic API.
 - Confidence: Medium.
 - Gaps: I did not exhaust every combinatorics module whose filename contains "set",
   every import in `sage/sets/all.py`, Sage development-branch history, or downstream
-  constructor smoke behavior.
+  constructor category-obligation example behavior.
   The ordered-partition action and full noncrossing/nonnesting/atomic subclass surfaces
   still require dedicated source-grounded admission work before implementation.
 

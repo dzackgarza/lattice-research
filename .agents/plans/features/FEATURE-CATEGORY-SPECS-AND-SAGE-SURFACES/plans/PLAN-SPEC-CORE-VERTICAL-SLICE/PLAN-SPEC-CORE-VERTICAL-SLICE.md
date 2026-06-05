@@ -24,7 +24,7 @@ successCriteria:
 - '`Cat().Constructors()`, `Rings().Constructors()`, and `Modules(R).Constructors()`
   remain constructor-discovery surfaces; the spec-core layer reports how a constructor
   satisfies inherited obligations rather than replacing constructor routing.'
-- No non-slice category expansion, smoke broadening, or mypy cleanup is accepted as
+- No non-slice category expansion, category-obligation example broadening, or mypy cleanup is accepted as
   progress for this plan unless it directly changes one of the slice reports.
 phases:
 - '[[PHASE-SPEC-CORE-VERTICAL-SLICE]]'
@@ -95,11 +95,11 @@ Non-goals:
 - [x] The module implementation does not satisfy those set-level obligations by
   duplicating cardinality or enumeration logic inside the free-module surface.
 - [x] A dummy or deliberately incomplete object claiming the slice category produces a
-  precise missing-obligations report rather than a silent pass or unrelated smoke
+  precise missing-obligations report rather than a silent pass or unrelated category-obligation example
   failure.
 - [x] Constructor-discovery surfaces still expose available constructors with
   provenance, and the slice report can name the constructor route used.
-- [x] Focused validation covers only the slice reports and directly owned smokes/tests.
+- [x] Focused validation covers only the slice reports and directly owned category-obligation examples/tests.
 
 ## Dependencies And Boundaries
 

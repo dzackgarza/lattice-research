@@ -186,7 +186,7 @@ boolean surfaces remain out of scope until separately source-grounded.
 
 - Gate 1: `nth_root`/`sqrt`/`galois_closure` overloads grounded in SPEC-MAPPING-RINGS.md with exact Sage source paths, owner categories, hypotheses, codomains.
 - Gate 2: All 4 ACs satisfied (root overloads split, galois_closure overloads split, source paths recorded, out-of-scope Category/Map surfaces documented).
-- Gate 3: Only adds content. No overloads, obligations, or smoke assertions removed. SPEC-MAPPING-RINGS gained 61 lines. No prior content removed.
+- Gate 3: Only adds content. No overloads, obligations, or category assertions removed. SPEC-MAPPING-RINGS gained 61 lines. No prior content removed.
 - Gate 4: No decision reversal. Git history shows additive commits only.
 - Gate 5: `all=False`→RingElement, `all=True`→list[RingElement], `bool`→union. `map=False`→Field, `map=True`→tuple. Correct mathematical semantics. No choice-independent equality asserted.
 - Gate 6: `@overload` patterns. No variadic. `Literal` for True/False. Import hygiene.

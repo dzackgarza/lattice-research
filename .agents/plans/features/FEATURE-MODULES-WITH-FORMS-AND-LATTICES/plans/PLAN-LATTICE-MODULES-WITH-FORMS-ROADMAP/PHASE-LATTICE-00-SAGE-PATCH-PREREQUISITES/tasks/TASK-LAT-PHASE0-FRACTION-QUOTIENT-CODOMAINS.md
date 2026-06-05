@@ -84,7 +84,7 @@ Leaf implementation card derived from the old phase plan. This card is executabl
   torsion order by coercion checks.
 - `[ ]` `R(3/2).lift()` returns a `QQ` representative in the expected class.
 - `[ ]` `isinstance(QQ / ZZ, ModuleBaseRings category owner)` (or equivalent refined
-  module parent check) holds in smoke assertions.
+  module parent check) holds in category assertions.
 - `[ ]` Discriminant codomain constructor assertions in Phase-1 form tests can instantiate
   `QQ/ZZ` and `QQ/2ZZ` and evaluate `beta(v,w)` there.
 
@@ -143,14 +143,14 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
   - `QQ / (2*ZZ) in Modules(ZZ)`,
   - `(QQ / (2*ZZ))(1/2) == (QQ / (2*ZZ))(5/2)`,
   - `(QQ / (2*ZZ))(5/2).lift() == QQ(1)/2`.
-- Full Phase 0 smoke was not run because upstream Phase 0 module-base, ideal, module,
+- Full Phase 0 category-obligation example was not run because upstream Phase 0 module-base, ideal, module,
   and hom enrichment cards remain unresolved.
 
 ## Current Phase Gate
 
 - 2026-05-06: Blocked by the current category-spec and semantic-vocabulary phase. This
   is implementation-phase Sage/lattice work and must not be executed merely to make
-  current Sage objects pass smokes before the ideal specs, method ownership, and
+  current Sage objects pass category-obligation examples before the ideal specs, method ownership, and
   vocabulary are settled.
 - This is a path-local phase gate, not a global blocker for the active goal. Continue
   approved spec, source-mining, audit, and decision leaves outside this implementation

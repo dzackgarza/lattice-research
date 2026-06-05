@@ -142,7 +142,7 @@ isometry.
 
 ## Validation Requirements
 
-- Run the relevant category-spec smoke for any changed forms, lattice, or homsets
+- Run the relevant category-spec category-obligation example for any changed forms, lattice, or homsets
   runtime surface.
 - At minimum, rerun:
   `rg -n "is_form_preserving|is_isometry" category_specs -g '*.py'`.

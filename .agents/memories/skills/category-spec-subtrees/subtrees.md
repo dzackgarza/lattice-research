@@ -4,7 +4,7 @@ This reference replaces the deleted nested `category_specs/**/AGENTS.md` files. 
 
 ## Global category-spec entry
 
-Agents working under `category_specs/` must obey the root repo `AGENTS.md` and `category_specs/AGENTS.md`. Load `category-spec-style` before touching specs, method surfaces, constructors, morphisms, Hom/End/Aut surfaces, Sage wrappers, type annotations, test files, smoke files, implementations, Sage inventory, or mapping documents. Load `category-spec-workflow` before changing tracking, status, plans, delegation, PR metadata, validation handoff, smoke triage, or stale-document migration.
+Agents working under `category_specs/` must obey the root repo `AGENTS.md` and `category_specs/AGENTS.md`. Load `category-spec-style` before touching specs, method surfaces, constructors, morphisms, Hom/End/Aut surfaces, Sage wrappers, type annotations, test files, category-obligation examples, implementations, Sage inventory, or mapping documents. Load `category-spec-workflow` before changing tracking, status, plans, delegation, PR metadata, validation handoff, failed-assertion classification, or stale-document migration.
 
 ## Cat
 

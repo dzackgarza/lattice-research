@@ -69,7 +69,7 @@ Correct class-system behavior:
   them;
 - concrete project methods can provide defaults when the spec owns the mathematics;
 - missing methods remain abstract and visible;
-- smokes reveal the remaining implementation gap.
+- category-obligation examples reveal the remaining implementation gap.
 
 ## The concrete failure
 

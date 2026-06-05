@@ -92,7 +92,7 @@ control vector/chamber data recorded by the Vinberg backend notes. Public surfac
 that work must be admitted in the Phase 05 lattice/Coxeter cards and must route through
 Oscar/Vinberg reference implementations before any bespoke implementation. This
 decision only rejects the malformed spelling and confirms that it cannot appear in
-category specs, smoke tests, or implementation tasks.
+category specs, category-obligation tests, or implementation tasks.
 
 ## Inventory Updates
 

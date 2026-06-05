@@ -124,7 +124,8 @@ Every time.
   checkpointing or editing.
   "Nontrivial" includes changes to method ownership, mathematical definitions, type
   packages, inheritance, decorators, constructors, category/Hom/End/Aut structure,
-  tests, smokes, specs, mapping docs, tracker state, or agent-facing policy.
+  tests, category-obligation examples, specs, mapping docs, tracker state, or
+  agent-facing policy.
   If the relevant skill or reference is not in context, stop and load it; do not patch
   from memory.
 - Implementation, self-check, and adversarial audit are separate roles when
@@ -241,7 +242,7 @@ Every time.
   recovery/missing-obligation, or representation-split statement required by
   `mem:category-spec-epistemic-foundation`. "Nontrivial" here means any change to method
   ownership, category operation, type signature, constructor placement, Hom/End/Aut
-  structure, smoke spec, mapping row, or category graph edge.
+  structure, category-obligation spec, mapping row, or category graph edge.
   The epistemic statement must be visible in the card body, mapping row, or commit
   message — hidden reasoning in the agent session is not sufficient.
 - Do not merge distinct mathematical notions under one name without a recorded proof
@@ -512,7 +513,8 @@ corresponding `mem:skills/...` entry.
   Load when work becomes artifact-heavy, engineering-heavy, or unclear in relation to
   mathematical research.
 - `category-spec-style`: mathematical and code/spec compliance for category specs, type
-  packages, Sage wrappers, constructors, method ownership, smoke files.
+  packages, Sage wrappers, constructors, method ownership, category-obligation
+  examples.
 - `handling-corrections`: required protocol when the user corrects a mathematical,
   repo-architecture, or task-framing claim.
 - `task`: creation of tracker items under `.agents/plans/`.
@@ -531,7 +533,7 @@ corresponding `mem:skills/...` entry.
 | `category-spec-priority-rubric` | `skills/category-spec-priority-rubric` |
 | `category-spec-retirement` | `skills/category-spec-retirement` |
 | `category-spec-sage-mapping` | `skills/category-spec-sage-mapping` |
-| `category-spec-smoke-triage` | `skills/category-spec-smoke-triage` |
+| `category-spec-obligation-test-triage` | `skills/category-spec-obligation-test-triage` |
 | `category-spec-subtrees` | `skills/category-spec-subtrees` |
 | `category-spec-triage` | `skills/category-spec-triage` |
 | `category-spec-visuals` | `skills/category-spec-visuals` |

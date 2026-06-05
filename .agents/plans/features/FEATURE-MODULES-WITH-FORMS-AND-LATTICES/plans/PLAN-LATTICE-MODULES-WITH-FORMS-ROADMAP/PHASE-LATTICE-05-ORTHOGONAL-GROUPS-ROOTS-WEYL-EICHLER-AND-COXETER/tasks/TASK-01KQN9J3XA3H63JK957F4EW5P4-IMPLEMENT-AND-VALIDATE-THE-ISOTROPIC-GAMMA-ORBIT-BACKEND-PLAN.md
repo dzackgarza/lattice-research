@@ -66,7 +66,7 @@ splitting.
 
 - 2026-05-06: Blocked by the current category-spec and semantic-vocabulary phase. This
   is lattice/backend implementation work under the blocked lattice implementation
-  roadmap, not current executable spec work. Do not execute it to advance smoke status
+  roadmap, not current executable spec work. Do not execute it to advance category-obligation test status
   or downstream orbit computations before the ideal lattice/category specs, method
   ownership, and vocabulary are settled.
 - This is a path-local phase gate, not a global blocker for the active goal. Continue

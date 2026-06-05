@@ -5,20 +5,20 @@ trackerStatus:
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn:
-- '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
+- '[[PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES]]'
 title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra
   surface split
 status: complete
 priority: high
-description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+description: 'The deleted Rings triage recorded ring category-obligation example blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the
   matrix-ring surface split.'
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
 - Completion requires each child item to be done or explicitly superseded by a linked
   successor; blocked child cards do not satisfy phase acceptance.
-- The sprint closing note records smoke/test commands run and any unresolved blockers.
-- Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
+- Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - Confirm failures are reduced without weakening constructor membership assertions.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -34,12 +34,12 @@ surface, its card must cite the canonical source path, exact definition, owner c
 hypotheses, codomain/return object, and proof or Sage-evidence obligations.
 
 If a sprint finding lacks that grounding, the sprint action is source mining, decision
-capture, or splitting into a prerequisite card. QC and smoke findings identify work, but
+capture, or splitting into a prerequisite card. QC and category-obligation example findings identify work, but
 they do not define the mathematical surface being repaired.
 
 ## Summary
 
-The deleted Rings triage recorded ring smoke blockers: nested axiom category identity
+The deleted Rings triage recorded ring category-obligation example blockers: nested axiom category identity
 mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
 split.
 
@@ -54,15 +54,15 @@ split.
 - ZZ, field constructors, p-adic constructors, and q-adic constructors fail through nested axiom category class-identity mismatches.
 - IntegerModRing, PolynomialRing, PowerSeriesRing, LaurentSeriesRing, PuiseuxSeriesRing, and MatrixRing refine far enough to expose missing _sympy_.
 - MatrixRing stays reachable from Rings().Constructors(), but the result must refine into Algebras(R) and Modules(R).Free().FiniteRank().
-- The matrix smoke must not be moved or weakened to hide the surface split.
+- The matrix category-obligation example must not be moved or weakened to hide the surface split.
 
 ## Acceptance Criteria
 
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
 - [ ] Completion requires each child item to be done or explicitly superseded by a
       linked successor; blocked child cards do not satisfy phase acceptance.
-- [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
-- [ ] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- [ ] The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
+- [ ] Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - [ ] Confirm failures are reduced without weakening constructor membership assertions.
 
 ## Dependencies And Boundaries
@@ -99,11 +99,11 @@ Each child task independently carries its own source provenance section. Source 
 The phase card lists 5 success criteria:
 1. "The sprint has a bounded set of child tracker items and an explicit scope statement." — **Checkable.** Directory listing confirms 7 substantive child tasks + 1 wrapup = 8 bounded items. Scope statement exists in the description.
 2. "Completion requires each child item to be done or explicitly superseded by a linked successor; blocked child cards do not satisfy phase acceptance." — **Checkable.** Child statuses can be audited: remaining tasks are either `complete`, `needs-human-input`, or `unstarted` for wrapup. The stale _sympy_ leaf has linked successors documented in its body. Phase acceptance is not yet satisfiable pending wrapup and human signoff.
-3. "The sprint closing note records smoke/test commands run and any unresolved blockers." — **Checkable.** Requires wrapup task (TASK-WRAPUP-PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES) to execute and record.
-4. "Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes." — **Checkable.** Multiple child tasks have recorded smoke runs with concrete output.
+3. "The sprint closing note records category-obligation example/test commands run and any unresolved blockers." — **Checkable.** Requires wrapup task (TASK-WRAPUP-PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES) to execute and record.
+4. "Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes." — **Checkable.** Multiple child tasks have recorded category-obligation example runs with concrete output.
 5. "Confirm failures are reduced without weakening constructor membership assertions." — **Checkable.** Child task review logs include spec-weakening checks.
 
-All criteria are specific enough to be verified by a reviewer with access to the repo and Sage runtime. The criteria referencing smoke files name exact paths. **Pass.**
+All criteria are specific enough to be verified by a reviewer with access to the repo and Sage runtime. The criteria referencing category-obligation example files name exact paths. **Pass.**
 
 #### Gate 3 — Task Inventory Complete
 
@@ -113,7 +113,7 @@ Child tasks in `tasks/` directory (8 total):
 | 1 | TASK-01KQN9J3WY0J7VF8KEY1X7496H | Fix Rings category base-class identity mismatch | complete |
 | 2 | TASK-01KQN9J3WZDBZ8D0BPGG8AKVXH | Implement missing _sympy_ surface | needs-human-input |
 | 3 | TASK-01KQN9YGCKBZM1PG5YYQW5A8M6 | Implement matrix-ring refinement | complete |
-| 4 | TASK-01KQN9J3WXGKSYTRTQDP54C28J | Fix Modules smoke missing algebra _sympy_ | needs-human-input |
+| 4 | TASK-01KQN9J3WXGKSYTRTQDP54C28J | Fix Modules category-obligation example missing algebra _sympy_ | needs-human-input |
 | 7 | TASK-1777748120685-4VX3GB | Strip import and LazyImport bloat | complete |
 | 8 | TASK-WRAPUP-PHASE-RING... | Phase wrap-up | unstarted |
 
@@ -125,7 +125,7 @@ Coverage against phase scope:
   prime-power, `(p, degree)`, and one-factor factorization inputs under the original
   constructor names; invented `FromPrimePower` constructor names are not part of the
   source-grounded mapping.
-- **Modules smoke** → Task 6 (cross-category smoke fix; reviewed, Gates 1-6 passed, modules/smoketest.sage now passes)
+- **Modules category-obligation example** → Task 6 (cross-category category-obligation example fix; reviewed, Gates 1-6 passed, modules/category_obligations.sage now passes)
 - **Import hygiene** → Task 7 (import/LazyImport bloat cleanup; complete)
 - **Phase closure** → Task 8 (wrapup; unstarted, depends on all siblings being done)
 
@@ -146,10 +146,10 @@ Child task scope audit:
   deferred or invented constructor names.
 - Task 4: scoped to matrix algebra refinement; touches `category_specs/rings/` and `category_specs/algebras/`. Cross-category but within the constructor-admission plan scope.
 - Task 5: pure research; no code changes. Within upstream Sage investigation scope.
-- Task 6: scoped to `category_specs/modules/`; passes modules smoke. Cross-category but justified as part of broader constructor admission.
+- Task 6: scoped to `category_specs/modules/`; passes modules category-obligation example. Cross-category but justified as part of broader constructor admission.
 - Task 7: scoped to `category_specs/rings/subcategories/` — import hygiene only. No mathematical changes.
 
-No child task expands beyond its stated boundaries. The modules smoke task (6) crosses into modules territory, but the phase card's parent plan (PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION) governs both rings and modules constructor admission, so this is within the plan's remit. **Pass.**
+No child task expands beyond its stated boundaries. The modules category-obligation example task (6) crosses into modules territory, but the phase card's parent plan (PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION) governs both rings and modules constructor admission, so this is within the plan's remit. **Pass.**
 
 #### Gate 5 — Dependencies Correct
 
@@ -166,20 +166,20 @@ No missing dependency edges detected. The wrapup correctly gates on all siblings
 #### Gate 6 — No Weakening
 
 The phase card explicitly guards against weakening in multiple places:
-- Description: "The matrix smoke must not be moved or weakened to hide the surface split."
+- Description: "The matrix category-obligation example must not be moved or weakened to hide the surface split."
 - Success criteria: "Confirm failures are reduced without weakening constructor membership assertions."
 - Dependencies: "If execution reveals a missing mathematical owner, constructor, or category graph edge, split that as a new tracker item instead of patching around it."
 
 Child task weakening review:
-- Task 1: Review Log documents spec-weakening check passed. Smoke still fails on preserved frontiers; only base-class identity mismatch was repaired.
+- Task 1: Review Log documents spec-weakening check passed. A category-obligation example still fails on preserved frontiers; only base-class identity mismatch was repaired.
 - Task 2: No implementation changes made; stale leaf preserved with linked successors.
-- Task 3: Implementation preserves admitted deferred names with explicit AssertionError; smoke preserves frontier labels.
-- Task 4: Review Log documents spec-weakening review passed. Regression category names updated to current vocabulary without weakening membership claims. Aggregate smoke still shows preserved non-matrix frontiers.
-- Task 5: No code/spec/smoke changes; research result preserves deferred names.
-- Task 6: Review Log documents Gates 1-6 passed including spec-weakening check. modules/smoketest.sage now passes without restoring wrapper categories.
-- Task 7: Review Log documents spec-weakening review: "does not delete abstract methods, narrow smoke assertions, move mathematical obligations, or change category ownership."
+- Task 3: Implementation preserves admitted deferred names with explicit AssertionError; category-obligation example preserves frontier labels.
+- Task 4: Review Log documents spec-weakening review passed. Regression category names updated to current vocabulary without weakening membership claims. Aggregate category-obligation example still shows preserved non-matrix frontiers.
+- Task 5: No code/spec/category-obligation example changes; research result preserves deferred names.
+- Task 6: Review Log documents Gates 1-6 passed including spec-weakening check. modules/category_obligations.sage now passes without restoring wrapper categories.
+- Task 7: Review Log documents spec-weakening review: "does not delete abstract methods, narrow category assertions, move mathematical obligations, or change category ownership."
 
-No child task weakens constructor membership assertions, narrows smoke tests, or hides failures. The aggregate rings/smoketest.sage still fails on documented, preserved frontiers — this is gap evidence, not hidden surface splits. **Pass.**
+No child task weakens constructor membership assertions, narrows category-obligation tests, or hides failures. The aggregate rings/category_obligations.sage still fails on documented, preserved frontiers — this is gap evidence, not hidden surface splits. **Pass.**
 
 ---
 

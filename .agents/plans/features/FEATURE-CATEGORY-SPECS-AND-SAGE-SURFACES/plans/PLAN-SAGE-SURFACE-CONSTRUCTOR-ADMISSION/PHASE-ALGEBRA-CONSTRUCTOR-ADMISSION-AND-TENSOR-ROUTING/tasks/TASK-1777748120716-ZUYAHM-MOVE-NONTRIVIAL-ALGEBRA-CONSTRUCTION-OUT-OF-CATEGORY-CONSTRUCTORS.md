@@ -19,8 +19,8 @@ successCriteria:
 - Finite-dimensional algebra construction from tables, matrices, or module-element
   data is routed through TensorAlgebraComponents before
   Algebras(R).Constructors().from_multiplication_tensor.
-- Relevant algebra smoke evidence is recorded without weakening mapping decisions or
-  smoke obligations.
+- Relevant algebra category-obligation example evidence is recorded without weakening mapping decisions or
+  category-obligation example obligations.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
@@ -92,8 +92,8 @@ Admitted algebra constructor routes are therefore:
   `FiniteDimensionalAlgebra` reached only after tensor-component construction.
   This matches the boundary in `SPEC-MAPPING-ALGEBRAS` that nontrivial raw
   constructor shapes are not public algebra category constructors.
-- 2026-05-06 validation: `just --justfile category_specs/justfile smoke-file
-  algebras/smoketest.sage` passes. Status moved to `needs-agent-review`; this does
+- 2026-05-06 validation: `just --justfile category_specs/justfile category-obligation-file
+  algebras/category_obligations.sage` passes. Status moved to `needs-agent-review`; this does
   not mark the card accepted or complete.
 - 2026-05-06 Gate 1 rework: after independent review found that the card remained
   backlog-shaped, added source provenance, the grounded algebra-constructor boundary,
@@ -155,7 +155,7 @@ hold this card in `needs-human-input`.
 
 *Review conducted 2026-05-09. Evidence from current implementation at
 `/home/dzack/research/category_specs/algebras/__init__.py` (706 lines),
-`/home/dzack/research/category_specs/algebras/smoketest.sage` (225 lines),
+`/home/dzack/research/category_specs/algebras/category_obligations.sage` (225 lines),
 and controlling spec `SPEC-MAPPING-ALGEBRAS.md`.*
 
 ### Gate 1: Definition Grounding — PASS
@@ -211,12 +211,12 @@ The same search scoped to the full `category_specs/` tree confirms that Zmod
 appears only in its proper owners:
 - `category_specs/rings/__init__.py` line 736 (ring constructor)
 - `category_specs/rings/subcategories/integer_mod_ring.py` line 26
-- `category_specs/modules/smoketest.sage` lines 142-209 (module tests over Zmod(6))
+- `category_specs/modules/category_obligations.sage` lines 142-209 (module tests over Zmod(6))
 
 And CyclotomicField/NumberField appear only in:
 - `category_specs/rings/subcategories/number_field.py` lines 1-71 (ring subcategory)
 - `category_specs/rings/subcategories/cyclotomic_field.py` (ring subcategory, lazy-imported)
-- `category_specs/rings/smoketest.sage` line 131 (ring constructor smoke)
+- `category_specs/rings/category_obligations.sage` line 131 (ring constructor category-obligation example)
 
 **Evidence — Constructor surface is lightweight routing/refinement only:**
 The `Constructors` class (`__init__.py` lines 379-651) exposes exactly 9 public
@@ -243,15 +243,15 @@ line 432, `_sage_algebra_from_source_with_target` line 448,
 `from_multiplication_tensor` line 633) and is always programmatically determined
 by the named constructor method, never user-exposed.
 
-**Evidence — Smoke test passes:**
+**Evidence — Category-obligation test passes:**
 
 ```
-Command: sage /home/dzack/research/category_specs/algebras/smoketest.sage
+Command: sage /home/dzack/research/category_specs/algebras/category_obligations.sage
 Exit code: 0
 Output: (none — all assertions pass silently)
 ```
 
-The smoke test (225 lines) contains 0 occurrences of `Zmod`, `CyclotomicField`,
+The category-obligation test (225 lines) contains 0 occurrences of `Zmod`, `CyclotomicField`,
 or `NumberField` (`rg` returns 0 matches). It validates all 8 source-category
 free algebra routes plus both `from_multiplication_tensor` routes (over QQ and
 ZZ). The multiplication tensor test (lines 53-63, 216-221) confirms that the
@@ -350,13 +350,13 @@ obligation. Every admitted route is preserved:
 
 - **Free associative algebra on a set**: preserved as `free_algebra_from_set`
   (lines 458-478), per spec row 254-255. The generator presentation is recorded
-  on the returned object (lines 472-475), and the smoke test explicitly validates
-  this at smoketest.sage lines 96-103.
+  on the returned object (lines 472-475), and the category-obligation test explicitly validates
+  this at category_obligations.sage lines 96-103.
 
 - **Source-category-selected free algebra routes**: all 7 magma/semigroup/monoid/
   group/additive-semigroup/additive-monoid/additive-group routes preserved
-  (see Gate 3 table above). Each smoke-tested:
-  - `free_algebra_from_magma` — smoketest.sage lines 188-189
+  (see Gate 3 table above). Each category-obligation example-tested:
+  - `free_algebra_from_magma` — category_obligations.sage lines 188-189
   - `free_algebra_from_semigroup` — lines 191-193
   - `free_algebra_from_monoid` — lines 195-197
   - `free_algebra_from_group` — lines 199-201
@@ -366,7 +366,7 @@ obligation. Every admitted route is preserved:
 
 - **Multiplication tensor route**: preserved as `from_multiplication_tensor`
   (lines 596-651), with tensor-component handoff before algebra construction
-  validated by smoketest.sage lines 53-63 and 215-221.
+  validated by category_obligations.sage lines 53-63 and 215-221.
 
 - **Refinement not weakening**: each constructor refines the result into the
   project category hierarchy (via `_refine_constructed_algebra` at line 405
@@ -386,6 +386,6 @@ The current algebra constructor surface satisfies every success criterion:
 3. Sage's generic `category=` disambiguation is not exposed as public project API.
 4. Finite-dimensional algebra construction routes through
    `TensorAlgebraComponents` before `from_multiplication_tensor`.
-5. Smoke evidence is recorded without weakening mapping decisions or obligations.
+5. Category-obligation example evidence is recorded without weakening mapping decisions or obligations.
 
 **Card status set to: complete**

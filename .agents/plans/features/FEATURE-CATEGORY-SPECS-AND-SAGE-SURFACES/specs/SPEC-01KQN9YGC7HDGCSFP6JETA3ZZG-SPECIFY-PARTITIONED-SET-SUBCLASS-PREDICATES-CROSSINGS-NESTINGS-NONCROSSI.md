@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
+- '[[PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS]]'
 title: Specify partitioned-set subclass predicates crossings nestings noncrossing
   nonnesting and atomic only after subcategory admission
 status: complete
@@ -215,7 +215,7 @@ The spec correctly separates witness-valued surfaces (`crossings()`, `nestings()
 
 - The code in `partitioned.py` correctly places them on `PartitionsCategory.ElementMethods` (lines 209-252), NOT on `PartitionedSetsCategory.ElementMethods` (which is empty at line 57).
 - The `PartitionedSetsCategory` docstring (line 30-32) itself states: "The partition object itself lives in the `PartitionsCategory` and owns methods such as `crossings()`, `is_noncrossing()`, and `refines()`."
-- The smoketest at `smoketest.sage:538-542` verifies these methods on `PartitionsCategory.ElementMethods`.
+- The category-obligation exampletest at `category_obligations.sage:538-542` verifies these methods on `PartitionsCategory.ElementMethods`.
 - Mathematically, a partitioned set `X` in `Sets().Partitioned()` has elements that are elements of the ground set `X`, not partition objects. The partition object is accessed via `X.partition()` and lives in `PartitionsCategory`. So `crossings()` belongs on the partition object's element methods (`PartitionsCategory.ElementMethods`), not on the partitioned set's element methods.
 
 **Severity: Medium.** The spec's conclusion about WHAT the methods are and WHERE they live in the code file (`partitioned.py`) is correct. The error is only in which inner class namespace (`PartitionedSetsCategory.ElementMethods` vs `PartitionsCategory.ElementMethods`). The acceptance-consequence section (lines 150-155) is also affected: it says "partitioned.py should carry abstract element methods" — which it already does, just on the correct `PartitionsCategory.ElementMethods`.

@@ -37,7 +37,7 @@ The constructor-name validator reports public methods on
 inventory.
 This is not a naming-cleanup task.
 The first repair is to rebuild the constructor admission source: Sage docs/source,
-mapping rows, owner category, accepted input shapes, and only then code/smoke changes.
+mapping rows, owner category, accepted input shapes, and only then code/category-obligation example changes.
 
 ## Source Provenance
 

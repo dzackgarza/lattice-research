@@ -9,17 +9,17 @@ title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().F
   while keeping ring-only routing in rings
 status: complete
 priority: high
-description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+description: 'The deleted Rings triage recorded ring category-obligation example blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the
   matrix-ring surface split.'
 successCriteria:
 - The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
+  category-obligation examples or mapping decisions to make failures disappear.
+- Relevant category-obligation output is updated in this task body or a linked tracker item, with
   exact failing surfaces preserved when work remains.
 - The change uses project category vocabulary rather than Sage fallback helper names
   or wrapper-only categories.
-- Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - Confirm failures are reduced without weakening constructor membership assertions.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -29,7 +29,7 @@ tags:
 # Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings
 ## Summary
 
-The deleted Rings triage recorded ring smoke blockers: nested axiom category identity
+The deleted Rings triage recorded ring category-obligation example blockers: nested axiom category identity
 mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
 split.
 
@@ -43,14 +43,14 @@ split.
 - ZZ, field constructors, p-adic constructors, and q-adic constructors fail through nested axiom category class-identity mismatches.
 - IntegerModRing, PolynomialRing, PowerSeriesRing, LaurentSeriesRing, PuiseuxSeriesRing, and MatrixRing refine far enough to expose missing _sympy_.
 - MatrixRing stays reachable from Rings().Constructors(), but the result must refine into Algebras(R) and Modules(R).Free().FiniteRank().
-- The matrix smoke must not be moved or weakened to hide the surface split.
+- The matrix category-obligation example must not be moved or weakened to hide the surface split.
 
 ## Acceptance Criteria
 
-- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken category-obligation examples or mapping decisions to make failures disappear.
+- [x] Relevant category-obligation output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [x] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- [x] Run just category-obligation-file rings/category_obligations.sage after ring constructor or axiom changes.
 - [x] Confirm failures are reduced without weakening constructor membership assertions.
 
 ## Dependencies And Boundaries
@@ -78,27 +78,27 @@ split.
   correct zero/identity/scalar/entry/row/matrix constructors, rank `4`, vector
   conversion, density predicates, and algebra generators equal to the distinguished
   basis.
-- Aggregate verification with `just --justfile category_specs/justfile smoke-file
-  rings/smoketest.sage` still fails. Non-matrix failures remain the existing
+- Aggregate verification with `just --justfile category_specs/justfile category-obligation-file
+  rings/category_obligations.sage` still fails. Non-matrix failures remain the existing
   `hilbert_polynomial`, `ideal_monoid`, `_change_print_mode`, q-adic precision,
   series `cardinality`/`completion`, and algebraic-closure frontiers. Matrix
-  statements still fail in the aggregate smoke with an order-dependent MRO error after
+  statements still fail in the aggregate category-obligation example with an order-dependent MRO error after
   earlier failed constructor refinements have partially mutated shared Sage parents:
   `Cannot create a consistent method resolution order (MRO) for bases
   Modules.subcategory_class, Modules.FiniteDimensional.subcategory_class, ...`. A
-  minimal standalone Sage smoke of `NR.MatrixRing(ZZ, 2)` passes, so the remaining
-  aggregate matrix failure is cross-statement smoke contamination rather than the
+  minimal standalone Sage category-obligation example of `NR.MatrixRing(ZZ, 2)` passes, so the remaining
+  aggregate matrix failure is cross-statement category-obligation example contamination rather than the
   isolated matrix constructor behavior.
-- 2026-05-06 smoke-harness stabilization slice: updated `assert_smoke_statements` so
-  each labeled smoke statement runs in a forked child process on Unix. This preserves
-  the smoke-frontier reporting behavior while preventing a failed refinement from
+- 2026-05-06 category-obligation harness stabilization slice: updated `assert_category_statements` so
+  each labeled category-obligation example statement runs in a forked child process on Unix. This preserves
+  the failed category assertions reporting behavior while preventing a failed refinement from
   mutating shared Sage parents before later statements run. Re-running `just
-  --justfile category_specs/justfile smoke-file rings/smoketest.sage` still fails on
+  --justfile category_specs/justfile category-obligation-file rings/category_obligations.sage` still fails on
   the existing non-matrix frontiers, but no longer reports `MatrixRing`, MRO, or
   method-resolution failures.
 - 2026-05-07 matrix predicate regression repair: the dependency-ready review found that
   `category_specs/rings/tests/regression/matrix_rings.sage` still failed after the
-  matrix constructor smoke because `Rings()` makes `is_commutative_ring()` abstract and
+  matrix constructor category-obligation example because `Rings()` makes `is_commutative_ring()` abstract and
   the matrix-algebra refinement did not provide a matrix-specific override. Added
   `_MatrixAlgebras.ParentMethods.is_commutative_ring()`,
   `is_integral_domain()`, and `is_field()` so the square matrix parent answers the
@@ -114,11 +114,11 @@ split.
   was selected from the DAG frontier; dependency-waiting tasks were not attempted or
   marked blocked.
 - Focused verification passed:
-  `just --justfile category_specs/justfile smoke-file rings/tests/regression/matrix_rings.sage`,
-  `just --justfile category_specs/justfile smoke-file rings/tests/new_spec/matrix_constructor_option_bag_split.sage`,
+  `just --justfile category_specs/justfile category-obligation-file rings/tests/regression/matrix_rings.sage`,
+  `just --justfile category_specs/justfile category-obligation-file rings/tests/new_spec/matrix_constructor_option_bag_split.sage`,
   and `just --justfile category_specs/justfile check-abstract-redefinitions`.
 - Aggregate verification with
-  `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` still fails
+  `just --justfile category_specs/justfile category-obligation-file rings/category_obligations.sage` still fails
   only on the existing non-matrix frontiers (`hilbert_polynomial`,
   `algebraic_closure`, `completion`, `_change_print_mode`, and the explicit q-adic
   deferred-frontier assertions). No `MatrixRing`, MRO, or matrix predicate failure is

@@ -12,7 +12,7 @@ status: complete
 priority: critical
 requirement: Record the root `Modules(R)` method surface as explicit project method
   signatures with caller category, inputs, hypotheses, return type, source evidence,
-  and decision status before any implementation moves or smoke-driven edits.
+  and decision status before any implementation moves or category-obligation example-driven edits.
 acceptanceCriteria:
 - Every root module method row states the project method location, complete signature,
   return type, hypotheses, and status in ordinary mathematical language.
@@ -48,7 +48,7 @@ Generic root ownership is the default whenever an operation is mathematically de
 for arbitrary `R`-modules. A row may assign a narrower owner only after recording the
 missing datum, hypothesis, or counterexample showing that the operation is not
 well-defined for arbitrary modules. Algorithmic difficulty, missing current Sage
-coverage, smoke failures, or the fact that the result lies in a construction category
+coverage, failed category assertions, or the fact that the result lies in a construction category
 are not evidence against root ownership.
 
 ## Source Provenance
@@ -72,7 +72,7 @@ are not evidence against root ownership.
 | `module_structure()` | `Modules(R).ParentMethods` for the current commutative or symmetric `(R,R)`-bimodule convention | `module_structure(self: RModule) -> ModuleStructure` | Scalar-action data defining `M` as an `R`-module: the action `R x M -> M`, equivalently a unital ring morphism from `R` to the endomorphism object of the underlying additive module | The current root convention fixes commutative/symmetric sidedness; future noncommutative owners must record left, right, or bimodule source and target data | Admitted by `[[DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES]]`; `ModuleStructure` is mathematical scalar-action data, not an option bag |
 | `modify_module_structure(...)` | Rejected as an unqualified public root method | Split into named constructions: `restrict_scalars(phi: S -> R)`, `extend_scalars(phi: R -> S)` / `base_change(phi)`, `twist_scalar_action(sigma)`, and isomorphic-object transport through explicit isomorphism vocabulary | New module objects with specified scalar action | Each named construction must record source/target rings and the action formula | Rejected by `[[DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES]]`; do not implement or retain as public API except as interop forwarding to an admitted named construction |
 | `symmetric_algebra()` | `Modules(R).OverCommutativeRing().ParentMethods` | `symmetric_algebra(self: RModule) -> Algebra` | `Sym_R(M)` | Commutative base ring; implementation may require finite presentation or basis data | Admitted for commutative base rings; codomain in algebra constructor vocabulary |
-| `alternating_algebra()` | `Modules(R).OverCommutativeRing().ParentMethods` | `alternating_algebra(self: RModule) -> Algebra` | exterior algebra `Lambda_R(M)` | Commutative base ring; implementation may require finite presentation or basis data | Admitted for commutative base rings; this is the current smoke frontier owner for `alternating_algebra` |
+| `alternating_algebra()` | `Modules(R).OverCommutativeRing().ParentMethods` | `alternating_algebra(self: RModule) -> Algebra` | exterior algebra `Lambda_R(M)` | Commutative base ring; implementation may require finite presentation or basis data | Admitted for commutative base rings; this is the current failed category assertions owner for `alternating_algebra` |
 | `dual()` | `Modules(R).ParentMethods` under the current commutative or symmetric `(R,R)`-bimodule convention; finite-free/projective owners provide canonical coordinate algorithms | `dual(self: RModule) -> DualModule` | `Hom_R(M, R)` with evaluation-bearing elements | Current root convention fixes the scalar action used for the Hom dual; finite-free/projective hypotheses are algorithmic or reflexivity refinements, not existence hypotheses | Admitted by `[[DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES]]`; do not move to `DualObjects()` merely because that is the result category, and do not overload with non-Hom dual notions |
 | `determinant_module()` | finite-rank projective modules, with finite-rank free modules as the first implementation owner | `determinant_module(self: RModule) -> RModule` | Top exterior power of `M` | Finite rank and projective/free hypotheses | Admitted on finite-rank projective/free owner, not arbitrary root modules |
 | `cardinality()` | Set/cardinality surface inherited by modules as sets | `cardinality(self: RModule) -> Cardinality` | Cardinality of the underlying set of `M` | Depends on set/cardinality framework, not module-specific structure | Prefer inherited set owner |
@@ -108,7 +108,7 @@ Referenced source files `category_specs/modules/__init__.py`, `category_specs/mo
 
 No row claims a source provenance that cannot be verified. Three methods (`torsion_submodule`, `symmetric_algebra`, `alternating_algebra`) have their abstract declaration in root `_RModObjects` while the spec maps their mathematical owner to a subcategory — this is correct Sage category inheritance behavior and the spec explicitly records the subcategory hypothesis. The acceptance criteria at line 26 (no root abstract deleted before replacement is admitted) is satisfied.
 
-One minor note: the spec row for `alternating_algebra` says "this is the current smoke frontier owner for `alternating_algebra`" — the root abstract declaration exists and the subcategory refinement matches the mathematical hypothesis (commutative base ring). No grounding gap.
+One minor note: the spec row for `alternating_algebra` says "this is the current failed category assertions owner for `alternating_algebra`" — the root abstract declaration exists and the subcategory refinement matches the mathematical hypothesis (commutative base ring). No grounding gap.
 
 ### G2 — Sage Surface Completeness
 
@@ -193,7 +193,7 @@ All 6 gates pass. The spec is source-grounded, Sage-surface complete, mathematic
 ## Implementation Consequence
 
 The immediate implementation card may add constructor routing needed to reach the next
-smoke frontier, but it must not move, delete, or weaken a root method until this spec
+failed category assertions, but it must not move, delete, or weaken a root method until this spec
 row is either admitted or replaced by a linked decision with the same method signature
 data. In particular, implementation must preserve every root abstract obligation whose
 mathematical definition applies to all modules; subcategory implementations may add

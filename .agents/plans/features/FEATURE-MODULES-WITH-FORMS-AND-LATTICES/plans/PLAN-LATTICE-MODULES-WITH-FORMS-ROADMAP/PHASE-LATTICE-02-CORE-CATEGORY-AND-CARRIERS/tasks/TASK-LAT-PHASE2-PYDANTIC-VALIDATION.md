@@ -83,7 +83,7 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 
 - 2026-05-06: Blocked by the current category-spec and semantic-vocabulary phase. This
   is implementation-phase Sage/lattice work and must not be executed merely to make
-  current Sage objects pass smokes before the ideal specs, method ownership, and
+  current Sage objects pass category-obligation examples before the ideal specs, method ownership, and
   vocabulary are settled.
 - This is a path-local phase gate, not a global blocker for the active goal. Continue
   approved spec, source-mining, audit, and decision leaves outside this implementation

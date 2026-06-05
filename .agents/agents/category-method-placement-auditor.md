@@ -66,7 +66,7 @@ weakest category where the required mathematical structure is available.
 
 Weekly during category-spec phase; also after any commit touching method placement,
 inherited method classes, decorators, mapping docs, Hom/End/Aut structure, type
-aliases, smokes, or specs.
+aliases, category-obligation examples, or specs.
 Source object: `category_specs/AGENTS.md` nontrivial-edit rule and the style guide's
 method-placement requirement.
 

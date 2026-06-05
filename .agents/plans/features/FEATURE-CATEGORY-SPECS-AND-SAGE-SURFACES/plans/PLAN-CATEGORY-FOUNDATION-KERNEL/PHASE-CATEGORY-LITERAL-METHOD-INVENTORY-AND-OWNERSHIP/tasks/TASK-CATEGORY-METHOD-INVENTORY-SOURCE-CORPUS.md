@@ -178,7 +178,7 @@ completion
 
 #### Residual Risks
 
-- Smoke tests were not run because this is a planning/spec-corpus card, not an
+- Category-obligation tests were not run because this is a planning/spec-corpus card, not an
   implementation validation card.
 - Downstream geometry/backend source admission remains delegated to dependent
   inventory cards.

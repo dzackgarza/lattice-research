@@ -1,4 +1,4 @@
-r"""Spec smoke for predicate-defined subcategories as Cat-subobjects."""
+r"""Category obligation examples for predicate-defined Cat subobjects."""
 
 import pathlib
 import sys
@@ -10,7 +10,7 @@ if str(ROOT) not in sys.path:
 from category_specs.cat import Cat
 from category_specs.lattices import Lattices
 from category_specs.modules import Modules
-from category_specs.utils import assert_smoke_statements
+from category_specs.utils import assert_category_statements
 from sage.all import ZZ
 
 
@@ -19,7 +19,7 @@ M = Modules(ZZ, dispatch=False)
 LATTICE_AMBIENT = M.Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
 L = Lattices(ZZ)
 
-SMOKE_STATEMENTS = (
+CATEGORY_STATEMENTS = (
     ("Modules(ZZ) is not registered as a Cat subobject", lambda _: M not in C.Subobjects()),
     ("Modules(ZZ).WithForms() is registered as a Cat subobject", lambda _: M.WithForms() in C.Subobjects()),
     ("Modules(ZZ).WithForms() records Modules(ZZ) as ambient category", lambda _: M.WithForms().ambient_category() is M),
@@ -37,4 +37,4 @@ SMOKE_STATEMENTS = (
     ("Lattices(ZZ) is defined by is_lattice", lambda _: L.defining_predicates() == ("is_lattice",)),
 )
 
-assert_smoke_statements(SMOKE_STATEMENTS)
+assert_category_statements(CATEGORY_STATEMENTS)

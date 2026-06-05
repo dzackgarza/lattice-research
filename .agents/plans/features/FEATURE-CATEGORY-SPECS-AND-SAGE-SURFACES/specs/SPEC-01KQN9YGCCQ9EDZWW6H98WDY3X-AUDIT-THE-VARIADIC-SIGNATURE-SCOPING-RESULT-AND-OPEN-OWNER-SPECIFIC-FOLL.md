@@ -138,7 +138,7 @@ Remaining public-variadic check:
 - Recovered the deleted variadic inventory from `plans/category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md` after the migrated `category_specs/...` provenance path proved stale.
 - Audited the recovered inventory against current module, ring, tensor, algebra, lattice, poset, set, topological-space, and Cat mapping/code surfaces.
 - Added Cat mapping for generated constructor aggregation forwarders so future audits do not mistake private dispatch glue for a public variadic constructor.
-- Skipped subtree smokes and global QC intentionally; this was a documentation/source-map audit, not implementation integration or phase transition.
+- Skipped subtree category-obligation examples and global QC intentionally; this was a documentation/source-map audit, not implementation integration or phase transition.
 
 ## 6-Gate Protocol Review Log
 

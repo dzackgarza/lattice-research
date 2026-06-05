@@ -45,21 +45,21 @@ background policy. The spec defines an ideal mathematical interface inside Sage'
 category/object universe. Current Sage coverage is not the adequacy standard, while
 Sage interop remains a design constraint where mathematically appropriate. Sage
 inventory is implementation evidence and a feasibility witness that helps preserve
-existing functionality and avoid unimplementable wishlists. Smoke failures record
+existing functionality and avoid unimplementable wishlists. Failed category assertions record
 current implementation or wrapper gaps against the ideal interface; they are not
 evidence that a spec method should be deleted, weakened, or moved without a grounded
 replacement owner.
 
 Every child phase must include a spec-weakening review gate before advancement. Review
 the staged diff, unstaged diff, and any commits created during the child work for
-deleted abstract methods, removed constructor/category obligations, narrowed smokes,
-or obligation moves without source-grounded replacement owners. A smoke improvement
+deleted abstract methods, removed constructor/category obligations, narrowed category-obligation examples,
+or obligation moves without source-grounded replacement owners. A category-obligation example improvement
 paired with interface shrinkage fails the child work.
 
 Every child phase must also include a mathematical review gate before implementation
 work that changes method ownership or spec surfaces. Method-owner rows must be written
 as coherent mathematical claims about caller object, required data, hypotheses,
-construction or predicate, and codomain/result. Sage inventory and smoke output are
+construction or predicate, and codomain/result. Sage inventory and category-obligation output are
 not sufficient grounding until that mathematical sentence is valid.
 
 Required sources include the relevant `category_specs/*/docs/MAPPING.md`,
@@ -122,7 +122,7 @@ This plan blocks broad implementation when vocabulary, type aliases, dual-object
 - [ ] Dual objects are reconciled with Homset routing before downstream discriminant work.
 - [ ] Method ownership is moved to the most general mathematically valid category.
 - [ ] Method ownership changes preserve the ideal mathematical surface; no child task
-      treats a Sage smoke failure as negative evidence against a spec obligation.
+      treats a Sage failed category assertion as negative evidence against a spec obligation.
 - [ ] Standard type aliases live in one canonical package.
 - [ ] TwistedForms is either admitted as a real category or rejected by decision card.
 - [ ] Constructor-interception work does not precede static category hierarchy and method-surface review.
@@ -828,14 +828,14 @@ All six success criteria (YAML `successCriteria`, lines 15-21) and six acceptanc
 |---|-----------|---------|-------|
 | 1 | Dual objects reconciled with Homset routing before discriminant work | **Conditional** | "Reconciled" is vague. What artifact signals completion? A spec update? A test? A decision card? No reconciliation standard is defined. |
 | 2 | Method ownership moved to most general mathematically valid category | **Conditional** | No measurable end-state. Is the inventory spec completion the signal? The phase PHASE-CATEGORY-LITERAL-METHOD-INVENTORY is complete, but the criterion doesn't reference it. |
-| 3 | Method ownership changes preserve ideal mathematical surface; smoke failure not treated as negative evidence | **Partially checkable** | The policy portion is checkable as a gate during review. The "preserve ideal surface" part requires a reference surface to compare against. |
+| 3 | Method ownership changes preserve ideal mathematical surface; failed category assertion not treated as negative evidence | **Partially checkable** | The policy portion is checkable as a gate during review. The "preserve ideal surface" part requires a reference surface to compare against. |
 | 4 | Standard type aliases live in one canonical package | **Checkable** ✓ | Can verify by checking that all type aliases route through a single package. |
 | 5 | TwistedForms admitted or rejected by decision card | **Checkable** ✓ | Binary: decision card exists or it doesn't. |
 | 6 | Constructor-interception work does not precede static hierarchy and method-surface review | **Checkable** ✓ | Ordering constraint verifiable from status fields. |
 
 **Conditions:**
 
-1. Criteria 1 and 2 need concrete completion artifacts specified. For criterion 1, the plan should state what "reconciled" means (e.g., "dual-object routing passes Homset shadowing smoke test" or "dual-object spec row is filled in SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY"). For criterion 2, the plan should link to the inventory spec as the measurable completion signal.
+1. Criteria 1 and 2 need concrete completion artifacts specified. For criterion 1, the plan should state what "reconciled" means (e.g., "dual-object routing passes Homset shadowing category-obligation test" or "dual-object spec row is filled in SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY"). For criterion 2, the plan should link to the inventory spec as the measurable completion signal.
 
 2. The YAML `successCriteria` (5 items) and body "Acceptance Criteria" checkboxes (6 items) overlap but are not identical. The YAML has: dual-object reconciliation, method-ownership movement, type aliases, TwistedForms, and constructor-interception ordering (5 items). The body adds criterion 3 about preserving the ideal mathematical surface (not in YAML) and splits method-ownership into two criteria (movement + preservation). The body also drops the explicit "TwistedForms" criterion from its checklist — it appears in YAML but not in the checkbox list. **Recommendation:** Align the YAML and body checklists for consistency.
 
@@ -923,12 +923,12 @@ The "Subplans" section (lines 101-108) references three additional plans:
 
 **Findings:**
 
-- **Spec-weakening review gate (lines 52-56):** Every child phase must include a gate that reviews staged/unstaged diffs and commits for deleted abstract methods, removed constructor/category obligations, narrowed smokes, or obligation moves without replacement owners. Smoke improvement paired with interface shrinkage fails the gate ✓. This is a strong preservation mechanism.
+- **Spec-weakening review gate (lines 52-56):** Every child phase must include a gate that reviews staged/unstaged diffs and commits for deleted abstract methods, removed constructor/category obligations, narrowed category-obligation examples, or obligation moves without replacement owners. A category-obligation example improvement paired with interface shrinkage fails the gate ✓. This is a strong preservation mechanism.
 - **Mathematical review gate (lines 58-62):** Every child phase must include a gate for method-owner rows written as coherent mathematical claims before implementation work changes ownership or surfaces ✓.
 - **Sage interop as design constraint (lines 44-47):** The plan explicitly states that Sage interop is a design constraint where mathematically appropriate, and that Sage inventory is implementation evidence and a feasibility witness ✓.
 - **No destructive operations:** The plan coordinates spec work and method ownership; it does not authorize deletion of existing functionality. The preservation gates ensure that any changes maintain or improve the mathematical surface ✓.
 - **Source corpus preservation:** The plan preserves content from five deleted/migrated source documents (axioms, category creation notes, etc.) by inlining their bodies rather than losing them ✓.
-- **Category spec philosophy alignment:** The plan aligns with `category_specs/AGENTS.md` directives: ideal mathematical interface is the standard, Sage coverage is not the adequacy standard, smoke failures are implementation evidence not spec-weakening evidence ✓.
+- **Category spec philosophy alignment:** The plan aligns with `category_specs/AGENTS.md` directives: ideal mathematical interface is the standard, Sage coverage is not the adequacy standard, failed category assertions are implementation evidence not spec-weakening evidence ✓.
 
 **G6 verdict:** PASS. The plan has strong preservation mechanisms through mandatory review gates and explicit non-destructive policies.
 

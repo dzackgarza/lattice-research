@@ -16,8 +16,8 @@ This file is also the only category-spec Python file allowed to perform
 attribute rebinding.  The rebinding here is not a mathematical surface: it is
 the source-grounded bridge to Sage's generated ``parent_class`` /
 ``subcategory_class`` machinery and to the aggregate ``Cat().Constructors()``
-view.  Spec categories, constructor collectors, smokes, and mapping code must
-not copy this pattern.
+view.  Spec categories, constructor collectors, category-obligation examples,
+and mapping code must not copy this pattern.
 """
 
 from __future__ import annotations

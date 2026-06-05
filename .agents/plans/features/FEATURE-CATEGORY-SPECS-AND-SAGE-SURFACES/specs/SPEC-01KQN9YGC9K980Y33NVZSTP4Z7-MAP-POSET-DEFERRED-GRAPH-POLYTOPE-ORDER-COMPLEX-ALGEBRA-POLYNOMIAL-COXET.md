@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
+- '[[PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS]]'
 title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter
   display and raw-interop surfaces to final owners
 status: complete
@@ -149,12 +149,12 @@ order-theoretic lattice vocabulary separate from module/quadratic lattice vocabu
 | `category_specs/posets/docs/SAGE_INVENTORY.md:112-123` | `category_specs/posets/docs/SAGE_INVENTORY.md` | Yes — 179 lines | **MATCH**: Lines 112-123 enumerate graphs/polytopes/complexes/display (line 112-115), polynomial and matrix invariants (lines 116-122), and algebraic constructions (line 123). Content fully supports the spec's surface inventory claims. |
 | `.agents/skills/category-spec-style/references/style.md:1139-1149` and `:1229-1242` | — | **NOT FOUND** | No `style.md` or `*style*` file exists on disk. `category_specs/AGENTS.md` states: "STYLE.md, WORKFLOW.md, and lower nested AGENTS.md files have been migrated into skills and should not be recreated as parallel docs." The conceptual claims (MAPPING.md as canonical owner source, highest-category placement rule) are verifiable in `category_specs/AGENTS.md` and the project's `AGENTS.md`, but the specific file reference is unresolvable. |
 | `SPEC-MAPPING-POSETS.md` (canonical mapping) | `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-POSETS.md` | Yes — 715 lines | The canonical parent mapping spec. Its "Deferred Non-Core Surfaces" table (lines 325-355) already provides per-method owner/status/codomain assignments that are more specific than this deferred spec's Execution Result. |
-| Phase dependency `PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES` | `plans/features/.../PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES.md` | Yes — 202 lines | Phase card exists, has its own 6-gate review, and references this spec at line 106. |
+| Phase dependency `PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS` | `plans/features/.../PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS.md` | Yes — 202 lines | Phase card exists, has its own 6-gate review, and references this spec at line 106. |
 
 **Frontmatter validation**:
 - `id: SPEC-01KQN9YGC9K980Y33NVZSTP4Z7-MAP-POSET-DEFERRED-...` matches filename stem ✓
 - `parents: [[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]` — parent exists ✓
-- `dependsOn: [[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]` — dependency exists and references this spec ✓
+- `dependsOn: [[PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS]]` — dependency exists and references this spec ✓
 - `status: needs-agent-review` — appropriate for a spec awaiting review ✓
 
 **G1 Verdict**: PARTIAL PASS. The critical anchoring claim — that these Sage surfaces are deferred non-core methods needing final placement — is supported by `SAGE_INVENTORY.md` and the canonical parent spec `SPEC-MAPPING-POSETS.md`. However, two source references are broken: the `MAPPING.md:232-253` line numbers point to a now-deleted block (the file is a 7-line redirect stub), and the `style.md` path does not resolve to any file on disk. These stale references should be updated to point to `SPEC-MAPPING-POSETS.md` lines ~325-355 and `category_specs/AGENTS.md` respectively.
@@ -322,7 +322,7 @@ All five acceptance criteria (lines 118-122) are checked off `[x]`:
 **No evidence of weakening:**
 - No Sage surfaces are dropped or deleted.
 - No mathematical capabilities are removed.
-- The spec does not propose interface relaxation, smoke scope reduction, or constructor obligation removal.
+- The spec does not propose interface relaxation, category-obligation example scope reduction, or constructor obligation removal.
 - The spec correctly preserves all deferred surfaces and routes them to appropriate codomains.
 
 **G6 Verdict**: PARTIAL PASS. The spec preserves all mathematical obligations — no Sage surface is dropped, no capability is weakened, and the mandatory lattice-vocabulary separation is maintained. However, two of five acceptance criteria (1 and 4) appear prematurely checked given the per-method specificity gap identified in G5. Criteria 2 is technically satisfied (no TRIAGE document created) but the corollary ("follow-up work is represented as tracker items") is not met because no tracker items were created.

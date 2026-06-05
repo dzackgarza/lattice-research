@@ -58,16 +58,16 @@ instantiate missing implementation.
 The Sage object is a partial implementation witness for the project spec.
 Concrete Sage methods may realize declared obligations when ordinary lookup reaches
 them.
-Missing obligations must remain visible through smokes, mapping rows, and refinement
-claims. Refinement is not the implementation phase and must not hide the gap between
-current Sage behavior and the spec.
+Missing obligations must remain visible through category-obligation examples, mapping
+rows, and refinement claims. Refinement is not the implementation phase and must not
+hide the gap between current Sage behavior and the spec.
 
 The constructor/refinement boundary is also the quarantine line for unavoidable Sage
 interop complexity.
 If the repair requires dynamic-class or metaclass work, keep it in the project-owned
 construction boundary and delegate ordinary behavior back to Sage and Python.
-Do not push that complexity into category specs, method bodies, smokes, or
-refinement-time satisfaction checks.
+Do not push that complexity into category specs, method bodies, category-obligation
+examples, or refinement-time satisfaction checks.
 
 The correct implementation shape is minimal reuse:
 

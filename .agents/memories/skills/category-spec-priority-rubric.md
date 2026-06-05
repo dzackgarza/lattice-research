@@ -36,8 +36,8 @@ Set `high` when other work depends on the item or delay creates redo risk:
 - Cross-domain or low-level category/code changes.
 - Simplification or consolidation work that prevents technical debt.
 - Work that, if postponed, will force later work to be rewritten.
-- Known constructor-routing, mapping, smoke-frontier, and ownership issues that affect
-  several downstream cards.
+- Known constructor-routing, mapping, failed-category-assertion, and ownership issues
+  that affect several downstream cards.
 
 Set `medium` for ordinary bounded work:
 

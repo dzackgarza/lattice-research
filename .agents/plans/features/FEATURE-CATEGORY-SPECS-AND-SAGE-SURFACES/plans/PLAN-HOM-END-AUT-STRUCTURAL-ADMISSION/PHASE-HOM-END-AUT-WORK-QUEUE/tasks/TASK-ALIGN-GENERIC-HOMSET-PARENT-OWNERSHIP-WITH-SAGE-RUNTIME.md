@@ -142,7 +142,7 @@ That still leaves a QC consequence:
   centralized type package now uses Python-3.12-compatible aliases and namespace
   containers so category package imports reach runtime Hom/End/Aut surfaces under
   Python 3.12.
-- 2026-05-18: Repaired non-Hom smoke blockers only where they sat on the import/runtime
+- 2026-05-18: Repaired non-Hom category-obligation example blockers only where they sat on the import/runtime
   path for reviewing the Hom owner split:
   - Sets: `is_countable()` now records the Countable axiom directly instead of
     forwarding to a missing Sage enumerated-set method.
@@ -151,12 +151,12 @@ That still leaves a QC consequence:
     `basis_index_set()` so basis keys are preserved rather than replaced by positional
     indices.
   - Rings: rational-field and algebraic-closure singleton methods now answer the
-    source-forced surfaces needed by rings smoke.
+    source-forced surfaces needed by rings category-obligation example.
   This card returns to the human approval gate after fresh-context review of the
   runtime repair and validation boundary.
 - 2026-05-18: Fresh-context review found the Hom owner repair coherent but required
   two revisions: ground mapping-valued module basis data in `ModuleBasis`, and
-  enumerate why non-Hom smoke repairs belong to this runtime review boundary. After
+  enumerate why non-Hom category-obligation example repairs belong to this runtime review boundary. After
   those revisions and focused validation, re-review returned
   `clean-to-route-human-input` with no remaining findings or non-human autonomous work
   in scope.
@@ -188,31 +188,31 @@ That still leaves a QC consequence:
     send-back after clean fresh-context review.
 - Focused validation after runtime repair:
   - `python -m compileall -q category_specs` passed.
-  - `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file homsets/category_obligations.sage`
     exited 0, with Sage method-provider superclass warnings.
-  - `just --justfile category_specs/justfile smoke-file types_smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file type_alias_obligations.sage`
     exited 0 after the centralized type-package alias repair.
-  - `just --justfile category_specs/justfile smoke-file forms/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file forms/category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file sets/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file sets/category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file posets/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file posets/category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file modules/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file modules/category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file rings/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file rings/category_obligations.sage`
     requires separate rings-surface validation.
-  - `just --justfile category_specs/justfile smoke-file algebras/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file algebras/category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file tensor_algebra_components/category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file cat/category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file lattices/chain_smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file lattices/chain_category_obligations.sage`
     exited 0.
-  - `just --justfile category_specs/justfile smoke-file lattices/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file lattices/category_obligations.sage`
     exited 0, with Sage method-provider superclass warnings.
-  - `just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage`
+  - `just --justfile category_specs/justfile category-obligation-file topological_spaces/category_obligations.sage`
     exited 0, with Sage method-provider superclass warnings.
 - Fresh-context review:
   - Initial verdict: `revision-required` for the ungrounded mapping-valued

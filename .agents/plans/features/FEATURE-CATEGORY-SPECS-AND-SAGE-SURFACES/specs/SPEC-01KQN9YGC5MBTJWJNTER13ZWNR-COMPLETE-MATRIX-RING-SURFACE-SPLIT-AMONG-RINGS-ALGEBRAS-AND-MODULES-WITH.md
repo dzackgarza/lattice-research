@@ -7,10 +7,10 @@ parents:
 dependsOn:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 title: Complete matrix ring surface split among rings algebras and modules without
-  weakening the matrix smoke
+  weakening the matrix category-obligation example
 status: complete
 priority: critical
-requirement: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+requirement: 'The deleted Rings triage recorded ring category-obligation example blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the
   matrix-ring surface split.'
 acceptanceCriteria:
@@ -19,18 +19,18 @@ acceptanceCriteria:
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No new implementation blocker was discovered during this docs/spec pass; the existing
-  implementation proof remains the matrix smoke frontier.
-- No ring constructor or axiom code changed, so the `rings/smoketest.sage` trigger
+  implementation proof remains the matrix failed category assertions.
+- No ring constructor or axiom code changed, so the `rings/category_obligations.sage` trigger
   did not apply in this pass.
 - Constructor membership assertions were not weakened; the docs now preserve simultaneous
-  ring/algebra/module refinement as the smoke expectation.
+  ring/algebra/module refinement as the category-obligation example expectation.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
-# Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke
+# Complete matrix ring surface split among rings algebras and modules without weakening the matrix category-obligation example
 ## Summary
 
-The deleted Rings triage recorded ring smoke blockers: nested axiom category identity
+The deleted Rings triage recorded ring category-obligation example blockers: nested axiom category identity
 mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
 split.
 
@@ -41,7 +41,7 @@ split.
   at that parent commit.
 - Exact recovered prior content came from
   `git show 8d1c21c^:plans/category_specs/rings/docs/TRIAGE.md`.
-- Original migrated line: `Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke from category_specs/rings/docs/TRIAGE.md`
+- Original migrated line: `Complete matrix ring surface split among rings algebras and modules without weakening the matrix category-obligation example from category_specs/rings/docs/TRIAGE.md`
 - Sage written-doc and source anchors used for this leaf:
   `https://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix_space.html`,
   `https://doc.sagemath.org/html/en/reference/modules/sage/modules/free_module.html`,
@@ -54,7 +54,7 @@ split.
 - ZZ, field constructors, p-adic constructors, and q-adic constructors fail through nested axiom category class-identity mismatches.
 - IntegerModRing, PolynomialRing, PowerSeriesRing, LaurentSeriesRing, PuiseuxSeriesRing, and MatrixRing refine far enough to expose missing _sympy_.
 - MatrixRing stays reachable from Rings().Constructors(), but the result must refine into Algebras(R) and Modules(R).Free().FiniteRank().
-- The matrix smoke must not be moved or weakened to hide the surface split.
+- The matrix category-obligation example must not be moved or weakened to hide the surface split.
 
 ## Grounded Spec Contract
 
@@ -92,16 +92,16 @@ Required hypotheses and codomains:
 Rejection/retirement condition:
 
 - reject any spec move that collapses the owner split by relocating all matrix methods
-  into one subtree, or that weakens matrix smoke expectations to avoid proving the same
+  into one subtree, or that weakens matrix category-obligation example expectations to avoid proving the same
   parent refines into rings, algebras, and modules simultaneously.
 
 ## Acceptance Criteria
 
 - [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [x] No new implementation blocker was discovered during this docs/spec pass; the existing implementation proof remains the matrix smoke frontier.
-- [x] No ring constructor or axiom code changed, so the `rings/smoketest.sage` trigger did not apply in this pass.
-- [x] Constructor membership assertions were not weakened; the docs now preserve simultaneous ring/algebra/module refinement as the smoke expectation.
+- [x] No new implementation blocker was discovered during this docs/spec pass; the existing implementation proof remains the matrix failed category assertions.
+- [x] No ring constructor or axiom code changed, so the `rings/category_obligations.sage` trigger did not apply in this pass.
+- [x] Constructor membership assertions were not weakened; the docs now preserve simultaneous ring/algebra/module refinement as the category-obligation example expectation.
 
 ## Dependencies And Boundaries
 
@@ -118,7 +118,7 @@ Rejection/retirement condition:
 - Recorded the owner split in the mapping docs: `Rings().Constructors().MatrixRing(...)`
   remains the constructor owner; the returned square matrix parent simultaneously
   refines into `Rings()`, `Algebras(R)`, and `Modules(R).Free().FiniteRank()`.
-- Kept the matrix smoke requirement intact: no constructor relocation and no weakening
+- Kept the matrix category-obligation example requirement intact: no constructor relocation and no weakening
   of simultaneous refinement expectations.
 
 ## 6-Gate Protocol Review Log
@@ -131,7 +131,7 @@ Rejection/retirement condition:
 
 All claimed source anchors verified as of review date:
 
-- **Git provenance**: Commit `8d1c21c` exists in repository. File `plans/category_specs/rings/docs/TRIAGE.md` at `8d1c21c^` contains the exact original migrated line: "Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke from category_specs/rings/docs/TRIAGE.md". The spec's note that the shorter path `category_specs/rings/docs/TRIAGE.md` fails is confirmed accurate — the file lived under the `plans/` prefix at that commit.
+- **Git provenance**: Commit `8d1c21c` exists in repository. File `plans/category_specs/rings/docs/TRIAGE.md` at `8d1c21c^` contains the exact original migrated line: "Complete matrix ring surface split among rings algebras and modules without weakening the matrix category-obligation example from category_specs/rings/docs/TRIAGE.md". The spec's note that the shorter path `category_specs/rings/docs/TRIAGE.md` fails is confirmed accurate — the file lived under the `plans/` prefix at that commit.
 
 - **Sage documentation URLs**: All three are valid (HTTP 200):
   - `https://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix_space.html`
@@ -175,7 +175,7 @@ The mathematical claims are standard and correct:
 
 The spec includes explicit non-mathematical rejection/retirement conditions:
 - Reject any spec move that collapses the owner split by relocating all matrix methods into one subtree.
-- Reject any spec move that weakens matrix smoke expectations to avoid proving simultaneous refinement.
+- Reject any spec move that weakens matrix category-obligation example expectations to avoid proving simultaneous refinement.
 - Acceptance criteria forbid: new subtree-local TRIAGE/process documents, implementation blockers, code changes, weakening of constructor membership assertions.
 - These are procedural/spec-integrity guards, not mathematical conditions. They are valid and well-scoped.
 
@@ -191,12 +191,12 @@ The spec routes ambiguity proactively:
 - Source provenance recorded with exact git commands and commit hash (`8d1c21c`).
 - Original migrated line preserved verbatim in the Source Provenance section.
 - Work log records the recovery steps taken during migration repair.
-- Acceptance criterion 5 confirms: "Constructor membership assertions were not weakened; the docs now preserve simultaneous ring/algebra/module refinement as the smoke expectation."
-- The spec explicitly states: "The matrix smoke must not be moved or weakened to hide the surface split."
+- Acceptance criterion 5 confirms: "Constructor membership assertions were not weakened; the docs now preserve simultaneous ring/algebra/module refinement as the category-obligation example expectation."
+- The spec explicitly states: "The matrix category-obligation example must not be moved or weakened to hide the surface split."
 
 ### Overall Assessment: ALL GATES PASS
 
-The spec is well-grounded in verifiable sources, mathematically correct, complete in structure, and preserves the original smoke requirement without weakening. Minor staleness in the MAPPING.md references (now redirects) does not affect substantive correctness — the content referenced exists in the redirected tracked specs and is fully consistent with the spec's claims.
+The spec is well-grounded in verifiable sources, mathematically correct, complete in structure, and preserves the original category-obligation example requirement without weakening. Minor staleness in the MAPPING.md references (now redirects) does not affect substantive correctness — the content referenced exists in the redirected tracked specs and is fully consistent with the spec's claims.
 
 ### Recommendations
 - Consider updating the MAPPING.md references in the Grounding Anchors section to point to the canonical tracked spec files (SPEC-MAPPING-RINGS.md etc.) rather than the redirect stubs, to avoid future confusion.

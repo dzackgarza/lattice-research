@@ -103,7 +103,7 @@ Every mypy error should be classified against the three problem types above.
 - Treating the ledger as a scoreboard rather than a diagnostic signal.
 - Treating engineering-shaped machinery as category-spec progress before it names a
   mathematical delta.
-- Polishing a slop-produced surface instead of redoing the underlying method owner,
+- Polishing a slop-produced artifact instead of redoing the underlying method owner,
   category edge, obligation, or provider relation correctly.
 
 ## The core principle
@@ -117,7 +117,7 @@ Do not write a document explaining why the absurdity is acceptable.
 
 ## Ledgers are symptoms, not the task
 
-A ledger row is smoke. It is not the fire.
+A ledger row is diagnostic evidence. It is not the mathematical defect.
 
 Do not "work on the ledger" unless the requested deliverable is explicitly a ledger
 classification. In ordinary category-spec work, a ledger row only points to a possible
@@ -159,9 +159,9 @@ The category-spec layer exists to make mathematical implementations auditable an
 transferable to research. It is not a separate engineering deliverable to optimize
 indefinitely.
 
-Do not treat mypy ledgers, feature cards, or category coverage reports as the object
-of work. They are smoke. The fire is always a mathematical/source-level inconsistency,
-missing operation, wrong owner category, or unsafe bridge boundary.
+Do not treat mypy ledgers, feature cards, or category coverage reports as the object of
+work. They are diagnostic evidence. The defect is always a mathematical/source-level
+inconsistency, missing operation, wrong owner category, or unsafe bridge boundary.
 
 If a category-spec task does not clarify mathematical ownership, expose a real
 operation, place an obligation correctly, or unblock downstream research vocabulary,

@@ -8,7 +8,10 @@ Project-owned constructor API design in `category_specs`: Sage-backed object con
 
 Ambient provider mutation: making existing Sage globals, module attributes, dynamic classes, or temporary providers secretly behave like project constructors and then calling that compatibility.
 
-Raw-Sage escape hatches: exposing raw Sage objects to downstream users, making smokes/tests use raw Sage objects after admission, or using raw reconstruction as an undocumented shortcut instead of a mapped category-owned constructor.
+Raw-Sage escape hatches: exposing raw Sage objects to downstream users, making
+category-obligation examples or tests use raw Sage objects after admission, or using raw
+reconstruction as an undocumented shortcut instead of a mapped category-owned
+constructor.
 
 ## Correct first question
 
@@ -42,7 +45,8 @@ The required workflow is:
 
 - Read Sage written docs for the constructor family.
 - Read the actual Sage factory/source code, especially variadic factories, `create_key`, `create_object`, positional-only signatures, deprecated argument routes, internal argument names, and backend dispatch.
-- Enumerate every actually valid input shape. Do not infer from a displayed signature, smoke failure, or old wrapper.
+- Enumerate every actually valid input shape. Do not infer from a displayed signature,
+  failed category assertion, or old wrapper.
 - Write or correct the mapping docs so each source-grounded Sage constructor input
   shape maps to one explicit project constructor overload or spec-layer promotion
   path. Constructor mapping docs are an admission boundary, not a parking lot:
@@ -53,7 +57,8 @@ The required workflow is:
 - Before implementing such a path, record the actual Sage behavior for that route. The implementation may not be chosen from an abstract `A -> B` template; it must follow what the Sage constructor actually does with the input parent.
 - For implementation, attempt direct spec-owned input passage first. If Sage's dynamic category machinery rejects the refined input, construct the ordinary Sage input parent from canonical methods on the spec-owned object, call Sage's original constructor with that representative, and refine the result. If canonical reconstruction is not possible, escalate the missing bridge rather than guessing.
 - Implement each overload as a closed route: validate the named shape, preserve spec-layer inputs as spec-layer objects, perform the required Sage-backed construction behind the category-owned boundary, refine the returned parent into the project category hierarchy, and return it.
-- Smoke tests and regression tests for project constructors call category constructor surfaces only, never raw Sage constructors.
+- Category-obligation examples and regression tests for project constructors call
+  category constructor methods only, never raw Sage constructors.
 
 Do not redefine, monkeypatch, or shadow Sage entry points to make raw Sage syntax satisfy project specs. There is no normal need for "constructor redefinitions" in spec code. Old Sage spellings are migration or compatibility evidence only; they do not become the project API by rebinding `sage.all`, Sage modules, object attributes, temporary providers, or class methods.
 
@@ -63,7 +68,10 @@ A helper used by a constructor collector may exist only as implementation suppor
 
 ## Audit trigger
 
-Any surprise in a constructor interface means the workflow may have been reward-hacked. Examples: unexpected keyword errors, a positional form not present in mapping docs, a variadic fallback body, smoke tests calling raw Sage constructors, or a helper module that owns several unrelated constructor families.
+Any surprise in a constructor interface means the workflow may have been reward-hacked.
+Examples: unexpected keyword errors, a positional form not present in mapping docs, a
+variadic fallback body, category-obligation examples calling raw Sage constructors, or a
+helper module that owns several unrelated constructor families.
 
 When that happens, do not patch the failing signature locally, do not improve the
 existing artifact in place, and do not preserve the bad artifact with a more honest
@@ -72,20 +80,25 @@ label. Go back to the first workflow step and reconstruct the mapping from sourc
 - Sage docs/source for the constructor family.
 - The mapping docs that should enumerate every valid constructor shape.
 - The category `Constructors()` overloads and implementation bodies.
-- Smokes and regression tests, which must exercise category constructors only.
+- Category-obligation examples and regression tests, which must exercise category
+  constructors only.
 
-The acceptance condition is not "the smoke passes." The acceptance condition is that the mapping, overloads, implementation, and tests all expose the same finite, named, category-owned constructor surface.
+The acceptance condition is not "the category-obligation example passes." The acceptance
+condition is that the mapping, overloads, implementation, and tests all expose the same
+finite, named, category-owned constructor interface.
 
 ## Red flags
 
 - `setattr`, `delattr`, `globals()`, `locals()`, `vars(...)`, or direct module/class attribute rebinding in spec code.
 - File names or commit messages using “constructor redefinition”, “install constructor refinements”, “patch top-level Sage constructors”, “provider injection”, “temporary provider”, or “generated forwarder” without a mathematical owner route.
-- A smoke failure is fixed by changing ambient behavior rather than by adding or correcting a `Cat().Constructors()` method.
+- A failed category assertion is fixed by changing ambient behavior rather than by
+  adding or correcting a `Cat().Constructors()` method.
 - One module owns unrelated constructor families such as finite fields, p-adics, polynomial rings, modules, matrix spaces, and number fields.
 - The patch makes existing informal syntax work but does not make the category constructor surface more complete or discoverable.
 - A project constructor has `*args`, `**kwargs`, catch-all forwarding, positional public arguments, or type-narrowing `try/except` dispatch.
 - Mapping docs do not list the exact Sage input permutations recovered by the implementation.
-- Smoke tests import or call raw Sage constructors when a category-owned constructor exists.
+- Category-obligation examples import or call raw Sage constructors when a
+  category-owned constructor exists.
 - An agent responds to constructor drift by widening a wrapper signature before verifying Sage docs/source and the mapping row.
 - An agent responds to a constructor-composition failure by suggesting public raw Sage reconstruction, unrefinement, hidden provenance, or bypassing the mapped category-owned constructor surface.
 - An agent invents a new constructor name by analogy with a nearby Sage family, then
@@ -124,8 +137,8 @@ surface", and "constructor gap frontier" in constructor mapping/spec/visual sour
 hard failures. They are not future-work markers; they are evidence that an agent is
 polishing an artifact that should not exist in the constructor workflow.
 
-When an invented constructor name is found, remove the invented public method, smoke
-entry, mapping row, decision card, and task trail. Do not keep a specific "not
+When an invented constructor name is found, remove the invented public method,
+category-obligation example entry, mapping row, decision card, and task trail. Do not keep a specific "not
 admitted" artifact to explain the bad name; git history is enough for the local
 incident. The durable memory should capture only the reusable failure mode: an agent
 saw a partial analogy or Sage gap and converted it into public API vocabulary without

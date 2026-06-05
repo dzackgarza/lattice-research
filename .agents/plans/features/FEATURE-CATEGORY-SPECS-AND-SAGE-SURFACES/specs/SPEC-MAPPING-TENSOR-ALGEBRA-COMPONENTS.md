@@ -44,7 +44,7 @@ Source inventory: `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.
 - Preserve every inventoried Sage surface by mapping it to a project mathematical surface, a named constructor path, a mathematically justified non-mapping, or a tracked decision.
 - Place every method at the highest category where the operation is mathematically well-defined; subcategories inherit methods from supercategories.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
-- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
+- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
 ## Source Coverage Ledger
@@ -327,12 +327,12 @@ Spec row 118 states `Tensor.structure_constants(frame=e)` as accepting a frame p
 **Checked for weakening patterns:**
 - No abstract methods deleted: The project's `_TensorElementMethods` class retains `trace()`, `contract()`, `base_module()`, `tensor_type()`. Spec does not remove any abstract obligation.
 - No constructor obligations removed: matrix, module-element matrix, multidimensional-list, and list-of-matrices coordinate inputs are all admitted as explicit named input shapes of `tensor(...)`. Private `_from_components` is retained as interop glue.
-- No smoke assertions narrowed: The spec's acceptance criteria (lines 15-23) require source review, complete row data, mathematical well-definedness, nonmathematical rejection, and ambiguity routing — all preserved.
+- No category assertions narrowed: The spec's acceptance criteria (lines 15-23) require source review, complete row data, mathematical well-definedness, nonmathematical rejection, and ambiguity routing — all preserved.
 - Sage-gap-driven shrinkage avoided: The spec rejects Sage surfaces (display, index notation, raw Components) on mathematical grounds (they are coordinate/rendering artifacts), not because Sage has gaps. The specified project API is strictly stronger: typed `trace`/`contract` vs Sage's defaulted overloads; frame-aware constructors vs Sage's catch-all component assignment.
 - Symmetry/antisymmetry preserved: Row 132 admits `sym=`/`antisym=` as constructor metadata with `Symmetric(slot_blocks)` and `Alternating(slot_blocks)` refinements. Mathematical submodule structure is preserved. Old code treating symmetry as its own container is retired but the mathematical structure is not weakened.
 - Dual object preservation: Rows 139-163 explicitly confirm dual components are tensor-algebra components with opposite type and form interpretation as extra structure — no dual obligation is dropped.
 
-**G6 verdict: PASS.** No abstract methods, constructor obligations, smoke assertions, or mathematical invariants are weakened. The spec sharpens Sage's surface (typed positions vs defaults, named constructors vs catch-all assignment) while preserving all mathematically essential structure.
+**G6 verdict: PASS.** No abstract methods, constructor obligations, category assertions, or mathematical invariants are weakened. The spec sharpens Sage's surface (typed positions vs defaults, named constructors vs catch-all assignment) while preserving all mathematically essential structure.
 
 ---
 

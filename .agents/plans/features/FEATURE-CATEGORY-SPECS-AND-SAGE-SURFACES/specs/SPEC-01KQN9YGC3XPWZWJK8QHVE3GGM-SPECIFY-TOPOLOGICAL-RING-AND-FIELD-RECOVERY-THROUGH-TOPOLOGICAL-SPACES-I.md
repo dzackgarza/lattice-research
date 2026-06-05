@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
+- '[[PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES]]'
 title: Specify topological ring and field recovery through topological_spaces inheritance
   rather than pure topological constructors
 status: complete
@@ -131,7 +131,7 @@ Migration consequence:
 - no ring-only file becomes a second owner for `is_open`, `is_closed`, `closure`,
   `interior`, `boundary`, `is_connected`, or `is_compact`.
 
-Validation note: runtime smoke/QC execution was intentionally skipped for this bounded
+Validation note: runtime category-obligation example/QC execution was intentionally skipped for this bounded
 phase-01 spec leaf. The source check here is document/spec-level only.
 
 ## Dependencies And Boundaries
@@ -258,7 +258,7 @@ The topological ring refinement routing is mathematically sound:
 
 6. **Deferred gap acknowledgment:** The spec honestly acknowledges that Zq and
    Qq (q-adic unramified extensions) lack working split lattice caps in the
-   installed Sage, and that runtime smoke execution is intentionally skipped.
+   installed Sage, and that runtime category-obligation example execution is intentionally skipped.
    This is an honest boundary, not a math error.
 
 **Refinement routing verdict:** No mathematical errors detected. The inheritance/
@@ -304,4 +304,4 @@ The spec preserves existing constraints:
 **ALL GATES PASS.** The spec is fully source-grounded, complete, mathematically
 correct in its topological ring refinement routing, and preserves all required
 constraints. No blocking issues found. The card is ready for the next phase
-(execution/smoke validation when Sage q-adic extension paths mature).
+(execution/category-obligation example validation when Sage q-adic extension paths mature).

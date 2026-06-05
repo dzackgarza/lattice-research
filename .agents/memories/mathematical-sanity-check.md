@@ -149,18 +149,18 @@ look more correct rather than making the mathematics more correct.
 
 Case study: cache priming before category refinement should have looked out of place
 immediately. Caching is not a mathematical structure. The right question was not "does
-this fix the failing smoke?" but "why is category-spec refinement reasoning about
-caches at all?" That question leads to the actual defect: concrete providers and
+this fix the failed category assertion?" but "why is category-spec refinement reasoning
+about caches at all?" That question leads to the actual defect: concrete providers and
 abstract obligations were being ordered/classified incorrectly during refinement.
 
 ## Mathematical delta gate
 
 For category-spec work, a patch is not substantively aligned merely because it makes a
-tool, smoke, hook, report, or ledger look better. It must have a visible mathematical
-delta: a category edge becomes correct, an operation owner is fixed, an abstract
-obligation is represented faithfully, a concrete provider is allowed to satisfy the
-right contract, a missing obligation is exposed instead of hidden, or a recovery
-formula/representation split is made explicit.
+tool, category-obligation example, hook, report, or ledger look better. It must have a
+visible mathematical delta: a category edge becomes correct, an operation owner is
+fixed, an abstract obligation is represented faithfully, a concrete provider is allowed
+to satisfy the right contract, a missing obligation is exposed instead of hidden, or a
+recovery formula/representation split is made explicit.
 
 If the only visible delta is engineering-shaped, stop before polishing. The review
 question is: "What mathematical statement would be false without this patch, and where

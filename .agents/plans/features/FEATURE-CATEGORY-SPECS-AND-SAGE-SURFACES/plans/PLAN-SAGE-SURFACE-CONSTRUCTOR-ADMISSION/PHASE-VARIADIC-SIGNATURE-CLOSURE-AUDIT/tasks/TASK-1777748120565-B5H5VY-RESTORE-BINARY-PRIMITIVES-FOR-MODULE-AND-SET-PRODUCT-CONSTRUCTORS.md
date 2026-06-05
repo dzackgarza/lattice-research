@@ -49,7 +49,7 @@ Task: restore explicit non-variadic module and set product constructors and add 
       finite-factor constructor and refines into Cartesian-product sets.
 - [x] Lowercase Sage compatibility remains available through an explicit non-variadic
       sequence surface.
-- [x] Existing two-factor smoke/regression assertions exercise the named factor
+- [x] Existing two-factor category-obligation example/regression assertions exercise the named factor
       constructor.
 - [x] Multi-factor compatibility is still covered through the same Sage constructor
       name.
@@ -103,14 +103,14 @@ Task: restore explicit non-variadic module and set product constructors and add 
 ## Verification
 
 - Passed: `python -m py_compile category_specs/sets/__init__.py category_specs/sets/subcategories/cartesian_product.py`
-- Passed: `git diff --check -- category_specs/sets/__init__.py category_specs/sets/subcategories/cartesian_product.py category_specs/sets/smoketest.sage category_specs/sets/tests/regression/cartesian_product.sage plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-1777748120565-B5H5VY-RESTORE-BINARY-PRIMITIVES-FOR-MODULE-AND-SET-PRODUCT-CONSTRUCTORS.md`
+- Passed: `git diff --check -- category_specs/sets/__init__.py category_specs/sets/subcategories/cartesian_product.py category_specs/sets/category_obligations.sage category_specs/sets/tests/regression/cartesian_product.sage plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-1777748120565-B5H5VY-RESTORE-BINARY-PRIMITIVES-FOR-MODULE-AND-SET-PRODUCT-CONSTRUCTORS.md`
 - Passed with the existing Sage topological-axiom warning:
-  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage`
+  `just --justfile category_specs/justfile category-obligation-file sets/category_obligations.sage`
 - Passed: `sage category_specs/sets/tests/regression/cartesian_product.sage`
 - 2026-05-07 rework validation:
   - `python -m py_compile category_specs/sets/__init__.py category_specs/sets/subcategories/cartesian_product.py` passed.
   - `uvx --from ruff ruff check category_specs/sets/__init__.py category_specs/sets/subcategories/cartesian_product.py` passed.
-  - `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed,
+  - `just --justfile category_specs/justfile category-obligation-file sets/category_obligations.sage` passed,
     with the same pre-existing Sage warning about `Sets.Topological` not subclassing
     `CategoryWithAxiom`.
   - `sage category_specs/sets/tests/regression/cartesian_product.sage` passed.
@@ -119,8 +119,8 @@ Task: restore explicit non-variadic module and set product constructors and add 
 
 - Reviewed staged/unstaged changes for this task. The diff adds a binary primitive,
   adds a named finite-factor compatibility surface, preserves lowercase Sage-style
-  compatibility, and strengthens smoke coverage for the binary primitive. No abstract
-  method, constructor obligation, smoke assertion, or owner surface was deleted or
+  compatibility, and strengthens category-obligation example coverage for the binary primitive. No abstract
+  method, constructor obligation, category assertion, or owner surface was deleted or
   narrowed to make Sage pass.
 
 ## Review Log
@@ -145,24 +145,24 @@ Evidence:
 
 - AC1: `Sets().Constructors().CartesianProduct(factors=factors)` is named-only and delegates to Sage's `CartesianProduct(sets, category, flatten=False)` constructor.
 - AC2: Lowercase `cartesian_product(self, factors: Sequence[Set])` delegates to the same named constructor route.
-- AC3: Smoke and regression assertions exercise two-factor and three-factor named-factor calls.
+- AC3: Category-obligation example and regression assertions exercise two-factor and three-factor named-factor calls.
 - AC4: Multi-factor products are covered through the same constructor name rather than a second invented public name.
 - AC5: Module surfaces audited. `direct_sum` and `tensor` each have binary + sequence overloads with `@final` concrete implementations.
 - AC6: Spec-weakening review section in card confirms no obligations deleted.
 
 #### Gate 3: Spec-Weakening — PASSED
 
-Examined cumulative diff covering all changes. No abstract methods deleted. No constructor obligations removed. No smoke assertions narrowed. The diff preserves Sage's `CartesianProduct` constructor name, preserves lowercase Sage compatibility, and keeps named factor smoke coverage.
+Examined cumulative diff covering all changes. No abstract methods deleted. No constructor obligations removed. No category assertions narrowed. The diff preserves Sage's `CartesianProduct` constructor name, preserves lowercase Sage compatibility, and keeps named factor category-obligation example coverage.
 
 #### Gate 4: Gradient — PASSED
 
-No decided decision cards reversed. Previously passing smokes still pass. Smoke file grew (~200 new lines) — positive gradient. Git history shows additive commits only. No previously resolved TODO reintroduced.
+No decided decision cards reversed. Previously passing category-obligation examples still pass. Category-obligation example file grew (~200 new lines) — positive gradient. Git history shows additive commits only. No previously resolved TODO reintroduced.
 
 #### Gate 5: Mathematical Correctness — PASSED
 
 - `python -m py_compile` on both files: exit 0.
 - `uvx --from ruff ruff check` on both files: all checks passed.
-- Sage smoke: `just smoke-file sets/smoketest.sage` passed (pre-existing `Sets.Topological` warning only).
+- Sage category-obligation example: `just category-obligation-file sets/category_obligations.sage` passed (pre-existing `Sets.Topological` warning only).
 - Sage regression: `sage category_specs/sets/tests/regression/cartesian_product.sage` passed.
 - `git diff --check` passed.
 
@@ -176,4 +176,4 @@ No decided decision cards reversed. Previously passing smokes still pass. Smoke 
 
 #### Residual Risk
 
-Low. All prior risks closed. The re-review independently ran `py_compile` and `ruff check`. Sage smoke/regression recorded as passing consistently.
+Low. All prior risks closed. The re-review independently ran `py_compile` and `ruff check`. Sage category-obligation example/regression recorded as passing consistently.

@@ -22,7 +22,7 @@
 | `[no-redef]` | 8 | code | `Constructors` class/method name collision (8 files) — tracked by triage card |
 | `[return-value]` | 5 | plugin | Covariant return narrowing |
 | `[operator]` / `[arg-type]` | 5 | plugin | `MorphismMethods` not callable, `__gt__`/`__ge__` type width |
-| `[attr-defined]` (test) | 1 | code | `category_specs.refinement` missing — `test_spec_smoke.py:70` |
+| `[attr-defined]` (test) | 1 | code | `category_specs.refinement` missing — `test_spec_obligations.py:70` |
 
 **Rough split: ~496 plugin-gap errors, ~794 code-gap errors**
 
@@ -72,6 +72,6 @@ Gates: all plugin tasks are gated on `PHASE-QC-BASIC-TYPING-HYGIENE` completing 
    - `[no-redef]` 8: `Constructors` collision across 8 `__init__.py` files.
 3. **`cat/base_category_types.py` misc cluster** (4 distinct non-override `[misc]` types in one file) — `_make_named_class`, `__classcall__`, invalid base class, `Cannot assign to final`. These are low-count but structurally blocking.
 
-**Open question:** The `category_specs.refinement` attribute missing from smoke test (`test_spec_smoke.py:70`) — is this a missing module or a renamed subpackage? Not tracked in any current task card.
+**Open question:** The `category_specs.refinement` attribute missing from category-obligation test (`test_spec_obligations.py:70`) — is this a missing module or a renamed subpackage? Not tracked in any current task card.
 
 **Blocked until plugin work lands:** The 359 `@override` errors and 98 `_with_axiom` errors (combined ~457 errors, 35% of total) cannot be fixed without the Sage mypy plugin.

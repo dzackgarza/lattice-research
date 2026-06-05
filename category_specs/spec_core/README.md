@@ -71,7 +71,7 @@ routes until lattice-native constructors are admitted.
 
 Constructor registries contain admitted constructor routes only. A constructor shape
 that is not source-grounded in Sage does not become a registry entry, mapping row,
-smoke target, or "deferred" record.
+category-obligation example, or "deferred" record.
 
 ## Adding A Sage Implementation
 

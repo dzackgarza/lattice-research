@@ -129,7 +129,7 @@ No dependencies. This is the first mypy/QC task.
     construction selectors report `category_of(...)` return/promotion failures.
   - Spec-weakening review: the source diff removes local casts and keeps the direct
     category selector/constructor expressions. No abstract method, constructor
-    collector, smoke assertion, or category obligation is deleted or weakened by this
+    collector, category assertion, or category obligation is deleted or weakened by this
     cast-pattern correction.
 - 2026-05-14: Removed the remaining aggregate `[redundant-cast]` findings in
   `category_specs/cat/__init__.py` and `category_specs/posets/__init__.py`.
@@ -138,7 +138,7 @@ No dependencies. This is the first mypy/QC task.
   wrote `/tmp/research-current-mypy-after-redundant-casts.log`, still exits 1 on the
   broader frontier, but contains no `[redundant-cast]` lines and reports 1142 errors
   in 169 files. Spec-weakening review: only redundant casts were removed; no category
-  owner, constructor, abstract obligation, smoke, or public selector surface changed.
+  owner, constructor, abstract obligation, category-obligation example, or public selector surface changed.
 - 2026-05-14: Removed the single aggregate `[return]` finding in
   `category_specs/cat/homsets.py` by replacing abstract method bodies that used
   `del ...; ...` or `raise NotImplementedError` with plain ellipses. Validation:
@@ -154,7 +154,7 @@ No dependencies. This is the first mypy/QC task.
     follow the QC DAG literally and do not weaken category interfaces for mypy.
   - Read `category_specs/AGENTS.md` sections "Always-active rules" and
     "Canonical skills"; rule: category specs are ideal interfaces and spec
-    obligations are not deleted or moved for smoke/QC convenience.
+    obligations are not deleted or moved for category-obligation example/QC convenience.
   - Read `.agents/skills/category-spec-style/SKILL.md` and
     `.agents/skills/category-spec-style/references/style.md` sections "Type
     System Rules", "Final Concrete Methods", and "Method Overrides"; rule:
@@ -195,7 +195,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected `git diff --cached` and `git diff` for the
     touched files. The only semantic source edits remove invalid `@final`
     decorators from top-level functions; no abstract method, constructor
-    collector, Hom/End/Aut element surface, lattice endpoint, mapping row, smoke
+    collector, Hom/End/Aut element surface, lattice endpoint, mapping row, category-obligation example
     assertion, or acceptance criterion was deleted or weakened. Pre-existing
     staged edits in `forms/__init__.py` and `lattices/__init__.py` were not
     reversed.
@@ -208,7 +208,7 @@ No dependencies. This is the first mypy/QC task.
     defects, but fixes must preserve the category-spec interface rather than
     weakening obligations for mypy.
   - Read `category_specs/AGENTS.md` sections "Always-active rules" and
-    "Canonical skills"; rule: category-spec smokes and typing failures do not
+    "Canonical skills"; rule: category-spec category-obligation examples and typing failures do not
     justify deleting method surfaces or moving morphism behavior to object
     categories.
   - Read `.agents/skills/category-spec-style/SKILL.md` and
@@ -394,7 +394,7 @@ No dependencies. This is the first mypy/QC task.
     1261 errors in 169 files and no remaining `[operator]` findings.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/algebras/__init__.py` and `category_specs/posets/__init__.py`;
-    the edits do not delete abstract methods, narrow smoke assertions, change
+    the edits do not delete abstract methods, narrow category assertions, change
     constructor names, move method owners, introduce `MorphismMethods`, collapse
     Hom/End/Aut element surfaces, or add broad public `Any` signatures.
 - 2026-05-14: Doc Gate for
@@ -434,7 +434,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/algebras/__init__.py`; the edit changes no signatures,
     method owners, constructor names, category hierarchy, Hom/End/Aut aliases,
-    abstract obligations, or smoke assertions.
+    abstract obligations, or category assertions.
 - 2026-05-14: Doc Gate for
   `category_specs/topological_spaces/__init__.py` cached-method decorator
   typing:
@@ -480,7 +480,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/topological_spaces/__init__.py`; the edit changes no
     signatures, constructors, category refinements, method owners,
-    Hom/End/Aut surfaces, abstract obligations, or smoke assertions.
+    Hom/End/Aut surfaces, abstract obligations, or category assertions.
 - 2026-05-14: Doc Gate for `category_specs/rings/__init__.py` cached-method
   decorator typing:
   - Read `AGENTS.md` sections "Always-active invariants" and "Tracker and
@@ -528,7 +528,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/rings/__init__.py`; the edit changes no signatures,
     constructor names, category refinements, method owners, Hom/End/Aut aliases,
-    abstract obligations, type aliases, or smoke assertions.
+    abstract obligations, type aliases, or category assertions.
 - 2026-05-14: Doc Gate for
   `category_specs/rings/subcategories/commutative.py` cached-method decorator
   typing:
@@ -579,7 +579,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/rings/subcategories/commutative.py`; the edit changes no
     signatures, constructor names, category refinements, method owners,
-    Hom/End/Aut aliases, abstract obligations, type aliases, or smoke
+    Hom/End/Aut aliases, abstract obligations, type aliases, or category-obligation example
     assertions.
 - 2026-05-14: Doc Gate for
   `category_specs/rings/subcategories/topological.py` cached-method decorator
@@ -630,7 +630,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/rings/subcategories/topological.py`; the edit changes no
     signatures, constructor names, category refinements, method owners,
-    Hom/End/Aut aliases, abstract obligations, type aliases, or smoke
+    Hom/End/Aut aliases, abstract obligations, type aliases, or category-obligation example
     assertions.
 - 2026-05-14: Doc Gate for
   `category_specs/rings/subcategories/integral_domain.py` cached-method
@@ -686,7 +686,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/rings/subcategories/integral_domain.py`; the edit changes
     no signatures, constructor names, category refinements, method owners,
-    Hom/End/Aut aliases, abstract obligations, type aliases, or smoke
+    Hom/End/Aut aliases, abstract obligations, type aliases, or category-obligation example
     assertions.
 - 2026-05-14: Doc Gate for
   `category_specs/rings/subcategories/global_field.py` and
@@ -746,7 +746,7 @@ No dependencies. This is the first mypy/QC task.
     `category_specs/rings/subcategories/global_field.py` and
     `category_specs/rings/subcategories/number_field.py`; the edit changes no
     signatures, constructor names, category refinements, method owners,
-    Hom/End/Aut aliases, abstract obligations, type aliases, or smoke
+    Hom/End/Aut aliases, abstract obligations, type aliases, or category-obligation example
     assertions.
 - 2026-05-14: Deferred `category_specs/rings/subcategories/rational_field.py`
   `as_number_field` cached-method decorator typing:
@@ -818,7 +818,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/topological_spaces/subcategories/metric.py`; the edit
     changes no signatures, constructor names, category refinements, method
-    owners, Hom/End/Aut aliases, abstract obligations, type aliases, or smoke
+    owners, Hom/End/Aut aliases, abstract obligations, type aliases, or category-obligation example
     assertions.
 - 2026-05-14: Doc Gate for
   `category_specs/tensor_algebra_components/__init__.py` cached-method
@@ -874,7 +874,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/tensor_algebra_components/__init__.py`; this decorator
     edit changes no signatures, constructor names, category refinements, method
-    owners, Hom/End/Aut aliases, abstract obligations, type aliases, or smoke
+    owners, Hom/End/Aut aliases, abstract obligations, type aliases, or category-obligation example
     assertions.
 - 2026-05-14: Doc Gate for `category_specs/forms/chain.py` and
   `category_specs/lattices/__init__.py` cached-method decorator typing:
@@ -932,7 +932,7 @@ No dependencies. This is the first mypy/QC task.
     `category_specs/forms/chain.py` and `category_specs/lattices/__init__.py`;
     this decorator edit changes no signatures, constructor names, category
     refinements, method owners, Hom/End/Aut aliases, abstract obligations,
-    type aliases, or smoke assertions.
+    type aliases, or category assertions.
 - 2026-05-14: Doc Gate for
   `category_specs/topological_spaces/__init__.py` no-any-return selector
   cleanup:
@@ -975,7 +975,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/topological_spaces/__init__.py`; this edit changes no
     signatures, constructor names, category refinements, method owners,
-    Hom/End/Aut aliases, abstract obligations, type aliases, or smoke
+    Hom/End/Aut aliases, abstract obligations, type aliases, or category-obligation example
     assertions.
 - 2026-05-14: Doc Gate for `category_specs/sets/__init__.py`
   no-any-return selector cleanup:
@@ -1019,7 +1019,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/sets/__init__.py`; this edit changes no signatures,
     constructor names, category refinements, method owners, Hom/End/Aut
-    aliases, abstract obligations, type aliases, or smoke assertions.
+    aliases, abstract obligations, type aliases, or category assertions.
 - 2026-05-14: Doc Gate for `category_specs/algebras/__init__.py`
   no-any-return selector cleanup:
   - Read `AGENTS.md` sections "Always-active invariants" and "Tracker and
@@ -1061,7 +1061,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/algebras/__init__.py`; this edit changes no signatures,
     constructor names, category refinements, method owners, Hom/End/Aut
-    aliases, abstract obligations, type aliases, or smoke assertions.
+    aliases, abstract obligations, type aliases, or category assertions.
 - 2026-05-14: Doc Gate for `category_specs/rings/__init__.py`
   no-any-return selector and ideal-boundary cleanup:
   - Read `AGENTS.md` sections "Always-active invariants", "Session startup",
@@ -1123,7 +1123,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected staged and unstaged diffs for
     `category_specs/rings/__init__.py`; this edit changes no signatures,
     constructor names, category refinements, method owners, Hom/End/Aut
-    aliases, abstract obligations, type aliases, or smoke assertions.
+    aliases, abstract obligations, type aliases, or category assertions.
 - 2026-05-14: Final basic-hygiene frontier audit before review:
   - Doc Gate: reread `AGENTS.md` sections "Always-active invariants", "Session
     startup", "Tracker and planning shortcut", and "IWE and memory practice";
@@ -1184,7 +1184,7 @@ No dependencies. This is the first mypy/QC task.
   - Spec-weakening review: inspected the staged and unstaged task/source
     frontier with the live routing above. This status change records validation
     and routes remaining findings; it does not delete abstract methods,
-    constructor collectors, category obligations, smoke assertions, method
+    constructor collectors, category obligations, category assertions, method
     owners, Hom/End/Aut surfaces, or acceptance criteria.
   - Planning-report validation surprise: `just plan-progress-report` initially
     regenerated `.agents/plans/card-progress-report.md` with zero cards because
@@ -1312,7 +1312,7 @@ No dependencies. This is the first mypy/QC task.
     returned no matches.
   - Spec-weakening review: the edits add `TypeAlias` annotations and substitute
     equivalent class references; no abstract method, constructor collector,
-    category obligation, smoke assertion, method owner, Hom/End/Aut surface,
+    category obligation, category assertion, method owner, Hom/End/Aut surface,
     acceptance criterion, or public signature was deleted or weakened.
   - Commit `a5e1ecbe` on `main`.
 

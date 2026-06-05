@@ -18,8 +18,8 @@ acceptanceCriteria:
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No new implementation blocker was discovered during this docs/spec pass; recovered
-  smoke failures remain non-constructor frontiers.
-- No algebra category initialization or constructor code changed, so the `algebras/smoketest.sage`
+  failed category assertions remain non-constructor frontiers.
+- No algebra category initialization or constructor code changed, so the `algebras/category_obligations.sage`
   trigger did not apply in this pass.
 - Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not
   to `Algebras(R)`.
@@ -124,8 +124,8 @@ not algebra-constructor admission issues.
 
 - [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [x] No new implementation blocker was discovered during this docs/spec pass; recovered smoke failures remain non-constructor frontiers.
-- [x] No algebra category initialization or constructor code changed, so the `algebras/smoketest.sage` trigger did not apply in this pass.
+- [x] No new implementation blocker was discovered during this docs/spec pass; recovered failed category assertions remain non-constructor frontiers.
+- [x] No algebra category initialization or constructor code changed, so the `algebras/category_obligations.sage` trigger did not apply in this pass.
 - [x] Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not to `Algebras(R)`.
 
 ## Dependencies And Boundaries
@@ -235,9 +235,9 @@ All five acceptance criteria (lines 15-25) are marked `[x]` and each is verifiab
    as "non-constructor frontiers" and records that they remain tracked elsewhere.
 
 4. **"No algebra category initialization or constructor code changed, so the
-   algebras/smoketest.sage trigger did not apply"**: The spec accurately states
+   algebras/category_obligations.sage trigger did not apply"**: The spec accurately states
    "No new constructor or axiom code was needed in this pass" — the code already
-   existed. This is a valid reason for not triggering the smoke test.
+   existed. This is a valid reason for not triggering the category-obligation test.
 
 5. **"Plain-set S.algebra(R) remains routed to free_module over Modules(R)"**: The
    Execution Result (line 117) and Grounded Spec Contract (lines 92-98) both record
@@ -368,7 +368,7 @@ No orphaned constructors detected. No unresolved routing conflicts.
 - The remaining `Algebras(ZZ)` and `DualObjects()` failures from the historical
   triage are explicitly noted as tracked elsewhere, not swept under the rug.
 
-- Acceptance criterion 4 explicitly records that `algebras/smoketest.sage` was not
+- Acceptance criterion 4 explicitly records that `algebras/category_obligations.sage` was not
   applicable because no code changed — this is correct scoping, not test avoidance.
 
 **No obligation deletion, no spec weakening, no loss of functionality.**

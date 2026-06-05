@@ -36,7 +36,7 @@ Source inventory: `category_specs/forms/docs/SAGE_INVENTORY.md`.
 - Preserve every inventoried Sage surface by mapping it to a project mathematical surface, a named constructor path, a mathematically justified non-mapping, or a tracked decision.
 - Place every method at the highest category where the operation is mathematically well-defined; subcategories inherit methods from supercategories.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
-- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
+- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
 ## Source Coverage Ledger

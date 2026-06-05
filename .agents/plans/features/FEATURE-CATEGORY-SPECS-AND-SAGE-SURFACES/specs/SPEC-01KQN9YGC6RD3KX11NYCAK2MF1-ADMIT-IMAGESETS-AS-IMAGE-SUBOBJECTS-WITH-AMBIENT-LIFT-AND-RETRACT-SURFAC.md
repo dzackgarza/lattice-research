@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
+- '[[PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES]]'
 title: Admit ImageSets as image subobjects with ambient lift and retract surface
 status: complete
 priority: critical
@@ -229,7 +229,7 @@ Additionally, the mapped spec (`SPEC-MAPPING-SETS.md`) confirms that
 `ImageSubobject` must refine through `_ImageSets` with `Sets().Subobjects()`
 and `Sets().Subquotients()` supercategories — the Sage generic fallback is not
 the project route. No variadic option bags, no implementation-container
-exposure, no smoke-driven interface weakening.
+exposure, no category-obligation example-driven interface weakening.
 
 ---
 
@@ -244,7 +244,7 @@ The spec handles ambiguity through:
 - **Dependencies section:** "If execution reveals a missing mathematical owner,
   constructor, or category graph edge, split that as a new tracker item instead
   of patching around it" — clear routing for unforeseen gaps.
-- **DAG integration:** `dependsOn` links to `PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY`
+- **DAG integration:** `dependsOn` links to `PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES`
   and parent `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, ensuring the spec is
   evaluated in the correct dependency order.
 - **Rejection/retirement condition:** provides a clear trigger for when the

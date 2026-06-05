@@ -17,7 +17,7 @@ successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
 - Completion requires each child item to be done or explicitly superseded by a linked
   successor; blocked child cards do not satisfy phase acceptance.
-- The sprint closing note records smoke/test commands run and any unresolved blockers.
+- The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
 - Use the phase-specific validation commands from the deleted plan when implementing
   a child item.
 - Do not close the parent until modules/docs/MAPPING.md has no unmapped wrapper methods.
@@ -35,7 +35,7 @@ surface, its card must cite the canonical source path, exact definition, owner c
 hypotheses, codomain/return object, and proof or Sage-evidence obligations.
 
 If a sprint finding lacks that grounding, the sprint action is source mining, decision
-capture, or splitting into a prerequisite card. QC and smoke findings identify work, but
+capture, or splitting into a prerequisite card. QC and category-obligation example findings identify work, but
 they do not define the mathematical surface being repaired.
 
 Every child card in this phase must reread `category-spec-style` just in time before
@@ -43,12 +43,12 @@ editing a module spec or method surface. The local task must preserve the ideal
 mathematical interface inside Sage's category/object universe: current Sage coverage
 is not the adequacy standard, Sage interop remains a design constraint where
 mathematically appropriate, Sage method presence is evidence for mapping and
-feasibility, Sage method absence is implementation-gap evidence, and smoke progress is
+feasibility, Sage method absence is implementation-gap evidence, and category-obligation example progress is
 never a reason to delete or weaken a spec obligation.
 
 Before advancing this phase or any child task, review the staged diff, unstaged diff,
 and any commits created during the work for spec weakening. In particular, check for
-deleted abstract methods, removed constructor/category obligations, narrowed smoke
+deleted abstract methods, removed constructor/category obligations, narrowed category-obligation example
 assertions, or moved method owners without source-grounded replacement owners.
 
 Before implementing a method move in this phase, perform a mathematical review of the
@@ -82,8 +82,8 @@ then delete wrappers.
 - [ ] Completion requires each child item to be done or explicitly superseded by a
       linked successor; blocked child cards do not satisfy phase acceptance.
 - [ ] Each child item that edits module specs or method surfaces states how the ideal
-      interface obligation is preserved when Sage smokes fail.
-- [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
+      interface obligation is preserved when Sage category-obligation examples fail.
+- [ ] The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
 - [ ] Use the phase-specific validation commands from the deleted plan when implementing a child item.
 - [ ] Do not close the parent until modules/docs/MAPPING.md has no unmapped wrapper methods.
 
@@ -131,8 +131,8 @@ All success/acceptance criteria are specific and independently verifiable:
 |---|-----------|-------------------|
 | 1 | Bounded set of child items + explicit scope statement | Count task children under phase directory; read scope statement |
 | 2 | Each child done or superseded by linked successor | Check child card statuses and dependsOn edges |
-| 3 | Child items editing specs state how ideal interface is preserved when smokes fail | Spot-check child card bodies for ideal-interface preservation statements |
-| 4 | Sprint closing note records smoke/test commands and unresolved blockers | Verify closing note exists in card body or wrap-up task |
+| 3 | Child items editing specs state how ideal interface is preserved when category-obligation examples fail | Spot-check child card bodies for ideal-interface preservation statements |
+| 4 | Sprint closing note records category-obligation example/test commands and unresolved blockers | Verify closing note exists in card body or wrap-up task |
 | 5 | Use phase-specific validation commands from deleted plan | Recover deleted plan via `git show`; verify commands cited in child work logs |
 | 6 | Parent not closed until MAPPING.md has no unmapped wrapper methods | Scan MAPPING.md for unmapped entries |
 
@@ -144,7 +144,7 @@ rather than a lost artifact. Acceptable for phase-level criteria.
 
 The phase has 4 child tasks covering the required migration phases:
 
-1. **TASK-01KQN9J3X5APK7MNNH5N1W5XW5** — Fix forms smoketest / confirm forms owner identity (status: `needs-human-input`)
+1. **TASK-01KQN9J3X5APK7MNNH5N1W5XW5** — Fix forms category-obligation exampletest / confirm forms owner identity (status: `needs-human-input`)
 2. **TASK-01KQXXWCG8P47C9ZVPFBWJF640** — Ground root module abstract-method ownership (status: `complete`)
 3. **TASK-01KQN9YGCMD0K84CK3BKZH0Z8Z** — Implement module category graph phase (status: `complete`)
 4. **TASK-WRAPUP** — Phase wrap-up, card status audit, meta-review (status: `unstarted`)
@@ -228,12 +228,12 @@ The phase card contains exceptionally strong anti-weakening guards:
 
 - Lines 48-51: Explicit spec-weakening review gate before phase advancement —
   check staged diff, unstaged diff, and commits for deleted abstract methods,
-  removed constructor/category obligations, narrowed smoke assertions, or Sage-gap-driven
+  removed constructor/category obligations, narrowed category assertions, or Sage-gap-driven
   interface shrinkage.
 - Lines 53-57: Mathematical review requirement before method moves — must state
   caller object, required data, hypotheses, construction/predicate, and codomain/result
   in ordinary mathematical language. Sage inventory rows alone do not pass.
-- Line 46: "smoke progress is never a reason to delete or weaken a spec obligation."
+- Line 46: "category-obligation example progress is never a reason to delete or weaken a spec obligation."
 - Lines 41-45: Sage method absence is implementation-gap evidence, Sage method
   presence is mapping/feasibility evidence — neither justifies weakening.
 

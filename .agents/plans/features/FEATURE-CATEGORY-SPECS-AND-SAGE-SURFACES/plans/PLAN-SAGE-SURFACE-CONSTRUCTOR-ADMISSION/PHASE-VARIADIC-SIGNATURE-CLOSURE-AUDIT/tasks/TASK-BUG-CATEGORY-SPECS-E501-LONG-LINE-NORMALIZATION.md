@@ -732,7 +732,7 @@ completion
 - Reviewed the E501 cleanup range `23104dd..31a5e7e` plus the follow-up tracker
   update `cab5ae8`.
 - Found only mechanical wrapping of imports, signatures, docstrings, examples, and
-  expressions. No deleted `@abstract_method`, constructor obligation, narrowed smoke
+  expressions. No deleted `@abstract_method`, constructor obligation, narrowed category-obligation example
   assertion, Ruff ignore, or semantic/API change was found.
 - `git status --short` was clean during review.
 - `uvx --from ruff ruff check --select E501 category_specs` passed.
@@ -806,7 +806,7 @@ Evidence:
 - `git diff 23104dd^..31a5e7e -- category_specs/ | grep -E 'abstract_method|Constructors'`
   shows zero deletions of abstract methods or constructor obligations.
 - All `@abstract_method`, `@final`, `@staticmethod` decorators are preserved.
-- No smoke assertions were narrowed or removed.
+- No category assertions were narrowed or removed.
 - No `Constructors()` entries were removed.
 - No method surfaces were removed — only reformatted.
 - No acceptance criteria in the card body were weakened (they remain marked `[x]`).
@@ -820,7 +820,7 @@ Evidence:
   cover mathematical ownership and API design topics, not formatting policy. No
   formatting or style decision is contradicted.
 - **Previously approved specs**: No `specs/*.md` files were modified.
-- **Previously passing smokes**: No smoke fixture files were modified by these commits.
+- **Previously passing category-obligation examples**: No category-obligation example fixture files were modified by these commits.
 - **Git history**: `git log --oneline --all --grep=E501` shows only this task's
   progressive clearance commits; no commit reverts or contradicts earlier work.
 - The task's changes are purely cosmetic formatting — no semantic regression possible.
@@ -868,7 +868,7 @@ Evidence:
 | 1 — Definition Grounding | PASS | No new definitions; pure formatting task |
 | 2 — Acceptance Criteria | PASS | All 5 criteria verified against artifacts |
 | 3 — Spec-Weakening | PASS | No abstract methods, constructors, or obligations deleted |
-| 4 — Gradient/Backsliding | PASS | No decisions reversed; no smoke regression |
+| 4 — Gradient/Backsliding | PASS | No decisions reversed; no category-obligation example regression |
 | 5 — Mathematical Correctness | PASS | compileall passes; semantics preserved |
 | 6 — Style and Compliance | PASS | Conventional Commits; no anti-slop; no Ruff ignores |
 

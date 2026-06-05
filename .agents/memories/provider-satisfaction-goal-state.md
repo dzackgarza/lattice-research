@@ -10,8 +10,8 @@ tags: [goal-state, category-specs, object-method-resolution, refinement]
 
 This note preserves the corrected category-spec model for object-method resolution:
 `ParentMethods` abstract methods are mathematical object-method obligations, refinement
-declares category view, and smokes expose gaps between current implementations and the
-spec.
+declares category view, and category-obligation examples expose gaps between current
+implementations and the spec.
 
 ## Current Mode
 
@@ -34,12 +34,14 @@ The governing facts are:
   satisfaction.
 - Refinement must not interrogate the object for method satisfaction.
 - Refinement must not reject because project abstract methods remain.
-- Smoke tests instantiate or exercise surfaces to expose implementation gaps.
+- Category-obligation examples instantiate or exercise category objects to expose
+  implementation gaps.
 - Missing methods after refinement are expected gap evidence, not refinement failures.
 - ABCMeta may be used only to represent project abstract methods faithfully in Python's
   class system and MRO.
 - Concrete Sage/project methods satisfy obligations only by ordinary lookup.
-- Missing obligations remain abstract/visible for smokes and later implementation work.
+- Missing obligations remain abstract/visible for category-obligation examples and later
+  implementation work.
 
 ## Invalidated Prior State
 
@@ -77,8 +79,8 @@ Repair source and tests against the corrected model:
 
 - remove or replace refinement-time abstract-method rejection logic;
 - replace adversarial tests that assert rejection before `refine_category` returns with
-  tests that prove refinement declares the category contract and smokes expose missing
-  implementations;
+  tests that prove refinement declares the category contract and category-obligation
+  examples expose missing implementations;
 - preserve tests proving generated bodies, `assert False`, cache priming, source-shape
   checks, and name special-casing are invalid substitutes for abstract spec structure;
 - keep root `Rings().Constructors().ZZ()`/`QQ()` obligations visible as implementation

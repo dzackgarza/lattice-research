@@ -14,7 +14,7 @@ successCriteria:
 - Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
 - Determine how this category relates to existing planned categories, constructors, Hom/End/Aut
-  surfaces, and smoke expectations.
+  objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation cards needed
   to proceed.
@@ -42,7 +42,7 @@ This is high-priority because specced vocabulary and mathematically correct foun
 
 - Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut surfaces, and smoke expectations.
+- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation cards needed to proceed.
 
@@ -260,16 +260,17 @@ All five ACs map to specific card body sections:
 | --- | --- | --- |
 | Identify mathematical definition and project vocabulary | Mathematical Definition (lines 53-77) | ✓ |
 | Survey Sage/backend surfaces and local dependencies | Sage Surface Survey (79-89), Backend Survey (91-102), Local Category-Spec Dependencies (104-114) | ✓ |
-| Determine relationship to existing categories, constructors, Hom/End/Aut, smoke | Method Ownership Guidance (116-131), Local Dependencies (104-114) | ✓ (see observation) |
+| Determine relationship to existing categories, constructors, Hom/End/Aut objects, and representative category obligations | Method Ownership Guidance (116-131), Local Dependencies (104-114) | ✓ (see observation) |
 | List downstream blocked categories/tasks | Downstream Work Unblocked Or Routed (133-141) | ✓ |
 | Create follow-up cards | Follow-Up Routing (143-150) — explicit decision that none needed | ✓ |
 
-**Observation (non-blocking):** AC 3 asks about "Hom/End/Aut surfaces" and "smoke
-expectations." The card addresses Hom implicitly through the scheme substrate (Hom
-surfaces are defined at the scheme level; varieties inherit them) and through the
-`rational_points(K)` guidance as `Hom(Spec(K), X)`. End/Aut surfaces are not explicitly
-discussed. Smoke expectations are not covered. For a research card at this stage of the
-DAG, this is acceptable — Hom/End/Aut inherits from schemes, and smoke expectations
+**Observation (non-blocking):** AC 3 asks about "Hom/End/Aut objects" and
+"representative examples and category obligations." The card addresses Hom implicitly
+through the scheme substrate (Hom objects are defined at the scheme level; varieties
+inherit them) and through the `rational_points(K)` guidance as `Hom(Spec(K), X)`.
+End/Aut objects are not explicitly discussed. Representative examples and category
+obligations are not covered. For a research card at this stage of the DAG, this is
+acceptable: Hom/End/Aut inherits from schemes, and representative category obligations
 belong to implementation-phase cards. The card does explicitly constrain method
 ownership, which is the substantive form of "category relationship" for this phase.
 
@@ -405,5 +406,5 @@ claiming premature finality.
   and backend routes are consistent with this card's method ownership guidance.
   Non-blocking observations recorded: method-level source tags deferred to
   downstream source-admission cards; geometric-integrality tag not cited
-  (claim is correct); Hom/End/Aut/smoke coverage is implicit via scheme substrate
+  (claim is correct); Hom/End/Aut/category-obligation coverage is implicit via scheme substrate
   and appropriate for research phase. Status updated to complete.

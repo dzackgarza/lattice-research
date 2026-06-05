@@ -6,15 +6,15 @@ parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
 title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from
-  tensor component smoketest frontier
+  tensor component failed category assertions
 status: complete
 priority: high
 description: This item was migrated from the one-line tracker pass and needs its source
   context preserved in the full task body.
 successCriteria:
 - The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
+  category-obligation examples or mapping decisions to make failures disappear.
+- Relevant category-obligation output is updated in this task body or a linked tracker item, with
   exact failing surfaces preserved when work remains.
 - The change uses project category vocabulary rather than Sage fallback helper names
   or wrapper-only categories.
@@ -24,7 +24,7 @@ tags:
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING
 ---
-# Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component smoketest frontier
+# Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component failed category assertions
 ## Summary
 
 This item was migrated from the one-line tracker pass and needs its source context
@@ -37,13 +37,13 @@ preserved in the full task body.
 - Sage source `sage/structure/richcmp.pyx`, which defines `__richcmp__` as Sage's
   Python/Cython rich-comparison hook rather than a tensor-component mathematical
   method.
-- Original migrated line: `Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component smoketest frontier`
+- Original migrated line: `Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component failed category assertions`
 
 ## Context
 
 - Review the cited source references before implementation.
 - Update this task body with any new findings instead of creating a parallel process document.
-- The historical `__richcmp__` smoke frontier was a global Sage missing-method probe
+- The historical `__richcmp__` failed category assertions was a global Sage missing-method probe
   on a refined tensor-component parent. It is not, by itself, a public
   `TensorAlgebraComponents` method obligation. Public tensor equality/comparison must
   be grounded separately if it is ever admitted; this card's executable target is the
@@ -52,8 +52,8 @@ preserved in the full task body.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [ ] The implementation changes only the scoped category-spec surface and does not weaken category-obligation examples or mapping decisions to make failures disappear.
+- [ ] Relevant category-obligation output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
 - [ ] Record validation commands and outcomes in this task file before closing.
 
@@ -72,9 +72,9 @@ preserved in the full task body.
   which scoped tensor component refinement to membership of the tensor-component
   category and normalized multiplication-tensor structure constants to Sage matrices.
   The original `__richcmp__` string is retained as the historical Sage missing-method
-  probe that made the smoke fail, not as an admitted public tensor method. Re-running
+  probe that made the category-obligation example fail, not as an admitted public tensor method. Re-running
   `just --justfile
-  category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`
+  category_specs/justfile category-obligation-file tensor_algebra_components/category_obligations.sage`
   passes. Status moved to `needs-agent-review`; this does not mark the card accepted or
   complete.
 
@@ -90,8 +90,8 @@ preserved in the full task body.
 
 - The card named `__richcmp__` but did not record a definition, owner category,
   hypotheses, codomain, or replacement owner.
-- The linked tensor constructor task showed smoke was made to pass by scoping
-  `refine_category(..., test=False)`, so passing smoke alone did not prove that the
+- The linked tensor constructor task showed category-obligation example was made to pass by scoping
+  `refine_category(..., test=False)`, so passing category-obligation example alone did not prove that the
   stated `__richcmp__` frontier was grounded, implemented, or deliberately re-owned.
 
 #### Rework
@@ -102,7 +102,7 @@ preserved in the full task body.
 - The card now states the actual executable target: constructor refinement should
   preserve admitted tensor-component membership and direct tensor method frontiers
   without treating the global missing-method probe as a public tensor API obligation.
-- The smoke pass remains evidence for the constructor-refinement path, not evidence
+- The category-obligation example pass remains evidence for the constructor-refinement path, not evidence
   for admitting or implementing a public tensor comparison method.
 
 ### Re-review 2026-05-06 (Pauli)
@@ -122,12 +122,12 @@ preserved in the full task body.
   to reject catch-all storage/index/display APIs while admitting only named tensor
   surfaces.
 - Validation observed by the reviewer: `just --justfile category_specs/justfile
-  smoke-file tensor_algebra_components/smoketest.sage`, `just --justfile
-  category_specs/justfile smoke-file algebras/smoketest.sage`, `just plan-validate`,
+  category-obligation-file tensor_algebra_components/category_obligations.sage`, `just --justfile
+  category_specs/justfile category-obligation-file algebras/category_obligations.sage`, `just plan-validate`,
   and targeted `git diff --check` all passed.
 
 #### Residual Risks
 
 - The acceptance checkboxes remain unchecked because this is agent review evidence,
   not human acceptance.
-- Full `just smoke` was not run; this was a targeted re-review.
+- Full `just category-obligation example` was not run; this was a targeted re-review.

@@ -19,7 +19,7 @@ refinement-enforcement model into the repo. The governing model is:
 - refinement declares category view and imposes the category contract;
 - refinement does not validate satisfaction;
 - Sage objects are expected to be partial relative to project specs;
-- smokes expose the implementation gap.
+- category-obligation examples expose the implementation gap.
 
 ## Vocabulary Discipline
 
@@ -30,9 +30,9 @@ Engineering phrases such as "provider satisfaction", "fulfilling project obligat
 goal. Do not preserve them with caveats or quotes. If one appears in proposed code,
 tests, state, or review, stop and reconstruct the object/category/method sentence.
 
-Any helper, phase sentence, smoke, or review claim whose main noun is a runtime
-mechanism rather than an object/category/operation relation is suspect. Rephrase it as a
-mathematical statement before editing source.
+Any helper, phase sentence, category-obligation example, or review claim whose main noun
+is a runtime mechanism rather than an object/category/operation relation is suspect.
+Rephrase it as a mathematical statement before editing source.
 
 This is not an optics or naming rule. In mathematical spec code, strange metaclass
 manipulation, dynamic-class splicing, MRO surgery, descriptor replacement, or post-hoc
@@ -57,8 +57,8 @@ this relation:
 > abstract, or a concrete object operation supplied by Sage or by a project category
 > surface through ordinary lookup. Python `abc.abstractmethod` and Sage
 > `abstract_method` markers are requirements, not implementations. Missing requirements
-> remain visible to smokes and later implementation work; refinement itself does not
-> validate or reject the object for failing them.
+> remain visible to category-obligation examples and later implementation work;
+> refinement itself does not validate or reject the object for failing them.
 
 The completion artifacts must let a cold reviewer answer:
 
@@ -159,8 +159,8 @@ These do not satisfy the contract:
 - priming `_cached_methods`, prefetching lookup state, or depending on test order;
 - adding `typing.cast`, `# type: ignore`, `NotImplementedError`, local QC bypasses, or
   static-only reports;
-- calling a smoke that asserts code shape, name presence, or file existence a proof of
-  object-method correctness;
+- calling a category-obligation example that asserts code shape, name presence, or file
+  existence a proof of object-method correctness;
 - editing memories, handoffs, cards, or comments and presenting that as source repair.
 
 ## Final review standard

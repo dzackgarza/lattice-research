@@ -161,7 +161,7 @@ If the task is to fix the graph, produce the fixed `super_categories()`.
 
 ## Red flag: Tests that inherit private spec classes
 
-**Symptom:** A smoke or regression test defines a dummy class inheriting
+**Symptom:** A category-obligation example or regression test defines a dummy class inheriting
 `_SomeCategory.ParentMethods`, `_SomeCategory.ElementMethods`, or another private
 project class name, then calls methods on that dummy object.
 
@@ -206,7 +206,7 @@ not understand the problem.
 caches, lookup internals, test order, mypy behavior, report counts, hook output,
 plugin conveniences, local casts, or runtime state. The code introduces awareness of
 an implementation concern into spec code, and the commit message explains why the
-machinery makes failures disappear rather than naming the mathematical object,
+machinery makes failed category assertions disappear rather than naming the mathematical object,
 operation, owner category, or missing spec method that became correct.
 
 **What it means:** The patch is likely laundering a mathematical/spec defect through
@@ -222,9 +222,9 @@ spec refinement code was thinking about caches at all. Caching is a runtime
 performance/lookup concern; it is not a mathematical category, operation, object, or
 obligation, and it is not part of declaring category membership. Refinement should say
 that an existing Sage object is viewed as an object of a project subcategory. The
-existing implementation then partially satisfies the spec, and smokes expose the
-missing parts. The cache patch made the repo appear more correct by hiding that gap
-behind runtime lookup state.
+existing implementation then partially satisfies the spec, and category-obligation
+examples expose the missing parts. The cache patch made the repo appear more correct by
+hiding that gap behind runtime lookup state.
 
 **What to do:** Before reading the green test result, identify the most
 engineering-flavored noun in the patch and ask what mathematical fact it expresses.
@@ -238,9 +238,9 @@ specification the patch should expose, not the local mechanism that hid its fail
 ## Red flag: Alignment claims without mathematical delta
 
 **Symptom:** A patch, commit message, report, or review comment says it preserves
-compatibility, unblocks QC, stabilizes smokes, fixes typing, improves reporting, or
-follows repo process, but it does not name the mathematical object, operation, owner,
-spec method, or recovery formula that changed.
+compatibility, unblocks QC, stabilizes category-obligation examples, fixes typing,
+improves reporting, or follows repo process, but it does not name the mathematical
+object, operation, owner, spec method, or recovery formula that changed.
 
 **What it means:** The agent has optimized for an artifact that looks more correct.
 This is especially dangerous because the writing agent almost always believes its own
@@ -257,9 +257,9 @@ is reconstructed and either fixed or queued explicitly.
 ## Red flag: Case study becomes the task
 
 **Symptom:** A concrete witness such as a failing lookup, cache patch, cast, hook
-warning, or smoke failure becomes the next task by inertia, even though the user or
-repo evidence asked for transcript mining, guideline repair, review heuristics, or
-reorientation.
+warning, or failed category assertion becomes the next task by inertia, even though the
+user or repo evidence asked for transcript mining, guideline repair, review heuristics,
+or reorientation.
 
 **What it means:** The agent substituted an executable local fix for the actual
 epistemic task. This is the same failure mode as producing strategy documents instead
@@ -310,7 +310,7 @@ correct. A hook is not completion.
 temporary providers, or Sage entry points with `setattr`, `delattr`, `globals()`,
 `locals()`, `vars(...)`, or equivalent rebinding. The explanation says this installs
 constructor refinements, preserves compatibility, registers providers, forwards
-constructors, or makes smokes use refined objects.
+constructors, or makes category-obligation examples use refined objects.
 
 **What it means:** The agent probably replaced category-owned public API design with
 ambient behavior change. This is especially dangerous for constructor work: the repo's
@@ -321,7 +321,7 @@ category's `Constructors()` collector, call the original Sage constructor, and r
 the returned object. Attribute rebinding hides ownership and makes import order or
 global state part of the mathematical interface.
 
-**What to do:** Ask the constructor-recovery question before reading the smoke result:
+**What to do:** Ask the constructor-recovery question before reading the category-obligation result:
 which Sage constructor shapes were recovered from source, where are they enumerated in
 mapping docs, which named-only category overload exposes each shape, and what object is
 refined afterward? If the answer is "the patch changes what an existing

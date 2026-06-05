@@ -62,7 +62,7 @@ Source inventory: `category_specs/modules/docs/SAGE_INVENTORY.md`.
 - Preserve every inventoried Sage surface by mapping it to a project mathematical surface, a named constructor path, a mathematically justified non-mapping, or a tracked decision.
 - Place every method at the highest category where the operation is mathematically well-defined; subcategories inherit methods from supercategories.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
-- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
+- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
 ## Source Coverage Ledger
@@ -328,7 +328,7 @@ The project module owner rule is therefore:
 | Ring multiplication, units, ring ideals | Not owned here | These remain in `rings` and `algebras`. |
 
 Migration consequence: keep matrix-space linear methods in `modules`, including the
-square case, and keep the smoke expectation that the square matrix parent refines into
+square case, and keep the category-obligation example expectation that the square matrix parent refines into
 `Modules(R).Free().FiniteRank()` simultaneously with its ring and algebra structure.
 
 ## Tensor Component Duals And Forms
@@ -490,7 +490,7 @@ Unresolved-owner check:
   candidate classification left for this leaf.
 - Confidence: Medium.
 - Gaps: this is a documentation and source-map audit, not a fresh exhaustive Sage
-  source re-inventory or implementation smoke run.
+  source re-inventory or implementation category-obligation example run.
 
 ### Required Immediate Category Owners
 
@@ -901,7 +901,7 @@ Unresolved issues are explicitly routed to decision cards or tasks:
   mapping has no known unresolved candidate classification left for this leaf"
   (confidence: Medium). The medium confidence and acknowledged gap ("this is a
   documentation and source-map audit, not a fresh exhaustive Sage source re-inventory
-  or implementation smoke run") are appropriate for a spec at this stage.
+  or implementation category-obligation example run") are appropriate for a spec at this stage.
 
 ### GATE 6: Obligation Preservation — PASS
 

@@ -1,6 +1,6 @@
 ---
 name: spec-weakening-sentinel
-description: Detects deletion, relocation, or weakening of spec obligations without a source-backed replacement owner. After every commit touching category_specs, tests, mapping docs, or smoke files.
+description: Detects deletion, relocation, or weakening of spec obligations without a source-backed replacement owner. After every commit touching category_specs, tests, mapping docs, or category-obligation examples.
 ---
 You are not a producer of repo paperwork.
 
@@ -35,22 +35,23 @@ This cron system must not become a second agent bureaucracy. Its only justificat
 
 ## Disease class
 
-Making tests pass by weakening the mathematical surface.
-This is regression. `category_specs/AGENTS.md` says smoke failures are normally
-implementation/wrapper/ constructor/compliance gaps rather than reasons to weaken specs,
-and explicitly lists deleted abstract methods, narrowed smokes, and moved obligations
-without replacement owners as failures.
+Making tests pass by weakening a mathematical obligation.
+This is regression. `category_specs/AGENTS.md` says failed category assertions are
+normally implementation, constructor/refinement, source, or wrong-weakest-category
+evidence rather than reasons to weaken specs, and explicitly lists deleted abstract
+methods, narrowed category assertions, and moved obligations without replacement owners
+as failures.
 
 ## Positive work gradient
 
-Spec surfaces that preserve or strengthen their mathematical obligations, with every
+Spec definitions that preserve or strengthen their mathematical obligations, with every
 change backed by a visible replacement owner, recovery formula, or proof that the old
-surface was implementation-shaped rather than mathematical.
+assertion was implementation-shaped rather than mathematical.
 
 ## Trigger
 
 After every commit touching `category_specs/**`, tests under category-spec trees,
-mapping docs, or smoke files.
+mapping docs, or category-obligation examples.
 Source object: `category_specs/AGENTS.md` spec-weakening rule.
 
 ## Removal condition
@@ -76,9 +77,9 @@ any.
    - source-backed replacement owner,
    - recovery formula,
    - corrected category obligation,
-   - proof that old surface was implementation-shaped and not mathematical.
-3. If a smoke assertion was weakened, verify that the corresponding spec obligation was
-   preserved elsewhere or that the old assertion was mathematically wrong.
+   - proof that the old assertion was implementation-shaped and not mathematical.
+3. If a category assertion was weakened, verify that the corresponding spec obligation
+   was preserved elsewhere or that the old assertion was mathematically wrong.
 4. If evidence is absent, produce a corrective patch or mark the card
    `revision-required`.
 
@@ -86,7 +87,7 @@ any.
 
 - Restored obligation (patch).
 - Corrected owner (patch or mapping update).
-- Revision-required card entry with exact weakened surface, file, and line.
+- Revision-required card entry with exact weakened obligation, file, and line.
 
 ## Forbidden outputs
 

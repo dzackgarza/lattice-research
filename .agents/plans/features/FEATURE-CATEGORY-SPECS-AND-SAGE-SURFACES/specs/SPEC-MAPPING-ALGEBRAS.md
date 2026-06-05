@@ -50,7 +50,7 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
 - Preserve every inventoried Sage surface by mapping it to a project mathematical surface, a named constructor path, a mathematically justified non-mapping, or a tracked decision.
 - Place every method at the highest category where the operation is mathematically well-defined; subcategories inherit methods from supercategories.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
-- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
+- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
 ## Source Coverage Ledger
@@ -271,7 +271,7 @@ surface consequences are:
 
 Migration consequence: algebra docs may rely on the square matrix parent as an
 `R`-algebra, but they must not absorb the constructor namespace or the free-module
-surface to make the matrix smoke easier.
+surface to make the matrix category-obligation example easier.
 
 ## Free-Construction Routing
 

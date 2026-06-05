@@ -48,7 +48,7 @@ and decision cards under the owning feature.
 - `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` owns Hom/End/Aut surface admissions.
 - `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION` owns constructor admission and
   concrete family specs.
-- `PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION` owns smoke-frontier and audit workflows.
+- `PLAN-CATEGORY-OBLIGATION-EXAMPLES` owns category-obligation examples and failed assertions and audit workflows.
 
 This plan provides the meta-workflow that those plans follow. It does not own
 executable cards directly; executable spec-writing work lives under the phase/task
@@ -73,7 +73,7 @@ A new subcategory (e.g. `Modules(R).Torsion()`) is admitted only when:
 - The supercategory chain is explicit and each step is justified.
 - The constructor routing (how parents enter this category) is specified.
 - The method ownership (which methods become abstract/concrete at this level) is specified.
-- At least one smoke or test assertion verifies the category membership chain works.
+- At least one category-obligation example or test assertion verifies the category membership chain works.
 
 ## Spec structure conventions
 

@@ -15,8 +15,8 @@ description: 'The deleted module wrapper migration plan is a phased migration co
   to real owners, then delete wrappers.'
 successCriteria:
 - The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
+  category-obligation examples or mapping decisions to make failures disappear.
+- Relevant category-obligation output is updated in this task body or a linked tracker item, with
   exact failing surfaces preserved when work remains.
 - The change uses project category vocabulary rather than Sage fallback helper names
   or wrapper-only categories.
@@ -64,25 +64,25 @@ then delete wrappers.
 - The `modify_module_structure` change is grounded in the approved decision and root method ownership spec.
 
 **Gate 2 — Acceptance Criteria:**
-- [x] Implementation changes only scoped surface and do not weaken smokes → verified: `git diff` shows only `category_specs/modules/__init__.py` (modify_module_structure fix) and task card updates. No smoke files changed. Smoke passes exit 0.
+- [x] Implementation changes only scoped surface and do not weaken category-obligation examples → verified: `git diff` shows only `category_specs/modules/__init__.py` (modify_module_structure fix) and task card updates. No category-obligation example files changed. Category-obligation example passes exit 0.
 - [x] Reread category-spec-style before edits → ideal-interface invariant is documented in the task body and applied throughout (Sage gaps preserved as gap evidence, not spec weakening).
 - [x] Method-owner changes grounded in mathematical review → all method moves (is_submodule_of, modify_module_structure) trace to SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING and the sidedness decision.
-- [x] Smoke failures recorded as gap evidence → complete frontier table documents 7 remaining gap items with owning features and tracking status.
-- [x] Git diff reviewed for spec weakening → no abstract methods, constructor obligations, or smoke assertions deleted. The only abstract removal (modify_module_structure) is source-grounded in an approved decision.
-- [x] Smoke output updated → task body records smoke frontiers at each implementation pass; current smoke exit 0.
+- [x] Failed category assertions recorded as gap evidence → complete frontier table documents 7 remaining gap items with owning features and tracking status.
+- [x] Git diff reviewed for spec weakening → no abstract methods, constructor obligations, or category assertions deleted. The only abstract removal (modify_module_structure) is source-grounded in an approved decision.
+- [x] Category-obligation output updated → task body records failed category assertionss at each implementation pass; current category-obligation example exit 0.
 - [x] Project category vocabulary used → all implementations use project category surfaces (Constructors(), Subobjects().ParentMethods, finite-rank-free category), not Sage fallback names.
-- [x] Phase-specific validation commands → covered by scoped smoke runs and just plan-validate.
+- [x] Phase-specific validation commands → covered by scoped category-obligation example runs and just plan-validate.
 - [x] Parent MAPPING.md wrapper status → this task split cross-subtree gaps rather than closing the parent; the parent phase tracks overall wrapper progress.
 
 **Gate 3 — Spec-Weakening:**
 - `git diff --cached` empty; `git diff` shows 18 files, primarily review log additions (14 task cards) plus the `modify_module_structure` implementation change.
 - The only abstract-method removal (`modify_module_structure`) is grounded in an approved decision card (DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES) and the replacement surface is documented.
-- No constructor obligations, smoke assertions, or spec obligations were deleted or weakened.
-- Remaining smoke gaps are preserved as evidence in the work log, not hidden.
+- No constructor obligations, category assertions, or spec obligations were deleted or weakened.
+- Remaining category-obligation example gaps are preserved as evidence in the work log, not hidden.
 
 **Gate 4 — Gradient:**
 - No decision cards contradicted. The sidedness decision is followed exactly (commutative/symmetric convention, reject unqualified modify_module_structure).
-- No previously passing smokes regressed (modules smoke passes exit 0, same as baseline).
+- No previously passing category-obligation examples regressed (modules category-obligation example passes exit 0, same as baseline).
 - Cross-subtree gaps are routed to downstream features, not locally patched.
 
 **Gate 5 — Mathematical Correctness:**
@@ -103,7 +103,7 @@ then delete wrappers.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [ ] The implementation changes only the scoped category-spec surface and does not weaken category-obligation examples or mapping decisions to make failures disappear.
 - [ ] Before any spec or method-surface edit, reread `category-spec-style` and apply
       the ideal-interface invariant locally: current Sage coverage is not the
       adequacy standard, Sage interop remains a design constraint where
@@ -113,14 +113,14 @@ then delete wrappers.
 - [ ] Before implementing method-owner changes, the relevant task or mapping doc
       states the mathematical review in ordinary mathematical language: caller object,
       required data, hypotheses, construction or predicate, and codomain/result.
-- [ ] Smoke failures are recorded as gap evidence. Do not advance this task by
+- [ ] Failed category assertions are recorded as gap evidence. Do not advance this task by
       deleting, weakening, or moving abstract methods unless the obligation is
       preserved under a source-grounded replacement owner.
 - [ ] Before this task is advanced, review `git diff --cached`, `git diff`, and any
       commits created during the task for deleted abstract methods, removed
-      constructor/category obligations, narrowed smokes, or Sage-gap-driven interface
+      constructor/category obligations, narrowed category-obligation examples, or Sage-gap-driven interface
       shrinkage.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [ ] Relevant category-obligation output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
 - [ ] Use the phase-specific validation commands from the deleted plan when implementing a child item.
 - [ ] Do not close the parent until modules/docs/MAPPING.md has no unmapped wrapper methods.
@@ -134,11 +134,11 @@ then delete wrappers.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-- Began implementation against `category_specs/modules/smoketest.sage`.
-- Initial smoke frontier: `Modules(Zmod(6)).Constructors().FreeModule(2)` failed before constructor assertions because the refined `_OverCommutativeRing_with_category` object had no `Constructors()` method.
+- Began implementation against `category_specs/modules/category_obligations.sage`.
+- Initial failed category assertions: `Modules(Zmod(6)).Constructors().FreeModule(2)` failed before constructor assertions because the refined `_OverCommutativeRing_with_category` object had no `Constructors()` method.
 - Added `Modules.SubcategoryMethods.Constructors()` so base-ring-dispatched module subcategories expose the same constructor collector as `Modules(R)`.
-- Post-patch smoke frontier: constructor exposure works, but `refine_category(..., test=True)` now fails on project abstract root module methods before the constructor assertions can reach the deleted-plan frontier. The first repeated failure is `AssertionError: Not implemented method: alternating_algebra`.
-- Additional post-patch smoke findings preserved for the next implementation pass: QQ inner-product vector-space rows raise `ValueError: base must be a ring or a subcategory of Rings()`; representation modules raise `KeyError: (256, 229)`; graded rows report a base-category-class mismatch between Sage `GradedModules` and project `Modules`; integer-lattice and torsion-quadratic rows raise `KeyError: (256, 260)`; ideal submodule refinement raises `AttributeError: 'Ideal_pid' object has no attribute '_refine_category_'`; ring-as-module rows expose missing ring abstract methods such as `hilbert_polynomial`, `cardinality`, `completion`, `characteristic`, and `algebra_generators`.
+- Post-patch failed category assertions: constructor exposure works, but `refine_category(..., test=True)` now fails on project abstract root module methods before the constructor assertions can reach the deleted-plan frontier. The first repeated failure is `AssertionError: Not implemented method: alternating_algebra`.
+- Additional post-patch category-obligation example findings preserved for the next implementation pass: QQ inner-product vector-space rows raise `ValueError: base must be a ring or a subcategory of Rings()`; representation modules raise `KeyError: (256, 229)`; graded rows report a base-category-class mismatch between Sage `GradedModules` and project `Modules`; integer-lattice and torsion-quadratic rows raise `KeyError: (256, 260)`; ideal submodule refinement raises `AttributeError: 'Ideal_pid' object has no attribute '_refine_category_'`; ring-as-module rows expose missing ring abstract methods such as `hilbert_polynomial`, `cardinality`, `completion`, `characteristic`, and `algebra_generators`.
 - Split the root abstract-method ownership blocker into `[[TASK-01KQXXWCG8P47C9ZVPFBWJF640-MIGRATE-ROOT-MODULE-METHOD-OWNERS]]` because `category_specs/modules/docs/MAPPING.md` already says dual, alternating-form, symmetric/exterior-power, determinant/form, quotient, subobject, and tensor surfaces require narrower mathematical owners rather than generic `Modules(R)` placement.
 - Validation: `just plan-validate` passed with 179 root planning cards; the central planning validator passed and regenerated `plans/plan-dag.md`.
 - 2026-05-06 implementation passes: finite-rank-free implementations for `symmetric_algebra`, `alternating_algebra`, `alternating_form`, `base_change`, `bases`, `default_basis`, `set_default_basis`, `exterior_power`, `determinant_module`, `dual`, and `is_isomorphic_to`; moved `is_submodule_of` to `Subobjects().ParentMethods`.
@@ -171,10 +171,10 @@ These are split rather than implemented here because each crosses into a differe
 **Outcome:** complete. All six gates pass.
 
 - Gate 1: Definitions grounded in SPEC-MAPPING-MODULES.md, DECISION-MODULE-SIDEDNESS, SAGE_INVENTORY.md. modify_module_structure rejection grounded in approved decision.
-- Gate 2: All 9 ACs satisfied. Method moves have mathematical review. Smoke failures preserved as gap evidence (7-item frontier table).
+- Gate 2: All 9 ACs satisfied. Method moves have mathematical review. Failed category assertions preserved as gap evidence (7-item frontier table).
 - Gate 3: Only modify_module_structure removed from @abstract_method, grounded in approved decision. No other abstract methods removed.
-- Gate 4: All decision cards respected. No negative gradient. Smoke passes exit 0.
+- Gate 4: All decision cards respected. No negative gradient. Category-obligation example passes exit 0.
 - Gate 5: Verified mathematical correctness of all changes.
 - Gate 6: No ConditionSet. No variadic option bags. Conventional Commits.
 
-Verification: just --justfile category_specs/justfile smoke-file modules/smoketest.sage passes.
+Verification: just --justfile category_specs/justfile category-obligation-file modules/category_obligations.sage passes.

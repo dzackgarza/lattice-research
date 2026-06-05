@@ -12,7 +12,7 @@ chosen: Commutative/symmetric-bimodule root surface; reject ambiguous overloads 
 options:
 - name: Commutative-first root module surface
   pros:
-  - Matches the current category-spec smoke frontier and most Sage module wrapper evidence.
+  - Matches the current category-spec failed category assertions and most Sage module wrapper evidence.
   - Lets tensor, dual, symmetric, exterior, annihilator, and natural-pairing surfaces
     advance with standard commutative-ring signatures.
   - Keeps noncommutative module sidedness out of the root API until left, right, and

@@ -21,8 +21,8 @@ successCriteria:
   owner is ambiguous.
 - The ownership record cites `category_specs/modules/docs/MAPPING.md`, `category_specs/modules/docs/SAGE_INVENTORY.md`,
   Sage written docs/source, or an approved decision card for each method touched.
-- Constructor and refinement smoke failures preserve exact remaining surfaces; do
-  not bypass `_test_not_implemented_methods`, switch smokes to `test=False`, or add
+- Constructor and refinement failed category assertions preserve exact remaining surfaces; do
+  not bypass `_test_not_implemented_methods`, switch category-obligation examples to `test=False`, or add
   placeholder methods just to pass.
 - No obligation is deleted or weakened because Sage lacks a current implementation.
   A move is valid only when a grounded replacement owner carries the same mathematical
@@ -39,8 +39,8 @@ tags:
 
 ## Summary
 
-`modules/smoketest.sage` now reaches constructor routing for refined module
-subcategories, but the first constructor smoke fails during `refine_category(...,
+`modules/category_obligations.sage` now reaches constructor routing for refined module
+subcategories, but the first constructor category-obligation example fails during `refine_category(...,
 test=True)` because current Sage objects do not yet satisfy the full project spec.
 This task must not treat that as evidence against the spec. Its job is to ground each
 root abstract-method obligation and either preserve it on `Modules(R)`, preserve it
@@ -49,7 +49,7 @@ under a source-grounded owner, or route an explicit decision/source-mining item.
 ## Source Provenance
 
 - Triggering implementation card: `[[TASK-01KQN9YGCMD0K84CK3BKZH0Z8Z-IMPLEMENT-MODULE-CATEGORY-GRAPH-PHASE-FOR-AMBIENT-FREE-VECTOR-SUBOBJECT]]`.
-- Runtime frontier: `just smoke-file modules/smoketest.sage` fails first with `AssertionError: Not implemented method: alternating_algebra` after refined subcategories gain `Constructors()`.
+- Runtime frontier: `just category-obligation-file modules/category_obligations.sage` fails first with `AssertionError: Not implemented method: alternating_algebra` after refined subcategories gain `Constructors()`.
 - Direct source surface: `category_specs/modules/__init__.py`, `_RModObjects`.
 - Mapping authority: `category_specs/modules/docs/MAPPING.md`, especially the method-owner table placing `dual`, `linear_form`, `alternating_form`, symmetric and exterior powers on `DualObjects()` or appropriate symmetric/exterior construction owners over finite-rank free modules, determinant and Gram/form data on forms-owned categories, submodule and quotient operations on `Subobjects()` and `Quotients()`, and tensor operations on `TensorProducts()`.
 - Sage inventory authority: `category_specs/modules/docs/SAGE_INVENTORY.md`, especially the finite-rank tensor-module and representation-module inventories.
@@ -80,7 +80,7 @@ The current generic root abstract surface includes at least:
 - `quotient_module`
 - `natural_pairing`
 
-The first smoke failure is only the alphabetically earliest missing Sage implementation
+The first failed category assertion is only the alphabetically earliest missing Sage implementation
 on the sampled free module. The real issue is not to shrink the root surface until the
 mathematics says it is too broad. Some methods are generic module obligations, some
 require subobject, quotient, finite-rank, basis, dual, form, PID, field, or sidedness
@@ -90,7 +90,7 @@ Generic root ownership is the default whenever an operation is mathematically de
 for arbitrary `R`-modules. A method may move off `Modules(R)` only after this task or
 `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` records the missing datum, hypothesis,
 or counterexample showing that the operation is not well-defined for arbitrary modules.
-Current Sage gaps, smoke failures, algorithmic difficulty, or the result object's
+Current Sage gaps, failed category assertions, algorithmic difficulty, or the result object's
 construction category are not evidence against root ownership.
 
 ## Mathematical Review Finding
@@ -118,7 +118,7 @@ mathematical interface inside Sage's category/object universe. Current Sage cove
 is not the adequacy standard, while Sage interop remains a design constraint where
 mathematically appropriate. Sage inventory is implementation evidence and a feasibility
 witness, helping preserve existing functionality and avoid unimplementable wishlists.
-Smoke failures must be recorded as current implementation/refinement gaps unless a
+Failed category assertions must be recorded as current implementation/refinement gaps unless a
 source-grounded replacement owner preserves the same mathematical obligation.
 
 ## Review Log
@@ -131,7 +131,7 @@ source-grounded replacement owner preserves the same mathematical obligation.
 
 #### Gate 1 — Definition Grounding: PASS
 
-- Source provenance is well-established: cites the triggering task, the runtime smoke frontier, `category_specs/modules/__init__.py`, `category_specs/modules/docs/MAPPING.md`, and `category_specs/modules/docs/SAGE_INVENTORY.md`.
+- Source provenance is well-established: cites the triggering task, the runtime failed category assertions, `category_specs/modules/__init__.py`, `category_specs/modules/docs/MAPPING.md`, and `category_specs/modules/docs/SAGE_INVENTORY.md`.
 - The mathematical review finding (Gate 1 finding in the card body) correctly identifies that the first owner-table draft confused construction codomains with method ownership, and redirects to proper mathematical grounding.
 - SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING was updated per the work log.
 
@@ -146,9 +146,9 @@ All 10 acceptance criteria remain unchecked `[ ]`:
 5. `[ ] The root method list above is audited against the mapping and Sage inventory.`
 6. `[ ] Methods left on generic Modules(R) have grounded generic definitions and an implementation path...`
 7. `[ ] Methods moved off the root are installed only on the weakest grounded owner category...`
-8. `[ ] No method obligation is deleted, weakened, or treated as optional because current Sage classes fail the smoke.`
+8. `[ ] No method obligation is deleted, weakened, or treated as optional because current Sage classes fail the category-obligation example.`
 9. `[ ] Ambiguous surfaces become decision cards rather than speculative code.`
-10. `[ ] just smoke-file modules/smoketest.sage is rerun and the new frontier is recorded...`
+10. `[ ] just category-obligation-file modules/category_obligations.sage is rerun and the new frontier is recorded...`
 
 The work log shows the task shifted from direct implementation to spec-audit work (updating SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING and creating DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES). However, the acceptance criteria were not updated to reflect this shift, and several criteria designed for the implementation path remain unsatisfied.
 
@@ -156,11 +156,11 @@ The work log shows the task shifted from direct implementation to spec-audit wor
 
 1. Either update the acceptance criteria to match what was actually accomplished (spec-audit and decision-card creation), or create a follow-up implementation card that continues the original implementation path.
 2. Mark the completed criteria as [x] and the remaining/deferred work as a new child card.
-3. Rerun the scoped smoke and record the current frontier before marking the task or its successor review-ready.
+3. Rerun the scoped category-obligation example and record the current frontier before marking the task or its successor review-ready.
 
 **Re-review criteria:**
 - Acceptance criteria are either checked with evidence or replaced by updated criteria reflecting the actual scope of work.
-- The smoke frontier is recorded in the card or a linked successor card.
+- The failed category assertions is recorded in the card or a linked successor card.
 
 ---
 
@@ -183,7 +183,7 @@ The work log shows the task shifted from direct implementation to spec-audit wor
       rows.
 - [x] Before this task is advanced, review `git diff --cached`, `git diff`, and any
       commits created during the task for deleted abstract methods, removed
-      constructor/category obligations, narrowed smokes, or Sage-gap-driven interface
+      constructor/category obligations, narrowed category-obligation examples, or Sage-gap-driven interface
       shrinkage. → Reviewed: no staged/unstaged diffs; commit `a281c4a` adds to
       the spec, does not delete abstract methods or obligations.
 - [x] The root method list above is audited against the mapping and Sage inventory. →
@@ -201,16 +201,16 @@ The work log shows the task shifted from direct implementation to spec-audit wor
       `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES` created for
       `modify_module_structure`.
 - [x] No method obligation is deleted, weakened, or treated as optional because current
-      Sage classes fail the smoke. → Verified: smoke failures are preserved as gap
+      Sage classes fail the category-obligation example. → Verified: failed category assertions are preserved as gap
       evidence in the work log; no spec obligations were removed.
 - [x] Ambiguous surfaces become decision cards rather than speculative code. →
       `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES` created for
       sidedness/transport/torsion/overload conventions.
-- [x] `just smoke-file modules/smoketest.sage` is rerun and the new frontier is
-      recorded in this card and the blocking implementation card. → Smoke exit code 0
+- [x] `just category-obligation-file modules/category_obligations.sage` is rerun and the new frontier is
+      recorded in this card and the blocking implementation card. → Category-obligation example exit code 0
       on 2026-05-07 (previous failures from `alternating_algebra` and downstream
       methods resolved by finite-rank-free implementations). Remaining gap evidence
-      from broader smoke (QQ inner-product vector space `ValueError`,
+      from broader category-obligation example (QQ inner-product vector space `ValueError`,
       representation-module `KeyError`, graded-module mismatch, ideal submodule
       `_refine_category_` absence, ring-as-module gaps) is recorded in the blocking
       implementation card `TASK-01KQN9YGCMD0K84CK3BKZH0Z8Z`.
@@ -229,21 +229,21 @@ blocked task.
 - Do not edit forms, lattices, rings, or tensor algebra component files except to
   connect an already-grounded owner; cross-subtree uncertainty becomes a decision card.
 - Do not mark the blocking implementation card complete. It remains human-review gated
-  after the smoke frontier is updated.
-- Do not weaken the smoke harness or validation utilities to hide missing abstract
+  after the failed category assertions is updated.
+- Do not weaken the category-obligation example harness or validation utilities to hide missing abstract
   methods.
 
 ## Work Log
 
-- Created from the module constructor-routing smoke frontier after refined module
+- Created from the module constructor-routing failed category assertions after refined module
   subcategories gained `Constructors()` and the next blocker became over-broad root
   abstract method ownership.
 - Planning validation passed after card creation: `just plan-validate` validated 179
   root planning cards, and the central planning validator regenerated
   `plans/plan-dag.md`.
-- Scoped smoke confirmation: `just smoke-file modules/smoketest.sage` still fails
+- Scoped category-obligation example confirmation: `just category-obligation-file modules/category_obligations.sage` still fails
   first on `AssertionError: Not implemented method: alternating_algebra`; this task
-  owns the root method-owner audit needed before that smoke can reach the previous
+  owns the root method-owner audit needed before that category-obligation example can reach the previous
   deleted-plan frontier.
 - 2026-05-06: Updated `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` so standard
   commutative-ring and integral-domain module surfaces have explicit owners instead
@@ -258,8 +258,8 @@ blocked task.
   extra hypothesis, or counterexample. Re-audited the rows for `annihilator`,
   `tensor_algebra`, `dual`, `tensor`, and `natural_pairing` so convention or
   implementation gaps do not by themselves move the obligation off the root.
-- 2026-05-06 smoke frontier: `just --justfile category_specs/justfile smoke-file
-  modules/smoketest.sage` still fails as gap evidence. The repeated first frontier is
+- 2026-05-06 failed category assertions: `just --justfile category_specs/justfile category-obligation-file
+  modules/category_obligations.sage` still fails as gap evidence. The repeated first frontier is
   `AssertionError: Not implemented method: alternating_algebra`; additional preserved
   findings include QQ inner-product vector-space `ValueError`, representation-module
   `KeyError: (256, 229)`, graded-module Sage/project base-category mismatch,
@@ -279,8 +279,8 @@ blocked task.
 - Gate 1: SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING has 22 rows with explicit columns. DECISION-MODULE-SIDEDNESS resolves ambiguous surfaces.
 - Gate 2: All 10 ACs satisfied. is_submodule_of moved to Subobjects().ParentMethods. modify_module_structure rejected. Finite-rank-free implementations added.
 - Gate 3: Only modify_module_structure removed from abstract, grounded in decision. is_submodule_of relocated, not deleted.
-- Gate 4: Decision cards respected. Smoke passes exit 0.
+- Gate 4: Decision cards respected. Category-obligation example passes exit 0.
 - Gate 5: All 22 method rows mathematically correct with explicit owners.
 - Gate 6: No ConditionSet. Type annotations. Conventional Commits.
 
-Verification: just --justfile category_specs/justfile smoke-file modules/smoketest.sage passes.
+Verification: just --justfile category_specs/justfile category-obligation-file modules/category_obligations.sage passes.

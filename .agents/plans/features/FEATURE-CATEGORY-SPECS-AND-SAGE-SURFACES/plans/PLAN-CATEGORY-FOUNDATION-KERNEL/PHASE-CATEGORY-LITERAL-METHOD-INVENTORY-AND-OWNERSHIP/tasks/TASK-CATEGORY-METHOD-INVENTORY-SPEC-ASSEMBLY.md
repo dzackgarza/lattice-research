@@ -22,7 +22,7 @@ successCriteria:
 - All topical inventory rows use the same schema and cite source paths.
 - Duplicate method names with distinct meanings are split into separate rows, and
   overloaded names state their hypotheses and codomains.
-- The assembled spec links follow-up implementation, audit, smoke, or decision cards
+- The assembled spec links follow-up implementation, audit, category-obligation example, or decision cards
   without creating meta-planning tasks.
 complexity: 80
 tags:
@@ -68,7 +68,7 @@ real spec surface with method rows.
 - [x] The repository contains the final method ownership spec file or a linked family of method ownership spec files under the tracker hierarchy.
 - [x] All topical inventory rows use the same schema and cite source paths.
 - [x] Duplicate method names with distinct meanings are split into separate rows, and overloaded names state their hypotheses and codomains.
-- [x] The assembled spec links follow-up implementation, audit, smoke, or decision cards without creating meta-planning tasks.
+- [x] The assembled spec links follow-up implementation, audit, category-obligation example, or decision cards without creating meta-planning tasks.
 
 ## Dependencies And Boundaries
 
@@ -107,7 +107,7 @@ real spec surface with method rows.
 **Gate 4 — Gradient:**
 - `git log` for the target spec shows only additive commits adding method rows and review logs.
 - No decision cards are contradicted: the assembly follows DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES (rejected malformed names), DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING (handles RealSet axiom), and DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER (separate Picard surfaces).
-- No previously passing tests or smokes are regressed (no code changes).
+- No previously passing tests or category-obligation examples are regressed (no code changes).
 
 **Gate 5 — Mathematical Correctness:**
 - Method owners are stated as minimal categories with explicit hypotheses and codomains.

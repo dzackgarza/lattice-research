@@ -23,7 +23,7 @@ acceptanceCriteria:
 - The stale provenance path is broadened and corrected to the deleted `plans/category_specs/.../TRIAGE.md`
   path.
 - 'Verification remains cheap and local: parse/diff checks only in this leaf; subtree
-  smoke and global QC are intentionally not part of this review-state handoff.'
+  category-obligation example and global QC are intentionally not part of this review-state handoff.'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
@@ -90,7 +90,7 @@ Rejection/retirement condition:
 - [x] No new subtree-local TRIAGE or process document is created.
 - [x] This leaf does not expand the tensor API beyond the frozen decisions: symmetry/antisymmetry remain constructor metadata; component storage, display, and index notation remain nonpublic; contraction and trace use named tensor-element methods only.
 - [x] The stale provenance path is broadened and corrected to the deleted `plans/category_specs/.../TRIAGE.md` path.
-- [ ] Verification remains cheap and local: parse/diff checks only in this leaf; subtree smoke and global QC are intentionally not part of this review-state handoff.
+- [ ] Verification remains cheap and local: parse/diff checks only in this leaf; subtree category-obligation example and global QC are intentionally not part of this review-state handoff.
 
 ## Dependencies And Boundaries
 
@@ -157,7 +157,7 @@ Rejection/retirement condition:
 - **Boundary risk**: The card explicitly forbids creating new TRIAGE files and forbids patching around missing owners. If execution uncovers a gap, the rule is to split a new tracker item. This prevents silent scope expansion.
 - **Dependency risk**: The freeze depends on the algebra constructor phase being accepted. If that phase changes, the frozen mapping may need re-freezing. The dependency edge is declared, so the DAG will surface the need for re-review.
 - **Retirement risk**: The rejection condition retires any migration target that cannot be stated as a source-backed tensor owner rule. This prevents speculative or convenience-driven API decisions from leaking into the frozen surface.
-- **Verification risk**: The final acceptance criterion (AC5) remains unchecked and is inherently gated on this review itself. It demands that verification is cheap and local — parse/diff only, no subtree smoke, no global QC. This is appropriate for a freeze leaf (no code changes expected beyond documentation), but the cost of reverification if upstream dependencies change should be noted as acceptable.
+- **Verification risk**: The final acceptance criterion (AC5) remains unchecked and is inherently gated on this review itself. It demands that verification is cheap and local — parse/diff only, no subtree category-obligation example, no global QC. This is appropriate for a freeze leaf (no code changes expected beyond documentation), but the cost of reverification if upstream dependencies change should be noted as acceptable.
 - **Missing owner risk**: Addressed by the "split a new tracker item" rule in Boundaries. No fallthrough.
 - **Verdict**: PASS. Risks are identified and mitigated by explicit rules. The one remaining unchecked acceptance criterion (AC5) is a design choice consistent with the leaf's "freeze" nature and is satisfiable.
 

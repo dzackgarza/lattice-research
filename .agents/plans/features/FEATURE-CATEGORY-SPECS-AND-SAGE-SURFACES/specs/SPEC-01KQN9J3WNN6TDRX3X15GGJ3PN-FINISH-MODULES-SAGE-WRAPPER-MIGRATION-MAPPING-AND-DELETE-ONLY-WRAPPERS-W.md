@@ -106,7 +106,7 @@ deletion.
 - Recovered the deleted wrapper plan from `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` after the migrated `category_specs/...` provenance path proved stale.
 - Added a wrapper-candidate classification audit to `category_specs/modules/docs/MAPPING.md`: constructor-only interop shells, forms-owned owners, lattice-owned owner, and retained real module-category owners.
 - Checked exact wrapper-name references in `category_specs/modules`; deleted wrapper names remain in mapping/provenance documentation, while live code references are retained real-category surfaces.
-- Skipped subtree smoke and global QC intentionally; this is a documentation/source-map review-state handoff, not implementation integration or a phase transition.
+- Skipped subtree category-obligation example and global QC intentionally; this is a documentation/source-map review-state handoff, not implementation integration or a phase transition.
 ## 6-Gate Protocol Review Log
 ### Spec: SPEC-01KQN9J3WNN6TDRX3X15GGJ3PN-FINISH-MODULES-SAGE-WRAPPER-MIGRATION-MAPPING-AND-DELETE-ONLY-WRAPPERS-W
 ### Date: 2026-05-07
@@ -136,14 +136,14 @@ deletion.
 - Context section covers all five items required by the migration contract: (1) wrapper classification before deletion, (2) category graph ordering, (3) constructor routing discipline, (4) method ownership with hypothesis preservation, (5) deletion-as-last-step.
 - Source-Mining Contract provides 5 precise operational rules for the mapping pass: classification per wrapper, per-method signature recording, cross-subtree boundary respect, deletability criterion.
 - Dependencies And Boundaries section defines what to preserve and when to split new tracker items.
-- Work Log documents 5 concrete actions: plan recovery, classification audit in MAPPING.md, reference check, intentional smoke/QC skip with rationale.
+- Work Log documents 5 concrete actions: plan recovery, classification audit in MAPPING.md, reference check, intentional category-obligation example/QC skip with rationale.
 - The `closure still requires human review` caveat on the final acceptance criterion is appropriate — this is a documentation/source-map review-state handoff.
 - **No completeness gaps found.**
 
 ---
 
 ### G3 — Mathematical Correctness: PASS
-- The migration contract ordering (map → category graph → constructors → move → delete) is the mathematically sound dependency order. Any other order would create constructors/smokes that depend on wrapper categories before real method owners exist.
+- The migration contract ordering (map → category graph → constructors → move → delete) is the mathematically sound dependency order. Any other order would create constructors/category-obligation examples that depend on wrapper categories before real method owners exist.
 - The classification taxonomy is mathematically rigorous: constructor-only interop shell (no mathematical status claimed), real module-category owner, forms-owned owner, lattice-owned owner, unresolved owner.
 - The per-method recording contract — minimal owner category, explicit hypotheses (`WithBasis`, ordered basis, chosen generators, PID, field, free, finite-rank, form codomain, torsion, lattice predicates), and mathematical return object — provides sufficient data for a correctness audit without requiring implausible completeness.
 - The cross-subtree mapping split (modules own plain module structure, forms own `WithForms`/formed-module methods, lattices own only named lattice endpoints) respects the mathematical hierarchy: bilinear/quadratic forms are extra structure on modules, not module-inherent structure; lattices are modules + a discrete subgroup condition.
@@ -155,7 +155,7 @@ deletion.
 
 ### G4 — Non-Math Rejection: PASS
 - The spec explicitly declares itself a documentation/source-map review-state handoff, not implementation integration or a phase transition.
-- Work Log confirms intentional skip of subtree smoke and global QC.
+- Work Log confirms intentional skip of subtree category-obligation example and global QC.
 - The spec prohibits creating new subtree-local TRIAGE or process documents.
 - The Source-Mining Contract states: "This card is executable only as a wrapper-to-owner mapping pass, not as blanket wrapper deletion."
 - Non-mathematical targets (raw Sage implementation containers, variadic option bags) are explicitly excluded from mapping per the contract.
@@ -181,7 +181,7 @@ deletion.
 - The deleted plan's phase-specific validation commands are preserved as implementation-phase guidance (not lost).
 - The work log documents that references to deleted wrapper names are retained in mapping/provenance documentation while live code references were verified to use real-category surfaces.
 - The spec records the stale-path investigation methodology, capturing the recovery path for the deleted source file.
-- The intentional skip of subtree smoke and global QC is documented with rationale, so future agents know this was a deliberate scope boundary, not an oversight.
+- The intentional skip of subtree category-obligation example and global QC is documented with rationale, so future agents know this was a deliberate scope boundary, not an oversight.
 - No existing mathematical content was deleted; the mapping was a conversion from a deleted inline tracker item to a full-document Nimbalyst spec.
 - **Preservation requirements met.**
 

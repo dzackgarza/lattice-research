@@ -100,8 +100,8 @@ assumptions.
   exceptions, constructors, or mathematical API design.
 - Load `research-math-boundary` when audit findings concern the trusted mathematical
   base, backend ownership, Sage/GAP/Julia routing, or exact computation semantics.
-- Load `category-spec-audit` when auditing category-spec plans, cards, smoke work, or
-  implementations.
+- Load `category-spec-audit` when auditing category-spec plans, cards,
+  category-obligation-example work, or implementations.
 
 ## Stop conditions
 

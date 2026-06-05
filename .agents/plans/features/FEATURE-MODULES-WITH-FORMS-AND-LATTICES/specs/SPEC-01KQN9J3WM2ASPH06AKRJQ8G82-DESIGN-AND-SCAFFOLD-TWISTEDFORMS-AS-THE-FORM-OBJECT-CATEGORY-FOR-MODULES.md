@@ -22,7 +22,7 @@ acceptanceCriteria:
   item with source provenance.
 - Review the affected public type aliases and category methods against plans/todo.md
   before closing.
-- Run the relevant category_specs smoke file for any changed subtree.
+- Run the relevant category_specs category-obligation example file for any changed subtree.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 ---
@@ -123,7 +123,7 @@ Migration consequence:
 - [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
 - [ ] Review the affected public type aliases and category methods against plans/todo.md before closing.
-- [ ] Run the relevant category_specs smoke file for any changed subtree.
+- [ ] Run the relevant category_specs category-obligation example file for any changed subtree.
 
 ## Dependencies And Boundaries
 

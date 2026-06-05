@@ -1,8 +1,8 @@
 ---
 name: category-spec-style
 description: Use when editing, reviewing, or authoring category specs, type packages,
-  Sage wrappers, constructors, method ownership, smoke files, or category-spec implementation
-  code.
+  Sage wrappers, constructors, method ownership, category-obligation examples, or
+  category-spec implementation code.
 ---
 
 # Category Spec Style
@@ -13,7 +13,8 @@ This skill is the canonical agent-facing style authority for category-spec mathe
 
 The source of truth is this skill plus `references/style.md`.
 
-Read `references/style.md` before acting on category-spec content, code, specs, smoke files, or compliance questions.
+Read `references/style.md` before acting on category-spec content, code, specs,
+category-obligation examples, or compliance questions.
 
 ## Use this skill for
 
@@ -22,7 +23,7 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
 - Category, object, element, morphism, Hom, End, and Aut objects and method classes.
 - Constructor definitions and named constructor design.
 - Sage wrappers and interop boundaries.
-- Smoke files and compliance checks.
+- Category-obligation example files and compliance checks.
 - Minimal indirection, anti-slop, and mathematical ownership review.
 
 ## Hard reminders
@@ -56,8 +57,9 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
   proof or hypotheses, stop the leaf and route a decision/source-mining card instead of
   guessing the familiar meaning.
 - Complexity belongs behind mathematical nouns, not helper sprawl.
-- Do not weaken specs to make current code pass. A smoke failure usually records an
-  implementation, wrapper, or missing-witness gap against the spec.
+- Do not weaken specs to make current code pass. A failed category assertion usually
+  records an implementation, constructor/refinement, source, wrong-weakest-category, or
+  missing-witness gap against the spec.
 - A typing fix is a proof obligation, not a way to quiet mypy. Before changing an
   annotation, adding a cast, or narrowing a return, ask whether the change makes the
   mathematical claim more explicit. If the code already expresses the correct Sage

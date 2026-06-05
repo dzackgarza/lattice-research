@@ -134,6 +134,6 @@ completion
 
 #### Residual Risk
 
-- Smoke/tests were not run for this review because this is backend-routing spec work.
+- Category-obligation example/tests were not run for this review because this is backend-routing spec work.
 - Future implementation must re-audit `candidate-backend` rows before wiring a mature
   system bridge.

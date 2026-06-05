@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn:
-- '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
+- '[[PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS]]'
 title: Sprint variadic signature closure audit across modules rings tensors algebras
   lattices posets sets and real-set constructors
 status: in-progress
@@ -16,7 +16,7 @@ successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
 - Completion requires each child item to be done or explicitly superseded by a linked
   successor; blocked child cards do not satisfy phase acceptance.
-- The sprint closing note records smoke/test commands run and any unresolved blockers.
+- The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
 - Audit public signatures for remaining *args, **kwargs, option bags, and placeholder
   union data shapes.
 - Open owner-specific tasks for any remaining collapsed Sage casework rather than
@@ -35,7 +35,7 @@ surface, its card must cite the canonical source path, exact definition, owner c
 hypotheses, codomain/return object, and proof or Sage-evidence obligations.
 
 If a sprint finding lacks that grounding, the sprint action is source mining, decision
-capture, or splitting into a prerequisite card. QC and smoke findings identify work, but
+capture, or splitting into a prerequisite card. QC and category-obligation example findings identify work, but
 they do not define the mathematical surface being repaired.
 
 ## Summary
@@ -62,7 +62,7 @@ collapsed Sage casework or raw coordinate interop into broad signatures.
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
 - [ ] Completion requires each child item to be done or explicitly superseded by a
       linked successor; blocked child cards do not satisfy phase acceptance.
-- [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
+- [ ] The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
 - [ ] Audit public signatures for remaining *args, **kwargs, option bags, and placeholder union data shapes.
 - [ ] Open owner-specific tasks for any remaining collapsed Sage casework rather than restoring the inventory doc.
 
@@ -97,7 +97,7 @@ The card provides concrete provenance: `category_specs/docs/VARIADIC_SIGNATURE_I
 The 5 success criteria in the frontmatter are individually checkable:
 1. "bounded set of child tracker items and an explicit scope statement" — scope is stated but somewhat implicit in the context section.
 2. "each child item to be done or explicitly superseded" — **not met**: TASK-BUG-CATEGORY-SPECS-RUFF-NORMALIZATION-BLOCKER is `revision-required` and TASK-WRAPUP-PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT is `unstarted`.
-3. "closing note records smoke/test commands run" — not yet produced (wrapup unstarted).
+3. "closing note records category-obligation example/test commands run" — not yet produced (wrapup unstarted).
 4. "Audit public signatures for remaining *args, **kwargs, option bags" — domain-specific tasks are complete, but the word "remaining" implies a final sweep that is the wrapup task's responsibility.
 5. "Open owner-specific tasks for remaining collapsed Sage casework" — no evidence of this in the card.
 

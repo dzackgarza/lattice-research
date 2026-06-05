@@ -8,7 +8,8 @@ included_by: [index]
 
 ## Object of the invariant
 
-Smoke and regression tests for downstream category-spec consumer behavior.
+Category-obligation examples and regression tests for downstream category-spec
+consumer behavior.
 
 ## False substitute it blocks
 
@@ -35,16 +36,16 @@ Those class names are engineering internals, not research-facing vocabulary.
 A downstream consumer should think "what is the smallest correct category for this
 object?", not "which Python class should I subclass?"
 
-Direct class-name assertions are allowed only for narrow internal route smoke where the
-object being tested is explicitly the route table itself, such as verifying that a root
-category's axiom attribute points at the intended project class.
+Direct class-name assertions are allowed only for narrow internal route examples where
+the object being tested is explicitly the route table itself, such as verifying that a
+root category's axiom attribute points at the intended project class.
 They are not valid evidence for object behavior, inherited category methods, or
 downstream usability.
 
 ## Witness example
 
-A smoke test for basis helper behavior should construct or refine an actual module in
-`Modules(QQ).WithBasis()` or `Modules(QQ).WithOrderedBasis()`, then call
+A category-obligation example for basis helper behavior should construct or refine an
+actual module in `Modules(QQ).WithBasis()` or `Modules(QQ).WithOrderedBasis()`, then call
 `basis_index_set()` or `basis_order()` on that object.
 It should not define `class _OrderedBasisWitness(_WithOrderedBasis.ParentMethods)`.
 

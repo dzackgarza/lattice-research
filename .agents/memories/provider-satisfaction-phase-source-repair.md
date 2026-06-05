@@ -24,7 +24,8 @@ Before each source edit, state the object-level delta:
 
 > This edit makes concrete object method ___ available to refined object ___ under
 > category contract ___, while preserving abstract requirement ___ and missing
-> requirement ___ as visible to smokes and later implementation work.
+> requirement ___ as visible to category-obligation examples and later implementation
+> work.
 
 If the edit cannot be stated this way, it is not authorized by this phase.
 
@@ -53,7 +54,7 @@ Stop and return to `SYNTHESIZE` or `DECOMPOSE` if the proposed patch:
 - adds method bodies to spec obligations merely to call Sage;
 - deletes an abstract obligation because Sage implements it;
 - makes `refine_category` check abstract method completeness;
-- changes a smoke to assert only name or file existence;
+- changes a category-obligation example to assert only name or file existence;
 - adds casts, ignores, `NotImplementedError`, local QC bypasses, or report-only fixes;
 - improves hooks, reports, ledgers, or mypy output before changing the object-method
   relation;

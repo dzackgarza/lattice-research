@@ -14,7 +14,7 @@ successCriteria:
   category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
 - Determine how this category relates to existing planned categories, constructors,
-  Hom/End/Aut surfaces, and smoke expectations.
+  Hom/End/Aut objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation
   cards needed to proceed.
@@ -151,18 +151,18 @@ period domains, and K3/complex-surface analytic bridges. Existing complex-manifo
 complex-variety cards already own the immediate bridge follow-up; no new decision card
 is needed from this pass.
 
-## Smoke And Implementation Guidance
+## Representative Examples And Implementation Guidance
 
-Future smoke examples should use small SageManifolds objects such as the real line,
+Future category-obligation examples should use small SageManifolds objects such as the real line,
 `RR^2`, or the sphere `S^2`, and should test category membership, Hom construction,
 charts/open subsets, and one tangent-space or scalar-field surface. Do not use expensive
-symbolic tensor examples as basic category smokes.
+symbolic tensor examples as basic category-obligation examples.
 
 ## Acceptance Criteria
 
 - [x] Identify the mathematical definition and the intended project vocabulary for this category.
 - [x] Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut surfaces, and smoke expectations.
+- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut objects, and representative examples with category obligations.
 - [x] List downstream categories or tasks blocked by this integration.
 - [x] Create any concrete follow-up decision, spec, implementation, or source-curation cards needed to proceed.
 

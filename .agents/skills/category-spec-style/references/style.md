@@ -41,7 +41,7 @@ Internal historical mentions of `STYLE.md` refer to this skill reference unless 
 # STYLE.md - category_specs
 
 Read this file before editing, reviewing, or authoring category specs, implementations,
-tests, smoke files, Sage inventory/mapping docs, type packages, or code organization in
+tests, category-obligation examples, Sage inventory/mapping docs, type packages, or code organization in
 this subtree.
 
 This file records conventions, banned patterns, mathematical naming rules, and local
@@ -374,8 +374,8 @@ engineering belongs in `utils.py`.
 Refinement is also categorical declaration. It takes an existing Sage object and says
 that the object is now viewed as lying in a project subcategory of its Sage-backed
 category. The existing Sage object is a partial implementation of the project spec:
-some specified methods are already present, and smoke tests should expose the missing
-ones.
+some specified methods are already present, and category-obligation examples should
+expose the missing ones.
 
 Refinement does not interrogate the object being refined. It does not validate that the
 object satisfies the project category, reject because project methods remain abstract,
@@ -384,13 +384,14 @@ contract; it does not certify satisfaction of that contract.
 
 This distinction is structural. The project invented specifications Sage does not know,
 so most refined Sage implementations are expected to be incomplete relative to the
-project spec. That incompleteness is the evidence smokes are meant to expose, not a
-reason to weaken the spec or add refinement-time checks.
+project spec. That incompleteness is the evidence category-obligation examples are
+meant to expose, not a reason to weaken the spec or add refinement-time checks.
 
 Do not turn refinement into method-search repair. If a refinement task starts with
-method search, cache state, dynamic class mutation, type-checker appeasement, smoke
-ordering, hook output, or any other programming mechanism before it names the category
-and its mathematical specification, stop and restate the ordinary category declaration.
+method search, cache state, dynamic class mutation, type-checker appeasement,
+test-ordering output, hook output, or any other programming mechanism before it names
+the category and its mathematical specification, stop and restate the ordinary category
+declaration.
 Concrete examples include `MRO`, `getattr_from_category`, `_cached_methods`,
 `cached_method`, Cython class assignment, and `can_assign_class`:
 
@@ -420,12 +421,12 @@ machinery carry abstractness. Do not generate failure bodies, add `assert False`
 insert `NotImplementedError`, manually compute which abstract names are satisfied, or
 special-case method names.
 
-Every added helper, test, smoke, task title, and guidance phrase touching category
-methods must read like a mathematical fact, proposition, operation, requirement, or
-counterexample. Names that describe appeasing code machinery instead of the
-mathematical operation are hard slop signals in category-spec work. Do not launder them
-by adding caveats, quotes, or surrounding mathematical prose. Stop, discard the
-phrasing, and reconstruct the task from the object/category sentence:
+Every added helper, test, category-obligation example, task title, and guidance phrase
+touching category methods must read like a mathematical fact, proposition, operation,
+requirement, or counterexample. Names that describe appeasing code machinery instead
+of the mathematical operation are hard slop signals in category-spec work. Do not
+launder them by adding caveats, quotes, or surrounding mathematical prose. Stop,
+discard the phrasing, and reconstruct the task from the object/category sentence:
 
 > For object ___ in category ___, method ___ expresses mathematical operation/fact/
 > requirement ___ under hypotheses ___.
@@ -454,11 +455,11 @@ an `n`th element operation, implementers of that category must provide it; the a
 of implementations is an implementation gap, not a reason to remove the mathematical
 requirement.
 
-Do not use Sage smoke failures as a negative vote on the spec. If a refined Sage object
-fails because it lacks an ABC method, record the implementation/wrapper/constructor gap
-or ground a replacement owner that preserves the obligation. Deleting an abstract
-method, weakening a category, or moving a method without a source-backed replacement
-owner is spec regression.
+Do not use failed category assertions as a negative vote on the spec. If a refined
+Sage object fails because it lacks an ABC method, record the
+implementation/wrapper/constructor gap or ground a replacement weakest category that
+preserves the obligation. Deleting an abstract method, weakening a category, or moving
+a method without a source-backed replacement weakest category is spec regression.
 
 **Definition Grounding Required Data**:
 Before adding or changing a category, method, predicate, invariant, constructor,
@@ -476,8 +477,8 @@ The grounding record must name:
   independent of choices or equal to another notion;
 - the migration consequence for any old Sage/project operation.
 
-Migrations from old `.agents/plans/todo.md`, deleted triage files, smoke output, inline cards,
-or user-chat summaries preserve provenance, but they are not definition authority. A
+Migrations from old `.agents/plans/todo.md`, deleted triage files, category-test output,
+inline cards, or user-chat summaries preserve provenance, but they are not definition authority. A
 source line saying "move divisibility to X" is not enough to specify what
 `divisibility` means, whether it is choice-independent, what object it returns, or
 when it coincides with another divisibility notion.
@@ -492,9 +493,11 @@ If the exact definition cannot be grounded, do not edit the spec. Create or upda
 decision, research, or source-mining card and mark only that leaf blocked. Continuing
 with the most familiar interpretation of a term is a spec failure.
 
-**Inventory, Mapping, and Spec Smokes Are Different Documents**:
+**Inventory, Mapping, and Category-Obligation Examples Are Different Documents**:
 Do not import generic software-engineering meanings of "inventory", "mapping", or
-"smoke test" into this subtree.
+quick-liveness testing into this subtree. Tests in `category_specs` are category-obligation
+examples: they assert that representative Sage/project objects instantiate declared
+categories and satisfy the obligations of those categories.
 
 - **Sage inventory** records Sage facts only: source files, documented constructors,
   signatures, classes, categories, methods, and observed Sage behavior. It is not the
@@ -559,49 +562,53 @@ Do not import generic software-engineering meanings of "inventory", "mapping", o
 - **Unrecorded mapping decisions are failures.** If an agent decides a Sage constructor, method, or class is
   non-mapped, moved to a strict supercategory, or replaced by a named constructor, that
   decision must appear in mapping docs or `NEEDS_DECISIONS.md` with the mathematical
-  reason. Do not hide decisions by deleting smokes, deleting abstract methods, or
-  reclassifying evidence as "interop".
+  reason. Do not hide decisions by deleting category-obligation examples, deleting
+  abstract methods, or reclassifying evidence as "interop".
 
-**Spec Smokes Report Missing Implementations**:
-Smokes in this subtree are not pass/fail implementation tests. Their purpose is to run
-existing Sage objects through the upgraded category spec and report which methods,
-constructors, and inherited ABC obligations the current implementation does not yet
-satisfy. Most raw Sage refinements are expected to fail today because Sage objects are
-incomplete relative to this spec. The missing-obligation list is the useful output: it tells a
-future implementer what a spec-compliant wrapper, constructor route, or replacement
-must provide.
+**Category-Obligation Examples Classify Failed Assertions**:
+Category-obligation examples in this subtree are not liveness probes or generic
+pass/fail implementation tests. Their purpose is to run representative Sage/project
+objects through the upgraded category spec and assert which category definitions,
+constructors, inherited ABC obligations, and Hom/End/Aut laws the current
+implementation satisfies. Most raw Sage refinements are expected to be incomplete
+relative to this spec. The failed-obligation list is useful only when it is classified
+by mathematical cause.
 
-- A spec smoke uses the project category operation and asserts mathematical facts:
-  membership in project categories, cardinalities, rankings, subset relations, form
-  laws, Hom/End/Aut semantics, constructor routing to named mathematical objects, and
-  other obligations stated by the spec.
-- A spec smoke should collect all labeled failures it can reach, so one run exposes the
-  current missing-method list. The shared collection helper exists for this purpose:
-  do not stop after the first missing method when setup can be moved into labeled
-  statements.
+- A category-obligation example uses the project category operation and asserts
+  mathematical facts: membership in project categories, cardinalities, rankings,
+  subset relations, form laws, Hom/End/Aut semantics, constructor routing to named
+  mathematical objects, and other obligations stated by the spec.
+- A category-obligation example should collect all labeled failures it can reach, so
+  one run exposes the current missing-obligation list. The shared collection helper
+  exists for this purpose: do not stop after the first missing method when setup can be
+  moved into labeled statements.
 - Refinement into a category brings the whole inherited ABC contract, not only the
-  headline methods of the subtree being edited.  A tensor component smoke may expose
+  headline methods of the subtree being edited. A tensor component example may expose
   `__richcmp__`, for example, because tensor component parents are still categorical
   objects that inherit comparison obligations from set/module structure.  This is not
   incidental implementation noise. It records that any later tensor-component wrapper
   or implementation must satisfy the inherited comparison/subobject contract even
   though the method name is not tensor-specific.
-- A spec smoke must not assert that an object "exists", is non-`None`, is truthy, or
-  merely constructs without raising. It must not use raw Python containers or raw Sage
-  quirks as the main oracle when a project category predicate or method should express
-  the claim.
-- If a smoke cannot state the intended claim using project category vocabulary, the
-  result is not a weaker smoke. The result is a missing category-method finding that must
-  be mapped, added to the spec, or recorded as a decision.
-- Avoid assertion-wrapper ceremony in smokes. A helper is acceptable only when it
-  preserves mathematical content and materially improves missing-obligation reporting. Do not add
-  generic `require`, `assert_not_none`, truthiness checks, or other software-testing
-  scaffolding that hides the mathematical assertion.
-- Regression tests are separate from spec smokes. Regression tests may use Sage
-  examples as source evidence, but they still prove project-owned mathematical
-  behavior through project vocabulary. They are not a license to compare against raw
-  Python containers or current Sage implementation quirks as a substitute for a spec
+- A category-obligation example must not assert that an object "exists", is non-`None`,
+  is truthy, or merely constructs without raising. It must not use raw Python
+  containers or raw Sage quirks as the main oracle when a project category predicate or
+  method should express the claim.
+- If an example cannot state the intended claim using project category vocabulary, the
+  result is not a weaker example. The result is a missing category-method finding that
+  must be mapped, added to the spec, or recorded as a decision.
+- A failed assertion should be classified as: missing implementation, missing
+  constructor/refinement, wrong weakest category, missing definition, missing source
+  evidence, or invalid assertion.
+- Avoid assertion-wrapper ceremony in category-obligation examples. A helper is
+  acceptable only when it preserves mathematical content and materially improves
+  missing-obligation reporting. Do not add generic `require`, `assert_not_none`,
+  truthiness checks, or other software-testing scaffolding that hides the mathematical
   assertion.
+- Regression tests are separate from category-obligation examples. Regression tests
+  may use Sage examples as source evidence, but they still prove project-owned
+  mathematical behavior through project vocabulary. They are not a license to compare
+  against raw Python containers or current Sage implementation quirks as a substitute
+  for a spec assertion.
 
 Audit with a reference-textbook mindset. Ask what Bourbaki, Atiyah-MacDonald,
 Dummit-Foote, Hatcher, Hartshorne, the Stacks Project, or the relevant Sage written
@@ -612,7 +619,7 @@ or basic category theory.
 
 For broad or contentious audits, use a fresh mathematically primed reviewer when
 delegation is available and appropriate. The review contract is not "find code
-duplication" or "make smokes pass"; it is:
+duplication" or "make tests pass"; it is:
 - classify each method by the mathematical category where the statement first becomes
   true;
 - reject invented terminology when a standard category name exists;
@@ -710,9 +717,9 @@ Example: if `Modules(R).FreeModule(R, n)` exists, defining `Ring.__pow__` to ret
 Any concrete method implementation in a category spec MUST be decorated with
 `@final` by default. This includes trivial categorical glue, predicates,
 construction selectors, and methods implemented purely in terms of abstract methods
-on the same method class. The purpose is architectural: smokes and audits must flag cases
-where multiple specs are trying to provide competing concrete implementations of the
-same method.
+on the same method class. The purpose is architectural: category-obligation examples
+and audits must flag cases where multiple specs are trying to provide competing
+concrete implementations of the same method.
 
 Only omit `@final` when the method is intentionally an extension hook or constructor
 plumbing whose subclasses must provide their own mathematical signature. Such
@@ -763,7 +770,7 @@ Before editing a category spec, answer these questions in order:
   location because the code can be shared there. Accept it only if the mathematical
   statement first becomes true there. Conversely, do not move a method downward because
   implementations are missing; missing implementations are exactly what specs and
-  smokes are meant to expose.
+  category-obligation examples are meant to expose.
 - **What Sage mechanism is being extended?** Read the written Sage docs, source, and
   local usage before deciding. Do not infer architecture from a single signature or a
   failing traceback. Sage compatibility supercategories may remain raw Sage
@@ -791,9 +798,9 @@ Before editing a category spec, answer these questions in order:
   line or documented behavior forces the departure.
 - **Is the proposed fix deleting the evidence?** Removing `NEEDS_DECISIONS` before the
   mathematical issue is fixed, relaxing `@final`, deleting an `@abstract_method`,
-  weakening a smoke, adding `hasattr` checks, or catching errors to keep going are
-  false resolution. Such edits make the current failure disappear while moving the
-  spec away from its intended mathematics.
+  weakening a category assertion, adding `hasattr` checks, or catching errors to keep
+  going are false resolution. Such edits make the current failure disappear while
+  moving the spec away from its intended mathematics.
 - **Would the same reasoning find the next instance?** Encode the correction as a
   local ownership rule or audit question, not as a one-off patch. The reusable lesson
   from `Autset` is not only "`Autset` sits under `Endset`"; it is "identify whether a
@@ -835,7 +842,7 @@ owning layer before editing locally.
     methods on the lowest mathematically correct category, express the relationship via
     `super_categories()`, `_with_axiom`, or the proper Sage construction category, or
     document the missing owner as a design decision. Do not copy provider methods or
-    splice method-provider bases to make a smoke pass.
+    splice method-provider bases to make a category assertion pass.
 - **Strict-supercategory leaks**:
   - What makes it a red flag: a category defines methods that already make sense in a
     strict supercategory. For example, module morphisms should not be the first place
@@ -877,8 +884,9 @@ owning layer before editing locally.
     software-only helper types unless they are private implementation details.
 - **Downstream symptom patches**:
   - What makes it a red flag: a fix changes `Cat()` to compensate for an ordinary
-    construction escape, changes a smoke to avoid a failure, or explains a traceback
-    by the last class named in the error rather than by the construction path.
+    construction escape, changes a category assertion to avoid a failure, or explains
+    a traceback by the last class named in the error rather than by the construction
+    path.
   - Suspect: the observed object is only a symptom. Raw Sage supercategories,
     join-category supercategories, and project construction results are different
     questions.
@@ -940,8 +948,9 @@ owning layer before editing locally.
     `references/code-patterns.md#engineering-names-in-mathematical-contexts`.
 - **Reward-hacking edits**:
   - What makes it a red flag: removing `NEEDS_DECISIONS`, relaxing `@final`, deleting
-    an `@abstract_method`, weakening a smoke, adding `hasattr`, or catching errors
-    makes the failure disappear without resolving the mathematical issue.
+    an `@abstract_method`, weakening a category assertion, adding `hasattr`, or
+    catching errors makes the failure disappear without resolving the mathematical
+    issue.
   - Suspect: the edit is optimizing for the current tool result, not for the spec.
   - Audit response: restore the sensor and fix the missing implementation,
     mathematical owner, or wrapper integration it exposed.
@@ -1269,7 +1278,7 @@ category_specs/
 ├── homsets/             # generic Hom/End/Aut category dispatch, Autset interop wiring, base classes
 │   ├── AGENTS.md
 │   ├── __init__.py
-│   ├── smoketest.sage
+│   ├── category_obligations.sage
 │   ├── docs/
 │   └── tests/
 ├── justfile
@@ -1293,7 +1302,7 @@ category_specs/
     │   ├── finite/       # implementations of finite objects
     │   ├── free/         # implementations of free objects
     │   └── ...
-    ├── smoketest.sage    # exercises every Constructors() entry point
+    ├── category_obligations.sage # asserts representative category obligations
     ├── docs/
     │   ├── SAGE_INVENTORY.md # Sage classes, methods, on-disk paths
     │   └── MAPPING.md        # decisions mapping Sage categories -> our hierarchy, with mathematical justification

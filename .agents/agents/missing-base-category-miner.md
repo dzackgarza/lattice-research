@@ -48,7 +48,8 @@ category/spec owner — eliminating local workarounds for missing base concepts.
 ## Trigger
 
 Weekly during category-spec phase; after two or more cards mention the same missing
-notion; after repeated type/mapping/smoke failures around a concept.
+notion; after repeated type, mapping, or failed category-assertion evidence around a
+concept.
 Source object: execution kernel's scope-expansion routing rule.
 
 ## Removal condition

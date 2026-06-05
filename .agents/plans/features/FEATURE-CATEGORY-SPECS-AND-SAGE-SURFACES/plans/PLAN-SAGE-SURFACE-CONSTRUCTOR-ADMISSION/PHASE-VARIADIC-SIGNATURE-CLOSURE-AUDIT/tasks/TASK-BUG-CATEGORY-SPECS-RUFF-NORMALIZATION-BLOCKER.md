@@ -45,7 +45,7 @@ cards even when the implementation diff is narrower than the QC backlog.
 - `.agents/current-goal-phase.md` says QC is a gate for implementation surfaces and
   phase transitions, while incidental QC cleanup should not steer churn-heavy spec
   work.
-- Owning plan: `PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT`, under `PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION`.
+- Owning plan: `PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT`, under `PLAN-CATEGORY-OBLIGATION-EXAMPLES`.
 
 ## Context
 
@@ -199,7 +199,7 @@ Findings and resolution:
 - Gate 2 initially failed on current evidence: direct full Ruff still reported 76
   findings, so the card's claim that Ruff normalization was cleared was stale.
 - Gate 3 passed after rework: the cleanup did not delete category obligations,
-  constructor surfaces, abstract methods, or smoke assertions. Compatibility names
+  constructor surfaces, abstract methods, or category assertions. Compatibility names
   were preserved through import-safe aliases or module-backed assignments.
 - Gate 6 passed after rework: `uvx --from ruff ruff check category_specs`,
   `python -m compileall -q category_specs`, and `git diff --check -- category_specs`

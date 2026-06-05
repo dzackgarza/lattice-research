@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
+- '[[PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS]]'
 title: Admit finite totally ordered base-set owner for partitioned-set subclass predicates
 status: complete
 priority: critical
@@ -270,7 +270,7 @@ The spec correctly constrains any future `Noncrossing`, `Nonnesting`, or `Atomic
 
 - No abstract methods deleted: The spec adds an owner, it does not remove any existing partitioned-set methods or obligations
 - No constructor obligations removed: Existing `Sets().Partitioned()` meaning is explicitly preserved (acceptance criteria line 19)
-- No smoke assertions narrowed: The spec records the owner without weakening the fixed-base-set meaning
+- No category assertions narrowed: The spec records the owner without weakening the fixed-base-set meaning
 - Sage-gap-driven shrinkage avoided: The spec does not drop any mathematical obligation because Sage lacks order-sensitive infrastructure
 - Existing `Sets().Partitioned()` semantics preserved: The new owner is an *additional* refinement, not a replacement or narrowing
 

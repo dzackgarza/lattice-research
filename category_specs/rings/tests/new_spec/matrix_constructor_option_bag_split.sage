@@ -1,4 +1,4 @@
-r"""Focused smoke for the public matrix-ring constructor option-bag split."""
+r"""Category obligation examples for the public matrix-ring constructor split."""
 
 import sys
 

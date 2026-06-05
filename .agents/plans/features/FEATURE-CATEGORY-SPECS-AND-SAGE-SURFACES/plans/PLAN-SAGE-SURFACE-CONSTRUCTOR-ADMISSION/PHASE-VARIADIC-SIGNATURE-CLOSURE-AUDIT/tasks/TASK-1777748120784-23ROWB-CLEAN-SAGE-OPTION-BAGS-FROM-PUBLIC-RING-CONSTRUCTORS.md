@@ -58,7 +58,7 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
 - Searched: this task card, `category_specs/rings/__init__.py`,
   `category_specs/rings/matrix_algebras.py`, `category_specs/rings/docs/MAPPING.md`,
   `category_specs/rings/tests/regression/matrix_rings.sage`,
-  `category_specs/rings/smoketest.sage`, `category_specs/modules/__init__.py`,
+  `category_specs/rings/category_obligations.sage`, `category_specs/modules/__init__.py`,
   `category_specs/modules/docs/MAPPING.md`, and textual searches for `MatrixRing`,
   `MatrixSpace`, `VectorSpace`, `zero_matrix`, `matrix_from`, `scalar_matrix`, `*args`,
   `**kwargs`, `kwds`, `opts`, and `options` under the rings/modules/algebras category
@@ -80,9 +80,9 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
 **Gates failed:** Gate 5 Mathematical Correctness
 **Outcome:** revision-required, then reworked within this card's scope
 
-#### Gate 5 Finding: Whole Ring Smoke Was Not Passing Evidence
+#### Gate 5 Finding: Whole Ring Category-obligation example Was Not Passing Evidence
 
-- `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` exits 1 on
+- `just --justfile category_specs/justfile category-obligation-file rings/category_obligations.sage` exits 1 on
   residual ring-frontier failures including `hilbert_polynomial`, `completion`, and
   `_change_print_mode`.
 - Those failures are not option-bag constructor regressions, but the previous card
@@ -91,7 +91,7 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
 #### Routing And Rework
 
 - Residual `hilbert_polynomial`, `algebraic_closure`, `completion`, and
-  `_change_print_mode` smoke frontiers are already recorded as downstream
+  `_change_print_mode` failed category assertionss are already recorded as downstream
   ring-frontier evidence in
   `[[TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME]]`.
 - The cited ring regression files had stale `plans.category_specs.rings` imports; these
@@ -99,7 +99,7 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
   the actual ring-frontier failures instead of a retired package path.
 - Reproducible scoped verification for this card's owned surface now lives in
   `category_specs/rings/tests/new_spec/matrix_constructor_option_bag_split.sage` and
-  passes with `just --justfile category_specs/justfile smoke-file
+  passes with `just --justfile category_specs/justfile category-obligation-file
   rings/tests/new_spec/matrix_constructor_option_bag_split.sage`.
 - Broader `category_specs/rings/tests/regression/matrix_rings.sage` still fails at
   `M2Q.is_commutative_ring()` because that file tests wider matrix-ring predicate and

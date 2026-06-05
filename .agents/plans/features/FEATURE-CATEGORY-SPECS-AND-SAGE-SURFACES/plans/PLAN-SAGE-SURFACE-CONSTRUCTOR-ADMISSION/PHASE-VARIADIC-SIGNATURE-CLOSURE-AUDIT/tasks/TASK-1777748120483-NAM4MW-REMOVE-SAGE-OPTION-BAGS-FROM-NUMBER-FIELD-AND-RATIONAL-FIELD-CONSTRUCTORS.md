@@ -71,13 +71,13 @@ Task: excise Sage option bags from number-field and rational-field constructors,
 
 ## Verification
 
-- `just --justfile category_specs/justfile smoke-file
-  rings/tests/new_spec/number_field_option_bag_split.sage` passes. This focused smoke
+- `just --justfile category_specs/justfile category-obligation-file
+  rings/tests/new_spec/number_field_option_bag_split.sage` passes. This focused category-obligation example
   parses `category_specs/rings/__init__.py`, proves `QQ`, `NumberField`, and
   `NumberFieldTower` have closed signatures with no `*args` or `**kwargs`, and checks
   that `[[SPEC-MAPPING-RINGS]]` records the rational-field fixed-object route plus the
   single-polynomial and tower number-field routes.
-- `just --justfile category_specs/justfile smoke-file
+- `just --justfile category_specs/justfile category-obligation-file
   rings/tests/regression/number_fields.sage` currently fails at the existing
   `hilbert_polynomial` ring-frontier gap before it can provide option-bag evidence.
   That broader runtime frontier is not part of this constructor option-bag leaf.
@@ -94,7 +94,7 @@ Task: excise Sage option bags from number-field and rational-field constructors,
 - Gate 2: All 4 practical ACs satisfied (NumberField explicit params, NumberFieldTower separate, QQ fixed-object, zero *args/**kwargs in rings). The 5th AC (human review) is resolved by this independent review.
 - Gate 3: No abstract methods removed. No constructor obligations removed. SPEC-MAPPING-RINGS gained explicit signature rows.
 - Gate 4: No decision reversal. MAPPING.md correctly redirects to spec.
-- Gate 5: AST-based smoke verifies closed signatures. Consistent refine-category pattern.
+- Gate 5: AST-based category-obligation example verifies closed signatures. Consistent refine-category pattern.
 - Gate 6: @final on all constructors. Zero variadic surfaces.
 
 ## Acceptance Criteria

@@ -21,10 +21,10 @@ successCriteria:
   scratchpads.
 - No implementation uses broad variadic option bags as the public project surface.
 phases:
-- '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
+- '[[PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES]]'
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
-- '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
+- '[[PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS]]'
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -66,13 +66,13 @@ object, and proof obligations for equivalence or Sage translation.
 
 ## Owned existing plans
 
-- `PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY`: set and topological smoke frontier recovery.
+- `PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES`: set and topological failed category assertions recovery.
 - `PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES`: ring axiom identity, q-adic precision, and matrix algebra surface split.
 - `PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING`: algebra constructor admission and tensor multiplication routing.
-- `PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES`: poset constructor smoke and partition ownership.
+- `PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS`: poset constructor category-obligation example and partition ownership.
 
 Cross-domain signature closure belongs to `PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT` under
-`PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION`.
+`PLAN-CATEGORY-OBLIGATION-EXAMPLES`.
 
 ## 6-Gate Protocol Review Log
 
@@ -126,10 +126,10 @@ The plan frontmatter lists 5 phase children. All exist on disk and have valid ph
 
 | # | Phase ID | Status | Covers |
 |---|----------|--------|--------|
-| 1 | PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY | needs-human-input | Sets, topology, RealSet, Primes, ImageSets, containment |
+| 1 | PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES | needs-human-input | Sets, topology, RealSet, Primes, ImageSets, containment |
 | 2 | PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES | complete | Rings, q-adic, matrix algebras, _sympy_, axiom identity |
 | 3 | PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING | needs-human-input | Algebras, tensor constructors, multiplication routing |
-| 4 | PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES | needs-human-input | Posets, certificates, SetPartitions, deferred surfaces |
+| 4 | PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS | needs-human-input | Posets, certificates, SetPartitions, deferred surfaces |
 | 5 | PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT | needs-human-input | Cross-domain variadic signature audit |
 
 **Coverage against plan workstreams:**
@@ -152,22 +152,22 @@ The "modules" workstream is partially covered by Phase 3 (module-derived algebra
 
 **Issue 1: PHASE-VARIADIC parent ambiguity (lines 73-74)**
 
-The plan body states: "Cross-domain signature closure belongs to PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT under PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION."
+The plan body states: "Cross-domain signature closure belongs to PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT under PLAN-CATEGORY-OBLIGATION-EXAMPLES."
 
 However:
 - The plan frontmatter `phases:` lists PHASE-VARIADIC as a child of THIS plan.
 - The phase card's `parents:` field confirms `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION` as its parent.
-- PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION is listed in the feature card but does not exist on disk.
+- PLAN-CATEGORY-OBLIGATION-EXAMPLES is listed in the feature card but does not exist on disk.
 
 This creates ambiguity: the phase is parented here but the body text claims it "belongs to" a non-existent sibling plan. Either:
 - (a) The body text is stale and should be updated to reflect the actual parent relationship, or
-- (b) The phase serves both plans and the body text should clarify dual ownership (e.g., "listed here for inventory visibility; primary ownership under PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION").
+- (b) The phase serves both plans and the body text should clarify dual ownership (e.g., "listed here for inventory visibility; primary ownership under PLAN-CATEGORY-OBLIGATION-EXAMPLES").
 
 **Issue 2: "Owned existing plans" section inconsistency (lines 67-73)**
 
 The "Owned existing plans" section describes 4 of 5 phases, omitting PHASE-VARIADIC. This is internally consistent with the "belongs to" body text but inconsistent with the frontmatter `phases:` array which lists all 5. The body section should either describe all 5 phases or use a different header (e.g., "Domain-specific phases") to clarify the exclusion.
 
-**Recommendation:** Resolve the PHASE-VARIADIC parent ambiguity by either (a) moving it to PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION when that plan is created, or (b) updating the body text to remove the "belongs to" reference and including it in the "Owned existing plans" section. Add a note to "Owned existing plans" clarifying that PHASE-VARIADIC is cross-domain and listed separately.
+**Recommendation:** Resolve the PHASE-VARIADIC parent ambiguity by either (a) moving it to PLAN-CATEGORY-OBLIGATION-EXAMPLES when that plan is created, or (b) updating the body text to remove the "belongs to" reference and including it in the "Owned existing plans" section. Add a note to "Owned existing plans" clarifying that PHASE-VARIADIC is cross-domain and listed separately.
 
 **Verdict:** Scope is well-bounded but has a minor ownership ambiguity that impacts G3/G5 clarity for PHASE-VARIADIC.
 
@@ -186,7 +186,7 @@ The "Owned existing plans" section describes 4 of 5 phases, omitting PHASE-VARIA
 - Phase 5 (variadic audit) is cross-domain and would logically run after domain-specific phases (1-4) complete their constructor work, but no hard dependency is declared. This is acceptable since variadic audit can begin independently and run in parallel.
 
 **Peer plan references:**
-- PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION is referenced in body text but does not exist on disk — this is a documentation reference, not a broken dependency edge. The reference points to a planned-but-not-yet-created sibling. No dependency edge is declared, so this does not break G5.
+- PLAN-CATEGORY-OBLIGATION-EXAMPLES is referenced in body text but does not exist on disk — this is a documentation reference, not a broken dependency edge. The reference points to a planned-but-not-yet-created sibling. No dependency edge is declared, so this does not break G5.
 
 **Verdict:** All declared dependency edges are correct. No missing blocking dependencies.
 
@@ -210,9 +210,9 @@ Anti-weakening safeguards in the plan card:
 
 **Verification against phase reviews:**
 - Phase 1 (Sets): G6 PASS — sprint grounding requirements, Dependencies and Boundaries anti-weakening language
-- Phase 2 (Rings): G6 PASS — "matrix smoke must not be moved or weakened to hide the surface split", child tasks preserve frontiers
+- Phase 2 (Rings): G6 PASS — "matrix category-obligation example must not be moved or weakened to hide the surface split", child tasks preserve frontiers
 - Phase 3 (Algebras): G6 PASS — anti-weakening guards repeated throughout, three child tasks were Gate 1 failures that were strengthened
-- Phase 4 (Posets): G6 PASS — vocabulary discipline enforced, stale smoke fixture repaired without weakening assertions
+- Phase 4 (Posets): G6 PASS — vocabulary discipline enforced, stale category-obligation example fixture repaired without weakening assertions
 - Phase 5 (Variadic): G6 PASS — grounding requirements are strengthening clauses
 
 **Verdict:** Strong anti-weakening posture at both plan and phase levels. No evidence of weakening in any child artifact.
@@ -232,10 +232,10 @@ Anti-weakening safeguards in the plan card:
 
 **Plan readiness:** READY FOR EXECUTION with one recommendation.
 - Phase inventory is complete, dependencies are correct, and exit criteria are checkable.
-- The G4 finding (PHASE-VARIADIC parent ambiguity) should be resolved when PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION is created on disk.
+- The G4 finding (PHASE-VARIADIC parent ambiguity) should be resolved when PLAN-CATEGORY-OBLIGATION-EXAMPLES is created on disk.
 
 **Recommended action:**
-1. When PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION is created, either move PHASE-VARIADIC there (matching the body text claim) or update the body text to remove the "belongs to" reference and include it in "Owned existing plans."
+1. When PLAN-CATEGORY-OBLIGATION-EXAMPLES is created, either move PHASE-VARIADIC there (matching the body text claim) or update the body text to remove the "belongs to" reference and include it in "Owned existing plans."
 
 ---
 

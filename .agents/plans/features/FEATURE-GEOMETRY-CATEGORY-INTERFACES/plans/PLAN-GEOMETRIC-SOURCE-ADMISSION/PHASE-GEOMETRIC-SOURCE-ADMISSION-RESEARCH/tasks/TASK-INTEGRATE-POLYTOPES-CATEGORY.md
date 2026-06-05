@@ -14,7 +14,7 @@ successCriteria:
   category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
 - Determine how this category relates to existing planned categories, constructors,
-  Hom/End/Aut surfaces, and smoke expectations.
+  Hom/End/Aut objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation
   cards needed to proceed.
@@ -195,10 +195,10 @@ execute the existing 2D polyhedra/polytope source-admission card with the bounde
 distinction recorded here, then convert the admitted method ownership into the global
 literal method inventory/spec surface.
 
-## Smoke And Implementation Guidance
+## Representative Examples And Implementation Guidance
 
-Future smokes should use very small examples: a segment, triangle, square, one
-unbounded cone or half-plane, and one lattice square. Smoke checks should cover
+Future category-obligation examples should use very small examples: a segment, triangle, square, one
+unbounded cone or half-plane, and one lattice square. Category-obligation checks should cover
 category membership, compactness, H/V representations, faces, a normal fan only under
 the rational/full-dimensional/compact hypotheses, and a lattice-point or Ehrhart call
 only for a compact lattice polytope with an available backend.
@@ -216,7 +216,7 @@ Spec docstrings should identify user-surprise diagnostic sites for:
 
 - [x] Identify the mathematical definition and the intended project vocabulary for this category.
 - [x] Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut surfaces, and smoke expectations.
+- [x] Determine how this category relates to existing planned categories, constructors, Hom/End/Aut objects, and representative examples with category obligations.
 - [x] List downstream categories or tasks blocked by this integration.
 - [x] Create any concrete follow-up decision, spec, implementation, or source-curation cards needed to proceed.
 

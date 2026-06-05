@@ -5,13 +5,13 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
+- '[[PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES]]'
 title: Specify RealSet ambient-relative recovery for is_open is_closed closure interior
   and boundary through TopologicalSpaces
 status: complete
 priority: critical
 requirement: The deleted Topological Spaces triage recorded settled topological constructor
-  placement and remaining smoke design work for RealSet ambient recovery and metric
+  placement and remaining category-obligation example design work for RealSet ambient recovery and metric
   examples.
 acceptanceCriteria:
 - The mathematical owner, public surface, and migration consequence are recorded in
@@ -19,7 +19,7 @@ acceptanceCriteria:
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No implementation blocker was discovered during this spec pass.
-- Run just smoke-file topological_spaces/smoketest.sage after topological-space work.
+- Run just category-obligation-file topological_spaces/category_obligations.sage after topological-space work.
 - Prove RealSet method recovery through the ambient-relative route, not by adding
   pure topological constructors.
 tags:
@@ -29,7 +29,7 @@ tags:
 ## Summary
 
 The deleted Topological Spaces triage recorded settled topological constructor placement
-and remaining smoke design work for RealSet ambient recovery and metric examples.
+and remaining category-obligation example design work for RealSet ambient recovery and metric examples.
 
 ## Source Provenance
 
@@ -42,7 +42,7 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
 - Root topological methods use ambient-relative shape: X.is_open(U), X.is_closed(U), X.closure(U), X.interior(U), and X.boundary(U).
 - RealSet variadic/manifold-producing paths are excluded; admitted real-line subset construction uses named Sets().Constructors() paths.
 - Real and complex ball fields are not Sage metric spaces; topological recovery belongs through topological ring/field work.
-- Canonical smoke examples are still needed for Connected, Compact, and Metric().Complete().
+- Canonical category-obligation example examples are still needed for Connected, Compact, and Metric().Complete().
 
 ## Grounded Spec Contract
 
@@ -96,7 +96,7 @@ Rejection or retirement condition:
 - [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [x] No implementation blocker was discovered during this spec pass.
-- [ ] Run just smoke-file topological_spaces/smoketest.sage after topological-space work.
+- [ ] Run just category-obligation-file topological_spaces/category_obligations.sage after topological-space work.
 - [x] Prove RealSet method recovery through the ambient-relative route, not by adding pure topological constructors.
 
 ## Grounded Recovery Decision
@@ -122,7 +122,7 @@ Sage's existing no-argument RealSet methods before the ambient methods have conc
 implementations would create a fragile compatibility layer rather than a mathematical
 owner.
 
-Validation note: global QC and smoke execution were skipped under the current
+Validation note: global QC and category-obligation example execution were skipped under the current
 user-authorized skip-verification workflow for spec checkpoints.
 
 ## Dependencies And Boundaries
@@ -144,13 +144,13 @@ user-authorized skip-verification workflow for spec checkpoints.
 
 | File referenced in spec | Actual path | Exists | Notes |
 |---|---|---|---|
-| TRIAGE.md (deleted, commit `8d1c21c`) | `plans/category_specs/topological_spaces/docs/TRIAGE.md` | Recoverable via `git show 8d1c21c^:plans/category_specs/topological_spaces/docs/TRIAGE.md` | PATH DISCREPANCY: spec line 36 says `category_specs/topological_spaces/docs/TRIAGE.md` (missing `plans/` prefix). The file existed under `plans/category_specs/...`, not directly under `category_specs/...`. Recoverable content confirms: the triage recorded "settled topological constructor placement" and "remaining smoke design work for RealSet ambient recovery" — matching spec lines 13-14. The migration line (spec line 37) accurately quotes the triage content. |
+| TRIAGE.md (deleted, commit `8d1c21c`) | `plans/category_specs/topological_spaces/docs/TRIAGE.md` | Recoverable via `git show 8d1c21c^:plans/category_specs/topological_spaces/docs/TRIAGE.md` | PATH DISCREPANCY: spec line 36 says `category_specs/topological_spaces/docs/TRIAGE.md` (missing `plans/` prefix). The file existed under `plans/category_specs/...`, not directly under `category_specs/...`. Recoverable content confirms: the triage recorded "settled topological constructor placement" and "remaining category-obligation example design work for RealSet ambient recovery" — matching spec lines 13-14. The migration line (spec line 37) accurately quotes the triage content. |
 | MAPPING.md (topological_spaces) | `category_specs/topological_spaces/docs/MAPPING.md` | Yes — redirect stub (6 lines) pointing to tracked spec `SPEC-MAPPING-TOPOLOGICAL-SPACES.md` | Spec lines 51-57 reference "Root Topological Method Mapping" rows. Those rows now live in the tracked spec at `plans/features/.../specs/SPEC-MAPPING-TOPOLOGICAL-SPACES.md` lines 135-141. All five ambient-relative method rows confirmed: `is_open`, `is_closed`, `closure`, `interior`, `boundary` each with target shape, justification, and migration consequence. |
 | SAGE_INVENTORY.md (topological_spaces) | `category_specs/topological_spaces/docs/SAGE_INVENTORY.md` | Yes — 87 lines, 4 sections | Spec lines 58-64 reference inventoried rows for `RealSet.is_open`, `is_closed`, `closure`, `interior`, `boundary`, and `ambient`. All six confirmed at inventory lines 50-55. |
 | MAPPING.md (sets) | `category_specs/sets/docs/MAPPING.md` | Yes — redirect stub (6 lines) pointing to tracked spec `SPEC-MAPPING-SETS.md` | Spec lines 65-67 reference constructor-routing rows. The sets mapping stub confirms the inventory is at `category_specs/sets/docs/SAGE_INVENTORY.md`. Constructor routing is maintained in the tracked sets spec. |
 | `real_set.py` subcategory docstring | `category_specs/sets/subcategories/real_set.py` | Yes — verified | Spec line 116 documents the compatibility boundary in `category_specs/sets/subcategories/real_set.py`. The admitted RealSet-backed route uses `ambient_real_line()` plus the `*_subset` methods instead of overloading Sage's existing `ambient()` method. |
 | Decision card | `plans/features/.../decisions/DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING.md` | Yes — 199 lines | Cross-reference: confirms the warning-acceptance decision (lines 153-160), keeps `Sets().Constructors()` constructor surface, rejects catch-all `RealSet(...)` route. Independent confirmation that no `TopologicalSpaces().Constructors()` path was admitted. |
-| Implementation task | `plans/features/.../tasks/TASK-01KQN9YGCD23ZSZDA3VT3BJ92E-IMPLEMENT-REALSET-NAMED-CONSTRUCTORS-AND-SMOKE-RECOVERY-THROUGH-AMBIENT.md` | Yes | Confirms the follow-up implementation task exists under `PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY`. |
+| Implementation task | `plans/features/.../tasks/TASK-01KQN9YGCD23ZSZDA3VT3BJ92E-IMPLEMENT-REALSET-NAMED-CONSTRUCTORS-AND-CATEGORY-OBLIGATION-RECOVERY-THROUGH-AMBIENT.md` | Yes | Confirms the follow-up implementation task exists under `PHASE-SETS-TOPOLOGICAL-CATEGORY-EXAMPLES`. |
 
 **Referenced installed Sage source verified:**
 
@@ -181,7 +181,7 @@ user-authorized skip-verification workflow for spec checkpoints.
 |---|---|---|
 | `TopologicalSpaces().Constructors()` remains empty | Yes | Spec lines 41, 76-77, 119 |
 | Root methods use ambient-relative shape | Yes | Spec lines 42, 51-57, 74-76 |
-| No implementation/smoke yet proves recovery | Yes | Spec lines 99, 123-124: smoke is acceptance criterion #4 (unchecked) |
+| No implementation/category-obligation example yet proves recovery | Yes | Spec lines 99, 123-124: category-obligation example is acceptance criterion #4 (unchecked) |
 | Variadic/manifold paths excluded | Yes | Spec lines 43-44, 92 |
 | Ball fields not metric; routed to topological ring/field | Yes | Spec line 45: "Real and complex ball fields are not Sage metric spaces" |
 
@@ -249,12 +249,12 @@ The spec correctly requires that `X.closure(U)`, `X.interior(U)`, and `X.boundar
 
 | Ambiguity / Gap | Routed to | Assessment |
 |---|---|---|
-| Smoke execution not yet run (spec line 123-124) | Acceptance criterion #4 (line 99): "Run just smoke-file topological_spaces/smoketest.sage after topological-space work" — currently unchecked | **Correct.** The spec records smoke as a pending acceptance criterion. The validation note (line 123-124) transparently states: "global QC and smoke execution were skipped under the current user-authorized skip-verification workflow." This is not an ambiguity; it's a deferred verification step with a clear criterion. |
+| category-obligation examples not yet run (spec line 123-124) | Acceptance criterion #4 (line 99): "Run just category-obligation-file topological_spaces/category_obligations.sage after topological-space work" — currently unchecked | **Correct.** The spec records category-obligation example as a pending acceptance criterion. The validation note (line 123-124) transparently states: "global QC and category-obligation example execution were skipped under the current user-authorized skip-verification workflow." This is not an ambiguity; it's a deferred verification step with a clear criterion. |
 | TRIAGE.md path discrepancy | Spec line 36 references `category_specs/topological_spaces/docs/TRIAGE.md` but actual path was `plans/category_specs/topological_spaces/docs/TRIAGE.md` | **Minor.** Content is recoverable via the correct path. The spec's migration line (line 37) accurately quotes the triage content. Does not affect spec correctness. |
 | No implementation yet proves ambient-recovery route | The spec is a specification, not an implementation. The ambient-recovery route is recorded in MAPPING.md and real_set.py (lines 35-40). Implementation is tracked separately via TASK-01KQN9YGCD23ZSZDA3VT3BJ92E. | **Adequate.** Spec-card scope is specification, not implementation. Follow-up work is correctly routed to a tracker item (spec line 18). |
 | Ball fields as metric spaces | Spec line 45: "Real and complex ball fields are not Sage metric spaces; topological recovery belongs through topological ring/field work." | **Correctly routed.** This is an explicit boundary, not an ambiguity. Ball-field topology is delegated to ring/field recovery path, not this spec. |
 
-**G5 Verdict: PASS.** All gaps and ambiguities are routed to appropriate tracked items or explicitly bounded. The spec is transparent about what is deferred (smoke execution) and what is out of scope (ball fields, manifold paths). The TRIAGE.md path discrepancy is minor and does not affect content validity.
+**G5 Verdict: PASS.** All gaps and ambiguities are routed to appropriate tracked items or explicitly bounded. The spec is transparent about what is deferred (category-obligation example execution) and what is out of scope (ball fields, manifold paths). The TRIAGE.md path discrepancy is minor and does not affect content validity.
 
 ### G6 — Obligation Preservation
 

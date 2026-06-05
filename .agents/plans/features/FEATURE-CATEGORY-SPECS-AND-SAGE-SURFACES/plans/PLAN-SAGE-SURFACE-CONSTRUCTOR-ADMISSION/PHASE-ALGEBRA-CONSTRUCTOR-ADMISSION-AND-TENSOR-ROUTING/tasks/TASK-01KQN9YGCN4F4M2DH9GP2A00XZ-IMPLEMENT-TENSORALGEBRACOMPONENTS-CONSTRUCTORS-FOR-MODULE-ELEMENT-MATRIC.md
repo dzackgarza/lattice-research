@@ -13,8 +13,8 @@ description: Tensor mapping fixes tensor component ownership, coordinate interop
   dual- object interpretation, and the algebra multiplication-tensor handoff.
 successCriteria:
 - The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
+  category-obligation examples or mapping decisions to make failures disappear.
+- Relevant category-obligation output is updated in this task body or a linked tracker item, with
   exact failing surfaces preserved when work remains.
 - The change uses project category vocabulary rather than Sage fallback helper names
   or wrapper-only categories.
@@ -44,8 +44,8 @@ object interpretation, and the algebra multiplication-tensor handoff.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [ ] The implementation changes only the scoped category-spec surface and does not weaken category-obligation examples or mapping decisions to make failures disappear.
+- [ ] Relevant category-obligation output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
 - [ ] Confirm tensor_type() == (1,2) and base-module compatibility before algebra handoff.
 - [ ] Do not expose catch-all component data as public constructor surface.
@@ -59,7 +59,7 @@ object interpretation, and the algebra multiplication-tensor handoff.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-- 2026-05-06 scoped start from algebra smoke: multiplication-tensor algebra smoke
+- 2026-05-06 scoped start from algebra category-obligation example: multiplication-tensor algebra category-obligation example
   failed while `TensorAlgebraComponents(R).Constructors().from_module_element_matrix`
   called `component_module(...)`; the tensor component module refinement ran the
   global missing-method probe and stopped on `annihilator`. The constructor already
@@ -71,19 +71,19 @@ object interpretation, and the algebra multiplication-tensor handoff.
   returns Sage matrices over the tensor base ring instead of raw nested component
   lists. Validation: `python -m py_compile
   category_specs/tensor_algebra_components/__init__.py`, `just --justfile
-  category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`, and
-  the algebra smoke all pass. Status moved to `needs-agent-review`; this does not mark the
+  category_specs/justfile category-obligation-file tensor_algebra_components/category_obligations.sage`, and
+  the algebra category-obligation example all pass. Status moved to `needs-agent-review`; this does not mark the
   card accepted or complete.
 
-## Smoke Output
+## Category-Obligation Output
 
-2026-05-06 targeted smoke rerun:
+2026-05-06 targeted category-obligation example rerun:
 
 ```text
-$ just --justfile category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage
+$ just --justfile category_specs/justfile category-obligation-file tensor_algebra_components/category_obligations.sage
 <exit 0; no stdout/stderr>
 
-$ just --justfile category_specs/justfile smoke-file algebras/smoketest.sage
+$ just --justfile category_specs/justfile category-obligation-file algebras/category_obligations.sage
 <exit 0; no stdout/stderr>
 ```
 
@@ -97,14 +97,14 @@ $ just --justfile category_specs/justfile smoke-file algebras/smoketest.sage
 
 #### Gate 2 Finding: Acceptance Evidence
 
-- The card required relevant smoke output to be updated in this task body or a linked
+- The card required relevant category-obligation output to be updated in this task body or a linked
   tracker item.
-- The work log recorded only a narrative summary that the smoke commands passed, not
-  the smoke output itself or a linked artifact containing that output.
+- The work log recorded only a narrative summary that the category-obligation commands passed, not
+  the category-obligation output itself or a linked artifact containing that output.
 
 #### Rework
 
-- Added the exact targeted smoke commands, exit status, and empty-output artifact under
-  `Smoke Output`.
+- Added the exact targeted category-obligation commands, exit status, and empty-output artifact under
+  `Category-Obligation Output`.
 - Preserved the distinction between agent review evidence and human acceptance; status
   remains `needs-agent-review`.

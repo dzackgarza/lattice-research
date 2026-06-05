@@ -88,7 +88,8 @@ The feature MUST define success criteria that are:
 - **Observable**: someone can look at the deliverable and determine whether
   the criterion is met without asking the feature author.
 - **Falsifiable**: it is possible to fail. "The system is correct" is not
-  falsifiable. "All 47 spec methods pass their respective smoke tests" is.
+  falsifiable. "All 47 spec methods pass their respective category-obligation
+  examples" is.
 - **Feature-level**: criteria describe the completed feature, not individual
   tasks within it.
 

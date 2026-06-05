@@ -124,7 +124,7 @@ tasks:
 
 - **762 category-spec findings** routed to
   `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP.md`, reframed on 2026-05-06
-  as code fixes (underscore prefix, smoke calls, deletion) rather than whitelist
+  as code fixes (underscore prefix, category-obligation example calls, deletion) rather than whitelist
   expansion.
 - **3 theory/spec-backups findings** routed to
   `TASK-BUG-THEORY-SPEC-BACKUP-VULTURE-CLEANUP.md` -- resolved 2026-05-06: the backup
@@ -139,7 +139,7 @@ separate current global mypy frontier.
 ## Remaining Validation Frontier
 
 The code-fix child task (`TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`)
-has now resolved the category-spec Vulture findings through code/smoke changes and
+has now resolved the category-spec Vulture findings through code/category-obligation example changes and
 repo-scoped global `_vulture` passes. Public `just test` still stops at global mypy
 before Vulture, so this parent cannot claim full-QC success; its triage scope remains
 limited to reproducing, classifying, and splitting the original Vulture failure.

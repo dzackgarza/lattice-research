@@ -42,9 +42,9 @@ Read `references/workflow.md` before changing workflow state.
 - Plans, phases, and tasks that touch category specs must put the ideal-interface
   invariant at the local decision point: specs extend Sage's category/object universe,
   current Sage coverage is not the adequacy standard, Sage interop remains a design
-  constraint where mathematically appropriate, smokes expose current implementation
-  gaps, and spec obligations are preserved unless a grounded replacement owner carries
-  them.
+  constraint where mathematically appropriate, category-obligation examples expose
+  current implementation gaps, and spec obligations are preserved unless a grounded
+  replacement weakest category carries them.
 - Plans, phases, and tasks that touch type checking, implementation inheritance, or
   category constructors must also ask whether each "fix" directionally aligns with the
   framework design. Mathematical subcategories may refine operations beyond ordinary
@@ -62,8 +62,8 @@ Read `references/workflow.md` before changing workflow state.
   must learn the inherited category-promotion convention.
 - Plans, phases, and tasks that touch category specs must also include a spec-weakening
   review before advancement: inspect staged changes, unstaged changes, and any
-  task-local commits for deleted obligations, narrowed smokes, or moved category definitions
-  without source-grounded replacement owners.
+  task-local commits for deleted obligations, narrowed category assertions, or moved
+  category definitions without source-grounded replacement weakest categories.
 - A spec leaf is executable only after definition grounding: it must identify canonical
   mathematical sources, exact definitions, hypotheses, and proof/decision obligations.
   Vague migrated backlog text must be refined before spec editing.

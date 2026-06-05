@@ -23,8 +23,8 @@ Before implementation:
 
 - Use `feature` cards only for feature roots.
 - Use `spec` cards for feature-owned spec surfaces.
-- Use `task` cards for executable implementation, research, bug-fix, smoke-triage, and
-  audit work.
+- Use `task` cards for executable implementation, research, bug-fix,
+  category-obligation-example triage, and audit work.
 - Use `decision` cards for unresolved mathematical or organizational choices.
 - Put executable tasks under the relevant plan phase's `tasks/` directory.
 - Add acceptance criteria and source provenance to every executable card.

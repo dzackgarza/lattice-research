@@ -11,7 +11,7 @@ title: Admit lattice constructors through Lattices(R).Constructors after Sage co
 status: complete
 priority: critical
 requirement: The deleted Lattices triage recorded the top-level lattice subtree admission,
-  current smoke coverage, constructor admission boundary, and DiscriminantGroupAut
+  current category-obligation example coverage, constructor admission boundary, and DiscriminantGroupAut
   blocker.
 acceptanceCriteria:
 - The mathematical owner, public surface, and migration consequence are recorded in
@@ -20,7 +20,7 @@ acceptanceCriteria:
   as tracker items.
 - Any implementation blocker discovered during spec work is split into an implementation-work
   item with source provenance.
-- Run just smoke-file lattices/chain_smoketest.sage and just smoke-file lattices/smoketest.sage
+- Run just category-obligation-file lattices/chain_category_obligations.sage and just category-obligation-file lattices/category_obligations.sage
   for lattice-surface changes.
 - Do not admit lattice constructors without completing Sage constructor inventory
   mapping.
@@ -31,7 +31,7 @@ tags:
 ## Summary
 
 The deleted Lattices triage recorded the top-level lattice subtree admission, current
-smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker.
+category-obligation example coverage, constructor admission boundary, and DiscriminantGroupAut blocker.
 
 ## Source Provenance
 
@@ -40,8 +40,8 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 
 ## Context
 
-- Lattice smokes cover Cat registration, the ambient module chain, Hom/End/Aut construction, Subobjects, DualObjects/DualLattices vocabulary, and Even predicate surface.
-- Constructor admission remains outside the current smoke surface and must enter through Lattices(R).Constructors() after Sage constructor inventory mapping.
+- Lattice category-obligation examples cover Cat registration, the ambient module chain, Hom/End/Aut construction, Subobjects, DualObjects/DualLattices vocabulary, and Even predicate surface.
+- Constructor admission remains outside the current category-obligation example and must enter through Lattices(R).Constructors() after Sage constructor inventory mapping.
 - LatticeOrthogonalGroup is Lattices(R).AutCategory().Of(L), specializing the formed-module aut surface.
 - DiscriminantGroupAut export is blocked until discriminant_groups.py defines Hom, End, and Aut standard names.
 
@@ -76,7 +76,7 @@ Grounded admission target for this card:
 - [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
 - [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Run just smoke-file lattices/chain_smoketest.sage and just smoke-file lattices/smoketest.sage for lattice-surface changes.
+- [ ] Run just category-obligation-file lattices/chain_category_obligations.sage and just category-obligation-file lattices/category_obligations.sage for lattice-surface changes.
 - [ ] Do not admit lattice constructors without completing Sage constructor inventory mapping.
 
 ## Dependencies And Boundaries

@@ -66,8 +66,8 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
   for set object, finite iterable collection, and integer cardinality inputs.
 - [x] Keep implementations closed over the admitted cases and avoid `*args`,
   `**kwargs`, or duck-typed wrapper admission.
-- [x] Add smoke or regression coverage using small finite examples.
-- [x] Run syntax/smoke validation, or record the exact phase-local blocker.
+- [x] Add category-obligation example or regression coverage using small finite examples.
+- [x] Run syntax/category-obligation example validation, or record the exact phase-local blocker.
 - [x] Run and record a spec-weakening review before moving the card to
   `needs-agent-review`.
 
@@ -80,7 +80,7 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
   - The task touches multiple constructor overload surfaces for set creation, which is broader than a single method edit but still bounded to API typing. The complexity is moderate because behavior should remain same while call-shape space is decomposed, requiring careful static compatibility checks.
 - Item-specific evidence:
   - The source-backed scope is limited to set constructor entry points in
-    `category_specs/sets/__init__.py`, set smoke/regression coverage, and this card.
+    `category_specs/sets/__init__.py`, set category-obligation example/regression coverage, and this card.
   - The work does not change method ownership or admit a new wrapper category.
   - The main coupling risk is preserving Sage-compatible fixed-base partition
     construction while making the public signatures explicit.
@@ -93,7 +93,7 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
   set-partition overloads, not to a generic `Set(X)` wrapper.
 - 2026-05-06: Added `Sets().Constructors().SingletonSet(element)` as the named
   singleton finite-set path, documented it in `SPEC-MAPPING-SETS.md`, and added
-  smoke coverage with a small integer witness.
+  category-obligation example coverage with a small integer witness.
 - 2026-05-06: Added explicit `@overload` declarations for
   `SetPartitions`, `SetPartitionsWithBlockCount`, and
   `SetPartitionsWithBlockSizes` for set-object, finite-iterable, and integer
@@ -108,21 +108,21 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
 ## Validation
 
 - `python -m py_compile category_specs/sets/__init__.py` passed.
-- `git diff --check -- category_specs/sets/__init__.py category_specs/sets/smoketest.sage plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-1777748120529-YQJMY7-SPLIT-MIXED-SET-CONSTRUCTOR-INPUT-SHAPES-INTO-NAMED-ALTERNATIVES.md` passed.
-- `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed,
+- `git diff --check -- category_specs/sets/__init__.py category_specs/sets/category_obligations.sage plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-1777748120529-YQJMY7-SPLIT-MIXED-SET-CONSTRUCTOR-INPUT-SHAPES-INTO-NAMED-ALTERNATIVES.md` passed.
+- `just --justfile category_specs/justfile category-obligation-file sets/category_obligations.sage` passed,
   with the pre-existing Sage warning about `Sets.Topological` not subclassing
   `CategoryWithAxiom`.
 - 2026-05-07 rework validation:
   - `python -m py_compile category_specs/sets/__init__.py` passed.
   - `git diff --check -- category_specs/sets/__init__.py` passed.
-  - `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed,
+  - `just --justfile category_specs/justfile category-obligation-file sets/category_obligations.sage` passed,
     with the same pre-existing Sage warning about `Sets.Topological` not subclassing
     `CategoryWithAxiom`.
 
 ## Spec-Weakening Review
 
 - Reviewed the task-local diff for generic `Set(X)` admission, deleted abstract
-  methods, removed constructor obligations, narrowed smoke assertions, and
+  methods, removed constructor obligations, narrowed category assertions, and
   Sage-gap-driven interface shrinkage.
 - Result: passed. The diff preserves the `Set(X)` rejection, adds the named
   singleton surface, and adds overload declarations without removing obligations.
@@ -149,26 +149,26 @@ Evidence:
 #### Gate 2: Acceptance Criteria — PASSED
 
 - AC1: No catch-all `Set(X)` constructor. All construction through named methods.
-- AC2: `from_iterable(elements)` and `FiniteEnumeratedSet(elements)` preserved. Smoke lines 73-116 verify.
-- AC3: `SingletonSet(element)` at `__init__.py:541-543`. Smoke lines 118-120 verify.
+- AC2: `from_iterable(elements)` and `FiniteEnumeratedSet(elements)` preserved. Category-obligation example lines 73-116 verify.
+- AC3: `SingletonSet(element)` at `__init__.py:541-543`. Category-obligation example lines 118-120 verify.
 - AC4: SetPartitions, SetPartitionsWithBlockCount, SetPartitionsWithBlockSizes each have 3 explicit `@overload` declarations.
 - AC5: `_set_partitions_base` dispatches over exactly 3 cases: SageInteger, CategoryObject in Sets(), Iterable. Other types raise TypeError. Zero `*args`/`**kwargs`.
-- AC6: Smoke lines 490-515 cover all 3 constructors × 3 input shapes.
-- AC7: `python -m py_compile` passed. `just smoke-file sets/smoketest.sage` passed.
+- AC6: Category-obligation example lines 490-515 cover all 3 constructors × 3 input shapes.
+- AC7: `python -m py_compile` passed. `just category-obligation-file sets/category_obligations.sage` passed.
 - AC8: Spec-weakening review section in card confirms passed.
 
 #### Gate 3: Spec-Weakening — PASSED
 
-Examined `git diff 07e7d85^..1599059`. No abstract methods removed. No constructor obligations deleted. Smoke file grew from ~50 to ~100+ statements (positive growth). No Sage-gap-driven interface shrinkage. SPEC-MAPPING-SETS.md gained rows (computable-sets section, singleton constructor), lost none.
+Examined `git diff 07e7d85^..1599059`. No abstract methods removed. No constructor obligations deleted. Category-obligation example file grew from ~50 to ~100+ statements (positive growth). No Sage-gap-driven interface shrinkage. SPEC-MAPPING-SETS.md gained rows (computable-sets section, singleton constructor), lost none.
 
 #### Gate 4: Gradient — PASSED
 
-All decided decisions checked: `DECISION-01KQN9YGCTP85RXF1F56D8S08X` (reject generic Set(X)) is preserved. No contradiction. No previously passing smoke regressed. Git history shows additive commits only.
+All decided decisions checked: `DECISION-01KQN9YGCTP85RXF1F56D8S08X` (reject generic Set(X)) is preserved. No contradiction. No previously passing category-obligation example regressed. Git history shows additive commits only.
 
 #### Gate 5: Mathematical Correctness — PASSED
 
 - `python -m py_compile` passed.
-- `just smoke-file sets/smoketest.sage` passed (pre-existing Sets.Topological warning only).
+- `just category-obligation-file sets/category_obligations.sage` passed (pre-existing Sets.Topological warning only).
 - `git diff --check` passed.
 - SingletonSet(element) = `FiniteEnumeratedSet((element,))` — correct for `{x}`.
 - `_set_partitions_base` dispatch: SageInteger→{1,...,n}, CategoryObject in Sets→object itself, Iterable→tuple — all correct.

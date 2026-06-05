@@ -19,7 +19,7 @@ successCriteria:
   proceeds.
 - Follow-up work is filed as tracked cards under root `plans/features/`.
 tasks:
-- '[[TASK-01KQN9J3WWCX4AA36TK4QVCNBK-FIX-CAT-SMOKE-HOM-END-AUT-OBJECTSOVER-OBJECTSUNDER-AND-WITHFORMS-FRONTIE]]'
+- '[[TASK-01KQN9J3WWCX4AA36TK4QVCNBK-FIX-CAT-CATEGORY-OBLIGATION-HOM-END-AUT-OBJECTSOVER-OBJECTSUNDER-AND-WITHFORMS-FRONTIE]]'
 - '[[TASK-1777748120385-RRVDIG-REMOVE-RAW-CONDITIONSET-FROM-PUBLIC-AUT-CATEGORY-SURFACE]]'
 - '[[TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME]]'
 - '[[TASK-WRAPUP-PHASE-HOM-END-AUT-WORK-QUEUE]]'
@@ -77,7 +77,7 @@ Source grounding is inherited from the parent plan `PLAN-HOM-END-AUT-STRUCTURAL-
 
 Each child task card also individually grounds its work:
 - TASK-1777748120385 (Remove raw ConditionSet): anchors to homsets/cat/modules/forms/lattices MAPPING.md files, plus SPEC-MAPPING-HOMSETS.md
-- TASK-01KQN9J3W... (Fix Cat smoke): anchors to cat MAPPING.md, SAGE_INVENTORY.md, forms subcategories, modules MAPPING.md
+- TASK-01KQN9J3W... (Fix Cat category-obligation example): anchors to cat MAPPING.md, SAGE_INVENTORY.md, forms subcategories, modules MAPPING.md
 - TASK-WRAPUP: process card, no mathematical grounding needed
 
 **Recommendation:** None. The phase correctly delegates grounding to parent and children.
@@ -108,16 +108,16 @@ Child task inventory (3 cards):
 
 | Card ID | Title | Status | Review State |
 |---|---|---|---|
-| TASK-01KQN9J3W... | Fix Cat smoke Hom End Aut ObjectsOver... | `complete` | Passed Gates 1-6 (Russell re-review) |
+| TASK-01KQN9J3W... | Fix Cat category-obligation example Hom End Aut ObjectsOver... | `complete` | Passed Gates 1-6 (Russell re-review) |
 | TASK-1777748120385 | Remove raw ConditionSet from public Aut-category surface | `needs-human-input` | Passed Gates 1-6 (Fermat re-review); await human approval |
 | TASK-WRAPUP | Phase wrap-up — planning cleanup, skill updates, card status audit | `unstarted` | Depends on above two |
 
 Coverage assessment:
-- The two work tasks cover the phase's core scope: (a) Cat smoke frontier alignment for Hom/End/Aut, ObjectsOver/ObjectsUnder, and WithForms and (b) ConditionSet boundary enforcement on Aut surfaces.
+- The two work tasks cover the phase's core scope: (a) Cat failed category assertions alignment for Hom/End/Aut, ObjectsOver/ObjectsUnder, and WithForms and (b) ConditionSet boundary enforcement on Aut surfaces.
 - The wrap-up task provides phase-closure hygiene (status audit, meta-review, skill/memory updates, git milestone notes).
 - The parent plan `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` references two additional spec cards (`SPEC-01KQN9J3WJE9W76X72DAT10H4Y` and `SPEC-01KQN9J3WQDJ0Z27BXTY67HA72`) as "Owned existing cards," but these are **downstream dependents** (they list this phase in their `dependsOn`), not children of this phase. This is correct: the plan records them as owned work items; the phase groups only the immediate executable tasks.
 
-No missing tasks detected. The inventory covers the structural Cat smoke frontier, ConditionSet leakage fix, and phase closure.
+No missing tasks detected. The inventory covers the structural Cat failed category assertions, ConditionSet leakage fix, and phase closure.
 
 **Recommendation:** None.
 
@@ -126,7 +126,7 @@ No missing tasks detected. The inventory covers the structural Cat smoke frontie
 **Verdict:** PASS.
 
 Each child task stays within declared scope:
-- TASK-01KQN9J3W... limits itself to Cat smoke frontier: Homsets/Endsets interop aliases, ObjectsOver/ObjectsUnder dispatch, WithForms PID specialization. Does not expand into functor modeling or natural transformations (which are explicitly deferred in the task body).
+- TASK-01KQN9J3W... limits itself to Cat failed category assertions: Homsets/Endsets interop aliases, ObjectsOver/ObjectsUnder dispatch, WithForms PID specialization. Does not expand into functor modeling or natural transformations (which are explicitly deferred in the task body).
 - TASK-1777748120385 limits itself to a single file (`category_specs/homsets/autsets.py`): ConditionSet privatization, aut-object surface preservation, @final markers. Does not touch End/Aut beyond the documented contract.
 - TASK-WRAPUP is a phase-closure meta-task with a fixed four-step procedure; no implementation work.
 
@@ -143,7 +143,7 @@ Upstream (phase → plan):
 
 Child dependencies (tasks within phase):
 - TASK-01KQN9J3W... `dependsOn: []` — correct. No upstream work tasks; is a prerequisite for TASK-WRAPUP.
-- TASK-1777748120385 `dependsOn: []` — correct. Independent of the Cat smoke task; shares no code surface.
+- TASK-1777748120385 `dependsOn: []` — correct. Independent of the Cat category-obligation example task; shares no code surface.
 - TASK-WRAPUP `dependsOn:` lists both work tasks — correct. The wrap-up must not execute until work tasks are finalized.
 
 **Finding (Gate 5):** TASK-WRAPUP lists itself in its own `dependsOn` field:
@@ -156,7 +156,7 @@ dependsOn:
 A task cannot depend on itself. This is a malformed edge that would cause a cycle in any dependency resolver. It does not block phase review (the edge is trivially satisfied/ignorable), but it should be removed before phase closure.
 
 Downstream (spec cards depending on this phase):
-- `SPEC-01KQN9YGCA0D25CR40N85EHYZ5` (Review subtree direct Hom methods) `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]` — correct. The spec's grounded review outcome references the Cat smoke work done in TASK-01KQN9J3W....
+- `SPEC-01KQN9YGCA0D25CR40N85EHYZ5` (Review subtree direct Hom methods) `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]` — correct. The spec's grounded review outcome references the Cat category-obligation work done in TASK-01KQN9J3W....
 - `SPEC-01KQN9J3WJE9W76X72DAT10H4Y` (Dual-object Hom routing) `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]` — correct. Dual-object Hom routing through Homsets requires the Hom/End/Aut surface to be stable.
 - `SPEC-01KQN9J3WQDJ0Z27BXTY67HA72` (DiscriminantGroup Hom/End/Aut) — located in `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`. The plan DAG confirms `PHASE_HOM_END_AUT_WORK_QUEUE → SPEC_01KQN9J3WQDJ...`. Correct: discriminant-group Hom/End/Aut names should follow the same structural admission patterns established by this phase.
 
@@ -182,7 +182,7 @@ The phase criteria are **operational gates** (process hygiene) layered on top of
 
 Child task acceptance criteria also preserve and enforce the plan's criteria:
 - TASK-1777748120385 ACs directly implement plan criterion #3 (ConditionSet as implementation bridge).
-- TASK-01KQN9J3W... ACs enforce plan criterion #1 (category-recognized Hom/End/Aut surfaces through Cat smoke).
+- TASK-01KQN9J3W... ACs enforce plan criterion #1 (category-recognized Hom/End/Aut surfaces through Cat category-obligation example).
 
 **Recommendation:** None.
 

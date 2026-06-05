@@ -770,9 +770,9 @@ assert E8_2.discriminant_group() == E8_2.dual() / E8_2
 
 - 2026-05-06: Blocked by the repo's current category-spec and semantic-vocabulary
   phase. This roadmap is implementation-phase work: it exists as an approved future
-  implementation plan, but it must not be executed to make Sage pass smoke tests while
+  implementation plan, but it must not be executed to make Sage pass category-obligation tests while
   the ideal mathematical specs and ownership vocabulary are still being settled.
-- Smokes are gap detectors against the ideal spec, not pressure to weaken specs or add
+- Category-obligation examples exhibit whether representative objects satisfy declared category obligations; they do not justify weakening specs or adding
   Sage patches during spec work. Continue approved spec, source-mining, audit, and
   decision leaves outside this implementation path until the phase-transition criteria
   in `GOAL.md` and `.agents/current-goal-phase.md` are met.

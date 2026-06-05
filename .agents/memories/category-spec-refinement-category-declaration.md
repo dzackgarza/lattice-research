@@ -3,8 +3,8 @@
 ## Trigger
 
 Read this before editing `refine_category`, constructor refinement, category-spec
-smokes, or any code that tries to view a Sage object as an object of a project
-subcategory.
+category-obligation examples, or any code that tries to view a Sage object as an object
+of a project subcategory.
 
 ## Object Of The Invariant
 
@@ -39,7 +39,8 @@ call site.
 This declaration is not proof that the current implementation satisfies the contract.
 During the spec phase, most refined Sage objects are expected to satisfy only part of
 the project contract, because the project invented specifications Sage did not know.
-That visible gap is the purpose of the refinement-and-smoke workflow.
+That visible gap is the purpose of refinement together with category-obligation
+examples.
 
 Forbidden replacement model:
 
@@ -51,7 +52,7 @@ Forbidden replacement model:
   `NotImplementedError`.
 
 The only semantic act of refinement is category declaration. Completeness is surfaced by
-smokes and later implementation work.
+category-obligation examples and later implementation work.
 
 ## Spec-Facing Class Boundary
 
@@ -83,8 +84,8 @@ for a spec-defective object.
 
 ## False Models Corrected
 
-Use these corrections when reviewing refinement, ABCMeta work, constructor smokes, or
-agent-produced patches in this subtree.
+Use these corrections when reviewing refinement, ABCMeta work, constructor-obligation
+examples, or agent-produced patches in this subtree.
 
 | False repo model | Correct repo model |
 | --- | --- |
@@ -93,7 +94,7 @@ agent-produced patches in this subtree.
 | Category membership means the current implementation is complete. | Category membership imposes the category contract; implementation completeness is a separate question. |
 | A refined Sage object should already satisfy the full project category. | Refined Sage objects are expected to be partial because the project specs are new and Sage did not know them. |
 | Missing project methods after refinement are refinement failures. | Missing project methods after refinement are visible implementation gaps. |
-| Smokes prove refinement enforcement. | Smokes instantiate or exercise category surfaces to reveal gaps between current implementations and the spec. |
+| Category-obligation examples prove refinement enforcement. | Category-obligation examples instantiate or exercise category objects to reveal gaps between current implementations and the spec. |
 | `ParentMethods` are provider implementations. | `ParentMethods` are mathematical object-method obligations. |
 | Abstract `ParentMethods` should become runtime failure bodies. | Abstract `ParentMethods` remain abstract specifications unless the spec itself owns a concrete method. |
 | ABCMeta should reject bad refinements. | ABCMeta should represent abstract method structure correctly in the class system. |
@@ -104,8 +105,8 @@ agent-produced patches in this subtree.
 | Current Sage coverage bounds the project spec. | Sage is implementation evidence and a feasibility witness, not the adequacy standard. |
 | Passing QC means the category model is aligned. | Alignment means the mathematical architecture is preserved; green checks can still certify slop. |
 | Generated-body/assert patches are partial spec progress. | Generated bodies embody the wrong model and must not guide the design. |
-| Implementation gaps should be hidden or preempted. | Implementation gaps should remain visible as obligations surfaced by specs and smokes. |
-| Refinement, specification, implementation, and smoke testing are one runtime pipeline. | Specs state obligations; refinement declares category view; implementations satisfy obligations; smokes expose the gap. |
+| Implementation gaps should be hidden or preempted. | Implementation gaps should remain visible as obligations surfaced by specs and category-obligation examples. |
+| Refinement, specification, implementation, and category-obligation examples are one runtime validator. | Specs state obligations; refinement declares category view; implementations satisfy obligations; category-obligation examples expose the gap. |
 
 ## Correct First Question
 
@@ -116,7 +117,7 @@ Before touching refinement code, answer this in ordinary mathematical language:
 > already realize?
 
 If the first answer is about method search, cache state, dynamic class mutation,
-type-checker appeasement, smoke ordering, hook output, or any other programming
+type-checker appeasement, category-obligation example ordering, hook output, or any other programming
 mechanism before it names the category and its mathematical specification, the frame is
 already wrong. Concrete examples include `MRO`, `getattr_from_category`,
 `_cached_methods`, `cached_method`, Cython, and `can_assign_class`. These are evidence
@@ -127,8 +128,8 @@ terms after the category declaration is understood; they are not refinement sema
 The project spec states the mathematical structure and operations expected of objects
 in a category. Existing Sage objects are partial implementations and feasibility
 witnesses. Refinement imports the existing Sage object as-is and declares the project
-category contract over it. Smokes expose which parts of the specification are already
-realized and which parts remain missing.
+category contract over it. Category-obligation examples expose which parts of the
+specification are already realized and which parts remain missing.
 
 Within this repo's constructors, all instantiation goes through the project category
 layer. It is acceptable, and often expected in the spec phase, that many refined Sage
@@ -154,9 +155,10 @@ There are two trees of work:
   mathematical specification.
 
 Refinement sits between them. It imports an existing Sage implementation as partial
-evidence for the spec and declares the category contract. Smokes reveal the remaining
-implementation gap. A passing implementation later may use wrappers, constructors, or
-backend work. Refinement itself should not perform that implementation work.
+evidence for the spec and declares the category contract. Category-obligation examples
+reveal the remaining implementation gap. A passing implementation later may use
+wrappers, constructors, or backend work. Refinement itself should not perform that
+implementation work.
 
 If Sage already implements a method specified by the project category, the refined
 object may use that implementation. If the project category has a mathematically forced
@@ -172,8 +174,8 @@ structure of project `ParentMethods` under ordinary class construction and MRO.
 
 ABC machinery is not a refinement validator. Refinement should build or expose the
 correct category method surface; it should not ask whether the current object satisfies
-every abstract method. Instantiation and smoke execution are the places where
-implementation gaps become observable.
+every abstract method. Instantiation and category-obligation examples are the places
+where implementation gaps become observable.
 
 Allowed low-level work:
 
@@ -206,8 +208,9 @@ does not become part of the mathematical specification or refinement semantics.
 ## Frame Rejection
 
 Stop immediately if refinement triage starts from method search, cache state, dynamic
-class mutation, type-checker appeasement, smoke ordering, hook output, abstract-method
-enforcement, or any other programming mechanism instead of the category declaration.
+class mutation, type-checker appeasement, category-obligation example ordering, hook
+output, abstract-method enforcement, or any other programming mechanism instead of the
+category declaration.
 The specific historical terms `MRO`, `getattr_from_category`, `_cached_methods`,
 `cached_method`, Cython, and `can_assign_class` matter because they are precise evidence
 of the wrong layer; they are not the new vocabulary of refinement.
@@ -225,8 +228,9 @@ without changing the category declaration or the visible spec gap.
 A concrete failure such as `ZZ.ideal_monoid()` is a witness, not the task. Do not
 overfit refinement guidance to that method, ring, or object. Use it only to ask the
 general question: after declaring an existing Sage object to belong to a project
-subcategory, does the smoke expose the actual implemented/missing parts of the
-mathematical specification, or did the repo hide the gap with programming machinery?
+subcategory, does the category-obligation example expose the actual implemented/missing
+parts of the mathematical specification, or did the repo hide the gap with programming
+machinery?
 
 ## Verification
 

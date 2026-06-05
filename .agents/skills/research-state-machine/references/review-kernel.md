@@ -137,8 +137,8 @@ coordinator. The subagent has never seen the implementation session. It receives
 
 - The card body (the task/spec/phase/plan file)
 - Paths to work artifacts (files changed, branches, PRs, commits)
-- Paths to baseline artifacts (decision cards, prior specs, smoke baselines — see
-  Gate 4 for the full list)
+- Paths to baseline artifacts (decision cards, prior specs, category-obligation
+  baselines — see Gate 4 for the full list)
 - This review kernel
 
 The subagent must not receive: the implementing agent's chat transcript, the
@@ -381,10 +381,11 @@ git diff
 Inspect with a patch view. Flag:
 - Deleted abstract methods or `@abstract_method` decorators
 - Removed constructor/category obligations from `Constructors()` namespaces
-- Narrowed smoke assertions (fewer checks, weaker predicates, shallower probes)
+- Narrowed category assertions (fewer checks, weaker predicates, shallower probes)
 - Weakened acceptance criteria in any touched card body
 - Moved obligations to a card/phase/plan without a source-grounded replacement owner
-- Sage-gap-driven interface shrinkage (the smoke got quieter but the spec got smaller)
+- Sage-gap-driven interface shrinkage (the category-obligation examples got quieter but
+  the spec got smaller)
 - **Orthogonal changes**: modifications to code, comments, or configuration outside the
   stated task scope. An agent asked to fix one method's owner may silently "clean up"
   unrelated imports, reformat adjacent functions, or remove comments it considers stale.
@@ -396,7 +397,9 @@ Inspect with a patch view. Flag:
 
 **Failure modes:**
 - **Any of the above** → `revision-required`. Document the exact deletion/weakening and the missing replacement owner. The rework must either restore the obligation verbatim or provide a grounded replacement card.
-- **Smoke improvement paired with interface shrinkage** → `revision-required`. This is a spec-regression task failure regardless of command output.
+- **Category-obligation improvement paired with interface shrinkage** →
+  `revision-required`. This is a spec-regression task failure regardless of command
+  output.
 - **Orthogonal changes** → `revision-required`. Any diff outside the task's declared scope must be reverted unless the change is justified in a separate task or the card body documents why it was necessary for the scoped work. The test: every changed line should trace directly to the task's stated objective. If a line was changed because the agent "thought it looked better" or "was cleaning up," it's orthogonal.
 
 ### Gate 4: Gradient (Backsliding Detection)
@@ -407,7 +410,10 @@ The work must not reverse, weaken, or contradict any previously established trut
 
 1. **Decided decision cards** -- Scan `.agents/plans/features/*/decisions/` for cards with `status: decided` or `status: implemented`. Does the work reverse the chosen outcome? Does it reintroduce a rejected alternative?
 2. **Previously approved specs** -- Are `specs/*.md` files modified? Does `git diff` show removal of accepted requirements?
-3. **Previously passing smokes** -- Does `just smoke` produce new failures on assertions that previously passed? Compute against the last known-good smoke baseline.
+3. **Previously passing category-obligation examples** -- Does
+   `just --justfile category_specs/justfile category-obligations` produce new failures
+   on assertions that previously passed? Compute against the last known-good
+   category-obligation baseline.
 4. **Previously resolved TODO entries** -- Has a resolved observation from `.agents/TODO.md` history been reintroduced?
 5. **Git history of committed work** -- Does `git log` show previous commits that established invariants, tests, or properties the current work implicitly reverts?
 6. **Approved plans and phase cards** -- Do modified `PHASE-*.md` or `PLAN-*.md` files show removed or weakened phase gates?
@@ -425,24 +431,26 @@ A negative gradient on any dimension is a finding. The review records which dime
 4. If a contradiction is found AND no superseding decision card exists → `revision-required`.
 5. If a contradiction is found and a superseding decision card exists → the gradient is intentional. Note it in the review log but do not block.
 
-**Smoke gradient check:**
+**Category-obligation gradient check:**
 ```bash
 # Record baseline (from last known-good commit or a cached snapshot)
-just smoke 2>&1 | tee /tmp/smoke-baseline.txt
+just --justfile category_specs/justfile category-obligations 2>&1 | tee /tmp/category-obligations-baseline.txt
 
 # Post-work
-just smoke 2>&1 | tee /tmp/smoke-post.txt
+just --justfile category_specs/justfile category-obligations 2>&1 | tee /tmp/category-obligations-post.txt
 
 # Compute gradient
-diff /tmp/smoke-baseline.txt /tmp/smoke-post.txt
+diff /tmp/category-obligations-baseline.txt /tmp/category-obligations-post.txt
 ```
 - New failures → negative gradient → flag.
 - New passes → positive gradient.
-- Disappeared assertions (the smoke file itself changed) → Gate 3 violation, not a gradient finding.
+- Disappeared assertions (the category-obligation example file itself changed) → Gate 3
+  violation, not a gradient finding.
 
 **Failure modes:**
 - **Decision reversal without superseding card** → `revision-required`. Design-level defect.
-- **Previously passing smoke now fails** → `revision-required` or `blocked` (if the failure reveals a genuine prerequisite gap).
+- **Previously passing category-obligation example now fails** → `revision-required` or
+  `blocked` (if the failure reveals a genuine prerequisite gap).
 - **Previously resolved TODO reappears** → `revision-required`.
 - **Previously approved spec surface removed** → `revision-required`. May overlap with Gate 3.
 - **Implicit decision contradicting repo policy** → `revision-required`. Examples: creating a local workaround when `research-software-wiring` requires backend-first routing; introducing variadic option-bag constructors after `PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT` was approved.
@@ -592,7 +600,7 @@ Each review produces a dated entry in the card body:
   from `Constructors()` without a replacement card. This surface must be restored or a
   grounded replacement card must be created before re-review.
 
-- `category_specs/rings/subcategories/fields.py:78` -- Smoke assertion narrowed from
+- `category_specs/rings/subcategories/fields.py:78` -- Category assertion narrowed from
   `check_method_surface(R, expected_methods=15)` to `check_method_surface(R,
   expected_methods=12)`. The deleted methods (`torsion_subgroup`, `class_group`,
   `class_number`) were category-spec obligations. Missing grounded replacement card.
@@ -600,14 +608,14 @@ Each review produces a dated entry in the card body:
 **Required fixes:**
 1. Either restore `KroneckerSymbolField` to `Constructors()` or create a source-grounded
    card that replaces it.
-2. Restore the smoke assertion to 15 expected methods or document where each of the 3
-   removed methods was moved with a grounded replacement owner.
+2. Restore the category assertion to 15 expected methods or document where each of the
+   3 removed methods was moved with a grounded replacement owner.
 
 **Re-review criteria:**
 - `git diff` from the rework must show no net deletion of `Constructors()` entries
   without grounded replacement cards.
-- Smoke method count must match or exceed the previous baseline of 15, OR the 3 removed
-  methods must have explicit grounded replacement cards.
+- Category-obligation method count must match or exceed the previous baseline of 15, OR
+  the 3 removed methods must have explicit grounded replacement cards.
 
 ---
 ```

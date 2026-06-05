@@ -41,7 +41,7 @@ Source inventory: `category_specs/cat/docs/SAGE_INVENTORY.md`.
 - Preserve every inventoried Sage surface by mapping it to a project mathematical surface, a named constructor path, a mathematically justified non-mapping, or a tracked decision.
 - Place every method at the highest category where the operation is mathematically well-defined; subcategories inherit methods from supercategories.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
-- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
+- Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and category-obligation example-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 - When a public method has a convention likely to surprise a mathematically literate user,
   its defining docstring must include a diagnostics paragraph naming the condition, the
@@ -779,7 +779,7 @@ The following surfaces are explicitly rejected or marked as non-spec:
 | `fixed_points()` on endofunctors | Explicitly rejected: "Sage provides no general computable fixed-point operation for arbitrary endofunctors" | Lines 255–256 |
 | Raw Sage implementation containers | Rejected per acceptance criteria | Line 21 |
 | Variadic option bags | Rejected per review gates | Line 39 |
-| Smoke-driven interface weakening | Rejected per review gates | Line 39 |
+| category-obligation-example-driven interface weakening | Rejected per review gates | Line 39 |
 | `Cat()` re-exporting `leq`/`geq`/`<=`/`>=` | Explicitly excluded: "Cat() itself is the root ambient category ... and does not re-export" | Lines 119–120 |
 
 **Verdict:** Nonmathematical surfaces are explicitly identified and rejected.

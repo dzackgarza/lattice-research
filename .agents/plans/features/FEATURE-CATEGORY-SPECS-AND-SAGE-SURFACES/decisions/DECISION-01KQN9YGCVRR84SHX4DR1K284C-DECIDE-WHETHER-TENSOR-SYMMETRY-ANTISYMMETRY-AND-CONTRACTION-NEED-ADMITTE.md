@@ -41,7 +41,7 @@ This decision cannot be settled from migrated backlog text alone. Before moving 
 - [x] If the decision changes category ownership, the relevant MAPPING.md is updated in the same work or a linked spec-work item.
 - [x] The decision status moves from needs-decision to decided only after the consequence is explicit enough for implementation.
 - [x] Do not expand tensor API beyond the mapped minimal surface without first freezing the deferred mapping.
-- [x] Run just smoke-file tensor_algebra_components/smoketest.sage after constructor or refinement changes.
+- [x] Run just category-obligation-file tensor_algebra_components/category_obligations.sage after constructor or refinement changes.
 
 ## Dependencies And Boundaries
 
@@ -130,8 +130,8 @@ named constructors, constructor symmetry metadata, `trace(...)`, or explicit
 - Implementation cards should realize the already-frozen signatures; they should not
   add new tensor-calculus API while doing so.
 - No tensor constructor or refinement changed in this decision-only update, so
-  `just --justfile category_specs/justfile smoke-file
-  tensor_algebra_components/smoketest.sage` did not apply.
+  `just --justfile category_specs/justfile category-obligation-file
+  tensor_algebra_components/category_obligations.sage` did not apply.
 - Any future symmetry, antisymmetry, or storage subtree requires a separate
   source-grounded decision naming exact owner categories, predicates, hypotheses,
   codomains, and migration consequences.

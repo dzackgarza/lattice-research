@@ -20,8 +20,8 @@ acceptanceCriteria:
 - No implementation blocker was discovered during this alias pass.
 - Review the affected public type aliases and category methods against the recovered
   `plans/todo.md` content before closing.
-- Relevant cheap verification was run for `types.py`; no subtree smoke was run because
-  this pass changed only aliases and global smoke/QC is not the controlling activity
+- Relevant cheap verification was run for `types.py`; no subtree category-obligation example was run because
+  this pass changed only aliases and global category-obligation example/QC is not the controlling activity
   for phase-01 spec churn.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -113,7 +113,7 @@ Alias decision executed:
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [x] No implementation blocker was discovered during this alias pass.
 - [x] Review the affected public type aliases and category methods against the recovered `plans/todo.md` content before closing.
-- [x] Relevant cheap verification was run for `types.py`; no subtree smoke was run because this pass changed only aliases and global smoke/QC is not the controlling activity for phase-01 spec churn.
+- [x] Relevant cheap verification was run for `types.py`; no subtree category-obligation example was run because this pass changed only aliases and global category-obligation example/QC is not the controlling activity for phase-01 spec churn.
 
 ## Dependencies And Boundaries
 
@@ -173,7 +173,7 @@ Alias decision executed:
 | No new subtree-local TRIAGE or process document created | [x] | No TRIAGE.md found under any subtree involved in this spec. |
 | No implementation blocker discovered during alias pass | [x] | All aliases implemented in types.py lines 400-408. |
 | Affected public type aliases and category methods reviewed against recovered plans/todo.md | [x] | Spec work log records recovery and review. |
-| Cheap verification run for types.py | [x] | Spec states cheap verification was run; no subtree smoke was run (per scope). |
+| Cheap verification run for types.py | [x] | Spec states cheap verification was run; no subtree category-obligation example was run (per scope). |
 
 **Implemented aliases (verified in `category_specs/types.py`):**
 - `DualModule = ModuleDualObjects.ParentMethods` (line 400)

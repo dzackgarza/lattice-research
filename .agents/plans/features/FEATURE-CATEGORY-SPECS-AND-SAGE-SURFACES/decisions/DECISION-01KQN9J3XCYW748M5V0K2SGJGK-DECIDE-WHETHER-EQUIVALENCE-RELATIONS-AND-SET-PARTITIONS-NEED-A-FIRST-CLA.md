@@ -44,7 +44,7 @@ This decision cannot be settled from migrated backlog text alone. Before moving 
 - [x] The decision record lists the alternatives, selected outcome, rationale, consequences, and affected tracker items.
 - [x] If the decision changes category ownership, the relevant MAPPING.md is updated in the same work or a linked spec-work item.
 - [x] The decision status moves from needs-decision to decided only after the consequence is explicit enough for implementation.
-- [x] Run just smoke-file posets/smoketest.sage after poset constructor or method changes.
+- [x] Run just category-obligation-file posets/category_obligations.sage after poset constructor or method changes.
 - [x] Use the five-field negative-finding format for further Sage semilattice evidence gaps.
 
 ## Dependencies And Boundaries
@@ -68,7 +68,7 @@ This decision cannot be settled from migrated backlog text alone. Before moving 
 - `category_specs/sets/subcategories/partitioned.py`
 - `category_specs/sets/subcategories/constructions/quotients.py`
 - `category_specs/types.py`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES/tasks/TASK-01KQN9YGCS8P5BYN15M4NKCWCF-RESEARCH-LOCAL-SAGE-POSET-IMPORT-FAILURE-AND-COMPLETE-IMPORT-LEVEL-CATEG.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS/tasks/TASK-01KQN9YGCS8P5BYN15M4NKCWCF-RESEARCH-LOCAL-SAGE-POSET-IMPORT-FAILURE-AND-COMPLETE-IMPORT-LEVEL-CATEG.md`
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/decisions/DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS.md`
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/decisions/DECISION-20260505-PARTITION-ELEMENT-METHOD-SHADOWING.md`
 
@@ -153,13 +153,13 @@ or spec card.
   `category_specs/sets/docs/MAPPING.md` and `category_specs/posets/docs/MAPPING.md`
   already state the selected owner split.
 - No poset constructor or method changed in this decision-only update. The linked
-  research card records `just --justfile category_specs/justfile smoke-file
-  posets/smoketest.sage` passing after the constructor/certificate fixes in commit
+  research card records `just --justfile category_specs/justfile category-obligation-file
+  posets/category_obligations.sage` passing after the constructor/certificate fixes in commit
   `c74860e`.
 
 ## Affected Tracker Items
 
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES/tasks/TASK-01KQN9J3X3Y3S80FYCGEQDEJJZ-FIX-POSETS-CONSTRUCTOR-REFINEMENT-RICHCMP-FAILURES.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES/tasks/TASK-01KQN9YGCFADA7QY26RA2KSVX3-IMPLEMENT-FIXED-BASE-SETPARTITIONS-CONSTRUCTOR-REFINEMENTS-INTO-SETS-PAR.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS/tasks/TASK-01KQN9J3X3Y3S80FYCGEQDEJJZ-FIX-POSETS-CONSTRUCTOR-REFINEMENT-RICHCMP-FAILURES.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-POSET-CONSTRUCTOR-EXAMPLES-AND-UNRESOLVED-DEFINITIONS/tasks/TASK-01KQN9YGCFADA7QY26RA2KSVX3-IMPLEMENT-FIXED-BASE-SETPARTITIONS-CONSTRUCTOR-REFINEMENTS-INTO-SETS-PAR.md`
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9YGC8WM34SAME35N4VGX5-SPECIFY-PARTITION-REFINEMENTS-COARSENINGS-AND-STRICT-COARSENINGS-AS-FINI.md`
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9YGC7HDGCSFP6JETA3ZZG-SPECIFY-PARTITIONED-SET-SUBCLASS-PREDICATES-CROSSINGS-NESTINGS-NONCROSSI.md`

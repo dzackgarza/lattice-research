@@ -17,7 +17,7 @@ Run and record evidence for:
 
 - targeted Sage witness commands that exercise object-method resolution on reconstructed
   refined object(s) without treating refinement as validation;
-- targeted smokes or tests for the affected category;
+- targeted category-obligation examples or tests for the affected category;
 - `just --justfile category_specs/justfile check-banned-spec-patterns`;
 - relevant `category_specs` just recipes after source coherence;
 - `git diff --check`;
@@ -43,7 +43,8 @@ The reviewer must read:
 The reviewer prompt must ask whether the request completion witness is true in
 artifacts and must treat the worker's summary as a claim, not evidence.
 The prompt must also ask whether the patch preserves the spec/refinement/implementation
-/smoke separation recorded in `category-spec-repo-model-corrections`.
+/category-obligation-example separation recorded in
+`category-spec-repo-model-corrections`.
 
 ## Completion conditions
 

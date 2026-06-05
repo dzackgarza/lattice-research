@@ -56,7 +56,7 @@ to active cards/plans/maintenance policy.
 ## Removal condition
 
 Retire when category-spec phase ends and the repo enters a stable maintenance cadence
-with no new category surfaces.
+with no new category definitions or obligations.
 
 ## Scope
 
@@ -77,11 +77,13 @@ cards/handoffs/memories, any changed `category_specs` files.
 2. For each docs-only or metadata-only commit, ask whether it changed the next agent's
    first question or only made an artifact cleaner.
 3. For each code/spec commit, identify whether the diff contains visible
-   ownership/recovery/missing-obligation evidence or merely a surface edit.
+   ownership/recovery/missing-obligation evidence or merely a naming or representation
+   edit.
 4. For each category-spec change, scan for spec weakening: deleted abstract methods,
-   moved obligations, narrowed smokes, removed constructor obligations, or
+   moved obligations, narrowed category assertions, removed constructor obligations, or
    Sage-gap-driven shrinkage.
-   `category_specs/AGENTS.md` says these fail even if smoke output improves.
+   `category_specs/AGENTS.md` says these fail even if category-obligation examples pass
+   after the weakening.
 5. If a defect is found, either create a corrective patch or mark the linked card
    `revision-required` with the exact commit, file, line, and false claim.
 

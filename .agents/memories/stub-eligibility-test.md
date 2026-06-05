@@ -36,7 +36,7 @@ Before ANY row may be classified as `sage-stubs` work, answer exactly:
 - local category method surfaces (rank, dual, tensor, span, basis, etc.)
 - missing method owner in local spec graph
 - redundant or missing supercategory edge
-- smoke failure showing refined object lacks ABC obligation
+- failed category assertion showing refined object lacks an ABC obligation
 
 ## Heuristic for spec-owned vs plugin-owned
 

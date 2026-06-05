@@ -22,7 +22,7 @@ acceptanceCriteria:
   signatures.
 - The tensor API was not expanded past the frozen mapping in this pass; the existing
   admitted public surface is `trace(...)` and explicit `contract(...)` only.
-- No constructor or refinement changes were made in this pass, so `tensor_algebra_components/smoketest.sage`
+- No constructor or refinement changes were made in this pass, so `tensor_algebra_components/category_obligations.sage`
   did not apply.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -114,7 +114,7 @@ remaining follow-up is implementation, not further owner mapping:
 - [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
 - [x] No new implementation blocker was discovered in this bounded spec pass; the remaining work is concrete method implementation and caller migration under already-frozen signatures.
 - [x] The tensor API was not expanded past the frozen mapping in this pass; the existing admitted public surface is `trace(...)` and explicit `contract(...)` only.
-- [x] No constructor or refinement changes were made in this pass, so `tensor_algebra_components/smoketest.sage` did not apply.
+- [x] No constructor or refinement changes were made in this pass, so `tensor_algebra_components/category_obligations.sage` did not apply.
 
 ## Dependencies And Boundaries
 
@@ -153,7 +153,7 @@ remaining follow-up is implementation, not further owner mapping:
 
 4. `category_specs/tensor_algebra_components/__init__.py` — exists (388 lines). Contains `trace(contravariant_position, covariant_position) -> Tensor | RingElement` (line 68-78) and `contract(left_position, other, right_position) -> Tensor | RingElement` (line 80-92) with scalar-vs-tensor codomain rules in docstrings. The spec's Execution Result claims match the code exactly.
 
-5. `category_specs/tensor_algebra_components/smoketest.sage` — exists (90 lines). The spec correctly notes that no constructor or refinement changes were made in this pass, so the smoketest did not apply (acceptance criteria line 116-117).
+5. `category_specs/tensor_algebra_components/category_obligations.sage` — exists (90 lines). The spec correctly notes that no constructor or refinement changes were made in this pass, so the category-obligation exampletest did not apply (acceptance criteria line 116-117).
 
 6. Freeze commit `1e10d9c` — confirmed via `git log --oneline`: `1e10d9c3 docs: freeze deferred tensor surfaces`. The spec's work log correctly states this commit covers the recovered triage target.
 
@@ -244,7 +244,7 @@ The spec's own Source-Mining Contract (lines 47-78) further requires owner/codom
 
 2. No constructor obligations removed: The spec explicitly states "No constructor or refinement changes were made in this pass" (line 25). The existing constructors (`from_matrix`, `from_module_element_matrix`, etc.) remain intact.
 
-3. No smoke assertions narrowed: Acceptance criterion line 25-26: smoketest did not apply because no constructor/refinement changes were made. This is properly bounded — not a weakening, just inapplicable.
+3. No category assertions narrowed: Acceptance criterion line 25-26: category-obligation exampletest did not apply because no constructor/refinement changes were made. This is properly bounded — not a weakening, just inapplicable.
 
 4. No new subtree-local TRIAGE created: Acceptance criterion line 18 explicitly forbids this. The spec records decisions by reference to existing MAPPING.md and SAGE_INVENTORY.md, not by creating new parallel docs.
 
@@ -256,7 +256,7 @@ The spec's own Source-Mining Contract (lines 47-78) further requires owner/codom
 
 8. Dependencies and Boundaries (lines 119-123): Explicitly preserves `SAGE_INVENTORY.md` and `MAPPING.md` as canonical source/mapping provenance; forbids recreating subtree-local `TRIAGE.md` files.
 
-**G6 verdict: PASS.** No abstract method, constructor obligation, smoke assertion, or mathematical invariant is weakened. The spec correctly constrains this leaf to recording that the deferred decisions already exist, without adjusting any public API.
+**G6 verdict: PASS.** No abstract method, constructor obligation, category assertion, or mathematical invariant is weakened. The spec correctly constrains this leaf to recording that the deferred decisions already exist, without adjusting any public API.
 
 ---
 

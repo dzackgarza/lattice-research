@@ -79,7 +79,7 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
 
 ## Validation Requirements
 
-- Run the narrowest relevant `just` recipe available for category-spec or Cat smoke
+- Run the narrowest relevant `just` recipe available for category-spec or Cat category-obligation example
   validation. If no narrower recipe exists, report that and run `just test` only if the
   dependency environment is available.
 - Run a targeted static search/check showing no newly exposed public Cat method option
@@ -91,13 +91,13 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
 - 2026-05-06 parent-agent review passed Gate 1 definition grounding: `Cat()` ownership
   and wrapper scope are grounded in `SPEC-MAPPING-CAT.md` and the Cat inventory.
 - The review failed Gate 2 acceptance criteria. The parent phase requires
-  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` after Cat or
+  `just --justfile category_specs/justfile category-obligation-file cat/category_obligations.sage` after Cat or
   category-object surface changes, and this card requires the narrowest relevant
   `just` validation.
 - The work log records failed `just test`, static option-bag search, and `compileall`,
-  but it does not record the required Cat smoke recipe even though the recipe exists.
+  but it does not record the required Cat category-obligation example recipe even though the recipe exists.
 - 2026-05-06 follow-up resolved the revision requirement by running
-  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`, which passed.
+  `just --justfile category_specs/justfile category-obligation-file cat/category_obligations.sage`, which passed.
   The card is back in `needs-agent-review`; it is not accepted or complete.
 
 ## Work Log
@@ -127,9 +127,9 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
 - 2026-05-05: Moved this card to `in-review`; human review is still required before
   closure.
 - 2026-05-06: Parent review moved this card to `revision-required`; the required Cat
-  smoke recipe has not been recorded after the Cat/category-object surface changes.
-- 2026-05-06: Ran the required Cat smoke recipe:
-  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`. It passed
+  category-obligation example recipe has not been recorded after the Cat/category-object surface changes.
+- 2026-05-06: Ran the required Cat category-obligation example recipe:
+  `just --justfile category_specs/justfile category-obligation-file cat/category_obligations.sage`. It passed
   with exit code 0. Moved the card back to `needs-agent-review` for human review.
 
 ## Review Log
@@ -155,11 +155,11 @@ Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
 
 #### Non-Findings
 
-- The required Cat smoke is now recorded and was rerun by the reviewer with exit code
+- The required Cat category-obligation example is now recorded and was rerun by the reviewer with exit code
   0.
 - The touched Cat methods have `@final` and return annotations, and remaining
   `*args`/`**kwargs` occurrences are private/internal forwarding hooks.
-- No spec or smoke weakening was found.
+- No spec or category-obligation example weakening was found.
 
 ### Re-review 2026-05-06 (Helmholtz)
 
@@ -188,14 +188,14 @@ completion
 - `Cat()` ownership and wrapper scope were checked against `SPEC-MAPPING-CAT.md` and
   `category_specs/cat/docs/SAGE_INVENTORY.md`.
 - The touched methods in `category_specs/cat/base_category_types.py` have `@final`
-  markers and return annotations, and the required Cat smoke pass is recorded in this
+  markers and return annotations, and the required Cat category-obligation example pass is recorded in this
   card.
-- Targeted diff checks found no spec or smoke weakening. Remaining `*args` and
+- Targeted diff checks found no spec or category-obligation example weakening. Remaining `*args` and
   `**kwargs` occurrences in `category_specs/cat/base_category_types.py` are private or
   generated implementation glue, not admitted public variadic mathematical
   signatures.
 
 #### Residual Risks
 
-- The reviewer did not rerun smoke in this read-only pass and relied on the recorded
-  passing Cat smoke evidence.
+- The reviewer did not rerun category-obligation example in this read-only pass and relied on the recorded
+  passing Cat category-obligation example evidence.

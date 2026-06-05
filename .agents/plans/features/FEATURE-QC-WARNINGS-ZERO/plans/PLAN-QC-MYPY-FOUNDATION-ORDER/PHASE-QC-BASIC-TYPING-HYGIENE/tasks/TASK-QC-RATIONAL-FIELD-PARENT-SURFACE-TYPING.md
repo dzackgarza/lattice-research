@@ -139,7 +139,7 @@ later phases.
     `category_specs/types.py` and
     `category_specs/rings/subcategories/rational_field.py`; this edit changes
     no constructors, category refinements, method owners, Hom/End/Aut aliases,
-    abstract obligations, or smoke assertions.
+    abstract obligations, or category assertions.
 - 2026-05-15: Review-routing correction:
   - Doc Gate: read `AGENTS.md` "Always-active invariants", "Tracker and planning
     shortcut", `.agents/skills/category-spec-workflow/SKILL.md`,

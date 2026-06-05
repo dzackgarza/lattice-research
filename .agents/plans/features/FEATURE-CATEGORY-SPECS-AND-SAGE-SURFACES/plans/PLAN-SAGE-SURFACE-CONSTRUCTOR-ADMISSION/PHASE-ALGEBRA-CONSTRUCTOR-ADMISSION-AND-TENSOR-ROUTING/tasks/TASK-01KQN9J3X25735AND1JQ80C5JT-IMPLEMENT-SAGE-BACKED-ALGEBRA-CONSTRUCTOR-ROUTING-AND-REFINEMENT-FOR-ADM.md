@@ -13,12 +13,12 @@ description: The deleted Algebras triage recorded an initialization blocker for 
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.
 successCriteria:
 - The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
+  category-obligation examples or mapping decisions to make failures disappear.
+- Relevant category-obligation output is updated in this task body or a linked tracker item, with
   exact failing surfaces preserved when work remains.
 - The change uses project category vocabulary rather than Sage fallback helper names
   or wrapper-only categories.
-- Run just smoke-file algebras/smoketest.sage after algebra category initialization
+- Run just category-obligation-file algebras/category_obligations.sage after algebra category initialization
   or constructor changes.
 - Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module
   over Modules(R).
@@ -48,10 +48,10 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [ ] The implementation changes only the scoped category-spec surface and does not weaken category-obligation examples or mapping decisions to make failures disappear.
+- [ ] Relevant category-obligation output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] Run just smoke-file algebras/smoketest.sage after algebra category initialization or constructor changes.
+- [ ] Run just category-obligation-file algebras/category_obligations.sage after algebra category initialization or constructor changes.
 - [ ] Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module over Modules(R).
 
 ## Dependencies And Boundaries
@@ -72,8 +72,8 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
   construction is centralized through `from_multiplication_tensor(mu)`. The
   implementation explicitly rejects the plain-set `S.algebra(R)` route as an
   algebra constructor and leaves that surface to module construction.
-- 2026-05-06 validation: `just --justfile category_specs/justfile smoke-file
-  algebras/smoketest.sage` passes after the algebra constructor and tensor
+- 2026-05-06 validation: `just --justfile category_specs/justfile category-obligation-file
+  algebras/category_obligations.sage` passes after the algebra constructor and tensor
   component refinement work in the linked phase. Status moved to
   `needs-agent-review`; this does not mark the card accepted or complete.
 
@@ -102,7 +102,7 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
   witness `tuple(S) -> algebra.gens()` on the returned object.
 - `SPEC-MAPPING-ALGEBRAS` now records this as presentation data, not a claim that
   cardinality alone canonically determines the free algebra on `S`.
-- `algebras/smoketest.sage` now checks the recorded generator presentation in addition
+- `algebras/category_obligations.sage` now checks the recorded generator presentation in addition
   to category membership.
 
 ### Re-review 2026-05-06 (Parfit)
@@ -121,10 +121,10 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
   claim that cardinality alone canonically determines the free algebra on `S`.
 - Plain-set `S.algebra(R)` remains routed to module construction, while
   `Sets.free_algebra` routes through the named project constructor.
-- `category_specs/algebras/smoketest.sage` asserts the generator presentation witness
-  and includes that check in the algebra smoke statement.
+- `category_specs/algebras/category_obligations.sage` asserts the generator presentation witness
+  and includes that check in the algebra category-obligation example statement.
 - Validation observed by the reviewer: `just --justfile category_specs/justfile
-  smoke-file algebras/smoketest.sage` passed; targeted diffs and
+  category-obligation-file algebras/category_obligations.sage` passed; targeted diffs and
   `git diff a074be9^ a074be9 --check` were clean.
 
 #### Residual Risks

@@ -14,7 +14,7 @@ successCriteria:
   category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
 - Determine how this category relates to existing planned categories, constructors,
-  Hom/End/Aut surfaces, and smoke expectations.
+  Hom/End/Aut objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation
   cards needed to proceed.
@@ -42,7 +42,7 @@ This is high-priority because specced vocabulary and mathematically correct foun
 
 - Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut surfaces, and smoke expectations.
+- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut objects, and representative examples with category obligations.
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation cards needed to proceed.
 

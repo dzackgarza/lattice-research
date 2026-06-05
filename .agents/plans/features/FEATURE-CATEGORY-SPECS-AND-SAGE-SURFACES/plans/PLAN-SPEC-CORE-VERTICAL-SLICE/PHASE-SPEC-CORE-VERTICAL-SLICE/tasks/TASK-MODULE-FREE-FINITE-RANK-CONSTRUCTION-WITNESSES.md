@@ -23,7 +23,7 @@ successCriteria:
 - Free-module code does not duplicate finite product cardinality or countable product
   enumeration logic that should be owned by set/product providers.
 - Missing provider or source-grounding gaps are reported through the spec-core report
-  shape, not hidden by broad smokes.
+  shape, not hidden by broad category-obligation examples.
 complexity: 78
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -46,7 +46,7 @@ underlying carrier.
 - `[[SPEC-MAPPING-MODULES]]`
 - `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]`
 - `category_specs/modules/__init__.py`
-- `category_specs/modules/smoketest.sage`
+- `category_specs/modules/category_obligations.sage`
 
 ## Context
 
@@ -80,7 +80,7 @@ countable R and finite n -> M is countable with product enumeration obligations
 ## Dependencies And Boundaries
 
 Do not edit lattice specs, Hom/End/Aut human-gated cards, q-adic constructor blockers,
-or broad smoke plans for this task. If a required set/product provider does not exist,
+or broad category-obligation example plans for this task. If a required set/product provider does not exist,
 record the missing owner in the report and split a provider task rather than adding a
 module-local workaround.
 
@@ -125,7 +125,7 @@ finite/countable free finite-rank module slice.
   provider; `ZZ^2` records countability and leaves deterministic countable-product
   enumeration as a missing `Sets().CartesianProducts()` obligation.
 - Gate 1 pass: scope matches the task objective and does not broaden into lattice,
-  Hom/End/Aut, q-adic, broad smoke, or global QC work.
+  Hom/End/Aut, q-adic, broad category-obligation example, or global QC work.
 - Gate 2 pass: baseline mapping sources are used for module construction and set
   product/cardinality ownership.
 - Gate 3 pass: the witness layer uses the spec-core `SpecRegistry`/`SpecReport`

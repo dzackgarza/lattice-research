@@ -128,7 +128,7 @@ Reviewed in fresh context under the research review kernel.
 - Gate 2 pass: all card acceptance criteria are satisfied; the leaf does not claim to
   satisfy module-specific GF(5)/ZZ witness obligations.
 
-- Gate 3 pass: no `spec`/`smoke` weakening or scope drift was introduced in this
+- Gate 3 pass: no `spec`/`category-obligation example` weakening or scope drift was introduced in this
   patch; all changed code files are within `category_specs/spec_core/` and the dedicated
   focused test path.
 

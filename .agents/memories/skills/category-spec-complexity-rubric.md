@@ -43,7 +43,8 @@ Use `61-80` for high-complexity work:
 
 - Public category semantics, mathematical ownership, constructor routing, or inheritance
   changes.
-- Multi-surface work across category specs, mappings, wrappers, smoke files, or tests.
+- Multi-object work across category specs, mappings, wrappers, category-obligation
+  examples, or tests.
 - Downstream cards depend on the result, or mistakes can force redo.
 - Validation must check the mathematical contract, not only local syntax.
 

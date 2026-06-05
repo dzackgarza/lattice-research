@@ -19,7 +19,8 @@ This phase advances only when the reconstruction identifies, from current artifa
 - abstract object-method requirements;
 - concrete object methods already available on Sage/project category surfaces;
 - false runtime mechanisms that hide or replace abstract spec obligations;
-- missing object-method requirements that should remain visible to smokes;
+- missing object-method requirements that should remain visible to category-obligation
+  examples;
 - the mathematical relation hidden by cache or `_cached_methods` awareness.
 
 ## Required source surfaces
@@ -28,7 +29,7 @@ Read the current source and current diff for:
 
 - `category_specs/utils.py`
 - the category files containing the target contract and abstract obligation;
-- the relevant smoke or test files;
+- the relevant category-obligation example or test files;
 - recent commits/diffs that introduced cache, `cached_method`, or `_cached_methods`
   awareness in refinement code.
 
@@ -43,8 +44,8 @@ runtime evidence:
 > Refined object ___ is being viewed as an object of target contract ___. Contract ___
 > declares object-method requirement ___. Concrete object method ___ exists at ___.
 > Runtime mechanism ___ currently hides, replaces, or misrepresents that obligation at
-> ___. Requirements ___ remain missing and should stay visible to smokes. The cache or
-> enforcement-shaped patch hid ___ by ___.
+> ___. Requirements ___ remain missing and should stay visible to category-obligation
+> examples. The cache or enforcement-shaped patch hid ___ by ___.
 
 If this statement cannot be filled, enter `DECOMPOSE` from the contract: choose the next
 smaller source claim, record it in `provider-satisfaction-goal-state`, and attempt that

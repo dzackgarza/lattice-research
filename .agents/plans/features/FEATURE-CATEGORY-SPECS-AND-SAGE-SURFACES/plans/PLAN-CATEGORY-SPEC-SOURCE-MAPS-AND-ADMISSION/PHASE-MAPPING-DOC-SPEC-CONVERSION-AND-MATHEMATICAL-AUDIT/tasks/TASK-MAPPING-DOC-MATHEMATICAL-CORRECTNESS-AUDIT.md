@@ -64,7 +64,7 @@ tags:
 **Gate 3 — Spec-Weakening:**
 - No staged or unstaged diffs on mapping spec files; the corrective commits are already merged.
 - Each commit narrows or sharpens mathematical ownership (e.g., `c84e178` adds the finite-free nondegenerate hypothesis to lattice-dual ownership), which is strengthening, not weakening.
-- No abstract methods, constructor obligations, or smoke assertions are deleted.
+- No abstract methods, constructor obligations, or category assertions are deleted.
 
 **Gate 4 — Gradient:**
 - The 10 corrective commits are consistent with established decision cards:

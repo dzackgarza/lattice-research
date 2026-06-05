@@ -2,7 +2,9 @@
 
 ## Trigger
 
-When planning, implementing, auditing, or triaging category_specs work involving Sage inventory, Sage wrappers, constructor smokes, or refined Sage objects.
+When planning, implementing, auditing, or classifying category_specs work involving
+Sage inventory, Sage wrappers, constructor-obligation examples, or refined Sage
+objects.
 
 ## Rule
 
@@ -18,13 +20,17 @@ or replacement implementations must supply.
 
 Do not treat Sage interop as a refinement-admission test. A constructor or refinement
 path may declare a Sage object into a project category even when that object does not
-yet satisfy the full project contract. Smokes expose the gap; refinement does not
-validate it away.
+yet satisfy the full project contract. Category-obligation examples expose the gap;
+refinement does not validate it away.
 
 ## Action
 
-If a smoke fails because a current Sage/refined object lacks a spec method, record an implementation, wrapper, constructor, decision, or source-mining gap. Do not delete, weaken, or move the spec obligation unless a source-grounded replacement owner preserves the mathematical surface.
+If a category assertion fails because a current Sage/refined object lacks a spec
+method, record an implementation, wrapper, constructor, decision, or source-mining
+gap. Do not delete, weaken, or move the spec obligation unless a source-grounded
+replacement weakest category preserves the mathematical statement.
 
 ## Verification
 
-Task, phase, or plan acceptance for spec-surface work should locally state how the ideal-interface obligation is preserved when Sage smokes fail.
+Task, phase, or plan acceptance for spec work should locally state how the
+ideal-interface obligation is preserved when category-obligation examples fail.

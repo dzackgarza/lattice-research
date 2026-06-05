@@ -9,14 +9,14 @@ title: Sprint Cat category-object surface uniformization and constructor aggrega
   cleanup
 status: complete
 priority: critical
-description: The deleted Cat triage recorded structural Cat smoke scope and future
+description: The deleted Cat triage recorded structural Cat category-obligation example scope and future
   uniformization work for category-object Hom behavior and functor/autofunctor modeling.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
 - Completion requires each child item to be done or explicitly superseded by a linked
   successor; blocked child cards do not satisfy phase acceptance.
-- The sprint closing note records smoke/test commands run and any unresolved blockers.
-- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface
+- The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
+- Run just category-obligation-file cat/category_obligations.sage after any Cat or category-object surface
   change.
 - Check that direct subtree Hom methods do not hide the Cat-owned category-object
   operation.
@@ -34,12 +34,12 @@ surface, its card must cite the canonical source path, exact definition, owner c
 hypotheses, codomain/return object, and proof or Sage-evidence obligations.
 
 If a sprint finding lacks that grounding, the sprint action is source mining, decision
-capture, or splitting into a prerequisite card. QC and smoke findings identify work, but
+capture, or splitting into a prerequisite card. QC and category-obligation example findings identify work, but
 they do not define the mathematical surface being repaired.
 
 ## Summary
 
-The deleted Cat triage recorded structural Cat smoke scope and future uniformization
+The deleted Cat triage recorded structural Cat category-obligation example scope and future uniformization
 work for category-object Hom behavior and functor/autofunctor modeling.
 
 ## Source Provenance
@@ -53,15 +53,15 @@ work for category-object Hom behavior and functor/autofunctor modeling.
 - Some subtree classes define direct Hom methods that may shadow Cat-level category-object Hom at runtime.
 - Natural transformations are not modeled; the current Cat morphism surface is Sage functors and construction functors.
 - Generic Sage functors do not provide a uniform invertibility certificate, so concrete autofunctor membership is a future refinement.
-- The Cat smoke is structural: Cat instantiation, category-object membership, functor HomCategory instantiation, and standard construction navigation.
+- The Cat category-obligation example is structural: Cat instantiation, category-object membership, functor HomCategory instantiation, and standard construction navigation.
 
 ## Acceptance Criteria
 
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
 - [ ] Completion requires each child item to be done or explicitly superseded by a
       linked successor; blocked child cards do not satisfy phase acceptance.
-- [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
-- [ ] Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change.
+- [ ] The sprint closing note records category-obligation example/test commands run and any unresolved blockers.
+- [ ] Run just category-obligation-file cat/category_obligations.sage after any Cat or category-object surface change.
 - [ ] Check that direct subtree Hom methods do not hide the Cat-owned category-object operation.
 
 ## Dependencies And Boundaries
@@ -89,7 +89,7 @@ work for category-object Hom behavior and functor/autofunctor modeling.
   - `category_specs/cat/docs/MAPPING.md` — exists
   - `SPEC-MAPPING-CAT.md` — exists at `/home/dzack/research/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-CAT.md`
   - `category_specs/cat/base_category_types.py` — exists
-  - `category_specs/cat/smoketest.sage` — exists
+  - `category_specs/cat/category_obligations.sage` — exists
   - `category_specs/AGENTS.md` — exists at `/home/dzack/research/category_specs/AGENTS.md`
 - The phase card itself references `category_specs/cat/docs/TRIAGE.md` (deleted at `8d1c21c`, recoverable via git) and `category_specs/AGENTS.md` (exists). The phase source provenance section is minimal but inherits grounding from the parent plan's admitted definitions section.
 - **No G1 failure.**
@@ -100,8 +100,8 @@ All five success criteria are objectively checkable:
 
 1. "Bounded set of child tracker items and an explicit scope statement" — verifiable by counting files in `tasks/` and checking the description field.
 2. "Each child item done or explicitly superseded; blocked cards do not satisfy phase acceptance" — verifiable by reading each child's `status` field.
-3. "Sprint closing note records smoke/test commands run and any unresolved blockers" — verifiable by checking for a closing note in the Work Log or a wrap-up task completion.
-4. "Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change" — verifiable by checking child task review logs for the command and exit code.
+3. "Sprint closing note records category-obligation example/test commands run and any unresolved blockers" — verifiable by checking for a closing note in the Work Log or a wrap-up task completion.
+4. "Run just category-obligation-file cat/category_obligations.sage after any Cat or category-object surface change" — verifiable by checking child task review logs for the command and exit code.
 5. "Check that direct subtree Hom methods do not hide the Cat-owned category-object operation" — verifiable by grepping subtree source for direct `Hom` definitions outside Cat ownership.
 
 All criteria are specific, measurable, and have clear pass/fail conditions.
@@ -118,11 +118,11 @@ All criteria are specific, measurable, and have clear pass/fail conditions.
 - Cat surface hardening (final markers, return types, option-bag removal): covered by tasks 2 and 3.
 - Type alias audit: covered by task 1.
 - Phase closeout / status audit: covered by wrap-up task.
-- Hom method shadowing check (success criterion 5): **No child task explicitly owns this check.** The wrap-up task's procedure covers card status audit, meta-review, skill updates, and git organization — it does not include a code-level grep for direct subtree Hom definitions. This could be addressed by the Cat smoke test (`cat/smoketest.sage`) if that test includes Hom shadowing assertions, or it could be added to the wrap-up task's procedure.
+- Hom method shadowing check (success criterion 5): **No child task explicitly owns this check.** The wrap-up task's procedure covers card status audit, meta-review, skill updates, and git organization — it does not include a code-level grep for direct subtree Hom definitions. This could be addressed by the Cat category-obligation test (`cat/category_obligations.sage`) if that test includes Hom shadowing assertions, or it could be added to the wrap-up task's procedure.
 
 **Inventory transparency:** The phase card body does not enumerate its child tasks. The children exist as files in the `tasks/` subdirectory and are linked via the parent plan's phases list, but the phase markdown itself has no child task index. This is a documentation gap, not a blocker.
 
-**G3 condition:** The Hom shadowing check (success criterion 5) lacks an explicit owner among child tasks. Recommend either (a) adding a grep/audit step to the wrap-up procedure, or (b) confirming that `cat/smoketest.sage` already covers Hom shadowing assertions and recording that evidence.
+**G3 condition:** The Hom shadowing check (success criterion 5) lacks an explicit owner among child tasks. Recommend either (a) adding a grep/audit step to the wrap-up procedure, or (b) confirming that `cat/category_obligations.sage` already covers Hom shadowing assertions and recording that evidence.
 
 #### G4 — No Scope Creep: PASS
 
@@ -148,8 +148,8 @@ Checked against parent plan `PLAN-CATEGORY-FOUNDATION-KERNEL` acceptance criteri
 - "Method ownership is moved to the most general mathematically valid category" — Not weakened. This phase hardens existing Cat surface; it does not move methods out of Cat.
 - "Standard type aliases live in one canonical package" — Advanced (task 1 audits and reinforces this).
 - "Constructor-interception work does not precede static category hierarchy and method-surface review" — Not violated. This phase works on Cat static surface, not constructor interception.
-- "Method ownership changes preserve the ideal mathematical surface" — Child tasks add final markers and return type annotations; no abstract methods are deleted, no constructor/category obligations removed, and smoke scope is not narrowed.
-- The parent plan's spec-weakening review gate requirement is satisfied: child task review logs show gates were applied to each task, and no child task treats Sage smoke failures as evidence against spec obligations.
+- "Method ownership changes preserve the ideal mathematical surface" — Child tasks add final markers and return type annotations; no abstract methods are deleted, no constructor/category obligations removed, and category-obligation example scope is not narrowed.
+- The parent plan's spec-weakening review gate requirement is satisfied: child task review logs show gates were applied to each task, and no child task treats Sage failed category assertions as evidence against spec obligations.
 
 No weakening of feature-level criteria detected.
 
@@ -166,7 +166,7 @@ No weakening of feature-level criteria detected.
 | G5 — Dependencies Correct | PASS | No missing or circular dependencies |
 | G6 — No Feature Weakening | PASS | Feature-level acceptance criteria preserved or advanced |
 
-**Recommendation:** Resolve G3 condition by either confirming `cat/smoketest.sage` covers Hom shadowing assertions, or adding a Hom audit step to the wrap-up task procedure. Otherwise the phase card is review-ready.
+**Recommendation:** Resolve G3 condition by either confirming `cat/category_obligations.sage` covers Hom shadowing assertions, or adding a Hom audit step to the wrap-up task procedure. Otherwise the phase card is review-ready.
 
 ## Work Log
 
