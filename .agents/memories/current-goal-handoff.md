@@ -28,6 +28,10 @@ lattice orbit statement.  If later code must build `T_Co` from geometric input r
 than use the accepted source-level target `N`, create that implementation-constructor
 obligation separately instead of treating it as a blocker for the source-level target.
 
+The cited Eichler criterion requiring a copy of `2U` is not available for
+`T_Co ~= N=2(<1>+E_10)`, because every pairing in `N` is divisible by `2`; the next
+lattice-lifting step needs a different primitive-isotropic orbit theorem or backend.
+
 Backend note: `theory/computations/coble_standard_target_discriminant_orbits.sage`
 computes the full standard finite action by defining `O(A_N,q_N)` as the stabilizer of
 the four fibers of `Q(v)=B(v,v) mod 4` inside `GL(B/2B)` and then using GAP finite-set

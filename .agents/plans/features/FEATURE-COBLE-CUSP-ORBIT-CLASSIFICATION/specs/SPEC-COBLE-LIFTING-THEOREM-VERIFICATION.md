@@ -88,8 +88,10 @@ following hypotheses or witness data are still required:
   full-group orbit sizes `[1, 527]` under `O(A_N,q_N)`;
 - the subgroup of `O(T_Co)` used in the Coble quotient, e.g. full `O(T_Co)`, stable
   kernel, real-spinor subgroup, stabilizer, or centralizer;
-- an Eichler criterion check such as a verified `2U` hypothesis, or a different
-  primitive-isotropic orbit theorem/backend for the subgroup actually used.
+- a primitive-isotropic orbit theorem/backend for the subgroup actually used.  The
+  cited Eichler criterion requiring a copy of `2U` does not apply to
+  `T_Co ~= N=2B`, because all pairings in `2B` are divisible by `2`, so `T_Co` cannot
+  contain a hyperbolic plane `U` with pairing `1`.
 
 ## Questions
 
@@ -105,9 +107,10 @@ following hypotheses or witness data are still required:
 - Surjectivity of the full orthogonal group does not decide stable-kernel,
   real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.  Each such
   subgroup requires its own image or orbit theorem.
-- The Eichler criterion is not yet verified for the Coble claim.  The card must check
-  the required hyperbolic summand hypothesis, or name another theorem/backend for
-  primitive isotropic vectors of the computed divisibility.
+- The cited Eichler criterion is unavailable for `T_Co`: it requires a copy of `2U`,
+  but `T_Co ~= 2(<1>+E_10)` has all pairings divisible by `2`.  The card must name
+  another theorem/backend for primitive isotropic vectors of divisibility `2`, or
+  restrict the orbit claim to a group/theorem whose hypotheses are verified.
 - A bijection between finite isotropic classes in `A_T` and primitive isotropic lattice
   orbits is not admitted from finite enumeration alone.  It requires the representative
   existence, divisibility, and subgroup/kernel-action statements above.

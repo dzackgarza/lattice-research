@@ -162,9 +162,14 @@ Literature: Nikulin (1979, Prop.
 the actual Gram model produced in Task 1.2. In the diagonal even model, every pairing is
 even, so primitive isotropic vectors have divisibility $2$ rather than $1$.
 
-**Orbit lifting.** Once Task 2.1 computes the isotropic orbit structure in the actual
-discriminant form, Nikulin surjectivity can lift those classes to primitive isotropic
-vectors in $T_{\mathrm{Co}}$.
+**Orbit lifting.** Nikulin surjectivity identifies the image of
+$O(T_{\mathrm{Co}})$ in $O(q_T)$ for the full orthogonal group.  It does not by itself
+construct primitive isotropic representatives or prove that finite discriminant-form
+orbits classify primitive lattice-vector orbits.  The Eichler criterion cited in the
+current theory note requires a copy of $2U$; it does not apply to
+$T_{\mathrm{Co}}\simeq 2(\langle 1\rangle+E_{10})$, whose pairings are all divisible by
+$2$.  The lifting step therefore needs another primitive-isotropic orbit theorem or
+backend for the subgroup actually used.
 
 **Stable orbit uniqueness.** Once Task 2.1 computes the relevant $O(q_T)$-orbit data
 and the kernel action on discriminant classes, one can determine whether there is a

@@ -186,6 +186,9 @@ the spec are the following.
   class `v/div(v) + L`.  For primitive isotropic vectors this reduces stable-plus
   equivalence to the discriminant class, but only under the `2U` hypothesis and for the
   stable-plus subgroup.
+- For the Coble target `T_Co ~= N=2(<1>+E_10)`, this cited Eichler criterion is not
+  available: every pairing in `N` is divisible by `2`, so `N` contains no copy of the
+  hyperbolic plane `U` and hence cannot contain `2U`.
 - a named primitive-isotropic orbit backend for isotropic line or plane orbit
   computation when the previous theorem hypotheses are not enough.
 
