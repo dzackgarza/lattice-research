@@ -30,6 +30,11 @@ Heegner complement
 Writing this lattice as ``2B_Co`` with ``B_Co=<1>+U+E_8(-1)``, the induced finite
 action fixes the ``<1>`` coordinate and acts through the actual image of
 ``Stab_{O(S_En)}(h)`` on the remaining ``U+E_8(-1)`` coordinates.
+
+The script also checks the finite gluing condition for the full stabilizer of the
+Heegner line.  The class of ``(u+v)/2`` is fixed by the full finite orthogonal group
+of ``A_TCo``, and the induced action on its orthogonal complement is the full
+orthogonal group of the lower ``U+E_8(-1)`` discriminant form.
 """
 
 from sage.all import (
@@ -134,6 +139,28 @@ def induced_tco_generator(g):
     return induced
 
 
+def finite_orthogonal_group(rank, gram):
+    r"""Return the finite permutation group preserving all ``Q`` fibers."""
+    general_linear_group = GL(rank, F)
+    action_generators = [
+        Permutation([act_bits(bits, g, rank) + 1 for bits in range(1 << rank)])
+        for g in general_linear_group.gens()
+    ]
+    orthogonal_group = PermutationGroup(action_generators).gap()
+    for value in range(4):
+        fiber = [
+            bits + 1
+            for bits in range(1 << rank)
+            if quadratic_value(bits, gram, rank) == value
+        ]
+        orthogonal_group = libgap.Stabilizer(
+            orthogonal_group,
+            libgap(fiber),
+            libgap.OnSets,
+        )
+    return orthogonal_group
+
+
 def main():
     r"""Compute the finite orthogonal group and the stabilizer of ``h/2``."""
     general_linear_group = GL(RANK, F)
@@ -191,6 +218,20 @@ def main():
         libgap(tco_fibers[0]),
         libgap.OnPoints,
     )
+    tco_orthogonal_group = finite_orthogonal_group(TCO_RANK, GRAM_TCO_B)
+    tco_eta_stabilizer = libgap.Stabilizer(
+        tco_orthogonal_group,
+        libgap(2),
+        libgap.OnPoints,
+    )
+    tco_lower_points = [(bits << 1) + 1 for bits in range(1 << RANK)]
+    tco_lower_action = libgap.Image(
+        libgap.ActionHomomorphism(
+            tco_eta_stabilizer,
+            libgap(tco_lower_points),
+            libgap.OnPoints,
+        )
+    )
     integral_h_stabilizer_order = 2 * ZZ(WeylGroup(["E", 8], prefix="s").cardinality())
 
     print("fiber_sizes", {value: len(fibers[value]) for value in range(4)})
@@ -218,6 +259,9 @@ def main():
         "tco_isotropic_representatives_as_bits",
         sorted(int(orbit[0]) - 1 for orbit in tco_isotropic_orbits),
     )
+    print("tco_full_orthogonal_group_order", tco_orthogonal_group.Size())
+    print("tco_eta_stabilizer_order", tco_eta_stabilizer.Size())
+    print("tco_eta_stabilizer_image_on_lower_order", tco_lower_action.Size())
 
 
 if __name__ == "__main__":

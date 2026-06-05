@@ -58,10 +58,17 @@ actual Enriques stabilizer image on the remaining coordinates.  The image order 
 `696729600`, and its isotropic-class orbit lengths in `A_TCo` are
 `[1, 2, 120, 135, 270]` with bitmask representatives `[0, 2, 14, 40, 42]`.
 
-Next mathematical obligation: determine the `Gamma_En,2`-orbit of the chosen Heegner
-line `Z delta`, prove/source whether the induced finite image is the image of the full
-line-stabilizer restriction
-`Gamma_Co^En(delta) -> O(A_T,q_T)`, and then compare this Enriques-side subgroup with
+The same witness now computes the finite discriminant obstruction for the negative
+Heegner line.  Since `T_En` is obtained from `Z delta + delta^perp` by adjoining
+`(delta+eta)/2`, extension over the line forces preservation of `eta/2` in `A_TCo`.
+The full finite stabilizer of `eta/2` in `O(A_TCo,q_T)` has order `46998591897600`,
+and its image on the lower discriminant group `A_TEn` has the same order.  Thus the
+finite double-coset split of the full `O(T_En)` `(-2)`-root orbit by the preimage
+subgroup `Gamma_En,2` is trivial.
+
+Next mathematical obligation: cite/apply the non-isotropic orbit theorem that promotes
+this finite discriminant double-coset calculation to the `Gamma_En,2`-orbit statement
+for the chosen Heegner line `Z delta`, then compare this Enriques-side subgroup with
 the project stabilizer-centralizer notation
 `Stab(typed Coble polarization data) ∩ Z(theta)`.  The comparison still requires
 constructing `theta`, the transported polarization class, and the ambient-lattice

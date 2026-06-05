@@ -94,6 +94,25 @@ lattice orbit theorem for $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ and not a
 identification with the project $\Gamma_{\mathrm{Co}}$ before the $\theta$ comparison
 is constructed.
 
+The same computation also checks the finite discriminant obstruction for the negative
+Heegner line.  The overlattice
+$T_{\mathrm{En}}\supset \mathbf Z\delta\oplus\delta^\perp$ is obtained by adjoining
+$(\delta+\eta)/2$, so the line stabilizer must preserve the class $\eta/2$ in
+$A_{\delta^\perp}$.  In the finite discriminant form,
+
+```text
+|O(A_TCo,q_T)| = 46998591897600,
+|Stab_{O(A_TCo,q_T)}(eta/2)| = 46998591897600,
+|image on eta^perp| = 46998591897600.
+```
+
+Hence the full line stabilizer has full image on
+$A_{T_{\mathrm{En}}}\simeq A_{U(2)+E_8(2)}$, and the finite double-coset split of the
+full $O(T_{\mathrm{En}})$ `(-2)`-root orbit by the preimage subgroup
+$\Gamma_{\mathrm{En},2}$ is trivial.  A lattice-level orbit claim should still name the
+non-isotropic orbit theorem used to pass from this finite discriminant calculation to
+actual root-line equivalence.
+
 ## Source Provenance
 
 - `theory/foundations/coble-task-background.md`, section `Task 3.1: Arithmetic Group
@@ -110,7 +129,8 @@ is constructed.
 - `theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`, for the
   exact Sage/GAP computation of the finite discriminant-form stabilizer of $h/2$, the
   actual integral-stabilizer image, and the induced finite action on
-  $A_{T_{\mathrm{Co}}}$ for the explicit Heegner complement.
+  $A_{T_{\mathrm{Co}}}$ for the explicit Heegner complement, including the full finite
+  image of the gluing-class stabilizer on $A_{T_{\mathrm{En}}}$.
 - Dolgachev-Kondo (2013), through `theory/references/index.md`, for the full
   orthogonal quotient and the Enriques Heegner-divisor quotient.
 - Sterk (1991), through `theory/references/index.md`, remains a source target for the
@@ -133,7 +153,8 @@ is constructed.
   $\delta^\perp$.
 - Determine the $\Gamma_{\mathrm{En},2}$-orbits of admissible $(-2)$ Heegner lines;
   AEGS source uniqueness only modulo the full group
-  $\Gamma_{\mathrm{En}}=O(T_{\mathrm{En}})$.
+  $\Gamma_{\mathrm{En}}=O(T_{\mathrm{En}})$, while the finite discriminant double-coset
+  split for the preimage subgroup is now computed to be trivial.
 - Compute the finite discriminant-action image of $\Gamma_{\mathrm{En},2}$ from
   $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ via the gluing anti-isometry
   $A_{S_{\mathrm{En}}}\simeq A_{T_{\mathrm{En}}}$.

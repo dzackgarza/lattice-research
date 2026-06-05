@@ -186,6 +186,15 @@ one `O(A_N,q_N)`-orbit.
   in `A_TCo`, the orbit lengths are `[1, 2, 120, 135, 270]`, with bitmask
   representatives `[0, 2, 14, 40, 42]`.  This finite-orbit split is not a
   primitive-isotropic lattice orbit theorem for the smaller subgroup.
+- The same script computes the finite line-stabilizer image relevant to the negative
+  Heegner root.  Since `T_En` is the overlattice of `Z delta + delta^perp` obtained by
+  adjoining `(delta+eta)/2`, extension over the line forces preservation of `eta/2` in
+  `A_TCo`.  The full finite stabilizer of `eta/2` in `O(A_TCo,q_T)` has order
+  `46998591897600`, and its image on the lower discriminant group
+  `A_TEn ~= A_{U(2)+E_8(2)}` also has order `46998591897600`.  Thus the finite
+  double-coset split of the full `O(T_En)` `(-2)`-root orbit by the preimage subgroup
+  `Gamma_En,2` is trivial.  A lattice-level root-orbit conclusion still has to cite the
+  non-isotropic orbit theorem that promotes this finite discriminant calculation.
 - AEGS Corollary 3.12 identifies five `Gamma_En,2`-orbits of primitive isotropic lines
   in `T_En`, equivalently the five Baily-Borel 0-cusps of `F_En,2`.  That statement is
   not a substitute for the missing `Gamma_En,2`-orbit statement for the negative
@@ -261,7 +270,8 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`: exact
   Sage/GAP computation of `O(A_SEn,q_SEn)`, the stabilizer of `h/2`, the actual
   integral-stabilizer image, and the induced finite image on `A_TCo` for the explicit
-  Heegner complement.
+  Heegner complement, including the gluing-class stabilizer image used for the
+  negative-root finite double-coset calculation.
 - `theory/references/literature/aegs_2023.md:394-452`: AEGS folded-diagram and
   Corollary 3.12 source for the five `Gamma_En,2` 0-cusps, i.e. primitive isotropic
   line orbits, not negative Heegner-root orbits.
