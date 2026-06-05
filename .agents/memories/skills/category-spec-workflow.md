@@ -31,6 +31,12 @@ Read `references/workflow.md` before changing workflow state.
 - Approved plans plus active cards define the concrete continuation surface.
   Do not substitute abstract blocker analysis for selecting and advancing an approved
   active spec leaf.
+- Sage constructor/method inventory and mapping progress is controlled by
+  `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`, not by surrounding process artifacts.
+  The required object is the finite set difference
+  `Remaining = U - C - R - Q`. A progress claim must name rows moved from `Remaining`
+  into classified, rejected, or decision-needed states; row counts, file counts, review
+  prose, handoff edits, and broad checkpoints are not completion evidence.
 - Plans, phases, and tasks that touch category specs must put the ideal-interface
   invariant at the local decision point: specs extend Sage's category/object universe,
   current Sage coverage is not the adequacy standard, Sage interop remains a design

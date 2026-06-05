@@ -50,6 +50,18 @@ follow-ups, blockers, decisions, and deferred compliance findings in this subtre
 not create ad hoc planning, status, audit, or TODO markdown files when a tracked file is
 the appropriate artifact.
 
+Sage constructor/method inventory and mapping work has one canonical status surface:
+`[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`. That spec owns the finite set difference
+`Remaining = U - C - R - Q`, where `U` is the source-grounded constructor, class,
+function, and method universe; `C` is classified; `R` is rejected; and `Q` requires a
+decision.
+
+Before a session edits subtree `SAGE_INVENTORY.md`, subtree `MAPPING.md`, method-owner
+spec rows, or mapping cards, it must identify whether it is populating `U` or moving
+specific `frontierId` rows from `Remaining` into `C`, `R`, or `Q`. Mapping docs, cards,
+decisions, review logs, handoffs, and commits are evidence or routing; they are not
+progress evidence unless the frontier set difference changes.
+
 There is no separate backlog. The active tracked cards are the outstanding work set.
 When work is implemented, resolved, rejected, or superseded, move the card out of active
 paths and retire or delete it according to the retired-card policy.

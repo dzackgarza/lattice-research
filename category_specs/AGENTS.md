@@ -6,6 +6,29 @@ This file is the mandatory entry point for agents working under `category_specs/
 
 Before acting, confirm the user's stated directive, the action you plan, and why the action matches that directive rather than a substituted goal.
 
+## Sage constructor and method frontier gate
+
+Before category-spec Sage inventory or mapping work, open
+`[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`.
+
+Category-spec inventory or mapping progress exists only when that spec's finite frontier
+changes:
+
+```text
+Remaining = U - C - R - Q
+```
+
+where `U` is the source-grounded universe of Sage constructors, classes, functions, and
+methods in the active scope; `C` is classified with owner, hypotheses, codomain, and
+project category surface; `R` is rejected as non-mathematical, runtime, display, private,
+backend plumbing, or otherwise non-admitted; and `Q` requires a recorded decision.
+
+Do not report progress from row counts, file counts, review prose, current-state
+summaries, handoff edits, broad checkpoints, or mapping-doc edits that do not change
+that frontier. Subtree `SAGE_INVENTORY.md`, `MAPPING.md`, spec rows, cards, decisions,
+and handoffs are evidence and routing surfaces; the frontier spec is the status
+authority for what remains.
+
 ## Always-active rules
 
 - Obey the repo root `AGENTS.md`; load `research-state-machine` for plan-to-execution routing and acceptance, and load `research-proof-auditing` for proof, evidence, and audit-sufficiency questions.

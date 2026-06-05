@@ -38,6 +38,13 @@ The output is an ownership inventory, not an implementation pass. It exists so l
 code and smoke work can ask "which category introduces this method?" without relying on
 Sage implementation class names, wrapper inheritance, or generic LLM guesses.
 
+## Frontier Control
+
+This spec records method-owner rows. It is not the live source of truth for remaining
+Sage constructor and method inventory work. Progress on Sage inventory or mapping must
+update `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]`, whose object is the finite set
+difference `Remaining = U - C - R - Q`.
+
 ## Required Row Format
 
 Each method row must record:

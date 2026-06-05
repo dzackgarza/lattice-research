@@ -12,8 +12,14 @@ morphisms, constructions, and invariants.
 
 ## Next Work
 
-Continue the Sage inventory and mapping audit for `category_specs/lattices`.
-Start with these files:
+Do not continue Sage inventory or mapping from subtree docs alone.
+Start with `[[SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER]]` and populate its
+source-grounded universe `U` for the active scope before reporting any mapping progress.
+
+The previous concrete audit target remains lattice Hom and morphism evidence, but it is
+now subordinate to the frontier ledger.
+When the ledger has the relevant rows, continue the Sage inventory and mapping audit for
+`category_specs/lattices` from these evidence files:
 
 - `category_specs/lattices/docs/SAGE_INVENTORY.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`
