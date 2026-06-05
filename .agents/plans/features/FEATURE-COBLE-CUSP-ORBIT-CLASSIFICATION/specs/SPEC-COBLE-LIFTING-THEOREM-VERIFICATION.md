@@ -159,6 +159,10 @@ one `O(A_N,q_N)`-orbit.
   `Gamma_Co^En(delta)` for a chosen Heegner line, but it does not by itself identify
   that subgroup with the project `theta`-centralizer notation or prove its
   primitive-isotropic orbit structure.
+- In the sourced decomposition `T_En = U + U(2) + E_8(2)`, choose a standard basis
+  `u,v` of the unimodular `U` summand.  Then `delta=u-v` has square `-2`, and
+  `delta^perp = Z(u+v) + U(2) + E_8(2) ~= <2> + E_10(2) = T_Co`.  The Heegner line can
+  therefore be represented explicitly; its `Gamma_En,2`-orbit remains unresolved.
 - AEGS Corollary 3.12 identifies five `Gamma_En,2`-orbits of primitive isotropic lines
   in `T_En`, equivalently the five Baily-Borel 0-cusps of `F_En,2`.  That statement is
   not a substitute for the missing `Gamma_En,2`-orbit statement for the negative
@@ -221,6 +225,10 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/references/literature/aegs_2023.md:122-172`: AEGS definitions of the K3
   lattice, involutions, Enriques period lattice, degree-2 polarization vector, and
   `Gamma_En,2`.
+- `theory/references/literature/aegs_2023.md:136-143`: AEGS decomposition
+  `T_En ~= U + U(2) + E_8(2)`, giving the explicit representative
+  `delta=u-v` in the `U` summand and complement
+  `delta^perp ~= <2> + E_10(2)`.
 - `theory/references/literature/aegs_2023.md:174-186`: AEGS discriminant divisor
   statement for a `(-2)` vector in `T_En` and its rational Coble-surface
   interpretation.

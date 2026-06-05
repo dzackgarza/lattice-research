@@ -217,6 +217,28 @@ project subgroup $\Gamma_{\mathrm{Co}}$ defined by a Coble-side folding involuti
 $\theta$ unless a comparison theorem identifies the ambient lattices, stabilized class,
 and involution data.
 
+AEGS's decomposition gives an explicit Heegner representative.  Write the unimodular
+summand of $T_{\mathrm{En}}\simeq U\oplus U(2)\oplus E_8(2)$ as
+$U=\mathbf Zu\oplus\mathbf Zv$ with $u^2=v^2=0$ and $u\cdot v=1$.  Then
+
+```text
+delta = u - v,   eta = u + v
+```
+
+satisfy $\delta^2=-2$, $\eta^2=2$, and $\delta\cdot\eta=0$, so
+
+```text
+delta^perp = Z eta + U(2) + E_8(2)
+            ~= <2> + U(2) + E_8(2)
+            ~= <2> + E_10(2)
+            = T_Co.
+```
+
+Thus the Heegner-line choice can be made explicitly inside the AEGS Enriques period
+lattice.  The unresolved part is not the existence of such a line, but its orbit under
+the smaller group $\Gamma_{\mathrm{En},2}$ and the comparison with the project
+folding-involution subgroup.
+
 **Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
 smaller intended arithmetic subgroup only after the following data are fixed:
 
@@ -240,7 +262,7 @@ $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ above.  The remaining mathematical
 obligations are:
 
 - determine the $\Gamma_{\mathrm{En},2}$-orbits of $(-2)$ Heegner lines
-  $\mathbf Z\delta$ whose complements are Coble lattices; AEGS source uniqueness only
+  $\mathbf Z\delta$ represented by $\delta=u-v$ as above; AEGS source uniqueness only
   modulo the full group $\Gamma_{\mathrm{En}}=O(T_{\mathrm{En}})$;
 - do not replace this root-orbit question by the AEGS cusp-orbit statement:
   Corollary 3.12 identifies five $\Gamma_{\mathrm{En},2}$-orbits of primitive

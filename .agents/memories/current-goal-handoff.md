@@ -31,6 +31,11 @@ Enriques-side candidate is now
 polarization vector `h=e+f`, and `delta` is a `(-2)` Heegner vector in `T_En` with
 `delta^perp ~= T_Co`.
 
+Use the explicit representative supplied by the AEGS decomposition
+`T_En = U + U(2) + E_8(2)`: for a standard basis `u,v` of the unimodular `U` summand,
+`delta=u-v` has square `-2`, and `delta^perp = Z(u+v) + U(2) + E_8(2) ~= <2> +
+E_10(2) = T_Co`.
+
 Next mathematical obligation: determine the `Gamma_En,2`-orbit of the chosen Heegner
 line `Z delta`, compute or source the image of `Gamma_Co^En(delta)` in
 `O(A_T,q_T)`, and then compare this Enriques-side subgroup with the project
