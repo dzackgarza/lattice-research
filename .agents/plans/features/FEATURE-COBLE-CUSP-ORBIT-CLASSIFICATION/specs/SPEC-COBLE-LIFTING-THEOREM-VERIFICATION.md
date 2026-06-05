@@ -48,6 +48,18 @@ is to identify the geometrically computed `T_Co=(f^*Pic(S))^\perp` with `N`, com
 primitive-vector divisibility and finite discriminant-form orbits from that construction,
 and state the subgroup of `O(T_Co)` whose primitive-isotropic orbit is being asserted.
 
+For the standard target, the primitive-vector divisibility is also determined:
+
+```text
+N = <2> + E_10(2) = 2(<1> + E_10).
+```
+
+With the repo convention `E_10=U+E_8(-1)`, the lattice `<1>+E_10` is unimodular.
+Therefore a primitive vector `v in N` pairs with `N` in the ideal `2Z`, so
+`div_N(v)=2`.  This proves the divisibility claim for the standard target; the project
+pipeline may use it for `T_Co` only after the construction or accepted isometry witness
+identifies the computed Coble lattice with `N`.
+
 ## Hypothesis check
 
 For the standard target `N=<2>+E_10(2)`, the following hypotheses are source-backed:
@@ -66,7 +78,9 @@ following hypotheses or witness data are still required:
 
 - the project construction of `T_Co=(f^*Pic(S))^\perp <= Lambda_K3`, or an accepted
   isometry witness from that construction to `N`;
-- the divisibility of the primitive isotropic vectors under the actual Gram model;
+- the divisibility of the primitive isotropic vectors under the actual Gram model, which
+  is `2` for the standard target `N` and transfers to `T_Co` only through the
+  construction/isometry witness;
 - the finite orbit structure in `Iso(A_T,q_T)`;
 - the subgroup of `O(T_Co)` used in the Coble quotient, e.g. full `O(T_Co)`, stable
   kernel, real-spinor subgroup, stabilizer, or centralizer;
@@ -79,6 +93,8 @@ following hypotheses or witness data are still required:
   `O(N)->O(q_N)` is answered yes by Theorem 3.6.3.
 - For the geometrically computed project lattice `T_Co`, the same conclusion is
   available only after the construction or isometry witness identifies it with `N`.
+- For the standard target `N`, every primitive vector has divisibility `2`, because
+  `N=2B` for the unimodular lattice `B=<1>+E_10`.
 - Surjectivity of the full orthogonal group does not decide stable-kernel,
   real-spinor, stabilizer, centralizer, or Coble arithmetic-subgroup orbits.  Each such
   subgroup requires its own image or orbit theorem.
@@ -115,6 +131,9 @@ discharge the downstream orbit-lifting conclusion.
 - `theory/references/literature/dolgachev_kondo_2013.md:97-101`: the Coble K3
   orthogonal complement is two-elementary of signature `(2,9)`, has `q_N=-q_M`, and is
   isomorphic to `N=<2>+E(2)`.
+- `.agents/plans/features/FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION/decisions/DECISION-TCO-DEFINITION-AND-SIGNATURE.md:40-43`:
+  the project convention rewrites the target as `<2>+U(2)+E_8(-2)` using
+  `E_10=U+E_8(-1)`.
 - `theory/references/literature/nikulin1979integral.md:1595-1597`: for an even
   indefinite two-elementary lattice `S`, the homomorphism `O(S)->O(q_S)` is surjective.
 - `theory/foundations/reflective-two-elementary-lattices.md:372-385`: Eichler criterion

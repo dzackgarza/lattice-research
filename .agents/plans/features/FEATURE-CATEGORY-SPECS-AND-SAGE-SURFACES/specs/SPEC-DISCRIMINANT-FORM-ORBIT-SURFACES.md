@@ -214,6 +214,16 @@ construction or accepted isometry witness identifying the geometrically computed
 `T_Co = (f^* Pic(S))^\perp` with that target before downstream code may treat the
 target computation as the computed Coble lattice computation.
 
+For the same standard target, every primitive vector has divisibility `2`: with the
+repo convention `E_10=U+E_8(-1)`, one has
+
+`N = <2> + E_10(2) = 2(<1> + E_10),`
+
+and `<1>+E_10` is unimodular.  A primitive vector in the underlying unimodular lattice
+therefore has pairing ideal `Z`, so the pairing ideal in `N` is `2Z`.  This settles the
+standard-target divisibility claim, but it transfers to the project `T_Co` only through
+the construction or isometry witness above.
+
 Weakest category:
 lattices with discriminant descent plus a specified orthogonal subgroup/refinement.
 
@@ -234,6 +244,9 @@ Source evidence:
 `theory/references/literature/dolgachev_kondo_2013.md:97-101` for the Coble K3
 orthogonal complement as a two-elementary lattice of signature `(2,9)` isomorphic to
 `N=<2>+E(2)`,
+`.agents/plans/features/FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION/decisions/DECISION-TCO-DEFINITION-AND-SIGNATURE.md:40-43`
+for the convention `E_10=U+E_8(-1)` and the presentation
+`N=<2>+U(2)+E_8(-2)`,
 `theory/foundations/reflective-two-elementary-lattices.md:372-385` for the Eichler
 criterion, and `theory-orbit-and-building-backends` for the separate
 isotropic-line/plane backend shape.
@@ -441,7 +454,7 @@ specialization and the plane-orbit backend, not the finite orbit object:
   can be lifted in the project pipeline: the geometric construction of
   `T_Co=(f^*Pic(S))^\perp`, the accepted isometry witness to the standard
   Dolgachev-Kondo target `N=<2>+E_10(2)` or an equivalent direct Gram computation,
-  the discriminant form, the divisibility of primitive isotropic vectors, the
+  the discriminant form, the transfer of standard-target divisibility `2`, the
   Nikulin/Eichler hypotheses, and the subgroup of `O(T)` whose orbit is being asserted;
 - a named backend or theorem for primitive isotropic plane or flag orbits whenever the
   statement involves `J <= L` rather than a primitive vector class.
