@@ -117,7 +117,13 @@ CATEGORY_OBJECT_EXAMPLES = (
         lambda _: UniversalHomElementMethods.equals_as_function.__name__ == "equals_as_function"
         and UniversalHomElementMethods.is_equal_function.__name__ == "is_equal_function",
     ),
+    (
+        "generic Hom object owns reversed parent and coercion-map navigation",
+        lambda _: UniversalHomObjectMethods.reversed.__name__ == "reversed"
+        and UniversalHomObjectMethods.natural_map.__name__ == "natural_map",
+    ),
     ("generic End object reports an endomorphism set", lambda _: _EndObjectWitness().is_endomorphism_set()),
+    ("generic End object owns identity alias one", lambda _: UniversalEndObjectMethods.one.__name__ == "one"),
     (
         "Sets().AutCategory().from_end_category returns an Aut object",
         lambda _: aut_object_from_end_category() in S.AutCategory(),
