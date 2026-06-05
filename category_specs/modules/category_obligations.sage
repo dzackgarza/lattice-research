@@ -150,9 +150,15 @@ CATEGORY_STATEMENTS = (
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.kernel, "kernel")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.image, "image")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.inverse_image, "inverse_image")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.restrict_domain, "restrict_domain")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.restrict_codomain, "restrict_codomain")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.restrict, "restrict")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.cokernel, "cokernel")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.coimage, "coimage")
         and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.lift, "lift")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_injective, "is_injective")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_surjective, "is_surjective")
+        and abstract_method_has_name(Modules(ZZ).HomCategory().ElementMethods.is_bijective, "is_bijective")
         and RModuleHomCategory.Forms is _Forms
         and abstract_method_has_name(_Forms.SubcategoryMethods.NonDegenerate, "NonDegenerate")
         and _Forms.Bilinear is _Bilinear

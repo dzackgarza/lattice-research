@@ -110,6 +110,11 @@ class _RModMorphisms(UniversalHomElementMethods):
     def kernel(self) -> SubModule: ...
 
     @abstractmethod
+    def image(self, subobject: SubModule | None = None) -> SubModule:
+        r"""Return ``im(f)`` or the direct image ``f(subobject)``."""
+        ...
+
+    @abstractmethod
     def cokernel(self) -> QuotientModule: ...
 
     @abstractmethod
@@ -119,6 +124,30 @@ class _RModMorphisms(UniversalHomElementMethods):
     def inverse_image(self, subobject: SubModule) -> SubModule:
         r"""Return the inverse-image submodule ``f^{-1}(subobject)``."""
         ...
+
+    @abstractmethod
+    def restrict_domain(self, subobject: SubModule) -> RModMorphism:
+        r"""Return the induced morphism from ``subobject`` to the codomain."""
+        ...
+
+    @abstractmethod
+    def restrict_codomain(self, subobject: SubModule) -> RModMorphism:
+        r"""Return the induced morphism into ``subobject`` when ``im(f) <= subobject``."""
+        ...
+
+    @abstractmethod
+    def restrict(self, subobject: SubModule) -> RModMorphism:
+        r"""Return the endomorphism of ``subobject`` induced by an invariant map."""
+        ...
+
+    @abstractmethod
+    def is_injective(self) -> bool: ...
+
+    @abstractmethod
+    def is_surjective(self) -> bool: ...
+
+    @abstractmethod
+    def is_bijective(self) -> bool: ...
 
     @abstractmethod
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
