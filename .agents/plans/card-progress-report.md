@@ -92,6 +92,7 @@
 
 ## Most Recently Completed
 
+- 2026-06-05 `plan` `PLAN-GEOMETRIC-SOURCE-ADMISSION`: Geometric category source-backed definition research (commit `bc688c7`: docs: write spec planning as mathematical claims)
 - 2026-06-05 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `3123ea3`: docs: make operation map the spec control object)
 - 2026-06-04 `task` `TASK-FORMED-COKERNEL-DESCENDED-FORM`: Specify formed cokernel with descended form data (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
 - 2026-06-04 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `52d2893`: checkpoint: preserve remaining tracked category spec edits)
@@ -106,7 +107,6 @@
 - 2026-06-04 `task` `TASK-1777748120565-B5H5VY-RESTORE-BINARY-PRIMITIVES-FOR-MODULE-AND-SET-PRODUCT-CONSTRUCTORS`: Restore binary primitives for module and set product constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 - 2026-06-04 `task` `TASK-1777748120784-23ROWB-CLEAN-SAGE-OPTION-BAGS-FROM-PUBLIC-RING-CONSTRUCTORS`: Clean Sage option bags from public ring constructors (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 - 2026-06-04 `task` `TASK-1777748120848-FNU6JV-REPLACE-ASSERTION-NARROWED-POLYNOMIAL-AND-MATRIX-RETURN-TYPES`: Replace assertion-narrowed polynomial and matrix return types (commit `3cc8779`: checkpoint: preserve category spec worktree state)
-- 2026-06-04 `task` `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`: Resolve category-spec vulture findings through code fixes, not whitelist entries (commit `3cc8779`: checkpoint: preserve category spec worktree state)
 
 ## Notes
 

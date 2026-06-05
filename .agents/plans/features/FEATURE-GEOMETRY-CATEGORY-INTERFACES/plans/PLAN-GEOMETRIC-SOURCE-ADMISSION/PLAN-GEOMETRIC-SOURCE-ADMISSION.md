@@ -40,13 +40,14 @@ implementation card is created.
 This geometry plan requires source-backed definitions, not ad hoc algebraic-geometry
 interfaces. Each child card must cite the relevant literature, Sage/Singular/Macaulay2/
 Oscar documentation, or local theory note before defining a category, constructor,
-invariant, morphism, or implementation by a named system.
+invariant, morphism, functor, comparison map, or implementation by a named system.
 
-The grounding record must state the geometric object, morphism or construction,
-hypotheses, return object, and implementation evidence. If the software only exposes
-raw polynomials, matrices, or option bags, the child card must identify the
-mathematical object represented by that output or record an unresolved source/backend
-decision first.
+For each proposed geometry category or construction, the grounding record must state
+the definition, hypotheses, codomain or return object, weakest category where the
+statement is true, public constructor or method name, and source or software
+realization. If a named system only exposes raw polynomials, matrices, option bags, or
+numerical output, the child card must identify the mathematical object represented by
+that output or record an unresolved implementation question first.
 
 ## Source Provenance
 
@@ -57,8 +58,9 @@ decision first.
 ## Context
 
 This is a leaf plan. Its child cards are research tasks, not implementation work. They
-must return source evidence, Sage or backend implementation evidence, owner decisions,
-and follow-up cards when the category vocabulary is concrete enough to execute.
+must return source evidence, implementation witnesses in Sage or another exact system,
+weakest-category statements, and follow-up cards when the category vocabulary is
+concrete enough to execute.
 
 ## Acceptance Criteria
 
@@ -114,7 +116,7 @@ are concrete and verifiable:
 | Criterion | Verification method |
 |---|---|
 | Every child card cites exact sources, separates evidence from inference | Audit child card bodies for source sections and evidence/inference labels |
-| Vocabulary defined only after definition + owner + implementation evidence + category definition explicit | Per-card content review for definitions, owners, implementation evidence, and included objects or morphisms |
+| Vocabulary defined only after definition, hypotheses, return object, weakest category, implementation witness, and public name are explicit | Per-card content review for definitions, weakest-category statements, implementation evidence, and included objects or morphisms |
 | Toric-variety work records lattice category dependency before implementation | Inspect TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY for lattice dep |
 | Follow-up work tracked as new cards, not left in research prose | Filesystem enumeration: no implementation embedded in research cards |
 
@@ -154,8 +156,8 @@ Scope is tightly bounded:
 - **OUT** (lines 71-72): Does not authorize phase-06 geometry/Coble implementation.
   Does not replace source-backed mapping docs or future category specs.
 - **NATURE**: Self-declared "leaf plan." Child cards are research tasks, not
-  implementation work. Cards must return source evidence, Sage or backend
-  implementation evidence, owner decisions, and follow-up cards.
+  implementation work. Cards must return source evidence, implementation witnesses in
+  Sage or another exact system, weakest-category statements, and follow-up cards.
 
 The "Dependencies And Boundaries" section (lines 68-72) explicitly fences off
 implementation. No scope creep into implementation, deployment, performance, or UX

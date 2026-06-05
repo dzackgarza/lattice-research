@@ -33,15 +33,16 @@ tags:
 ## Object Preserved
 
 This spec preserves the source-backed mathematical operation map for category-spec
-inventory and mapping. The map is the mathematical object. A row is complete only when
-it states the Sage behavior, the mathematical operation under hypotheses, the weakest
-category or refinement claimed, the required witnesses, the return object or codomain,
-and the source evidence.
+inventory and mapping. The map is a finite list of propositions. A row is complete only
+when it states the Sage behavior and then gives the ordinary mathematical sentence:
+for objects of category `C`, under hypotheses `H`, construction, predicate, or morphism
+`m` is defined, has codomain or return object `Y`, and requires witness data or proof
+obligations `W`.
 
 ```text
 Sage body/docs/examples
   -> mathematical operation O on objects satisfying hypotheses H
-  -> weakest owner category C and any refinement membership claimed
+  -> weakest category C and any refinement membership claimed
   -> witness data or proof obligations required by C
   -> codomain or return object
   -> source evidence
@@ -62,7 +63,7 @@ when it adds, corrects, rejects, or records a source-backed mathematical asserti
 
 ```text
 method or constructor m implements operation O on objects satisfying H,
-belongs to owner category or refinement C, and requires witnesses W.
+belongs to weakest category or refinement C, and requires witnesses W.
 ```
 
 The first question is neither "where does Sage expose this name?" nor "which abstract
@@ -78,8 +79,7 @@ residue classification if useful and move on.
 
 Mapping documents, subtree `SAGE_INVENTORY.md` files, task cards, decisions, and
 handoffs remain evidence for definitions, implementations, and gaps. They are not
-completion evidence unless
-they change the operation map itself.
+completion evidence unless they change the operation map itself.
 
 ## Scope
 
@@ -89,7 +89,7 @@ Unknown counts outside that batch are not zero.
 | Field | Value |
 | --- | --- |
 | Active scope | Category-spec mathematical operations, constructors, constructions, and Sage evidence rows for the supporting semantic families below. |
-| Included category families | Sets, topological spaces, rings, ideals through ring/module ownership, algebras, modules, Hom/End/Aut, forms, lattices, tensor algebra components, posets, and geometry-facing source rows when they block the category-spec phase. |
+| Included category families | Sets, topological spaces, rings, ideals through ring/module structure, algebras, modules, Hom/End/Aut, forms, lattices, tensor algebra components, posets, and geometry-facing source rows when they block the category-spec phase. |
 | Sage source roots included in this map | `sage/modules/free_quadratic_module.py` free-bilinear and field-quadratic factories; `sage/modules/free_quadratic_module_integer_symmetric.py` integral-lattice constructor cluster; `sage/modules/torsion_quadratic_module.py` torsion quadratic constructors; and the local `category_specs/lattices/__init__.py` constructor collector wrapper. |
 | Source roots not yet inspected into this map | Every source root outside the recorded constructor/factory rows in this batch; no non-constructor lattice methods or other category families are populated by this edit. |
 
@@ -109,7 +109,7 @@ Sage method body/docs/examples
   -> mathematicalOperation
   -> requiredVocabulary
   -> hypotheses
-  -> weakest category/refinement owner
+  -> weakest category/refinement
   -> witnesses/proof obligations
   -> source-backed row, residue classification, or unresolved question
 ```
@@ -130,7 +130,7 @@ scrape, or a priori category primer.
 ### Active Lattice Extraction Questions
 
 This is not a completion claim. It is the required extraction checklist for each Sage
-method cluster before owner placement.
+method cluster before weakest-category placement.
 
 For each method cluster, record:
 
@@ -154,8 +154,8 @@ quadratic form at a two-coordinate input, coefficientwise additive operations, G
 composition, and left/right matrix actions are different mathematical operations.
 Likewise, categorical morphism composition/evaluation, additive or exact Hom behavior,
 finite-free matrix representation, side-dependent matrix conventions, and
-endomorphism-specific spectral algebra cannot be collapsed into one free-module owner
-label.
+endomorphism-specific spectral algebra cannot be collapsed into one free-module
+category label.
 
 After semantic extraction, the lattice operation map must cover the relevant Sage
 category providers, constructors/factories, classes reached through those constructors,
@@ -177,27 +177,23 @@ backend options, deprecated aliases, and source implementation branches are disc
 after one-line residue classification unless they change the public mathematical
 interface or block construction of a required object.
 
-## Required Row Fields
+## Required Mathematical Mapping
 
-Each row must contain these fields. A future implementation may store them as a
-markdown table, CSV, or generated view, but this tracked spec remains the canonical
-location or must point to exactly one replacement document.
+Each mapping must be a theorem-shaped assertion with provenance. A future
+implementation may store these assertions as a markdown table, CSV, or generated view,
+but this tracked spec remains the canonical location or must point to exactly one
+replacement document.
 
 | Field | Required meaning |
 | --- | --- |
-| `rowId` | Stable identifier for the Sage constructor, method, class, or source-evidence row. |
-| `family` | Supporting family such as `sets`, `rings`, `modules`, `lattices`, or `posets`. |
-| `sageSurface` | Constructor, class, parent, element, Hom object, protocol, function, or export spelling. |
-| `sageBehavior` | Summary of the behavior actually observed in the Sage body, examples, or written docs: inputs, outputs, branch cases, side effects, and conventions relevant to classification. |
-| `mathematicalOperation` | Standard mathematical operation or construction extracted from `sageBehavior`, or `none` for residue/out-of-scope rows. |
-| `requiredVocabulary` | Mathematical vocabulary introduced or referenced because `sageBehavior` requires it. |
-| `mathematicalSentence` | Complete sentence stating why the operation exists without referring to Sage. |
-| `hypotheses` | Mathematical or source hypotheses needed for the operation, owner, and codomain. |
-| `ownerCategoryOrRefinement` | Weakest project category, construction owner, or refinement membership claimed. |
-| `witnessDataOrProof` | Required witnesses, construction data, proof obligation, or `none` for residue/out-of-scope rows. |
-| `codomainOrReturn` | Return object, codomain, or payload class. |
-| `sourceEvidence` | Source path plus section, line, signature, or stable source citation. |
-| `disposition` | `mathematical-assertion`, `nonmathematical-residue`, `unresolved-question`, or `out-of-scope`. |
+| `Sage method or constructor` | The Sage constructor, method, class, function, protocol, or export spelling being interpreted. |
+| `Sage behavior` | The observed behavior in the Sage body, examples, or written docs: inputs, outputs, branch cases, side effects, and conventions relevant to interpretation. |
+| `Mathematical statement` | Complete sentence of the form: for objects of category `C`, under hypotheses `H`, this constructs, returns, or checks `Y`. |
+| `Weakest category or refinement` | The weakest project category, construction, or refinement membership in which that sentence is true. |
+| `Hypotheses and witnesses` | Mathematical hypotheses, construction data, witness data, or proof obligations required by the statement. |
+| `Codomain or return object` | Return object, codomain, or payload class. |
+| `Source evidence` | Source path plus section, line, signature, or stable source citation. |
+| `Disposition` | `mathematical-assertion`, `nonmathematical-implementation-detail`, `unresolved-definition`, or `out-of-scope`. |
 
 ## Canonical Operation Rows
 
@@ -208,19 +204,19 @@ wrapper route, the three integral-lattice constructors named by the
 constructor routes. This is not a completion claim for non-constructor lattice methods
 or other category families.
 
-| rowId | family | sageSurface | sageBehavior | mathematicalOperation | hypotheses | ownerCategoryOrRefinement | witnessDataOrProof | codomainOrReturn | sourceEvidence | disposition |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `forms.constructor.free-quadratic-module` | `forms` | `FreeQuadraticModule` | Coerces rank, canonicalizes an `n x n` inner-product matrix over a commutative base ring, caches by presentation data, and dispatches to field, PID, integral-domain, or generic backends. The form matrix is not required to be symmetric, nondegenerate, integral, or definite. | Finite-rank free module over a commutative ring equipped with a bilinear form matrix. | `base_ring` is commutative; `rank` is a nonnegative integer; the matrix coerces to an `n x n` matrix over `base_ring`; `inner_product_ring` is not supplied. | `Modules(R).Free().FiniteRank().WithForms().Bilinear().Constructors().FreeQuadraticModule`; lattice membership requires additional symmetric, integral, nondegenerate, finite-rank free witnesses. | Chosen finite free presentation and bilinear form matrix. | Free bilinear module over `R`. | Sage source `sage/modules/free_quadratic_module.py:86-187`; official Sage docs `free_quadratic_module.html`; mapping row `SPEC-MAPPING-LATTICES:196`; inventory row `category_specs/lattices/docs/SAGE_INVENTORY.md:15`. | `mathematical-assertion` |
-| `forms.constructor.quadratic-space` | `forms` | `QuadraticSpace` / `InnerProductSpace` | Checks that `K` is a field and `sparse` is boolean, then delegates to `FreeQuadraticModule(K, rank=dimension, inner_product_matrix=..., sparse=sparse)`. | Field-valued finite-dimensional free bilinear module, i.e. a quadratic space in Sage's naming. | `K` is a field; `dimension` is a nonnegative integer; the matrix coerces to a `dimension x dimension` matrix over `K`; `sparse` is storage data. | `Modules(K).Free().FiniteRank().WithForms().Bilinear().OverField().Constructors().QuadraticSpace`; not `Lattices(R)` without an integral presentation and lattice witnesses. | Chosen finite-dimensional free presentation over `K` and bilinear form matrix. | Field-valued free bilinear module. | Sage source `sage/modules/free_quadratic_module.py:190-223`; official Sage docs `free_quadratic_module.html`; mapping row `SPEC-MAPPING-LATTICES:197`; inventory rows `category_specs/lattices/docs/SAGE_INVENTORY.md:16-17`. | `mathematical-assertion` |
-| `lattices.constructor.integral-lattice` | `lattices` | `IntegralLattice` | Accepts a symmetric rational matrix, integer rank identity form, Cartan/root descriptor, or `"U"`/`"H"`; optional basis data presents a generated sublattice in the ambient quadratic space. | Integral lattice construction from a finite Gram, Euclidean-rank, root-system, or hyperbolic-plane presentation with optional selected basis. | Descriptor is a symmetric matrix, integer rank, Cartan/root descriptor, or `"U"`/`"H"`; the effective Gram presentation is symmetric, integral, and nondegenerate over `ZZ`; optional basis rows or module elements belong to the ambient quadratic space. | `Lattices(ZZ).Constructors().IntegralLattice`. | Finite-rank free abelian presentation, nondegenerate symmetric integral bilinear form, and optional selected generator data. | `Lattice`. | Sage source `sage/modules/free_quadratic_module_integer_symmetric.py:73-259,625-669`; local wrapper `category_specs/lattices/__init__.py:105-174`; mapping row `SPEC-MAPPING-LATTICES:204`. | `mathematical-assertion` |
-| `lattices.constructor.integral-lattice-direct-sum` | `lattices` | `IntegralLatticeDirectSum` | Verifies inputs are Sage integral lattices, forms a block-diagonal ambient form, block-embeds selected bases, and optionally returns homomorphisms from each summand into the block presentation. | Orthogonal direct sum of a finite family of integral lattices with canonical summand inclusions. | Inputs are a finite list of integral lattices over `ZZ`; `return_embeddings` selects the structure-map payload. | `Lattices(ZZ).OrthogonalDirectSums()` via `Lattices(ZZ).Constructors().IntegralLatticeDirectSum`. | Finite family of integral lattices, block-diagonal form, selected basis presentation, and optional canonical summand inclusions. | `Lattice` or `(Lattice, Sequence[LatticeMorphism])`. | Sage source `sage/modules/free_quadratic_module_integer_symmetric.py:262-369`; local wrapper `category_specs/lattices/__init__.py:188-237`; mapping row `SPEC-MAPPING-LATTICES:205`. | `mathematical-assertion` |
-| `lattices.constructor.integral-lattice-gluing` | `lattices` | `IntegralLatticeGluing` | Forms the orthogonal direct sum with embeddings, coerces glue components through discriminant groups, adjoins rational lifts, and optionally recomputes summand embeddings into the glued lattice. | Gluing or overlattice construction from discriminant-group glue data on a finite family of integral lattices. | Inputs are a finite list of integral lattices over `ZZ`; every glue row has one component per lattice; each component coerces into the corresponding discriminant group; `return_embeddings` selects the structure-map payload. | `Lattices(ZZ).Overlattices()` via `Lattices(ZZ).Constructors().IntegralLatticeGluing`. | Orthogonal direct sum, discriminant-group elements, rational lifts, overlattice generators, and optional summand embeddings. | `Lattice` or `(Lattice, Sequence[LatticeMorphism])`. | Sage source `sage/modules/free_quadratic_module_integer_symmetric.py:372-616`; local wrapper `category_specs/lattices/__init__.py:240-271`; mapping row `SPEC-MAPPING-LATTICES:206`. | `mathematical-assertion` |
-| `forms.constructor.torsion-quadratic-form` | `forms` | `TorsionQuadraticForm` | Coerces a square symmetric rational matrix, clears denominators, uses Smith form, builds a free quadratic `ZZ` cover, forms denominator relations, and returns a torsion quadratic module. | Finite torsion quadratic module constructed from symmetric rational Gram data. | `q` is a square symmetric rational matrix; quotient codomain is `QQ/ZZ` or `QQ/2ZZ`; no lattice input is present. | `Modules(ZZ).WithForms().Quadratic().Torsion().Constructors().TorsionQuadraticForm`; lattice discriminant-group ownership requires explicit metric-dual descent. | Symmetric rational Gram presentation and Smith-denominator quotient data. | `TorsionQuadraticModule`. | Sage source `sage/modules/torsion_quadratic_module.py:35-87`; official Sage docs `torsion_quadratic_module.html`; mapping row `SPEC-MAPPING-LATTICES:208`; inventory row `category_specs/lattices/docs/SAGE_INVENTORY.md:559`. | `mathematical-assertion` |
-| `forms.constructor.torsion-quadratic-module` | `forms` | `TorsionQuadraticModule` | Constructs the finite quotient `V/W` where `V` is a symmetric free quadratic module over `ZZ` and `W` is a same-rank submodule; checking enforces equal rank, `ZZ` base, symmetric cover form, and generator data. | Finite torsion formed-module quotient construction with bilinear and quadratic quotient-valued forms. | `V` is a symmetric free quadratic module over `ZZ`; `W <= V` has the same rank; optional `gens` generate `V/W`; codomain moduli satisfy the required divisibility conditions. | `Modules(ZZ).WithForms().Quadratic().Torsion().Constructors().from_quotient`, with `Lattices(ZZ).DiscriminantGroups()` only for the specialization `coker(L -> L^#)` with descended lattice form. | Same-rank quotient presentation, selected quotient generators when supplied, and quotient-valued bilinear/quadratic form codomains. | `TorsionQuadraticModule`. | Sage source `sage/modules/torsion_quadratic_module.py:188-277`; official Sage docs `torsion_quadratic_module.html`; mapping rows `SPEC-MAPPING-LATTICES:209-210`; inventory rows `category_specs/lattices/docs/SAGE_INVENTORY.md:561-570`. | `mathematical-assertion` |
+| Sage method or constructor | Sage behavior | Mathematical statement | Weakest category or refinement | Hypotheses and witnesses | Codomain or return object | Source evidence | Disposition |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `FreeQuadraticModule` | Coerces rank, canonicalizes an `n x n` inner-product matrix over a commutative base ring, caches by presentation data, and dispatches to field, PID, integral-domain, or generic implementations. The form matrix is not required to be symmetric, nondegenerate, integral, or definite. | For a commutative ring `R`, a finite free `R`-module with chosen rank and bilinear form matrix is constructed. | `Modules(R).Free().FiniteRank().WithForms().Bilinear().Constructors().FreeQuadraticModule`; lattice membership requires additional symmetric, integral, nondegenerate, finite-rank free witnesses. | `R` is commutative; `rank` is a nonnegative integer; the matrix coerces to an `n x n` matrix over `R`; the chosen finite free presentation and bilinear form matrix are part of the object data. | Free bilinear module over `R`. | Sage source `sage/modules/free_quadratic_module.py:86-187`; official Sage docs `free_quadratic_module.html`; mapping row `SPEC-MAPPING-LATTICES:196`; inventory row `category_specs/lattices/docs/SAGE_INVENTORY.md:15`. | `mathematical-assertion` |
+| `QuadraticSpace` / `InnerProductSpace` | Checks that `K` is a field and `sparse` is boolean, then delegates to `FreeQuadraticModule(K, rank=dimension, inner_product_matrix=..., sparse=sparse)`. | For a field `K`, a finite-dimensional free `K`-module with bilinear form matrix is constructed. | `Modules(K).Free().FiniteRank().WithForms().Bilinear().OverField().Constructors().QuadraticSpace`; not `Lattices(R)` without an integral presentation and lattice witnesses. | `K` is a field; `dimension` is a nonnegative integer; the matrix coerces to a `dimension x dimension` matrix over `K`; the chosen basis and bilinear form matrix are part of the object data. | Field-valued free bilinear module. | Sage source `sage/modules/free_quadratic_module.py:190-223`; official Sage docs `free_quadratic_module.html`; mapping row `SPEC-MAPPING-LATTICES:197`; inventory rows `category_specs/lattices/docs/SAGE_INVENTORY.md:16-17`. | `mathematical-assertion` |
+| `IntegralLattice` | Accepts a symmetric rational matrix, integer rank identity form, Cartan/root descriptor, or `"U"`/`"H"`; optional basis data presents a generated sublattice in the ambient quadratic space. | For a finite-rank free abelian group with a symmetric integral nondegenerate Gram presentation, an integral lattice is constructed. | `Lattices(ZZ).Constructors().IntegralLattice`. | The effective Gram presentation is symmetric, integral, and nondegenerate over `ZZ`; optional basis rows or module elements belong to the ambient quadratic space; the finite-rank abelian presentation and form are witnesses. | `Lattice`. | Sage source `sage/modules/free_quadratic_module_integer_symmetric.py:73-259,625-669`; local wrapper `category_specs/lattices/__init__.py:105-174`; mapping row `SPEC-MAPPING-LATTICES:204`. | `mathematical-assertion` |
+| `IntegralLatticeDirectSum` | Verifies inputs are Sage integral lattices, forms a block-diagonal ambient form, block-embeds selected bases, and optionally returns homomorphisms from each summand into the block presentation. | For a finite family of integral lattices over `ZZ`, their orthogonal direct sum is constructed, with canonical summand inclusions when requested. | `Lattices(ZZ).OrthogonalDirectSums()` via `Lattices(ZZ).Constructors().IntegralLatticeDirectSum`. | Inputs are a finite list of integral lattices; the block-diagonal form, selected basis presentation, and optional summand inclusions are witness data. | `Lattice` or `(Lattice, Sequence[LatticeMorphism])`. | Sage source `sage/modules/free_quadratic_module_integer_symmetric.py:262-369`; local wrapper `category_specs/lattices/__init__.py:188-237`; mapping row `SPEC-MAPPING-LATTICES:205`. | `mathematical-assertion` |
+| `IntegralLatticeGluing` | Forms the orthogonal direct sum with embeddings, coerces glue components through discriminant groups, adjoins rational lifts, and optionally recomputes summand embeddings into the glued lattice. | For a finite family of integral lattices and compatible discriminant-group glue data, an overlattice or gluing lattice is constructed. | `Lattices(ZZ).Overlattices()` via `Lattices(ZZ).Constructors().IntegralLatticeGluing`. | Inputs are a finite list of integral lattices; every glue row has one component per lattice; each component coerces into the corresponding discriminant group; rational lifts and overlattice generators are witness data. | `Lattice` or `(Lattice, Sequence[LatticeMorphism])`. | Sage source `sage/modules/free_quadratic_module_integer_symmetric.py:372-616`; local wrapper `category_specs/lattices/__init__.py:240-271`; mapping row `SPEC-MAPPING-LATTICES:206`. | `mathematical-assertion` |
+| `TorsionQuadraticForm` | Coerces a square symmetric rational matrix, clears denominators, uses Smith form, builds a free quadratic `ZZ` cover, forms denominator relations, and returns a torsion quadratic module. | For symmetric rational Gram data satisfying the quotient divisibility conditions, a finite torsion quadratic module is constructed. | `Modules(ZZ).WithForms().Quadratic().Torsion().Constructors().TorsionQuadraticForm`; lattice discriminant-group structure requires the specialization `coker(L -> L^#)` with descended lattice form. | `q` is a square symmetric rational matrix; quotient codomain is `QQ/ZZ` or `QQ/2ZZ`; Smith-denominator data witnesses the finite quotient presentation. | `TorsionQuadraticModule`. | Sage source `sage/modules/torsion_quadratic_module.py:35-87`; official Sage docs `torsion_quadratic_module.html`; mapping row `SPEC-MAPPING-LATTICES:208`; inventory row `category_specs/lattices/docs/SAGE_INVENTORY.md:559`. | `mathematical-assertion` |
+| `TorsionQuadraticModule` | Constructs the finite quotient `V/W` where `V` is a symmetric free quadratic module over `ZZ` and `W` is a same-rank submodule; checking enforces equal rank, `ZZ` base, symmetric cover form, and generator data. | For a same-rank inclusion `W <= V` of symmetric free quadratic `ZZ`-modules, the quotient `V/W` is constructed as a finite torsion formed module with quotient-valued bilinear and quadratic forms. | `Modules(ZZ).WithForms().Quadratic().Torsion().Constructors().from_quotient`, with `Lattices(ZZ).DiscriminantGroups()` only for the specialization `coker(L -> L^#)` with descended lattice form. | `V` is a symmetric free quadratic module over `ZZ`; `W <= V` has the same rank; optional `gens` generate `V/W`; codomain moduli satisfy the required divisibility conditions. | `TorsionQuadraticModule`. | Sage source `sage/modules/torsion_quadratic_module.py:188-277`; official Sage docs `torsion_quadratic_module.html`; mapping rows `SPEC-MAPPING-LATTICES:209-210`; inventory rows `category_specs/lattices/docs/SAGE_INVENTORY.md:561-570`. | `mathematical-assertion` |
 
 ## Source Evidence Commits
 
-Every substantive inventory or mapping commit must add or correct a source-backed row
+Every substantive inventory or mapping commit must add or correct a source-backed assertion
 here or in exactly one replacement structured document named by this spec. The commit
 record is provenance for the mathematical assertions, not a second progress ledger.
 

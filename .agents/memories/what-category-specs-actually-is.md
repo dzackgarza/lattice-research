@@ -14,12 +14,12 @@ subcategories refine via internal `@override` on `ParentMethods` / `ElementMetho
 
 Its purpose is specification, not enforcement.
 It states category contracts from mathematical naturality and research need, with Sage
-surface discovery recording how those contracts are realized or where the realization is
-missing.
+constructor/method discovery recording how those contracts are realized or where the
+realization is missing.
 
-The false model is "track computability in a separate admission layer." The correct
+The false model is "track computability in a separate bookkeeping layer." The correct
 model is categorical: obligations come from the object's category membership,
-hypotheses, construction data, and witness surfaces.
+hypotheses, construction data, and required methods or witness data.
 
 ## What this means
 
@@ -44,8 +44,9 @@ The only place where Sage runtime API matters is in **constructors**:
   refines.
 - `Modules(R).Constructors()` calls `FreeModule`, `VectorSpace`, etc., then refines.
 
-After the constructor boundary, the object lives in the internal spec surface.
-Its method obligations are owned by the internal category graph, not by Sage stubs.
+After the constructor boundary, the object is regarded as an object of the project's
+category hierarchy. Its method obligations come from that category graph, not from Sage
+stubs.
 
 Refinement at that boundary is a declaration that an existing Sage object is being
 viewed inside the local category universe as an object of a more specific project
@@ -64,7 +65,7 @@ current Sage behavior and the spec.
 The constructor/refinement boundary is also the quarantine line for unavoidable Sage
 interop complexity.
 If the repair requires dynamic-class or metaclass work, keep it in the project-owned
-construction bridge and delegate ordinary behavior back to Sage and Python.
+construction boundary and delegate ordinary behavior back to Sage and Python.
 Do not push that complexity into category specs, method bodies, smokes, or
 refinement-time satisfaction checks.
 
@@ -91,7 +92,7 @@ The first question is: **"Does the base method exist in an internal ancestor
 `ParentMethods` class?"**
 
 - If yes: plugin work or graph work.
-- If no: spec work (the method is missing from the intended owner category).
+- If no: spec work (the method is missing from the intended weakest category).
 - Only if the failing expression is a direct Sage API call: stub work.
 
 ## What this is NOT
@@ -119,7 +120,7 @@ Before working on any mypy error in `category_specs`, ask:
    `SubcategoryMethods`)?
 2. If yes, does the base method exist in another internal `category_specs` file?
 3. If yes, the error is plugin or graph work — never stub work.
-4. If no, the error is spec work — the method is missing from its intended owner
+4. If no, the error is spec work — the method is missing from its intended weakest
    category.
 5. Only if the error is on a direct Sage constructor call or import is it stub work.
 
@@ -128,7 +129,7 @@ context of an internal `@override` error, you have lost the plot.
 
 ## The mathematical coherence test
 
-Before accepting any category graph or method ownership as correct, step back and ask:
+Before accepting any category graph or method placement as correct, step back and ask:
 
 **"Does this make sense mathematically?"**
 
