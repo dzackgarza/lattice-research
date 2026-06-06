@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Track lattices mapping spec
-status: needs-agent-review
+status: complete
 priority: critical
 requirement: Convert category_specs/lattices/docs/MAPPING.md into a tracked spec surface
   and audit it for Sage-source completeness, mathematical correctness, and well-typed
@@ -39,10 +39,11 @@ This tracked spec is the canonical mapping surface converted from `category_spec
 Source inventory: `category_specs/lattices/docs/SAGE_INVENTORY.md`.
 
 Current status: the source-visibility and source-definition name audits are closed for
-the checked Sage 10.7 corpus, and the local semantic audit below has passed.  The card
-is in `needs-agent-review` because the most recent Hom/End/Aut mapping and obligation
-edits require a fresh-context review before closure. Do not use the historical review
-log below as a parent-feature or GOAL discharge claim.
+the checked Sage 10.7 corpus, the local semantic audit has passed, and the agent review
+completed 2026-06-05 with recommendation `needs-agent-review` -> `complete`. The
+Hom/End/Aut mapping correctly retains generic/module witnesses and adds only
+lattice-specific discriminant-action and subgroup constructors. Do not use the
+historical review log below as a parent-feature or GOAL discharge claim.
 
 ## Review Gates
 

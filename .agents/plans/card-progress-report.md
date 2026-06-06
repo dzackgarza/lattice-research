@@ -3,8 +3,8 @@
 ## Overall
 
 - Total cards: **323**
-- Completed cards: **279**
-- Overall progress: `[#####################---]  86.4%`
+- Completed cards: **280**
+- Overall progress: `[#####################---]  86.7%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -16,7 +16,7 @@
 | feature | 20 | 7 | 4 | 0 | 1 | 0 |
 | phase | 28 | 20 | 5 | 0 | 0 | 0 |
 | plan | 13 | 9 | 4 | 0 | 0 | 0 |
-| spec | 60 | 54 | 2 | 2 | 0 | 0 |
+| spec | 60 | 55 | 2 | 1 | 0 | 0 |
 | task | 180 | 167 | 0 | 0 | 0 | 0 |
 
 ## Co-Mathematician Workflow
@@ -44,7 +44,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
-| Category specs and Sage-grounded operations | `[##############--]  90.0%` | 153/170 | 11 | 1 | 0 | 0 |
+| Category specs and Sage-grounded operations | `[##############--]  90.6%` | 154/170 | 11 | 0 | 0 | 0 |
 | Mypy plugin for Sage category method override checking | `[##############--]  88.9%` | 16/18 | 0 | 1 | 1 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
@@ -64,7 +64,6 @@
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Source-backed mathematical operation maps (`critical`, `in-progress`)
 - `spec` `SPEC-SAGE-CONSTRUCTOR-METHOD-FRONTIER`: Maintain Sage constructor and method operation map (`critical`, `in-progress`)
-- `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (`critical`, `needs-agent-review`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-human-input`)
 - `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)
 
@@ -92,6 +91,7 @@
 
 ## Most Recently Completed
 
+- 2026-06-05 `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (commit `12094dd`: docs: route lattice mapping to agent review)
 - 2026-06-05 `spec` `SPEC-MAPPING-MODULES`: Track modules mapping spec (commit `40e2f2f`: feat: expose rank-one module isomorphism witnesses)
 - 2026-06-05 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `6fdd567`: docs: rename category smokes as obligations)
@@ -106,7 +106,6 @@
 - 2026-06-05 `phase` `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Sprint Cat category-object surface uniformization and constructor aggregation cleanup (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `task` `TASK-1777748120649-EQPN1A-ADD-MISSING-FINAL-MARKERS-AND-RETURN-ANNOTATIONS-ON-CAT-METHODS`: Add missing final markers and return annotations on Cat methods (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `task` `TASK-1777748120881-N0O19F-AUDIT-STANDARD-TYPE-PACKAGE-ALIASES-AFTER-CONCRETE-CAT-MIGRATION`: Audit standard type-package aliases after concrete Cat migration (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `phase` `PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates (commit `6fdd567`: docs: rename category smokes as obligations)
 
 ## Notes
 
