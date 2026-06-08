@@ -17,23 +17,33 @@ as research needs; they are not the active work item.
 
 ## Next Mathematical Obligation
 
-Classify the remaining lattice/module Hom and morphism operations in
-`SPEC-MAPPING-LATTICES` from the Sage method cluster:
+The Hom/morphism classification in `SPEC-MAPPING-LATTICES` is now resolved.
+The Lattices Homset Mirroring Audit (rows 409-498) and Inherited Module and Hom
+Surfaces (rows 292-330) cover the full Sage Hom cluster — generic Hom/End, free-module
+and FGP Hom parents, matrix morphisms, formed-module Aut, and lattice-specific
+orthogonal-group refinements. The 6-gate review (lines 998-1249) verified source
+grounding, completeness, mathematical correctness, and obligation preservation for all
+Hom/morphism rows.
 
-```text
-FreeModuleHomspace,
-FreeModuleMorphism,
-MatrixMorphism,
-FGP_Homset,
-FGP_Morphism,
-generic Homset/End constructors.
-```
+What remains in the lattice mapping spec are the non-Hom method clusters that have not
+received the same final verification pass:
 
-The statement to settle is:
+- `QuadraticForm` algorithm surfaces (theta series, local densities, mass formulas,
+  equivalence testing, genus symbols, neighbor enumeration) — these appear in the
+  reconciliation tables but as "backend evidence" or "algorithm surface" without the
+  theorem-shaped row format the Hom surfaces received.
+- Genus, mass, and local-invariant backends from `genera/genus.py`,
+  `genera/normal_form.py`, and `genera/spinor_genus.py` — also in reconciliation tables
+  as backend evidence but not yet expressed as theorem-shaped rows.
+- Short-vector enumeration, LLL reduction, and definite-automorphism computation
+  surfaces — classified as algorithm obligations but not yet written as theorem-shaped
+  rows.
+
+The statement to settle for any remaining non-Hom cluster:
 
 ```text
 For objects in the correct category C satisfying hypotheses H,
-the Sage method m realizes a morphism operation O,
+the Sage method m realizes an operation O,
 with codomain or return object Y,
 using witness data W.
 ```
@@ -43,41 +53,37 @@ The research need is that later Coble code must express maps such as
 orthogonal projections/complements, discriminant descent, and certified isometries as
 typed morphisms rather than raw matrices.
 
-## Source Evidence To Read
+## Source Evidence To Read (remaining clusters)
 
-- `category_specs/lattices/docs/SAGE_INVENTORY.md`, especially the Hom/morphism blocks
-  for `FreeModuleHomspace`, `FreeModuleMorphism`, `MatrixMorphism`,
-  `FGP_Homset`, and `FGP_Morphism`.
-- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`,
-  especially `Lattices Homset Mirroring Audit`.
-- Sage installed source named by those rows:
-  `sage/modules/free_module_homspace.py`,
-  `sage/modules/free_module_morphism.py`,
-  `sage/modules/matrix_morphism.py`,
-  `sage/modules/fg_pid/fgp_morphism.py`,
-  `sage/modules/fg_pid/fgp_module.py`,
-  `sage/categories/homset.py`,
-  and `sage/categories/homsets.py`.
+- `SPEC-MAPPING-LATTICES.md` reconciliation tables for non-Hom surfaces:
+  - QuadraticForm algorithm surfaces — `theta_series`, `local_normal_form`,
+    `is_globally_equivalent_to`, `siegel_product`, `mass__by_Siegel_densities`,
+    `representative`, `representatives`, `genera(...)`, `local_genus_symbol`,
+    `global_genus_symbol`, `conway_mass`, `neighbor_iteration`, `short_vectors`,
+    `short_vector_list_up_to_length`, `LLL`, `automorphism_group`,
+    `basis_of_short_vectors`, `cholesky_decomposition`, `vectors_by_length`,
+    `split_local_cover`, `p_adic_normal_form`.
+  - Genus and local-invariant backends — `Genus`, `GenusSymbol_p_adic_ring`,
+    `GenusSymbol_global_ring`, `LocalGenusSymbol`, `SpinorOperators`,
+    `hasse_invariant`, `anisotropic_primes`, `global_genus_symbol`,
+    `local_representation_conditions`.
+  - Sage installed source for those rows where the reconciliation classification is
+    "backend evidence" or "algorithm surface" rather than "theorem-shaped row."
+  - The remaining non-Hom rows in the method placement table that do not yet have the
+    full theorem-shaped statement format.
 
 ## Success Condition For The Next Unit
 
-`SPEC-MAPPING-LATTICES` states or corrects the theorem-shaped rows for:
+The remaining non-Hom clusters in `SPEC-MAPPING-LATTICES` are either:
 
-- `Hom_R(M,N)` construction from generator images, matrices, or callable-on-generators
-  data under finite-free or finitely-presented hypotheses;
-- morphism evaluation, composition, zero morphisms, additive Hom structure, and scalar
-  Hom structure at their correct category owners;
-- matrix representation only after finite free presentations or chosen bases;
-- kernel, image, inverse image, cokernel, and lift/preimage representative at the
-  module or formed-module tier where the operation is actually defined;
-- `End(X)=Hom(X,X)` and `Aut_C(X)=End_C(X)^\times` without implying generators or
-  presentations unless a stronger group refinement supplies witnesses;
-- lattice-specific refinements only for form-preserving morphisms, isometry
-  certification, discriminant action, and the subgroup objects of `O(L)`.
+- written as theorem-shaped rows stating the category, hypotheses, return object, and
+  source evidence; or
+- explicitly classified as "nonmathematical backend residue" with the mathematical
+  reason named; or
+- routed to a tracked gap where the mathematical claim requires a decision or theorem
+  that does not yet exist.
 
-If a Sage method is display, call-protocol, cache, comparison, orientation, or backend
-residue, record that as residue only after the mathematical operation is named or shown
-absent.
+This completes the lattice mapping spec to the same standard as the Hom/morphism pass.
 
 ## Non-Goals
 
