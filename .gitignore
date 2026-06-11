@@ -63,6 +63,7 @@ models/
 src.bak/backends/external/carat/
 src.bak/backends/external/vinbergs_algorithm/references/VinbergsAlgorithmNF/
 src.bak/backends/external/vinbergs_algorithm/references/vinal/
+src.bak/backends/external/vinbergs_algorithm/references/AlVin/
 src/external/dutsik_polyhedral/polyhedral_common/
 
 # Local Hermes/IWE memory lock files

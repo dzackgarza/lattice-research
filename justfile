@@ -27,6 +27,7 @@ fetch-externals:
         "src.bak/backends/external/carat|https://github.com/lbfm-rwth/carat.git"
         "src.bak/backends/external/vinbergs_algorithm/references/VinbergsAlgorithmNF|https://github.com/bottine/VinbergsAlgorithmNF.git"
         "src.bak/backends/external/vinbergs_algorithm/references/vinal|https://github.com/aperep/vinal.git"
+        "src.bak/backends/external/vinbergs_algorithm/references/AlVin|https://github.com/rgugliel/AlVin.git"
         "src/external/dutsik_polyhedral/polyhedral_common|https://github.com/MathieuDutSik/polyhedral_common.git"
     )
     for entry in "${externals[@]}"; do
