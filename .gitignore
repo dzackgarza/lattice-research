@@ -57,8 +57,14 @@ coverage.xml
 # Models
 models/
 
-carat
-src.bak/backends/external/vinbergs_algorithm/
+# External research tools, fetched fresh to upstream latest via `just fetch-externals`.
+# Not git submodules: submodules pin a SHA, which rots (orphaned upstream commits,
+# stale clones). These are tracked dirs only on disk, never committed.
+src.bak/backends/external/carat/
+src.bak/backends/external/vinbergs_algorithm/references/VinbergsAlgorithmNF/
+src.bak/backends/external/vinbergs_algorithm/references/vinal/
+src/external/dutsik_polyhedral/polyhedral_common/
+
 # Local Hermes/IWE memory lock files
 .agents/memories/hermes/*.lock
 

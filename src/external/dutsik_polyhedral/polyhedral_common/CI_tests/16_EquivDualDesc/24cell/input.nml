@@ -1,5 +1,0 @@
-&DATA
- EXTfile = "24cell_poly.ext"
- GRPfile = "24cell.grp"
- OutFile = "orbits"
-/

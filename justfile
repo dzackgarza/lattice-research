@@ -13,6 +13,44 @@ uv-setup: _clean
     @echo "Setting up uv environment..."
     uv sync
 
+# Fetch external research tools (carat, VinbergsAlgorithmNF, vinal, polyhedral_common)
+# to their upstream LATEST. These are intentionally NOT git submodules: a submodule
+# pins a SHA, which rots (carat's pin was orphaned by an upstream history rewrite,
+# breaking recursive clones). Run after cloning the repo, and any time to refresh.
+# Set FRESH=1 to discard a local checkout (to trash) and re-clone — needed when a
+# checkout has diverged from upstream and cannot fast-forward.
+fetch-externals:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    externals=(
+        "src.bak/backends/external/carat|https://github.com/lbfm-rwth/carat.git"
+        "src.bak/backends/external/vinbergs_algorithm/references/VinbergsAlgorithmNF|https://github.com/bottine/VinbergsAlgorithmNF.git"
+        "src.bak/backends/external/vinbergs_algorithm/references/vinal|https://github.com/aperep/vinal.git"
+        "src/external/dutsik_polyhedral/polyhedral_common|https://github.com/MathieuDutSik/polyhedral_common.git"
+    )
+    for entry in "${externals[@]}"; do
+        path="${entry%%|*}"
+        url="${entry#*|}"
+        if [ "${FRESH:-0}" = "1" ] && [ -e "$path" ]; then
+            echo ">>> FRESH: trashing $path"
+            trash "$path"
+        fi
+        if git -C "$path" rev-parse --git-dir >/dev/null 2>&1; then
+            echo ">>> refreshing $path"
+            git -C "$path" fetch --recurse-submodules origin
+            git -C "$path" merge --ff-only "@{u}"
+            git -C "$path" submodule update --init --recursive
+        elif [ -e "$path" ]; then
+            echo "ERROR: $path exists but is not a git repo." >&2
+            echo "       Re-run with FRESH=1 to trash and re-clone it." >&2
+            exit 1
+        else
+            echo ">>> cloning $path -> latest"
+            git clone --recursive "$url" "$path"
+        fi
+    done
+
 [private]
 _clean:
     #!/usr/bin/env bash
