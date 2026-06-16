@@ -836,3 +836,35 @@ Do not delete markdown, specs, review artifacts, theory notes, or directories wi
 provenance and user confirmation unless the deletion is explicitly pre-authorized by
 `research-repo-structure`. Broken computations are fixed or deleted; they are not
 preserved with status reports, archives, `_old` names, or companion explanations.
+
+<!-- iwe2:agent-memory:start -->
+# Agent memory
+
+This repository uses the central agent memory vault at `/home/dzack/.agent-memory-vault`.
+
+Project memory key: `projects/github.com__dzackgarza__lattice-research/index`.
+
+Before changing architecture, search both project and global memory:
+
+```bash
+iwe2 search --scope both "<task or subsystem>"
+```
+
+Record durable repo-specific lessons with:
+
+```bash
+iwe2 add --scope project --type decision --title <title> --content <content>
+iwe2 add --scope project --type trap --title <title> --content <content>
+iwe2 add --scope project --type advice --title <title> --content <content>
+iwe2 add --scope project --type context --title <title> --content <content>
+iwe2 add --scope project --type reference --title <title> --content <content>
+```
+
+Use `iwe2 retrieve <key>`, `iwe2 update <key>`, and `iwe2 delete <key>` for memory CRUD.
+
+Move reusable lessons during maintenance with:
+
+```bash
+iwe2 maintain move <key> --to global/advice
+```
+<!-- iwe2:agent-memory:end -->
