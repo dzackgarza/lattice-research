@@ -5,8 +5,9 @@ Classification of every in-scope memory file for migration into the iwe2 vault
 manifest. Disposition ∈ {DURABLE, JUNK, DUPLICATE}. Type ∈ {decision, trap, advice,
 context, reference}. Scope default = project.
 
-**Status:** Group A (.agents root) and Group C (.agents theory) classified. Group B
-(.agents skills) and Group D (.serena dedup) re-running after session-limit reset.
+**Status:** COMPLETE. All four groups classified and migrated. 116 memories created in
+the iwe2 vault (95 project + 21 global); 46 `.serena` duplicates dropped; JUNK distilled
+and trashed; repo rewired to iwe2; originals trashed (Phases 0–5 all done).
 
 ## Group A — `.agents/memories/` root discipline/policy/handoff
 
