@@ -1,6 +1,6 @@
 # Research Planning Workspace
 
-This directory is the active Nimbalyst-backed planning workspace for the research repo. IWE is the preferred query layer over this markdown: use it to find cards, dependencies, and recent handoff context before broad manual scans.
+This directory is the active Nimbalyst-backed planning workspace for the research repo. The iwe2 vault holds durable memories: use `iwe2 search`/`iwe2 inspect` to find related decisions, traps, and context before broad manual scans of this planning markdown.
 
 ## Hierarchy
 

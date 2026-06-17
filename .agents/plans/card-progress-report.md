@@ -91,21 +91,21 @@
 
 ## Most Recently Completed
 
-- 2026-06-06 `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (commit `6c2e6c0`: docs: complete SPEC-MAPPING-LATTICES after agent review)
-- 2026-06-05 `spec` `SPEC-MAPPING-MODULES`: Track modules mapping spec (commit `40e2f2f`: feat: expose rank-one module isomorphism witnesses)
-- 2026-06-05 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `decision` `DECISION-20260505-PARTITION-ELEMENT-METHOD-SHADOWING`: Decide how partition element methods override Sage list-returning methods (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `decision` `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`: Decide how to handle Sage RealSet inherited Sets.Topological axiom warning (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `task` `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`: Translate external software mappings into method ownership rows (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `task` `TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS`: Build source corpus for literal method ownership inventory (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `task` `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`: Assemble trackable method ownership spec files (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `phase` `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Sprint Cat category-object surface uniformization and constructor aggregation cleanup (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `task` `TASK-1777748120649-EQPN1A-ADD-MISSING-FINAL-MARKERS-AND-RETURN-ANNOTATIONS-ON-CAT-METHODS`: Add missing final markers and return annotations on Cat methods (commit `6fdd567`: docs: rename category smokes as obligations)
-- 2026-06-05 `task` `TASK-1777748120881-N0O19F-AUDIT-STANDARD-TYPE-PACKAGE-ALIASES-AFTER-CONCRETE-CAT-MIGRATION`: Audit standard type-package aliases after concrete Cat migration (commit `6fdd567`: docs: rename category smokes as obligations)
+- 2026-06-17 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`: Decide Picard group and Picard lattice method ownership (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `phase` `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Category literal method inventory and ownership (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`: Translate external software mappings into method ownership rows (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES`: Write Hom End Aut forms and lattice method ownership rows (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`: Write poset tensor and geometry-facing method ownership rows (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS`: Build source corpus for literal method ownership inventory (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`: Assemble trackable method ownership spec files (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-FORMED-COKERNEL-DESCENDED-FORM`: Specify formed cokernel with descended form data (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `spec` `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`: Specify literal method ownership inventory by minimal category (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `spec` `SPEC-MAPPING-FORMS`: Track forms mapping spec (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`: Research category integration for families of varieties (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-INTEGRATE-POLYTOPES-CATEGORY`: Research category integration for polytopes (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-INTEGRATE-SCHEMES-CATEGORY`: Research category integration for schemes (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
+- 2026-06-17 `task` `TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY`: Research category integration for toric varieties with lattice categories (commit `deabc31`: refactor(memory): rewire .agents/memories path refs to iwe2 vault keys (Phase 4a))
 
 ## Notes
 

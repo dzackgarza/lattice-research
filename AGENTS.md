@@ -125,10 +125,11 @@ centralizers, and orbit objects under explicit hypotheses and category refinemen
 edit:**
 
 ```
-iwe retrieve -k onboarding
+iwe2 retrieve projects/github.com__dzackgarza__lattice-research/context/onboarding
 ```
 
-Run this command from `.agents/memories/`. Read the full output.
+Run this command from the repo root (or use `iwe2 search --scope project "onboarding"`
+to resolve the key). Read the full output.
 This is not optional and not skippable.
 The onboarding memory is the single source of truth for what this project is, what phase
 we are in, what the most common agent failure modes are, and what concrete work to do
@@ -567,107 +568,65 @@ corresponding `mem:skills/...` entry.
 - `git-guidelines`: required for staging, committing, branching, pushing, PRs, and any
   other git operation.
 
-**Migrated to memories — read these via `iwe retrieve -k skills/<name>`:**
+**Former local skills are now memories in the iwe2 vault.** The vault is the source of
+truth — do not maintain a key table here. Discover them with:
 
-| Former skill | Memory key |
-| --- | --- |
-| `category-framework-design` | `skills/category-framework-design` |
-| `category-spec-audit` | `skills/category-spec-audit` |
-| `category-spec-complexity-rubric` | `skills/category-spec-complexity-rubric` |
-| `category-spec-planning` | `skills/category-spec-planning` |
-| `category-spec-priority-rubric` | `skills/category-spec-priority-rubric` |
-| `category-spec-retirement` | `skills/category-spec-retirement` |
-| `category-spec-sage-mapping` | `skills/category-spec-sage-mapping` |
-| `category-spec-failed-assertion-classification` | `skills/category-spec-failed-assertion-classification` |
-| `category-spec-subtrees` | `skills/category-spec-subtrees` |
-| `category-spec-triage` | `skills/category-spec-triage` |
-| `category-spec-visuals` | `skills/category-spec-visuals` |
-| `category-spec-workflow` | `skills/category-spec-workflow` |
-| `creating-fixtures` | `skills/creating-fixtures` |
-| `lattice-redesign` | `skills/lattice-redesign` |
-| `opencode-one-shot-workers` | `skills/opencode-one-shot-workers` |
-| `request-triager` | `skills/request-triager` |
-| `research-co-mathematician-workflow` | `skills/research-co-mathematician-workflow` |
-| `research-math-boundary` | `skills/research-math-boundary` |
-| `research-planning-cleanup` | `skills/research-planning-cleanup` |
-| `research-project-workflow` | `skills/research-project-workflow` |
-| `research-proof-auditing` | `skills/research-proof-auditing` |
-| `research-repo-structure` | `skills/research-repo-structure` |
-| `research-scheduling` | `skills/research-scheduling` |
-| `research-source-acquisition` | `skills/research-source-acquisition` |
-| `sage-category-source-maps` | `skills/sage-category-source-maps` |
-| `vinberg-algorithm` | `skills/vinberg-algorithm` |
-| `plannotator-workflow` | `plannotator-workflow` |
+```
+iwe2 search --scope both "<topic>"        # e.g. "proof auditing", "category workflow"
+iwe2 inspect tree --scope project          # project memory hierarchy
+```
 
-Many of these memories have sub-memories for their reference files (e.g.,
-`skills/category-framework-design/category-refinement-phases`). Use `iwe find skills/`
-to discover the full tree.
+Project skills live under
+`projects/github.com__dzackgarza__lattice-research/{advice,decisions,references}/`;
+cross-project research workflows (proof-auditing, project-workflow, scheduling,
+source-acquisition, co-mathematician-workflow, code-style, planning-cleanup,
+creating-fixtures, opencode-one-shot-workers) live under `global/advice/`.
 
 Start with `category_specs/AGENTS.md` for that subtree.
 
 ## Session startup
 
 Every new session must:
-1. Run `iwe retrieve -k onboarding` from `.agents/memories/` and read the full output.
-   This is the HARD GATE (see above).
+1. Run `iwe2 retrieve projects/github.com__dzackgarza__lattice-research/context/onboarding`
+   and read the full output. This is the HARD GATE (see above).
    No file reads, tool runs, plan scans, or edits are permitted before onboarding.
-2. Run `iwe retrieve -k current-goal-handoff` and read the named files.
+2. Read `.agents/current-goal-phase.md` and the active tracker cards under
+   `.agents/plans/features/` to find the current resumption point and named files.
 3. Read `GOAL.md`, `.agents/current-goal-phase.md`, and this file.
    Verify active tasks and Nimbalyst meta artifacts are synced with `origin/main` before
-   declaring progress. Use `iwe` as the repo markdown query and resume layer before broad
-   file scanning: from `.agents/memories`, retrieve or search relevant memories and the
-   current cards named by the handoff; from the repo root, use IWE to discover plans,
-   cards, specs, and policy files.
-   Load `research-repo-structure` before startup pruning or cleanup.
+   declaring progress. Use `iwe2 search`/`iwe2 inspect` as the vault query and resume
+   layer before broad file scanning.
+   Load `research-repo-structure` (global/advice) before startup pruning or cleanup.
    State which `GOAL.md` phase and task will be worked on and why.
    Do not start by reading every file in the repo.
-4. Before category-spec work, review, or source repair, use IWE to retrieve normal
-   governing memories by topic, not by historical session.
-   Start from the handoff's named memories, then use `iwe find` for the actual work
-   shape: `purpose`, `category specs`, `red flags`, `sanity`, `grounded analysis`,
-   `paperwork`, `corrections`, `refinement`, `provider`, `hooks`, or the concrete
-   method/category names involved.
+4. Before category-spec work, review, or source repair, use `iwe2 search` to retrieve
+   governing memories by topic, not by historical session: `purpose`, `category specs`,
+   `red flags`, `sanity`, `grounded analysis`, `paperwork`, `corrections`, `refinement`,
+   `provider`, `hooks`, or the concrete method/category names involved.
    The goal is that repo-purpose, review, artifact-drift, correction, and refinement
    rules are visible during ordinary work; do not rely on remembering any past transcript.
 
-## IWE and memory practice
+## iwe2 and memory practice
 
-Use `iwe` as the central markdown management, query, and resume interface for this repo.
-The managed memory library is `.agents/memories` through `.iwe/config.toml`; run IWE
-from that directory for memory keys such as `current-goal-handoff` and `hermes/MEMORY`.
-Run IWE from the repo root to discover non-hidden repo markdown such as plans, cards,
-specs, and policy files.
-Search with IWE before manually scanning broad subtrees, especially when starting a new
-task, resuming related work, receiving a compaction/summary, or taking over after
-context loss or session handoff.
-Do not rely on chat summaries alone when durable repo markdown or memory may already
-exist. Add or update notes there when durable context would otherwise be lost.
+Use `iwe2` as the central query and resume interface for durable memory. Durable
+memories live in the external iwe2 vault `~/.agent-memory-vault` under
+`projects/github.com__dzackgarza__lattice-research/` (project scope) and `global/`
+(cross-project research discipline). Search the vault with `iwe2 search`/`iwe2 inspect`
+before manually scanning broad subtrees, especially when starting a new task, resuming
+related work, receiving a compaction/summary, or taking over after context loss.
+Do not rely on chat summaries alone when a durable memory may already exist.
 
-Hermes memory is part of the same corpus: `/home/dzack/.hermes/memories` is a symlink to
-`.agents/memories/hermes`, so Hermes, Ralph loops, and IWE-backed agents share one
-operational memory namespace instead of copying notes between systems.
+Hermes operational notes and user preferences now live in the vault under `global/`
+(`Hermes Vault Operations`, `Hermes User Preferences`); there is no longer an in-repo
+`.agents/memories/hermes` namespace.
 
-The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by
-replacement when the next mathematical object/question to resume changes, or when a
-non-obvious ruling, source finding, or real blocker would otherwise be lost.
-**It is a routing aid, nothing more.** It exists for exactly one purpose: to tell the
-next session where to start and what to avoid.
-It is NOT a status report, NOT a changelog, NOT a tracker, and NOT an audit log.
-Cards, plans, and git history are the sole authorities for status, dependencies, source
-grounding, acceptance, and completed work.
-If the information describes what was done rather than what to do next, it does not
-belong here.
+**Current resumption state is not a memory.** The next mathematical object/question to
+resume lives in `.agents/current-goal-phase.md` and the active tracker cards under
+`.agents/plans/features/`. Cards, plans, and git history are the sole authorities for
+status, dependencies, source grounding, acceptance, and completed work.
 
-**This is not optional.** Update the handoff note immediately before reporting when the
-resumption question changes. Do not update it merely because a card moved status, a
-review happened, or a plan was decomposed unless that changes the operation map or the
-next object/question a cold-start agent should resume.
-
-Chat is the delivery channel; the handoff note is the durable checkpoint.
-If the handoff points to the wrong mathematical resumption target, the process has
-failed.
-
-Store short, opinionated, forward-facing notes only.
+Record durable lessons with `iwe2 add`. Store short, opinionated, forward-facing notes
+only.
 **Never store:**
 - summaries of completed work (belongs in commit messages)
 - changelogs, diff histories, or "what happened" narratives (git history is the sole
@@ -676,92 +635,59 @@ Store short, opinionated, forward-facing notes only.
   retrospective writeups
 - anything that describes what was done instead of what to do next
 
-The handoff is meant to be read in 30 seconds by a cold-start agent.
-If it takes longer, it contains something that should be in a card, plan, decision, or
-git history instead.
+Appropriate memory content:
 
-Appropriate handoff content:
-
-- important decisions that were too small for a decision card but would still affect
-  future agent choices;
-- constraints, rulings, and inputs that came out of interactive user discussion and
-  should survive chat history loss;
-- current state or status notes that help a future agent restart work correctly,
-  provided they can be kept accurate without heavy bookkeeping;
+- important decisions too small for a decision card but that still affect future choices;
+- constraints, rulings, and inputs from interactive user discussion that should survive
+  chat history loss;
 - non-obvious environment findings, research results, and workflow rules that took
   effort to discover.
 
-Review memories periodically with `iwe` and prune by replacement rather than letting
-stale guidance accumulate silently.
-If a memory is superseded, update the IWE note that owns that topic instead of
-scattering a new contradictory note.
+Review memories periodically with `iwe2 search`/`iwe2 inspect` and prune by replacement
+(`iwe2 update`/`iwe2 delete`) rather than letting stale guidance accumulate silently.
+If a memory is superseded, update the memory that owns that topic instead of scattering
+a new contradictory note.
 
-### IWE command reference
+### iwe2 command reference
 
-Documents live in `.agents/memories/`; the key for a file is its path relative to that
-directory without the `.md` extension (e.g. `theory/backends/vinberg-algorithm`). Run
-`iwe` from the repo root for non-memory repo markdown; run it from `.agents/memories/`
-for memory keys.
+Memories live in the iwe2 vault. A key is `projects/github.com__dzackgarza__lattice-research/<type>/<slug>`
+(project) or `global/<type>/<slug>`, where `<type>` is one of `decisions`, `traps`,
+`advice`, `context`, `references`. Resolve a key from a topic with `iwe2 search`.
 
 **Discover**
 
 ```
-iwe find                          # all docs sorted by incoming references
-iwe find "keyword"                # fuzzy match on title and key
-iwe find -f keys                  # bare key list (for scripting)
-iwe find -f json                  # full graph metadata
-iwe tree                          # document hierarchy
-iwe stats                         # graph overview (doc count, top docs, etc.)
-```
-
-**Filter**
-
-```
-iwe find --filter 'status: draft'          # frontmatter predicate
-iwe find --referenced-by KEY              # docs that link to KEY
-iwe find --references KEY                 # docs that KEY links to
-iwe find --included-by KEY               # docs block-included by KEY
-iwe find --includes KEY                  # docs that KEY block-includes
+iwe2 search --scope both "keyword"          # combined key/exact/fuzzy/ranked search
+iwe2 inspect tree --scope project           # memory hierarchy
+iwe2 inspect overview --scope both --format json   # counts by scope/type
+iwe2 inspect stats --scope both --by type --format json
 ```
 
 **Retrieve**
 
 ```
-iwe retrieve -k KEY               # document content with default context
-iwe retrieve -k KEY -d 2          # follow inclusion edges 2 levels deep
-iwe retrieve -k KEY -c 2          # include 2 levels of parent context
-iwe retrieve -k KEY -l            # also follow inline markdown links
-iwe retrieve -k KEY -b            # also show backlinks (incoming references)
+iwe2 retrieve <key>                         # full memory content with graph context
+iwe2 inspect outline <key> --format json    # heading outline
+iwe2 inspect links <key> --direction both --depth 1 --format json   # neighbors
 ```
 
-**Navigation patterns**
+**Navigation pattern**
 
-Never dump the full tree into a session.
-Start broad, then drill.
-
-```
-# Top-level structure; expand one more level when you know which area
-iwe tree --depth 1
-iwe tree --depth 2
-
-# Retrieve a doc plus its children (depth controls how many inclusion levels)
-iwe retrieve -k <key> -d 1
-iwe retrieve -k <key> -d 2
-
-# Retrieve a doc plus its parent context
-iwe retrieve -k <key> -c 1
-```
+Never dump the full tree into a session. Start broad, then drill.
 
 ```
-# Fuzzy search to locate a doc before reading it
-iwe find "keyword"
+iwe2 inspect tree --scope project --depth 1
+iwe2 search --scope both "<topic>"          # locate the key
+iwe2 retrieve <key>                          # then read it
+```
 
-# Find which docs include a given doc (its parents) or it includes (its children)
-iwe find --included-by <key>
-iwe find --includes <key>
+**Maintain**
 
-# Fast key lookup by path fragment
-iwe find -f keys | grep <pattern>
+```
+iwe2 add --scope <project|global> --type <type> --title "<title>" --content "<body>"
+iwe2 update <key> [--content "<body>"]      # prune by replacement
+iwe2 delete <key>
+iwe2 maintain move <key> --to global/advice  # promote a reusable lesson
 ```
 
 Do not turn memories into a second tracker or metadata database.
