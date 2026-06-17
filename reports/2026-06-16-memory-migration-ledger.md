@@ -196,15 +196,32 @@ fold-in needed. Only 6 UNIQUE files migrate.
   - `theory/external/dutsik_polyhedral/**` (15 files) — vendored upstream docs → fold into ONE consolidated `polyhedral-common` reference; keep `notes/indefinite_methods.md`.
 - **DUPLICATE → drop:** 46 `.serena` condensed copies.
 
-### Judgment calls requiring user sign-off
-1. **`current-goal-handoff.md`**: classified JUNK by the agent (status snapshot), BUT it is
-   the load-bearing cold-start handoff referenced by AGENTS.md step 2 and GOAL.md:230.
-   Recommend **migrate as `context`** (keep it as the mutable current-state pointer),
-   NOT trash.
-2. **`hermes/MEMORY.md` + `hermes/USER.md`**: Obsidian-vault / user-preference state with
-   no lattice-research content. Recommend trash from this repo (content belongs in the
-   user's global profile / vault-steward guidance, not project memory).
-3. **Promotion candidates** (creating-fixtures, opencode-one-shot-workers, research-*
-   workflow skills, memory-management-discipline, etc.): kept `scope=project` by default;
-   not auto-promoted to global.
+### Judgment calls — RESOLVED by user
+1. **`current-goal-handoff.md`**: **distill-then-trash** (user choice). Durable bit (typed
+   Hom/morphism vocabulary need) is already in repo-purpose memory → nothing new to migrate;
+   trash the file and drop the AGENTS.md step-2 / GOAL.md:230 handoff reference in Phase 4.
+2. **`hermes/MEMORY.md` + `hermes/USER.md`**: **migrate to global scope** (user choice).
+   MEMORY → `global/reference` (Obsidian vault facts, NIM API, script inventory);
+   USER → `global/advice` (how the user wants agents to work).
+3. **Promotions to global** (user choice — promote the genuinely cross-project ones):
+   - Group A → global: analysis-must-be-grounded, corrections-update-the-model-not-the-artifact,
+     diagnostics-are-navigation, hard-problem-artifact-drift, mathematical-source-report-memories,
+     memory-management-discipline, paperwork-is-a-routing-layer-not-progress,
+     periodic-research-relevance-check, repo-understanding-is-agent-work,
+     research-standardness-and-argument-standards.
+   - Group B skills → global: creating-fixtures, opencode-one-shot-workers, research-code-style,
+     research-co-mathematician-workflow, research-planning-cleanup, research-project-workflow,
+     research-proof-auditing, research-scheduling, research-source-acquisition.
+   - **Kept project despite the yes flag:** category-spec-epistemic-foundation
+     (category-spec-specific, not cross-project).
+
+### Execution mechanics
+- `iwe2 add` writes a vault git commit per call → run adds **sequentially** (deterministic
+  script `reports/migrate_memories.py`), not via concurrent subagents (git-race + math
+  transcription risk). Strip leading YAML frontmatter from each source before `--content`.
+- **11 merge groups** (skill pointer `skills/NAME.md` + body `skills/NAME/*.md`) → one
+  memory each, body = concatenated sources under the pointer's title.
+- **dutsik consolidation**: 15 vendored upstream docs → one new `polyhedral-common`
+  reference (subagent-synthesized); keep `notes/indefinite_methods.md` as its own memory.
+- **Link fix**: after all adds, rewrite `mem:<oldkey>` references to new vault keys.
 
