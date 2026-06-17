@@ -15,7 +15,7 @@ description: Convert theory backend and external software maps into method/backe
   Sage bridges, and related exact systems.
 successCriteria:
 - The target method-inventory spec contains backend-routing rows for every method
-  in `.agents/memories/theory/backends/abstract-to-external-mapping.md`.
+  in `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`.
 - Backend rows use the routing labels from `software-capability-map.md` and name the
   mature system before any implementation card exists.
 - Variety, curve, surface, divisor, sheaf, family, Picard/lattice, group-action, isometry,
@@ -38,19 +38,19 @@ method and which mature system should implement it.
 
 ## Source Provenance
 
-- `.agents/memories/theory/backends/software-capability-map.md`
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
-- `.agents/memories/theory/backends/library-integration.md`
-- `.agents/memories/theory/backends/comprehensive-tool-docs.md`
-- `.agents/memories/theory/backends/oscar-lattices.md`
-- `.agents/memories/theory/backends/gap-orbits.md`
-- `.agents/memories/theory/backends/indefinite-jl.md`
-- `.agents/memories/theory/backends/carat.md`
-- `.agents/memories/theory/backends/vinberg-algorithm.md`
-- `.agents/memories/theory/backends/buildings.md`
-- `.agents/memories/theory/backends/indefinite-isometry.md`
-- `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`
-- `.agents/memories/theory/backends/index.md`
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`
+- `projects/github.com__dzackgarza__lattice-research/advice/library-integration`
+- `projects/github.com__dzackgarza__lattice-research/references/comprehensive-tool-docs`
+- `projects/github.com__dzackgarza__lattice-research/references/oscar-lattices`
+- `projects/github.com__dzackgarza__lattice-research/references/gap-orbits`
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl`
+- `projects/github.com__dzackgarza__lattice-research/references/carat`
+- `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backends-buildings`
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-isometry`
+- `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backends-index`
 - Backend notes for Singular, Macaulay2, Sage, GAP, Oscar/Julia, CARAT, and
   Indefinite.jl as linked from those files.
 
@@ -85,7 +85,7 @@ The seed rows include:
 
 ## Acceptance Criteria
 
-- [x] The target method-inventory spec contains backend-routing rows for every method in `.agents/memories/theory/backends/abstract-to-external-mapping.md`.
+- [x] The target method-inventory spec contains backend-routing rows for every method in `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`.
 - [x] Backend rows use the routing labels from `software-capability-map.md` and name the mature system before any implementation card exists.
 - [x] Variety, curve, surface, divisor, sheaf, family, Picard/lattice, group-action, isometry, orbit, and embedding methods are attached to mathematical owners and backend codomains.
 - [x] Missing or uncertain backend support becomes backend-gap research or decision cards instead of bespoke implementation permission.
@@ -105,7 +105,7 @@ The seed rows include:
 - 2026-05-05: Created as the backend/external-software leaf for the literal method ownership inventory phase.
 - 2026-05-06: Wrote backend-routing rows into
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, including all abstract method
-  rows from `.agents/memories/theory/backends/abstract-to-external-mapping.md`, additional group-action
+  rows from `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`, additional group-action
   rows from the backend map, and a decision card for malformed source surfaces.
   Moved this task to needs-agent-review.
 - 2026-05-06: Updated source provenance to the actual backend memory root and added

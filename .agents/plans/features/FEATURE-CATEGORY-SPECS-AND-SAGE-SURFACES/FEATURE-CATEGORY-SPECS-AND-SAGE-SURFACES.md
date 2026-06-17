@@ -33,7 +33,7 @@ morphisms rather than manipulating raw matrices, vectors, and equations directly
 
 ## Current Routing Anchor
 
-The active work is governed by `mem:current-goal-handoff`, not by historical plan
+The active work is governed by `.agents/current-goal-phase.md`, not by historical plan
 names. The live mathematical work is the operation or construction stated in each row:
 for each Sage constructor or method under consideration, state the Sage behavior, the
 mathematical operation under hypotheses, the weakest category/refinement where that

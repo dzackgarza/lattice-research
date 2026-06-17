@@ -176,15 +176,15 @@ Every referenced file, card, and source path was verified on-disk.
 | `category_specs/cat/docs/MAPPING.md` | `/home/dzack/research/category_specs/cat/docs/MAPPING.md` (redirect to `SPEC-MAPPING-CAT.md`) | YES |
 | `category_specs/forms/docs/MAPPING.md` | `/home/dzack/research/category_specs/forms/docs/MAPPING.md` (redirect to `SPEC-MAPPING-FORMS.md`) | YES |
 | `.agents/skills/lattice-redesign/references/category-abc-spec.md` | `/home/dzack/research/.agents/skills/lattice-redesign/references/category-abc-spec.md` | YES |
-| `theory/foundations/bilinear-forms-duals-morphisms.md` | `/home/dzack/research/.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md` | YES (see G1 Finding 1) |
+| `theory/foundations/bilinear-forms-duals-morphisms.md` | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms` | YES (see G1 Finding 1) |
 | `category_specs/modules/docs/MAPPING.md` | `/home/dzack/research/category_specs/modules/docs/MAPPING.md` (redirect to `SPEC-MAPPING-MODULES.md`) | YES |
 | Parent: `FEATURE-MODULES-WITH-FORMS-AND-LATTICES` | `/home/dzack/research/plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/FEATURE-MODULES-WITH-FORMS-AND-LATTICES.md` | YES |
 | Depends-on: `PHASE-HOM-END-AUT-WORK-QUEUE` | `/home/dzack/research/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION/PHASE-HOM-END-AUT-WORK-QUEUE/PHASE-HOM-END-AUT-WORK-QUEUE.md` | YES |
 
 **G1 Finding 1 (advisory):** The spec cites `theory/foundations/bilinear-forms-duals-morphisms.md`
 but that path does not exist.  The actual file lives at
-`.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.  Other cards
-in the repository cite the `.agents/memories/theory/foundations/` path (e.g.,
+`projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`.  Other cards
+in the repository cite the `the iwe2 vault (theory foundation memories; iwe2 search)` path (e.g.,
 `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES.md` line 47).  The spec's
 Definition Grounding section should use the correct path or note the relocation.
 The file's "Base Change and Morphisms" section (lines 178-236) was verified and
@@ -389,4 +389,4 @@ Overall: SPEC-20260504-FORMS-ISOMETRY-HOM-CONTAINMENT-OWNER.md is mathematically
 sound, source-grounded, and correctly routes form-preserving isometry predicates
 through formed-module Hom containment.  The single advisory (G1 Finding 1: incorrect
 path for `bilinear-forms-duals-morphisms.md`) should be corrected in the Definition
-Grounding section to reference `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.
+Grounding section to reference `projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`.

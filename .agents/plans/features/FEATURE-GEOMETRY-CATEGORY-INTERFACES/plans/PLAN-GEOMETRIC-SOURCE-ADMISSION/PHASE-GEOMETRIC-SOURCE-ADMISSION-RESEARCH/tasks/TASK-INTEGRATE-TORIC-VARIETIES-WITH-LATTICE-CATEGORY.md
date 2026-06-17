@@ -108,7 +108,7 @@ Source evidence:
 
 - OSCAR `NormalToricVariety` and `AffineNormalToricVariety` provide fan/cone constructors, famous toric varieties, affine open coverings, Q-Gorenstein checks, character lattices, class groups, Picard-group maps, and torus-invariant divisor groups.
 - OSCAR toric morphisms construct morphisms from mapping matrices or finite-generated abelian group homomorphisms when the lattice map is compatible with the fans.
-- `.agents/memories/theory/backends/software-capability-map.md` lists polymake, Normaliz, Sage wrappers, and Oscar candidates for cones, Hilbert bases, lattice-point enumeration, toric and polyhedral work.
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map` lists polymake, Normaliz, Sage wrappers, and Oscar candidates for cones, Hilbert bases, lattice-point enumeration, toric and polyhedral work.
 - Polymake toric documentation, https://polymake.org/doku.php/user_guide/tutorials/apps_fulton, provides a toric/fan-oriented backend route for polyhedral and toric computations.
 
 Inference:

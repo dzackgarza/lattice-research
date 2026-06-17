@@ -44,7 +44,7 @@ isometries, divisibility, discriminant objects, and algorithm routing.
 - `category_specs/forms/docs/MAPPING.md`
 - `category_specs/lattices/docs/SAGE_INVENTORY.md`
 - `category_specs/lattices/docs/MAPPING.md`
-- `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`
+- `projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`
 - `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
 - `src.bak/spec-backups/lattices_written_spec_backup.py`
 - Lattice memories and cards that state `src.bak/spec-backups/*` files are written
@@ -111,7 +111,7 @@ The seed rows include:
 - 2026-05-07: Repaired stale source-provenance paths after Gate 1 review found this
   card still cited deleted `theory/foundations/...` and `.agents/theory/spec-backups`
   roots. The card now matches the active target spec provenance:
-  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md` and
+  `projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms` and
   `src.bak/spec-backups/*`.
 
 ## Review Log
@@ -133,7 +133,7 @@ re-review still required
 #### Rework
 
 - Updated the card source provenance to
-  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.
+  `projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`.
 - Updated the lattice spec-backup sources to
   `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
   and `src.bak/spec-backups/lattices_written_spec_backup.py`.

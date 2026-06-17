@@ -195,16 +195,16 @@ and gaps; the map only records source-backed mathematical assertions.
 - If a category-spec rule is relevant but not in context, load the matching category-spec skill or memory before acting. Do not guess from memory.
 - Before reviewing recent category-spec commits, suspicious engineering-shaped patches,
   cache/lookup/cast/hook/QC work, or prior agent output, retrieve the ordinary governing
-  memories by topic: `mem:repo-purpose-mathematical-research-machine`,
-  `mem:category-spec-rotten-core-indicators`, `mem:mathematical-sanity-check`,
-  `mem:analysis-must-be-grounded`, `mem:paperwork-is-a-routing-layer-not-progress`,
-  and `mem:corrections-update-the-model-not-the-artifact`.
+  memories by topic: `mem:projects/github.com__dzackgarza__lattice-research/context/repo-purpose-mathematical-research-machine`,
+  `mem:projects/github.com__dzackgarza__lattice-research/traps/category-spec-rotten-core-indicators`, `mem:projects/github.com__dzackgarza__lattice-research/advice/mathematical-sanity-check`,
+  `mem:global/advice/analysis-must-be-grounded`, `mem:global/traps/paperwork-is-a-routing-layer-not-progress`,
+  and `mem:global/advice/corrections-update-the-model-not-the-artifact`.
   If the work touches refinement, provider ordering, constructor refinement,
   abstract methods, ABCMeta, or failed category assertions, also retrieve
-  `mem:category-spec-repo-model-corrections`,
-  `mem:category-spec-refinement-category-declaration`,
-  `mem:category-spec-methods-are-abstract`, and
-  `mem:what-category-specs-actually-is`.
+  `mem:projects/github.com__dzackgarza__lattice-research/context/category-spec-repo-model-corrections`,
+  `mem:projects/github.com__dzackgarza__lattice-research/decisions/category-spec-refinement-category-declaration`,
+  `mem:projects/github.com__dzackgarza__lattice-research/decisions/category-spec-methods-are-abstract`, and
+  `mem:projects/github.com__dzackgarza__lattice-research/context/what-category-specs-actually-is`.
   Use `iwe find` with the relevant topic words if the exact memory key is not known.
 - Before editing a spec, mapping, method, constructor, Hom/End/Aut rule,
   invariant, or predicate, perform the definition-grounding prerequisite from

@@ -2,7 +2,7 @@
 
 This directory is the visible, human-facing mathematical knowledge base for the research repo. It is not a task tracker, agent process log, implementation manual, or onboarding README.
 
-Detailed implementation notes, backend manuals, algorithm plans, and preserved spec backups live in the IWE memory library under `.agents/memories/theory/`. Use `iwe tree` from the repo root to navigate them.
+Detailed implementation notes, backend manuals, algorithm plans, and preserved spec backups live in the IWE memory library under `the iwe2 vault (theory memories; iwe2 search)`. Use `iwe tree` from the repo root to navigate them.
 
 Implementation in this repo is agent-driven. Visible theory docs should support human direction, design, steering, source validation, and spec review rather than step-by-step implementation execution.
 

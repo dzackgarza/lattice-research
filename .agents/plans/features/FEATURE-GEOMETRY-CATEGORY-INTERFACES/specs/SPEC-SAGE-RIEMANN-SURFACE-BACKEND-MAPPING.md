@@ -135,7 +135,7 @@ Every source citation in the spec was verified on disk:
 | Installed Sage source | `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/schemes/riemann_surfaces/riemann_surface.py` | YES (4115 lines) |
 | Installed curve entry point (affine) | `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/schemes/curves/affine_curve.py` | YES (2927 lines) |
 | Installed curve entry point (projective) | `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/schemes/curves/projective_curve.py` | YES (3024 lines) |
-| Local backend memory | `/home/dzack/research/.agents/memories/theory-graph-monodromy-hodge-methods.md` | YES (43 lines) |
+| Local backend memory | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/references/theory-graph-monodromy-hodge-methods` | YES (43 lines) |
 | Parent feature | `/home/dzack/research/plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/FEATURE-GEOMETRY-CATEGORY-INTERFACES.md` | YES |
 | Dependency card | `/home/dzack/research/plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS/PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH/tasks/TASK-RESEARCH-SAGE-RIEMANN-SURFACE-INTERFACE.md` | YES |
 | Follow-up spec | `/home/dzack/research/plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/specs/SPEC-CURVE-JACOBIAN-PERIOD-LATTICE-OWNERSHIP.md` | YES |

@@ -170,7 +170,7 @@ No new card is needed from this scheme pass. Existing sibling cards own the rema
 ## Negative Finding: Visible Backend Map Path
 
 - Searched: `theory/references/index.md`, `theory/index.md`, `find theory -maxdepth 3`, `rg` for `software-capability-map`, and local geometry/category-spec markdown references.
-- Found: no visible `theory/backends/software-capability-map.md` directory/file in this worktree; references to that path exist in cards/specs, and related backend material exists under `.agents/memories/theory/`.
+- Found: no visible `theory/backends/software-capability-map.md` directory/file in this worktree; references to that path exist in cards/specs, and related backend material exists under `the iwe2 vault (theory memories; iwe2 search)`.
 - Conclusion: inference based on the current worktree: visible `theory/backends` is not currently available as source authority, so this card relies on primary upstream docs and local tracked specs rather than that missing path.
 - Confidence: High for the current worktree scan.
 - Gaps: I did not inspect git history or remote branches for a previously existing visible `theory/backends` tree.

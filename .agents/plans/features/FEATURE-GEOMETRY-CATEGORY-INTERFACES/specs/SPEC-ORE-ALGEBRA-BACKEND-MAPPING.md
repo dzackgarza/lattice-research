@@ -134,7 +134,7 @@ Every source citation in the spec was verified on disk or via public URL:
 | Upstream `ore_algebra.py` | `/tmp/tmp.EtH8Hu3zIu/ore_algebra/src/ore_algebra/ore_algebra.py` | YES (69747 bytes) |
 | Upstream `monodromy.py` | `/tmp/tmp.EtH8Hu3zIu/ore_algebra/src/ore_algebra/analytic/monodromy.py` | YES (29632 bytes) |
 | Upstream README | `/tmp/tmp.EtH8Hu3zIu/ore_algebra/README.md` | YES (4228 bytes) |
-| Local memory | `/home/dzack/research/.agents/memories/theory-graph-monodromy-hodge-methods.md` | YES (5201 bytes, 43 lines) |
+| Local memory | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/references/theory-graph-monodromy-hodge-methods` | YES (5201 bytes, 43 lines) |
 | Parent feature | `/home/dzack/research/plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/FEATURE-GEOMETRY-CATEGORY-INTERFACES.md` | YES |
 | Dependency task | `.../tasks/TASK-RESEARCH-ORE-ALGEBRA-INTERFACE.md` | YES |
 | Cross-referenced spec | `.../specs/SPEC-PICARD-FUCHS-MONODROMY-BACKEND-MAPPING.md` | YES (references this spec at line 57) |

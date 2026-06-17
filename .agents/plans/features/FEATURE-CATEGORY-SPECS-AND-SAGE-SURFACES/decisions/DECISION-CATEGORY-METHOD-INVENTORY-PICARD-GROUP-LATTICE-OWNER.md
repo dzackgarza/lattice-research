@@ -43,7 +43,7 @@ surface-specific Picard lattice.
 - `theory/backends/abstract-to-external-mapping.md`: source rows for
   `Variety.picard_group()`, `PicardGroup.intersection_matrix()`, and malformed
   `PicardeLattice.underlying_picard_group()`.
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`: current checked
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`: current checked
   path for the migrated backend rows above.
 - `theory/foundations/reflective-two-elementary-lattices.md`: local definition section
   `Picard lattice`.

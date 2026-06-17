@@ -71,7 +71,7 @@ Exact backend routing:
   the orthongal-group surface.
 - The `DawesOrbitBackend` at `src.bak/backends/dawes_orbit_backend.py` (1034 lines)
   uses the same bridge for orbit and stabilizer computations with indefinite forms.
-- See `.agents/memories/theory/external/dutsik_polyhedral/polyhedral_common/notes/indefinite_methods.md`
+- See `projects/github.com__dzackgarza__lattice-research/references/polyhedral-common-indefinite-methods`
   for the full API table of the polyhedral_common bridge.
 - The Julia-based Indefinite.jl bridge is a secondary option when polyhedral_common
   binaries are unavailable.

@@ -64,7 +64,7 @@ Vinberg edgewalk). Key files:
   indefinite polyhedral_common dispatch.
 - **Orbit backend**: `src.bak/backends/dawes_orbit_backend.py` (1034 lines) — orbit
   and stabilizer computation for indefinite forms using the same bridge.
-- **Memory docs**: `.agents/memories/theory/external/dutsik_polyhedral/polyhedral_common/`
+- **Memory docs**: `the Polyhedral Common Reference memory in the iwe2 vault`
   with API tables and indefinite method reference.
 
 These backends are quarantine code (moved to `src.bak/` during the spec-first phase)

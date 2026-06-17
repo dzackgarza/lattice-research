@@ -49,8 +49,8 @@ reach work.
 
 ## Trigger
 
-Weekly, and after any change to `AGENTS.md`, `.agents/memories/onboarding.md`,
-`.agents/memories/current-goal-handoff.md`, `.agents/current-goal-phase.md`, or skills
+Weekly, and after any change to `AGENTS.md`, `projects/github.com__dzackgarza__lattice-research/context/onboarding`,
+`.agents/current-goal-phase.md`, `.agents/current-goal-phase.md`, or skills
 that appear in startup routing.
 Source object: root `AGENTS.md` (the routing layer whose integrity is at stake).
 
@@ -66,8 +66,8 @@ relevant skill index, latest active cards.
 ## Required keystones
 
 - Root `AGENTS.md`
-- `.agents/memories/onboarding.md`
-- `.agents/memories/current-goal-handoff.md`
+- `projects/github.com__dzackgarza__lattice-research/context/onboarding`
+- `.agents/current-goal-phase.md`
 - `.agents/current-goal-phase.md`
 - Memory index
 

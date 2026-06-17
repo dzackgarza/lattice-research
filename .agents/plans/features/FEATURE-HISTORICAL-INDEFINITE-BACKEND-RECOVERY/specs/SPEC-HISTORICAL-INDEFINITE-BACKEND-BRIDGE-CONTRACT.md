@@ -35,16 +35,16 @@ tags:
   `INDEF_FORM_StabilizerVector`, and `INDEF_FORM_StabilizerIsotropicPlane`.
 - `src.bak/backends/isometry_backend.py`: exact obstruction sequence and general
   indefinite witness branch.
-- `.agents/memories/theory/backends/software-capability-map.md`: Indefinite.jl
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`: Indefinite.jl
   routing for indefinite forms, Oscar/Hecke routing for lattice invariants, and CARAT
   limitation to positive-definite or finite-matrix-group auxiliary work.
-- `.agents/memories/theory-backend-routing.md`: repo method-to-backend routing and
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`: repo method-to-backend routing and
   the warning that direct GAP-in-Sage loading of Indefinite.jl is not a drop-in route.
-- `.agents/memories/theory/backends/indefinite-isometry.md`: verified upstream
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-isometry`: verified upstream
   Indefinite.jl/GAP/C++ routes and local Julia 1.6.7 isolation requirement.
-- `.agents/memories/theory/backends/indefinite-jl.md`: public Indefinite.jl function
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl`: public Indefinite.jl function
   signatures and returned matrix equations.
-- `.agents/memories/backend-environment-notes.md`: local `HOME` isolation needed to
+- `projects/github.com__dzackgarza__lattice-research/context/backend-environment-notes`: local `HOME` isolation needed to
   prevent the pinned Indefinite.jl GAP stack from reading the user `~/.gap` tree.
 
 ## Contract
@@ -206,11 +206,11 @@ finite-window search, random search, or local bespoke matrix enumeration.
 | `src.bak/backends/external/README.md` | NO | N/A | `src.bak/` directory is absent from the repo. This path cannot be verified. |
 | `src.bak/backends/external/py_polyhedral/binaries.py` | NO | N/A | Same — `src.bak/` directory absent. The claimed binaries (`INDEF_FORM_TestEquivalence`, `INDEF_FORM_AutomorphismGroup`, `INDEF_FORM_GetOrbitRepresentative`, `INDEF_FORM_GetOrbit_IsotropicKplane`, `INDEF_FORM_StabilizerVector`, `INDEF_FORM_StabilizerIsotropicPlane`) cannot be verified at this path. |
 | `src.bak/backends/isometry_backend.py` | NO | N/A | Same — `src.bak/` directory absent. Historical obstruction ladder referenced in the spec cannot be verified at this location. |
-| `.agents/memories/theory/backends/software-capability-map.md` | YES | YES | Line 43 confirms Indefinite.jl as preferred system for indefinite lattice isometry/orbit computations. Line 44 confirms CARAT positive-definite limitation. All spec claims about backend routing domain match this source. |
-| `.agents/memories/theory-backend-routing.md` | YES | YES | Lines 14-15 confirm exact Indefinite.jl calls (`INDEF_FORM_AutomorphismGroup`, `INDEF_FORM_TestEquivalence`, `INDEF_FORM_GetOrbitRepresentative`, `INDEF_FORM_GetOrbit_IsotropicKplane`, `INDEF_FORM_GetOrbit_IsotropicKflag`). Line 57 confirms Julia 1.6.7 + isolated HOME requirement. Line 58 confirms direct GAP-in-Sage loading is not a drop-in route. All spec routing claims match. |
-| `.agents/memories/theory/backends/indefinite-isometry.md` | YES | YES | Lines 117-150 confirm the working local route (Julia 1.6.7, isolated HOME, isolated `~/.gap`). Lines 97-114 confirm the GAP collision failure with `~/.gap/pkg/JuliaInterface`. Lines 166-184 confirm C++ backend exists but does not build locally. All spec environment claims verified. |
-| `.agents/memories/theory/backends/indefinite-jl.md` | YES | YES | Lines 28-29 confirm `g^T * eGram * g == eGram` for automorphism. Line 57 confirms `T^T * eGram1 * T == eGram2` for isometry. Lines 175-179 confirm function reference table listing all five backend calls with exact signatures. |
-| `.agents/memories/backend-environment-notes.md` | YES | YES | Lines 3-7 confirm HOME isolation is required to prevent `~/.gap/pkg/JuliaInterface` collision. Matches spec lines 160-162 exactly. |
+| `projects/github.com__dzackgarza__lattice-research/references/software-capability-map` | YES | YES | Line 43 confirms Indefinite.jl as preferred system for indefinite lattice isometry/orbit computations. Line 44 confirms CARAT positive-definite limitation. All spec claims about backend routing domain match this source. |
+| `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` | YES | YES | Lines 14-15 confirm exact Indefinite.jl calls (`INDEF_FORM_AutomorphismGroup`, `INDEF_FORM_TestEquivalence`, `INDEF_FORM_GetOrbitRepresentative`, `INDEF_FORM_GetOrbit_IsotropicKplane`, `INDEF_FORM_GetOrbit_IsotropicKflag`). Line 57 confirms Julia 1.6.7 + isolated HOME requirement. Line 58 confirms direct GAP-in-Sage loading is not a drop-in route. All spec routing claims match. |
+| `projects/github.com__dzackgarza__lattice-research/references/indefinite-isometry` | YES | YES | Lines 117-150 confirm the working local route (Julia 1.6.7, isolated HOME, isolated `~/.gap`). Lines 97-114 confirm the GAP collision failure with `~/.gap/pkg/JuliaInterface`. Lines 166-184 confirm C++ backend exists but does not build locally. All spec environment claims verified. |
+| `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl` | YES | YES | Lines 28-29 confirm `g^T * eGram * g == eGram` for automorphism. Line 57 confirms `T^T * eGram1 * T == eGram2` for isometry. Lines 175-179 confirm function reference table listing all five backend calls with exact signatures. |
+| `projects/github.com__dzackgarza__lattice-research/context/backend-environment-notes` | YES | YES | Lines 3-7 confirm HOME isolation is required to prevent `~/.gap/pkg/JuliaInterface` collision. Matches spec lines 160-162 exactly. |
 
 **Gate 1 Verdict:** PASS with notation. 3 of 8 source references point to nonexistent `src.bak/` paths. These are historical provenance claims — the spec's mathematical contracts do not depend on being able to read the original `src.bak/` code, because the operation contracts are verified against the 5 existing memory files. The three dead paths are archival provenance, not current verification dependencies. The spec body's Operation Contracts, Backend Routing Contract, and Boundary Failures sections are all independently grounded in the verified sources. Notation: the `src.bak/` paths should be marked as historical/unavailable in the source provenance section to avoid misleading future reviewers.
 

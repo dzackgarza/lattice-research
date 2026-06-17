@@ -39,12 +39,12 @@ it does not admit those literal spellings as public project API.
 ## Source Provenance
 
 - Legacy references in cards name `theory/backends/*`; in this worktree those backend
-  memory files are present under `.agents/memories/theory/backends/*`.
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
-- `.agents/memories/theory/backends/software-capability-map.md`
-- `.agents/memories/theory/backends/vinberg-algorithm.md`
-- `.agents/memories/theory/backends/oscar-lattices.md`
-- `.agents/memories/theory/backends/library-integration.md`
+  memory files are present under `the iwe2 vault (theory backend memories; iwe2 search)*`.
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`
+- `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`
+- `projects/github.com__dzackgarza__lattice-research/references/oscar-lattices`
+- `projects/github.com__dzackgarza__lattice-research/advice/library-integration`
 - `category_specs/lattices/docs/MAPPING.md`
 - `category_specs/forms/docs/MAPPING.md`
 

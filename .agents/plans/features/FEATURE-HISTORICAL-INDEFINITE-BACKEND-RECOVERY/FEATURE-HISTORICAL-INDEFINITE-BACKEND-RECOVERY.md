@@ -28,11 +28,11 @@ software, and return data that the public lattice/category layer verifies.
 - `src.bak/backends/oscar_centralizer/`
 - `src.bak/backends/external/README.md`
 - `src.bak/backends/external/py_polyhedral/binaries.py`
-- `.agents/memories/theory-backend-routing.md`
-- `.agents/memories/theory/backends/indefinite-isometry.md`
-- `.agents/memories/theory/backends/indefinite-jl.md`
-- `.agents/memories/theory/backends/software-capability-map.md`
-- `.agents/memories/theory/backends/carat.md`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-isometry`
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl`
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`
+- `projects/github.com__dzackgarza__lattice-research/references/carat`
 
 ## Recovery Boundary
 

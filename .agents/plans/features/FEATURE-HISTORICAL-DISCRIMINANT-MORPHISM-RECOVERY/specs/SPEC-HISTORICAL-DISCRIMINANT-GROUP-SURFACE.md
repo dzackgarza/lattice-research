@@ -35,7 +35,7 @@ tags:
 - `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`:
   discriminant dual distinction, quotient codomain rules, comparison-predicate
   placement, and validation rules for invariant-factor presentations.
-- `.agents/memories/bilinear-form-category-semantics.md`: `A_L = L^#/L` as a
+- `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics`: `A_L = L^#/L` as a
   cokernel with coefficient-module data, not a matrix shortcut.
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`:
   mapping rows for `discriminant_group`, torsion quadratic modules, quotient-valued
@@ -187,7 +187,7 @@ Hom, endomorphism, and automorphism objects:
 |---|---|---|
 | `.agents/skills/lattice-redesign/references/category-abc-spec.md` | EXISTS | Read; confirms quotient-valued torsion bilinear/quadratic module semantics in sections covering discriminant descent and cokernel form data. Consistent with spec contract. |
 | `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` | EXISTS | Read; confirms discriminant dual distinction, quotient codomain rules, comparison-predicate placement, and invariant-factor validation. Consistent. |
-| `.agents/memories/bilinear-form-category-semantics.md` | EXISTS | Read; confirms `A_L = L^#/L` as cokernel with coefficient-module data, not a matrix shortcut (line 15). Explicitly states `DiscriminantGroup/Form` represents torsion quadratic/bilinear module `L^#/L` (line 24). Consistent. |
+| `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics` | EXISTS | Read; confirms `A_L = L^#/L` as cokernel with coefficient-module data, not a matrix shortcut (line 15). Explicitly states `DiscriminantGroup/Form` represents torsion quadratic/bilinear module `L^#/L` (line 24). Consistent. |
 | `SPEC-MAPPING-LATTICES.md` | EXISTS | Read; confirms mapping rows for `discriminant_group`, torsion quadratic modules, quotient-valued form data, `is_p_elementary`, `normal_form`, `brown_invariant`, and discriminant Hom/End/Aut standard names. The Torsion and Discriminant-Form Reconciliation table (lines 165-178) maps Sage `TorsionQuadraticModule` methods to the weakest categories that match this spec's claims. Consistent. |
 
 **FAILED reference (1/5 does not exist):**

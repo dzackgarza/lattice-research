@@ -65,7 +65,7 @@ Checked sources:
 - Local lattice spec surface:
   `category_specs/modules/subcategories/integer_lattices.py`
 - Local backend-routing memory:
-  `.agents/memories/theory-backend-routing.md`
+  `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`
 
 ## Context
 

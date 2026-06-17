@@ -65,7 +65,7 @@ Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.8),
   reimplementation from scratch. The reference implementations (VinbergsAlgorithmNF in
   Julia, AlVin in C++, vinal in Python/Sage) and the polyhedral_common Lorentzian
   edgewalk (`LORENTZ_RunEdgewalkAlgorithm`) are available as sources. See
-  `.agents/memories/theory/backends/vinberg-algorithm.md` for the full survey and
+  `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm` for the full survey and
   wrapping strategy.
 
 ## Context

@@ -149,19 +149,19 @@ execution tasks must resolve against source files.
 - `category_specs/*/docs/SAGE_INVENTORY.md`.
 - `category_specs/*/docs/MAPPING.md`.
 - `category_specs/AGENTS.md` and category-spec skills for grounding requirements.
-- `.agents/memories/theory/backends/software-capability-map.md`.
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`.
-- `.agents/memories/theory/backends/library-integration.md`.
-- `.agents/memories/theory/backends/comprehensive-tool-docs.md`.
-- `.agents/memories/theory/backends/oscar-lattices.md`.
-- `.agents/memories/theory/backends/gap-orbits.md`.
-- `.agents/memories/theory/backends/indefinite-jl.md`.
-- `.agents/memories/theory/backends/carat.md`.
-- `.agents/memories/theory/backends/vinberg-algorithm.md`.
-- `.agents/memories/theory/backends/buildings.md`.
-- `.agents/memories/theory/backends/indefinite-isometry.md`.
-- `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`.
-- `.agents/memories/theory/backends/index.md`.
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`.
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`.
+- `projects/github.com__dzackgarza__lattice-research/advice/library-integration`.
+- `projects/github.com__dzackgarza__lattice-research/references/comprehensive-tool-docs`.
+- `projects/github.com__dzackgarza__lattice-research/references/oscar-lattices`.
+- `projects/github.com__dzackgarza__lattice-research/references/gap-orbits`.
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl`.
+- `projects/github.com__dzackgarza__lattice-research/references/carat`.
+- `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`.
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backends-buildings`.
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-isometry`.
+- `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures`.
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backends-index`.
 - `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
   and `src.bak/spec-backups/lattices_written_spec_backup.py` for lattice-source mining
   only, with the warning already recorded in tracker cards: these are source material,
@@ -239,19 +239,19 @@ Assigned task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
 
 | Source | Scope |
 | --- | --- |
-| `.agents/memories/theory/backends/software-capability-map.md` | Preferred mature systems, routing labels, gap protocol, backend note format, and update triggers. |
-| `.agents/memories/theory/backends/abstract-to-external-mapping.md` | Method-to-tool rows for varieties, curves, surfaces, divisors, sheaves, families, Picard/lattice objects, branched covers, and lattice-theoretic methods. |
-| `.agents/memories/theory/backends/library-integration.md` | Existing-library-first routing for current Coble/lattice tasks. |
-| `.agents/memories/theory/backends/comprehensive-tool-docs.md` | Extracted upstream tool documentation used by old mapping work. |
-| `.agents/memories/theory/backends/oscar-lattices.md` | Oscar/Hecke lattice and quadratic-form capabilities, including Julia/Oscar routing. |
-| `.agents/memories/theory/backends/gap-orbits.md` | GAP group-action, orbit, stabilizer, and finite group workflows. |
-| `.agents/memories/theory/backends/indefinite-jl.md` | Indefinite.jl isometry and orbit backend notes. |
-| `.agents/memories/theory/backends/carat.md` | CARAT capability audit and positive-definite limitations. |
-| `.agents/memories/theory/backends/vinberg-algorithm.md` | Vinberg-specific backend and algorithm guidance. |
-| `.agents/memories/theory/backends/buildings.md` | Buildings.sage capability notes. |
-| `.agents/memories/theory/backends/indefinite-isometry.md` | Indefinite isometry capability notes not covered by the Julia-specific file. |
-| `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md` | Candidate reusable procedures for foliation-related backend surfaces. |
-| `.agents/memories/theory/backends/index.md` | Routing index for the backend memory note corpus; not a method row source by itself. |
+| `projects/github.com__dzackgarza__lattice-research/references/software-capability-map` | Preferred mature systems, routing labels, gap protocol, backend note format, and update triggers. |
+| `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping` | Method-to-tool rows for varieties, curves, surfaces, divisors, sheaves, families, Picard/lattice objects, branched covers, and lattice-theoretic methods. |
+| `projects/github.com__dzackgarza__lattice-research/advice/library-integration` | Existing-library-first routing for current Coble/lattice tasks. |
+| `projects/github.com__dzackgarza__lattice-research/references/comprehensive-tool-docs` | Extracted upstream tool documentation used by old mapping work. |
+| `projects/github.com__dzackgarza__lattice-research/references/oscar-lattices` | Oscar/Hecke lattice and quadratic-form capabilities, including Julia/Oscar routing. |
+| `projects/github.com__dzackgarza__lattice-research/references/gap-orbits` | GAP group-action, orbit, stabilizer, and finite group workflows. |
+| `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl` | Indefinite.jl isometry and orbit backend notes. |
+| `projects/github.com__dzackgarza__lattice-research/references/carat` | CARAT capability audit and positive-definite limitations. |
+| `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm` | Vinberg-specific backend and algorithm guidance. |
+| `projects/github.com__dzackgarza__lattice-research/references/theory-backends-buildings` | Buildings.sage capability notes. |
+| `projects/github.com__dzackgarza__lattice-research/references/indefinite-isometry` | Indefinite isometry capability notes not covered by the Julia-specific file. |
+| `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures` | Candidate reusable procedures for foliation-related backend surfaces. |
+| `projects/github.com__dzackgarza__lattice-research/references/theory-backends-index` | Routing index for the backend memory note corpus; not a method row source by itself. |
 
 ## Assembly Index And Follow-Up Links
 
@@ -276,7 +276,7 @@ backend or candidate geometry row needs an extra routing/status phrase:
 | Ring algebra and module method rows | `TASK-CATEGORY-METHOD-INVENTORY-ALGEBRA-MODULES` | q-adic Sage-gap rows route through existing q-adic constructor specs and implementation cards; formed divisibility is explicitly delegated to the Hom/forms/lattice section. |
 | Hom forms and lattice method rows | `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES` for malformed backend names; lattice algorithm rows point to backend-routing rows rather than local implementation permission. |
 | Poset tensor and geometry-facing method rows | `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY` | `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`, `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`, `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`, `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`, `PLAN-GEOMETRIC-SOURCE-ADMISSION`, `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` |
-| Backend and external software method rows | `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`, `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`; backend-gap rows route through `.agents/memories/theory/backends/software-capability-map.md` and existing backend research cards. |
+| Backend and external software method rows | `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`, `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`; backend-gap rows route through `projects/github.com__dzackgarza__lattice-research/references/software-capability-map` and existing backend research cards. |
 | Gap audit | `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT` | Records the remaining decision/source/back-end gaps below and marks the phase review-ready without relying on global QC. |
 
 ## Gap Audit Routing
@@ -286,9 +286,9 @@ candidate geometry or backend method.
 
 | Gap class | Searched | Found | Conclusion | Confidence | Gaps | Trackable owner |
 | --- | --- | --- | --- | --- | --- | --- |
-| Geometry candidate rows needing owners, hypotheses, or codomains: `blowup(center)`, `resolve_singularities()`, `kodaira_dimension()`, `hilbert_polynomial()`, `hodge_number(p,q)`, `holomorphic_euler_characteristic()`, `canonical_class()`, curve, surface, divisor, sheaf, cover, and family rows. | `.agents/memories/theory/backends/abstract-to-external-mapping.md`; `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**`; `theory/foundations/coble-task-background.md`; `theory/foundations/reflective-two-elementary-lattices.md`. | Backend-method names and local Coble/K3 source motivation are present; admitted category owners for the generic geometry nouns are delegated to source-admission cards. | Inference: these rows are useful inventory entries, but they are not implementation permission until the corresponding geometry source-admission task fixes the owner and codomain. | High | Upstream geometry/Sage/Macaulay2/Singular source mining belongs in the listed source-admission cards. | `TASK-INTEGRATE-SCHEMES-CATEGORY`, `TASK-INTEGRATE-VARIETIES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`, `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`, `TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES`, `TASK-RESEARCH-ORE-ALGEBRA-INTERFACE`. |
-| Picard group versus Picard lattice. | `.agents/memories/theory/backends/abstract-to-external-mapping.md`; `theory/foundations/reflective-two-elementary-lattices.md`; `theory/foundations/coble-task-background.md`; `theory/references/literature/pieroni_2026_coble_surfaces.md`; `theory/references/literature/huybrechts_k3_lectures.md`. | Strong local source material exists for Picard lattices in Coble/K3 surface workflows, while `picard_group()` is a more general Picard group surface in the backend map and literature. | Inference: the two notions must remain separate until a decision records the bridge hypotheses and method owners. | High | Geometry source-admission tasks still need to fix the project nouns for `PicardGroup` and `PicardLattices`. | `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`; malformed spelling remains under `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`. |
-| Backend `bridge-needed` or `candidate-backend` rows. | `.agents/memories/theory/backends/software-capability-map.md`; `.agents/memories/theory/backends/abstract-to-external-mapping.md`; `.agents/memories/theory/backends/oscar-lattices.md`; `.agents/memories/theory/backends/gap-orbits.md`; `.agents/memories/theory/backends/indefinite-jl.md`; `.agents/memories/theory/backends/carat.md`; `.agents/memories/theory/backends/vinberg-algorithm.md`; geometry and lattice backend tracker cards. | Each row has a mature-system route or an explicit candidate/backend-gap label; malformed names are isolated in a decision card. | Inference: these are backend-routing gaps for later implementation and support audits, not blockers for the current method-owner spec phase. | High | Each implementation card must still verify package availability, exact hypotheses, and certificates before code work. | Lattice rows route to `PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER` tasks; q-adic rows route to `SPEC-01KQN9YGC4WXF1DVHNMF79ZXEM-PRESERVE-ADMITTED-ZQWITHPRECISIONCAPS-AND-QQWITHPRECISIONCAPS-NAMES-AS-D` and `TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION`; geometry rows route to `PLAN-GEOMETRIC-SOURCE-ADMISSION` and `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS`. |
+| Geometry candidate rows needing owners, hypotheses, or codomains: `blowup(center)`, `resolve_singularities()`, `kodaira_dimension()`, `hilbert_polynomial()`, `hodge_number(p,q)`, `holomorphic_euler_characteristic()`, `canonical_class()`, curve, surface, divisor, sheaf, cover, and family rows. | `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`; `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**`; `theory/foundations/coble-task-background.md`; `theory/foundations/reflective-two-elementary-lattices.md`. | Backend-method names and local Coble/K3 source motivation are present; admitted category owners for the generic geometry nouns are delegated to source-admission cards. | Inference: these rows are useful inventory entries, but they are not implementation permission until the corresponding geometry source-admission task fixes the owner and codomain. | High | Upstream geometry/Sage/Macaulay2/Singular source mining belongs in the listed source-admission cards. | `TASK-INTEGRATE-SCHEMES-CATEGORY`, `TASK-INTEGRATE-VARIETIES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`, `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`, `TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES`, `TASK-RESEARCH-ORE-ALGEBRA-INTERFACE`. |
+| Picard group versus Picard lattice. | `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`; `theory/foundations/reflective-two-elementary-lattices.md`; `theory/foundations/coble-task-background.md`; `theory/references/literature/pieroni_2026_coble_surfaces.md`; `theory/references/literature/huybrechts_k3_lectures.md`. | Strong local source material exists for Picard lattices in Coble/K3 surface workflows, while `picard_group()` is a more general Picard group surface in the backend map and literature. | Inference: the two notions must remain separate until a decision records the bridge hypotheses and method owners. | High | Geometry source-admission tasks still need to fix the project nouns for `PicardGroup` and `PicardLattices`. | `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`; malformed spelling remains under `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`. |
+| Backend `bridge-needed` or `candidate-backend` rows. | `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`; `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`; `projects/github.com__dzackgarza__lattice-research/references/oscar-lattices`; `projects/github.com__dzackgarza__lattice-research/references/gap-orbits`; `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl`; `projects/github.com__dzackgarza__lattice-research/references/carat`; `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`; geometry and lattice backend tracker cards. | Each row has a mature-system route or an explicit candidate/backend-gap label; malformed names are isolated in a decision card. | Inference: these are backend-routing gaps for later implementation and support audits, not blockers for the current method-owner spec phase. | High | Each implementation card must still verify package availability, exact hypotheses, and certificates before code work. | Lattice rows route to `PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER` tasks; q-adic rows route to `SPEC-01KQN9YGC4WXF1DVHNMF79ZXEM-PRESERVE-ADMITTED-ZQWITHPRECISIONCAPS-AND-QQWITHPRECISIONCAPS-NAMES-AS-D` and `TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION`; geometry rows route to `PLAN-GEOMETRIC-SOURCE-ADMISSION` and `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS`. |
 
 Unblocked current-phase paths: implementation and category-obligation example-spec cards may use the
 admitted method-owner rows for sets/topology, rings/algebras/modules, Hom/End/Aut,
@@ -539,7 +539,7 @@ torsion-form, and lattice surfaces. They are source-grounded in
 `category_specs/lattices/docs/SAGE_INVENTORY.md`,
 `category_specs/lattices/docs/MAPPING.md`,
 `category_specs/modules/docs/MAPPING.md`, and
-`.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.
+`projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`.
 
 ### Generic Hom End And Aut Categories
 
@@ -651,7 +651,7 @@ tensor-component, and geometry-facing surfaces. They are source-grounded in
 `category_specs/sets/docs/SAGE_INVENTORY.md`,
 `category_specs/sets/docs/MAPPING.md`,
 `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**`, and
-`.agents/memories/theory/backends/abstract-to-external-mapping.md`.
+`projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`.
 
 ### Posets And Finite Posets
 
@@ -748,8 +748,8 @@ source-grounded in its own cards.
 
 Source task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
 
-These rows translate `.agents/memories/theory/backends/abstract-to-external-mapping.md` through the
-routing statuses in `.agents/memories/theory/backends/software-capability-map.md`. A backend row never
+These rows translate `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping` through the
+routing statuses in `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`. A backend row never
 approves bespoke local mathematics. It says which semantic project object should own the
 method and which mature external system should be audited or wired.
 
@@ -812,7 +812,7 @@ method and which mature external system should be audited or wired.
 | `Lattice.automorphism_group()` | formed-module/lattice `AutCategory` surface; codomain is the automorphism group in the relevant category. | CARAT `Aut_grp` for positive definite forms; Indefinite.jl `automorphism_group` for indefinite forms; `candidate-backend`. | Sources: abstract map, `carat.md`, `indefinite-jl.md`. Do not force CARAT onto indefinite input. |
 | `Lattice.isometry_test()` | isometry predicate between formed modules/lattices; codomain is `bool` plus optional isometry witness. | Indefinite.jl `test_equivalence`; `bridge-needed`. | Sources: abstract map and `indefinite-jl.md`. |
 | `Lattice.orbit_representatives()` | orthogonal-group or subgroup action surface; codomain is representatives with stabilizer/certificate data when needed. | Indefinite.jl `get_orbit_representative`; `candidate-backend`. | Sources: abstract map, `indefinite-jl.md`, orbit backend notes. |
-| `Lattice.vinberg_sh姚()` | rejected malformed source spelling; no direct replacement literal is admitted from this row. | Source-map coverage only; future Vinberg surfaces must be named by mathematical output such as simple roots, Coxeter matrix, Gram matrix, and control-vector/chamber data. | Sources: abstract map, `.agents/memories/theory/backends/vinberg-algorithm.md`, Oscar Vinberg notes, and `[[DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES]]`. Public API belongs in Phase 05 lattice/Coxeter cards; bespoke implementation is not approved. |
+| `Lattice.vinberg_sh姚()` | rejected malformed source spelling; no direct replacement literal is admitted from this row. | Source-map coverage only; future Vinberg surfaces must be named by mathematical output such as simple roots, Coxeter matrix, Gram matrix, and control-vector/chamber data. | Sources: abstract map, `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`, Oscar Vinberg notes, and `[[DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES]]`. Public API belongs in Phase 05 lattice/Coxeter cards; bespoke implementation is not approved. |
 | `GroupAction.orbit(x)` / orbit enumeration rows | group-action surface attached to finite group actions, graph automorphism actions, or orthogonal subgroup actions. | GAP `Orbit`, `OrbitsDomain`, GRAPE/Digraphs where relevant; `bridge-needed`. | Sources: `software-capability-map.md` and `gap-orbits.md`. Prefer GAP over custom orbit enumeration. |
 | `GroupAction.stabilizer(x)` | group-action surface; codomain is subgroup or stabilizer object. | GAP `Stabilizer`; `bridge-needed`. | Sources: `software-capability-map.md` and `gap-orbits.md`. |
 | centralizer/finite-image subgroup operations | automorphism-group or subgroup-action surface; codomain is subgroup or finite quotient data. | GAP, Oscar, or backend-specific finite quotient route; `candidate-backend`. | Sources: `gap-orbits.md`, `library-integration.md`, orbit/building backend notes. |
@@ -836,7 +836,7 @@ method and which mature external system should be audited or wired.
 - Do not merge distinct meanings under one method name unless a source-grounded proof
   or decision card states the equivalence hypotheses.
 - Backend algorithm rows route through mature software first; use the backend-routing
-  labels from `.agents/memories/theory/backends/software-capability-map.md`.
+  labels from `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`.
 
 ## Work Log
 
@@ -862,7 +862,7 @@ method and which mature external system should be audited or wired.
 - 2026-05-06: Independent Gate 1 review found three stale or imprecise source
   references. Replaced the old `.agents/theory/spec-backups/` paths with the current
   `src.bak/spec-backups/` paths, replaced the missing bilinear-foundations path with
-  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`, and
+  `projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`, and
   expanded the lattice style-guide reference to
   `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
 - 2026-05-06: Second independent Gate 1 review found three remaining imprecise
@@ -888,7 +888,7 @@ Findings:
   actual mineable source files are under `src.bak/spec-backups/`.
 - The bilinear-forms foundation path pointed at missing
   `theory/foundations/bilinear-forms-duals-morphisms.md`; the actual source is
-  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.
+  `projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`.
 - The `inner_product_matrix()` row cited "lattice interface style guide" without an
   exact path; the current source is
   `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.

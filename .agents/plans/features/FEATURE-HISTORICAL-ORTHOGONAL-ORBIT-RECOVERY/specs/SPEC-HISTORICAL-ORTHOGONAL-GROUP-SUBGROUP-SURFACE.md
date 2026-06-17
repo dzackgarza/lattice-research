@@ -40,7 +40,7 @@ tags:
   action, and structured subgroup constraints.
 - `src.bak/backends/isotropic_gamma_orbit_backend.py`: finite quotient presentation
   consumption for subgroup-aware orbit splitting.
-- `.agents/memories/bilinear-form-category-semantics.md`: public action convention
+- `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics`: public action convention
   and subgroup naming.
 - `plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md`:
   backend matrix normalization and witness verification.
@@ -198,7 +198,7 @@ All four `src.bak/` historical source files do NOT exist in the current workspac
 | `src.bak/lattices/core/integral.py` | (same) | NO |
 | `src.bak/backends/dawes_orbit_backend.py` | (same) | NO |
 | `src.bak/backends/isotropic_gamma_orbit_backend.py` | (same) | NO |
-| `.agents/memories/bilinear-form-category-semantics.md` | `/home/dzack/research/.agents/memories/bilinear-form-category-semantics.md` | YES |
+| `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics` | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics` | YES |
 | `.../SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md` | `/home/dzack/research/plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md` | YES |
 | `.../SPEC-HISTORICAL-CENTRALIZER-AND-FINITE-QUOTIENT-BACKENDS.md` | `/home/dzack/research/plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-CENTRALIZER-AND-FINITE-QUOTIENT-BACKENDS.md` | YES |
 | `.../SPEC-20260504-FORMS-ISOMETRY-HOM-CONTAINMENT-OWNER.md` | `/home/dzack/research/plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/specs/SPEC-20260504-FORMS-ISOMETRY-HOM-CONTAINMENT-OWNER.md` | YES |
@@ -214,7 +214,7 @@ and where to find them, or (c) replace historical file citations with concrete
 behavior descriptions extracted from the parent feature card and dependency specs.
 
 **G1 Finding 2 (advisory):** The spec uses path
-`.agents/memories/bilinear-form-category-semantics.md` (line 43).  This file exists
+`projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics` (line 43).  This file exists
 and its content (notably lines 9-15 on discriminant descent and line 26 on Hom-space
 containment) confirms the spec's definition grounding.  PASS.
 

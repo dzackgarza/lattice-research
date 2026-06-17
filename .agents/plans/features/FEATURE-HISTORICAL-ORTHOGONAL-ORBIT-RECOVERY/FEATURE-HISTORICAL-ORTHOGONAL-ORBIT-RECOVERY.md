@@ -28,8 +28,8 @@ an Aut/subgroup/action API over lattice and discriminant nouns, not a public
 - `src.bak/backends/dawes_orbit_backend.py`
 - `src.bak/backends/isotropic_gamma_orbit_backend.py`
 - `src.bak/backends/external/py_polyhedral/binaries.py`
-- `.agents/memories/bilinear-form-category-semantics.md`
-- `.agents/memories/theory-backend-routing.md`
+- `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`
 - `plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md`
 - `plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-CENTRALIZER-AND-FINITE-QUOTIENT-BACKENDS.md`
 

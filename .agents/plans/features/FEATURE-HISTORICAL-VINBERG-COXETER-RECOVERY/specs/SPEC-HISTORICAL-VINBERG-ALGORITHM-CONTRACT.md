@@ -44,11 +44,11 @@ tags:
   and `src.bak/backends/external/vinbergs_algorithm/references/vinal/src/sage/vinal.py`:
   Sage route through original lattice coordinates and positive-definite equations in
   the control-vector orthogonal complement.
-- `.agents/memories/theory/backends/vinberg-algorithm.md`: integrality checks,
+- `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`: integrality checks,
   diagonal-coordinate versus original-coordinate enumeration, reference examples, and
   positive-definite subproblem notes.
-- `.agents/memories/theory-backend-routing.md` and
-  `.agents/memories/theory/backends/library-integration.md`: repo backend route says
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` and
+  `projects/github.com__dzackgarza__lattice-research/advice/library-integration`: repo backend route says
   `Lattice.vinberg_*()` uses Oscar `vinberg_algorithm` or a verified Vinberg backend,
   not ad hoc enumeration.
 - `theory/foundations/reflective-two-elementary-lattices.md`: definitions of root,
@@ -212,9 +212,9 @@ All 14 references were verified on disk.
 
 | Reference | Status |
 |---|---|
-| `.agents/memories/theory/backends/vinberg-algorithm.md` | EXISTS |
-| `.agents/memories/theory-backend-routing.md` | EXISTS |
-| `.agents/memories/theory/backends/library-integration.md` | EXISTS |
+| `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm` | EXISTS |
+| `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` | EXISTS |
+| `projects/github.com__dzackgarza__lattice-research/advice/library-integration` | EXISTS |
 | `theory/foundations/reflective-two-elementary-lattices.md` | EXISTS |
 | `.agents/skills/vinberg-algorithm/SKILL.md` | EXISTS |
 

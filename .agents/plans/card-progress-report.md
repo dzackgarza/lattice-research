@@ -91,7 +91,7 @@
 
 ## Most Recently Completed
 
-- 2026-06-05 `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (commit `12094dd`: docs: route lattice mapping to agent review)
+- 2026-06-06 `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (commit `6c2e6c0`: docs: complete SPEC-MAPPING-LATTICES after agent review)
 - 2026-06-05 `spec` `SPEC-MAPPING-MODULES`: Track modules mapping spec (commit `40e2f2f`: feat: expose rank-one module isomorphism witnesses)
 - 2026-06-05 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `6fdd567`: docs: rename category smokes as obligations)
 - 2026-06-05 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `6fdd567`: docs: rename category smokes as obligations)

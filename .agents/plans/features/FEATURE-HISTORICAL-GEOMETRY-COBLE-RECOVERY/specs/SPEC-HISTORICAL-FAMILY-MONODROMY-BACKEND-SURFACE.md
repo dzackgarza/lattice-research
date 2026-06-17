@@ -35,12 +35,12 @@ tags:
 - `src.bak/backends/foliation_backend.py`: `HodgeTheoreticMonodromy`,
   Picard-Fuchs operator construction, indicial polynomial, Jordan blocks, and monodromy
   matrices.
-- `.agents/memories/theory-graph-monodromy-hodge-methods.md`: stored monodromy,
+- `projects/github.com__dzackgarza__lattice-research/references/theory-graph-monodromy-hodge-methods`: stored monodromy,
   Riemann-surface, Picard-Fuchs, and foliation/Hodge backend guidance.
-- `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`: reusable
+- `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures`: reusable
   `foliation.lib` procedure families, especially Gauss-Manin and Picard-Fuchs
   procedures.
-- `.agents/memories/theory-backend-routing.md`: family, Picard-Fuchs, and monodromy
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`: family, Picard-Fuchs, and monodromy
   backend owner routes.
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS.md`
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS/PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH/tasks/TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES.md`
@@ -172,9 +172,9 @@ Eight sources are cited in Source Provenance (lines 31-47). Their status:
 |---|---|---|
 | varieties.py (FamilyOfVarieties, hypersurface_family_equation, hodge_theoretic_monodromy, picard_fuchs_operator, indicial_polynomial, monodromy_matrix) | `src.bak/varieties/varieties.py` | NOT FOUND in workspace — neither `src.bak/` directory nor any `varieties.py` exists on disk |
 | foliation_backend.py (HodgeTheoreticMonodromy, Picard-Fuchs, indicial polynomial, Jordan blocks) | `src.bak/backends/foliation_backend.py` | NOT FOUND in workspace — no `src.bak/` or `foliation_backend.py` anywhere on disk |
-| theory-graph-monodromy-hodge-methods.md | `.agents/memories/theory-graph-monodromy-hodge-methods.md` | EXISTS (43 lines) — covers Sage RiemannSurface chaining, ore_algebra monodromy, Picard-Fuchs routing, and foliation.lib procedure names |
-| foliation-lib-reusable-procedures.md | `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md` | EXISTS (110 lines) — documents Gauss-Manin, Picard-Fuchs, Hodge number, and Hodge locus procedures from foliation.lib, with explicit warning against extracting trivial helpers |
-| theory-backend-routing.md | `.agents/memories/theory-backend-routing.md` | EXISTS (65 lines) — maps abstract methods to backends (Singular, Macaulay2, Oscar/Hecke, etc.) |
+| theory-graph-monodromy-hodge-methods.md | `projects/github.com__dzackgarza__lattice-research/references/theory-graph-monodromy-hodge-methods` | EXISTS (43 lines) — covers Sage RiemannSurface chaining, ore_algebra monodromy, Picard-Fuchs routing, and foliation.lib procedure names |
+| foliation-lib-reusable-procedures.md | `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures` | EXISTS (110 lines) — documents Gauss-Manin, Picard-Fuchs, Hodge number, and Hodge locus procedures from foliation.lib, with explicit warning against extracting trivial helpers |
+| theory-backend-routing.md | `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` | EXISTS (65 lines) — maps abstract methods to backends (Singular, Macaulay2, Oscar/Hecke, etc.) |
 | PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS.md | `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS.md` | EXISTS |
 | TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES.md | `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS/PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH/tasks/TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES.md` | EXISTS |
 | TASK-RESEARCH-ORE-ALGEBRA-INTERFACE.md | `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS/PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH/tasks/TASK-RESEARCH-ORE-ALGEBRA-INTERFACE.md` | EXISTS |

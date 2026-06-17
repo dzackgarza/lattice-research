@@ -44,7 +44,7 @@ owners and codomains.
 - `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`
 - `category_specs/tensor_algebra_components/docs/MAPPING.md`
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**`
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`
 
 ## Context
 
@@ -106,7 +106,7 @@ The seed rows include:
 
 **Gate 1 — Definition Grounding:**
 - Source provenance cites `category_specs/posets/docs/SAGE_INVENTORY.md`, `category_specs/posets/docs/MAPPING.md`, `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`, and `category_specs/tensor_algebra_components/docs/MAPPING.md` as the canonical sources for poset and tensor method rows.
-- Geometry-facing rows cite `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**` and `.agents/memories/theory/backends/abstract-to-external-mapping.md`.
+- Geometry-facing rows cite `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**` and `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`.
 - No definitions are introduced without source paths.
 
 **Gate 2 — Acceptance Criteria:**

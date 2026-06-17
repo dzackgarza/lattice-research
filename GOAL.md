@@ -227,7 +227,7 @@ with `/goal`. A compact starting template:
 Destination: ./.agents/plans/card-progress-report.md shows all cards complete,
 needs-human-input, or phase-gated.
 
-Starting point: Read .agents/memories/current-goal-handoff.md for
+Starting point: Read .agents/current-goal-phase.md for
 checkpoint, AGENTS.md for routing rules, then follow the DAG.
 
 Done when: No executable cards remain — every card is complete, decided,

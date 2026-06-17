@@ -40,10 +40,10 @@ tags:
   orbit representatives, equivalence witnesses, and finite quotient filtering.
 - `src.bak/backends/external/py_polyhedral/binaries.py`: exact vector, isotropic
   subspace, flag equivalence/stabilizer/orbit backend wrappers.
-- `.agents/memories/theory-backend-routing.md` and
-  `.agents/memories/theory/backends/indefinite-jl.md`: Indefinite.jl orbit and
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` and
+  `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl`: Indefinite.jl orbit and
   stabilizer routing.
-- `.agents/memories/theory/backends/gap-orbits.md`: finite action, stabilizer, and
+- `projects/github.com__dzackgarza__lattice-research/references/gap-orbits`: finite action, stabilizer, and
   double-coset routing.
 - `plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md`:
   exact backend domains and witness verification.
@@ -209,9 +209,9 @@ The spec cites ten references in Source Provenance (lines 33-53).  Audit result:
 | `src.bak/backends/dawes_orbit_backend.py` | (same) | NO |
 | `src.bak/backends/isotropic_gamma_orbit_backend.py` | (same) | NO |
 | `src.bak/backends/external/py_polyhedral/binaries.py` | (same) | NO |
-| `.agents/memories/theory-backend-routing.md` | `/home/dzack/research/.agents/memories/theory-backend-routing.md` | YES |
-| `.agents/memories/theory/backends/indefinite-jl.md` | `/home/dzack/research/.agents/memories/theory/backends/indefinite-jl.md` | YES |
-| `.agents/memories/theory/backends/gap-orbits.md` | `/home/dzack/research/.agents/memories/theory/backends/gap-orbits.md` | YES |
+| `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` | YES |
+| `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl` | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/references/indefinite-jl` | YES |
+| `projects/github.com__dzackgarza__lattice-research/references/gap-orbits` | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/references/gap-orbits` | YES |
 | `.../SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md` | `/home/dzack/research/plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md` | YES |
 | `.../SPEC-HISTORICAL-CENTRALIZER-AND-FINITE-QUOTIENT-BACKENDS.md` | `/home/dzack/research/plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-CENTRALIZER-AND-FINITE-QUOTIENT-BACKENDS.md` | YES |
 | `.../SPEC-HISTORICAL-ORTHOGONAL-GROUP-SUBGROUP-SURFACE.md` | `/home/dzack/research/plans/features/FEATURE-HISTORICAL-ORTHOGONAL-ORBIT-RECOVERY/specs/SPEC-HISTORICAL-ORTHOGONAL-GROUP-SUBGROUP-SURFACE.md` | YES |
@@ -229,9 +229,9 @@ wrapper layer currently exists.
 algorithm-backend memory files that document the Dawes and isotropic gamma
 methods:
 
-- `.agents/memories/theory/algorithms/dawes-nonisotropic-vector-orbits.md` (783
+- `projects/github.com__dzackgarza__lattice-research/context/dawes-nonisotropic-vector-orbits` (783
   lines, Dawes Algorithms 2.1-2.3 with full mathematical notation)
-- `.agents/memories/theory/algorithms/isotropic-gamma-orbit-backend.md` (573
+- `projects/github.com__dzackgarza__lattice-research/advice/isotropic-gamma-orbit-backend` (573
   lines, Dutour-Sikiric/Hulek double-coset splitting method)
 
 Both exist and are highly relevant to the spec's backend contracts.  The spec

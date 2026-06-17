@@ -56,13 +56,13 @@ Retire when the memory index and onboarding path are stable across three checks.
 
 ## Scope
 
-Inspect `.agents/memories/index.md`, onboarding, all active memories touched in the last
+Inspect `iwe2 inspect tree --scope project`, onboarding, all active memories touched in the last
 N days, current handoff, relevant skills.
 
 ## Required keystones
 
 - `memory-management-discipline` memory
-- Memory index (`.agents/memories/index.md`)
+- Memory index (`iwe2 inspect tree --scope project`)
 - Onboarding memory
 - Current handoff
 

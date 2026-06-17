@@ -32,10 +32,10 @@ tags:
 - `src.bak/varieties/varieties.py`: `Variety`, `Subvariety`, `VarietyMorphism`,
   `Curve`, `Surface`, `Divisor`, `LineBundle`, `PicardGroup`, `Blowup`, and
   `BranchedCover` abstract surfaces.
-- `.agents/memories/theory-backend-routing.md` and
-  `.agents/memories/theory/backends/software-capability-map.md`: Macaulay2, Singular,
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` and
+  `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`: Macaulay2, Singular,
   Sage, Oscar/Hecke, and commutative-algebra backend ownership for geometry methods.
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`: historical method
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`: historical method
   to backend route table for varieties, curves, surfaces, divisors, Picard groups,
   covers, sheaves, and families.
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/FEATURE-GEOMETRY-CATEGORY-INTERFACES.md`
@@ -143,9 +143,9 @@ Picard pullback before comparing a resulting lattice to a standard presentation.
 | Claimed Source | Exists? | Verifiable Content? | Notes |
 |---|---|---|---|
 | `src.bak/varieties/varieties.py` | YES (879 lines) | YES | Contains `Variety`, `Subvariety`, `VarietyMorphism`, `Curve`, `Surface`, `Divisor`, `PicardGroup`, `Blowup`, `BranchedCover`. `LineBundle` is NOT present in this file — the spec claims it is. Minor inaccuracy. |
-| `.agents/memories/theory-backend-routing.md` | YES (65 lines) | YES | Maps abstract methods to backend tools (Macaulay2, Singular, Sage, Oscar/Hecke, etc.). Consistent with spec claims. |
-| `.agents/memories/theory/backends/software-capability-map.md` | YES | YES | Backend capability documentation exists. |
-| `.agents/memories/theory/backends/abstract-to-external-mapping.md` | YES (106 lines) | YES | Maps `Variety.blowup()` to Macaulay2 Schubert2, `Divisor.riemann_roch_space_dimension()` to Singular/Macaulay2, etc. All align with spec Owner Surface and Backend Routes. |
+| `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` | YES (65 lines) | YES | Maps abstract methods to backend tools (Macaulay2, Singular, Sage, Oscar/Hecke, etc.). Consistent with spec claims. |
+| `projects/github.com__dzackgarza__lattice-research/references/software-capability-map` | YES | YES | Backend capability documentation exists. |
+| `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping` | YES (106 lines) | YES | Maps `Variety.blowup()` to Macaulay2 Schubert2, `Divisor.riemann_roch_space_dimension()` to Singular/Macaulay2, etc. All align with spec Owner Surface and Backend Routes. |
 | `FEATURE-GEOMETRY-CATEGORY-INTERFACES.md` | YES | YES | Parent feature exists. |
 | `TASK-INTEGRATE-SCHEMES-CATEGORY.md` | YES (237 lines) | YES | Status: `needs-human-input`. |
 | `TASK-INTEGRATE-VARIETIES-CATEGORY.md` | YES (192 lines) | YES | Status: `needs-human-input`. Depends on schemes task. |

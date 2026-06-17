@@ -36,8 +36,8 @@ tags:
 - `theory/foundations/coble-task-background.md`: current source-backed Coble
   construction argument and tracker routing.
 - `plans/features/FEATURE-HISTORICAL-GEOMETRY-COBLE-RECOVERY/specs/SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE.md`
-- `.agents/memories/theory-backend-routing.md` and
-  `.agents/memories/theory/backends/abstract-to-external-mapping.md`: backend routes
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` and
+  `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`: backend routes
   for rational sextic singularities, blowups, covers, Picard groups, and lattice
   outputs.
 
@@ -188,8 +188,8 @@ All six sources cited in Source Provenance (lines 33-42) exist and are verifiabl
 | GOAL.md staged obligations | `GOAL.md` | EXISTS — 212 lines, contains staged Coble construction plan |
 | coble-task-background.md | `theory/foundations/coble-task-background.md` | EXISTS — 278 lines, contains arithmetic genus, blowup Picard, pullback lattice, Nikulin invariants matching spec claims |
 | SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE | `plans/features/FEATURE-HISTORICAL-GEOMETRY-COBLE-RECOVERY/specs/SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE.md` | EXISTS — dependency resolved |
-| theory-backend-routing.md | `.agents/memories/theory-backend-routing.md` | EXISTS — backend routes for Singular, Macaulay2, Sage, Oscar/Hecke confirmed at lines 9-18 |
-| abstract-to-external-mapping.md | `.agents/memories/theory/backends/abstract-to-external-mapping.md` | EXISTS — method-to-tool mapping confirmed for blowup, resolve, picard, canonical, nodal checks |
+| theory-backend-routing.md | `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing` | EXISTS — backend routes for Singular, Macaulay2, Sage, Oscar/Hecke confirmed at lines 9-18 |
+| abstract-to-external-mapping.md | `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping` | EXISTS — method-to-tool mapping confirmed for blowup, resolve, picard, canonical, nodal checks |
 
 No broken source references. The backend routes named in the Backend Routes section (Singular, Macaulay2, Sage, Oscar/Hecke) each have documented method ownership in the memory files.
 

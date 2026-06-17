@@ -39,7 +39,7 @@ tags:
 - `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`:
   morphism-owned verbs, Hom-space construction, and rejection of morphism `perp` or
   containment shortcuts.
-- `.agents/memories/bilinear-form-category-semantics.md`: coefficient-module
+- `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics`: coefficient-module
   cokernel semantics and the discriminant descent diagram using `L -> L^#`.
 
 ## Contract
@@ -199,7 +199,7 @@ All six cited sources exist in the workspace and contain the described content:
 | Hom spaces | `src.bak/lattices/morphisms/homspaces.py` (108 lines) | Confirmed | `BilinearModuleHomSpace` with `element_from_images()`, `element_from_matrix()`, `element_from_dict()`, `__contains__()` enforcing `A^T Q_N A = Q_M`. Subclasses `RationalLatticeHomSpace`, `LatticeHomSpace`. |
 | Category ABC spec | `.agents/skills/lattice-redesign/references/category-abc-spec.md` (938 lines) | Confirmed | Authoritative `ModulesWithForms(R)` contract, Hom/cokernel/descent rules, Sage category framework integration. |
 | Lattice style guide | `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` (1399 lines) | Confirmed | Morphism-owned verbs, Hom-space construction rules, rejection of morphism `perp`/containment shortcuts (matching spec's Non-Preservation Boundaries). |
-| Bilinear semantics | `.agents/memories/bilinear-form-category-semantics.md` (52 lines) | Confirmed | Coefficient-module cokernel semantics (lines 14-15), discriminant descent diagram `L -> L^# -> A_L` (line 15), explicit `R=ZZ, S_1=S_2=ZZ` construction (line 15), correct cokernel = `L^#/L = A_L`. |
+| Bilinear semantics | `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics` (52 lines) | Confirmed | Coefficient-module cokernel semantics (lines 14-15), discriminant descent diagram `L -> L^# -> A_L` (line 15), explicit `R=ZZ, S_1=S_2=ZZ` construction (line 15), correct cokernel = `L^#/L = A_L`. |
 
 No phantom or missing sources. Every claim in the Source Provenance section is verifiable.
 

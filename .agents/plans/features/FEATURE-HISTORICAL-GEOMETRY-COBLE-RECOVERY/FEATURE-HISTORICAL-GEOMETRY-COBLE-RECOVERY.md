@@ -27,9 +27,9 @@ Picard groups, covers, and lattices.
 - `src.bak/varieties/varieties.py`
 - `src.bak/coble_geometry_varieties.py`
 - `src.bak/backends/foliation_backend.py`
-- `.agents/memories/theory-backend-routing.md`
-- `.agents/memories/theory/backends/software-capability-map.md`
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-GEOMETRIC-SOURCE-ADMISSION/PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH/tasks/TASK-INTEGRATE-SCHEMES-CATEGORY.md`
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-GEOMETRIC-SOURCE-ADMISSION/PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH/tasks/TASK-INTEGRATE-VARIETIES-CATEGORY.md`
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-GEOMETRIC-SOURCE-ADMISSION/PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH/tasks/TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY.md`

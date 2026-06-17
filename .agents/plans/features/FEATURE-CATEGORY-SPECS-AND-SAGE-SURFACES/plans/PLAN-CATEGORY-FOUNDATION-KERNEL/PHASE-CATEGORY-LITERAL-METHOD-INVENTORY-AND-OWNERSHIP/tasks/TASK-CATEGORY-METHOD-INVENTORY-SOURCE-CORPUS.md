@@ -16,7 +16,7 @@ successCriteria:
   per-source scope.
 - Every `category_specs/*/docs/SAGE_INVENTORY.md` and `category_specs/*/docs/MAPPING.md`
   file is assigned to a topical inventory task.
-- Backend and external software notes under `.agents/memories/theory/backends/` are assigned to the
+- Backend and external software notes under `the iwe2 vault (theory backend memories; iwe2 search)` are assigned to the
   backend mapping task, including Julia/Oscar, GAP, Singular, Macaulay2, CARAT, and
   Indefinite.jl material where present.
 - '`src.bak/spec-backups/*` is marked as mineable source material with the explicit
@@ -59,19 +59,19 @@ rather than rediscovering sources ad hoc.
 - `category_specs/tensor_algebra_components/docs/MAPPING.md`
 - `category_specs/posets/docs/SAGE_INVENTORY.md`
 - `category_specs/posets/docs/MAPPING.md`
-- `.agents/memories/theory/backends/software-capability-map.md`
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
-- `.agents/memories/theory/backends/library-integration.md`
-- `.agents/memories/theory/backends/comprehensive-tool-docs.md`
-- `.agents/memories/theory/backends/oscar-lattices.md`
-- `.agents/memories/theory/backends/gap-orbits.md`
-- `.agents/memories/theory/backends/indefinite-jl.md`
-- `.agents/memories/theory/backends/carat.md`
-- `.agents/memories/theory/backends/vinberg-algorithm.md`
-- `.agents/memories/theory/backends/buildings.md`
-- `.agents/memories/theory/backends/indefinite-isometry.md`
-- `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`
-- `.agents/memories/theory/backends/index.md`
+- `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`
+- `projects/github.com__dzackgarza__lattice-research/advice/library-integration`
+- `projects/github.com__dzackgarza__lattice-research/references/comprehensive-tool-docs`
+- `projects/github.com__dzackgarza__lattice-research/references/oscar-lattices`
+- `projects/github.com__dzackgarza__lattice-research/references/gap-orbits`
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-jl`
+- `projects/github.com__dzackgarza__lattice-research/references/carat`
+- `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backends-buildings`
+- `projects/github.com__dzackgarza__lattice-research/references/indefinite-isometry`
+- `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backends-index`
 - `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
 - `src.bak/spec-backups/lattices_written_spec_backup.py`
 
@@ -94,7 +94,7 @@ path is not acceptable.
 
 - [x] The target method-inventory spec records the complete source corpus with paths and per-source scope.
 - [x] Every `category_specs/*/docs/SAGE_INVENTORY.md` and `category_specs/*/docs/MAPPING.md` file is assigned to a topical inventory task.
-- [x] Backend and external software notes under `.agents/memories/theory/backends/` are assigned to the backend mapping task, including Julia/Oscar, GAP, Singular, Macaulay2, CARAT, and Indefinite.jl material where present.
+- [x] Backend and external software notes under `the iwe2 vault (theory backend memories; iwe2 search)` are assigned to the backend mapping task, including Julia/Oscar, GAP, Singular, Macaulay2, CARAT, and Indefinite.jl material where present.
 - [x] `src.bak/spec-backups/*` is marked as mineable source material with the explicit warning that it is not current API authority.
 
 ## Dependencies And Boundaries
@@ -115,7 +115,7 @@ path is not acceptable.
   needs-agent-review.
 - 2026-05-06: Gate 1 review found stale source roots from the old `theory/backends/`
   and `theory/spec_backups/` paths. Updated this card and the target spec to point to
-  the visible `.agents/memories/theory/backends/` and `src.bak/spec-backups/`
+  the visible `the iwe2 vault (theory backend memories; iwe2 search)` and `src.bak/spec-backups/`
   roots, including the backend routing index and the buildings, indefinite-isometry,
   and foliation notes found by broad source search.
 - 2026-05-06: Repaired the spec-backup source root after the method-inventory spec
@@ -138,7 +138,7 @@ Findings:
   confirmed they are assigned exactly once in
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`.
 - Verified all 15 backend/spec-backup paths cited in the assignment exist under
-  `.agents/memories/theory/backends/` and the current `src.bak/spec-backups/`
+  `the iwe2 vault (theory backend memories; iwe2 search)` and the current `src.bak/spec-backups/`
   source root after the path repair above.
 - Verified the rework is provenance-only and does not weaken acceptance criteria or
   move method ownership claims.

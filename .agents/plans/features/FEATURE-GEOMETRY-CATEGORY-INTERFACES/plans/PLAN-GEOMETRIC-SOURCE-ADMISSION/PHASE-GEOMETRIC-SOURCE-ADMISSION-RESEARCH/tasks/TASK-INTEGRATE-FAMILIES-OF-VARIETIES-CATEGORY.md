@@ -102,7 +102,7 @@ Sage provides useful scheme and morphism plumbing, but it does not by itself sup
 
 Source evidence:
 
-- `.agents/memories/theory/backends/abstract-to-external-mapping.md` lists `FamilyOfVarieties.specialization()` and `FamilyOfVarieties.monodromy()` as abstract surfaces with Sage candidate backends.
+- `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping` lists `FamilyOfVarieties.specialization()` and `FamilyOfVarieties.monodromy()` as abstract surfaces with Sage candidate backends.
 - `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` records family `specialization()` and `monodromy()` as candidate rows needing codomain decisions.
 - `SPEC-HISTORICAL-FAMILY-MONODROMY-BACKEND-SURFACE.md` requires a family object with explicit base, total space, and fiber operation; one-parameter hypersurface helpers are valid only under explicit hypersurface and base-curve hypotheses.
 - `TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES` records downstream Picard-Fuchs and monodromy backend research for curve and surface families.

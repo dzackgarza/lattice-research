@@ -50,7 +50,7 @@ prior chat.
 
 Daily during active multi-session work; after any handoff edit; after any commit that
 changes active phase or current goal.
-Source object: `.agents/memories/current-goal-handoff.md` itself and the handoff update
+Source object: `.agents/current-goal-phase.md` itself and the handoff update
 policy in root `AGENTS.md`.
 
 ## Removal condition
@@ -63,7 +63,7 @@ Inspect current handoff, current phase, active cards, latest commits.
 
 ## Required keystones
 
-- `.agents/memories/current-goal-handoff.md`
+- `.agents/current-goal-phase.md`
 - `.agents/current-goal-phase.md`
 - Active cards
 

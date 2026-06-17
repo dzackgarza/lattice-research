@@ -28,9 +28,9 @@ exist once the lattice and orthogonal-group layers can express them.
 - `src.bak/backends/external/vinbergs_algorithm/references/vinal/README.md`
 - `src.bak/backends/external/vinbergs_algorithm/references/AlVin/README.md`
 - `src.bak/backends/external/vinbergs_algorithm/references/sterk-peters_symmetric-quadratic-forms.md`
-- `.agents/memories/theory/backends/vinberg-algorithm.md`
-- `.agents/memories/theory-backend-routing.md`
-- `.agents/memories/theory/backends/library-integration.md`
+- `projects/github.com__dzackgarza__lattice-research/advice/theory-backends-vinberg-algorithm`
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`
+- `projects/github.com__dzackgarza__lattice-research/advice/library-integration`
 - `theory/foundations/reflective-two-elementary-lattices.md`
 - `.agents/skills/vinberg-algorithm/SKILL.md`
 

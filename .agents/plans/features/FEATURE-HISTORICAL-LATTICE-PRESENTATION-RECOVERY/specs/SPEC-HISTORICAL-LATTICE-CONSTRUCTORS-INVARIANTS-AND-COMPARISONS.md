@@ -38,7 +38,7 @@ tags:
   backend routing for isometry/genus/local conditions, constructor naming, negative
   root-lattice convention, twist versus scalar multiplication, signature terminology,
   and Nikulin invariant ownership.
-- `.agents/memories/bilinear-form-category-semantics.md`: named constructor placement,
+- `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics`: named constructor placement,
   negative root convention, hyperbolic plane convention, and stable orthogonal group
   notation.
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md`:
@@ -212,7 +212,7 @@ presentations.
 | `src.bak/lattices/core/integral.py` | NO | Path does not exist; `src.bak/` directory absent from repo. The claimed constructors (`Z`, `U`, `A`, `D`, `E`, `I`, `II`) and methods (`scale`, `is_even`, `genus`, etc.) cannot be verified at this location. Closest existing files are `category_specs/lattices/subcategories/integral.py` and `category_specs/forms/subcategories/integral.py`, but these are category-spec compatibility imports, not the historical constructor code. |
 | `src.bak/lattices/core/rational.py` | NO | Same `src.bak/` directory absent. Rational Gram construction, integral promotion, signature, and negative root Gram construction cannot be verified at this location. |
 | `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` | YES | Verified. Contains backend routing for isometry/genus/local conditions, constructor naming, negative root-lattice convention, twist vs scalar multiplication, signature terminology, and Nikulin invariant ownership (lines 45-46, 463-468). |
-| `.agents/memories/bilinear-form-category-semantics.md` | YES | Verified. Contains named constructor placement (lines 23-24), negative root convention (line 45), hyperbolic plane convention (line 46), and stable orthogonal group notation (lines 47-48). |
+| `projects/github.com__dzackgarza__lattice-research/context/bilinear-form-category-semantics` | YES | Verified. Contains named constructor placement (lines 23-24), negative root convention (line 45), hyperbolic plane convention (line 46), and stable orthogonal group notation (lines 47-48). |
 | `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md` | YES | Verified. Contains source-backed owner rows for constructors, direct sums, twist, signature, genus, isometry predicates, and deferred definite/indefinite algorithms (confirmed via content inspection, lines 28-100+). |
 
 **Gate 1 Verdict**: PARTIAL FAIL — 2 of 5 source references point to nonexistent `src.bak/` paths. The other 3 are verified. The spec's mathematical claims are not falsified by this gap (they are corroborated by the existing sources), but the provenance is not reproducible.

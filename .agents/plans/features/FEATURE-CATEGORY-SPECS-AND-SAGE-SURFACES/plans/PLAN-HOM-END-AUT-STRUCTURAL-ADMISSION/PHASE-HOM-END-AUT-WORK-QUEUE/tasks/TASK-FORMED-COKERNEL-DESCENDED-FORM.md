@@ -67,9 +67,9 @@ quadratic form data.
 - `[[SPEC-HISTORICAL-DISCRIMINANT-DESCENT-MORPHISM-SURFACE]]`, which specifies
   `f.cokernel()` as `codomain(f) / image(f)` and requires descended form data when the
   descent hypotheses hold.
-- `mem:theory/foundations/bilinear-forms-duals-morphisms`, which records the
+- `mem:projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms`, which records the
   coefficient-cokernel stage and the additional quotient by cross-term images.
-- `mem:category-spec-epistemic-foundation`.
+- `mem:projects/github.com__dzackgarza__lattice-research/advice/category-spec-epistemic-foundation`.
 
 ## Context
 

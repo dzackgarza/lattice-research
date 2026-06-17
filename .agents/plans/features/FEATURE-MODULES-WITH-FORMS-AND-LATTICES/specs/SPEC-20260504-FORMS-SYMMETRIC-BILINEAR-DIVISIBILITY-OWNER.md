@@ -194,7 +194,7 @@ Every reference in the card was checked against the on-disk working tree at
 | Parent feature card | `FEATURE-MODULES-WITH-FORMS-AND-LATTICES` | `/home/dzack/research/plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/FEATURE-MODULES-WITH-FORMS-AND-LATTICES.md` | YES |
 | Depends-on phase card | `PHASE-HOM-END-AUT-WORK-QUEUE` | `/home/dzack/research/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION/PHASE-HOM-END-AUT-WORK-QUEUE/PHASE-HOM-END-AUT-WORK-QUEUE.md` | YES |
 | Deleted source (git) | `git show f3c2a1b^:plans/todo.md` | Commit `f3c2a1b` exists; file recoverable with stated command | YES (recoverable) |
-| `bilinear-forms-duals-morphisms.md` | `theory/foundations/bilinear-forms-duals-morphisms.md` | `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md` | YES (relocated) |
+| `bilinear-forms-duals-morphisms.md` | `theory/foundations/bilinear-forms-duals-morphisms.md` | `projects/github.com__dzackgarza__lattice-research/context/bilinear-forms-duals-morphisms` | YES (relocated) |
 | Legacy lattice backup | `theory/spec_backups/lattices_written_spec_backup.py` | `src.bak/spec-backups/lattices_written_spec_backup.py` | YES (relocated) |
 | Category ABC spec | `.agents/skills/lattice-redesign/references/category-abc-spec.md` | same | YES |
 | `modules/subcategories/free.py` | `category_specs/modules/subcategories/free.py` | same | YES |
@@ -212,7 +212,7 @@ The card cites `theory/foundations/bilinear-forms-duals-morphisms.md` and
 `theory/spec_backups/lattices_written_spec_backup.py`, neither of which exists
 at those paths in the current working tree. Both files were relocated during
 the `f3c2a1b` restructuring commit: the bilinear-forms-duals file is now at
-`.agents/memories/theory/foundations/` and the lattice backup is at
+`the iwe2 vault (theory foundation memories; iwe2 search)` and the lattice backup is at
 `src.bak/spec-backups/`. The mathematical content is preserved (verified:
 adjoint map `v |-> beta(v, -)` instruction at lines 14-16 of the relocated
 file, old pairing-based `divisibility()` at line 212 of the relocated backup).

@@ -91,7 +91,7 @@ real spec surface with method rows.
 **Gate 1 — Definition Grounding:**
 - All definitions trace to SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY, which records source paths for every method row.
 - The task does not introduce new definitions; it assembles grounded rows from 4 dependency tasks (sets/topology, algebra/modules, Hom/forms/lattices, posets/tensors, backend mapping).
-- Source-provenance section cites the canonical corpus: SAGE_INVENTORY.md, MAPPING.md, backend notes under `.agents/memories/theory/backends/`, and spec-backup source material.
+- Source-provenance section cites the canonical corpus: SAGE_INVENTORY.md, MAPPING.md, backend notes under `the iwe2 vault (theory backend memories; iwe2 search)`, and spec-backup source material.
 
 **Gate 2 — Acceptance Criteria:**
 - [x] Repository contains the final method ownership spec file → SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md exists at the spec path with 917 lines of method rows, source maps, and gap routing.

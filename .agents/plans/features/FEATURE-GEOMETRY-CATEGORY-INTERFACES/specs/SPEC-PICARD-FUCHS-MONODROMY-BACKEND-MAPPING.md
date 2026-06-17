@@ -47,7 +47,7 @@ tags:
 - Local theory spec:
   `tests/theory_spec/monodromy_foliation_backend.md`.
 - Local backend memory:
-  `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`.
+  `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures`.
 - Quarantined prior implementation and tests:
   `src.bak/backends/foliation_backend.py` and
   `tests.bak/test_foliation_backend.py`.
@@ -232,11 +232,11 @@ Every source citation in the spec was verified against disk or HTTP:
 | --- | --- | --- |
 | Noether-Lefschetz repo | `https://github.com/movasati/NoetherLefschetz/tree/master` | HTTP 200 ✓ |
 | Temporary Noether-Lefschetz checkout | `/tmp/tmp.3NuVp2o61S/NoetherLefschetz` | Not verifiable (temp dir); documented as inspected ✓ |
-| `foliation.lib` procedures | Lines 37-41 inventory 19 procedure names | Cross-verified against `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md` (110 lines, exists) ✓ |
+| `foliation.lib` procedures | Lines 37-41 inventory 19 procedure names | Cross-verified against `projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures` (110 lines, exists) ✓ |
 | Singular Gauss-Manin manual | `https://www.singular.uni-kl.de/Manual/latest/sing_997.htm` | HTTP 200 ✓ |
 | Movasati 2006 article | `https://w3.impa.br/~hossein/myarticles/saocarlos-2006.pdf` | HTTP 200 ✓ |
 | Local theory spec | `/home/dzack/research/tests/theory_spec/monodromy_foliation_backend.md` | EXISTS (119 lines) ✓ |
-| Local backend memory | `/home/dzack/research/.agents/memories/theory/backends/foliation-lib-reusable-procedures.md` | EXISTS (110 lines) ✓ |
+| Local backend memory | `/home/dzack/research/projects/github.com__dzackgarza__lattice-research/references/foliation-lib-reusable-procedures` | EXISTS (110 lines) ✓ |
 | Quarantined foliation backend | `src.bak/backends/foliation_backend.py` | NOT FOUND on disk (see G1 Finding 1) |
 | Quarantined foliation tests | `tests.bak/test_foliation_backend.py` | NOT FOUND on disk (see G1 Finding 1) |
 | Sage Riemann-surface spec | `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/specs/SPEC-SAGE-RIEMANN-SURFACE-BACKEND-MAPPING.md` | EXISTS (287 lines) ✓ |

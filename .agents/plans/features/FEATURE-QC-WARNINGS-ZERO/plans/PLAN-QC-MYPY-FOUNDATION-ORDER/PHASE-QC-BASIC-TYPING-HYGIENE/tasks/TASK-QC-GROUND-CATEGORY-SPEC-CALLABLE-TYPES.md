@@ -247,7 +247,7 @@ marking this card complete.
 
 ### Reclassification 2026-05-20
 
-Per handoff policy (`.agents/memories/current-goal-handoff.md` "Human Gates"
+Per handoff policy (`.agents/current-goal-phase.md` "Human Gates"
 section, 2026-05-20): cards whose only remaining question is "approve this
 reviewed work as complete" are agent-reclassifiable workflow debt. Agent review
 passed with no required fixes; source changes are on `main` (commit `53dc00c9`

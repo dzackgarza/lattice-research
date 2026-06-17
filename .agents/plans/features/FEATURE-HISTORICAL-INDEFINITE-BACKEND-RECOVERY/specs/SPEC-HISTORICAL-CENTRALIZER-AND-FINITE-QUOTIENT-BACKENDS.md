@@ -39,15 +39,15 @@ tags:
   and subgroup constraints.
 - `src.bak/backends/isotropic_gamma_orbit_backend.py`: finite quotient specification,
   target image group, subgroup image, and image-from-matrix maps.
-- `.agents/memories/theory-backend-routing.md`: Oscar, GAP, CARAT, and Indefinite
+- `projects/github.com__dzackgarza__lattice-research/references/theory-backend-routing`: Oscar, GAP, CARAT, and Indefinite
   backend ownership.
-- `.agents/memories/theory/backends/oscar-lattices.md`: Oscar/Hecke calls
+- `projects/github.com__dzackgarza__lattice-research/references/oscar-lattices`: Oscar/Hecke calls
   `integer_lattice_with_isometry`, `invariant_lattice`, `coinvariant_lattice`,
   `image_centralizer_in_Oq`, and discriminant representation surfaces.
-- `.agents/memories/theory/backends/gap-orbits.md`: GAP `Orbit`, `Orbits`,
+- `projects/github.com__dzackgarza__lattice-research/references/gap-orbits`: GAP `Orbit`, `Orbits`,
   `OrbitsDomain`, `Stabilizer`, `OrbitStabilizer`, `DoubleCosets`, and finite action
   selectors.
-- `.agents/memories/theory/backends/carat.md`: CARAT positive-definite and finite
+- `projects/github.com__dzackgarza__lattice-research/references/carat`: CARAT positive-definite and finite
   matrix-group limitations.
 
 ## Contract
@@ -263,7 +263,7 @@ are echoed in the boundary failures section. No contradictions found.
 Cross-feature consistency: the backend ownership mapping (Oscar→lattice-with-isometry,
 GAP→finite group actions, CARAT→positive-definite/finite only) aligns with the
 stated routing in the parent feature's scope. The prohibition against using CARAT
-for indefinite-form centralizer work is consistent with `.agents/memories/theory/backends/carat.md`.
+for indefinite-form centralizer work is consistent with `projects/github.com__dzackgarza__lattice-research/references/carat`.
 
 **Gate: PASS**
 

@@ -49,9 +49,9 @@ construction first introduces each expected method.
 - Target spec card: `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`.
 - Current inventory roots: `category_specs/*/docs/SAGE_INVENTORY.md` and
   `category_specs/*/docs/MAPPING.md`.
-- External method mapping roots: `.agents/memories/theory/backends/software-capability-map.md`,
-  `.agents/memories/theory/backends/abstract-to-external-mapping.md`, and backend-specific notes under
-  `.agents/memories/theory/backends/`.
+- External method mapping roots: `projects/github.com__dzackgarza__lattice-research/references/software-capability-map`,
+  `projects/github.com__dzackgarza__lattice-research/references/abstract-to-external-mapping`, and backend-specific notes under
+  `the iwe2 vault (theory backend memories; iwe2 search)`.
 - Lattice-source warning: `src.bak/spec-backups/*` files may be mined for mathematical
   content, but their interface can change and they are not current implementation
   authority.
@@ -108,7 +108,7 @@ or letting Sage implementation inheritance masquerade as mathematical ownership.
 - Parent plan `PLAN-CATEGORY-FOUNDATION-KERNEL` (exists at expected path)
 - Target spec `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY` (exists at `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/`, 917 lines, 145KB)
 - Category spec inventory/mapping roots under `category_specs/*/docs/`
-- Backend memory roots under `.agents/memories/theory/backends/`
+- Backend memory roots under `the iwe2 vault (theory backend memories; iwe2 search)`
 - Lattice spec-backup roots under `src.bak/spec-backups/`
 
 All source paths cited in the phase were verified as existing. The target spec itself went through 3 rounds of Gate 1 repair (stale `.agents/theory/spec-backups/` → `src.bak/spec-backups/`, missing foundation paths, imprecise file references), all now resolved. Every child task has a Source Provenance section grounded in the same corpus.
