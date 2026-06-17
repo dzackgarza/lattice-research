@@ -280,8 +280,8 @@ def _format_category_obligation_failure_message(failures: list[str]) -> str:
         - category-spec-obligation-test-triage
         - category-spec-workflow
 
-        Also check repo memory:
-        - .agents/memories/category-specs-sage-interop-is-a-design-constraint.md
+        Also check the iwe2 vault memory:
+        - projects/github.com__dzackgarza__lattice-research/decisions/category-specs-sage-interop-is-a-design-constraint
 
         Do not remove or move a category obligation merely because a tested Sage
         object fails it. Either implement the missing obligation, refine the object
