@@ -18,9 +18,11 @@ attachment of sources are owned by the `~/pdf-extraction` repo and its skills:
 
 How this repo *uses* references: cite an expected value as a Zotero item key + the item's
 `text/markdown` extraction attachment + the specific verified line, per the vault memory
-`What A Test Cites`. If a needed source is absent from Zotero or lacks an extraction
-attachment, do NOT extract it ad hoc here — route it through the `~/pdf-extraction`
-maintainer workflow, then cite the resulting Zotero attachment.
+`What A Test Cites`. If a source's Zotero **item is missing**, STOP: a **human** must add
+the item — agents must never create Zotero items or author citation metadata, because
+hallucinated bibliographic data is catastrophic for a provability system. If the item
+**exists but lacks an extraction**, do NOT extract ad hoc here — route it through the
+`~/pdf-extraction` maintainer workflow, then cite the resulting Zotero attachment.
 
 **Retired local basis:** `references.bib` and `literature/*.md` remain below only as a
 human-readable claim map. Citations must resolve against the Zotero instance, not these
