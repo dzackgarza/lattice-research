@@ -1,25 +1,31 @@
 # Theory References Index
 
-This file is the canonical reference map for standard claims used throughout the repo. Use it before adding new derivations, background prose, expected values, or claim justifications.
+This file is a human-facing claim map: which standard claims the repo relies on and which
+source authorities back them. Use it before adding new derivations, expected values, or
+claim justifications.
 
-Companion files:
+## Reference management is owned by `~/pdf-extraction` — defer to it
 
-- `references.bib`: central BibTeX file for repo citations.
-- `claim-map.md`: claim-family map connecting repo claims to source authority.
-- `literature/`: local extracted literature and acquired source text.
+This repo does not manage references locally. Acquisition, import, OCR extraction, and
+attachment of sources are owned by the `~/pdf-extraction` repo and its skills:
 
+- **Find a source or its extraction (reads):** `zotero-workstation-consumer` — search the
+  workstation Zotero instance over SSH (`qmode=titleCreatorYear`, not fulltext).
+- **Extract + attach a missing source (writes):** `zotero-pdf-extraction-maintainer` —
+  Mistral OCR first, then MinerU API, then machine-local MinerU; attach the markdown
+  extraction and the `*_ERRORS.md` sidecar to the Zotero item.
+- **Coverage audits (which items have/lack extractions):** `zotero-pdf-extraction-attachments`.
 
-This file is the canonical reference map for standard claims used throughout the repo. Use it before adding new derivations, background prose, expected values, or claim justifications.
+How this repo *uses* references: cite an expected value as a Zotero item key + the item's
+`text/markdown` extraction attachment + the specific verified line, per the vault memory
+`What A Test Cites`. If a needed source is absent from Zotero or lacks an extraction
+attachment, do NOT extract it ad hoc here — route it through the `~/pdf-extraction`
+maintainer workflow, then cite the resulting Zotero attachment.
 
-Companion files:
-
-- `references.bib`: central BibTeX file for repo citations.
-- `claim-map.md`: claim-family map connecting repo claims to source authority.
-- `literature/`: local extracted literature and acquired source text.
-
-
-This file is the canonical reference map for standard claims used throughout the repo.
-Use it before adding new derivations or background prose.
+**Retired local basis:** `references.bib` and `literature/*.md` remain below only as a
+human-readable claim map. Citations must resolve against the Zotero instance, not these
+local files; the per-source `Local: literature/*.md` pointers are superseded by each
+item's Zotero extraction attachment.
 
 ## Core claim families
 
