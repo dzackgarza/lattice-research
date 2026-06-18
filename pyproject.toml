@@ -2,10 +2,20 @@
 name = "research"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = []
+# The category-specs DSL now lives in its own repo, consumed as a dependency (research
+# imports `category_specs`). The Sage-backed implementation lattice-impl
+# (https://github.com/dzackgarza/lattice-impl) is the architectural backend but is NOT
+# declared here yet: research does not import it, and an unused declared dep is a deptry
+# DEP002 smell — it is re-added atomically with the first `from lattices`/`sage_patches`
+# import in research source. Dev setup = editable install into Sage's Python:
+#   sage -pip install -e ../category-specs   (and ../lattice-impl once wired)
+dependencies = ["category-specs"]
+
+[tool.uv.sources]
+category-specs = { git = "https://github.com/dzackgarza/category-specs.git" }
 
 [tool.pytest.ini_options]
-testpaths = ["tests/category_specs"]
+testpaths = ["tests"]
 addopts = "--durations=20 --durations-min=1.0"
 cache_dir = ".cache/pytest"
 markers = [
@@ -13,7 +23,6 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["category_specs"]
 omit = ["src.bak/*"]
 
 [tool.deptry]

@@ -143,68 +143,6 @@ test-ci: _clean
     cd {{justfile_directory()}}
     just test
 
-test-spec-core-vertical-slice: _clean
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd {{justfile_directory()}}
-    cleanup() {
-        just --justfile {{justfile()}} _clean
-    }
-    trap cleanup EXIT
-    sage -python -m pytest \
-        tests/category_specs/test_spec_core_reports.py \
-        tests/category_specs/test_free_module_witnesses.py \
-        tests/category_specs/test_spec_core_categories.py \
-        tests/category_specs/test_spec_core_generated_laws.py \
-        tests/category_specs/test_spec_core_inspection.py \
-        tests/category_specs/test_spec_core_constructor_specs.py \
-        tests/category_specs/test_constructor_provenance.py
-
-test-category-specs-obligations: _clean
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd {{justfile_directory()}}
-    cleanup() {
-        just --justfile {{justfile()}} _clean
-    }
-    trap cleanup EXIT
-    sage -python -m pytest tests/category_specs/test_spec_obligations.py
-
-category-specs-mypy-structural-report:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd {{justfile_directory()}}
-    plugin_root="${SAGE_MYPY_PLUGIN_ROOT:-/home/dzack/sage-mypy-plugin}"
-    export PYTHONPATH="${plugin_root}:{{justfile_directory()}}${PYTHONPATH:+:${PYTHONPATH}}"
-    sage -python "${plugin_root}/devtools/consumer_structural_canary.py" \
-        --consumer-root "{{justfile_directory()}}" \
-        --work-dir "{{justfile_directory()}}/.cache/sage-mypy-plugin/consumer-structural" \
-        --artifact-dir "{{justfile_directory()}}/reports/workstreams/category-specs-mypy-structural"
-
-category-specs-mypy-structural-report-full:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd {{justfile_directory()}}
-    plugin_root="${SAGE_MYPY_PLUGIN_ROOT:-/home/dzack/sage-mypy-plugin}"
-    export PYTHONPATH="${plugin_root}:{{justfile_directory()}}${PYTHONPATH:+:${PYTHONPATH}}"
-    sage -python "${plugin_root}/devtools/consumer_structural_canary.py" \
-        --consumer-root "{{justfile_directory()}}" \
-        --work-dir "{{justfile_directory()}}/.cache/sage-mypy-plugin/consumer-structural-full" \
-        --artifact-dir "{{justfile_directory()}}/reports/workstreams/category-specs-mypy-structural-full" \
-        --all-consumer-modules
-
-category-specs-mypy-ledger:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd {{justfile_directory()}}
-    uv run --no-project python .agents/scripts/category_specs_mypy_error_ledger.py
-
-category-specs-sage-stub-backlog:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd {{justfile_directory()}}
-    uv run --no-project python .agents/scripts/category_specs_sage_stub_backlog.py
-
 plan-validate:
     #!/usr/bin/env bash
     set -euo pipefail

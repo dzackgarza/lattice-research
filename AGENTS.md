@@ -291,11 +291,13 @@ Every time.
   software over bespoke algorithms.
   Load `research-software-wiring` before writing or delegating mathematical
   implementation code.
-- In `category_specs`, resolve circular imports by separating type names from runtime
-  wiring. Mathematical type names and aliases belong in `category_specs/types.py` as the
-  single source of truth; annotation-only imports use `TYPE_CHECKING` and import those
-  names from `types.py`. Runtime category, subcategory, Hom/End/Aut, and constructor
-  wiring must avoid importing from a package `__init__` while that package is
+- This construction discipline now lives in the `category-specs` repo (the abstract-DSL
+  dependency), where the DSL source is maintained; it is retained here only as a pointer.
+  In the `category-specs` DSL, resolve circular imports by separating type names from
+  runtime wiring. Mathematical type names and aliases belong in the DSL's `types.py` as
+  the single source of truth; annotation-only imports use `TYPE_CHECKING` and import
+  those names from `types.py`. Runtime category, subcategory, Hom/End/Aut, and
+  constructor wiring must avoid importing from a package `__init__` while that package is
   initializing; use local imports or Sage `LazyImport` for real runtime dependencies
   instead of moving the cycle to `types.py`.
 - Use `GOAL.md` to situate work in the repo's staged mathematical plan.
@@ -490,7 +492,7 @@ Example rejection:
 Invalid:
 Complete full Sage-sourced inventory of every provider, method, constructor,
 factory, Hom object, End object, Aut group, and interop/display/backend method touching
-category_specs/lattices.
+the `category-specs` repo's `lattices` subtree.
 
 Reason:
 The unit is a Sage name, the scope word "touching" has no finite generator,
@@ -501,7 +503,7 @@ Example acceptance:
 
 ```text
 Valid:
-Build the source-backed mathematical operation map for category_specs/lattices:
+Build the source-backed mathematical operation map for the `category-specs` repo's `lattices` subtree:
 generate the finite Sage method/constructor queue from named source roots,
 read each method cluster, state the mathematical operation and weakest required
 structure, state the category/refinement membership and witness data, classify
@@ -582,7 +584,8 @@ cross-project research workflows (proof-auditing, project-workflow, scheduling,
 source-acquisition, co-mathematician-workflow, code-style, planning-cleanup,
 creating-fixtures, opencode-one-shot-workers) live under `global/advice/`.
 
-Start with `category_specs/AGENTS.md` for that subtree.
+For category-spec (abstract DSL) work, start with the `AGENTS.md` in the `category-specs`
+repo (the editable-installed abstract-DSL dependency, cloned at `../category-specs`).
 
 ## Session startup
 
@@ -715,7 +718,13 @@ or bypass recipes.
 
 ## Repo structure shortcut
 
-Reusable trusted code goes in `src/`. Verified mathematical tests go in `tests/`.
+The abstract DSL (category specs + structural suite) and the Sage-backed implementation
+are no longer in-repo trees: they live in the external `category-specs` and
+`lattice-impl` repos respectively, consumed as editable installs (e.g.
+`sage -pip install -e ../category-specs`, `sage -pip install -e ../lattice-impl`).
+Reusable trusted implementation code is owned by `lattice-impl`; the DSL spec obligations
+are owned by `category-specs`. This repo holds the research program, planning, theory,
+and paper. Verified mathematical tests live with the code they exercise in those repos.
 Executable plans and cards go in `.agents/plans/`; produced artifacts go in their
 natural durable roots.
 Exploratory drafts go in gitignored `scratch/`. Mathematical notes and source-backed
@@ -752,9 +761,9 @@ Raw matrices, isolated polynomial calculations, and hand-checked equations are n
 acceptable substitutes for mathematically typed code that can be reviewed as a chain of
 argument.
 
-For lattice/module redesign work, load `research-math-boundary` before touching
-`src/lattices/`, `tests/lattice_spec/`, `tests/sage_spec/`, or lattice/module plan
-files.
+For lattice/module redesign work, load `research-math-boundary` before touching the
+lattice/module implementation or its tests in the `lattice-impl` repo (the
+editable-installed Sage-backed dependency), or lattice/module plan files.
 
 ## Deletion and cleanup shortcut
 

@@ -18,8 +18,8 @@ written ahead of it.
    isotropic vectors in $T_{Co}$") names a capability it requires.
 2. **Spec obligation.** That capability becomes an `@abstractmethod` on the *weakest*
    mathematical category that owns it. The spec declares the contract (operation,
-   hypotheses, owner, return object); it never implements, never imports `src/`, never
-   carries a `NotImplementedError` body.
+   hypotheses, owner, return object); it never implements, never imports the
+   implementation (`lattice-impl`), never carries a `NotImplementedError` body.
 3. **Literature test.** A test asserts a *specific mathematical value* that a cited
    extraction guarantees. The ONLY acceptable citation is a registered Zotero key in
    `theory/references/references.bib` + its extraction file under
@@ -59,8 +59,9 @@ context; audit findings summarized here):
   `coble_literature_fixtures.json` is consumed by no test at all. So nothing forces the
   backend to recover real, sourced mathematics; agents feel green-at-all-costs pressure
   and weaken specs to relieve it. This is the engine of the thrashing.
-- **No import discipline / promotion gate.** `src/**` imports Sage directly throughout;
-  nothing forces capabilities through stages 2–5 first, so the DSL is not load-bearing.
+- **No import discipline / promotion gate.** The implementation (`lattice-impl`, the
+  Sage-backed dependency) imports Sage directly throughout; nothing forces capabilities
+  through stages 2–5 first, so the DSL is not load-bearing.
 - **Process doctrine is scar tissue.** The same anti-drift lesson is restated across 6+
   memories; operational gates (cards, triage, retirement, PR) never re-assert the
   mathematical-object gate, so an agent can satisfy every gate with zero math progress.
@@ -96,7 +97,8 @@ end-to-end on **one** obligation, then generalize.
 Proof slice (the first thing built):
 - **Need:** the lattice→discriminant surface that the Coble orbits depend on.
 - **Spec obligation:** `discriminant_group` / `inclusion_morphism` / `is_unimodular` on
-  the integral lattice category (already abstract-declared in `category_specs/`).
+  the integral lattice category (already abstract-declared in the `category-specs` repo,
+  the abstract-DSL dependency).
 - **Literature test:** assert the $A_2$ / $E_8$ facts, each cited to a specific
   extraction line per `What A Test Cites` — $A_2$ glue group (= discriminant group
   $L^\#/L$) is $C_3$ with glue-vector norm $2/3$ (`conway1999sphere.md:4655,4682`,
@@ -127,7 +129,8 @@ for this method. Generalize across obligations only after this.
 The research payoff. Build these 5 method-families through the corrected pipeline (each
 its own slice). The biggest mathematical hole is keystone (1).
 1. **Lattice→discriminant lifting** — `O(L)→O(A_L,q_L)` (`stable_subgroup`,
-   `discriminant_action`, abstract at `category_specs/lattices/homsets.py`) **+ the
+   `discriminant_action`, abstract at `lattices/homsets.py` in the `category-specs`
+   repo) **+ the
    Nikulin/Eichler lifting theorem** converting finite discriminant-orbit equality into
    primitive isotropic-vector orbit equality. *No named theorem/backend exists today —
    logged unresolved in `SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES`. This is the keystone.*
