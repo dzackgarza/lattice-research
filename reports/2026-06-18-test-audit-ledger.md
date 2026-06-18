@@ -102,3 +102,25 @@ mechanical pass. Per the chosen "one vertical slice" altitude:
 Counts (dominant tag per file/cluster): META ≈ 22 files, SE ≈ 8, LOCAL-CITE ≈ 18
 (14 fixture entries + 3 modules regression + 1), VAGUE-CITE ≈ 12, UNCITED ≈ 30+
 (variety_spec/sage_spec bulk), OK = 1.
+
+## Slice outcome: META obligation tests -> math facts (2026-06-18)
+
+Applied the lattices-exemplar conversion across all per-area `category_obligations.sage`
+(+ `type_alias_obligations.sage`). Two outcomes:
+
+**Converted to math-fact obligations (mixed files; all run green, exit 0):**
+lattices, modules, posets, algebras, rings, sets, tensor_algebra_components. Kept only
+real computed-value obligations (ranks, dimensions, determinants, cardinalities, orders,
+characteristics, precisions, degrees, ideal/subalgebra dims, gram/scalar matrices, element
+membership, group-action orbits, tensor structure constants, A_2 roots) — all elementary
+computed facts (no fabricated citations; A_2 root count cited to SPLAG TCJKXU3D:4676).
+Deleted the category-graph meta-assertions. Net ~-2000 lines.
+
+**Pure-META (no DSL constructors that compute values -> nothing to keep; left intact,
+NOT emptied):** forms, cat, homsets, lattices/chain, topological_spaces,
+type_alias_obligations. These assert only category-graph structure (method ownership,
+subcategory placement, type-package aliases, defining predicates, axiom ownership). Their
+structural invariants are enumerated in the conversion subagents' reports and must migrate
+to `category_specs/validators/` before these obligation files can be retired — this is the
+**framework-tests -> validators** workstream. Until then they remain as-is (green,
+testing structure); nothing is dropped.
