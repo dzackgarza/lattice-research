@@ -20,23 +20,26 @@ written ahead of it.
    mathematical category that owns it. The spec declares the contract (operation,
    hypotheses, owner, return object); it never implements, never imports `src/`, never
    carries a `NotImplementedError` body.
-3. **Literature test.** A test asserts a *specific value* a cited source guarantees
-   (page/theorem/arXiv id in the docstring). It first goes red because the method is
-   **missing**, then stays red until the implementation **recovers the cited fact**.
-   "Abstractly correct" is not a passing condition; recovering a sourced number is.
+3. **Literature test.** A test asserts a *specific mathematical value* that a cited
+   extraction guarantees. The ONLY acceptable citation is a registered Zotero key in
+   `theory/references/references.bib` + its extraction file under
+   `theory/references/literature/` + the specific line range that literally states the
+   value (see the `What A Test Cites` memory). Vague citations ("SPLAG Ch. 4") are banned
+   — agents fabricate them. The test asserts the mathematics (e.g. the discriminant group
+   is $\mathbb{Z}/3$, the inclusion into the dual is/ is not an isomorphism), never a
+   software property (raises, non-None, type, source-string). It first goes red because
+   the backend does not yet compute the fact, then stays red until the implementation
+   **recovers the cited value**. "Abstractly correct" and "it raised as expected" are
+   never passing conditions; recovering the sourced value is.
 4. **Implementation.** Written separately from the spec (impl may import Sage; spec may
-   not). Its only job is to make the literature test green.
-5. **Expected-failure smoke.** A trivial instantiation of a simple object through a
-   category constructor. Current Sage classes satisfy only a fraction of the obligations,
-   so most smokes are **supposed to be red**. Each example declares its expected
-   disposition:
-   - `enforced-and-unmet` → the abstractmethod correctly fires on a correctly-refined
-     Sage object that lacks mathematically-required functionality. **This red is a pass.**
-   - `graph-broken` / `weakened-spec` / `wrong-category` → a red for the wrong reason.
-     **This is a real failure.**
-   The harness verifies the *disposition*, not mere green/red. Making an
-   `enforced-and-unmet` example green by weakening a spec or bypassing a constructor is
-   the cardinal sin.
+   not). Its only job is to make the literature test green by computing the real value.
+5. **Smoke = simple real computations.** Instantiate simple objects (e.g. the root
+   lattices $A_2$, $E_8$) through category constructors and assert their literature-cited
+   mathematical facts. Current Sage backends recover only a fraction of these correctly,
+   so most smokes are **supposed to be red** — red means the backend does not yet compute
+   the cited fact. A smoke goes green only when the backend genuinely recovers the cited
+   value. Making a smoke green by weakening a spec, bypassing a constructor, or asserting
+   a weaker fact than the source states is the cardinal sin.
 6. **Promotion gate.** Only after 2–5 hold may the capability be used in research code.
    Research/agent code imports **categories, never Sage directly**; a method reaches the
    research layer only through this gate.
@@ -46,14 +49,16 @@ written ahead of it.
 Grounded in the 2026-06-17 corpus audit (`reports/2026-06-16-memory-migration-ledger.md`
 context; audit findings summarized here):
 
-- **The enforcement engine is inverted.** The smoke-should-fail philosophy lives only as
-  human prose; the tooling is binary green/red (`category_specs/justfile` `exit 1`,
-  `pipefail`), there are **no `xfail` markers anywhere**, and the *run* obligation tests
-  assert source-graph structure (`X is Y.ParentMethods`) with **zero literature
-  citations** — while the genuinely cited tests (`tests/variety_spec/*.sage`,
-  `tests/fixtures/coble_literature_fixtures.json`) are **not the gate**. Agents feel
-  green-at-all-costs pressure and weaken specs to relieve it. This is the engine of the
-  thrashing.
+- **The gating tests are not mathematical.** The *run* obligation tests assert
+  source-graph structure (`X is Y.ParentMethods`) and even silently pass unmet
+  obligations — Python `abc.abstractmethod` does not enforce at call time through the Sage
+  category MRO (observed 2026-06-18: a correctly-refined `A_2.inclusion_morphism()`
+  returns `None` instead of computing $\iota: L \hookrightarrow L^\#$). They carry **zero
+  literature citations**, while the genuinely cited artifacts (`tests/variety_spec/*.sage`,
+  `tests/fixtures/coble_literature_fixtures.json`) are **not the gate** —
+  `coble_literature_fixtures.json` is consumed by no test at all. So nothing forces the
+  backend to recover real, sourced mathematics; agents feel green-at-all-costs pressure
+  and weaken specs to relieve it. This is the engine of the thrashing.
 - **No import discipline / promotion gate.** `src/**` imports Sage directly throughout;
   nothing forces capabilities through stages 2–5 first, so the DSL is not load-bearing.
 - **Process doctrine is scar tissue.** The same anti-drift lesson is restated across 6+
@@ -80,8 +85,9 @@ Stop the bog before adding new machinery.
   mathematical contract, not the mypy/stub taxonomy.
 
 DONE when: anti-drift doctrine has one canonical owner; the card template's acceptance
-field IS the math-object gate; `grep` finds no "descriptor binding"/"frontier"/"surface"
-in spec docstrings.
+field IS the math-object gate; no *misleading* dialect ("descriptor binding" leading,
+"surface" as a vague synonym) remains in governance docs or spec docstrings. (Not a mass
+rename: acceptable uses like "method surface" stay; only misleading ones are fixed.)
 
 ### WS-1 — Fix the engine (prove via one vertical slice)
 Per the chosen altitude, do **not** scaffold this broadly. Prove the corrected pipeline
@@ -89,22 +95,33 @@ end-to-end on **one** obligation, then generalize.
 
 Proof slice (the first thing built):
 - **Need:** the lattice→discriminant surface that the Coble orbits depend on.
-- **Spec obligation:** `discriminant_group()` / `discriminant_form` on the integral
-  lattice category (already abstract-declared in `category_specs/lattices/`).
-- **Literature test:** assert $A_2$ has discriminant group $\mathbb{Z}/3$ with the
-  correct $\mathbb{Q}/2\mathbb{Z}$ form value, cited (Conway–Sloane SPLAG / Nikulin
-  1979). Red-missing → red-wrong → green-recovers.
-- **Expected-failure smoke:** instantiate $A_2$ through the category constructor, tagged
-  `enforced-and-unmet`; the harness records its red as the **correct** disposition until
-  the implementation lands.
-- **Engine artifacts the slice forces into existence:** (a) the expected-failure harness
-  that verifies *disposition*; (b) one literature-sourced run test replacing a
-  meta-assertion; (c) the import/promotion check, exercised on this one method.
+- **Spec obligation:** `discriminant_group` / `inclusion_morphism` / `is_unimodular` on
+  the integral lattice category (already abstract-declared in `category_specs/`).
+- **Literature test:** assert the $A_2$ / $E_8$ facts, each cited to a specific
+  extraction line per `What A Test Cites` — $A_2$ glue group (= discriminant group
+  $L^\#/L$) is $C_3$ with glue-vector norm $2/3$ (`conway1999sphere.md:4655,4682`,
+  `:4379`); $E_8$ even unimodular (`nikulin1979integral.md:120`). The test asserts the
+  mathematics (the inclusion into the dual is an isomorphism iff the lattice is
+  unimodular), never that a call raises or is non-None. Red while the backend does not
+  compute the fact; green only on recovery.
+  **Prerequisite (blocker):** register `conway1999sphere` and `nikulin1979integral` in
+  `theory/references/references.bib` — those extractions exist but are unkeyed today.
+- **Engine artifacts the slice forces into existence:** (a) a literature-sourced smoke
+  that is red until the backend recovers the cited value (red simply means the math is
+  not yet computed — there is no exception-disposition harness); (b) one such cited test
+  replacing a `X is Y.ParentMethods` meta-assertion in the run set; (c) the
+  import/promotion check, exercised on this one method.
 
-DONE when: the slice's smoke is verified as `enforced-and-unmet` (red-for-the-right-
-reason) before impl and flips to satisfied after impl; the literature test gates on a
-cited value; the meta-assertion it replaces is deleted; an import-discipline check exists
-and passes for this method. Generalize the harness across obligations only after this.
+Also addresses the observed non-enforcement defect: Python `abc.abstractmethod` does not
+enforce at call time through the Sage MRO (unmet obligations silently return `None`).
+Whether to fix by switching to Sage's `abstract_method` or another mechanism is decided
+when this slice is built — but the *test* asserts the mathematics, and is red while the
+fact is uncomputed regardless of the enforcement mechanism.
+
+DONE when: the cited $A_2$/$E_8$ math test is red before impl and green only when the
+backend recovers the cited values; it cites registered keys + specific extraction lines;
+the meta-assertion it replaces is deleted; an import-discipline check exists and passes
+for this method. Generalize across obligations only after this.
 
 ### WS-3 — Coble keystone surfaces
 The research payoff. Build these 5 method-families through the corrected pipeline (each
