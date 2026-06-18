@@ -354,8 +354,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "status": "blocked_pending_zotero_sync",
-        "note": "Thas 1994 (DOI 10.1007/BF01277586) item added by a human but not yet synced to the workstation Zotero; once it appears, attach its PDF + extraction and pin the line, then add zotero_item_key/attachment/lines."
+        "zotero_item_key": "KH4WH7AY",
+        "zotero_attachment_key": "D85F3BV8",
+        "lines": "12"
       }
     ],
     "properties": {

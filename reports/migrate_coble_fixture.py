@@ -28,6 +28,10 @@ SOURCES = {
     "smooth_irreducible_coble_surface_blowup_model": [("3V5FLBYU", "C8QJYLY2", "737")],
     "ten_nodal_plane_sextic": [("3V5FLBYU", "C8QJYLY2", "150"),
                                ("3V5FLBYU", "C8QJYLY2", "1272-1274")],
+    # Thas 1994 item (human-created KH4WH7AY); extraction attached via the cloud Web API
+    # as child D85F3BV8 (workstation sync was inconsistent). Line 12 = abstract stating
+    # the Desargues configuration -> 10-nodal rational sextic.
+    "desargues_configuration_sextic": [("KH4WH7AY", "D85F3BV8", "12")],
 }
 
 # T_En_cusp_orbits_sterk is a computation entry; its literature sub-sources map to Zotero.
@@ -40,15 +44,8 @@ COMPUTATION_SOURCES = {
     ],
 }
 
-# Thas 1994 item was added by a human but has not yet synced to the workstation Zotero.
-BLOCKED = {
-    "desargues_configuration_sextic": {
-        "status": "blocked_pending_zotero_sync",
-        "note": ("Thas 1994 (DOI 10.1007/BF01277586) item added by a human but not yet "
-                 "synced to the workstation Zotero; once it appears, attach its PDF + "
-                 "extraction and pin the line, then add zotero_item_key/attachment/lines."),
-    },
-}
+# No entries remain blocked: the Thas extraction was attached via the cloud Web API.
+BLOCKED: dict = {}
 
 
 def main() -> None:
