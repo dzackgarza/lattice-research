@@ -6,16 +6,19 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "120-124",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "197-198"
       }
     ],
     "properties": {
       "literature_notation": "II_{3,19} = U^3 + E8^2 ~= H^2(X,Z)",
       "even": true,
       "unimodular": true,
-      "signature": [3, 19]
+      "signature": [
+        3,
+        19
+      ]
     }
   },
   {
@@ -25,9 +28,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "136-151",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "222"
       }
     ],
     "properties": {
@@ -40,7 +43,10 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 2,
-      "signature": [1, 1],
+      "signature": [
+        1,
+        1
+      ],
       "nikulin_invariants": {
         "r": 2,
         "a": 2,
@@ -56,9 +62,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "136-151",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "222"
       }
     ],
     "properties": {
@@ -71,7 +77,10 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 20,
-      "signature": [2, 18],
+      "signature": [
+        2,
+        18
+      ],
       "nikulin_invariants": {
         "r": 20,
         "a": 2,
@@ -87,9 +96,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "136-151",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "223"
       }
     ],
     "properties": {
@@ -102,7 +111,10 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 10,
-      "signature": [1, 9],
+      "signature": [
+        1,
+        9
+      ],
       "nikulin_invariants": {
         "r": 10,
         "a": 10,
@@ -118,14 +130,14 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "136-151",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "223"
       },
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "186-187",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "28"
       }
     ],
     "properties": {
@@ -139,7 +151,10 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 12,
-      "signature": [2, 10],
+      "signature": [
+        2,
+        10
+      ],
       "nikulin_invariants": {
         "r": 12,
         "a": 10,
@@ -155,9 +170,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "136-151",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "224"
       }
     ],
     "properties": {
@@ -169,7 +184,10 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 14,
-      "signature": [3, 11],
+      "signature": [
+        3,
+        11
+      ],
       "nikulin_invariants": {
         "r": 14,
         "a": 8,
@@ -185,9 +203,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "136-151",
-        "bibliographic_key": "aegs2023compact"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "224"
       }
     ],
     "properties": {
@@ -199,7 +217,10 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 8,
-      "signature": [0, 8],
+      "signature": [
+        0,
+        8
+      ],
       "nikulin_invariants": {
         "r": 8,
         "a": 8,
@@ -215,9 +236,14 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
-        "lines": "79-90",
-        "bibliographic_key": "pieroni2026coble"
+        "zotero_item_key": "3V5FLBYU",
+        "zotero_attachment_key": "C8QJYLY2",
+        "lines": "619-620"
+      },
+      {
+        "zotero_item_key": "3V5FLBYU",
+        "zotero_attachment_key": "C8QJYLY2",
+        "lines": "85"
       }
     ],
     "properties": {
@@ -235,9 +261,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/dolgachev_kondo_2013.md",
-        "lines": "89-94",
-        "bibliographic_key": "dolgachev2013rationality"
+        "zotero_item_key": "I6FFLGJU",
+        "zotero_attachment_key": "ALXWRAM7",
+        "lines": "95"
       }
     ],
     "properties": {
@@ -256,9 +282,14 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/dolgachev_kondo_2013.md",
-        "lines": "103-110",
-        "bibliographic_key": "dolgachev2013rationality"
+        "zotero_item_key": "I6FFLGJU",
+        "zotero_attachment_key": "ALXWRAM7",
+        "lines": "109"
+      },
+      {
+        "zotero_item_key": "I6FFLGJU",
+        "zotero_attachment_key": "ALXWRAM7",
+        "lines": "91"
       }
     ],
     "properties": {
@@ -277,9 +308,9 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
-        "lines": "737-738",
-        "bibliographic_key": "pieroni2026coble"
+        "zotero_item_key": "3V5FLBYU",
+        "zotero_attachment_key": "C8QJYLY2",
+        "lines": "737"
       }
     ],
     "properties": {
@@ -294,19 +325,14 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
-        "lines": "1227-1234",
-        "bibliographic_key": "pieroni2026coble"
+        "zotero_item_key": "3V5FLBYU",
+        "zotero_attachment_key": "C8QJYLY2",
+        "lines": "150"
       },
       {
-        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
-        "lines": "1271-1283",
-        "bibliographic_key": "pieroni2026coble"
-      },
-      {
-        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
-        "lines": "1891-1892",
-        "bibliographic_key": "pieroni2026coble"
+        "zotero_item_key": "3V5FLBYU",
+        "zotero_attachment_key": "C8QJYLY2",
+        "lines": "1272-1274"
       }
     ],
     "properties": {
@@ -328,9 +354,8 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/references/literature/thas_1994.md",
-        "lines": "730-732",
-        "bibliographic_key": "thas1994"
+        "status": "blocked_pending_zotero_sync",
+        "note": "Thas 1994 (DOI 10.1007/BF01277586) item added by a human but not yet synced to the workstation Zotero; once it appears, attach its PDF + extraction and pin the line, then add zotero_item_key/attachment/lines."
       }
     ],
     "properties": {
@@ -345,14 +370,15 @@
     "source_type": "computation",
     "sources": [
       {
-        "file": "theory/references/literature/aegs_2023.md",
-        "lines": "244-249",
-        "bibliographic_key": "aegs2023compact",
-        "claim": "F_{(10,10,0)} has two 0-cusps and two 1-cusps"
+        "zotero_item_key": "LFKH3D95",
+        "zotero_attachment_key": "UXUDEAF4",
+        "lines": "70",
+        "claim": "cusp diagrams of F_{(10,10,0)} are recalled and mapped"
       },
       {
-        "bibliographic_key": "sterk1991",
-        "claim": "Sterk (1991) original computation of the cusp diagram"
+        "zotero_item_key": "SW47ULJ5",
+        "zotero_attachment_key": "44T7F33C",
+        "claim": "Sterk (1991) original computation of the Enriques cusp diagram"
       }
     ],
     "computation": {
@@ -369,10 +395,40 @@
         "orbit_count": 2,
         "runtime_seconds": 33,
         "representatives": [
-          [[0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-          [[-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+          [
+            [
+              0,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
         ],
-        "note": "Two orbits distinguished by div(e) in {1,2} in T_En* (AEGS23 §3.2)"
+        "note": "Two orbits distinguished by div(e) in {1,2} in T_En* (AEGS23 \u00a73.2)"
       },
       "one_cusps": {
         "k": 2,
@@ -380,12 +436,64 @@
         "runtime_seconds": 2807,
         "representatives": [
           [
-            [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [-2, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+            [
+              0,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              -2,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
           ],
           [
-            [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [-2, -2, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0]
+            [
+              0,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              -2,
+              -2,
+              0,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              -1,
+              0,
+              0,
+              0
+            ]
           ]
         ],
         "note": "Each entry is a basis (two vectors) for one representative isotropic plane"
