@@ -1,4 +1,4 @@
-r"""Formed-module category surface.
+r"""Formed-module category.
 
 ``FormedModules(R)`` is the category of ``R``-modules equipped with a form.
 It is the forms-subtree owner for the existing Sage-compatible spelling

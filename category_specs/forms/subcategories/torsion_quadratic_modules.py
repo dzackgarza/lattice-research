@@ -21,7 +21,7 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
     Canonical chain:
     ``FinitelyPresentedModulesOverPID(ZZ).Torsion().WithForms().Quadratic()``.
 
-    The invariant-factor surface belongs to
+    The invariant-factor structure belongs to
     ``Modules(R).FinitelyPresented().OverPID()`` and is inherited here.
     """
 
