@@ -51,7 +51,7 @@ assert Lattices(ZZ) in C.super_categories()
 
 assert C.ParentMethods is LatticeParentMethods
 assert C.ElementMethods is LatticeElementMethods
-assert C.HomCategory is LatticeHomCategory
+assert type(C).HomCategory is LatticeHomCategory
 
 assert {
     "gram_matrix",
@@ -81,7 +81,7 @@ assert SpecLatticeHomCategory(Lattices(ZZ)) in HC.extra_super_categories()
 assert Modules(ZZ).HomCategory() in HC.extra_super_categories()
 assert HC.ParentMethods is LatticeHomParentMethods
 assert HC.ElementMethods is LatticeMorphismMethods
-assert HC.Endset is LatticeEndCategory
+assert type(HC).Endset is LatticeEndCategory
 
 assert {
     "domain",
@@ -113,7 +113,7 @@ assert isinstance(LatticeMorphismMethods, ABCMeta)
 EC = HC.EndCategory()
 assert isinstance(EC, LatticeEndCategory)
 assert EC.ElementMethods is LatticeEndomorphismMethods
-assert EC.Autset is LatticeAutCategory
+assert type(EC).Autset is LatticeAutCategory
 
 AC = EC.AutCategory()
 assert isinstance(AC, LatticeAutCategory)
