@@ -1,120 +1,76 @@
-from __future__ import annotations
-
 import pathlib
 import sys
-from abc import ABCMeta
 
-from sage.all import ZZ
-from sage.categories.category import Category
+from sage.all import QQ, ZZ, identity_matrix, matrix
+from pytest import raises
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from category_specs.lattices import Lattices
-from category_specs.lattices.homsets import LatticeHomCategory as SpecLatticeHomCategory
-from category_specs.modules import Modules
+from sage.modules.free_quadratic_module_integer_symmetric import (
+    FreeQuadraticModule_integer_symmetric,
+    IntegralLattice,
+    IntegralLatticeGluing,
+)
+from sage.modules.free_module_homspace import FreeModuleHomspace
+from sage.modules.free_module_morphism import FreeModuleMorphism
+from sage.modules.torsion_quadratic_module import TorsionQuadraticForm
+
 from src.lattices.category import (
+    ConsolidatedLattice,
+    DiscriminantGroups,
     Lattice,
-    LatticeAutCategory,
-    LatticeAutomorphismMethods,
-    LatticeCategory,
-    LatticeElementMethods,
-    LatticeEndCategory,
-    LatticeEndomorphismMethods,
-    LatticeHomCategory,
-    LatticeHomParentMethods,
-    LatticeMorphismMethods,
-    LatticeParentMethods,
+    LatticeHomset,
+    RationalLattices,
+    from_sage,
 )
 
 
-def method_names(provider: type) -> set[str]:
-    return {
-        name
-        for name, value in vars(provider).items()
-        if callable(value) or isinstance(value, (classmethod, staticmethod, property))
-    }
+U = Lattice("U")
+assert isinstance(U, ConsolidatedLattice)
+assert isinstance(U.sage_object(), FreeQuadraticModule_integer_symmetric)
+assert U in RationalLattices(ZZ).Integral()
+assert U.signature_pair() == (1, 1)
 
+U_QQ = U.rational_span()
+assert U_QQ.base_ring() == QQ
+assert U_QQ.gram_matrix() == U.gram_matrix()
+assert U_QQ in RationalLattices(QQ)
 
-def is_abstract_method(provider: type, name: str) -> bool:
-    value = vars(provider)[name]
-    return bool(getattr(value, "__isabstractmethod__", False))
+A2 = Lattice("A2")
+A2_dual = A2.dual()
+assert A2.sage_object().is_submodule(A2_dual.sage_object())
+assert A2_dual in RationalLattices(ZZ)
+assert A2_dual not in RationalLattices(ZZ).Integral()
+assert A2_dual.gram_matrix().base_ring() == QQ
+assert A2_dual.dual() == A2
 
+H = A2.hom(A2)
+assert isinstance(H, LatticeHomset)
+assert isinstance(H.sage_homset(), FreeModuleHomspace)
+identity = H(identity_matrix(2))
+assert isinstance(identity, FreeModuleMorphism)
+assert identity.matrix() == identity_matrix(2)
 
-C = Lattice(ZZ)
+with raises(ValueError, match="lattice morphisms must preserve the bilinear form"):
+    H(2 * identity_matrix(2))
 
-assert isinstance(C, LatticeCategory)
-assert isinstance(C, Category)
-assert C.base_ring() == ZZ
-assert Lattices(ZZ) in C.super_categories()
+H5 = matrix(ZZ, 2, 2, [2, 1, 1, -2])
+L = Lattice(2 * H5)
+A = L.discriminant_group()
+assert A in DiscriminantGroups()
+assert A.invariants() == (2, 10)
+assert A.primary_part(2).invariants() == (2, 2)
+assert A.primary_part(5).invariants() == (5,)
+assert A.cover() == A.V()
+assert A.relations() == A.W()
 
-assert C.ParentMethods is LatticeParentMethods
-assert C.ElementMethods is LatticeElementMethods
-assert type(C).HomCategory is LatticeHomCategory
+D = TorsionQuadraticForm(identity_matrix(3) / 2)
+assert D in DiscriminantGroups()
+assert D.orthogonal_group().order() == 6
 
-assert {
-    "gram_matrix",
-    "rank",
-    "gens",
-    "b",
-    "q",
-    "dual_lattice",
-    "discriminant_group",
-    "orthogonal_group",
-}.issubset(method_names(LatticeParentMethods))
-assert is_abstract_method(LatticeParentMethods, "gram_matrix")
-assert is_abstract_method(LatticeParentMethods, "b")
-
-assert {
-    "parent",
-    "to_vector",
-    "b",
-    "q",
-    "perp",
-}.issubset(method_names(LatticeElementMethods))
-assert is_abstract_method(LatticeElementMethods, "to_vector")
-
-HC = C.HomCategory()
-assert isinstance(HC, LatticeHomCategory)
-assert SpecLatticeHomCategory(Lattices(ZZ)) in HC.extra_super_categories()
-assert Modules(ZZ).HomCategory() in HC.extra_super_categories()
-assert HC.ParentMethods is LatticeHomParentMethods
-assert HC.ElementMethods is LatticeMorphismMethods
-assert type(HC).Endset is LatticeEndCategory
-
-assert {
-    "domain",
-    "codomain",
-    "from_matrix",
-    "from_images",
-    "identity",
-    "zero",
-}.issubset(method_names(LatticeHomParentMethods))
-assert is_abstract_method(LatticeHomParentMethods, "from_matrix")
-assert is_abstract_method(LatticeHomParentMethods, "from_images")
-
-assert {
-    "domain",
-    "codomain",
-    "__call__",
-    "to_matrix",
-    "is_isometry",
-    "is_form_preserving",
-}.issubset(method_names(LatticeMorphismMethods))
-assert is_abstract_method(LatticeMorphismMethods, "to_matrix")
-assert is_abstract_method(LatticeMorphismMethods, "__call__")
-
-assert isinstance(LatticeParentMethods, ABCMeta)
-assert isinstance(LatticeElementMethods, ABCMeta)
-assert isinstance(LatticeHomParentMethods, ABCMeta)
-assert isinstance(LatticeMorphismMethods, ABCMeta)
-
-EC = HC.EndCategory()
-assert isinstance(EC, LatticeEndCategory)
-assert EC.ElementMethods is LatticeEndomorphismMethods
-assert type(EC).Autset is LatticeAutCategory
-
-AC = EC.AutCategory()
-assert isinstance(AC, LatticeAutCategory)
-assert AC.ElementMethods is LatticeAutomorphismMethods
+L1_sage = IntegralLattice(matrix([[4]]))
+g = L1_sage.discriminant_group().gens()[0]
+glued = from_sage(IntegralLatticeGluing([L1_sage], [[2 * g]]))
+assert glued.gram_matrix() == matrix([[1]])

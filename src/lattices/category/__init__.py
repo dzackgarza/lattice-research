@@ -1,22 +1,16 @@
-r"""Isolated singular lattice category subtree."""
+r"""Consolidated lattice adapters over Sage reference implementations."""
 
 from __future__ import annotations
 
-from .category import Lattice, LatticeCategory
-from .elements import LatticeElementMethods, LatticeParentMethods
-from .homsets import (
-    LatticeAutCategory,
-    LatticeAutomorphismMethods,
-    LatticeEndCategory,
-    LatticeEndomorphismMethods,
-    LatticeHomCategory,
-    LatticeHomParentMethods,
-    LatticeMorphismMethods,
+from .category import (
+    ConsolidatedLattice,
+    DiscriminantGroups,
+    DiscriminantGroupsCategory,
+    Lattice,
+    LatticeHomset,
+    RationalLattices,
+    RationalLatticesCategory,
+    from_sage,
 )
 
-type LatticeObject = LatticeParentMethods
-type LatticeElement = LatticeElementMethods
-type LatticeMorphism = LatticeMorphismMethods
-type LatticeHom = LatticeHomParentMethods
-type LatticeEndomorphism = LatticeEndomorphismMethods
-type LatticeAutomorphism = LatticeAutomorphismMethods
+type LatticeObject = ConsolidatedLattice
