@@ -36,6 +36,7 @@ from ...homsets import HomCategoryConstruction
 
 if TYPE_CHECKING:
     from ...types import (
+        Cardinality,
         DiscriminantGroup,
         Integer,
         Matrix,
@@ -133,6 +134,73 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism:
             ...
 
+        @abstractmethod
+        def cardinality(self) -> Cardinality:
+            """Return the cardinality of this finitely presented module when finite."""
+            ...
+
+        @abstractmethod
+        def is_finite(self) -> bool:
+            """Return whether this finitely presented module is finite."""
+            ...
+
+        @abstractmethod
+        def annihilator(self) -> RingElement:
+            """Return the annihilator ideal generator for this finitely presented PID module."""
+            ...
+
+        @abstractmethod
+        def elementary_divisors(self) -> tuple[RingElement, ...]:
+            """Return elementary divisors for the PID presentation."""
+            ...
+
+        @abstractmethod
+        def ngens(self) -> int:
+            """Return the number of distinguished generators in the presentation."""
+            ...
+
+        @abstractmethod
+        def smith_form_gen(self, i: int) -> RModuleElement:
+            """Return the ``i``-th Smith-form generator."""
+            ...
+
+        @abstractmethod
+        def linear_combination_of_smith_form_gens(
+            self, v: Sequence[RingElement]
+        ) -> RModuleElement:
+            """Return the element represented by Smith-basis coordinates ``v``."""
+            ...
+
+        @abstractmethod
+        def gens_to_smith(self) -> Matrix:
+            """Return the change-of-generators matrix from distinguished generators to Smith generators."""
+            ...
+
+        @abstractmethod
+        def smith_to_gens(self) -> Matrix:
+            """Return the change-of-generators matrix from Smith generators to distinguished generators."""
+            ...
+
+        @abstractmethod
+        def gens_vector(self, x: RModuleElement, *, reduce: bool = True) -> object:
+            """Return coordinates of ``x`` in the distinguished generators."""
+            ...
+
+        @abstractmethod
+        def coordinate_vector(self, x: RModuleElement) -> object:
+            """Return the canonical presentation coordinates of ``x``."""
+            ...
+
+        @final
+        def cover(self) -> RModule:
+            """Return the covering module V in the finite presentation V/W."""
+            return self.V()
+
+        @final
+        def relations(self) -> RModule:
+            """Return the relation submodule W in the finite presentation V/W."""
+            return self.W()
+
     # ------------------------------------------------------------------
     # ElementMethods
     # ------------------------------------------------------------------
@@ -146,6 +214,10 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             r"""Generator of ``Ann_R(m) = Ann_R(<m>)``."""
             ...
 
+        @final
+        def coordinate_vector(self) -> object:
+            """Return this element's coordinates in its finitely presented parent."""
+            return self.to_vector()
 
     # ------------------------------------------------------------------
     # Hom category
@@ -192,6 +264,20 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             @abstractmethod
             def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
+            @abstractmethod
+            def kernel(self) -> RModule:
+                """Return the kernel as a finitely presented module or submodule."""
+                ...
+
+            @abstractmethod
+            def image(self) -> RModule:
+                """Return the image as a finitely presented module or submodule."""
+                ...
+
+            @abstractmethod
+            def lift(self, y: RModuleElement) -> RModuleElement:
+                """Lift a codomain element through this homomorphism when possible."""
+                ...
 
     # ------------------------------------------------------------------
     # Torsion subcategory

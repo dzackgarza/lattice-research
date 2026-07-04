@@ -39,6 +39,36 @@ class OverlatticesCategory(Category_module):
         @abstractmethod
         def index(self) -> Cardinality: ...
 
+        @abstractmethod
+        def glue_subgroup(self) -> object:
+            """Return the subgroup of the base discriminant group defining this overlattice."""
+            ...
+
+        @abstractmethod
+        def isotropic_subgroup(self) -> object:
+            """Return the isotropic subgroup defining this integral overlattice."""
+            ...
+
+        @abstractmethod
+        def discriminant_form(self) -> object:
+            """Return the discriminant form of this overlattice."""
+            ...
+
+        @abstractmethod
+        def preimage_of_subgroup(self, H: object) -> Lattice:
+            """Return the overlattice preimage of a discriminant-group subgroup."""
+            ...
+
+        @abstractmethod
+        def is_integral(self) -> bool:
+            """Return whether the induced Gram matrix is integral."""
+            ...
+
+        @abstractmethod
+        def is_even(self) -> bool:
+            """Return whether the induced quadratic form is even."""
+            ...
+
     class ElementMethods: ...
 
 

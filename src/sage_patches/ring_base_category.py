@@ -97,29 +97,14 @@ def _install_module_base_rings() -> None:
 
     target_rings = [ZZ, QQ, RR, CC, QQbar]
 
-    # Zp(p) for a few small primes
-    for p in [2, 3, 5, 7]:
-        try:
-            target_rings.append(Zp(p))
-        except Exception:
-            pass
-
-    # GF(p) for a few small primes
-    for p in [2, 3, 5, 7]:
-        try:
-            target_rings.append(GF(p))
-        except Exception:
-            pass
+    target_rings.extend(Zp(p) for p in [2, 3, 5, 7])
+    target_rings.extend(GF(p) for p in [2, 3, 5, 7])
 
     category = _ModuleBaseRings()
 
     for ring in target_rings:
-        try:
-            if not hasattr(ring, "_refine_category_"):
-                continue
-            ring._refine_category_(category)
-        except Exception:
-            pass
+        assert hasattr(ring, "_refine_category_")
+        ring._refine_category_(category)
 
 
 # Automatically install on import

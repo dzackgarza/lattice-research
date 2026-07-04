@@ -36,6 +36,26 @@ class _LatticeHomCategoryObjectMethods(RModuleHomCategory.ParentMethods):
 class _LatticeMorphisms(FreeBilinearModulesCategory.HomCategory.ElementMethods):
     r"""Morphisms of lattices: formed-module morphisms preserving the bilinear form."""
 
+    @abstractmethod
+    def restriction_to_sublattice(self, M: Lattice) -> Morphism:
+        r"""Return this lattice morphism restricted to the sublattice ``M``."""
+        ...
+
+    @abstractmethod
+    def induced_map_on_quotient(self, M: Lattice, N: Lattice) -> Morphism:
+        r"""Return the induced map ``L/M -> K/N`` when this morphism sends ``M`` into ``N``."""
+        ...
+
+    @abstractmethod
+    def induced_map_on_discriminant_group(self) -> Morphism:
+        r"""Return the induced finite form morphism on discriminant groups."""
+        ...
+
+    @abstractmethod
+    def kernel_on_discriminant_group(self) -> object:
+        r"""Return the kernel of the induced action on the domain discriminant group."""
+        ...
+
 
 class _LatticeEndomorphisms(_LatticeMorphisms, UniversalEndElementMethods):
     r"""Endomorphisms (self-maps) in the lattice category."""

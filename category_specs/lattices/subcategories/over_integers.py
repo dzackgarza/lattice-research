@@ -3,19 +3,13 @@ r"""Lattices over the integer ring."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final
-
-from sage.modules.free_quadratic_module_integer_symmetric import (
-    FreeQuadraticModule_integer_symmetric as SageIntegerSymmetricLattice,
-)
+from typing import TYPE_CHECKING, final
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .over_pid import _LatticesOverPID
 
 if TYPE_CHECKING:
     from sage.quadratic_forms.genera.genus import GenusSymbol_global_ring
-
-    from ...types import Lattice, RingElement, SetFamily
 
 
 class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
@@ -34,25 +28,5 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
 
         @abstractmethod
         def genus(self) -> GenusSymbol_global_ring: ...
-
-        @abstractmethod
-        def minimum(self) -> RingElement: ...
-
-        @abstractmethod
-        def short_vectors(self, bound: RingElement) -> SetFamily:
-            r"""Return vectors ``v`` whose norm ``b(v, v)`` is at most ``bound``."""
-            ...
-
-        @final
-        def short_vectors_up_to_sign(self, bound: RingElement) -> SetFamily:
-            r"""Return representatives for the sign orbits ``{v, -v}`` in
-            ``short_vectors(bound)``.
-            """
-            return SageIntegerSymmetricLattice.short_vectors(
-                cast(SageIntegerSymmetricLattice, self), bound, up_to_sign_flag=True
-            )
-
-        @abstractmethod
-        def LLL(self) -> Lattice: ...
 
     class ElementMethods: ...

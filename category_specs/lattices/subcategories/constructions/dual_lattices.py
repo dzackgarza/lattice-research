@@ -10,7 +10,7 @@ from ...homsets import LatticeHomCategory
 
 if TYPE_CHECKING:
     from ....cat import Category
-    from ....types import DiscriminantGroupElement, Lattice, LatticeMorphism
+    from ....types import DiscriminantGroupElement, Lattice, LatticeMorphism, Ring
 
 
 class DualLatticesCategory(Category_module):
@@ -44,6 +44,26 @@ class DualLatticesCategory(Category_module):
 
         @abstractmethod
         def inclusion_morphism(self) -> LatticeMorphism: ...
+
+        @abstractmethod
+        def value_ring(self) -> Ring:
+            """Return the value ring used to define the metric dual."""
+            ...
+
+        @abstractmethod
+        def codual(self, *, value_ring: Ring | None = None) -> Lattice:
+            """Return the codual lattice with respect to the specified value ring."""
+            ...
+
+        @abstractmethod
+        def dual_pairing_lattice(self) -> Lattice:
+            """Return the lattice carrying the primal-dual pairing."""
+            ...
+
+        @abstractmethod
+        def projection_to_discriminant_group(self) -> LatticeMorphism:
+            """Return the quotient map from the dual lattice to L^vee/L."""
+            ...
 
     class ElementMethods:
         @abstractmethod

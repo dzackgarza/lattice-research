@@ -21,11 +21,8 @@ _installed = False
 
 def _ensure_module_refinement(M: Any) -> Any:
     """Refine a module parent into Modules(R)."""
-    try:
-        if hasattr(M, "_refine_category_"):
-            M._refine_category_(Modules(M.base_ring()))
-    except Exception:
-        pass
+    assert hasattr(M, "_refine_category_")
+    M._refine_category_(Modules(M.base_ring()))
     return M
 
 

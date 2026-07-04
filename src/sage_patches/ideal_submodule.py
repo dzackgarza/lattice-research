@@ -26,12 +26,8 @@ _native_ring_truediv = None  # set during install if available
 
 def _refine_ideal_as_module(ideal: Any) -> Any:
     """Refine a Sage ideal as a module subobject of the ring-as-module."""
-    try:
-        ring = ideal.ring()
-        if ring in ZZ.parent_category or hasattr(ring, "_refine_category_"):
-            ideal._refine_category_(Modules(ring))
-    except Exception:
-        pass
+    ring = ideal.ring()
+    ideal._refine_category_(Modules(ring))
     return ideal
 
 

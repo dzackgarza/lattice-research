@@ -205,7 +205,7 @@ and gaps; the map only records source-backed mathematical assertions.
   `mem:category-spec-refinement-category-declaration`,
   `mem:category-spec-methods-are-abstract`, and
   `mem:what-category-specs-actually-is`.
-  Use `iwe find` with the relevant topic words if the exact memory key is not known.
+  Use `agent-memory search content` with the relevant topic words if the exact memory key is not known.
 - Before editing a spec, mapping, method, constructor, Hom/End/Aut rule,
   invariant, or predicate, perform the definition-grounding prerequisite from
   `category-spec-style`: locate the exact mathematical definition and hypotheses in

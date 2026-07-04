@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, final
 from ....cat import SubobjectsCategory
 
 if TYPE_CHECKING:
-    from ....types import Lattice, LatticeMorphism
+    from ....types import Lattice, LatticeMorphism, RingElement
 
 
 class _Subobjects(SubobjectsCategory):
@@ -47,4 +47,38 @@ class _Subobjects(SubobjectsCategory):
         @abstractmethod
         def orthogonal_complement(self) -> Lattice: ...
 
+        @abstractmethod
+        def sum(self, other: Lattice) -> Lattice:
+            """Return the lattice sum in the common ambient object."""
+            ...
+
+        @abstractmethod
+        def primitive_closure(self, *, in_ambient: Lattice | None = None) -> Lattice:
+            """Return the primitive closure inside the chosen ambient integral lattice."""
+            ...
+
+        @abstractmethod
+        def integral_saturation(self) -> Lattice:
+            """Return Sage's module saturation after clearing denominators."""
+            ...
+
+        @abstractmethod
+        def index_in(self, other: Lattice) -> RingElement:
+            """Return the finite index in ``other`` when comparable."""
+            ...
+
+        @abstractmethod
+        def relative_index(self, other: Lattice) -> RingElement:
+            """Return the relative lattice index against ``other``."""
+            ...
+
+        @abstractmethod
+        def denominator(self) -> RingElement:
+            """Return the fractional denominator of this lattice subobject."""
+            ...
+
+        @abstractmethod
+        def clear_denominators(self) -> Lattice:
+            """Return an integral lattice obtained from this fractional subobject."""
+            ...
     class ElementMethods: ...

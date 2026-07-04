@@ -125,7 +125,7 @@ centralizers, and orbit objects under explicit hypotheses and category refinemen
 edit:**
 
 ```
-iwe retrieve -k onboarding
+agent-memory retrieve onboarding
 ```
 
 Run this command from `.agents/memories/`. Read the full output.
@@ -567,7 +567,7 @@ corresponding `mem:skills/...` entry.
 - `git-guidelines`: required for staging, committing, branching, pushing, PRs, and any
   other git operation.
 
-**Migrated to memories — read these via `iwe retrieve -k skills/<name>`:**
+**Migrated to memories — read these via `agent-memory retrieve <key>`:**
 
 | Former skill | Memory key |
 | --- | --- |
@@ -600,7 +600,7 @@ corresponding `mem:skills/...` entry.
 | `plannotator-workflow` | `plannotator-workflow` |
 
 Many of these memories have sub-memories for their reference files (e.g.,
-`skills/category-framework-design/category-refinement-phases`). Use `iwe find skills/`
+`skills/category-framework-design/category-refinement-phases`). Use `agent-memory search content "skills"`
 to discover the full tree.
 
 Start with `category_specs/AGENTS.md` for that subtree.
@@ -608,43 +608,43 @@ Start with `category_specs/AGENTS.md` for that subtree.
 ## Session startup
 
 Every new session must:
-1. Run `iwe retrieve -k onboarding` from `.agents/memories/` and read the full output.
+1. Run `agent-memory retrieve onboarding` from `.agents/memories/` and read the full output.
    This is the HARD GATE (see above).
    No file reads, tool runs, plan scans, or edits are permitted before onboarding.
-2. Run `iwe retrieve -k current-goal-handoff` and read the named files.
+2. Run `agent-memory retrieve current-goal-handoff` and read the named files.
 3. Read `GOAL.md`, `.agents/current-goal-phase.md`, and this file.
    Verify active tasks and Nimbalyst meta artifacts are synced with `origin/main` before
-   declaring progress. Use `iwe` as the repo markdown query and resume layer before broad
+   declaring progress. Use `agent-memory` as the repo markdown query and resume layer before broad
    file scanning: from `.agents/memories`, retrieve or search relevant memories and the
-   current cards named by the handoff; from the repo root, use IWE to discover plans,
+   current cards named by the handoff; from the repo root, use normal repo discovery (`find`/`ls`) to list plans,
    cards, specs, and policy files.
    Load `research-repo-structure` before startup pruning or cleanup.
    State which `GOAL.md` phase and task will be worked on and why.
    Do not start by reading every file in the repo.
-4. Before category-spec work, review, or source repair, use IWE to retrieve normal
-   governing memories by topic, not by historical session.
-   Start from the handoff's named memories, then use `iwe find` for the actual work
+4. Before category-spec work, review, or source repair, use agent-memory to retrieve normal
+  governing memories by topic, not by historical session.
+   Start from the handoff's named memories, then use `agent-memory search content` for the actual work
    shape: `purpose`, `category specs`, `red flags`, `sanity`, `grounded analysis`,
    `paperwork`, `corrections`, `refinement`, `provider`, `hooks`, or the concrete
    method/category names involved.
    The goal is that repo-purpose, review, artifact-drift, correction, and refinement
    rules are visible during ordinary work; do not rely on remembering any past transcript.
 
-## IWE and memory practice
+## agent-memory and memory practice
 
-Use `iwe` as the central markdown management, query, and resume interface for this repo.
-The managed memory library is `.agents/memories` through `.iwe/config.toml`; run IWE
+Use `agent-memory` as the central markdown management, query, and resume interface for this repo.
+The managed memory library is `.agents/memories`; run `agent-memory`
 from that directory for memory keys such as `current-goal-handoff` and `hermes/MEMORY`.
-Run IWE from the repo root to discover non-hidden repo markdown such as plans, cards,
-specs, and policy files.
-Search with IWE before manually scanning broad subtrees, especially when starting a new
+Use repo-root discovery for non-memory repo markdown such as plans, cards, specs,
+and policy files.
+Search with agent-memory before manually scanning broad subtrees, especially when starting a new
 task, resuming related work, receiving a compaction/summary, or taking over after
 context loss or session handoff.
 Do not rely on chat summaries alone when durable repo markdown or memory may already
 exist. Add or update notes there when durable context would otherwise be lost.
 
 Hermes memory is part of the same corpus: `/home/dzack/.hermes/memories` is a symlink to
-`.agents/memories/hermes`, so Hermes, Ralph loops, and IWE-backed agents share one
+`.agents/memories/hermes`, so Hermes, Ralph loops, and agent-memory-backed agents share one
 operational memory namespace instead of copying notes between systems.
 
 The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by
@@ -691,47 +691,41 @@ Appropriate handoff content:
 - non-obvious environment findings, research results, and workflow rules that took
   effort to discover.
 
-Review memories periodically with `iwe` and prune by replacement rather than letting
+Review memories periodically with `agent-memory` and prune by replacement rather than letting
 stale guidance accumulate silently.
-If a memory is superseded, update the IWE note that owns that topic instead of
+If a memory is superseded, update the agent-memory note that owns that topic instead of
 scattering a new contradictory note.
 
-### IWE command reference
+### agent-memory command reference
 
 Documents live in `.agents/memories/`; the key for a file is its path relative to that
 directory without the `.md` extension (e.g. `theory/backends/vinberg-algorithm`). Run
-`iwe` from the repo root for non-memory repo markdown; run it from `.agents/memories/`
-for memory keys.
+`agent-memory` from `.agents/memories/` for memory keys.
 
 **Discover**
 
-```
-iwe find                          # all docs sorted by incoming references
-iwe find "keyword"                # fuzzy match on title and key
-iwe find -f keys                  # bare key list (for scripting)
-iwe find -f json                  # full graph metadata
-iwe tree                          # document hierarchy
-iwe stats                         # graph overview (doc count, top docs, etc.)
+```bash
+agent-memory inspect tree --scope both --depth 2 --format json   # document hierarchy
+agent-memory inspect outline --format json <key>                 # extract headings
+agent-memory inspect overview --scope both --format json            # corpus outline and structure
+agent-memory inspect stats --scope both --by type --format json     # memory count summaries
+agent-memory search content "keyword"                              # fuzzy match on title/body
+agent-memory search keys "keyword"                                 # key lookup
 ```
 
 **Filter**
 
-```
-iwe find --filter 'status: draft'          # frontmatter predicate
-iwe find --referenced-by KEY              # docs that link to KEY
-iwe find --references KEY                 # docs that KEY links to
-iwe find --included-by KEY               # docs block-included by KEY
-iwe find --includes KEY                  # docs that KEY block-includes
+```bash
+agent-memory search metadata "status: draft"                           # frontmatter-style predicate query
+agent-memory inspect links --key <key> --format json                     # linked docs (inbound/outbound)
 ```
 
 **Retrieve**
 
-```
-iwe retrieve -k KEY               # document content with default context
-iwe retrieve -k KEY -d 2          # follow inclusion edges 2 levels deep
-iwe retrieve -k KEY -c 2          # include 2 levels of parent context
-iwe retrieve -k KEY -l            # also follow inline markdown links
-iwe retrieve -k KEY -b            # also show backlinks (incoming references)
+```bash
+agent-memory retrieve KEY                                               # document content by full key
+agent-memory inspect links --key <key> --direction both --depth 2 --format json  # linked documents
+agent-memory inspect outline --format json <key>                         # heading outline
 ```
 
 **Navigation patterns**
@@ -739,29 +733,17 @@ iwe retrieve -k KEY -b            # also show backlinks (incoming references)
 Never dump the full tree into a session.
 Start broad, then drill.
 
-```
-# Top-level structure; expand one more level when you know which area
-iwe tree --depth 1
-iwe tree --depth 2
-
-# Retrieve a doc plus its children (depth controls how many inclusion levels)
-iwe retrieve -k <key> -d 1
-iwe retrieve -k <key> -d 2
-
-# Retrieve a doc plus its parent context
-iwe retrieve -k <key> -c 1
+```bash
+agent-memory inspect tree --scope both --depth 2 --format json
+agent-memory inspect paths --scope both --kind all --format json
 ```
 
-```
+```bash
 # Fuzzy search to locate a doc before reading it
-iwe find "keyword"
+agent-memory search content "keyword"
 
-# Find which docs include a given doc (its parents) or it includes (its children)
-iwe find --included-by <key>
-iwe find --includes <key>
-
-# Fast key lookup by path fragment
-iwe find -f keys | grep <pattern>
+# Find linked docs and neighborhood
+agent-memory inspect links --key <key> --direction both --depth 2 --format json
 ```
 
 Do not turn memories into a second tracker or metadata database.
