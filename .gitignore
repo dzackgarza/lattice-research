@@ -31,6 +31,8 @@ scratch/
 
 # Large binaries and build artifacts
 src.bak/backends/external/bin/
+Miniconda*.sh
+Miniforge*.sh
 codeql-db/
 *.sarif
 *.log
@@ -61,4 +63,3 @@ carat
 src.bak/backends/external/vinbergs_algorithm/
 # Local Hermes/IWE memory lock files
 .agents/memories/hermes/*.lock
-
