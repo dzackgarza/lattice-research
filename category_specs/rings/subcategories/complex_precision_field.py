@@ -2,9 +2,9 @@ r"""ComplexPrecisionFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, cast, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.abc import ComplexBallField as SageComplexBallField
 from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
 from sage.rings.abc import ComplexField as SageComplexField
@@ -15,7 +15,6 @@ from ...cat import Category, Category_singleton
 from .. import Rings
 from ._lazy_subcategories import (
     _CompleteRings,
-    _Fields,
     _LocalFields,
 )
 from .approximate import ApproximateRingsCategory
@@ -41,7 +40,6 @@ class _ComplexPrecisionFields(Category_singleton):
     def super_categories(self) -> list[Category]:
         return [
             ApproximateRingsCategory(),
-            _Fields(),
             _CompleteRings(),
             _LocalFields(),
             Rings().Characteristic(0),
@@ -61,7 +59,7 @@ class _ComplexPrecisionFields(Category_singleton):
         )
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def precision(self) -> Integer: ...
 
         @override
@@ -77,10 +75,8 @@ class _ComplexPrecisionFields(Category_singleton):
                 self,
                 (SageComplexField, SageComplexDoubleField, SageComplexIntervalField),
             ):
-                return self.to_prec(precision)
+                return cast("Field", self.to_prec(precision))
             assert isinstance(self, SageComplexBallField)
-            return self.__class__(precision)
+            return cast("Field", self.__class__(precision))
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

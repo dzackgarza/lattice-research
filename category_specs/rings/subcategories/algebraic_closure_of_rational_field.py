@@ -2,18 +2,21 @@ r"""QQbar ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal, final, overload, override
+from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, Literal, cast, final, overload, override
 
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
-from ._lazy_subcategories import _AlgebraicFields
+from ._lazy_subcategories import _AlgebraicallyClosedFields, _AlgebraicFields
 
 if TYPE_CHECKING:
     from ...types import (
         ComplexInterval,
+        Field,
         Polynomial,
         RealInterval,
+        Ring,
         RingElement,
     )
 
@@ -32,7 +35,7 @@ class _QQbar(Category_singleton):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [_AlgebraicFields()]
+        return [_AlgebraicFields(), _AlgebraicallyClosedFields()]
 
     @override
     @final
@@ -42,13 +45,24 @@ class _QQbar(Category_singleton):
         return x is QQbar
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import QQbar
 
-        return QQbar
+        return cast("Ring", QQbar)
 
     class ParentMethods:
         @override
+        @final
+        def is_algebraically_closed(self) -> bool:
+            return True
+
+        @override
+        @final
+        def algebraic_closure(self) -> Field:
+            return self
+
+        @override
+        @abstractmethod
         def polynomial_root(
             self,
             poly: Polynomial,
@@ -71,8 +85,7 @@ class _QQbar(Category_singleton):
         ) -> RingElement | list[RingElement]: ...
 
         @override
+        @abstractmethod
         def nth_root(
             self, n: Integer, all: bool = False
         ) -> RingElement | list[RingElement]: ...
-
-    class MorphismMethods: ...

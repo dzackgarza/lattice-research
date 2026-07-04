@@ -15,12 +15,16 @@ because the condition ``b(v, L) \subseteq R`` requires both that ``b`` is
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
-
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
+from .bilinear import (
+    BilinearModulesCategory,
+    BilinearModulesMorphism,
+    OverPIDBilinearModulesCategory,
+    OverPIDBilinearModulesMorphism,
+)
 
 if TYPE_CHECKING:
     from ...types import DiscriminantGroup, Lattice, RModuleMorphism
@@ -68,7 +72,7 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Every integral form is rational (``R \subseteq K``)."""
             return True
 
-        @abstract_method
+        @abstractmethod
         def dual_lattice(self) -> Lattice:
             r"""Return the metric dual ``L^\# = \{v \in L_K : b(v, L) \subseteq R\}``.
 
@@ -101,7 +105,7 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def inclusion_morphism(self) -> RModuleMorphism:
             r"""Return the canonical inclusion ``\iota: L \hookrightarrow L^\#``.
 
@@ -109,7 +113,7 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def discriminant_group(self) -> DiscriminantGroup:
             r"""Return the discriminant group ``A_L = L^\#/L``.
 
@@ -131,7 +135,7 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Return ``True`` iff ``L = L^\#`` (i.e. ``|\det(G)| = 1``)."""
             return self.discriminant_group().is_trivial()
 
-        @abstract_method
+        @abstractmethod
         def is_even(self) -> bool:
             r"""Return ``True`` iff ``b(v, v) \in 2R`` for all ``v \in L``.
 
@@ -150,12 +154,11 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 IntegralBilinearModulesObject = IntegralBilinearModulesCategory.ParentMethods
 IntegralBilinearModulesElement = IntegralBilinearModulesCategory.ElementMethods
-IntegralBilinearModulesMorphism = IntegralBilinearModulesCategory.MorphismMethods
+IntegralBilinearModulesMorphism = BilinearModulesMorphism
 
 
 class OverPIDIntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -169,7 +172,6 @@ class OverPIDIntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     ParentMethods = IntegralBilinearModulesCategory.ParentMethods
     ElementMethods = IntegralBilinearModulesCategory.ElementMethods
-    MorphismMethods = IntegralBilinearModulesCategory.MorphismMethods
 
 
 OverPIDIntegralBilinearModulesObject = (
@@ -179,5 +181,5 @@ OverPIDIntegralBilinearModulesElement = (
     OverPIDIntegralBilinearModulesCategory.ElementMethods
 )
 OverPIDIntegralBilinearModulesMorphism = (
-    OverPIDIntegralBilinearModulesCategory.MorphismMethods
+    OverPIDBilinearModulesMorphism
 )

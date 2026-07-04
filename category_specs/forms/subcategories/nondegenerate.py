@@ -10,12 +10,16 @@ equivalent to ``\det(G) \neq 0``.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
-
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
+from .bilinear import (
+    BilinearModulesCategory,
+    BilinearModulesMorphism,
+    OverPIDBilinearModulesCategory,
+    OverPIDBilinearModulesMorphism,
+)
 
 if TYPE_CHECKING:
     from ...types import SubModule
@@ -45,7 +49,7 @@ class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         def is_nondegenerate(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def radical(self) -> SubModule:
             r"""Return the radical ``\{v \in M : b(v, w) = 0 \,\forall w \in M\}``.
 
@@ -56,7 +60,7 @@ class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def is_anisotropic(self) -> bool:
             r"""Return ``True`` iff ``b(v, v) \ne 0``.
 
@@ -65,7 +69,6 @@ class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-    class MorphismMethods: ...
 
 
 NondegenerateBilinearModulesObject = NondegenerateBilinearModulesCategory.ParentMethods
@@ -73,7 +76,7 @@ NondegenerateBilinearModulesElement = (
     NondegenerateBilinearModulesCategory.ElementMethods
 )
 NondegenerateBilinearModulesMorphism = (
-    NondegenerateBilinearModulesCategory.MorphismMethods
+    BilinearModulesMorphism
 )
 
 
@@ -88,7 +91,6 @@ class OverPIDNondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ri
 
     ParentMethods = NondegenerateBilinearModulesCategory.ParentMethods
     ElementMethods = NondegenerateBilinearModulesCategory.ElementMethods
-    MorphismMethods = NondegenerateBilinearModulesCategory.MorphismMethods
 
 
 OverPIDNondegenerateBilinearModulesObject = (
@@ -98,5 +100,5 @@ OverPIDNondegenerateBilinearModulesElement = (
     OverPIDNondegenerateBilinearModulesCategory.ElementMethods
 )
 OverPIDNondegenerateBilinearModulesMorphism = (
-    OverPIDNondegenerateBilinearModulesCategory.MorphismMethods
+    OverPIDBilinearModulesMorphism
 )

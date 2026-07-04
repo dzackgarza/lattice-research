@@ -2,10 +2,10 @@ r"""PolynomialRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ...cat import Category
@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from ...types import (
         CompleteRing,
         Ideal,
+        Polynomial,
         Ring,
         RingElement,
         RingMorphism,
@@ -79,45 +80,45 @@ class _PolynomialRings(CategoryWithAxiom):
         @override
         @final
         def completion(self, ideal: Ideal) -> CompleteRing:
-            from sage.rings.infinity import oo
+            from sage.rings.infinity import infinity
 
             assert ideal.is_principal(), (
                 "polynomial ring completion expects a principal ideal"
             )
-            p = ideal.gen()
+            p: Polynomial = ideal.gen()
             assert p.is_irreducible(), (
                 "polynomial ring completion expects an irreducible generator"
             )
-            return super().completion(p, prec=oo)
+            completion: CompleteRing = super().completion(p, prec=infinity)
+            return completion
 
-        @abstract_method
+        @abstractmethod
         def gen(self, n: Integer = 0) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def gens(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def change_ring(self, R: Ring) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def change_var(self, var: str) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def monomials_of_degree(self, n: Integer) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def monics(
             self,
             of_degree: Integer | None = None,
             max_degree: Integer | None = None,
         ) -> Iterable[RingElement]:
-            del of_degree, max_degree
             ...
 
-        @abstract_method
+        @abstractmethod
         def cyclotomic_polynomial(self, n: Integer) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def weil_polynomials(
             self,
             d: Integer,
@@ -125,9 +126,6 @@ class _PolynomialRings(CategoryWithAxiom):
             sign: Integer = Integer(1),
             lead: RingElement | Sequence[RingElement] = Integer(1),
         ) -> Sequence[RingElement]:
-            del sign, lead
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

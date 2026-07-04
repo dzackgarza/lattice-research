@@ -2,10 +2,10 @@ r"""One-object subcategory for Sage ``Primes()``."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
     from ...types import SetElement
@@ -33,13 +33,11 @@ class _PrimesSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _an_element_(self) -> SetElement: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

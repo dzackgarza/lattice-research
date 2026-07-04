@@ -2,9 +2,8 @@ r"""Slice construction category of lattices over a fixed lattice."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
-
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
+from typing import TYPE_CHECKING, final
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 from ....cat.subcategories.constructions.objects_over import (
@@ -29,13 +28,12 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         return f"lattices over {self.base()}"
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def structure_lattice(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def structure_map(self) -> LatticeMorphism: ...
 
-        @override
         @final
         def structure_morphism(self) -> LatticeMorphism:
             r"""Return the structure map as the universal structure morphism."""
@@ -45,5 +43,3 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

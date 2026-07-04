@@ -1,50 +1,19 @@
-"""Completion and localization refinement for ModuleBaseRings.
+"""Completion and localization install hook for ModuleBaseRings.
 
-Adds stable alias methods (complete, localize, fraction_field) to
-ModuleBaseRings ring parents, ensuring returned ring objects retain
-ModuleBaseRings category refinement.
+ModuleBaseRings.ParentMethods owns the stable completion/localization aliases.
+This module only ensures that the category is installed before callers use those
+methods.
 
 Gate: only active on rings installed with ModuleBaseRings.
 """
 
 from __future__ import annotations
 
-from sage.all import ZZ, QQ
-
 _installed = False
 
 
-def _refine_returned_ring(result, base_ring):
-    """Refine a returned ring parent into ModuleBaseRings scope."""
-    try:
-        if hasattr(result, '_refine_category_'):
-            import src.sage_patches.ring_base_category as mbr
-            result._refine_category_(mbr._ModuleBaseRings())
-    except Exception:
-        pass
-    return result
-
-
-def _module_base_complete(self, *args, **kwds):
-    """Completion of this ring at a prime/ideal, with ModuleBaseRings refinement."""
-    result = self.completion(*args, **kwds)
-    return _refine_returned_ring(result, self)
-
-
-def _module_base_localize(self, *args, **kwds):
-    """Localization of this ring, with ModuleBaseRings refinement."""
-    result = self.localization(*args, **kwds)
-    return _refine_returned_ring(result, self)
-
-
-def _module_base_fraction_field(self, *args, **kwds):
-    """Fraction field of this ring, with ModuleBaseRings refinement."""
-    result = self.fraction_field(*args, **kwds)
-    return _refine_returned_ring(result, self)
-
-
 def install() -> None:
-    """Install completion/localization/fraction_field refinement.
+    """Install ModuleBaseRings completion/localization refinement.
 
     Idempotent: safe to call multiple times.
     """
@@ -52,15 +21,8 @@ def install() -> None:
     if _installed:
         return
 
-    import src.sage_patches.ring_base_category as mbr
-    cat = mbr._ModuleBaseRings()
+    from src.sage_patches import ring_base_category
 
-    # Add aliases to ModuleBaseRings.ParentMethods
-    if not hasattr(cat.ParentMethods, 'complete'):
-        cat.ParentMethods.complete = _module_base_complete
-    if not hasattr(cat.ParentMethods, 'localize'):
-        cat.ParentMethods.localize = _module_base_localize
-    if not hasattr(cat.ParentMethods, 'fraction_field'):
-        cat.ParentMethods.fraction_field = _module_base_fraction_field
+    ring_base_category._install_module_base_rings()
 
     _installed = True

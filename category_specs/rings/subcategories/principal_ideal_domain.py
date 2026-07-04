@@ -7,11 +7,13 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.categories.principal_ideal_domains import (
     PrincipalIdealDomains as SagePrincipalIdealDomains,
 )
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ._lazy_subcategories import _UniqueFactorizationDomains
-from .integral_domain import _IntegralDomains as _IntegralDomains
+from .unique_factorization_domain import (
+    _UniqueFactorizationDomains as _UniqueFactorizationDomains,
+)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -22,10 +24,10 @@ if TYPE_CHECKING:
 
 class _PrincipalIdealDomains(CategoryWithAxiom):
     r"""Canonical chain:
-    ``Rings().Commutative().IntegralDomains().PrincipalIdeal()``.
+    ``Rings().Commutative().IntegralDomains().Gcd().UniqueFactorization().PrincipalIdeal()``.
     """
 
-    _base_category_class_and_axiom = (_IntegralDomains, "PrincipalIdeal")
+    _base_category_class_and_axiom = (_UniqueFactorizationDomains, "PrincipalIdeal")
 
     @override
     @final
@@ -44,6 +46,15 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_pid()
         )
 
+    Euclidean = LazyImport(
+        "category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains"
+    )
+
+    class SubcategoryMethods:
+        @final
+        def Euclidean(self) -> Category:
+            return self._with_axiom("Euclidean")
+
     class ParentMethods:
         @override
         @final
@@ -52,14 +63,11 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
 
         @final
         def ideal_generator(self, ideal: Ideal) -> RingElement:
-            assert ideal.is_principal(), "PID ideal_generator expects a principal ideal"
             return ideal.gen()
 
         @override
         @final
         def gcd(self, r: RingElement, s: RingElement) -> RingElement:
-            return self.ideal_generator(self.ideal(r, s))
+            return self.ideal_generator(self.ideal([r, s]))
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -31,7 +31,7 @@ _clean-generated-artifacts:
         except OSError:
             pass
 
-smoke: _clean-generated-artifacts
+category-obligations: _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
@@ -40,24 +40,24 @@ smoke: _clean-generated-artifacts
     }
     trap cleanup EXIT
 
-    smoke_files=(
-        "types_smoketest.sage"
-        "cat/smoketest.sage"
-        "homsets/smoketest.sage"
-        "forms/smoketest.sage"
-        "sets/smoketest.sage"
-        "posets/smoketest.sage"
-        "topological_spaces/smoketest.sage"
-        "tensor_algebra_components/smoketest.sage"
-        "algebras/smoketest.sage"
-        "rings/smoketest.sage"
-        "modules/smoketest.sage"
-        "lattices/chain_smoketest.sage"
-        "lattices/smoketest.sage"
+    obligation_files=(
+        "type_alias_obligations.sage"
+        "cat/category_obligations.sage"
+        "homsets/category_obligations.sage"
+        "forms/category_obligations.sage"
+        "sets/category_obligations.sage"
+        "posets/category_obligations.sage"
+        "topological_spaces/category_obligations.sage"
+        "tensor_algebra_components/category_obligations.sage"
+        "algebras/category_obligations.sage"
+        "rings/category_obligations.sage"
+        "modules/category_obligations.sage"
+        "lattices/chain_category_obligations.sage"
+        "lattices/category_obligations.sage"
     )
 
     failures=()
-    for test_file in "${smoke_files[@]}"; do
+    for test_file in "${obligation_files[@]}"; do
         echo "==> sage ${test_file}"
         if ! sage "${test_file}"; then
             failures+=("${test_file}")
@@ -65,12 +65,12 @@ smoke: _clean-generated-artifacts
     done
 
     if ((${#failures[@]})); then
-        printf '\nSmoke files with failures:\n'
+        printf '\nCategory obligation files with failed assertions:\n'
         printf '  %s\n' "${failures[@]}"
         exit 1
     fi
 
-smoke-file test_file: _clean-generated-artifacts
+category-obligation-file test_file: _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
@@ -337,7 +337,7 @@ check-abstract-redefinitions:
         f"across {len(provider_classes)} project method-provider classes."
     )
 
-test: smoke _clean-generated-artifacts
+test: check-banned-spec-patterns check-constructor-name-inventory validate-super-categories category-obligations _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
@@ -365,6 +365,34 @@ test: smoke _clean-generated-artifacts
         sage "${test_file}"
     done < <(
         find "${test_dirs[@]}" -type f -name '*.sage' \
-            ! -name 'smoketest.sage' \
+            ! -name '*_obligations.sage' \
+            ! -name 'category_obligations.sage' \
             | sort
     )
+
+check-banned-spec-patterns:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}/..
+    python3 category_specs/validators/banned_spec_patterns.py
+
+check-constructor-name-inventory:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}/..
+    python3 category_specs/validators/constructor_name_inventory_validator.py
+
+validate-super-categories:
+    #!/usr/bin/env bash
+    set -uo pipefail
+    cd {{justfile_directory()}}
+    banned_status=0
+    constructor_status=0
+    graph_status=0
+    just --justfile {{justfile()}} check-banned-spec-patterns || banned_status=$?
+    just --justfile {{justfile()}} check-constructor-name-inventory || constructor_status=$?
+    sage validators/super_categories_validator.py
+    graph_status=$?
+    if ((banned_status != 0 || constructor_status != 0 || graph_status != 0)); then
+        exit 1
+    fi

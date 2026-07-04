@@ -2,9 +2,15 @@ r"""Rings under a fixed structure ring."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from ....cat import Category, Category_over_base_ring, CovariantConstructionCategory
+from ....cat import (
+    Cat,
+    Category,
+    Category_over_base_ring,
+    CovariantConstructionCategory,
+)
 from ....cat.subcategories.constructions.objects_over import (
     structure_codomain,
     structure_domain,
@@ -21,10 +27,10 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
 
     @classmethod
     @final
-    def default_super_categories(cls, category: Category, base: Ring):
+    def default_super_categories(cls, category: Category, base: Ring) -> list[Category]:
         from ... import Rings
 
-        return Category.join(
+        return Cat().join(
             [
                 category,
                 Rings(),
@@ -38,6 +44,12 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
         return f"rings under {self.base_ring()}"
 
     class ParentMethods:
+        @abstractmethod
+        def base_ring(self) -> Ring: ...
+
+        @abstractmethod
+        def coerce_map_from(self, other: Ring) -> RingMorphism: ...
+
         @final
         def structure_ring(self) -> Ring:
             return self.base_ring()
@@ -46,7 +58,6 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
         def structure_map(self) -> RingMorphism:
             return self.coerce_map_from(self.structure_ring())
 
-        @override
         @final
         def structure_morphism(self) -> RingMorphism:
             r"""Return the structure map as the universal structure morphism."""
@@ -56,5 +67,3 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

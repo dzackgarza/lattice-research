@@ -99,8 +99,8 @@ _QuadraticNumberFields = LazyImport(
 _CyclotomicFields = LazyImport(
     "category_specs.rings.subcategories.cyclotomic_field", "_CyclotomicFields"
 )
-_QuotientFields = LazyImport(
-    "category_specs.rings.subcategories.quotient_field", "_QuotientFields"
+_FractionFields = LazyImport(
+    "category_specs.rings.subcategories.fraction_field", "_FractionFields"
 )
 _PAdicRings = LazyImport(
     "category_specs.rings.subcategories.p_adic_ring", "_PAdicRings"

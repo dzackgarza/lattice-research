@@ -88,7 +88,8 @@ The feature MUST define success criteria that are:
 - **Observable**: someone can look at the deliverable and determine whether
   the criterion is met without asking the feature author.
 - **Falsifiable**: it is possible to fail. "The system is correct" is not
-  falsifiable. "All 47 spec methods pass their respective smoke tests" is.
+  falsifiable. "All 47 spec methods pass their respective category-obligation
+  examples" is.
 - **Feature-level**: criteria describe the completed feature, not individual
   tasks within it.
 
@@ -357,7 +358,7 @@ The distinction:
 - **Declarative** (leverages the agent): "Produce a Mermaid diagram of the
   category hierarchy where each node shows the category name and the number
   of methods it introduces. Omit categories with zero methods. Output to
-  `plans/visuals/category-tree-{name}.mmd`."
+  `.agents/plans/visuals/category-tree-{name}.mmd`."
 
 The imperative version assumes a specific implementation; the declarative
 version gives the agent room to discover the best path. If the agent finds
@@ -383,7 +384,7 @@ covers:
 The final phase of a feature additionally covers:
 
 - Versioned release tagging
-- Feature tree archival to `plans/features/completed/`
+- Feature tree archival to `.agents/plans/features/completed/`
 - Feature branch creation for the next feature (if applicable)
 
 The wrap-up task depends on all other tasks in the phase and runs last.

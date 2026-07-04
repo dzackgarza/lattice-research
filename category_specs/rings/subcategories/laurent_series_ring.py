@@ -2,17 +2,17 @@ r"""LaurentSeriesRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .. import Rings
-from ._lazy_subcategories import _PuiseuxSeriesRings
 from ._sage_ring_classes import _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES
+from .puiseux_series_ring import _PuiseuxSeriesRings as _PuiseuxSeriesRings
 
 if TYPE_CHECKING:
     from ...types import (
@@ -23,9 +23,9 @@ if TYPE_CHECKING:
 
 
 class _LaurentSeriesRings(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().LaurentSeries()``."""
+    r"""Canonical chain: ``Rings().PuiseuxSeries().LaurentSeries()``."""
 
-    _base_category_class_and_axiom = (Rings, "LaurentSeries")
+    _base_category_class_and_axiom = (_PuiseuxSeriesRings, "LaurentSeries")
 
     @override
     @final
@@ -44,6 +44,15 @@ class _LaurentSeriesRings(CategoryWithAxiom):
             isinstance(R, _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES)
             or isinstance(R, self.parent_class)
         )
+
+    PowerSeries = LazyImport(
+        "category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings"
+    )
+
+    class SubcategoryMethods:
+        @final
+        def PowerSeries(self) -> Category:
+            return self._with_axiom("PowerSeries")
 
     class ParentMethods:
         @override
@@ -75,24 +84,22 @@ class _LaurentSeriesRings(CategoryWithAxiom):
             )
             return self.change_ring(base_ext)
 
-        @abstract_method
+        @abstractmethod
         def default_prec(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def gen(self, n: Integer = 0) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def gens(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def ngens(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def power_series_ring(self) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def change_ring(self, R: Ring) -> Ring: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

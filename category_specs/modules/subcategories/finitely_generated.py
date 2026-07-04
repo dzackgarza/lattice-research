@@ -2,10 +2,14 @@ r"""Finitely generated modules."""
 
 from __future__ import annotations
 
-from typing import Any, final, override
+from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
+
+if TYPE_CHECKING:
+    from ...types import FiniteSet, RModule
 
 
 class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
@@ -18,11 +22,6 @@ class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
-        return [self.base_category().WithOrderedGeneratingSet()]
-
-    @override
-    @final
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.is_finitely_generated()
 
@@ -32,6 +31,14 @@ class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
         def is_finitely_generated(self) -> bool:
             return True
 
-    class ElementMethods: ...
+        @abstractmethod
+        def generating_set(self) -> FiniteSet:
+            r"""Return a finite generating set witnessing finite generation."""
+            ...
 
-    class MorphismMethods: ...
+        @abstractmethod
+        def with_generating_set(self, S: FiniteSet) -> RModule:
+            r"""Equip this module with the specified finite generating set."""
+            ...
+
+    class ElementMethods: ...

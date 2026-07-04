@@ -2,13 +2,14 @@ r"""Metric-dual lattice construction category."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
-
 from ....cat import Category_module
+from ...homsets import LatticeHomCategory
 
 if TYPE_CHECKING:
+    from ....cat import Category
     from ....types import DiscriminantGroupElement, Lattice, LatticeMorphism
 
 
@@ -32,27 +33,26 @@ class DualLatticesCategory(Category_module):
         return f"metric-dual lattices over {self.base_ring()}"
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         from ... import Lattices
 
         return [Lattices(self.base_ring()).Rational()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def primal_lattice(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def inclusion_morphism(self) -> LatticeMorphism: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def discriminant_class(self) -> DiscriminantGroupElement:
             r"""Return the image of this metric-dual element in ``L^\#/L``."""
             ...
 
-    class MorphismMethods: ...
 
 
 DualLatticesObject = DualLatticesCategory.ParentMethods
 DualLatticesElement = DualLatticesCategory.ElementMethods
-DualLatticesMorphism = DualLatticesCategory.MorphismMethods
+DualLatticesMorphism = LatticeHomCategory.ElementMethods

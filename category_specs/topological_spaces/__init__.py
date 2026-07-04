@@ -29,16 +29,16 @@ not for every named set with a topology.
 
 from __future__ import annotations
 
-from importlib import import_module
-from typing import TYPE_CHECKING, NoReturn, final, override
+from abc import abstractmethod
+from collections.abc import Callable
+from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
 from ..cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ..sets import Sets
+from ..utils import with_axiom
 from .homsets import (
     MetricSpaceAutCategory,
     MetricSpaceEndCategory,
@@ -54,50 +54,52 @@ from .subcategories.constructions.quotients import _Quotients
 from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
+_F = TypeVar("_F", bound=Callable[..., object])
+
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import Subset
 
 
 class _TopologicalSpaceObjectMethods:
     r"""Methods on objects in the category of topological spaces."""
 
-    @override
     @final
     def is_topological(self) -> bool:
         r"""Return ``True`` because this object lies in ``TopologicalSpaces()``."""
         return True
 
-    @abstract_method
+    @abstractmethod
     def is_connected(self) -> bool:
         r"""Return whether this topological space is connected."""
         ...
 
-    @abstract_method
-    def closure(self, U: Subset) -> Subset:
+    @abstractmethod
+    def closure_subset(self, U: Subset) -> Subset:
         r"""Return the closure of ``U`` in this topological space."""
         ...
 
-    @abstract_method
-    def interior(self, U: Subset) -> Subset:
+    @abstractmethod
+    def interior_subset(self, U: Subset) -> Subset:
         r"""Return the interior of ``U`` in this topological space."""
         ...
 
-    @abstract_method
-    def boundary(self, U: Subset) -> Subset:
+    @abstractmethod
+    def boundary_subset(self, U: Subset) -> Subset:
         r"""Return the boundary of ``U`` in this topological space."""
         ...
 
-    @abstract_method
-    def is_open(self, U: Subset) -> bool:
+    @abstractmethod
+    def is_open_subset(self, U: Subset) -> bool:
         r"""Return whether ``U`` is open in this topological space."""
         ...
 
-    @abstract_method
-    def is_closed(self, U: Subset) -> bool:
+    @abstractmethod
+    def is_closed_subset(self, U: Subset) -> bool:
         r"""Return whether ``U`` is closed in this topological space."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_compact(self) -> bool:
         r"""Return whether this topological space is compact."""
         ...
@@ -105,71 +107,6 @@ class _TopologicalSpaceObjectMethods:
 
 class _TopologicalSpaceElementMethods:
     r"""Methods on points of topological spaces."""
-
-
-class _TopologicalSpaceMorphismMethods:
-    r"""Methods on morphisms of topological spaces."""
-
-
-class TopologicalSpaceRuntimeGapObjectMethods:
-    r"""Concrete topological-space methods for carriers without topology adapters.
-
-    This mixin is not the root spec.  ``TopologicalSpaces().ParentMethods`` remains
-    abstract.  Subtrees whose objects genuinely carry topology but whose Sage-backed
-    carriers do not yet expose subset/topology operations may inherit this class to
-    satisfy Sage's category-refinement mechanics while keeping method ownership in the
-    topological-space subtree.
-    """
-
-    @final
-    def _missing_topology_adapter(self, operation: str) -> NoReturn:
-        raise NotImplementedError(
-            f"{operation} requires a concrete topology adapter for {self}; "
-            "the method is owned by TopologicalSpaces(), but this Sage-backed "
-            "carrier does not yet expose subset topology data"
-        )
-
-    @override
-    @final
-    def is_connected(self) -> bool:
-        r"""Return whether this topological space is connected."""
-        self._missing_topology_adapter("is_connected")
-
-    @override
-    @final
-    def closure(self, U: Subset) -> Subset:
-        r"""Return the closure of ``U`` in this topological space."""
-        self._missing_topology_adapter("closure")
-
-    @override
-    @final
-    def interior(self, U: Subset) -> Subset:
-        r"""Return the interior of ``U`` in this topological space."""
-        self._missing_topology_adapter("interior")
-
-    @override
-    @final
-    def boundary(self, U: Subset) -> Subset:
-        r"""Return the boundary of ``U`` in this topological space."""
-        self._missing_topology_adapter("boundary")
-
-    @override
-    @final
-    def is_open(self, U: Subset) -> bool:
-        r"""Return whether ``U`` is open in this topological space."""
-        self._missing_topology_adapter("is_open")
-
-    @override
-    @final
-    def is_closed(self, U: Subset) -> bool:
-        r"""Return whether ``U`` is closed in this topological space."""
-        self._missing_topology_adapter("is_closed")
-
-    @override
-    @final
-    def is_compact(self) -> bool:
-        r"""Return whether this topological space is compact."""
-        self._missing_topology_adapter("is_compact")
 
 
 class TopologicalSpaces(CategoryWithAxiom):
@@ -181,7 +118,6 @@ class TopologicalSpaces(CategoryWithAxiom):
     _base_category_class_and_axiom = (Sets, "Topological")
     ParentMethods = _TopologicalSpaceObjectMethods
     ElementMethods = _TopologicalSpaceElementMethods
-    MorphismMethods = _TopologicalSpaceMorphismMethods
     HomCategory = TopologicalSpaceHomCategory
     Metric = LazyImport(
         "category_specs.topological_spaces.subcategories.metric", "MetricSpacesCategory"
@@ -195,7 +131,6 @@ class TopologicalSpaces(CategoryWithAxiom):
         "_CompactTopologicalSpaces",
     )
 
-    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return ()
@@ -211,7 +146,7 @@ class TopologicalSpaces(CategoryWithAxiom):
         r"""Return the set-theoretic supercategories of topological spaces."""
         return [Sets()]
 
-    class Constructors:
+    class _Constructors:
         r"""Topological-space constructors.
 
         No standalone Sage topological-space constructor has been admitted. Named sets
@@ -219,32 +154,34 @@ class TopologicalSpaces(CategoryWithAxiom):
         refined into this subtree.
         """
 
-    _Constructors = Constructors
+        @final
+        def provenance(self) -> ConstructorRegistry:
+            r"""Return typed provenance records for topological-space constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
 
-    @cached_method
+            return constructor_registry_for_category(
+                TopologicalSpaces(),
+                owner_category="TopologicalSpaces()",
+                id_prefix="topological_spaces",
+            )
     @final
-    def Constructors(self):
+    def Constructors(self) -> TopologicalSpaces._Constructors:
         r"""Return the topological-space constructor collector."""
         return self.__class__._Constructors()
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Connected(self) -> Category:
             r"""Return the connected-space subcategory."""
-            return self._with_axiom("Connected")
-
-        @cached_method
+            return cast(Category, with_axiom(self, "Connected"))
         @final
         def Compact(self) -> Category:
             r"""Return the compact-space subcategory."""
-            return self._with_axiom("Compact")
-
-        @cached_method
+            return cast(Category, with_axiom(self, "Compact"))
         @final
         def Metric(self) -> Category:
             r"""Return the metric-space subcategory."""
-            return self._with_axiom("Metric")
+            return cast(Category, with_axiom(self, "Metric"))
 
     Subobjects = _Subobjects
     Quotients = _Quotients
@@ -254,38 +191,25 @@ class TopologicalSpaces(CategoryWithAxiom):
     CartesianProducts = _CartesianProducts
 
 
-def _load_metric_spaces_exports() -> None:
-    metric_module = import_module(
-        "category_specs.topological_spaces.subcategories.metric"
-    )
-    metric_category = metric_module.MetricSpacesCategory
+from .subcategories.metric import MetricSpacesCategory  # noqa: E402
 
-    global MetricSpacesCategory
-    MetricSpacesCategory = metric_category
-    globals().update(
-        {
-            "MetricSpacesObject": MetricSpacesCategory.ParentMethods,
-            "MetricSpacesElement": MetricSpacesCategory.ElementMethods,
-            "MetricSpacesMorphism": MetricSpacesCategory.MorphismMethods,
-            "MetricSpacesHomCategory": MetricSpaceHomCategory,
-            "MetricSpacesEndCategory": MetricSpaceEndCategory,
-            "MetricSpacesAutCategory": MetricSpaceAutCategory,
-            "MetricSpacesHom": MetricSpaceHomCategory.ParentMethods,
-            "MetricSpacesEnd": MetricSpaceEndCategory.ParentMethods,
-            "MetricSpacesAut": MetricSpaceAutCategory.ParentMethods,
-            "MetricSpacesEndomorphism": MetricSpaceEndCategory.ElementMethods,
-            "MetricSpacesAutomorphism": MetricSpaceAutCategory.ElementMethods,
-        }
-    )
-
-
-_load_metric_spaces_exports()
+MetricSpacesObject = MetricSpacesCategory.ParentMethods
+MetricSpacesElement = MetricSpacesCategory.ElementMethods
+MetricSpacesMorphism = MetricSpaceHomCategory.ElementMethods
+MetricSpacesHomCategory = MetricSpaceHomCategory
+MetricSpacesEndCategory = MetricSpaceEndCategory
+MetricSpacesAutCategory = MetricSpaceAutCategory
+MetricSpacesHom = MetricSpaceHomCategory.ParentMethods
+MetricSpacesEnd = MetricSpaceEndCategory.ParentMethods
+MetricSpacesAut = MetricSpaceAutCategory.ParentMethods
+MetricSpacesEndomorphism = MetricSpaceEndCategory.ElementMethods
+MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
 
 
 TopologicalSpacesCategory = TopologicalSpaces
-TopologicalSpacesObject = TopologicalSpaces.ParentMethods
+type TopologicalSpacesObject = TopologicalSpaces.ParentMethods
 TopologicalSpacesElement = TopologicalSpaces.ElementMethods
-TopologicalSpacesMorphism = TopologicalSpaces.MorphismMethods
+TopologicalSpacesMorphism = TopologicalSpaceHomCategory.ElementMethods
 TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
 TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
 TopologicalSpacesAutCategory = TopologicalSpaceAutCategory

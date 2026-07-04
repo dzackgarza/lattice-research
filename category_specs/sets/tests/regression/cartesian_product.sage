@@ -1,8 +1,7 @@
 # Tests for Sets().Constructors().CartesianProduct()
 # Assertions sourced from sage.sets.cartesian_product.CartesianProduct doctests.
-# Note: The canonical high-level constructor is `cartesian_product([...])`;
-# this tests that the project binary primitive and explicit finite-factor
-# compatibility path recover the same behaviour.
+# Note: Sage's product constructor takes a finite factor collection; the project
+# constructor keeps that name and forces the factor role to be named.
 
 import sys
 sys.path.insert(0, '/home/dzack/research/plans')
@@ -16,21 +15,21 @@ NS = Sets().Constructors()
 # cartesian_factors  (class docstring)
 # ---------------------------------------------------------------------------
 
-G = NS.CartesianProduct(GF(5), ZZ)
+G = NS.CartesianProduct(factors=[GF(5), ZZ])
 assert G.cartesian_factors() == (GF(5), ZZ)
 
 # ---------------------------------------------------------------------------
 # cardinality: small finite product  (class docstring example scaled down)
 # ---------------------------------------------------------------------------
 
-G2 = NS.CartesianProduct(GF(5), NS.IntegerRange(3))
+G2 = NS.CartesianProduct(factors=[GF(5), NS.IntegerRange(3)])
 assert G2.cardinality() == 15
 
 # ---------------------------------------------------------------------------
 # __contains__  (__contains__ doctest)
 # ---------------------------------------------------------------------------
 
-C = NS.CartesianProduct(NS.IntegerRange(5), NS.IntegerRange(5))
+C = NS.CartesianProduct(factors=[NS.IntegerRange(5), NS.IntegerRange(5)])
 assert (1, 1) in C
 assert (1, 6) not in C
 
@@ -38,7 +37,7 @@ assert (1, 6) not in C
 # _element_constructor_  (doctest)
 # ---------------------------------------------------------------------------
 
-Cprod = NS.CartesianProduct(GF(5), GF(3))
+Cprod = NS.CartesianProduct(factors=[GF(5), GF(3)])
 x = Cprod((1, 3))
 assert x[0].parent() == GF(5)
 assert x[1].parent() == GF(3)
@@ -53,7 +52,7 @@ assert x2 == Cprod((0, 1))
 # CartesianProduct of (QQ, ZZ, ZZ) — an_element  (__init__ doctest)
 # ---------------------------------------------------------------------------
 
-C_QZZ = NS.CartesianProductFromFactors([QQ, ZZ, ZZ])
+C_QZZ = NS.CartesianProduct(factors=[QQ, ZZ, ZZ])
 assert C_QZZ.an_element() == (QQ.an_element(), ZZ.an_element(), ZZ.an_element())
 
 # ---------------------------------------------------------------------------

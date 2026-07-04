@@ -2,7 +2,7 @@
 
 ## Foundation Testing Style
 
-Use family-based mathematical specification tests, not wrapper smoke tests.
+Use family-based mathematical specification tests, not wrapper liveness probes.
 
 ### Rules
 

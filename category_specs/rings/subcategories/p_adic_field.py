@@ -2,10 +2,10 @@ r"""Qp ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
@@ -47,20 +47,17 @@ class _Qp(Category_singleton):
         return isinstance(R, pAdicFieldGeneric)
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def composite(self, subfield1: Field, subfield2: Field) -> Field:
-            del subfield1, subfield2
             ...
 
-        @abstract_method
+        @abstractmethod
         def subfield(self, generators: Sequence[RingElement]) -> Field: ...
 
-        @abstract_method
+        @abstractmethod
         def subfields_of_degree(self, n: Integer) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def exact_field(self) -> Field: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

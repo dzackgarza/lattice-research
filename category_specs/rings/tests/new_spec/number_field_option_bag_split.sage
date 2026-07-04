@@ -1,4 +1,4 @@
-r"""Focused smoke for number-field and rational-field option-bag splits."""
+r"""Category obligation examples for number-field and rational-field splits."""
 
 import ast
 from pathlib import Path

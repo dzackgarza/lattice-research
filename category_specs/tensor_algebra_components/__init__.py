@@ -7,64 +7,109 @@ are tensors in those component modules.
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Protocol,
+    TypeVar,
+    final,
+    overload,
+    override,
+)
 
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 
 from ..cat import Category, Category_over_base_ring, DualObjectsCategory
 from ..modules import Modules
-from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
+from ..modules.homsets import (
+    RModuleAutCategory,
+    RModuleEndCategory,
+    RModuleHomCategory,
+    _RModMorphisms,
+)
 from ..utils import refine_category
 
+_F = TypeVar("_F", bound=Callable[..., object])
+
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import (
-        FreeModule,
         Integer,
         Matrix,
+        ModuleBasis,
         Ring,
         RingElement,
-        RModule,
         RModuleElement,
         Tensor,
         TensorAlgebraComponent,
     )
 
+    class _TensorBaseModule(Protocol):
+        r"""Finite-rank free module surface used by tensor constructors."""
+
+        def base_ring(self) -> Ring: ...
+
+        def rank(self) -> Integer: ...
+
+        def tensor_module(
+            self,
+            p: Integer,
+            q: Integer,
+            *,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> TensorAlgebraComponent: ...
+
+        def tensor(
+            self,
+            tensor_type: tuple[Integer, Integer],
+            *,
+            name: str | None = None,
+            latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> Tensor: ...
+
 
 class _TensorAlgebraComponentParentMethods:
     r"""Methods on tensor component modules ``T_R(M)[p,q]``."""
 
-    @abstract_method
-    def base_module(self) -> RModule:
+    @abstractmethod
+    def base_module(self) -> _TensorBaseModule:
         r"""Return ``M`` for ``T_R(M)[p,q]``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def tensor_type(self) -> tuple[Integer, Integer]:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
         r"""Lift pure-product data into this tensor component."""
+        ...
+
+    @abstractmethod
+    def dual(self) -> _TensorAlgebraComponentParentMethods:
+        r"""Return the dual tensor component ``T_R(M)[q,p]``."""
         ...
 
 
 class _TensorElementMethods:
     r"""Methods on tensors."""
 
-    @abstract_method
-    def base_module(self) -> RModule:
+    @abstractmethod
+    def base_module(self) -> _TensorBaseModule:
         r"""Return the module ``M`` on which this tensor is defined."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def tensor_type(self) -> tuple[Integer, Integer]:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def trace(
         self, contravariant_position: Integer, covariant_position: Integer
     ) -> Tensor | RingElement:
@@ -74,10 +119,9 @@ class _TensorElementMethods:
         the result is a tensor in the component with tensor type
         ``(p - 1, q - 1)`` on the same base module.
         """
-        del contravariant_position, covariant_position
         ...
 
-    @abstract_method
+    @abstractmethod
     def contract(
         self, left_position: Integer, other: Tensor, right_position: Integer
     ) -> Tensor | RingElement:
@@ -88,7 +132,6 @@ class _TensorElementMethods:
         exactly when the remaining tensor type is ``(0, 0)``; otherwise it is a
         tensor on the same base module.
         """
-        del left_position, right_position
         ...
 
     @final
@@ -103,10 +146,6 @@ class _TensorElementMethods:
         return tuple(
             matrix(self.base_module().base_ring(), entries) for entries in self[:]
         )
-
-
-class _TensorMorphismMethods:
-    r"""Morphisms between tensor component modules."""
 
 
 class _DualObjects(DualObjectsCategory):
@@ -125,7 +164,7 @@ class _DualObjects(DualObjectsCategory):
         R = base.base_ring()
         return [base, Modules(R).HomCategory().Forms().Integral()]
 
-    class ParentMethods:
+    class ParentMethods(_TensorAlgebraComponentParentMethods):
         @final
         def tensor_type(self) -> tuple[Integer, Integer]:
             r"""Return the tensor type opposite to the original component's type."""
@@ -133,8 +172,6 @@ class _DualObjects(DualObjectsCategory):
             return (q, p)
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...
 
 
 class TensorAlgebraComponents(Category_over_base_ring):
@@ -154,8 +191,6 @@ class TensorAlgebraComponents(Category_over_base_ring):
         r"""Return the module categories satisfied by tensor-algebra components."""
         RMod = Modules(self.base_ring())
         return [RMod.TensorProducts(), RMod.Free().FiniteRank()]
-
-    @cached_method
     @final
     def DualObjects(self) -> Category:
         r"""Return dual tensor components, equivalently integral forms."""
@@ -163,7 +198,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
 
     dual = DualObjects
 
-    class Constructors:
+    class _Constructors:
         r"""Construct tensor component modules and tensor elements."""
 
         @final
@@ -174,7 +209,17 @@ class TensorAlgebraComponents(Category_over_base_ring):
         def __repr__(self) -> str:
             return f"tensor algebra component constructors over {self.base_ring()}"
 
-        @override
+        @final
+        def provenance(self) -> ConstructorRegistry:
+            r"""Return typed provenance records for tensor-component constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                self.category(),
+                owner_category=f"TensorAlgebraComponents({self.base_ring()})",
+                id_prefix="tensor_algebra_components",
+            )
+
         @final
         def category(self) -> TensorAlgebraComponents:
             r"""Return the tensor-component category that owns these constructors."""
@@ -183,7 +228,8 @@ class TensorAlgebraComponents(Category_over_base_ring):
         @final
         def base_ring(self) -> Ring:
             r"""Return the base ring of the owning tensor-component category."""
-            return self.category().base_ring()
+            base_ring: Ring = self.category().base_ring()
+            return base_ring
 
         @final
         def _check_tensor_type(
@@ -196,9 +242,9 @@ class TensorAlgebraComponents(Category_over_base_ring):
             return p, q
 
         @final
-        def component_module(
+        def tensor_module(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             *,
             sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
@@ -210,31 +256,166 @@ class TensorAlgebraComponents(Category_over_base_ring):
             )
             p, q = self._check_tensor_type(tensor_type)
             T = base_module.tensor_module(p, q, sym=sym, antisym=antisym)
-            return refine_category(T, self.category(), test=False)
+            component: TensorAlgebraComponent = refine_category(
+                T, self.category(), test=False
+            )
+            return component
+
+        @overload
+        def tensor(
+            self,
+            base_module: _TensorBaseModule,
+            tensor_type: tuple[Integer, Integer],
+            *,
+            basis: ModuleBasis | None = None,
+            name: str | None = None,
+            latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> Tensor: ...
+
+        @overload
+        def tensor(
+            self,
+            base_module: _TensorBaseModule,
+            tensor_type: tuple[Integer, Integer],
+            *,
+            components: Sequence[RingElement]
+            | Sequence[Sequence[RingElement]]
+            | Sequence[Sequence[Sequence[RingElement]]],
+            basis: ModuleBasis | None = None,
+            name: str | None = None,
+            latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> Tensor: ...
+
+        @overload
+        def tensor(
+            self,
+            base_module: _TensorBaseModule,
+            tensor_type: tuple[Integer, Integer],
+            *,
+            matrix: Matrix,
+            basis: ModuleBasis | None = None,
+            name: str | None = None,
+            latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> Tensor: ...
+
+        @overload
+        def tensor(
+            self,
+            base_module: _TensorBaseModule,
+            tensor_type: tuple[Integer, Integer],
+            *,
+            module_element_matrix: Sequence[Sequence[RModuleElement]],
+            basis: ModuleBasis | None = None,
+            name: str | None = None,
+            latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> Tensor: ...
+
+        @overload
+        def tensor(
+            self,
+            base_module: _TensorBaseModule,
+            tensor_type: tuple[Integer, Integer],
+            *,
+            matrices: Sequence[Matrix],
+            basis: ModuleBasis | None = None,
+            name: str | None = None,
+            latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> Tensor: ...
 
         @final
         def tensor(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             *,
+            components: Sequence[RingElement]
+            | Sequence[Sequence[RingElement]]
+            | Sequence[Sequence[Sequence[RingElement]]]
+            | None = None,
+            matrix: Matrix | None = None,
+            module_element_matrix: Sequence[Sequence[RModuleElement]] | None = None,
+            matrices: Sequence[Matrix] | None = None,
+            basis: ModuleBasis | None = None,
             name: str | None = None,
             latex_name: str | None = None,
             sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct a tensor element in ``T_R(M)[p,q]``."""
-            self.component_module(
-                base_module, tensor_type, sym=sym, antisym=antisym
+            selected_coordinate_shapes = (
+                components is not None,
+                matrix is not None,
+                module_element_matrix is not None,
+                matrices is not None,
             )
-            return base_module.tensor(
+            assert sum(selected_coordinate_shapes) <= 1, (
+                "tensor accepts at most one coordinate input shape"
+            )
+            if matrix is not None:
+                return self._tensor_from_matrix(
+                    base_module,
+                    tensor_type,
+                    matrix,
+                    basis=basis,
+                    name=name,
+                    latex_name=latex_name,
+                    sym=sym,
+                    antisym=antisym,
+                )
+            if module_element_matrix is not None:
+                return self._tensor_from_module_element_matrix(
+                    base_module,
+                    tensor_type,
+                    module_element_matrix,
+                    basis=basis,
+                    name=name,
+                    latex_name=latex_name,
+                    sym=sym,
+                    antisym=antisym,
+                )
+            if matrices is not None:
+                return self._from_components(
+                    base_module,
+                    tensor_type,
+                    matrices,
+                    basis=basis,
+                    name=name,
+                    latex_name=latex_name,
+                    sym=sym,
+                    antisym=antisym,
+                )
+            if components is not None:
+                return self._from_components(
+                    base_module,
+                    tensor_type,
+                    components,
+                    basis=basis,
+                    name=name,
+                    latex_name=latex_name,
+                    sym=sym,
+                    antisym=antisym,
+                )
+
+            self.tensor_module(base_module, tensor_type, sym=sym, antisym=antisym)
+            tensor: Tensor = base_module.tensor(
                 tensor_type, name=name, latex_name=latex_name, sym=sym, antisym=antisym
             )
+            return tensor
 
         @final
         def _from_components(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             components: Matrix
             | Sequence[RingElement]
@@ -242,26 +423,44 @@ class TensorAlgebraComponents(Category_over_base_ring):
             | Sequence[Sequence[Sequence[RingElement]]]
             | Sequence[Matrix],
             *,
+            basis: ModuleBasis | None = None,
             name: str | None = None,
             latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct a tensor from component data in preferred generators."""
-            tensor = self.tensor(
-                base_module, tensor_type, name=name, latex_name=latex_name
+            component_module = self.tensor_module(
+                base_module, tensor_type, sym=sym, antisym=antisym
             )
-            tensor[:] = components
+            component_constructor: Any = component_module
+            tensor: Tensor = component_constructor(
+                components,
+                basis=basis,
+                name=name,
+                latex_name=latex_name,
+                sym=sym,
+                antisym=antisym,
+            )
             return tensor
 
         @final
-        def from_matrix(
+        def _tensor_from_matrix(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
+            tensor_type: tuple[Integer, Integer],
             entries: Matrix,
             *,
+            basis: ModuleBasis | None = None,
             name: str | None = None,
             latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct the scalar-valued ``(0,2)`` tensor encoded by entries."""
+            assert tensor_type == (0, 2), (
+                f"Matrix coordinate input constructs a (0, 2) tensor, not {tensor_type}"
+            )
             assert entries.base_ring() is self.base_ring(), (
                 f"Tensor matrix must be over {self.base_ring()}: {entries}"
             )
@@ -271,32 +470,53 @@ class TensorAlgebraComponents(Category_over_base_ring):
                 f"{entries.nrows()} by {entries.ncols()}"
             )
             return self._from_components(
-                base_module, (0, 2), entries, name=name, latex_name=latex_name
+                base_module,
+                tensor_type,
+                entries,
+                basis=basis,
+                name=name,
+                latex_name=latex_name,
+                sym=sym,
+                antisym=antisym,
             )
 
         @final
         def _module_element_coordinates(
-            self, base_module: FreeModule, element: RModuleElement
+            self,
+            base_module: _TensorBaseModule,
+            element: RModuleElement,
+            basis: ModuleBasis | None,
         ) -> tuple[RingElement, ...]:
-            assert element.parent() is base_module, (
+            element_data: Any = element
+            assert element_data.parent() is base_module, (
                 f"Tensor output element must lie in {base_module}: {element}"
             )
-            return tuple(element[:])
+            if basis is None:
+                return tuple(element_data[:])
+            return tuple(element_data[basis, :])
 
         @final
-        def from_module_element_matrix(
+        def _tensor_from_module_element_matrix(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
+            tensor_type: tuple[Integer, Integer],
             entries: Sequence[Sequence[RModuleElement]],
             *,
+            basis: ModuleBasis | None = None,
             name: str | None = None,
             latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct the ``(1,2)`` tensor encoded by module-valued products."""
+            assert tensor_type == (1, 2), (
+                "Module-element multiplication tables construct a (1, 2) tensor, "
+                f"not {tensor_type}"
+            )
             rank = base_module.rank()
             output_coordinates = [
                 [
-                    self._module_element_coordinates(base_module, element)
+                    self._module_element_coordinates(base_module, element, basis)
                     for element in row
                 ]
                 for row in entries
@@ -325,59 +545,29 @@ class TensorAlgebraComponents(Category_over_base_ring):
                 for k in range(rank)
             ]
             return self._from_components(
-                base_module, (1, 2), components, name=name, latex_name=latex_name
+                base_module,
+                tensor_type,
+                components,
+                basis=basis,
+                name=name,
+                latex_name=latex_name,
+                sym=sym,
+                antisym=antisym,
             )
-
-        @final
-        def from_multidimensional_list(
-            self,
-            base_module: FreeModule,
-            tensor_type: tuple[Integer, Integer],
-            entries: Sequence[RingElement]
-            | Sequence[Sequence[RingElement]]
-            | Sequence[Sequence[Sequence[RingElement]]],
-            *,
-            name: str | None = None,
-            latex_name: str | None = None,
-        ) -> Tensor:
-            r"""Construct a tensor from nested component lists."""
-            return self._from_components(
-                base_module, tensor_type, entries, name=name, latex_name=latex_name
-            )
-
-        @final
-        def from_matrices(
-            self,
-            base_module: FreeModule,
-            tensor_type: tuple[Integer, Integer],
-            matrices: Sequence[Matrix],
-            *,
-            name: str | None = None,
-            latex_name: str | None = None,
-        ) -> Tensor:
-            r"""Construct a tensor whose components are supplied as matrices."""
-            return self._from_components(
-                base_module, tensor_type, matrices, name=name, latex_name=latex_name
-            )
-
-    _Constructors = Constructors
-
-    @cached_method
     @final
-    def Constructors(self) -> Constructors:
+    def Constructors(self) -> TensorAlgebraComponents._Constructors:
         r"""Return the tensor-component constructor collector."""
         return self.__class__._Constructors(self)
 
     ParentMethods = _TensorAlgebraComponentParentMethods
     ElementMethods = _TensorElementMethods
-    MorphismMethods = _TensorMorphismMethods
     HomCategory = RModuleHomCategory
 
 
 TensorAlgebraComponentsCategory = TensorAlgebraComponents
-TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
-TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
-TensorAlgebraComponentsMorphism = TensorAlgebraComponents.MorphismMethods
+type TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
+type TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
+TensorAlgebraComponentsMorphism = RModuleHomCategory.ElementMethods
 TensorAlgebraComponentsHomCategory = RModuleHomCategory
 TensorAlgebraComponentsEndCategory = RModuleEndCategory
 TensorAlgebraComponentsAutCategory = RModuleAutCategory

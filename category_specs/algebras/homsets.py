@@ -2,26 +2,34 @@ r"""Hom, end, and aut categories for algebras."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 
 if TYPE_CHECKING:
-    from ..types import Algebra
+    from ..types import Algebra, AlgebraIdeal
 
 
-class _AlgebraHomCategoryObjectMethods:
+class _AlgebraHomCategoryObjectMethods(UniversalHomObjectMethods):
     r"""Algebra-specific hom parent methods; generic hom methods are inherited."""
 
 
-class _AlgebraHomomorphisms:
-    @abstract_method
-    def kernel(self) -> Algebra:
-        r"""Return the kernel algebra of this algebra homomorphism."""
+class _AlgebraHomomorphisms(UniversalHomElementMethods):
+    @abstractmethod
+    def kernel(self) -> AlgebraIdeal:
+        r"""Return the kernel ideal of this algebra homomorphism."""
         ...
 
 
@@ -40,7 +48,6 @@ class AlgebraHomCategory(HomCategoryOf):
     ParentMethods = _AlgebraHomCategoryObjectMethods
     ElementMethods = _AlgebraHomomorphisms
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "AlgebraEndCategory")
@@ -54,14 +61,13 @@ class AlgebraEndCategory(GenericEndCategory):
     Autset = LazyImport(__name__, "AlgebraAutCategory")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_algebra(self) -> Algebra:
             r"""Return the algebra whose endomorphisms this object contains."""
             ...
 
-    class ElementMethods: ...
+    class ElementMethods(UniversalEndElementMethods): ...
 
-    class MorphismMethods: ...
 
 
 class AlgebraAutCategory(GenericAutCategory):
@@ -71,6 +77,4 @@ class AlgebraAutCategory(GenericAutCategory):
 
     class ParentMethods: ...
 
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
+    class ElementMethods(UniversalAutElementMethods): ...

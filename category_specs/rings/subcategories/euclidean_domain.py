@@ -5,20 +5,22 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.euclidean_domains import EuclideanDomains as SageEuclideanDomains
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ._lazy_subcategories import _PrincipalIdealDomains
-from .integral_domain import _IntegralDomains as _IntegralDomains
+from .principal_ideal_domain import _PrincipalIdealDomains as _PrincipalIdealDomains
 
 if TYPE_CHECKING:
     pass
 
 
 class _EuclideanDomains(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().IntegralDomains().Euclidean()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().IntegralDomains().Gcd().UniqueFactorization().PrincipalIdeal().Euclidean()``.
+    """
 
-    _base_category_class_and_axiom = (_IntegralDomains, "Euclidean")
+    _base_category_class_and_axiom = (_PrincipalIdealDomains, "Euclidean")
 
     @override
     @final
@@ -37,8 +39,13 @@ class _EuclideanDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_euclidean_domain()
         )
 
+    Field = LazyImport("category_specs.rings.subcategories.field", "_Fields")
+
+    class SubcategoryMethods:
+        @final
+        def Field(self) -> Category:
+            return self._with_axiom("Field")
+
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

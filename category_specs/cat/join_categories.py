@@ -9,7 +9,6 @@ from sage.categories.category import JoinCategory as SageJoinCategory
 from .base_category_types import Category, Category_singleton
 
 
-@final
 def is_join_category(candidate: Any) -> bool:
     r"""Return whether ``candidate`` is Sage's category-lattice join object."""
     return isinstance(candidate, SageJoinCategory)
@@ -34,7 +33,6 @@ class JoinCategories(Category_singleton):
 
         return [Cat()]
 
-    @override
     @final
     def additional_structure(self) -> None:
         r"""Return Sage's additional-structure marker for join categories."""

@@ -2,20 +2,19 @@ r"""QQ ring subcategory spec."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, final, overload, override
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast, final, overload, override
 
-from sage.misc.cachefunc import cached_method
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
 from .. import Rings
 from ._lazy_subcategories import (
-    _Fields,
-    _GlobalFields,
+    _FractionFields,
     _NumberFields,
-    _QuotientFields,
 )
+
+_F = TypeVar("_F", bound=Callable[..., object])
 
 if TYPE_CHECKING:
     from ...types import (
@@ -23,6 +22,7 @@ if TYPE_CHECKING:
         Field,
         Group,
         Ideal,
+        NumberField,
         PrimeIdeal,
         Ring,
         RingElement,
@@ -45,10 +45,8 @@ class _QQ(Category_singleton):
     @final
     def super_categories(self) -> list[Category]:
         return [
-            _Fields(),
-            _QuotientFields(),
+            _FractionFields(),
             _NumberFields(),
-            _GlobalFields(),
             Rings().Characteristic(0),
         ]
 
@@ -60,10 +58,10 @@ class _QQ(Category_singleton):
         return x is QQ
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import QQ
 
-        return QQ
+        return cast("Ring", QQ)
 
     class ParentMethods:
         @override
@@ -76,15 +74,14 @@ class _QQ(Category_singleton):
         def algebraic_closure(self) -> Field:
             from sage.all import QQbar
 
-            return QQbar
-
-        @cached_method
+            return cast("Field", QQbar)
         @final
-        def as_number_field(self) -> Field:
-            from sage.all import ZZ, NumberField, PolynomialRing
+        def as_number_field(self) -> NumberField:
+            from sage.all import ZZ, PolynomialRing
+            from sage.all import NumberField as SageNumberField
 
             R = PolynomialRing(ZZ, "x")
-            return NumberField(R.gen(), "a")
+            return cast("NumberField", SageNumberField(R.gen(), "a"))
 
         @override
         @final
@@ -121,7 +118,13 @@ class _QQ(Category_singleton):
         def trace_pairing_discriminant(
             self, elements: Sequence[RingElement]
         ) -> RingElement:
-            return self.as_number_field().discriminant(v=elements)
+            from sage.all import QQ, matrix
+
+            trace_matrix = matrix(
+                QQ,
+                [[QQ(left) * QQ(right) for right in elements] for left in elements],
+            )
+            return cast("RingElement", trace_matrix.det())
 
         @override
         @final
@@ -188,14 +191,18 @@ class _QQ(Category_singleton):
         @override
         @final
         def integral_basis_at_prime(self, prime: Integer) -> tuple[RingElement, ...]:
-            return self.as_number_field().integral_basis(v=prime)
+            from sage.all import QQ
+
+            return (cast("RingElement", QQ(1)),)
 
         @override
         @final
         def integral_basis_at_primes(
             self, primes: Sequence[Integer]
         ) -> tuple[RingElement, ...]:
-            return self.as_number_field().integral_basis(v=primes)
+            from sage.all import QQ
+
+            return (cast("RingElement", QQ(1)),)
 
         @override
         @final
@@ -221,12 +228,12 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def real_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]:
+        def real_embeddings(self, prec: int = 53) -> tuple[RingMorphism, ...]:
             return self.as_number_field().real_embeddings(prec=prec)
 
         @override
         @final
-        def complex_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]:
+        def complex_embeddings(self, prec: int = 53) -> tuple[RingMorphism, ...]:
             return self.as_number_field().complex_embeddings(prec=prec)
 
         @override
@@ -290,7 +297,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -301,9 +310,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=prime, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -314,9 +323,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=primes, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -326,7 +335,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -337,9 +348,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=prime, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -350,9 +361,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=primes, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -360,5 +371,3 @@ class _QQ(Category_singleton):
             return self.as_number_field().absolute_field(names)
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

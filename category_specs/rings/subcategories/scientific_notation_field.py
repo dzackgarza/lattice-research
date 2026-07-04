@@ -2,9 +2,9 @@ r"""ScientificNotationFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.abc import ComplexField as SageComplexField
 from sage.rings.abc import ComplexIntervalField as SageComplexIntervalField
 from sage.rings.abc import RealField as SageRealField
@@ -48,9 +48,7 @@ class _ScientificNotationFields(Category_singleton):
         )
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def scientific_notation(self, status: bool | None = None) -> bool: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -1,5 +1,0 @@
-&DATA
- EXTfile = "ContactE8.ext"
- GRPfile = "ContactE8.grp"
- OutFile = "orbits"
-/

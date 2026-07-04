@@ -2,11 +2,11 @@ r"""One-object subcategory for Sage ``NonNegativeIntegers()``."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
     from ...types import SetElement, SympySet
@@ -36,29 +36,27 @@ class _NonNegativeIntegersSets(Category_singleton):
             return False
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, elt: Any) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _element_constructor_(self, i: SetElement) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[SetElement]: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def an_element(self) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def some_elements(self) -> list[SetElement]: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _sympy_(self) -> SympySet: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

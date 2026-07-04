@@ -7,7 +7,7 @@ date_format = "%b %d, %Y"
 [markdown.formatting]
 
 [library]
-path = ".agents/memories"
+path = ".agents"
 date_format = "%Y-%m-%d"
 
 [completion]

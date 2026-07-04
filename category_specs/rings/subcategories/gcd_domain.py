@@ -2,10 +2,11 @@ r"""GcdDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.gcd_domains import GcdDomains as SageGcdDomains
-from sage.misc.abstract_method import abstract_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -39,25 +40,33 @@ class _GcdDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_gcd_domain()
         )
 
+    UniqueFactorization = LazyImport(
+        "category_specs.rings.subcategories.unique_factorization_domain",
+        "_UniqueFactorizationDomains",
+    )
+
+    class SubcategoryMethods:
+        @final
+        def UniqueFactorization(self) -> Category:
+            return self._with_axiom("UniqueFactorization")
+
     class ParentMethods:
         @override
         @final
         def is_gcd_domain(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def gcd(self, r: RingElement, s: RingElement) -> RingElement: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def gcd(self, other: RingElement) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def lcm(self, other: RingElement) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def xgcd(
             self, other: RingElement
         ) -> tuple[RingElement, RingElement, RingElement]: ...
-
-    class MorphismMethods: ...

@@ -2,9 +2,9 @@ r"""Rings of fixed Krull dimension."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from .parameterized import _Category_over_base_integer
@@ -26,16 +26,14 @@ class _KrullDimension(_Category_over_base_integer):
 
     @override
     @final
-    def _repr_object_names(self):
+    def _repr_object_names(self) -> str:
         return (
             f"{self.base_category()._repr_object_names()} "
             f"of Krull dimension {self.dimension()}"
         )
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def krull_dimension(self) -> Integer: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

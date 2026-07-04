@@ -3,7 +3,7 @@ r"""One-object subcategory for callable-backed enumerated sets."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.finite_enumerated_sets import (
@@ -59,7 +59,9 @@ class _EnumeratedSetsFromIterator(Category_singleton):
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
-            return SageEnumeratedSetFromIterator.__iter__(self)
+            return cast(
+                "Iterator[SetElement]", SageEnumeratedSetFromIterator.__iter__(self)
+            )
 
         @override
         @final
@@ -76,7 +78,7 @@ class _EnumeratedSetsFromIterator(Category_singleton):
         @override
         @final
         def an_element(self) -> SetElement:
-            return self._an_element_()
+            return cast("SetElement", self._an_element_())
 
         @override
         @final
@@ -91,5 +93,3 @@ class _EnumeratedSetsFromIterator(Category_singleton):
             SageEnumeratedSetFromIterator.clear_cache(self)
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

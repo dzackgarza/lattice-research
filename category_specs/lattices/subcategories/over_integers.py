@@ -2,15 +2,20 @@ r"""Lattices over the integer ring."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from abc import abstractmethod
+from typing import TYPE_CHECKING, cast, final
 
-from sage.misc.abstract_method import abstract_method
+from sage.modules.free_quadratic_module_integer_symmetric import (
+    FreeQuadraticModule_integer_symmetric as SageIntegerSymmetricLattice,
+)
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .over_pid import _LatticesOverPID
 
 if TYPE_CHECKING:
-    from ...types import Integer, Matrix, RingElement, SetFamily
+    from sage.quadratic_forms.genera.genus import GenusSymbol_global_ring
+
+    from ...types import Lattice, RingElement, SetFamily
 
 
 class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
@@ -27,13 +32,13 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
         def is_over_integers(self) -> bool:
             return True
 
-        @abstract_method
-        def genus(self): ...
+        @abstractmethod
+        def genus(self) -> GenusSymbol_global_ring: ...
 
-        @abstract_method
+        @abstractmethod
         def minimum(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def short_vectors(self, bound: RingElement) -> SetFamily:
             r"""Return vectors ``v`` whose norm ``b(v, v)`` is at most ``bound``."""
             ...
@@ -43,24 +48,11 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
             r"""Return representatives for the sign orbits ``{v, -v}`` in
             ``short_vectors(bound)``.
             """
-            return self.short_vectors(bound, up_to_sign_flag=True)
+            return SageIntegerSymmetricLattice.short_vectors(
+                cast(SageIntegerSymmetricLattice, self), bound, up_to_sign_flag=True
+            )
 
-        @abstract_method
-        def LLL(
-            self,
-            delta: RingElement | None = None,
-            eta: RingElement | None = None,
-            algorithm: str = "fpLLL:wrapper",
-            fp: str | None = None,
-            prec: Integer = 0,
-            early_red: bool = False,
-            use_givens: bool = False,
-            use_siegel: bool = False,
-            transformation: bool = False,
-        ) -> Matrix:
-            del delta, eta, early_red, use_givens, use_siegel, transformation
-            ...
+        @abstractmethod
+        def LLL(self) -> Lattice: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

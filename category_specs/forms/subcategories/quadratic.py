@@ -2,13 +2,23 @@ r"""Modules equipped with quadratic forms."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from abc import abstractmethod
+from typing import TYPE_CHECKING, Protocol, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .with_forms import FormedModulesCategory, OverPIDFormedModulesCategory
+from .with_forms import (
+    FormedModulesCategory,
+    FormedModulesMorphism,
+    OverPIDFormedModulesCategory,
+    OverPIDFormedModulesMorphism,
+)
 
 if TYPE_CHECKING:
     from ...types import RModuleElement
+
+
+class _QuadraticForm(Protocol):
+    def q(self, v: RModuleElement) -> RModuleElement: ...
 
 
 class QuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -21,6 +31,9 @@ class QuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_quadratic",)
 
     class ParentMethods:
+        @abstractmethod
+        def form(self) -> _QuadraticForm: ...
+
         @override
         @final
         def is_quadratic(self) -> bool:
@@ -33,7 +46,6 @@ class QuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class OverPIDQuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -47,12 +59,11 @@ class OverPIDQuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
 
     ParentMethods = QuadraticModulesCategory.ParentMethods
     ElementMethods = QuadraticModulesCategory.ElementMethods
-    MorphismMethods = QuadraticModulesCategory.MorphismMethods
 
 
 QuadraticModulesObject = QuadraticModulesCategory.ParentMethods
 QuadraticModulesElement = QuadraticModulesCategory.ElementMethods
-QuadraticModulesMorphism = QuadraticModulesCategory.MorphismMethods
+QuadraticModulesMorphism = FormedModulesMorphism
 OverPIDQuadraticModulesObject = OverPIDQuadraticModulesCategory.ParentMethods
 OverPIDQuadraticModulesElement = OverPIDQuadraticModulesCategory.ElementMethods
-OverPIDQuadraticModulesMorphism = OverPIDQuadraticModulesCategory.MorphismMethods
+OverPIDQuadraticModulesMorphism = OverPIDFormedModulesMorphism

@@ -2,13 +2,13 @@ r"""Finitely presented graded modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 
-from ...cat import Category_over_base_ring
+from ...cat import Cat, Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -36,12 +36,16 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
-        return [Category.join([
-            Modules(R).FinitelyPresented(),
-            Modules(R).Graded(),
-        ])]
+        return [
+            Cat().join(
+                [
+                    Modules(R).FinitelyPresented(),
+                    Modules(R).Graded(),
+                ]
+            )
+        ]
 
     class ParentMethods:
         @override
@@ -54,16 +58,16 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
         def is_finitely_presented_graded_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def generator_degrees(self) -> tuple[Integer, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def relations(self) -> tuple[RModuleElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def presentation(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def free_resolution(
             self,
             name: str = "S",
@@ -76,7 +80,7 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
             del graded, degrees, shifts
             ...
 
-        @abstract_method
+        @abstractmethod
         def module_morphism(
             self,
             on_basis: Callable[[CategoryElement], RModuleElement] | None = None,
@@ -91,10 +95,6 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
             zero: RModuleElement | RingElement | None = None,
             position: Integer = 0,
             side: Literal["left", "right"] = "left",
-        ) -> RModuleMorphism:
-            del on_basis, triangular, unitriangular, position
-            ...
+        ) -> RModuleMorphism: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

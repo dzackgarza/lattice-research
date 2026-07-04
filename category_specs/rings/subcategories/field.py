@@ -2,11 +2,11 @@ r"""Fields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, assert_never, final, override
+from abc import abstractmethod
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.fields import Fields as SageFields
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -17,12 +17,11 @@ from ._lazy_subcategories import (
     _QQ,
     _RR,
     _DivisionRings,
-    _EuclideanDomains,
     _IntegrallyClosedDomains,
     _NoetherianRings,
     _ReducedRings,
 )
-from .commutative import _CommutativeRings as _CommutativeRings
+from .euclidean_domain import _EuclideanDomains as _EuclideanDomains
 
 if TYPE_CHECKING:
     from ...types import (
@@ -36,7 +35,7 @@ if TYPE_CHECKING:
 class _Fields(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Field()``."""
 
-    _base_category_class_and_axiom = (_CommutativeRings, "Field")
+    _base_category_class_and_axiom = (_EuclideanDomains, "Field")
 
     @override
     @final
@@ -48,7 +47,6 @@ class _Fields(CategoryWithAxiom):
     def super_categories(self) -> list[Category]:
         return [
             SageFields(),
-            _CommutativeRings(),
             _DivisionRings(),
             _EuclideanDomains(),
             _IntegrallyClosedDomains(),
@@ -65,9 +63,6 @@ class _Fields(CategoryWithAxiom):
     Finite = LazyImport(
         "category_specs.rings.subcategories.finite_field", "_FiniteFields"
     )
-    NumberFields = LazyImport(
-        "category_specs.rings.subcategories.number_field", "_NumberFields"
-    )
     AlgebraicallyClosed = LazyImport(
         "category_specs.rings.subcategories.algebraically_closed_field",
         "_AlgebraicallyClosedFields",
@@ -80,74 +75,49 @@ class _Fields(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def NumberFields(self) -> Category:
-            return self._with_axiom("NumberFields")
-
-        @cached_method
+            return self.GlobalFields().NumberFields()
         @final
         def AlgebraicallyClosed(self) -> Category:
             return self._with_axiom("AlgebraicallyClosed")
-
-        @cached_method
         @final
         def LocalFields(self) -> Category:
             return self._with_axiom("LocalFields")
-
-        @cached_method
         @final
         def GlobalFields(self) -> Category:
             return self._with_axiom("GlobalFields")
-
-    @cached_method
     @final
-    def QQ(self):
+    def QQ(self) -> Any:
         return _QQ()
-
-    @cached_method
     @final
-    def RR(self):
+    def RR(self) -> Any:
         return _RR()
-
-    @cached_method
     @final
-    def CC(self):
+    def CC(self) -> Any:
         return _CC()
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
+        def zero(self) -> RingElement: ...
+
+        @abstractmethod
+        def one(self) -> RingElement: ...
+
+        @abstractmethod
         def is_algebraically_closed(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def algebraic_closure(self) -> Field: ...
-
-        @override
-        @final
-        def gcd(self, r: RingElement, s: RingElement) -> RingElement:
-            match r.is_zero() and s.is_zero():
-                case True:
-                    return self.zero()
-                case False:
-                    assert not r.is_zero() or not s.is_zero()
-                    return self.one()
-                case unreachable:
-                    assert_never(unreachable)
 
         @override
         @final
         def completion(self, ideal: Ideal) -> CompleteRing:
             # Field case split: only the zero and unit ideals exist.
-            match ideal:
-                case _ if ideal.is_zero():
-                    return self
-                case _ if ideal.is_one():
-                    return self
-                case unreachable:
-                    assert_never(unreachable)
+            if ideal.is_zero():
+                return self
+            return Rings().Constructors().ZeroRing()
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def inverse(self) -> RingElement: ...
-
-    class MorphismMethods: ...

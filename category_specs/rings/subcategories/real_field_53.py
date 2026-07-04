@@ -2,17 +2,16 @@ r"""RR ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from ...cat import Category, Category_singleton
 from ._lazy_subcategories import (
-    _CompleteRings,
-    _Fields,
-    _LocalFields,
     _RealFields,
 )
 
 if TYPE_CHECKING:
+    from ...types import Ring
+
     pass
 
 
@@ -32,7 +31,7 @@ class _RR(Category_singleton):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [_RealFields(), _Fields(), _CompleteRings(), _LocalFields()]
+        return [_RealFields()]
 
     @override
     @final
@@ -42,13 +41,11 @@ class _RR(Category_singleton):
         return x is RR
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import RR
 
-        return RR
+        return cast("Ring", RR)
 
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

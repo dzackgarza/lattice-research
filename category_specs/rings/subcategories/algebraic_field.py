@@ -2,9 +2,9 @@ r"""AlgebraicFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
@@ -47,13 +47,13 @@ class _AlgebraicFields(Category_singleton):
         return x is AA or x is QQbar
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def default_interval_prec(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def common_polynomial(self, poly: Polynomial) -> AlgebraicPolynomial: ...
 
-        @abstract_method
+        @abstractmethod
         def polynomial_root(
             self,
             poly: Polynomial,
@@ -62,5 +62,3 @@ class _AlgebraicFields(Category_singleton):
         ) -> RingElement: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

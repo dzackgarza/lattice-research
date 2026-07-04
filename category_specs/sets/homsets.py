@@ -7,13 +7,21 @@ automorphisms of sets.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 
 if TYPE_CHECKING:
     from ..types import (
@@ -22,32 +30,31 @@ if TYPE_CHECKING:
     )
 
 
-class _SetHomCategoryObjectMethods:
+class _SetHomCategoryObjectMethods(UniversalHomObjectMethods):
     r"""Set-specific hom parent methods; generic hom methods are inherited."""
 
 
-class _SetMorphisms:
-    @abstract_method
+class _SetMorphisms(UniversalHomElementMethods):
+    @abstractmethod
     def pre_image(self, y: SetElement) -> Subset:
         r"""Return the inverse image of ``y`` under this set morphism."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def preimage(self, subset: Subset) -> Subset:
         r"""Return the inverse image of ``subset`` under this set morphism."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_injective(self) -> bool:
         r"""Return whether this set morphism is injective."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_surjective(self) -> bool:
         r"""Return whether this set morphism is surjective."""
         ...
 
-    @override
     @final
     def is_bijective(self) -> bool:
         r"""Return whether this set morphism is both injective and surjective."""
@@ -60,13 +67,13 @@ class _SetMorphisms:
         return self.is_bijective()
 
 
-class _SetEndomorphisms:
+class _SetEndomorphisms(UniversalEndElementMethods):
     r"""Set-specific endomorphism methods; generic endomorphism methods are
     inherited.
     """
 
 
-class _SetAutomorphisms:
+class _SetAutomorphisms(UniversalAutElementMethods):
     r"""Set-specific automorphism methods; generic automorphism methods are
     inherited.
     """
@@ -92,7 +99,6 @@ class SetHomCategory(HomCategoryOf):
     ParentMethods = _SetHomCategoryObjectMethods
     ElementMethods = _SetMorphisms
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "SetEndCategory")
@@ -111,7 +117,6 @@ class SetEndCategory(GenericEndCategory):
 
     ElementMethods = _SetEndomorphisms
 
-    class MorphismMethods: ...
 
 
 class SetAutCategory(GenericAutCategory):
@@ -125,5 +130,3 @@ class SetAutCategory(GenericAutCategory):
     class ParentMethods: ...
 
     ElementMethods = _SetAutomorphisms
-
-    class MorphismMethods: ...

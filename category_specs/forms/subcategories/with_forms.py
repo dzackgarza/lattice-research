@@ -2,18 +2,25 @@ r"""Modules equipped with forms."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
+from collections.abc import Callable
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...homsets import HomCategoryConstruction, UniversalHomElementMethods
 from ...modules import Modules
 
 if TYPE_CHECKING:
-    from ...types import OrthogonalGroup, RModuleMorphism
+    from ...types import (
+        FormedModule,
+        FormedModuleElement,
+        FormedModuleMorphism,
+        OrthogonalGroup,
+        RModuleMorphism,
+    )
 
 
 class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -31,13 +38,13 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
         def has_form(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_bilinear(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_quadratic(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def form(self) -> RModuleMorphism: ...
 
         @final
@@ -46,43 +53,30 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
             return self.category().AutCategory().Of(self)
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Bilinear(self) -> Category:
             r"""Introduced here: select the bilinear-formed subcategory."""
             return self._with_axiom("Bilinear")
-
-        @cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Introduced here: select the quadratic-formed subcategory."""
             return self._with_axiom("Quadratic")
-
-        @cached_method
         @final
         def Symmetric(self) -> Category:
             r"""Introduced here: select the symmetric-bilinear subcategory."""
             return self._with_axiom("Symmetric")
-
-        @cached_method
         @final
         def Alternating(self) -> Category:
             r"""Introduced here: select the alternating-bilinear subcategory."""
             return self._with_axiom("Alternating")
-
-        @cached_method
         @final
         def Nondegenerate(self) -> Category:
             r"""Introduced here: select the nondegenerate-bilinear subcategory."""
             return self._with_axiom("Nondegenerate")
-
-        @cached_method
         @final
         def Integral(self) -> Category:
             r"""Introduced here: select the integral-bilinear subcategory."""
             return self._with_axiom("Integral")
-
-        @cached_method
         @final
         def Rational(self) -> Category:
             r"""Introduced here: select the rational-bilinear subcategory."""
@@ -90,7 +84,50 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
+    class HomCategory(HomCategoryConstruction):
+        class ElementMethods(UniversalHomElementMethods):
+            @abstractmethod
+            def kernel(self) -> FormedModule:
+                r"""Return ``ker(f)`` with the restricted form."""
+                ...
+
+            @abstractmethod
+            def image(self) -> FormedModule:
+                r"""Return ``im(f)`` with the restricted form."""
+                ...
+
+            @abstractmethod
+            def inverse_image(self, subobject: FormedModule) -> FormedModule:
+                r"""Return ``f^{-1}(subobject)`` with the restricted form."""
+                ...
+
+            @abstractmethod
+            def cokernel(self) -> FormedModule:
+                r"""Return ``codomain(f) / image(f)`` with descended form data.
+
+                The underlying quotient is formed in the finitely generated
+                module category.  The form codomain also descends: first take
+                the coefficient-module cokernel of the form-codomain map, then
+                quotient further by the image of cross terms
+                ``b(image(f), codomain(f))``.  Bilinear or quadratic form data
+                is attached exactly when this produces a well-defined form on
+                the quotient object.
+                """
+                ...
+
+            @abstractmethod
+            def lift(self, x: FormedModuleElement) -> FormedModuleElement:
+                r"""Return a lift along this morphism when one exists."""
+                ...
+
+            @abstractmethod
+            def projection(self) -> FormedModuleMorphism:
+                r"""Return the quotient projection associated to ``cokernel()``."""
+                ...
+
+            def is_isometry(self) -> bool:
+                r"""Return whether this form-preserving morphism is an isomorphism."""
+                return self.is_isomorphism()
 
     Bilinear = LazyImport(
         "category_specs.forms.subcategories.bilinear", "BilinearModulesCategory"
@@ -113,21 +150,12 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
 
     ParentMethods = FormedModulesCategory.ParentMethods
 
-    class SubcategoryMethods(FormedModulesCategory.SubcategoryMethods):
-        @cached_method
-        @final
-        def Bilinear(self) -> Category:
-            r"""Select the bilinear formed-module subcategory over this PID base."""
-            return self._with_axiom("Bilinear")
-
-        @cached_method
-        @final
-        def Quadratic(self) -> Category:
-            r"""Select the quadratic formed-module subcategory over this PID base."""
-            return self._with_axiom("Quadratic")
+    SubcategoryMethods = FormedModulesCategory.SubcategoryMethods
 
     ElementMethods = FormedModulesCategory.ElementMethods
-    MorphismMethods = FormedModulesCategory.MorphismMethods
+
+    class HomCategory(HomCategoryConstruction):
+        class ElementMethods(FormedModulesCategory.HomCategory.ElementMethods): ...
 
     Bilinear = LazyImport(
         "category_specs.forms.subcategories.bilinear", "OverPIDBilinearModulesCategory"
@@ -140,7 +168,7 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
 
 FormedModulesObject = FormedModulesCategory.ParentMethods
 FormedModulesElement = FormedModulesCategory.ElementMethods
-FormedModulesMorphism = FormedModulesCategory.MorphismMethods
+FormedModulesMorphism = FormedModulesCategory.HomCategory.ElementMethods
 OverPIDFormedModulesObject = OverPIDFormedModulesCategory.ParentMethods
 OverPIDFormedModulesElement = OverPIDFormedModulesCategory.ElementMethods
-OverPIDFormedModulesMorphism = OverPIDFormedModulesCategory.MorphismMethods
+OverPIDFormedModulesMorphism = OverPIDFormedModulesCategory.HomCategory.ElementMethods

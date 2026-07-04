@@ -2,9 +2,10 @@ r"""Modules over principal ideal domains."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -21,7 +22,7 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().OverDedekindDomain()]
 
     @override
@@ -35,12 +36,11 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
         def is_over_pid(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def index_in(self, other: RModule) -> Cardinality: ...
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
     WithForms = LazyImport(
         "category_specs.forms.subcategories.with_forms", "OverPIDFormedModulesCategory"

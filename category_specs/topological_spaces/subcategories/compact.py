@@ -6,7 +6,7 @@ from typing import final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .. import TopologicalSpaces
+from .. import TopologicalSpaces, _TopologicalSpaceObjectMethods
 
 
 class _CompactTopologicalSpaces(CategoryWithAxiom):
@@ -26,9 +26,9 @@ class _CompactTopologicalSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return local topological spaces."""
-        return [TopologicalSpaces()]
+        return [self.base_category()]
 
-    class ParentMethods:
+    class ParentMethods(_TopologicalSpaceObjectMethods):
         @override
         @final
         def is_compact(self) -> bool:
@@ -36,5 +36,3 @@ class _CompactTopologicalSpaces(CategoryWithAxiom):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

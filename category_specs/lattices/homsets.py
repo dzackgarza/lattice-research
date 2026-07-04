@@ -1,45 +1,47 @@
 r"""Hom, end, and aut categories for lattices.
 
-``LatticeAutCategory`` is the lattice specialization of the orthogonal-group
-surface: its objects are automorphism groups in the lattice category, hence
-isometries of the integral formed module. The general owner remains the
-modules-with-forms aut surface.
+``Hom_Lattices(L, M)`` is the formed-module Hom object specialized to lattices:
+its elements are module morphisms that preserve the specified bilinear form.
+Matrix representatives exist only after finite free presentations or chosen
+bases.  ``Aut_Lattices(L)`` is the lattice orthogonal group ``O(L)`` as a group
+object; generators or presentations belong only to stronger group refinements.
 """
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..forms.subcategories.free_bilinear import FreeBilinearModulesCategory
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+)
+from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 
 if TYPE_CHECKING:
-    from ..types import Lattice, LatticeOrthogonalGroup, Matrix
+    from ...cat import Category
+    from ..types import Lattice, LatticeOrthogonalGroup, Morphism
 
 
-class _LatticeHomCategoryObjectMethods:
+class _LatticeHomCategoryObjectMethods(RModuleHomCategory.ParentMethods):
     r"""Lattice hom parent methods; generic hom methods are inherited."""
 
 
-class _LatticeMorphisms:
+class _LatticeMorphisms(FreeBilinearModulesCategory.HomCategory.ElementMethods):
     r"""Morphisms of lattices: formed-module morphisms preserving the bilinear form."""
 
-    @abstract_method
-    def to_matrix(self) -> Matrix: ...
 
-    def is_isometry(self) -> bool:
-        r"""Return whether this lattice morphism is an isomorphism.
-
-        Form preservation is owned by containment in the lattice Hom object, which
-        refines the formed-module Hom object.  Thus the remaining isometry condition
-        for a lattice morphism is categorical isomorphism.
-        """
-        return self.is_isomorphism()
+class _LatticeEndomorphisms(_LatticeMorphisms, UniversalEndElementMethods):
+    r"""Endomorphisms (self-maps) in the lattice category."""
 
 
-class _LatticeAutomorphisms:
+class _LatticeAutomorphisms(_LatticeEndomorphisms, UniversalAutElementMethods):
     r"""Lattice isometries, i.e. automorphisms in the lattice category."""
 
     @override
@@ -55,7 +57,7 @@ class LatticeHomCategory(HomCategoryOf):
     """
 
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         from ..modules import Modules
 
         R = self.base_category().base_ring()
@@ -64,7 +66,6 @@ class LatticeHomCategory(HomCategoryOf):
     ParentMethods = _LatticeHomCategoryObjectMethods
     ElementMethods = _LatticeMorphisms
 
-    class MorphismMethods: ...
 
     Endset = LazyImport(__name__, "LatticeEndCategory")
 
@@ -78,13 +79,12 @@ class LatticeEndCategory(GenericEndCategory):
     _base_category_class_and_axiom = (LatticeHomCategory, "Endset")
     Autset = LazyImport(__name__, "LatticeAutCategory")
 
-    class ParentMethods:
-        @abstract_method
+    class ParentMethods(RModuleEndCategory.ParentMethods):
+        @abstractmethod
         def base_lattice(self) -> Lattice: ...
 
-    ElementMethods = _LatticeMorphisms
+    ElementMethods = _LatticeEndomorphisms
 
-    class MorphismMethods: ...
 
 
 class LatticeAutCategory(GenericAutCategory):
@@ -95,25 +95,64 @@ class LatticeAutCategory(GenericAutCategory):
 
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 
-    class ParentMethods:
-        @abstract_method
+    class ParentMethods(RModuleAutCategory.ParentMethods):
+        @abstractmethod
+        def discriminant_action(self) -> Morphism:
+            r"""Return the action homomorphism ``O(L) -> O(A_L, q_L)``."""
+            ...
+
+        @abstractmethod
+        def image_in_discriminant_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return the image subgroup of ``O(A_L, q_L)``."""
+            ...
+
+        @abstractmethod
+        def kernel_of_discriminant_action(self) -> LatticeOrthogonalGroup:
+            r"""Return the stable subgroup acting trivially on ``A_L``."""
+            ...
+
+        @abstractmethod
         def special_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return the determinant-one subgroup of this lattice orthogonal group."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def stable_subgroup(self) -> LatticeOrthogonalGroup:
-            r"""Return the orientation-preserving subgroup.
+            r"""Return the subgroup acting trivially on the discriminant form.
 
-            This subgroup is taken inside this lattice orthogonal group.
+            This is the stable orthogonal subgroup
+            ``\widetilde O(L) = \ker(O(L) -> O(A_L, q_L))``.
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def stable_special_subgroup(self) -> LatticeOrthogonalGroup:
-            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
+            r"""Return ``\widetilde{SO}(L) = \widetilde O(L) \cap SO(L)``.
 
             The subgroup is taken inside this lattice orthogonal group.
+            """
+            ...
+
+        @abstractmethod
+        def plus_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return ``O^+(L)``, the real-spinor-kernel subgroup.
+
+            This is the subgroup of ``O(L)`` whose real spinor norm is trivial.
+            Positive-cone preservation is only an equivalent witness under the
+            appropriate hyperbolic hypotheses.
+            """
+            ...
+
+        @abstractmethod
+        def special_plus_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``."""
+            ...
+
+        @abstractmethod
+        def stable_special_plus_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return ``\widetilde{SO}^+(L)``.
+
+            This is ``\widetilde O(L) \cap SO(L) \cap O^+(L)``.
             """
             ...
 
@@ -127,17 +166,30 @@ class LatticeAutCategory(GenericAutCategory):
 
         @final
         def stable_orthogonal_group(self) -> LatticeOrthogonalGroup:
-            r"""Return ``O^+(L)``, the stable subgroup of this orthogonal group."""
+            r"""Return ``\widetilde O(L)``, the stable subgroup of this group."""
             return self.stable_subgroup()
 
         @final
         def stable_special_orthogonal_group(self) -> LatticeOrthogonalGroup:
-            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
+            r"""Return ``\widetilde{SO}(L) = \widetilde O(L) \cap SO(L)``.
 
             The notation refers to the underlying lattice ``L``.
             """
             return self.stable_special_subgroup()
 
-    ElementMethods = _LatticeAutomorphisms
+        @final
+        def plus_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``O^+(L)``, the real-spinor-kernel subgroup."""
+            return self.plus_subgroup()
 
-    class MorphismMethods: ...
+        @final
+        def special_plus_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``."""
+            return self.special_plus_subgroup()
+
+        @final
+        def stable_special_plus_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``\widetilde{SO}^+(L)``."""
+            return self.stable_special_plus_subgroup()
+
+    ElementMethods = _LatticeAutomorphisms

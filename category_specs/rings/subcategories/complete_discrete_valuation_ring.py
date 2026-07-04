@@ -11,7 +11,6 @@ from sage.categories.complete_discrete_valuation import (
 from ...cat import Category, Category_singleton
 from ._lazy_subcategories import (
     _CompleteDiscreteValuationObjects,
-    _CompleteRings,
     _DiscreteValuationRings,
 )
 
@@ -37,7 +36,6 @@ class _CompleteDiscreteValuationRings(Category_singleton):
         return [
             SageCompleteDiscreteValuationRings(),
             _CompleteDiscreteValuationObjects(),
-            _CompleteRings(),
             _DiscreteValuationRings(),
         ]
 
@@ -55,5 +53,3 @@ class _CompleteDiscreteValuationRings(Category_singleton):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

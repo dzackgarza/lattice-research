@@ -2,19 +2,19 @@ r"""TopologicalRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.rings import Rings as SageRings
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ...topological_spaces import (
-    TopologicalSpaceRuntimeGapObjectMethods,
-    TopologicalSpaces,
-)
+from ...topological_spaces import TopologicalSpaces
+from ...utils import with_axiom
 from .. import Rings
+
+_F = TypeVar("_F", bound=Callable[..., object])
 
 if TYPE_CHECKING:
     pass
@@ -47,28 +47,14 @@ class _TopologicalRings(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Complete(self) -> Category:
-            return self._with_axiom("Complete")
+            return cast(Category, with_axiom(self, "Complete"))
 
     class ParentMethods:
-        _missing_topology_adapter = (
-            TopologicalSpaceRuntimeGapObjectMethods._missing_topology_adapter
-        )
-        is_connected = TopologicalSpaceRuntimeGapObjectMethods.is_connected
-        closure = TopologicalSpaceRuntimeGapObjectMethods.closure
-        interior = TopologicalSpaceRuntimeGapObjectMethods.interior
-        boundary = TopologicalSpaceRuntimeGapObjectMethods.boundary
-        is_open = TopologicalSpaceRuntimeGapObjectMethods.is_open
-        is_closed = TopologicalSpaceRuntimeGapObjectMethods.is_closed
-        is_compact = TopologicalSpaceRuntimeGapObjectMethods.is_compact
-
         @override
         @final
         def is_topological_ring(self) -> bool:
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

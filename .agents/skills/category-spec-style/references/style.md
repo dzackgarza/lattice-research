@@ -26,7 +26,7 @@ Internal historical mentions of `STYLE.md` refer to this skill reference unless 
 - [Sage Inventory and Mapping](#sage-inventory-and-mapping)
 - [Error Handling](#error-handling)
 - [Axiomatic Subcategory Registration](#axiomatic-subcategory-registration)
-- [Method Surface Classes](#method-surface-classes)
+- [Method Classes](#method-classes)
 - [No Splicing](#no-splicing)
 - [Method Overrides](#method-overrides)
 - [Method Placement](#method-placement)
@@ -41,16 +41,117 @@ Internal historical mentions of `STYLE.md` refer to this skill reference unless 
 # STYLE.md - category_specs
 
 Read this file before editing, reviewing, or authoring category specs, implementations,
-tests, smoke files, Sage inventory/mapping docs, type surfaces, or code organization in
+tests, category-obligation examples, Sage inventory/mapping docs, type packages, or code organization in
 this subtree.
 
 This file records conventions, banned patterns, mathematical naming rules, and local
 spec structure. It preserves style and compliance material extracted from `AGENTS.md`.
 
+## Mathematical Sentence Rule
+
+Every sentence about category-spec work should be expressible as one of:
+
+- a definition;
+- a construction;
+- a theorem-shaped assertion;
+- a hypothesis;
+- a proof obligation;
+- a source citation;
+- an implementation witness;
+- an implementation gap.
+
+For every Sage name, first write the mathematical statement in a standard category
+under explicit hypotheses. Only after that sentence is stated may the document mention
+Sage realization, implementation gaps, tests, tracker state, or agent procedure.
+
+Avoid coined workflow vocabulary in mathematical documentation. Replace vague terms by
+the object meant: object, morphism, constructor, operation, predicate, category,
+subcategory, Hom object, automorphism group, discriminant form, orthogonal complement,
+source method, implementation witness, or implementation gap. Terms such as "surface",
+"admission", "frontier", "lane", "gate", "routing", and "artifact" are allowed only
+when they name agent procedure rather than the mathematical claim.
+
 ## Type System Rules
 
+- **Type Signatures Are Proof Obligations**: A type annotation, type alias, overload,
+  or cast is a claim about the mathematical object being expressed. It is not a
+  comment for mypy and not a local escape hatch. Every typing change must be checked
+  against the design philosophy before editing:
+  - Does this make the mathematical structure, owner, codomain, or hypothesis more
+    explicit?
+  - Does this preserve the smallest readable mathematical claim, without adding
+    software-engineering boilerplate around a correct category expression?
+  - Is the type checker surfacing a real source defect that implementers downstream
+    should see, such as a missing abstract obligation, wrong owner, missing named
+    mathematical type, invalid constructor input, or unsourced broad codomain?
+  - Or is the code conceptually right while the checker lacks Sage/category knowledge,
+    such as dynamic inheritance, method-container projection, `_with_axiom`,
+    `category_of`, `refine_category`, `LazyImport`, or `@classcall_private`?
+
+  If the error is caused by missing static knowledge of correct Sage mathematics, the
+  required fix is to teach the checker through the plugin, global QC config, generated
+  stubs, or a tracked static-model task. Do not scatter `cast(Category, ...)`,
+  `cast(Ring, ...)`, `cast(Any, ...)`, or equivalent local assertions around already
+  valid category selectors merely to reduce a mypy count. A local cast is allowed only
+  at a genuinely untyped interop boundary or a documented narrow refinement where the
+  code needs a stricter mathematical type than the source API can express, and the
+  task card must state the exact checker error, why the code is mathematically correct,
+  and why no plugin/static-model fix is the right owner.
+- **Casting Is a Red Flag**: Treat casts as evidence requiring review, not as routine
+  typing hygiene. A single isolated cast can be valid at a true Sage interop boundary,
+  at a constructor validation point that has just validated raw data, or at a narrow
+  override-and-promote point where spec-level code combines inherited methods whose
+  mathematical contracts guarantee a more structured result. Non-isolated casts, a
+  repeated casting pattern, or casts around ordinary category selectors usually signal
+  QC-silencing or code contortion.
+
+  Before accepting a cast inside a spec implementation, decide whether the spec is
+  doing too much implementation work. If the operation is a trivial combination of
+  methods/properties guaranteed by the subcategory hierarchy, the better design may be
+  to leave the implementation to the downstream object that must override the relevant
+  ABCs anyway, so the type work lives at the real implementation boundary. Another
+  possible owner is QC tooling: the checker may need to learn that inherited specs are
+  promoted to objects in the current category, rather than forcing every local spec
+  body to restate that promotion by cast. These are decision points. Record the choice
+  as source-correct implementation placement, a narrow documented promotion exception,
+  or a dedicated QC-tooling/static-model task.
+- **Type-Checker Tension Is Expected**: Static type checkers encode ordinary software
+  subtype rules, while this project is specifying mathematical categories and
+  dynamically inherited implementations. Mathematical obligations are not identical to
+  software substitutability obligations. A square is a rectangle, a group is a set, and
+  a subcategory object must satisfy upstream obligations; any method that works on the
+  underlying set should be available to a group when the hypotheses are met. But a
+  refined method in a subcategory may intentionally restrict inputs and strengthen
+  outputs: if `A' <= A`, `B' <= B`, and `F: A -> B`, a mathematically correct
+  restriction may have type `F': A' -> B'`. That can conflict with ordinary function
+  variance or Liskov-style method interchangeability even when it is the correct
+  category-theoretic operation. Treat those conflicts as classification points, not as
+  automatic permission to cast.
+
+  The intended architecture also depends on dynamic inheritance of specs and, later,
+  implementations. A new subcategory should be able to declare its position in the
+  category graph and receive upstream obligations, tests, and canonical implementations
+  where applicable without explicit subclassing, trivial re-call wrappers, or knowledge
+  of the implementation source tree. Aggregate category namespaces such as `Cat` and
+  category `Constructors()` should provide discoverable, opinionated entry points and
+  implementation-provider registration. For example, a module `R^n` has an underlying
+  set recognized as `R x ... x R`; if `R` is countable and has an enumeration, an
+  upstream provider should eventually be able to construct product enumeration once
+  and make `R^n` enumerable when the registered implementations integrate correctly.
+
+  Therefore, when mypy or another checker objects to a category method, ask first
+  whether the objection exposes a real mathematical/spec defect or whether the checker
+  lacks the project's category/provider model. In the second case, the tracked fix is
+  a dedicated plugin, generated-stub, static-model, global-QC, or focused-reproducer
+  task that teaches the checker the intended Sage mathematics and makes future QC
+  enforce the convention. Do not record these as "expected" failures to ignore, and do
+  not silence them locally. Replacing the mathematical claim with explicit wrappers,
+  local casts, or provider subclassing merely to satisfy software subtype rules is
+  design drift. QC-zero is not a license to brutalize the codebase into warning-free
+  shape; it is a requirement that either the source expresses the mathematics correctly
+  or the QC tools are improved until they can enforce the correct convention.
 - **No Duck-Typing**: We do not "believe" in duck-typing in mathematical code, or
-  variadic signatures, including Sage-interop surfaces.
+  variadic signatures, including Sage interop constructors or methods.
   Prefer explicit types and signatures everywhere. Duck-typing is a runtime concern:
   if a third party provides an implementation that quacks like ours, they can use
   the category methods, but we never rely on duck-typing for design or architecture.
@@ -74,7 +175,7 @@ spec structure. It preserves style and compliance material extracted from `AGENT
       as software engineering helpers. Every type must reflect a real mathematical
       concept.
 - **Sage Interop Uses Overloads, Not Variadics**: When a Sage method or constructor is
-  variadic, the exposed project API still is not. Convert the variadic Sage surface to
+  variadic, the exposed project API still is not. Convert the variadic Sage constructor or method to
   explicit `@overload` cases that cover the finite set of input patterns actually
   accepted by Sage.
   1.  **Research Before Designing Overloads**: Read the Sage signature, written Sage
@@ -99,9 +200,9 @@ spec structure. It preserves style and compliance material extracted from `AGENT
     variadic signature and not an optional-argument compatibility path such as
     `op(x, y=None)`.
   - Do not replace the binary operation with only an aggregate operation. The binary
-    operation is the primitive mathematical surface.
+    operation is the primitive mathematical operation.
 - **True Sage Wrappers**: A wrapped Sage class must subclass the Sage class it
-  re-exports, add only the project-specific registration or predicate surface, and then
+  re-exports, add only the project-specific registration or predicate, and then
   be re-exported under the Sage-compatible name. Do not reconstruct a Sage class by
   combining wrapper pieces, and do not copy upstream implementation hacks unless no
   true subclass wrapper can preserve Sage behavior.
@@ -120,14 +221,14 @@ spec structure. It preserves style and compliance material extracted from `AGENT
 
   **Boundary vs. interior**: `isinstance` is acceptable at the typed/untyped
   boundary — inside `__contains__` (which takes `Any`), in Sage interop wrappers
-  that receive untyped raw Sage objects, and at constructor gates that validate
+  that receive untyped raw Sage objects, and at constructor validation points that validate
   input shapes once. Outside these boundary sites, each `isinstance` should be
   questioned as a signal that the category system is not carrying enough information.
 
   **Preferred replacement**: When a categorical predicate exists (e.g.,
   `C in Cat().JoinCategories()` or `C.is_join_category()`), use it instead of
   `isinstance(C, JoinCategory)`. When no predicate exists yet, treat repeated
-  `isinstance` checks as a design smell and add the missing category surface
+  `isinstance` checks as a design smell and add the missing category operation
   rather than copying the runtime check through the codebase.
 
   **Assert vs. branch**: `assert isinstance(x, T)` documents a precondition and
@@ -138,7 +239,7 @@ spec structure. It preserves style and compliance material extracted from `AGENT
     of `Cat().JoinCategories().__contains__`, but ordinary code should say
     `C in Cat().JoinCategories()` or `C.is_join_category()`.
   - If no mathematically meaningful category or predicate exists yet, treat repeated
-    `isinstance` checks as a design smell and add the missing category surface instead
+    `isinstance` checks as a design smell and add the missing category operation instead
     of copying the runtime check through the codebase.
 - `__contains__` always takes `Any` as its argument type.
   Never use `object`.
@@ -148,8 +249,8 @@ spec structure. It preserves style and compliance material extracted from `AGENT
   `XCategory`, `XObject`, `XElement`, `XMorphism`, `XHomCategory`,
   `XEndCategory`, `XAutCategory`, `XHom`, `XEnd`, `XAut`,
   `XEndomorphism`, and `XAutomorphism`.
-  These names are direct pointers to the category class, its method surfaces, and its
-  Hom/End/Aut category surfaces; they are not software helper aliases.
+  These names are direct pointers to the category class, its method classes, and its
+  Hom/End/Aut category objects; they are not software helper aliases.
 - `types.py` imports and re-exports standard type packages, then decides conventional
   mathematical aliases such as `Ring = RingsObject`, `RModule = ModulesObject`, or
   `Polynomial` as an element type in the appropriate polynomial-ring subcategory.
@@ -157,7 +258,7 @@ spec structure. It preserves style and compliance material extracted from `AGENT
   aliases, `TypeAlias` definitions, or ad-hoc types — not in `TYPE_CHECKING` blocks,
   not at the top of axiom or other files, not inline. Import from `types.py`.
 - **No `__all__` Export Lists**: Do not use an explicit all-export pattern in this
-  subtree. Public and private surfaces are communicated by names: `_PrivateName` is a
+  subtree. Public and private APIs are communicated by names: `_PrivateName` is a
   private implementation or local spec entry point, and `PublicName` is importable.
   Package `__init__.py` files may re-export public names with ordinary imports, but
   they must not maintain `__all__` allowlists. Type checkers should warn when code
@@ -212,7 +313,7 @@ spec structure. It preserves style and compliance material extracted from `AGENT
   predicates. This allows clean mathematical expressions (e.g., `1+i in (CC -
   RR)`) and deferred evaluation while preserving the public vocabulary:
   `Sets().Subobjects().Of(ambient, predicates)` for subsets, and the analogous
-  subobject category surface for other categories. Raw `ConditionSet.arguments()`
+  subobject category operation for other categories. Raw `ConditionSet.arguments()`
   and symbolic predicate plumbing stay in Sage inventory or interop files; they
   are not category-spec methods.
 - Type names reflect **real mathematical vocabulary**, inspired by the SageMath
@@ -243,11 +344,10 @@ spec structure. It preserves style and compliance material extracted from `AGENT
 ## Spec Philosophy
 
 The spec's job is to formally declare what objects in a category **are** and **must
-have** - not to implement anything.
-A category spec is an ideal mathematical interface inside Sage's category/object
-universe. Current Sage implementation coverage is not the standard of adequacy. If
-current Sage already satisfied the desired interface, this project would not need a
-category-spec layer.
+have** through mathematically natural category/refinement structure - not to implement
+hard algorithms by wishful API design. A category spec is a Sage-grounded mathematical
+interface inside Sage's category/object universe. Current Sage implementation coverage
+is not the standard of adequacy.
 
 Sage interop is still a design constraint. The project extends Sage without editing
 upstream source yet, and refined objects should remain usable by existing Sage code
@@ -255,27 +355,90 @@ when mathematically appropriate. Existing Sage implementations show methods,
 constructors, algorithms, categories, and documented behaviors that are already
 mathematically useful and often implementable. They help prevent an unbounded wishlist
 of methods with no credible implementation path. Treat Sage as implementation evidence
-and a feasibility witness, not as a ceiling on the spec.
+and a realization witness, not as mathematical admissibility and not as a license to
+place objects in stronger categories without the required proof or witness data.
 
 The spec therefore has two simultaneous obligations:
 
 - preserve existing Sage functionality by inventorying and mapping Sage methods,
   constructors, and documented behavior into project vocabulary; and
-- state mathematically required methods and laws even when current Sage classes do not
-  provide them.
+- state mathematically required methods and laws with the category membership,
+  hypotheses, and witness data that make them category facts.
 
 A subcategory definition should read as a mathematical document: what the subcategory
-is, what its supercategories are, what methods an object in it must have, and what
-methods Sage already provides.
+is, what its supercategories are, what methods an object in it must have, what
+witness data the category includes, and what methods Sage already provides.
 Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
+
+Refinement is also categorical declaration. It takes an existing Sage object and says
+that the object is now viewed as lying in a project subcategory of its Sage-backed
+category. The existing Sage object is a partial implementation of the project spec:
+some specified methods are already present, and category-obligation examples should
+expose the missing ones.
+
+Refinement does not interrogate the object being refined. It does not validate that the
+object satisfies the project category, reject because project methods remain abstract,
+or instantiate the missing implementation. The declaration imposes the category
+contract; it does not certify satisfaction of that contract.
+
+This distinction is structural. The project invented specifications Sage does not know,
+so most refined Sage implementations are expected to be incomplete relative to the
+project spec. That incompleteness is the evidence category-obligation examples are
+meant to expose, not a reason to weaken the spec or add refinement-time checks.
+
+Do not turn refinement into method-search repair. If a refinement task starts with
+method search, cache state, dynamic class mutation, type-checker appeasement,
+test-ordering output, hook output, or any other programming mechanism before it names
+the category and its mathematical specification, stop and restate the ordinary category
+declaration.
+Concrete examples include `MRO`, `getattr_from_category`, `_cached_methods`,
+`cached_method`, Cython class assignment, and `can_assign_class`:
+
+> Existing Sage object ___ is declared to belong to project category ___; Sage already
+> realizes spec methods ___; spec methods ___ remain missing.
+
+Those terms are examples of the wrong layer, not an exhaustive list and not invented
+jargon to preserve as the refinement model. A source-backed Sage-framework task may
+discuss the runtime mechanism separately, but that discussion must remain outside the
+mathematical specification.
 
 Method-ownership rows must be mathematical sentences, not software-routing guesses.
 For a method, first identify the object it is called on, the mathematical data it
 requires, the object or morphism it constructs or observes, and the hypotheses under
 which that operation is well-defined. The owner is the category where that sentence is
-first true. Sage inventory can then witness implementation feasibility or existing
+first true. Sage inventory can then witness implementation realization or existing
 interop, but it cannot replace the mathematical sentence.
+
+`ParentMethods` is the method class for mathematical objects in a category. Do not
+describe it primarily as a method-provider class, dispatch layer, integration hook, or
+implementation hook. Those are implementation witnesses after the mathematical sentence
+has been stated.
+
+Abstract `ParentMethods` are not runtime failure hooks. Use Python `abc.abstractmethod`
+to represent abstract obligations in the class system, then let Python MRO and ABC
+machinery carry abstractness. Do not generate failure bodies, add `assert False`,
+insert `NotImplementedError`, manually compute which abstract names are satisfied, or
+special-case method names.
+
+Every added helper, test, category-obligation example, task title, and guidance phrase
+touching category methods must read like a mathematical fact, proposition, operation,
+requirement, or counterexample. Names that describe appeasing code machinery instead
+of the mathematical operation are hard slop signals in category-spec work. Do not
+launder them by adding caveats, quotes, or surrounding mathematical prose. Stop,
+discard the phrasing, and reconstruct the task from the object/category sentence:
+
+> For object ___ in category ___, method ___ expresses mathematical operation/fact/
+> requirement ___ under hypotheses ___.
+
+Only after that sentence is true may programming details be used as implementation
+evidence. A helper name should expose the mathematical relation it computes or checks.
+
+This is not an optics rule. Strange Python class manipulation inside mathematical spec
+code is itself presumptive evidence of slop. It usually means the agent is trying to
+force a runtime shape instead of stating the category fact. Stop unless source
+reconstruction proves that the mathematical object cannot be expressed without the
+mechanism.
 
 **Mathematical Specification, Not Generic Software Engineering**:
 Switch mentalities before auditing this subtree. These files are mathematical
@@ -292,15 +455,15 @@ an `n`th element operation, implementers of that category must provide it; the a
 of implementations is an implementation gap, not a reason to remove the mathematical
 requirement.
 
-Do not use Sage smoke failures as a negative vote on the spec. If a refined Sage object
-fails because it lacks an ABC method, record the implementation/wrapper/constructor gap
-or ground a replacement owner that preserves the obligation. Deleting an abstract
-method, weakening a category, or moving a method without a source-backed replacement
-owner is spec regression.
+Do not use failed category assertions as a negative vote on the spec. If a refined
+Sage object fails because it lacks an ABC method, record the
+implementation/wrapper/constructor gap or ground a replacement weakest category that
+preserves the obligation. Deleting an abstract method, weakening a category, or moving
+a method without a source-backed replacement weakest category is spec regression.
 
-**Definition Grounding Gate**:
+**Definition Grounding Required Data**:
 Before adding or changing a category, method, predicate, invariant, constructor,
-Hom/End/Aut surface, migration rule, or mapping decision, identify the exact
+Hom/End/Aut structure, migration rule, or mapping decision, identify the exact
 mathematical definition being specified.
 
 The grounding record must name:
@@ -310,17 +473,17 @@ The grounding record must name:
 - the mathematical object and owner category;
 - the codomain/return object, not just an implementation-shaped return type;
 - the hypotheses under which the statement is meaningful;
-- the invariance or equivalence proof obligation when the surface is claimed to be
+- the invariance or equivalence proof obligation when the object or operation is claimed to be
   independent of choices or equal to another notion;
-- the migration consequence for any old Sage/project surface.
+- the migration consequence for any old Sage/project operation.
 
-Migrations from old `plans/todo.md`, deleted triage files, smoke output, inline cards,
-or user-chat summaries preserve provenance, but they are not definition authority. A
+Migrations from old `.agents/plans/todo.md`, deleted triage files, category-test output,
+inline cards, or user-chat summaries preserve provenance, but they are not definition authority. A
 source line saying "move divisibility to X" is not enough to specify what
 `divisibility` means, whether it is choice-independent, what object it returns, or
 when it coincides with another divisibility notion.
 
-If two meanings are plausible, keep them as separate named mathematical surfaces unless
+If two meanings are plausible, keep them as separate named mathematical operations unless
 an explicit source-backed proof gives the exact hypotheses under which they coincide.
 Examples of high-risk words include `divisibility`, `primitive`, `rank`, `degree`,
 `dimension`, `dual`, `basis`, `isometry`, `orthogonal`, `content`, `support`,
@@ -330,32 +493,51 @@ If the exact definition cannot be grounded, do not edit the spec. Create or upda
 decision, research, or source-mining card and mark only that leaf blocked. Continuing
 with the most familiar interpretation of a term is a spec failure.
 
-**Inventory, Mapping, and Spec Smokes Are Different Artifacts**:
+**Inventory, Mapping, and Category-Obligation Examples Are Different Documents**:
 Do not import generic software-engineering meanings of "inventory", "mapping", or
-"smoke test" into this subtree.
+quick-liveness testing into this subtree. Tests in `category_specs` are category-obligation
+examples: they assert that representative Sage/project objects instantiate declared
+categories and satisfy the obligations of those categories.
 
 - **Sage inventory** records Sage facts only: source files, documented constructors,
   signatures, classes, categories, methods, and observed Sage behavior. It is not the
-  place to decide project admission, deprecation, interop status, or mathematical
-  replacement. Do not write phrases such as "not admitted", "project surface",
+  place to decide project inclusion, deprecation, interop status, or mathematical
+  replacement. Do not write phrases such as "not included", "project operation",
   "target mapping", or "excluded interop" in `SAGE_INVENTORY.md`.
-- **Mapping docs** translate each inventoried Sage surface into the project
-  mathematics. Every Sage class, constructor, and method in the inventory must map to
-  exactly one of: a project category surface, a named constructor path, a
-  mathematically justified non-mapping, or an explicit `NEEDS_DECISIONS.md` item.
+- **Mapping docs** translate each inventoried Sage constructor, method, or class into the project
+  mathematics. Every Sage class and method in the inventory must map to exactly one
+  of: a project category operation, a mathematically justified non-mapping, or an
+  explicit `NEEDS_DECISIONS.md` item. Constructor mappings are stricter: a
+  source-grounded Sage constructor shape recorded in mapping docs maps to a named
+  constructor path or spec-layer promotion path by definition. An ungrounded or
+  rejected constructor idea is removed from constructor mapping source material
+  rather than preserved as `not included`, `deferred`, or a decision-shaped gap.
+  If an existing constructor document looks suspect, do not edit it into a cleaner
+  document. Reconstruct the source mapping from Sage docs/source first, then replace
+  the document with the source-grounded mapping result.
   Never delete or ignore a Sage method because the Sage class or constructor around it
   is mathematically wrong.
+- **Mapping starts with a theorem-shaped sentence, not a project label.** For every
+  Sage name, write the ordinary mathematical statement before assigning an owner:
+  "In [standard category], [construction exists/has property], under [hypotheses]."
+  The category must be the weakest standard category where the statement is true. For
+  example, composition belongs to any category; addition of morphisms belongs to
+  additive categories; kernels and cokernels belong to abelian categories; eigenvalue
+  and eigenspace data for an endomorphism belong first to finite-dimensional vector
+  spaces over a field, with scalar-extension hypotheses stated when needed. A row that
+  says only a Sage class, a project category, a software type, or a coined project
+  phrase has not stated the mathematics and must not be accepted.
 - **Mappings must preserve old functionality in migration-grade form.** Breaking API
   changes are allowed when they modernize, standardize, or uniformize old Sage
-  surfaces, but the old functionality must still have a documented replacement path.
+  behavior, but the old functionality must still have a documented replacement path.
   If an old method is not represented as a project method, the mapping must name the
   new method, protocol, constructor, or refinement path that recovers its behavior.
   This is what later supports migration-guide entries such as
-  `old_surface(...) -> new_surface(...)`.
+  `old_name(...) -> new_name(...)`.
 - **Every inventoried Sage class must remain constructible or explicitly rejected.**
-  A Sage class may become an explicit mathematical subcategory, or it may become an
-  admitted constructor that builds the original Sage object and refines it into the
-  correct project subcategory. Spec work stops at surfacing this contract: later
+  A Sage class may become an explicit mathematical subcategory, or it may become a
+  named constructor that builds the original Sage object and refines it into the
+  correct project subcategory. Spec work stops at recording this contract: later
   implementation work must patch or wrap refined Sage objects so they satisfy the ABC
   contract of the category they are placed in.
 - **Rejecting an invalid Sage constructor does not reject its method evidence.** For
@@ -377,52 +559,56 @@ Do not import generic software-engineering meanings of "inventory", "mapping", o
   module categories such as `Modules(R).Free()` and
   `Modules(R).WithOrderedGeneratingSet()`. Do not create a
   `CombinatorialFreeModules` category.
-- **Unsurfaced mapping decisions are failures.** If an agent decides a Sage surface is
+- **Unrecorded mapping decisions are failures.** If an agent decides a Sage constructor, method, or class is
   non-mapped, moved to a strict supercategory, or replaced by a named constructor, that
   decision must appear in mapping docs or `NEEDS_DECISIONS.md` with the mathematical
-  reason. Do not hide decisions by deleting smokes, deleting abstract methods, or
-  reclassifying evidence as "interop".
+  reason. Do not hide decisions by deleting category-obligation examples, deleting
+  abstract methods, or reclassifying evidence as "interop".
 
-**Spec Smokes Surface Missing Implementations**:
-Smokes in this subtree are not pass/fail implementation tests. Their purpose is to run
-existing Sage objects through the upgraded category spec and report which methods,
-constructors, and inherited ABC obligations the current implementation does not yet
-satisfy. Most raw Sage refinements are expected to fail today because Sage objects are
-incomplete relative to this spec. The failure surface is the useful output: it tells a
-future implementer what a spec-compliant wrapper, constructor route, or replacement
-must provide.
+**Category-Obligation Examples Classify Failed Assertions**:
+Category-obligation examples in this subtree are not liveness probes or generic
+pass/fail implementation tests. Their purpose is to run representative Sage/project
+objects through the upgraded category spec and assert which category definitions,
+constructors, inherited ABC obligations, and Hom/End/Aut laws the current
+implementation satisfies. Most raw Sage refinements are expected to be incomplete
+relative to this spec. The failed-obligation list is useful only when it is classified
+by mathematical cause.
 
-- A spec smoke uses the project spec surface and asserts mathematical facts:
-  membership in project categories, cardinalities, rankings, subset relations, form
-  laws, Hom/End/Aut semantics, constructor routing to named mathematical objects, and
-  other obligations stated by the spec.
-- A spec smoke should collect all labeled failures it can reach, so one run exposes the
-  current missing-method surface. The shared collection helper exists for this purpose:
-  do not stop after the first missing method when setup can be moved into labeled
-  statements.
+- A category-obligation example uses the project category operation and asserts
+  mathematical facts: membership in project categories, cardinalities, rankings,
+  subset relations, form laws, Hom/End/Aut semantics, constructor routing to named
+  mathematical objects, and other obligations stated by the spec.
+- A category-obligation example should collect all labeled failures it can reach, so
+  one run exposes the current missing-obligation list. The shared collection helper
+  exists for this purpose: do not stop after the first missing method when setup can be
+  moved into labeled statements.
 - Refinement into a category brings the whole inherited ABC contract, not only the
-  headline methods of the subtree being edited.  A tensor component smoke may surface
+  headline methods of the subtree being edited. A tensor component example may expose
   `__richcmp__`, for example, because tensor component parents are still categorical
   objects that inherit comparison obligations from set/module structure.  This is not
   incidental implementation noise. It records that any later tensor-component wrapper
   or implementation must satisfy the inherited comparison/subobject contract even
   though the method name is not tensor-specific.
-- A spec smoke must not assert that an object "exists", is non-`None`, is truthy, or
-  merely constructs without raising. It must not use raw Python containers or raw Sage
-  quirks as the main oracle when a project category predicate or method should express
-  the claim.
-- If a smoke cannot state the intended claim using project category vocabulary, the
-  result is not a weaker smoke. The result is a missing spec-surface finding that must
-  be mapped, added to the spec, or recorded as a decision.
-- Avoid assertion-wrapper ceremony in smokes. A helper is acceptable only when it
-  preserves mathematical content and materially improves frontier reporting. Do not add
-  generic `require`, `assert_not_none`, truthiness checks, or other software-testing
-  scaffolding that hides the mathematical assertion.
-- Regression tests are separate from spec smokes. Regression tests may use Sage
-  examples as source evidence, but they still prove project-owned mathematical
-  behavior through project vocabulary. They are not a license to compare against raw
-  Python containers or current Sage implementation quirks as a substitute for a spec
+- A category-obligation example must not assert that an object "exists", is non-`None`,
+  is truthy, or merely constructs without raising. It must not use raw Python
+  containers or raw Sage quirks as the main oracle when a project category predicate or
+  method should express the claim.
+- If an example cannot state the intended claim using project category vocabulary, the
+  result is not a weaker example. The result is a missing category-method finding that
+  must be mapped, added to the spec, or recorded as a decision.
+- A failed assertion should be classified as: missing implementation, missing
+  constructor/refinement, wrong weakest category, missing definition, missing source
+  evidence, or invalid assertion.
+- Avoid assertion-wrapper ceremony in category-obligation examples. A helper is
+  acceptable only when it preserves mathematical content and materially improves
+  missing-obligation reporting. Do not add generic `require`, `assert_not_none`,
+  truthiness checks, or other software-testing scaffolding that hides the mathematical
   assertion.
+- Regression tests are separate from category-obligation examples. Regression tests
+  may use Sage examples as source evidence, but they still prove project-owned
+  mathematical behavior through project vocabulary. They are not a license to compare
+  against raw Python containers or current Sage implementation quirks as a substitute
+  for a spec assertion.
 
 Audit with a reference-textbook mindset. Ask what Bourbaki, Atiyah-MacDonald,
 Dummit-Foote, Hatcher, Hartshorne, the Stacks Project, or the relevant Sage written
@@ -433,10 +619,12 @@ or basic category theory.
 
 For broad or contentious audits, use a fresh mathematically primed reviewer when
 delegation is available and appropriate. The review contract is not "find code
-duplication" or "make smokes pass"; it is:
+duplication" or "make tests pass"; it is:
 - classify each method by the mathematical category where the statement first becomes
   true;
-- compare the surface against standard mathematical references and Sage written docs;
+- reject invented terminology when a standard category name exists;
+- compare the constructor, method, or operation against standard mathematical
+  references and Sage written docs;
 - flag implementation-convenience ownership, missing strict-supercategory owners, and
   programmer-shaped vocabulary;
 - ignore current implementation difficulty until the mathematical owner is settled.
@@ -454,12 +642,12 @@ capacity. Escalate only when the task requires deeper reasoning than Spark can
 reasonably provide.
 
 Subagent audit prompts must transfer the actual judgment required for the task, not
-just a surface prohibition or a regex-shaped hunt. Before asking a subagent to find or
+just a word prohibition or a regex-shaped hunt. Before asking a subagent to find or
 fix violations, state the governing source of truth, the mathematical or architectural
 principle being audited, the ownership boundary, and the distinction between a wrong
 object and a right object in the wrong place. Require classification before remedy:
 each finding should say whether the object is correct and correctly owned, correct but
-misplaced, incorrect in substance, merely compatibility/runtime surface, or outside the
+misplaced, incorrect in substance, merely compatibility/runtime detail, or outside the
 audit scope. Do not prime a subagent toward deletion, replacement, or mechanical
 compliance before that classification is made. Correct vocabulary, theory, and source
 material must be preserved; when the problem is ownership or placement, the expected
@@ -493,7 +681,7 @@ Use the perspective of the mathematical implementer for that category:
   morphism mechanics such as `__call__`, `domain`, or `codomain`.
 
 Audit question: "Would this method still make sense in a strict supercategory?" If
-yes, it belongs there or in a universal construction surface, not in the current
+yes, it belongs there or in a universal construction, not in the current
 subcategory. If the answer is "it makes sense there, but this category refines it with
 new laws," the current category may state only those new laws and refined return
 types.
@@ -508,6 +696,12 @@ types.
   orbits, finding automorphism generators). They contain minimal software
   engineering, wiring, or glue, and zero new mathematical assumptions or public
   methods beyond the spec. They are intended to be rarely read.
+- **Group refinements**: Full generator lists, presentations,
+  arithmetic-group orbit decompositions, Vinberg chambers, Coxeter parabolics, and
+  hyperbolic-lattice automorphism-group algorithms are not structure of an abstract
+  group object. They appear exactly when the object is placed in a category such as
+  finitely generated group, finitely presented group, finite group, generated matrix
+  group, or a project-specific generated arithmetic group.
 - **Categorical Glue**: Categories handle "software engineering" principles like
   routing constructors (e.g., determining if $R$ is a PID to route `FreeModule(R, n)`
   to a specialized constructor).
@@ -523,9 +717,9 @@ Example: if `Modules(R).FreeModule(R, n)` exists, defining `Ring.__pow__` to ret
 Any concrete method implementation in a category spec MUST be decorated with
 `@final` by default. This includes trivial categorical glue, predicates,
 construction selectors, and methods implemented purely in terms of abstract methods
-on the same surface. The purpose is architectural: smokes and audits must flag cases
-where multiple specs are trying to provide competing concrete implementations of the
-same method.
+on the same method class. The purpose is architectural: category-obligation examples
+and audits must flag cases where multiple specs are trying to provide competing
+concrete implementations of the same method.
 
 Only omit `@final` when the method is intentionally an extension hook or constructor
 plumbing whose subclasses must provide their own mathematical signature. Such
@@ -535,7 +729,7 @@ exceptions must be documented at the method or in the local wrapper documentatio
 This rubric records the main failure pattern from the Cat/homsets audit: local patches
 look plausible when the agent has not first classified the mathematical object and its
 owning layer. Future audits should reproduce the corrective reasoning, not only check
-surface style.
+wording style.
 
 If this rubric is being updated from a conversation history, recover the actual
 transcript first. A compaction summary, subagent summary, or final chat recap is not
@@ -566,7 +760,7 @@ Before editing a category spec, answer these questions in order:
   definitions, repeated domain/codomain methods in specialized morphism categories,
   or duplicated construction selectors across subtrees are usually not local cleanup
   problems. They are clues that the method belongs in a base category type, a
-  universal method surface, or a higher categorical abstraction.
+  universal method class, or a higher categorical abstraction.
 - **Does the method pass the strict-supercategory test?** If the method makes sense in
   a strict supercategory, the current category should not define it except to refine
   the return type or add genuinely new laws. Category specs are not checklists of
@@ -576,7 +770,7 @@ Before editing a category spec, answer these questions in order:
   location because the code can be shared there. Accept it only if the mathematical
   statement first becomes true there. Conversely, do not move a method downward because
   implementations are missing; missing implementations are exactly what specs and
-  smokes are meant to expose.
+  category-obligation examples are meant to expose.
 - **What Sage mechanism is being extended?** Read the written Sage docs, source, and
   local usage before deciding. Do not infer architecture from a single signature or a
   failing traceback. Sage compatibility supercategories may remain raw Sage
@@ -604,9 +798,9 @@ Before editing a category spec, answer these questions in order:
   line or documented behavior forces the departure.
 - **Is the proposed fix deleting the evidence?** Removing `NEEDS_DECISIONS` before the
   mathematical issue is fixed, relaxing `@final`, deleting an `@abstract_method`,
-  weakening a smoke, adding `hasattr` checks, or catching errors to keep going are
-  false resolution. Such edits make the current failure disappear while moving the
-  spec away from its intended mathematics.
+  weakening a category assertion, adding `hasattr` checks, or catching errors to keep
+  going are false resolution. Such edits make the current failure disappear while
+  moving the spec away from its intended mathematics.
 - **Would the same reasoning find the next instance?** Encode the correction as a
   local ownership rule or audit question, not as a one-off patch. The reusable lesson
   from `Autset` is not only "`Autset` sits under `Endset`"; it is "identify whether a
@@ -620,12 +814,12 @@ owning layer before editing locally.
 - **Extensive software-engineering code in a category definition**:
   - What makes it a red flag: category specs should read like mathematical
     declarations. Elaborate routing, registries, fallback logic, class surgery, or
-    large imperative glue means the category surface is doing integration work.
+    large imperative glue means the category definition is doing integration work.
   - Suspect: the real design belongs in `cat/base_category_types.py`,
     `cat/universal_subcategory_methods.py`, `utils.py`, or an `implementations/`
     subtree.
   - Audit response: do not polish the local code. Ask which base wrapper,
-    universal method surface, or implementation layer should own the behavior.
+    universal method class, or implementation layer should own the behavior.
 - **Complex class manipulation**:
   - What makes it a red flag: `__class__` mutation, class-base mutation, classcall
     internals, generated provider classes, post-hoc splicing, or broad fallback logic
@@ -637,7 +831,7 @@ owning layer before editing locally.
     before accepting any class manipulation.
 - **Explicit provider subclassing inside category specs**:
   - What makes it a red flag: a nested `ParentMethods`, `ElementMethods`,
-    `MorphismMethods`, `SubcategoryMethods`, or construction-specific method provider
+    Hom-category `ElementMethods`, `SubcategoryMethods`, or construction-specific method provider
     explicitly subclasses another provider class, helper class, or mixin. Sage treats
     these nested classes as flat method providers and builds the actual generated-class
     inheritance from `super_categories()` through `_make_named_class`.
@@ -648,19 +842,19 @@ owning layer before editing locally.
     methods on the lowest mathematically correct category, express the relationship via
     `super_categories()`, `_with_axiom`, or the proper Sage construction category, or
     document the missing owner as a design decision. Do not copy provider methods or
-    splice method-provider bases to make a smoke pass.
+    splice method-provider bases to make a category assertion pass.
 - **Strict-supercategory leaks**:
   - What makes it a red flag: a category defines methods that already make sense in a
     strict supercategory. For example, module morphisms should not be the first place
     one worries about `domain`, `codomain`, `__call__`, identity, composition, inverse,
     or invertibility.
   - Suspect: a missing generic hom category, end category, aut category, morphism,
-    Cat-object, or universal subcategory-method surface, or a subtree spec written
+    Cat-object, or universal subcategory-method class, or a subtree spec written
     from the wrong mathematical point of view.
   - Audit response: lift the method to the lowest mathematically correct common
     category and leave specialized subtrees to state only additional laws. Ask what a
     qualified implementer of this category should have to think about: a module spec
-    should surface module-theoretic enrichment, not basic category-theoretic mechanics.
+    should expose module-theoretic enrichment, not basic category-theoretic mechanics.
 - **Implementation-convenience ownership**:
   - What makes it a red flag: an argument says a method belongs somewhere because it is
     easier to implement, easier to share, already available in a helper, or hard to
@@ -669,7 +863,7 @@ owning layer before editing locally.
     specification. A spec is allowed to demand missing implementations when the demand
     is mathematically correct.
   - Audit response: ignore implementation convenience until the mathematical owner is
-    fixed. Then decide whether the implementation lives on the category surface,
+    fixed. Then decide whether the implementation lives on the category definition,
     `utils.py`, or an `implementations/` subtree.
 - **Duplicated code across categories or subtrees**:
   - What makes it a red flag: repetition of the same method, construction selector,
@@ -677,7 +871,7 @@ owning layer before editing locally.
   - Suspect: hacking by local normalization instead of review of the subcategory
     hierarchy.
   - Audit response: do not normalize duplicates one by one. Move the behavior to the
-    shared category, universal method surface, or wrapped base layer that explains all
+    shared category, universal method class, or wrapped base layer that explains all
     occurrences at once.
 - **Programmer-brained vocabulary**:
   - What makes it a red flag: type names, method names, or docs describe storage
@@ -690,9 +884,10 @@ owning layer before editing locally.
     software-only helper types unless they are private implementation details.
 - **Downstream symptom patches**:
   - What makes it a red flag: a fix changes `Cat()` to compensate for an ordinary
-    construction escape, changes a smoke to avoid a failure, or explains a traceback
-    by the last class named in the error rather than by the construction path.
-  - Suspect: the surfaced object is only a symptom. Raw Sage supercategories,
+    construction escape, changes a category assertion to avoid a failure, or explains
+    a traceback by the last class named in the error rather than by the construction
+    path.
+  - Suspect: the observed object is only a symptom. Raw Sage supercategories,
     join-category supercategories, and project construction results are different
     questions.
   - Audit response: trace whether the failing object was produced from this hierarchy.
@@ -753,21 +948,22 @@ owning layer before editing locally.
     `references/code-patterns.md#engineering-names-in-mathematical-contexts`.
 - **Reward-hacking edits**:
   - What makes it a red flag: removing `NEEDS_DECISIONS`, relaxing `@final`, deleting
-    an `@abstract_method`, weakening a smoke, adding `hasattr`, or catching errors
-    makes the failure disappear without resolving the mathematical issue.
+    an `@abstract_method`, weakening a category assertion, adding `hasattr`, or
+    catching errors makes the failure disappear without resolving the mathematical
+    issue.
   - Suspect: the edit is optimizing for the current tool result, not for the spec.
   - Audit response: restore the sensor and fix the missing implementation,
     mathematical owner, or wrapper integration it exposed.
 
-**Explicit Method Surfaces**:
+**Explicit Method Classes**:
 Each subcategory MUST explicitly state its `ParentMethods`, `ElementMethods`,
-`MorphismMethods`, and `SubcategoryMethods` classes (as applicable).
-To document the full surface inherited from supercategories and facilitate future
+Hom-category refinements, and `SubcategoryMethods` classes (as applicable).
+To document the full method set inherited from supercategories and facilitate future
 refactoring, every subcategory must list **ALL methods inherited that it can
 override**.
 Methods that are not currently being overridden with a concrete implementation or a
 refined `@abstract_method` signature MUST be included with a `...` body.
-This ensures the subcategory file serves as a complete map of its own API surface.
+This ensures the subcategory file serves as a complete map of its own method set.
 
 **One Source of Truth for Utils**:
 All **truly reusable GENERAL logic** belongs in the top-level `utils.py`. This is
@@ -780,7 +976,7 @@ Implementations") must be factored into an `implementations/` subdirectory withi
 each subtree. The structure and naming of this directory MUST mirror the
 `subcategories/` hierarchy exactly.
 Categorical glue that is trivial (<= 10 lines) and specific to a subtree belongs on
-the category surface itself.
+the category definition itself.
 
 **Completeness**: the spec must fully capture all existing Sage methods on objects in
 each subcategory as `@abstract_method` declarations.
@@ -789,15 +985,16 @@ abstract. The only allowed violations are genuine Sage gaps, which are recorded
 exclusively in `sage_gaps/` tests.
 
 **The Art of Trivial Implementations**:
-Mostly trivial implementations (<= 10 lines) MUST remain on the category surface
+Mostly trivial implementations (<= 10 lines) MUST remain on the category definition
 when they express basic categorical identity or definition. Moving such glue to
 `utils.py` is an anti-pattern that obscures the mathematical structure of the spec.
 
-Permitted concrete bodies on category and subcategory surfaces include:
+Permitted concrete bodies on category and subcategory method classes include:
 - Trivially true/false predicates (e.g., `is_finite() -> True`)
 - Explicit `match/case` logic for category membership or simple dispatch
 - Methods defined purely in terms of other `@abstract_method` declarations on the
-  same surface (e.g., `is_bijective` defined via `is_injective` and `is_surjective`)
+  same method class (e.g., `is_bijective` defined via `is_injective` and
+  `is_surjective`)
 - Simple transformations and pass-throughs
 - Wraps and refinements (e.g., calling `refine_category` with fixed arguments)
 
@@ -811,15 +1008,15 @@ Permitted concrete bodies on category and subcategory surfaces include:
 Each top-level category (`Sets`, `Rings`, `Modules`, etc.)
 is defined in its subtree's `__init__.py`. That file defines exactly:
 
-- Private method surface classes: `_XParentMethods`, `_XElementMethods`,
-  `_XMorphismMethods`
+- Private method classes: `_XParentMethods`, `_XElementMethods`, and
+  `_XHomElementMethods` when a Hom-category element method class is needed.
 - The category class itself, which must include:
   - A `__contains__` predicate implemented with `match/case`
   - A `Constructors` inner class (see below)
 - Imports of subcategory classes from `subcategories/` to wire them into the hierarchy
 
 **`__init__.py` is the public API document.** Reading it must be sufficient to
-understand the full public surface of the category: its method surfaces, its axiomatic
+understand the full public API of the category: its method classes, its axiomatic
 subcategories, its constructions, and its constructors.
 Keep it readable — only include the trivial categorical glue and wiring permitted by
 the Spec Philosophy.
@@ -870,7 +1067,7 @@ class UniversalSubcategoryMethods:
 Note that these are distinct from the attributes on the category class itself
 (e.g., `Sets().HomCategory`), which return the base construction category for that
 subtree (e.g., `HomCategory = SetHomCategory`). The universal
-`SubcategoryMethods` surface is what enables navigation like
+`SubcategoryMethods` method class is what enables navigation like
 `Sets().Finite().HomCategory()`.
 
 `C.Hom()` is not a category-level construction. For category objects `C, D in Cat()`,
@@ -911,7 +1108,7 @@ etc.
 - **Documentation of Discrepancies**: Be careful with Sage's terminological looseness.
   Any discrepancies or inaccuracies in Sage's model compared to precise mathematics
   MUST be documented in the subtree's `MAPPING.md` when they affect mathematical
-  mapping, or as a Nimbalyst tracker item when they are implementation-frontier,
+  mapping, or as a Nimbalyst tracker item when they are implementation-gap,
   decision, or deferred-work findings.
 
 ### Direct implementation categories vs. axiomatic restrictions
@@ -930,8 +1127,8 @@ without hypotheses on `R`. More importantly, any subcategory `C` of `Modules(R)`
 allowed to form `C.Free()` to declare "free objects inside `C`". When `C = Modules(R)`,
 Sage's `base_category_with_axiom`/`_base_category_class_and_axiom` registration may
 return the registered class. For other `C`, the construction primarily records the
-mathematical restriction and enforces a consistent method surface; it is not a promise
-that the category has a complete implementation.
+mathematical restriction and enforces a consistent method class; it is not the
+assertion that Sage has already implemented every project method for that category.
 
 Do not collapse axiomatic restrictions into implementation categories merely because
 some restricted cases are computable. Further restrictions such as finite generation,
@@ -992,7 +1189,7 @@ Nothing in `specialized.py`, `named.py`, or any other flat aggregator file.
 
 Hom categories (`Hom_C`), end categories (`End_C`), and aut categories (`Aut_C`) each
 have their own separate files at both the top level and within each subtree, following
-the same organizational principle as other category surfaces.
+the same organizational principle as other category objects.
 
 ### File organization
 
@@ -1009,7 +1206,7 @@ the same organizational principle as other category surfaces.
 ### Aut Categories Are Wired Repo-Wide
 
 Sage has no native generic aut category — it provides `Homsets` and the `Endset` axiom
-hook, but nothing for automorphism groups.
+hook, but nothing for generic automorphism-group generators.
 **Aut categories must be integrated at the top level, once, so that individual subtrees never
 reinvent this wiring.**
 
@@ -1028,6 +1225,11 @@ Sage still requires the axiom hook names `Endset` and `Autset` for `_with_axiom(
 Those names are interop hooks, not public project selectors. Public navigation is
 `HomCategory()`, `EndCategory()`, `AutCategory()`, and evaluated constructors
 `HomCategory().Of(A, B)`, `EndCategory().Of(A)`, `AutCategory().Of(A)`.
+
+This wiring defines `Aut(X)` as an object of `Groups`. It is not the assertion that
+`Aut(X)` lies in `FinitelyGeneratedGroups`, `FinitelyPresentedGroups`, a finite-group
+category, or a generated matrix-group category. Those category memberships carry the
+corresponding generator, presentation, finiteness, or chosen-generator structure.
 
 ### What subtrees own vs. what the top level owns
 
@@ -1076,14 +1278,14 @@ category_specs/
 ├── homsets/             # generic Hom/End/Aut category dispatch, Autset interop wiring, base classes
 │   ├── AGENTS.md
 │   ├── __init__.py
-│   ├── smoketest.sage
+│   ├── category_obligations.sage
 │   ├── docs/
 │   └── tests/
 ├── justfile
 └── <subtree>/            # e.g. sets/, rings/, modules/, algebras/, posets/, topological_spaces/
     ├── AGENTS.md         # subtree goals and task list
     ├── __init__.py       # defines category, ParentMethods, ElementMethods,
-    │                     # MorphismMethods, Constructors; imports from subcategories/
+    │                     # Constructors; imports from subcategories/
     ├── homsets.py        # subtree-specific HomCategory/EndCategory/AutCategory refinements
     ├── subcategories/    # one .py file per mathematical subcategory (no __init__.py)
     │   ├── finite.py
@@ -1100,12 +1302,12 @@ category_specs/
     │   ├── finite/       # implementations of finite objects
     │   ├── free/         # implementations of free objects
     │   └── ...
-    ├── smoketest.sage    # exercises every Constructors() entry point
+    ├── category_obligations.sage # asserts representative category obligations
     ├── docs/
-    │   ├── SAGE_INVENTORY.md # full Sage category surface: classes, methods, on-disk paths
-    │   └── MAPPING.md        # decisions mapping Sage categories → our hierarchy, with mathematical justification
+    │   ├── SAGE_INVENTORY.md # Sage classes, methods, on-disk paths
+    │   └── MAPPING.md        # decisions mapping Sage categories -> our hierarchy, with mathematical justification
     └── tests/
-        ├── new_spec/     # tests of the new spec surface (see Testing rules)
+        ├── new_spec/     # tests of the new category spec (see Testing rules)
         ├── regression/   # per-constructor regression tests
         └── sage_gaps/    # raw Sage gap assertions (see Testing rules)
 ```
@@ -1127,10 +1329,10 @@ category_specs/
   construction categories such as subobjects, quotients, subquotients, hom categories,
   end categories, aut categories, objects-over, and objects-under. These classes may extend Sage
   functorial construction classes and use `category_of`; the target organization
-  still places the category surface by mathematical notion.
+  still places the category object by mathematical notion.
 
-- If a subcategory introduces a genuinely independent and complex method surface (new
-  `ParentMethods`, `ElementMethods`, `MorphismMethods`), promote it to its own top-level
+- If a subcategory introduces a genuinely independent and complex method class (new
+  `ParentMethods`, `ElementMethods`, or Hom-category element methods), promote it to its own top-level
   subtree rather than burying it.
   E.g. `lattices/` and `algebras/` are top-level, not nested inside
   `modules/subcategories/`.
@@ -1142,24 +1344,30 @@ these technical requirements:
 
 1.  **Direct Extension**: Every implementation must extend a class that exists as a
     spec file in the `subcategories/` hierarchy.
-2.  **Completeness**: Implement ALL `@abstract_method` declarations from the spec
+2.  **Completeness**: Implement ALL `@abstractmethod` declarations from the spec
     and any parent specs.
-3.  **Pydantic Only**: Use **Pydantic ONLY** for data modeling and state management.
+3.  **No Sage abstract_method**: `@abstractmethod` from `abc` is the only acceptable
+    abstract method decorator. `from sage.misc.abstract_method import abstract_method`
+    is banned — it was cargo-culted from Sage's category code and provides no
+    functionality that `abc.abstractmethod` doesn't. `category_specs/utils.py` is the
+    sole file that imports `AbstractMethod` (the class, for isinstance checks in the
+    validation machinery) — do not touch that import.
+4.  **Pydantic Only**: Use **Pydantic ONLY** for data modeling and state management.
     `dataclasses`, raw classes, or other modeling libraries are banned.
-4.  **Classmethod Constructors**: Use `classmethod` constructors for all object
+5.  **Classmethod Constructors**: Use `classmethod` constructors for all object
     creation (e.g., `MyImpl.from_data(...)`).
-5.  **Post-init Validation**: Use a **single post-init validator**
+6.  **Post-init Validation**: Use a **single post-init validator**
     (`model_post_init` in Pydantic v2) for all state validation after construction.
-6.  **Constructor Collectors**: `Constructors` is a simple opt-in collection class on
-    selected category surfaces. It is not a category, not a functorial construction,
+7.  **Constructor Collectors**: `Constructors` is a simple opt-in collection class on
+    selected category objects. It is not a category, not a functorial construction,
     and not a refinement target. The declaration is the existence of an explicit
     nested `Constructors` class on a category object; do not add a separate public
     registration method, flag, or construction category for this. In this spec work,
-    constructor collectors should live on explicit top-level category surfaces by style
+    constructor collectors should live on explicit top-level category objects by style
     and readability, rather than on deeply nested subcategories. Do not add assertion
     guards or other runtime enforcement whose only purpose is to prove that a
     constructor collector is top-level.
-7.  **Constructor Collection**: The intended public surface is the canonical collection
+8.  **Constructor Collection**: The intended public constructor namespace is the canonical collection
     exposed directly from `Cat().Constructors()`: Cat backend code observes category
     objects, collects methods under each explicit `C.Constructors`, and exposes
     prefixed forwarding methods such as `C_x_y_z`. There is no public
@@ -1167,7 +1375,7 @@ these technical requirements:
     generic constructor names: prefer `C.Constructors().from_xyz(...)`, which Cat
     exposes as `cat_prefix_from_xyz(...)`, rather than
     `C.Constructors().category_from_xyz(...)`.
-8.  **No Subcategory Constructor Namespaces**: Subcategories are refinement targets and
+9.  **No Subcategory Constructor Namespaces**: Subcategories are refinement targets and
     method owners, not constructor namespaces. Do not add or propose constructor paths
     such as `Algebras(k).FiniteDimensional().WithBasis().Constructors()` merely because
     Sage has a constructor family or because an implementation can refine into that
@@ -1185,7 +1393,7 @@ Each subcategory must declare **both** its parent in our hierarchy and the corre
 Sage supercategory (or categories).
 This ensures:
 - Existing upstream `@abstract_method` declarations and unimplemented methods from Sage
-  are surfaced on our objects.
+  are exposed on our objects.
 - Objects refined into our subcategory still register as members of the corresponding
   Sage category (e.g. `ZZ in SageRings()` still holds after refinement into our
   `Rings()`).
@@ -1203,22 +1411,32 @@ No per-subtree `_refine_named_X` wrapper functions (e.g. `_refine_named_set`,
 `_refine_named_ring`, `_refine_named_module`). These are banned — they are redundant
 indirection over the same call.
 
+Refinement declares one category, not a manually assembled category list.
+Always refine to the smallest mathematically correct category for the object.
+Do not write `refine_category(X, [Rings(), _Qp()])`, `refine_category(X,
+[Sets(), _FiniteSets()])`, or any equivalent multi-category list.
+The specific target category's `super_categories()` graph is the source of inherited
+membership; restating ancestors at the call site defeats the purpose of the category
+hierarchy and hides graph defects.
+
 ## Overall Design
 
 This hierarchy is a **non-destructive staged replacement** for Sage's category system.
-The pattern is: intercept existing Sage constructors, call the original implementation,
-then refine the result into the new subcategory hierarchy.
+The pattern is: expose category-owned wrappers for existing Sage constructor shapes,
+call the original implementation behind that category boundary, then refine the result
+into the new subcategory hierarchy.
 Never destructively replace or monkey-patch Sage internals.
 
 ## Category Structure
 
-- Every category exposes method surfaces via inner classes: `ParentMethods`,
-  `ElementMethods`, `MorphismMethods`. All abstract methods belong in one of these.
+- Every object category exposes object and element method classes via inner classes:
+  `ParentMethods` and `ElementMethods`. Morphism abstract methods belong on the
+  relevant Hom-category `ElementMethods`.
 - Every category exposes a `Constructors()` sub-namespace
   (e.g. `Sets().Constructors()`, `Rings().Constructors()`,
   `Modules(R).Constructors()`) for all Sage constructor entry points known to that
   category. Constructor wrappers must be collected here, not scattered.
-- Method surface separation is strict: a method belongs in the category whose axioms are
+- Method-class separation is strict: a method belongs in the category whose axioms are
   the minimum required for it to be well-defined.
   Ring-theoretic methods must not appear in `Sets`; module-theoretic methods must not
   appear in `Rings`; etc.
@@ -1236,15 +1454,42 @@ Never let Sage and local names collide silently.
 
 Each subtree maintains a `docs/` folder with two canonical files:
 
-- **`SAGE_INVENTORY.md`**: indexes every Sage class and method relevant to that subtree
-  — full class name, method signatures, and on-disk path to the implementation (e.g.
-  `$SAGE_ROOT/src/sage/categories/sets_cat.py:142`). The canonical reference for Sage
-  internals in that subtree; consult it before searching Sage source directly.
+- **`SAGE_INVENTORY.md`**: indexes Sage method clusters under semantic extraction or
+  compatibility audit for that subtree — full class name, method signatures, examples,
+  behavior notes, and on-disk path to the implementation (e.g.
+  `$SAGE_ROOT/src/sage/categories/sets_cat.py:142`). It must support mathematical
+  extraction from source behavior, not merely collect names and signatures.
 
 - **`MAPPING.md`**: records, for each Sage category, the mathematical justification for
   how it maps to our hierarchy.
   Must document: what Sage provides, the correct mathematical concept, the
   justification, and the consequence for refinement and regression tests.
+  Mapping starts from Sage method behavior, not from the Sage class where a name happens
+  to be implemented, not from rows already written in the project document, and not from
+  an abstract category primer. Before editing a mapping row, read the relevant Sage
+  body, examples, and written docs deeply enough to record inputs, outputs, branch
+  cases, return objects, side conventions, helper behavior, and compatibility details.
+  Then extract the mathematical operation, introduce or reference only the vocabulary
+  required by that behavior, and state the weakest structure, hypotheses, claimed
+  category/refinement membership, and witness data.
+  For every method row, the correct mathematical concept must be a complete sentence
+  that would make sense without Sage. Examples: "In any category, morphisms compose";
+  "In an additive category, `Hom(X,Y)` is an abelian group and composition is
+  bilinear"; "In an abelian category, kernels and cokernels exist." A row that only
+  names a Sage class, source file, project category, or migration consequence has not
+  stated the mathematics.
+  Assign the method to the most general standard category where that sentence is true.
+  If the method belongs to a stronger category, record that category/refinement and its
+  witness data rather than adding an external computability label.
+  Do not leave evaluation, composition, Hom addition, kernels, cokernels, images, or
+  analogous standard constructions on a special Sage class merely because that is where
+  Sage implements them.
+  Do not replace standard mathematical language with local jargon: use categories,
+  objects, morphisms, Hom objects, subobjects, quotient objects, kernels, cokernels,
+  images, tensor products, and chosen presentations when those are the notions meant.
+  Path spelling, row formatting, headings, and prose polish are not mapping progress
+  unless they correct the Sage method set, the mathematical proposition, the weakest
+  owner, the hypotheses, the return object, or the replacement path for Sage behavior.
   Example: Sage's `EnumeratedSets` → our `Countable` axiom, because countability =
   existence of an enumeration f: X → ℕ; the spec must exhibit such a function; all Sage
   enumerated sets must refine to `Sets().Countable()`.
@@ -1268,19 +1513,20 @@ Each subtree maintains a `docs/` folder with two canonical files:
 
 ## Method Surface Classes
 
-For top-level categories, `ParentMethods`, `ElementMethods`, and `MorphismMethods` must
-be factored into named private classes and assigned, not defined inline.
+For top-level categories, `ParentMethods` and `ElementMethods` must be factored into
+named private classes and assigned, not defined inline.
 The names must be mathematically explicit:
 - `_SetObjectMethods` (not `ParentMethods`) — methods on objects in `Sets()`
 - `_SetElementMethods` (not `ElementMethods`) — methods on elements of sets
-- `_SetMorphismMethods` (not `MorphismMethods`) — methods on morphisms between sets
+- `_SetMorphismMethods` is banned. Methods on morphisms between objects of `Sets()`
+  belong on `Sets().HomCategory().ElementMethods`, because morphisms are elements of
+  Hom objects, not elements or morphisms of the object category itself.
 
 These are then assigned inside the category:
 ```python
 class Sets:
     ParentMethods = _SetObjectMethods
     ElementMethods = _SetElementMethods
-    MorphismMethods = _SetMorphismMethods
 ```
 
 This is self-documenting: the class name explicitly states what the methods are for.
@@ -1326,13 +1572,24 @@ splicing.
 
 - All methods must be defined at the **highest category** for which they are universally
   well-defined.
-- Every subcategory should declare the method-surface entry points it owns:
-  `ParentMethods`, `ElementMethods`, `MorphismMethods`, and the Hom/End/Aut
-  subcategory overrides when those surfaces exist.
-- A lower category may override a universal method surface to specialize the
+- Before placing a method, state the mathematical sentence that makes it exist. If the
+  sentence is "in any category, morphisms compose," the method cannot be owned by
+  modules or lattices. If the sentence is "in an additive category, `Hom(X,Y)` is an
+  abelian group," Hom addition belongs to additive categories. If the sentence is "in
+  an abelian category, kernels and cokernels exist," kernel and cokernel methods belong
+  there unless the row explicitly records a weaker sourced hypothesis.
+- The placement check is a falsification test: push the method upward until the
+  mathematical sentence would become false, then place it at the last valid category.
+  Sage's implementation class is evidence that the method exists in that example; it is
+  not evidence that the example owns the method.
+- Every subcategory should declare the object and element method-class entry points
+  it owns: `ParentMethods`, `ElementMethods`, and the Hom/End/Aut subcategory
+  overrides when those method classes exist. Do not declare `MorphismMethods`; true morphism
+  methods are Hom-category element methods.
+- A lower category may override a universal method class to specialize the
   mathematics, refine codomains, expose enriched structure, or declare extra
   supercategories. For example, an `R`-module hom category may record that the category
-  is self-enriched instead of merely inheriting the ambient Hom surface unchanged.
+  is self-enriched instead of merely inheriting the ambient Hom object unchanged.
 - If a subcategory has no new methods or refinements yet, still create the explicit
   entry point with a `...` body. The stub marks where future specs belong.
 - Do not copy inherited method logic at lower levels only to restate behavior. Stub the
@@ -1362,9 +1619,9 @@ identically to the original Sage objects and meet all mathematical invariants.
 - **Use JSON Fixtures**: Use JSON fixture data from `tests/fixtures/` for
   parametrized tests. Assert results against known literature values or proven
   Sage outputs.
-- **Surface API Gaps**: If the canonical API is insufficient to express a test, do
+- **Expose API Gaps**: If the canonical API is insufficient to express a test, do
   not use a workaround. This is a signal that the spec or its constructors need
-  extension; document the gap and surface it for review.
+  extension; document the gap and expose it for review.
 
 ## Testing (new_spec)
 
@@ -1377,13 +1634,13 @@ The objects under test are refined objects exposed on category namespaces.
 Never start from bare Sage globals (`ZZ`, `QQ`, `GF(...)`, `PolynomialRing(...)`, etc.)
 when the category namespace has the corresponding constructor.
 Never call `refine_category(...)` in tests when a category-owned constructor already
-exists — the namespace constructor is the implementation surface being tested.
+exists — the namespace constructor is the implementation witness being tested.
 
 **What to Assert**: Assert properties directly on the refined objects returned by the
-spec surface. Do not weaken tests by switching to raw Sage constructors.
+category spec. Do not weaken tests by switching to raw Sage constructors.
 
 **Recording Gaps**: When the current implementation does not satisfy the spec, expose
-the failure through the spec surface itself — build the object through the category
+the failure through the category spec itself — build the object through the category
 namespace, then let the assertion reflect the gap.
 Do not bypass the namespace layer and claim the result says something about the new
 spec.

@@ -2,9 +2,9 @@ r"""CompleteDiscreteValuationObjects ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
@@ -47,18 +47,16 @@ class _CompleteDiscreteValuationObjects(Category_singleton):
         )
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def valuation(self) -> Cardinality: ...
 
-        @abstract_method
+        @abstractmethod
         def denominator(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def numerator(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def lift_to_precision(self, absprec: Integer | None = None) -> RingElement: ...
 
     class ParentMethods: ...
-
-    class MorphismMethods: ...

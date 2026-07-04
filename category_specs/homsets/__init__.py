@@ -66,16 +66,16 @@ GenericEndCategory = EndCategoryOf
 GenericAutCategory = AutCategoryOf
 
 HomCategoriesCategory = HomCategory
-HomCategoriesObject = HomCategory.ParentMethods
-HomCategoriesElement = HomCategory.ElementMethods
-HomCategoriesMorphism = HomCategory.MorphismMethods
+HomCategoriesObject = UniversalHomObjectMethods
+HomCategoriesElement = UniversalHomElementMethods
+HomCategoriesMorphism = UniversalHomElementMethods
 
 EndCategoriesCategory = EndCategory
-EndCategoriesObject = EndCategory.ParentMethods
-EndCategoriesElement = EndCategory.ElementMethods
-EndCategoriesMorphism = EndCategory.MorphismMethods
+EndCategoriesObject = UniversalEndObjectMethods
+EndCategoriesElement = UniversalEndElementMethods
+EndCategoriesMorphism = UniversalEndElementMethods
 
 AutCategoriesCategory = AutCategory
-AutCategoriesObject = AutCategory.ParentMethods
-AutCategoriesElement = AutCategory.ElementMethods
-AutCategoriesMorphism = AutCategory.MorphismMethods
+AutCategoriesObject = UniversalAutObjectMethods
+AutCategoriesElement = UniversalAutElementMethods
+AutCategoriesMorphism = UniversalAutElementMethods

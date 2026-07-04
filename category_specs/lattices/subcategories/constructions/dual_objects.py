@@ -2,9 +2,13 @@ r"""Dual-object construction category for lattices."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import TYPE_CHECKING, final
 
 from ....cat import DualObjectsCategory
+from ...homsets import LatticeHomCategory
+
+if TYPE_CHECKING:
+    from ... import LatticesCategory
 
 
 class LatticeDualObjectsCategory(DualObjectsCategory):
@@ -24,16 +28,15 @@ class LatticeDualObjectsCategory(DualObjectsCategory):
     """
 
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[LatticesCategory]:
         return [self.base_category().Rational()]
 
     class ParentMethods: ...
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 LatticeDualObjectsObject = LatticeDualObjectsCategory.ParentMethods
 LatticeDualObjectsElement = LatticeDualObjectsCategory.ElementMethods
-LatticeDualObjectsMorphism = LatticeDualObjectsCategory.MorphismMethods
+LatticeDualObjectsMorphism = LatticeHomCategory.ElementMethods

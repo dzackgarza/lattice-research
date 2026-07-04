@@ -22,7 +22,7 @@ MZZ = Modules(ZZ).Constructors()
 # IntegerLattice(...)  (free_module_integer docs)
 # ---------------------------------------------------------------------------
 
-L = MZZ.IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]])
+L = MZZ.IntegerLattice(basis=[[1, 0, 3], [0, 2, 1], [0, 2, 7]])
 assert L.basis_matrix() == matrix(ZZ, [[-2, 0, 0], [0, 2, 1], [1, -2, 2]])
 assert L.gram_matrix() == matrix(ZZ, [[4, 0, -2], [0, 5, -2], [-2, -2, 9]])
 assert L.shortest_vector() == vector(ZZ, [-2, 0, 0])
@@ -32,7 +32,7 @@ assert L.shortest_vector() == vector(ZZ, [-2, 0, 0])
 # ---------------------------------------------------------------------------
 
 q1 = matrix(QQ, 2, [1, QQ(1) / 2, QQ(1) / 2, 1])
-T1 = MZZ.TorsionQuadraticForm(q1)
+T1 = MZZ.TorsionQuadraticForm(q=q1)
 assert T1.invariants() == (2, 2)
 assert T1.gram_matrix_quadratic() == matrix(QQ, [[1, QQ(1) / 2], [QQ(1) / 2, 1]])
 assert T1.gram_matrix_bilinear() == matrix(QQ, [[0, QQ(1) / 2], [QQ(1) / 2, 0]])
@@ -42,6 +42,6 @@ assert T1.gram_matrix_bilinear() == matrix(QQ, [[0, QQ(1) / 2], [QQ(1) / 2, 0]])
 # ---------------------------------------------------------------------------
 
 q2 = diagonal_matrix(QQ, [QQ(1) / 4, QQ(1) / 3])
-T2 = MZZ.TorsionQuadraticForm(q2)
+T2 = MZZ.TorsionQuadraticForm(q=q2)
 assert T2.invariants() == (12,)
 assert T2.gram_matrix_quadratic() == matrix(QQ, [[QQ(7) / 12]])

@@ -135,8 +135,12 @@ lattice on the K3 side and verifies its discriminant form.
 then $A_{T_{\mathrm{Co}}}$ has order $2048$ and carries the induced quadratic form
 $q_T: A_{T_{\mathrm{Co}}} \to \mathbf{Q}/2\mathbf{Z}$.
 
-**Isotropic vectors.** v in A_{T_Co} with q_T(v) = 0 (mod 2Z). Count: 528 total (1 zero
-\+ 527 nonzero). This count follows from the theory of quadratic forms over F_2.
+**Isotropic vectors.** v in A_{T_Co} with q_T(v) = 0 (mod 2Z). For the
+Dolgachev-Kondo standard target `N=<2>+E_10(2)`, exact enumeration of
+`B/2B` for `N=2B`, `B=<1>+U+E_8(-1)`, gives 528 total isotropic classes
+(1 zero + 527 nonzero).  The full finite orthogonal group `O(A_N,q_N)` has two orbits
+on these classes, with sizes `[1, 527]`; see
+`theory/foundations/coble-standard-target-discriminant-form.md`.
 
 **Nikulin input.** Task 2 may use Nikulin's surjectivity theorems only after checking
 their hypotheses against the lattice actually computed in Task 1.2. Orbit claims in
@@ -158,9 +162,14 @@ Literature: Nikulin (1979, Prop.
 the actual Gram model produced in Task 1.2. In the diagonal even model, every pairing is
 even, so primitive isotropic vectors have divisibility $2$ rather than $1$.
 
-**Orbit lifting.** Once Task 2.1 computes the isotropic orbit structure in the actual
-discriminant form, Nikulin surjectivity can lift those classes to primitive isotropic
-vectors in $T_{\mathrm{Co}}$.
+**Orbit lifting.** Nikulin surjectivity identifies the image of
+$O(T_{\mathrm{Co}})$ in $O(q_T)$ for the full orthogonal group.  It does not by itself
+construct primitive isotropic representatives or prove that finite discriminant-form
+orbits classify primitive lattice-vector orbits.  The Eichler criterion cited in the
+current theory note requires a copy of $2U$; it does not apply to
+$T_{\mathrm{Co}}\simeq 2(\langle 1\rangle+E_{10})$, whose pairings are all divisible by
+$2$.  The lifting step therefore needs another primitive-isotropic orbit theorem or
+backend for the subgroup actually used.
 
 **Stable orbit uniqueness.** Once Task 2.1 computes the relevant $O(q_T)$-orbit data
 and the kernel action on discriminant classes, one can determine whether there is a
@@ -173,18 +182,318 @@ Literature: Nikulin (1979, Prop.
 
 ## Task 3.1: Arithmetic Group Gamma_Co
 
-**Definition.** Dolgachev-Kondo relate the Coble moduli quotient to the $(-2)$ Heegner
-divisor in the Enriques period lattice
-$T_{\mathrm{En}} = U \oplus E_{10}(2)$, and $T_{\mathrm{Co}}$ is the orthogonal
-complement of the corresponding $(-2)$ vector. Formulas for $\Gamma_{\mathrm{Co}}$ as a
-stabilizer or centralizer inside $O(T_{\mathrm{En}})$ must name this typed Heegner
-vector and its action on $T_{\mathrm{Co}}$ explicitly.
+**Source-backed quotient.** Dolgachev-Kondo identify the Coble target lattice
+$N=\langle 2\rangle\oplus E_{10}(2)$ and state that the Coble moduli space is an open
+subset of the full orthogonal quotient $\mathcal D(N)/O(N)$.  They also observe that
+$N$ is the orthogonal complement of a $(-2)$ vector in
+$T_{\mathrm{En}}=U\oplus E_{10}(2)$, so the quotient of the corresponding $(-2)$
+Heegner divisor by $O(T_{\mathrm{En}})$ is birational to the Coble moduli space.
 
-**Moduli interpretation.** The Coble moduli space is a quotient of the period domain by
-Gamma_Co. The polarization $h_{\mathrm{Co}}$ is the degree-2 Enriques-type class in
-$K_S^\perp\subset\mathrm{Pic}(S)$, not the plane hyperplane class $H$. Its K3-side
-representative is $\tilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ with square $4$, and
-theta encodes the Enriques involution structure.
+**Source-backed Enriques-side subgroup.** AEGS Definition 2.3 fixes the K3 lattice
+$L=II_{3,19}$, the Enriques and del Pezzo involutions $I_{\mathrm{En}}$ and
+$I_{\mathrm{dP}}$, and the Enriques period lattice
+$T_{\mathrm{En}}=L^{-I_{\mathrm{En}}}\simeq U\oplus U(2)\oplus E_8(2)$.  Definition
+2.5 fixes the degree-2 polarization vector $h=e+f\in U(2)$ with $h^2=4$ on the K3
+side.  Definition 2.6 defines
+$\Gamma_{\mathrm{En},2}\subset O(T_{\mathrm{En}})$ as the image of the K3-lattice
+isometries commuting with $I_{\mathrm{En}}$ and fixing $h$, equivalently
+$\Gamma_{\mathrm{En}}\cap\Gamma_{\mathrm{dP}}$.
+
+For a $(-2)$ vector $\delta\in T_{\mathrm{En}}$ with
+$\delta^\perp\simeq T_{\mathrm{Co}}$, the Heegner divisor component is determined by
+the line $\mathbf Z\delta$, not by a choice of sign for $\delta$.  The sourced
+Enriques-side subgroup acting on this Coble lattice is therefore
+
+```text
+Gamma_Co^En(delta)
+  := im(Stab_{Gamma_En,2}(Z delta) -> O(delta^perp)).
+```
+
+Here the map is restriction of isometries preserving the line $\mathbf Z\delta$ to the
+orthogonal complement $\delta^\perp$.  This is a mathematical subgroup of
+$O(T_{\mathrm{Co}})$ once the Heegner line is chosen.  It records the degree-2
+polarization and Enriques involution data supplied by AEGS, but it is not yet the
+project subgroup $\Gamma_{\mathrm{Co}}$ defined by a Coble-side folding involution
+$\theta$ unless a comparison theorem identifies the ambient lattices, stabilized class,
+and involution data.
+
+AEGS's decomposition gives an explicit Heegner representative.  Write the unimodular
+summand of $T_{\mathrm{En}}\simeq U\oplus U(2)\oplus E_8(2)$ as
+$U=\mathbf Zu\oplus\mathbf Zv$ with $u^2=v^2=0$ and $u\cdot v=1$.  Then
+
+```text
+delta = u - v,   eta = u + v
+```
+
+satisfy $\delta^2=-2$, $\eta^2=2$, and $\delta\cdot\eta=0$, so
+
+```text
+delta^perp = Z eta + U(2) + E_8(2)
+            ~= <2> + U(2) + E_8(2)
+            ~= <2> + E_10(2)
+            = T_Co.
+```
+
+Thus the Heegner-line choice can be made explicitly inside the AEGS Enriques period
+lattice.  The unresolved part is not the existence of such a line, but its orbit under
+the smaller group $\Gamma_{\mathrm{En},2}$ and the comparison with the project
+folding-involution subgroup.
+
+**Discriminant-action description of $\Gamma_{\mathrm{En},2}$.** Let
+$S_{\mathrm{En}}=L^{I_{\mathrm{En}}}\simeq U(2)\oplus E_8(2)$.  Since $L$ is even
+unimodular and $S_{\mathrm{En}}$ and $T_{\mathrm{En}}$ are primitive orthogonal
+eigenspaces, Nikulin's primitive-unimodular gluing gives an anti-isometry of
+discriminant forms
+
+```text
+gamma : A_{S_En} -> A_{T_En},      q_{T_En} gamma = -q_{S_En}.
+```
+
+AEGS Definition 2.6 then translates to the subgroup
+
+```text
+Gamma_En,2 =
+{ g_T in O(T_En) |
+  exists g_S in O(S_En) with g_S(h)=h and
+  bar(g_T) gamma = gamma bar(g_S) }.
+```
+
+Equivalently, the discriminant-form image of $\Gamma_{\mathrm{En},2}$ is the image,
+transported by $\gamma$, of the stabilizer of $h$ in $O(S_{\mathrm{En}})$.  This gives
+the finite discriminant-action problem that must be solved before computing the
+$\Gamma_{\mathrm{En},2}$-orbit of the Heegner line $\mathbf Z(u-v)$ or the image of
+$\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ in $O(A_{T_{\mathrm{Co}}},q_T)$.
+
+The finite discriminant-form container for this image is computed by
+`theory/computations/coble_enriques_degree2_discriminant_stabilizer.sage`.  With
+$S_{\mathrm{En}}=2B$ and $B=U\oplus E_8(-1)$, the computation identifies
+$A_{S_{\mathrm{En}}}$ with $B/2B$, preserves the fibers of
+$Q(v)=B(v,v)\bmod 4$, and stabilizes the class $h/2$.  It gives
+
+```text
+|O(A_{S_En}, q_{S_En})| = 46998591897600,
+Q(h) mod 4 = 2,
+|Stab_{O(A_{S_En},q)}(h/2)| = 94755225600,
+|Stab_{O(S_En)}(h)| = 2|W(E_8)| = 1393459200,
+|im(Stab_{O(S_En)}(h) -> O(A_{S_En},q))| = |W(E_8)| = 696729600.
+```
+
+This is the finite stabilizer in the discriminant form.  The equality between this
+finite stabilizer and the actual image of
+$\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ is false by order: the finite stabilizer
+is larger than the integral group by a factor of $68$ and larger than the actual
+mod-$2$ image by a factor of $136$.  The computation constructs the actual finite image
+from the $U$-basis swap fixing $h$ and the simple-root reflections in $E_8(-1)$.
+
+The same script now computes the finite action induced on the explicit Coble Heegner
+complement
+
+```text
+delta^perp = Z(u+v) + U(2) + E_8(2) = 2(<1> + U + E_8(-1)).
+```
+
+In the coordinates of $B_{\mathrm{Co}}=<1>\oplus U\oplus E_8(-1)$, the action fixes the
+first coordinate, corresponding to $(u+v)/2$, and acts through the actual image of
+$\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)$ on the remaining
+$U\oplus E_8(-1)$ coordinates.  GAP finite-set orbits give
+
+```text
+|im| = 696729600,
+|Iso(A_TCo,q_T)| = 528,
+orbit lengths on Iso(A_TCo,q_T) = [1, 2, 120, 135, 270],
+representatives as bitmasks = [0, 2, 14, 40, 42].
+```
+
+This is a finite discriminant-form statement for the Enriques-side image attached to
+the chosen Heegner complement.  It does not prove a primitive-isotropic lattice orbit
+classification for $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$, and it does not
+identify that subgroup with the project notation $\Gamma_{\mathrm{Co}}$ before the
+$\theta$ comparison is constructed.
+
+The script also checks the finite discriminant obstruction for the
+$\Gamma_{\mathrm{En},2}$-orbit of the negative Heegner line.  Since
+$T_{\mathrm{En}}$ is the index-two overlattice of
+$\mathbf Z\delta\oplus\delta^\perp$ generated by $(\delta+\eta)/2$, an isometry of
+$\delta^\perp$ extends over the line $\mathbf Z\delta$ only after preserving the
+gluing class $\eta/2\in A_{\delta^\perp}$.  The finite calculation gives
+
+```text
+|O(A_TCo,q_T)| = 46998591897600,
+|Stab_{O(A_TCo,q_T)}(eta/2)| = 46998591897600,
+|image on eta^perp| = 46998591897600.
+```
+
+Thus the full line stabilizer has full image on the discriminant group
+$A_{T_{\mathrm{En}}}\simeq A_{U(2)+E_8(2)}$.  At the finite discriminant level, the
+double-coset set controlling the split of the full $O(T_{\mathrm{En}})$
+$(-2)$-root orbit by the preimage subgroup $\Gamma_{\mathrm{En},2}$ is therefore a
+singleton.
+
+Dawes Algorithm 2.2 gives the required lattice-level criterion for this non-isotropic
+root question.  For a lattice $L$, a subgroup
+$\mathcal A\subset O(D(L))$, and
+
+```text
+O_A(L) = { g in O(L) | bar(g) in A },
+```
+
+the algorithm determines equivalence of non-isotropic vectors in $O_A(L)$ when the
+orthogonal complement of the first vector is indefinite and
+$O(L)\to O(D(L))$ is surjective.  The test is exactly the discriminant-gluing condition
+for the rank-one sublattices generated by the vectors and their orthogonal
+complements.  In the present case
+
+```text
+L = T_En,
+A = im(Gamma_En,2 -> O(A_TEn)),
+delta = u-v,
+delta^perp = T_Co,
+```
+
+with $\delta^2=-2$, $\delta^\perp$ of signature $(2,9)$, and
+$O(T_{\mathrm{En}})\to O(A_{T_{\mathrm{En}}})$ surjective by the same
+Kneser/Nikulin single-genus hypothesis cited by Dawes.  AEGS/Namikawa give one full
+$O(T_{\mathrm{En}})$ orbit of $(-2)$ roots, and the finite discriminant calculation
+above shows that the split of this full root orbit by the preimage subgroup
+$O_A(T_{\mathrm{En}})=\Gamma_{\mathrm{En},2}$ is a singleton.  Hence the chosen
+negative Heegner line $\mathbf Z\delta$ represents the unique
+$\Gamma_{\mathrm{En},2}$-orbit of $(-2)$ Heegner lines in the AEGS degree-2 Enriques
+period lattice.
+
+**Unresolved subgroup definition.** The project name $\Gamma_{\mathrm{Co}}$ denotes a
+smaller intended arithmetic subgroup only after the following data are fixed:
+
+- the ambient lattice, either $T_{\mathrm{En}}$ or an explicitly embedded copy of
+  $T_{\mathrm{Co}}\subset T_{\mathrm{En}}$;
+- the Heegner vector $\delta$ whose orthogonal complement is $T_{\mathrm{Co}}$;
+- the degree-2 polarization class being stabilized, distinguishing the downstairs
+  $h_{\mathrm{Co}}\in K_S^\perp\subset\mathrm{Pic}(S)$ from the K3-side pullback
+  $\tilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ of square $4$;
+- the involution $\theta$ as an isometry of the same ambient lattice;
+- the restriction map, if any, from the stabilizer-centralizer subgroup to
+  $O(T_{\mathrm{Co}})$ and then to $O(A_{T_{\mathrm{Co}}},q_T)$.
+
+Until those objects and maps are stated, $\Gamma_{\mathrm{Co}}$ is not an acting group
+available for a primitive-isotropic orbit theorem.  The full-group statement
+$\operatorname{PrimIso}(T_{\mathrm{Co}})/O(T_{\mathrm{Co}})$ is a singleton does not
+imply the corresponding statement for this smaller subgroup.
+
+The Coble-side stabilizer-centralizer expression has the following source-level
+lattice meaning once the primitive embedding
+$S_{\mathrm{Co}}\subset\Lambda_{\mathrm{K3}}$ and complement
+$T_{\mathrm{Co}}=S_{\mathrm{Co}}^\perp$ are fixed.  Nikulin primitive-unimodular
+gluing gives an anti-isometry
+
+```text
+gamma_Co : A_{S_Co} -> A_{T_Co},      q_{T_Co} gamma_Co = -q_{S_Co}.
+```
+
+Because both discriminant groups are 2-elementary, the sign map `-id` on
+$S_{\mathrm{Co}}$ and `id` on $T_{\mathrm{Co}}$ preserve the gluing graph.  Hence they
+extend to a lattice involution
+
+```text
+theta_Co in O(Lambda_K3),
+theta_Co|S_Co = -id,
+theta_Co|T_Co = id.
+```
+
+Its eigenspaces are exactly $S_{\mathrm{Co}}$ and $T_{\mathrm{Co}}$ in the primitive
+embedding.  An isometry of $\Lambda_{\mathrm{K3}}$ commutes with $\theta_{\mathrm{Co}}$
+exactly when it preserves these eigenspace lattices.  Therefore the restriction of the
+centralizer-stabilizer subgroup to $T_{\mathrm{Co}}$ is the set of all $g_T\in
+O(T_{\mathrm{Co}})$ for which there exists $g_S\in O(S_{\mathrm{Co}})$ satisfying the
+chosen polarization condition, for example
+
+```text
+g_S(tilde h_Co) = tilde h_Co,
+bar(g_T) gamma_Co = gamma_Co bar(g_S).
+```
+
+This is the Coble-side analogue of the AEGS discriminant-gluing description of
+$\Gamma_{\mathrm{En},2}$.  It is a mathematical subgroup definition, not a generator
+algorithm.  Identifying it with
+$\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ still requires a source-backed isometry
+between the Coble primitive embedding and the Enriques Heegner complement that carries
+the Coble-side polarization condition to the AEGS class $h=e+f$.
+
+The same Sage/GAP witness now compares the finite discriminant images attached to
+these two subgroup descriptions.  Model
+
+```text
+S_Co = 2B_SCo,  B_SCo = <-1> + U + E_8(-1),
+T_Co = 2B_TCo,  B_TCo = <1> + U + E_8(-1),
+```
+
+and use the coordinate anti-isometry between the discriminant forms.  The class
+$\tilde h_{\mathrm{Co}}/2$ is represented by the bitmask `0b110`, i.e. $e+f$ in the
+$U(2)$ summand.  The finite Coble-side stabilizer of this class in
+$O(A_{T_{\mathrm{Co}}},q_T)$ has order
+
+```text
+94755225600.
+```
+
+It contains the Enriques-induced image of order `696729600`, and the index is `136`.
+The same witness identifies this Enriques-induced image with the actual image of the
+integral Coble-side stabilizer of $\tilde h_{\mathrm{Co}}$: in
+$B_{S_{\mathrm{Co}}}$, the orthogonal complement of $\tilde h_{\mathrm{Co}}=e+f$ is
+$\langle-1\rangle\oplus\langle-2\rangle\oplus E_8(-1)$, so the finite image is
+generated by the sign action on the $\langle-2\rangle$ factor and the $E_8$ simple-root
+reflections.  On the `528` isotropic classes of $A_{T_{\mathrm{Co}}}$, the larger
+Coble-side finite stabilizer container has orbit lengths
+
+```text
+[1, 255, 272],
+```
+
+with representatives `[0, 2, 14]` as bitmasks.  This is a finite discriminant-image
+comparison: it shows that the actual Coble-side integral image agrees with the
+Enriques-side image and is a proper subgroup of the natural finite stabilizer container.
+It does not by itself compute generators for the lattice subgroup or prove
+primitive-isotropic orbit statements for either subgroup.
+
+The current source-backed replacement for a completely unspecified smaller group is
+$\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ above.  The remaining mathematical
+obligations are:
+
+- record the lattice-level theorem promoting the finite double-coset calculation above
+  to the $\Gamma_{\mathrm{En},2}$-orbit statement for $(-2)$ Heegner lines
+  $\mathbf Z\delta$ represented by $\delta=u-v$ as above; Dawes Algorithm 2.2 supplies
+  the non-isotropic $O_A(L)$ criterion, and the finite discriminant split for the
+  preimage subgroup is computed to be trivial;
+- do not replace this root-orbit question by the AEGS cusp-orbit statement:
+  Corollary 3.12 identifies five $\Gamma_{\mathrm{En},2}$-orbits of primitive
+  isotropic lines in $T_{\mathrm{En}}$, whereas $\delta$ is a negative vector defining a
+  Heegner divisor;
+- use the computed image of
+  $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)\to O(A_{T_{\mathrm{Co}}},q_T)$; the
+  current Sage/GAP witness gives the induced finite discriminant image from the actual
+  Enriques stabilizer image and its five isotropic-class orbits, but this finite
+  isotropic-class split is not yet a primitive-isotropic lattice orbit theorem for that
+  restricted subgroup;
+- use the finite comparison with the Coble-side finite stabilizer of
+  $\tilde h_{\mathrm{Co}}/2$: the actual Coble-side integral image equals the Enriques
+  image of order `696729600`, sits in the full finite stabilizer with index `136`, and
+  has isotropic-class orbit lengths `[1, 2, 120, 135, 270]` rather than the container's
+  `[1, 255, 272]`;
+- use the proper image of
+  $\operatorname{Stab}_{O(S_{\mathrm{En}})}(h)\to
+  \operatorname{Stab}_{O(A_{S_{\mathrm{En}}},q)}(h/2)$, of order $696729600$, when
+  computing $\Gamma_{\mathrm{En},2}$ orbits;
+- prove the primitive-isotropic orbit statement for that image or for its lattice
+  subgroup;
+- compare $\Gamma_{\mathrm{Co}}^{\mathrm{En}}(\delta)$ with the project
+  stabilizer-centralizer notation
+  $\operatorname{Stab}(\text{typed Coble polarization data})\cap Z(\theta)$ after
+  $\theta$ and the transported polarization class are constructed in the same ambient
+  lattice.
+
+**Moduli interpretation.** The polarization $h_{\mathrm{Co}}$ is the degree-2
+Enriques-type class in $K_S^\perp\subset\mathrm{Pic}(S)$, not the plane hyperplane class
+$H$. Its K3-side representative is $\tilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ with
+square $4$, and $\theta$ is the Enriques-side involution data only after it is realized
+as a lattice isometry with the same parent as the subgroup definition.
 
 Tracker: `FEATURE-COBLE-ARITHMETIC-GROUP-GENERATORS`.
 
@@ -243,6 +552,23 @@ Literature: AEGS (2023, Section 3), Nikulin (1979, 1980), Bourbaki (Lie Groups, 
 **Nikulin's framework (Section 1.5).** For a primitive embedding S -> Lambda with Lambda
 unimodular, the orthogonal complement T = S^perp satisfies Lambda = S + T and there
 exists a sign involution acting by -I on S and +I on T.
+
+For the Coble primitive embedding, take $S=S_{\mathrm{Co}}$ and
+$T=T_{\mathrm{Co}}$.  Nikulin's primitive-unimodular gluing realizes
+$\Lambda_{\mathrm{K3}}$ from the graph of an anti-isometry
+$\gamma_{\mathrm{Co}}:A_{S_{\mathrm{Co}}}\to A_{T_{\mathrm{Co}}}$.  Since both
+discriminant groups are 2-elementary, the actions of `-id` on $A_{S_{\mathrm{Co}}}$
+and `id` on $A_{T_{\mathrm{Co}}}$ agree on this graph.  Thus the sign involution is
+well-defined as a lattice isometry before any 22-by-22 matrix is written:
+
+```text
+theta_Co|S_Co = -id,
+theta_Co|T_Co = id.
+```
+
+The remaining implementation work is to construct the chosen primitive embedding and
+gluing anti-isometry explicitly, then extract a matrix realization of this already
+defined lattice automorphism.
 
 Tracker: `FEATURE-COBLE-K3-FOLDING-INVOLUTION`.
 

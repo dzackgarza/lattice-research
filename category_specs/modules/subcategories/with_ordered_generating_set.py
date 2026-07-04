@@ -2,23 +2,37 @@ r"""Modules with an ordered generating set."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
+from sage.rings.integer import Integer as SageInteger
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Integer, RModuleElement, RModuleMorphism
+    from ...types import (
+        Cardinality,
+        FiniteSet,
+        Integer,
+        RModule,
+        RModuleElement,
+        RModuleMorphism,
+    )
 
 
 class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).WithOrderedGeneratingSet()``."""
 
     _base_category_class_and_axiom = (Modules, "WithOrderedGeneratingSet")
+
+    @override
+    @final
+    def extra_super_categories(self) -> list[Category]:
+        return [self.base_category().FinitelyGenerated()]
 
     @override
     @final
@@ -31,30 +45,46 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
         def has_ordered_generating_set(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def gens(self) -> Sequence[RModuleElement]: ...
+
+        @override
+        @abstractmethod
+        def generating_set(self) -> FiniteSet: ...
+
+        @override
+        @abstractmethod
+        def with_generating_set(self, S: FiniteSet) -> RModule: ...
 
         @final
         def ngens(self) -> Cardinality:
-            return self.gens().cardinality()
+            return SageInteger(len(self.gens()))
 
         @final
         def gen(self, i: Integer) -> RModuleElement:
-            return self.gens()[i]
+            return self.gens()[int(i)]
 
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
-            @abstract_method
+            @abstractmethod
+            def from_images(
+                self, images: Sequence[RModuleElement]
+            ) -> RModuleMorphism:
+                r"""Return the morphism determined by images of ordered generators."""
+                ...
+
+            @abstractmethod
             def from_function(
                 self, f: Callable[[RModuleElement], RModuleElement]
             ) -> RModuleMorphism: ...
 
-        class ElementMethods: ...
+        class ElementMethods:
+            @abstractmethod
+            def generator_images(self) -> tuple[RModuleElement, ...]:
+                r"""Return the images of the domain's ordered generators."""
+                ...
 
-        class MorphismMethods: ...
+            @abstractmethod
+            def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods:
-        @abstract_method
-        def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...

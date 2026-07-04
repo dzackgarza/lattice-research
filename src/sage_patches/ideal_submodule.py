@@ -11,10 +11,11 @@ category metadata.
 
 from __future__ import annotations
 
-from sage.all import ZZ, QQ, Modules
+from typing import Any
+
+from sage.all import ZZ, Modules
 from sage.categories.rings import Rings
 from sage.rings.ideal import Ideal_generic
-from sage.rings.ring import PrincipalIdealDomain
 
 _installed = False
 
@@ -23,24 +24,24 @@ _native_ring_ideal = Rings().parent_class.ideal
 _native_ring_truediv = None  # set during install if available
 
 
-def _refine_ideal_as_module(ideal) -> object:
+def _refine_ideal_as_module(ideal: Any) -> Any:
     """Refine a Sage ideal as a module subobject of the ring-as-module."""
     try:
         ring = ideal.ring()
-        if ring in ZZ.parent_category or hasattr(ring, '_refine_category_'):
+        if ring in ZZ.parent_category or hasattr(ring, "_refine_category_"):
             ideal._refine_category_(Modules(ring))
     except Exception:
         pass
     return ideal
 
 
-def _module_aware_ideal(self, *args, **kwds):
+def _module_aware_ideal(self: Any, *args: Any, **kwds: Any) -> Any:
     """Intercept Ring.ideal to refine output as a module subobject."""
     result = _native_ring_ideal(self, *args, **kwds)
     return _refine_ideal_as_module(result)
 
 
-def _module_aware_mul(self, other):
+def _module_aware_mul(self: Any, other: Any) -> Any:
     """Intercept Ring.__mul__ to refine ideal outputs."""
     result = self.__class__.__mul__(self, other)
     if isinstance(result, Ideal_generic):

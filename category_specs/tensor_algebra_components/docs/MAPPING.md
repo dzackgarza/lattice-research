@@ -1,6 +1,6 @@
 # Tensor Algebra Components Mapping
 
-Canonical tracked spec: `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS.md`.
+Canonical tracked spec: `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS.md`.
 
 This mapping document has been converted into the tracked spec file above. Update that spec file, not this redirect, so the planning DAG, completeness research, and mathematical-correctness audit see mapping changes.
 

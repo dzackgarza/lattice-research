@@ -2,12 +2,12 @@ r"""Algebras equipped with a distinguished basis."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.algebras_with_basis import (
     AlgebrasWithBasis as SageAlgebrasWithBasis,
 )
-from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category, CategoryWithAxiom_over_base_ring
@@ -51,7 +51,7 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
         )
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def basis(self) -> AlgebraBasis:
             r"""Return the distinguished basis of this algebra."""
             ...
@@ -63,16 +63,14 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
             return self.basis()
 
         @override
-        @abstract_method
+        @abstractmethod
         def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex:
             r"""Return the Hochschild complex computed from this basis presentation."""
             del coefficients
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def __invert__(self) -> AlgebraElement:
             r"""Return the multiplicative inverse of this algebra element."""
             ...
-
-    class MorphismMethods: ...

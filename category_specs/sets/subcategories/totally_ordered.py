@@ -2,9 +2,8 @@ r"""Totally ordered set subcategory."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
-
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -31,41 +30,36 @@ class _TotallyOrdered(CategoryWithAxiom):
         return [Sets()]
 
     class ParentMethods:
-        @override
         @final
         def is_totally_ordered(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def rank(self, x: SetElement) -> Integer:
             r"""Return the order rank of ``x`` in this totally ordered set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def min(self) -> SetElement:
             r"""Return the least element of this totally ordered set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def max(self) -> SetElement:
             r"""Return the greatest element of this totally ordered set."""
             ...
 
     class ElementMethods:
-        @abstract_method
-        def __lt__(self, other: SetElement) -> bool: ...
+        @abstractmethod
+        def __lt__(self, other: _TotallyOrdered.ElementMethods) -> bool: ...
 
-        @abstract_method
-        def __le__(self, other: SetElement) -> bool: ...
+        @abstractmethod
+        def __le__(self, other: _TotallyOrdered.ElementMethods) -> bool: ...
 
-        @override
         @final
-        def __gt__(self, other: SetElement) -> bool:
+        def __gt__(self, other: _TotallyOrdered.ElementMethods) -> bool:
             return other.__lt__(self)
 
-        @override
         @final
-        def __ge__(self, other: SetElement) -> bool:
+        def __ge__(self, other: _TotallyOrdered.ElementMethods) -> bool:
             return other.__le__(self)
-
-    class MorphismMethods: ...

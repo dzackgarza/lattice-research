@@ -2,18 +2,17 @@ r"""CC ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from ...cat import Category, Category_singleton
 from ._lazy_subcategories import (
     _AlgebraicallyClosedFields,
-    _CompleteRings,
     _ComplexFields,
-    _Fields,
-    _LocalFields,
 )
 
 if TYPE_CHECKING:
+    from ...types import Ring
+
     pass
 
 
@@ -35,9 +34,6 @@ class _CC(Category_singleton):
     def super_categories(self) -> list[Category]:
         return [
             _ComplexFields(),
-            _Fields(),
-            _CompleteRings(),
-            _LocalFields(),
             _AlgebraicallyClosedFields(),
         ]
 
@@ -49,13 +45,11 @@ class _CC(Category_singleton):
         return x is CC
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import CC
 
-        return CC
+        return cast("Ring", CC)
 
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

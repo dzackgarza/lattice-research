@@ -11,17 +11,18 @@ metadata and enriched constructor routing.
 
 from __future__ import annotations
 
-from sage.all import ZZ, Modules
-from sage.categories.modules import Modules as ModulesCategory
+from typing import Any
+
+from sage.all import Modules
 from sage.modules.free_module import FreeModule_ambient_pid
 
 _installed = False
 
 
-def _ensure_module_refinement(M):
+def _ensure_module_refinement(M: Any) -> Any:
     """Refine a module parent into Modules(R)."""
     try:
-        if hasattr(M, '_refine_category_'):
+        if hasattr(M, "_refine_category_"):
             M._refine_category_(Modules(M.base_ring()))
     except Exception:
         pass
@@ -31,13 +32,13 @@ def _ensure_module_refinement(M):
 _native_free_module_direct_sum = FreeModule_ambient_pid.direct_sum
 
 
-def enriched_direct_sum(self, other):
+def enriched_direct_sum(self: Any, other: Any) -> Any:
     """Direct sum M ⊕ N of enriched modules, refined into Modules(R)."""
     result = _native_free_module_direct_sum(self, other)
     return _ensure_module_refinement(result)
 
 
-def enriched_quotient(self, submodule):
+def enriched_quotient(self: Any, submodule: Any) -> Any:
     """Quotient M / H as an enriched FGP module."""
     result = self.quotient(submodule)
     return _ensure_module_refinement(result)

@@ -2,9 +2,8 @@ r"""Modules over integral domains."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
-
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -29,9 +28,7 @@ class _OverIntegralDomain(CategoryWithAxiom_over_base_ring):
         def is_over_integral_domain(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def saturation(self) -> SubModule: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

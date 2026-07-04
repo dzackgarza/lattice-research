@@ -13,6 +13,45 @@ uv-setup: _clean
     @echo "Setting up uv environment..."
     uv sync
 
+# Fetch external research tools (carat, VinbergsAlgorithmNF, vinal, polyhedral_common)
+# to their upstream LATEST. These are intentionally NOT git submodules: a submodule
+# pins a SHA, which rots (carat's pin was orphaned by an upstream history rewrite,
+# breaking recursive clones). Run after cloning the repo, and any time to refresh.
+# Set FRESH=1 to discard a local checkout (to trash) and re-clone — needed when a
+# checkout has diverged from upstream and cannot fast-forward.
+fetch-externals:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    externals=(
+        "src.bak/backends/external/carat|https://github.com/lbfm-rwth/carat.git"
+        "src.bak/backends/external/vinbergs_algorithm/references/VinbergsAlgorithmNF|https://github.com/bottine/VinbergsAlgorithmNF.git"
+        "src.bak/backends/external/vinbergs_algorithm/references/vinal|https://github.com/aperep/vinal.git"
+        "src.bak/backends/external/vinbergs_algorithm/references/AlVin|https://github.com/rgugliel/AlVin.git"
+        "src/external/dutsik_polyhedral/polyhedral_common|https://github.com/MathieuDutSik/polyhedral_common.git"
+    )
+    for entry in "${externals[@]}"; do
+        path="${entry%%|*}"
+        url="${entry#*|}"
+        if [ "${FRESH:-0}" = "1" ] && [ -e "$path" ]; then
+            echo ">>> FRESH: trashing $path"
+            trash "$path"
+        fi
+        if git -C "$path" rev-parse --git-dir >/dev/null 2>&1; then
+            echo ">>> refreshing $path"
+            git -C "$path" fetch --recurse-submodules origin
+            git -C "$path" merge --ff-only "@{u}"
+            git -C "$path" submodule update --init --recursive
+        elif [ -e "$path" ]; then
+            echo "ERROR: $path exists but is not a git repo." >&2
+            echo "       Re-run with FRESH=1 to trash and re-clone it." >&2
+            exit 1
+        else
+            echo ">>> cloning $path -> latest"
+            git clone --recursive "$url" "$path"
+        fi
+    done
+
 [private]
 _clean:
     #!/usr/bin/env bash
@@ -104,156 +143,98 @@ test-ci: _clean
     cd {{justfile_directory()}}
     just test
 
+test-spec-core-vertical-slice: _clean
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    cleanup() {
+        just --justfile {{justfile()}} _clean
+    }
+    trap cleanup EXIT
+    sage -python -m pytest \
+        tests/category_specs/test_spec_core_reports.py \
+        tests/category_specs/test_free_module_witnesses.py \
+        tests/category_specs/test_spec_core_categories.py \
+        tests/category_specs/test_spec_core_generated_laws.py \
+        tests/category_specs/test_spec_core_inspection.py \
+        tests/category_specs/test_spec_core_constructor_specs.py \
+        tests/category_specs/test_constructor_provenance.py
+
+test-category-specs-obligations: _clean
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    cleanup() {
+        just --justfile {{justfile()}} _clean
+    }
+    trap cleanup EXIT
+    sage -python -m pytest tests/category_specs/test_spec_obligations.py
+
+category-specs-mypy-structural-report:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    plugin_root="${SAGE_MYPY_PLUGIN_ROOT:-/home/dzack/sage-mypy-plugin}"
+    export PYTHONPATH="${plugin_root}:{{justfile_directory()}}${PYTHONPATH:+:${PYTHONPATH}}"
+    sage -python "${plugin_root}/devtools/consumer_structural_canary.py" \
+        --consumer-root "{{justfile_directory()}}" \
+        --work-dir "{{justfile_directory()}}/.cache/sage-mypy-plugin/consumer-structural" \
+        --artifact-dir "{{justfile_directory()}}/reports/workstreams/category-specs-mypy-structural"
+
+category-specs-mypy-structural-report-full:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    plugin_root="${SAGE_MYPY_PLUGIN_ROOT:-/home/dzack/sage-mypy-plugin}"
+    export PYTHONPATH="${plugin_root}:{{justfile_directory()}}${PYTHONPATH:+:${PYTHONPATH}}"
+    sage -python "${plugin_root}/devtools/consumer_structural_canary.py" \
+        --consumer-root "{{justfile_directory()}}" \
+        --work-dir "{{justfile_directory()}}/.cache/sage-mypy-plugin/consumer-structural-full" \
+        --artifact-dir "{{justfile_directory()}}/reports/workstreams/category-specs-mypy-structural-full" \
+        --all-consumer-modules
+
+category-specs-mypy-ledger:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    uv run --no-project python .agents/scripts/category_specs_mypy_error_ledger.py
+
+category-specs-sage-stub-backlog:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    uv run --no-project python .agents/scripts/category_specs_sage_stub_backlog.py
+
 plan-validate:
-    #!/usr/bin/env python3
-    import re
-    import sys
-    from pathlib import Path
-
-    import yaml
-
-    root = Path("{{justfile_directory()}}")
-    plans_root = root / "plans" / "features"
-    schema_root = root / ".nimbalyst" / "trackers"
-    allowed_types = {"feature", "spec", "plan", "phase", "task", "decision"}
-
-    def error(path, message):
-        errors.append(f"{path}: {message}")
-
-    def frontmatter(path):
-        text = path.read_text(encoding="utf-8")
-        if not text.startswith("---\n"):
-            raise ValueError("missing YAML frontmatter")
-        try:
-            raw, _ = text[4:].split("\n---\n", 1)
-        except ValueError as exc:
-            raise ValueError("unterminated YAML frontmatter") from exc
-        return yaml.safe_load(raw) or {}
-
-    def field_schema(schema, field_name):
-        for field in schema.get("fields", []):
-            if field.get("name") == field_name:
-                return field
-        return None
-
-    def ref_ids(value):
-        if value is None:
-            return []
-        if not isinstance(value, list):
-            raise TypeError("must be a list")
-        ids = []
-        for item in value:
-            if not isinstance(item, str):
-                raise TypeError("must contain string references")
-            match = re.fullmatch(r"\[\[([A-Z0-9-]+)\]\]", item)
-            ids.append(match.group(1) if match else item)
-        return ids
-
-    def expected_kind(path, card_id):
-        rel = path.relative_to(plans_root)
-        parts = rel.parts
-        if len(parts) == 2 and parts[0] == card_id and parts[1] == f"{card_id}.md":
-            return "feature"
-        if len(parts) == 3 and parts[1] == "specs":
-            return "spec"
-        if len(parts) == 3 and parts[1] == "decisions":
-            return "decision"
-        if len(parts) == 4 and parts[1] == "plans" and parts[2] == card_id:
-            return "plan"
-        if len(parts) == 5 and parts[1] == "plans" and parts[3] == card_id and parts[4] == f"{card_id}.md":
-            return "phase"
-        if len(parts) == 6 and parts[1] == "plans" and parts[4] == "tasks":
-            return "task"
-        return None
-
-    errors = []
-    schemas = {}
-    for schema_path in sorted(schema_root.glob("*.yaml")):
-        schema = yaml.safe_load(schema_path.read_text(encoding="utf-8")) or {}
-        schema_type = schema.get("type")
-        if schema_type in allowed_types:
-            schemas[schema_type] = schema
-
-    missing = allowed_types - set(schemas)
-    if missing:
-        errors.append(f".nimbalyst/trackers: missing schemas for {', '.join(sorted(missing))}")
-
-    cards = {}
-    for path in sorted(plans_root.rglob("*.md")):
-        try:
-            data = frontmatter(path)
-        except Exception as exc:
-            error(path, str(exc))
-            continue
-
-        card_id = data.get("id")
-        if card_id != path.stem:
-            error(path, f"id {card_id!r} must match filename stem {path.stem!r}")
-        elif card_id in cards:
-            error(path, f"duplicate id {card_id}; first seen at {cards[card_id]['path']}")
-        else:
-            cards[card_id] = {"path": path, "data": data}
-
-        tracker = data.get("trackerStatus")
-        if not isinstance(tracker, dict):
-            error(path, "trackerStatus must be a mapping")
-            continue
-
-        kind = tracker.get("type")
-        if kind not in allowed_types:
-            error(path, f"trackerStatus.type {kind!r} must be one of {sorted(allowed_types)}")
-            continue
-        if kind not in schemas:
-            continue
-
-        placement = expected_kind(path, card_id)
-        if placement != kind:
-            error(path, f"type {kind!r} does not match root plans placement {placement!r}")
-
-        schema = schemas[kind]
-        allowed_statuses = {
-            option["value"]
-            for option in (field_schema(schema, "status") or {}).get("options", [])
-            if isinstance(option, dict) and "value" in option
-        }
-        status = data.get("status")
-        if allowed_statuses and status not in allowed_statuses:
-            error(path, f"status {status!r} is not allowed for {kind}")
-
-        for field in schema.get("fields", []):
-            name = field.get("name")
-            if field.get("required") and data.get(name) in (None, "", []):
-                error(path, f"missing required field {name!r}")
-
-        for name in ("parents", "dependsOn", "blocks", "plans", "phases", "tasks"):
-            if name in data:
-                try:
-                    ref_ids(data[name])
-                except TypeError as exc:
-                    error(path, f"{name} {exc}")
-
-    for card_id, entry in cards.items():
-        data = entry["data"]
-        path = entry["path"]
-        for name in ("parents", "dependsOn", "blocks", "plans", "phases", "tasks"):
-            try:
-                ids = ref_ids(data.get(name, []))
-            except TypeError:
-                continue
-            for ref_id in ids:
-                if ref_id not in cards:
-                    error(path, f"{name} references missing card {ref_id}")
-
-    if errors:
-        print("plan validation failed:", file=sys.stderr)
-        for item in errors:
-            print(f"- {item}", file=sys.stderr)
-        sys.exit(1)
-
-    print(f"Validated {len(cards)} root planning cards.")
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    just --justfile /home/dzack/ai/planning/justfile validate \
+        {{justfile_directory()}}/.agents/plans/features \
+        {{justfile_directory()}}/.nimbalyst/trackers \
+        {{justfile_directory()}}/.agents/plans/plan-dag.md
 
 plan-progress-report:
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
-    uv run .agents/scripts/generate_card_progress_report.py --output plans/card-progress-report.md
+    uv run .agents/scripts/generate_card_progress_report.py --output .agents/plans/card-progress-report.md
+
+next-tasks n="1":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    just --justfile {{justfile()}} plan-validate >/dev/null
+    uv run .agents/scripts/generate_card_progress_report.py --next-outstanding-tasks "{{n}}"
+
+paper-build:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}/paper
+    latexmk -xelatex -bibtex -interaction=nonstopmode -halt-on-error -file-line-error main.tex
+
+paper-clean:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}/paper
+    latexmk -C main.tex

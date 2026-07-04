@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any, final, override
 
+from sage.categories.category import Category
+
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
 
@@ -15,7 +17,7 @@ class _OverDedekindDomain(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().OverIntegralDomain()]
 
     @override
@@ -30,5 +32,3 @@ class _OverDedekindDomain(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

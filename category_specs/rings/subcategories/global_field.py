@@ -2,14 +2,17 @@ r"""GlobalFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .field import _Fields as _Fields
+
+_F = TypeVar("_F", bound=Callable[..., object])
 
 if TYPE_CHECKING:
     pass
@@ -35,6 +38,9 @@ class _GlobalFields(CategoryWithAxiom):
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_global_field()
 
+    NumberFields = LazyImport(
+        "category_specs.rings.subcategories.number_field", "_NumberFields"
+    )
     Archimedean = LazyImport(
         "category_specs.rings.subcategories.archimedean_global_field",
         "_ArchimedeanGlobalFields",
@@ -45,15 +51,15 @@ class _GlobalFields(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @final
+        def NumberFields(self) -> Category:
+            return cast(Category, with_axiom(self, "NumberFields"))
         @final
         def Archimedean(self) -> Category:
-            return self._with_axiom("Archimedean")
-
-        @cached_method
+            return cast(Category, with_axiom(self, "Archimedean"))
         @final
         def NonArchimedean(self) -> Category:
-            return self._with_axiom("NonArchimedean")
+            return cast(Category, with_axiom(self, "NonArchimedean"))
 
     class ParentMethods:
         @override
@@ -62,5 +68,3 @@ class _GlobalFields(CategoryWithAxiom):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

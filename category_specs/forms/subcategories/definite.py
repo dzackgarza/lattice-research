@@ -8,12 +8,14 @@ A symmetric bilinear form is *definite* iff it is either positive-definite
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import final, override
 
-from sage.misc.abstract_method import abstract_method
-
 from ...cat import CategoryWithAxiom_over_base_ring
-from .symmetric import SymmetricBilinearModulesCategory
+from .symmetric import (
+    SymmetricBilinearModulesCategory,
+    SymmetricBilinearModulesMorphism,
+)
 
 
 class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -57,12 +59,12 @@ class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Definite implies nondegenerate."""
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_positive_definite(self) -> bool:
             r"""Return ``True`` iff ``b(v, v) > 0`` for all nonzero ``v``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_negative_definite(self) -> bool:
             r"""Return ``True`` iff ``b(v, v) < 0`` for all nonzero ``v``."""
             ...
@@ -74,9 +76,8 @@ class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Every nonzero element of a definite module is anisotropic."""
             return not self.is_zero()
 
-    class MorphismMethods: ...
 
 
 DefiniteBilinearModulesObject = DefiniteBilinearModulesCategory.ParentMethods
 DefiniteBilinearModulesElement = DefiniteBilinearModulesCategory.ElementMethods
-DefiniteBilinearModulesMorphism = DefiniteBilinearModulesCategory.MorphismMethods
+DefiniteBilinearModulesMorphism = SymmetricBilinearModulesMorphism

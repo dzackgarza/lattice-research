@@ -5,7 +5,8 @@ This file imports those packages and chooses conventional aliases such as
 ``Ring = RingsObject`` or ``RModule = ModulesObject``.
 """
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
+from types import SimpleNamespace
 
 from sage.categories.cartesian_product import (
     CartesianProductFunctor as SageCartesianProductFunctor,
@@ -27,6 +28,9 @@ from sage.monoids.monoid import Monoid_class
 from sage.rings.complex_interval import ComplexIntervalFieldElement
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
+from sage.rings.polynomial.ore_polynomial_ring import (
+    OrePolynomialRing as SageOrePolynomialRing,
+)
 from sage.rings.polynomial.polynomial_element import Polynomial as SagePolynomial
 from sage.rings.polynomial.term_order import TermOrder as SageTermOrder
 from sage.rings.qqbar import AlgebraicPolynomialTracker
@@ -189,6 +193,18 @@ from .modules import (
 from .modules.subcategories.constructions.dual_objects import (
     _DualObjects as ModuleDualObjects,
 )
+from .modules.subcategories.constructions.quotients import (
+    _Quotients as ModuleQuotients,
+)
+from .modules.subcategories.constructions.subobjects import (
+    _Subobjects as ModuleSubobjects,
+)
+from .modules.subcategories.constructions.tensor_products import (
+    _TensorProducts as ModuleTensorProducts,
+)
+from .modules.subcategories.free import _Free
+from .modules.subcategories.projective import _Projective
+from .modules.subcategories.torsion import _Torsion
 from .posets import (
     PosetsAut,
     PosetsAutCategory,
@@ -222,7 +238,7 @@ from .rings import (
     RingsHomCategory,
     RingsMorphism,
     RingsObject,
-    _RingIdeals,
+    _RingIdealParentMethods,
 )
 from .rings.subcategories.approximate import (
     ApproximateRingsCategory,
@@ -233,6 +249,7 @@ from .rings.subcategories.approximate import (
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
+from .rings.subcategories.number_field import _NumberFields
 from .sets import (
     SetsAut,
     SetsAutCategory,
@@ -261,8 +278,11 @@ from .sets.subcategories.constructions.subquotients import (
 from .sets.subcategories.constructions.with_realizations import (
     SetsWithRealizations as SetWithRealizationsCategory,
 )
+from .sets.subcategories.countable import _CountableSets
+from .sets.subcategories.finite import _FiniteSets
 from .sets.subcategories.graded import GradedSetsCategory
 from .sets.subcategories.group_actions import _GSets
+from .sets.subcategories.infinite import _InfiniteSets
 from .sets.subcategories.partitioned import (
     PartitionedSetsAut,
     PartitionedSetsAutCategory,
@@ -277,6 +297,8 @@ from .sets.subcategories.partitioned import (
     PartitionedSetsMorphism,
     PartitionedSetsObject,
 )
+from .sets.subcategories.real_set import _RealSets
+from .sets.subcategories.uncountable import _UncountableSets
 from .tensor_algebra_components import (
     TensorAlgebraComponentsAut,
     TensorAlgebraComponentsAutCategory,
@@ -320,23 +342,24 @@ from .topological_spaces import (
 
 # Generic / Support
 Category = CatBaseCategory
-CategoryObject = SageParent
-CategoryElement = SageElement
-Matrix = SageMatrix
-MatrixSpace = SageMatrixSpace
-DiGraph = SageDiGraph
-CartesianProductFunctor = SageCartesianProductFunctor
+type CategoryObject = SageParent
+type CategoryElement = SageElement
+type Matrix = SageMatrix
+type MatrixSpace = SageMatrixSpace
+type DiGraph = SageDiGraph
+type CartesianProductFunctor = SageCartesianProductFunctor
 CategoryOfHomCategories = HomCategoriesCategory
 CategoryOfEndCategories = EndCategoriesCategory
 CategoryOfAutCategories = AutCategoriesCategory
 Hom = HomCategoriesObject
 End = EndCategoriesObject
 Aut = AutCategoriesObject
-Morphism = SageMorphism
-Endomorphism = SageMorphism
-Automorphism = SageMorphism
+type Morphism = SageMorphism
+type Endomorphism = SageMorphism
+type Automorphism = SageMorphism
 Ring = RingsObject
 Field = _Fields.ParentMethods
+NumberField = _NumberFields.ParentMethods
 RingElement = RingsElement
 RingMorphism = RingsMorphism
 RingHom = RingsHom
@@ -348,17 +371,18 @@ ApproximateRing = ApproximateRingsObject
 ApproximateRingElement = ApproximateRingsElement
 ApproximateRingMorphism = ApproximateRingsMorphism
 ApproximateRingCategory = ApproximateRingsCategory
-Group = SageGroup
-AbelianGroup = AbelianGroup_class
-Magma = CategoryObject
-Semigroup = CategoryObject
-Monoid = Monoid_class
-AdditiveSemigroup = CategoryObject
-AdditiveMonoid = CategoryObject
-AdditiveGroup = CategoryObject
-Polynomial = SagePolynomial
+type Group = SageGroup
+type AbelianGroup = AbelianGroup_class
+type Magma = CategoryObject
+type Semigroup = CategoryObject
+type Monoid = Monoid_class
+type AdditiveSemigroup = CategoryObject
+type AdditiveMonoid = CategoryObject
+type AdditiveGroup = CategoryObject
+type Polynomial = SagePolynomial
+type OrePolynomialRing = SageOrePolynomialRing
 AlgebraicPolynomial = AlgebraicPolynomialTracker
-TermOrder = SageTermOrder
+type TermOrder = SageTermOrder
 RealNumberInterval = RealIntervalFieldElement
 ComplexInterval = ComplexIntervalFieldElement
 Valuation = DiscretePseudoValuation
@@ -366,25 +390,25 @@ Valuation = DiscretePseudoValuation
 LocalRing = _LocalRings.ParentMethods
 CompleteRing = _CompleteRings.ParentMethods
 
-Cardinality = Integer | InfinityElement
+type Cardinality = Integer | InfinityElement
 FreeResolution = SageFreeResolution
 
 RMod = ModulesCategory
-RModule = ModulesObject
-RModuleElement = ModulesElement
+type RModule = ModulesObject
+type RModuleElement = ModulesElement
 RModMorphism = ModulesMorphism
 RModuleMorphism = RModMorphism
-FreeModule = ModulesCategory.Free.ParentMethods
-TorsionModule = ModulesCategory.Torsion.ParentMethods
-ProjectiveModule = ModulesCategory.Projective.ParentMethods
-SubModule = ModulesCategory.Subobjects.ParentMethods
+FreeModule = _Free.ParentMethods
+TorsionModule = _Torsion.ParentMethods
+ProjectiveModule = _Projective.ParentMethods
+SubModule = ModuleSubobjects.ParentMethods
 Submodule = SubModule
-QuotientModule = ModulesCategory.Quotients.ParentMethods
-TensorProductRModule = ModulesCategory.TensorProducts.ParentMethods
-TensorAlgebraComponent = TensorAlgebraComponentsObject
-Tensor = TensorAlgebraComponentsElement
+QuotientModule = ModuleQuotients.ParentMethods
+TensorProductRModule = ModuleTensorProducts.ParentMethods
+type TensorAlgebraComponent = TensorAlgebraComponentsObject
+type Tensor = TensorAlgebraComponentsElement
 
-Ideal = _RingIdeals.ParentMethods
+Ideal = _RingIdealParentMethods
 PrimeIdeal = Ideal
 MaximalIdeal = PrimeIdeal
 
@@ -399,7 +423,7 @@ RModuleEndomorphism = RModEndomorphism
 RModuleAutomorphism = RModAutomorphism
 DualModule = ModuleDualObjects.ParentMethods
 DualModuleElement = ModuleDualObjects.ElementMethods
-DualModuleMorphism = ModuleDualObjects.MorphismMethods
+DualModuleMorphism = RModMorphism
 RModDual = DualModule
 RModuleDual = DualModule
 RModDualElement = DualModuleElement
@@ -408,7 +432,9 @@ RModDualMorphism = DualModuleMorphism
 RModuleDualMorphism = DualModuleMorphism
 RModuleForm = RModMorphism
 ModuleStructure = RModMorphism
-ModuleBasis = AbstractFamily | Sequence[RModuleElement]
+type ModuleBasis = (
+    AbstractFamily | Mapping[CategoryElement, RModuleElement] | Sequence[RModuleElement]
+)
 Polyhedron = SageParent
 FormedModuleCategory = FormedModulesCategory
 FormedModule = FormedModulesObject
@@ -458,17 +484,17 @@ TorsionQuadraticModuleEndCategory = TorsionQuadraticModulesEndCategory
 TorsionQuadraticModuleAutCategory = TorsionQuadraticModulesAutCategory
 TorsionQuadraticModuleEndomorphism = TorsionQuadraticModulesEndomorphism
 TorsionQuadraticModuleAutomorphism = TorsionQuadraticModulesAutomorphism
-BilinearFormsModule = SageHomset
-BilinearForm = SageMorphism
-QuadraticFormsModule = SageHomset
-QuadraticForm = SageMorphism
+type BilinearFormsModule = SageHomset
+type BilinearForm = SageMorphism
+type QuadraticFormsModule = SageHomset
+type QuadraticForm = SageMorphism
 
 RAlgebra = AlgebrasCategory
-Algebra = AlgebrasObject
-AlgebraElement = AlgebrasElement
-AlgebraMorphism = AlgebrasMorphism
+type Algebra = AlgebrasObject
+type AlgebraElement = AlgebrasElement
+type AlgebraMorphism = AlgebrasMorphism
 MagmaticAlgebraCategory = MagmaticAlgebrasCategory
-MagmaticAlgebra = MagmaticAlgebrasObject
+type MagmaticAlgebra = MagmaticAlgebrasObject
 MagmaticAlgebraElement = MagmaticAlgebrasElement
 MagmaticAlgebraMorphism = MagmaticAlgebrasMorphism
 AssociativeAlgebraCategory = AssociativeAlgebrasCategory
@@ -477,15 +503,15 @@ AssociativeAlgebraElement = AssociativeAlgebrasElement
 AssociativeAlgebraMorphism = AssociativeAlgebrasMorphism
 AlgebraBasis = AbstractFamily
 AlgebraIdeal = AlgebraIdealsObject
-HochschildChainComplex = HochschildComplex
+type HochschildChainComplex = HochschildComplex
 
 # Sets
 
 Set = SetsObject
-FiniteSet = SetsCategory.Finite.ParentMethods
-CountableSet = SetsCategory.Countable.ParentMethods
-InfiniteSet = SetsCategory.Infinite.ParentMethods
-UncountableSet = SetsCategory.Uncountable.ParentMethods
+FiniteSet = _FiniteSets.ParentMethods
+CountableSet = _CountableSets.ParentMethods
+InfiniteSet = _InfiniteSets.ParentMethods
+UncountableSet = _UncountableSets.ParentMethods
 GradedSet = GradedSetsCategory.ParentMethods
 GSet = _GSets.ParentMethods
 Subset = SetSubobjects.ParentMethods
@@ -503,11 +529,11 @@ SetEnd = SetsEnd
 SetAut = SetsAut
 SetEndomorphism = SetsEndomorphism
 SetAutomorphism = SetsAutomorphism
-FiniteSetMap = FiniteSetMap_MN
-SetFamily = AbstractFamily
-SetGeneratingSeries = SageParent
-IntegerPartition = SageIntegerPartition
-SetPartition = SageSetPartition
+type FiniteSetMap = FiniteSetMap_MN
+type SetFamily = AbstractFamily
+type SetGeneratingSeries = SageParent
+type IntegerPartition = SageIntegerPartition
+type SetPartition = SageSetPartition
 SetPartitionsParent = SageSetPartitions
 PartitionedSet = PartitionedSetsObject
 PartitionedSetElement = PartitionedSetsElement
@@ -522,24 +548,24 @@ PartitionedSetEndCategory = PartitionedSetsEndCategory
 PartitionedSetAutCategory = PartitionedSetsAutCategory
 PartitionedSetCategory = PartitionedSetsCategory
 SetPartitionSet = PartitionedSet
-EquivalenceRelation = SetPartition
-GroupElement = SageElement
+type EquivalenceRelation = SetPartition
+type GroupElement = SageElement
 GroupAction = SageMorphism
 
-RealNumber = SageRealNumber
-TopologicalSpace = TopologicalSpacesObject
+type RealNumber = SageRealNumber
+type TopologicalSpace = TopologicalSpacesObject
 MetricSpace = MetricSpacesObject
 TopologicalSpaceMorphism = TopologicalSpacesMorphism
-RealSubset = Subset
-RealOpenSet = OpenSubset
-RealInterval = InternalRealInterval
+RealSubset = _RealSets.ParentMethods
+RealOpenSet = RealSubset
+type RealInterval = InternalRealInterval
 MetricBall = OpenSubset
 PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
-SympySet = SageSympySet
-Poset = PosetsObject
-PosetElement = PosetsElement
-PosetMorphism = PosetsMorphism
+type SympySet = SageSympySet
+type Poset = PosetsObject
+type PosetElement = PosetsElement
+type PosetMorphism = PosetsMorphism
 PosetHom = PosetsHom
 PosetEnd = PosetsEnd
 PosetAut = PosetsAut
@@ -550,11 +576,11 @@ LatticePoset = _LatticePosets.ParentMethods
 FiniteMeetSemilatticePoset = _FiniteMeetSemilatticePosets.ParentMethods
 FiniteJoinSemilatticePoset = _FiniteJoinSemilatticePosets.ParentMethods
 FiniteLatticePoset = _FiniteLatticePosets.ParentMethods
-SageFinitePoset = SagePoset
+type SageFinitePoset = SagePoset
 LatticeCategory = LatticesCategory
 Lattice = LatticesObject
 LatticeElement = LatticesElement
-LatticeMorphism = LatticesMorphism
+type LatticeMorphism = LatticesMorphism
 LatticeHom = LatticesHom
 LatticeEnd = LatticesEnd
 LatticeAut = LatticesAut
@@ -583,261 +609,262 @@ SignaturePair = tuple[Integer, Integer]
 IntegralRescaling = tuple[Integer, Lattice]
 
 
-class CatTypes:
-    Category = staticmethod(CatCategory)
-    Object = CatObject
-    Element = CatElement
-    Morphism = CatMorphism
-    HomCategory = staticmethod(CatHomCategory)
-    EndCategory = staticmethod(CatEndCategory)
-    AutCategory = staticmethod(CatAutCategory)
-    Hom = CatHom
-    End = CatEnd
-    Aut = CatAut
-    Endomorphism = CatEndomorphism
-    Automorphism = CatAutomorphism
+CatTypes = SimpleNamespace(
+    Category=CatCategory,
+    Object=CatObject,
+    Element=CatElement,
+    Morphism=CatMorphism,
+    HomCategory=CatHomCategory,
+    EndCategory=CatEndCategory,
+    AutCategory=CatAutCategory,
+    Hom=CatHom,
+    End=CatEnd,
+    Aut=CatAut,
+    Endomorphism=CatEndomorphism,
+    Automorphism=CatAutomorphism,
+)
 
+HomCategoryTypes = SimpleNamespace(
+    Category=HomCategoriesCategory,
+    Object=HomCategoriesObject,
+    Element=HomCategoriesElement,
+    Morphism=HomCategoriesMorphism,
+)
 
-class HomCategoryTypes:
-    Category = staticmethod(HomCategoriesCategory)
-    Object = HomCategoriesObject
-    Element = HomCategoriesElement
-    Morphism = HomCategoriesMorphism
+EndCategoryTypes = SimpleNamespace(
+    Category=EndCategoriesCategory,
+    Object=EndCategoriesObject,
+    Element=EndCategoriesElement,
+    Morphism=EndCategoriesMorphism,
+)
 
+AutCategoryTypes = SimpleNamespace(
+    Category=AutCategoriesCategory,
+    Object=AutCategoriesObject,
+    Element=AutCategoriesElement,
+    Morphism=AutCategoriesMorphism,
+)
 
-class EndCategoryTypes:
-    Category = staticmethod(EndCategoriesCategory)
-    Object = EndCategoriesObject
-    Element = EndCategoriesElement
-    Morphism = EndCategoriesMorphism
+SetTypes = SimpleNamespace(
+    Category=SetsCategory,
+    Object=SetsObject,
+    Element=SetsElement,
+    Morphism=SetsMorphism,
+    HomCategory=SetsHomCategory,
+    EndCategory=SetsEndCategory,
+    AutCategory=SetsAutCategory,
+    Hom=SetsHom,
+    End=SetsEnd,
+    Aut=SetsAut,
+    Endomorphism=SetsEndomorphism,
+    Automorphism=SetsAutomorphism,
+)
 
+RingTypes = SimpleNamespace(
+    Category=RingsCategory,
+    Object=RingsObject,
+    Element=RingsElement,
+    Morphism=RingsMorphism,
+    HomCategory=RingsHomCategory,
+    EndCategory=RingsEndCategory,
+    AutCategory=RingsAutCategory,
+    Hom=RingsHom,
+    End=RingsEnd,
+    Aut=RingsAut,
+    Endomorphism=RingsEndomorphism,
+    Automorphism=RingsAutomorphism,
+)
 
-class AutCategoryTypes:
-    Category = staticmethod(AutCategoriesCategory)
-    Object = AutCategoriesObject
-    Element = AutCategoriesElement
-    Morphism = AutCategoriesMorphism
+RModuleTypes = SimpleNamespace(
+    Category=ModulesCategory,
+    Object=ModulesObject,
+    Element=ModulesElement,
+    Morphism=ModulesMorphism,
+    HomCategory=ModulesHomCategory,
+    EndCategory=ModulesEndCategory,
+    AutCategory=ModulesAutCategory,
+    Hom=ModulesHom,
+    End=ModulesEnd,
+    Aut=ModulesAut,
+    Endomorphism=ModulesEndomorphism,
+    Automorphism=ModulesAutomorphism,
+)
 
+FormedModuleTypes = SimpleNamespace(
+    Category=FormedModulesCategory,
+    Object=FormedModulesObject,
+    Element=FormedModulesElement,
+    Morphism=FormedModulesMorphism,
+    HomCategory=FormedModulesHomCategory,
+    EndCategory=FormedModulesEndCategory,
+    AutCategory=FormedModulesAutCategory,
+    Hom=FormedModulesHom,
+    End=FormedModulesEnd,
+    Aut=FormedModulesAut,
+    Endomorphism=FormedModulesEndomorphism,
+    Automorphism=FormedModulesAutomorphism,
+)
 
-class SetTypes:
-    Category = staticmethod(SetsCategory)
-    Object = SetsObject
-    Element = SetsElement
-    Morphism = SetsMorphism
-    HomCategory = staticmethod(SetsHomCategory)
-    EndCategory = staticmethod(SetsEndCategory)
-    AutCategory = staticmethod(SetsAutCategory)
-    Hom = SetsHom
-    End = SetsEnd
-    Aut = SetsAut
-    Endomorphism = SetsEndomorphism
-    Automorphism = SetsAutomorphism
+BilinearModuleTypes = SimpleNamespace(
+    Category=BilinearModulesCategory,
+    Object=BilinearModulesObject,
+    Element=BilinearModulesElement,
+    Morphism=BilinearModulesMorphism,
+    HomCategory=BilinearModulesHomCategory,
+    EndCategory=BilinearModulesEndCategory,
+    AutCategory=BilinearModulesAutCategory,
+    Hom=BilinearModulesHom,
+    End=BilinearModulesEnd,
+    Aut=BilinearModulesAut,
+    Endomorphism=BilinearModulesEndomorphism,
+    Automorphism=BilinearModulesAutomorphism,
+)
 
+QuadraticModuleTypes = SimpleNamespace(
+    Category=QuadraticModulesCategory,
+    Object=QuadraticModulesObject,
+    Element=QuadraticModulesElement,
+    Morphism=QuadraticModulesMorphism,
+    HomCategory=QuadraticModulesHomCategory,
+    EndCategory=QuadraticModulesEndCategory,
+    AutCategory=QuadraticModulesAutCategory,
+    Hom=QuadraticModulesHom,
+    End=QuadraticModulesEnd,
+    Aut=QuadraticModulesAut,
+    Endomorphism=QuadraticModulesEndomorphism,
+    Automorphism=QuadraticModulesAutomorphism,
+)
 
-class RingTypes:
-    Category = staticmethod(RingsCategory)
-    Object = RingsObject
-    Element = RingsElement
-    Morphism = RingsMorphism
-    HomCategory = staticmethod(RingsHomCategory)
-    EndCategory = staticmethod(RingsEndCategory)
-    AutCategory = staticmethod(RingsAutCategory)
-    Hom = RingsHom
-    End = RingsEnd
-    Aut = RingsAut
-    Endomorphism = RingsEndomorphism
-    Automorphism = RingsAutomorphism
+TorsionQuadraticModuleTypes = SimpleNamespace(
+    Category=TorsionQuadraticModulesCategory,
+    Object=TorsionQuadraticModulesObject,
+    Element=TorsionQuadraticModulesElement,
+    Morphism=TorsionQuadraticModulesMorphism,
+    HomCategory=TorsionQuadraticModulesHomCategory,
+    EndCategory=TorsionQuadraticModulesEndCategory,
+    AutCategory=TorsionQuadraticModulesAutCategory,
+    Hom=TorsionQuadraticModulesHom,
+    End=TorsionQuadraticModulesEnd,
+    Aut=TorsionQuadraticModulesAut,
+    Endomorphism=TorsionQuadraticModulesEndomorphism,
+    Automorphism=TorsionQuadraticModulesAutomorphism,
+)
 
+AlgebraTypes = SimpleNamespace(
+    Category=AlgebrasCategory,
+    Object=AlgebrasObject,
+    Element=AlgebrasElement,
+    Morphism=AlgebrasMorphism,
+    HomCategory=AlgebrasHomCategory,
+    EndCategory=AlgebrasEndCategory,
+    AutCategory=AlgebrasAutCategory,
+    Hom=AlgebrasHom,
+    End=AlgebrasEnd,
+    Aut=AlgebrasAut,
+    Endomorphism=AlgebrasEndomorphism,
+    Automorphism=AlgebrasAutomorphism,
+)
 
-class RModuleTypes:
-    Category = staticmethod(ModulesCategory)
-    Object = ModulesObject
-    Element = ModulesElement
-    Morphism = ModulesMorphism
-    HomCategory = staticmethod(ModulesHomCategory)
-    EndCategory = staticmethod(ModulesEndCategory)
-    AutCategory = staticmethod(ModulesAutCategory)
-    Hom = ModulesHom
-    End = ModulesEnd
-    Aut = ModulesAut
-    Endomorphism = ModulesEndomorphism
-    Automorphism = ModulesAutomorphism
+MagmaticAlgebraTypes = SimpleNamespace(
+    Category=MagmaticAlgebrasCategory,
+    Object=MagmaticAlgebrasObject,
+    Element=MagmaticAlgebrasElement,
+    Morphism=MagmaticAlgebrasMorphism,
+)
 
+AssociativeAlgebraTypes = SimpleNamespace(
+    Category=AssociativeAlgebrasCategory,
+    Object=AssociativeAlgebrasObject,
+    Element=AssociativeAlgebrasElement,
+    Morphism=AssociativeAlgebrasMorphism,
+)
 
-class FormedModuleTypes:
-    Category = staticmethod(FormedModulesCategory)
-    Object = FormedModulesObject
-    Element = FormedModulesElement
-    Morphism = FormedModulesMorphism
-    HomCategory = staticmethod(FormedModulesHomCategory)
-    EndCategory = staticmethod(FormedModulesEndCategory)
-    AutCategory = staticmethod(FormedModulesAutCategory)
-    Hom = FormedModulesHom
-    End = FormedModulesEnd
-    Aut = FormedModulesAut
-    Endomorphism = FormedModulesEndomorphism
-    Automorphism = FormedModulesAutomorphism
+PosetTypes = SimpleNamespace(
+    Category=PosetsCategory,
+    Object=PosetsObject,
+    Element=PosetsElement,
+    Morphism=PosetsMorphism,
+    HomCategory=PosetsHomCategory,
+    EndCategory=PosetsEndCategory,
+    AutCategory=PosetsAutCategory,
+    Hom=PosetsHom,
+    End=PosetsEnd,
+    Aut=PosetsAut,
+    Endomorphism=PosetsEndomorphism,
+    Automorphism=PosetsAutomorphism,
+)
 
+TopologicalSpaceTypes = SimpleNamespace(
+    Category=TopologicalSpacesCategory,
+    Object=TopologicalSpacesObject,
+    Element=TopologicalSpacesElement,
+    Morphism=TopologicalSpacesMorphism,
+    HomCategory=TopologicalSpacesHomCategory,
+    EndCategory=TopologicalSpacesEndCategory,
+    AutCategory=TopologicalSpacesAutCategory,
+    Hom=TopologicalSpacesHom,
+    End=TopologicalSpacesEnd,
+    Aut=TopologicalSpacesAut,
+    Endomorphism=TopologicalSpacesEndomorphism,
+    Automorphism=TopologicalSpacesAutomorphism,
+)
 
-class BilinearModuleTypes:
-    Category = staticmethod(BilinearModulesCategory)
-    Object = BilinearModulesObject
-    Element = BilinearModulesElement
-    Morphism = BilinearModulesMorphism
-    HomCategory = staticmethod(BilinearModulesHomCategory)
-    EndCategory = staticmethod(BilinearModulesEndCategory)
-    AutCategory = staticmethod(BilinearModulesAutCategory)
-    Hom = BilinearModulesHom
-    End = BilinearModulesEnd
-    Aut = BilinearModulesAut
-    Endomorphism = BilinearModulesEndomorphism
-    Automorphism = BilinearModulesAutomorphism
+MetricSpaceTypes = SimpleNamespace(
+    Category=MetricSpacesCategory,
+    Object=MetricSpacesObject,
+    Element=MetricSpacesElement,
+    Morphism=MetricSpacesMorphism,
+    HomCategory=MetricSpacesHomCategory,
+    EndCategory=MetricSpacesEndCategory,
+    AutCategory=MetricSpacesAutCategory,
+    Hom=MetricSpacesHom,
+    End=MetricSpacesEnd,
+    Aut=MetricSpacesAut,
+    Endomorphism=MetricSpacesEndomorphism,
+    Automorphism=MetricSpacesAutomorphism,
+)
 
+TensorAlgebraComponentTypes = SimpleNamespace(
+    Category=TensorAlgebraComponentsCategory,
+    Object=TensorAlgebraComponentsObject,
+    Element=TensorAlgebraComponentsElement,
+    Morphism=TensorAlgebraComponentsMorphism,
+    HomCategory=TensorAlgebraComponentsHomCategory,
+    EndCategory=TensorAlgebraComponentsEndCategory,
+    AutCategory=TensorAlgebraComponentsAutCategory,
+    Hom=TensorAlgebraComponentsHom,
+    End=TensorAlgebraComponentsEnd,
+    Aut=TensorAlgebraComponentsAut,
+    Endomorphism=TensorAlgebraComponentsEndomorphism,
+    Automorphism=TensorAlgebraComponentsAutomorphism,
+)
 
-class QuadraticModuleTypes:
-    Category = staticmethod(QuadraticModulesCategory)
-    Object = QuadraticModulesObject
-    Element = QuadraticModulesElement
-    Morphism = QuadraticModulesMorphism
-    HomCategory = staticmethod(QuadraticModulesHomCategory)
-    EndCategory = staticmethod(QuadraticModulesEndCategory)
-    AutCategory = staticmethod(QuadraticModulesAutCategory)
-    Hom = QuadraticModulesHom
-    End = QuadraticModulesEnd
-    Aut = QuadraticModulesAut
-    Endomorphism = QuadraticModulesEndomorphism
-    Automorphism = QuadraticModulesAutomorphism
+LatticeTypes = SimpleNamespace(
+    Category=LatticesCategory,
+    Object=LatticesObject,
+    Element=LatticesElement,
+    Morphism=LatticesMorphism,
+    HomCategory=LatticesHomCategory,
+    EndCategory=LatticesEndCategory,
+    AutCategory=LatticesAutCategory,
+    Hom=LatticesHom,
+    End=LatticesEnd,
+    Aut=LatticesAut,
+    Endomorphism=LatticesEndomorphism,
+    Automorphism=LatticesAutomorphism,
+)
 
-
-class TorsionQuadraticModuleTypes:
-    Category = staticmethod(TorsionQuadraticModulesCategory)
-    Object = TorsionQuadraticModulesObject
-    Element = TorsionQuadraticModulesElement
-    Morphism = TorsionQuadraticModulesMorphism
-    HomCategory = staticmethod(TorsionQuadraticModulesHomCategory)
-    EndCategory = staticmethod(TorsionQuadraticModulesEndCategory)
-    AutCategory = staticmethod(TorsionQuadraticModulesAutCategory)
-    Hom = TorsionQuadraticModulesHom
-    End = TorsionQuadraticModulesEnd
-    Aut = TorsionQuadraticModulesAut
-    Endomorphism = TorsionQuadraticModulesEndomorphism
-    Automorphism = TorsionQuadraticModulesAutomorphism
-
-
-class AlgebraTypes:
-    Category = staticmethod(AlgebrasCategory)
-    Object = AlgebrasObject
-    Element = AlgebrasElement
-    Morphism = AlgebrasMorphism
-    HomCategory = staticmethod(AlgebrasHomCategory)
-    EndCategory = staticmethod(AlgebrasEndCategory)
-    AutCategory = staticmethod(AlgebrasAutCategory)
-    Hom = AlgebrasHom
-    End = AlgebrasEnd
-    Aut = AlgebrasAut
-    Endomorphism = AlgebrasEndomorphism
-    Automorphism = AlgebrasAutomorphism
-
-
-class MagmaticAlgebraTypes:
-    Category = staticmethod(MagmaticAlgebrasCategory)
-    Object = MagmaticAlgebrasObject
-    Element = MagmaticAlgebrasElement
-    Morphism = MagmaticAlgebrasMorphism
-
-
-class AssociativeAlgebraTypes:
-    Category = staticmethod(AssociativeAlgebrasCategory)
-    Object = AssociativeAlgebrasObject
-    Element = AssociativeAlgebrasElement
-    Morphism = AssociativeAlgebrasMorphism
-
-
-class PosetTypes:
-    Category = staticmethod(PosetsCategory)
-    Object = PosetsObject
-    Element = PosetsElement
-    Morphism = PosetsMorphism
-    HomCategory = staticmethod(PosetsHomCategory)
-    EndCategory = staticmethod(PosetsEndCategory)
-    AutCategory = staticmethod(PosetsAutCategory)
-    Hom = PosetsHom
-    End = PosetsEnd
-    Aut = PosetsAut
-    Endomorphism = PosetsEndomorphism
-    Automorphism = PosetsAutomorphism
-
-
-class TopologicalSpaceTypes:
-    Category = staticmethod(TopologicalSpacesCategory)
-    Object = TopologicalSpacesObject
-    Element = TopologicalSpacesElement
-    Morphism = TopologicalSpacesMorphism
-    HomCategory = staticmethod(TopologicalSpacesHomCategory)
-    EndCategory = staticmethod(TopologicalSpacesEndCategory)
-    AutCategory = staticmethod(TopologicalSpacesAutCategory)
-    Hom = TopologicalSpacesHom
-    End = TopologicalSpacesEnd
-    Aut = TopologicalSpacesAut
-    Endomorphism = TopologicalSpacesEndomorphism
-    Automorphism = TopologicalSpacesAutomorphism
-
-
-class MetricSpaceTypes:
-    Category = staticmethod(MetricSpacesCategory)
-    Object = MetricSpacesObject
-    Element = MetricSpacesElement
-    Morphism = MetricSpacesMorphism
-    HomCategory = staticmethod(MetricSpacesHomCategory)
-    EndCategory = staticmethod(MetricSpacesEndCategory)
-    AutCategory = staticmethod(MetricSpacesAutCategory)
-    Hom = MetricSpacesHom
-    End = MetricSpacesEnd
-    Aut = MetricSpacesAut
-    Endomorphism = MetricSpacesEndomorphism
-    Automorphism = MetricSpacesAutomorphism
-
-
-class TensorAlgebraComponentTypes:
-    Category = staticmethod(TensorAlgebraComponentsCategory)
-    Object = TensorAlgebraComponentsObject
-    Element = TensorAlgebraComponentsElement
-    Morphism = TensorAlgebraComponentsMorphism
-    HomCategory = staticmethod(TensorAlgebraComponentsHomCategory)
-    EndCategory = staticmethod(TensorAlgebraComponentsEndCategory)
-    AutCategory = staticmethod(TensorAlgebraComponentsAutCategory)
-    Hom = TensorAlgebraComponentsHom
-    End = TensorAlgebraComponentsEnd
-    Aut = TensorAlgebraComponentsAut
-    Endomorphism = TensorAlgebraComponentsEndomorphism
-    Automorphism = TensorAlgebraComponentsAutomorphism
-
-
-class LatticeTypes:
-    Category = staticmethod(LatticesCategory)
-    Object = LatticesObject
-    Element = LatticesElement
-    Morphism = LatticesMorphism
-    HomCategory = staticmethod(LatticesHomCategory)
-    EndCategory = staticmethod(LatticesEndCategory)
-    AutCategory = staticmethod(LatticesAutCategory)
-    Hom = LatticesHom
-    End = LatticesEnd
-    Aut = LatticesAut
-    Endomorphism = LatticesEndomorphism
-    Automorphism = LatticesAutomorphism
-
-
-class DiscriminantGroupTypes:
-    Category = staticmethod(LatticeDiscriminantGroupsCategory)
-    Object = LatticeDiscriminantGroupsObject
-    Element = LatticeDiscriminantGroupsElement
-    Morphism = LatticeDiscriminantGroupsMorphism
-    HomCategory = staticmethod(LatticeDiscriminantGroupsHomCategory)
-    EndCategory = staticmethod(LatticeDiscriminantGroupsEndCategory)
-    AutCategory = staticmethod(LatticeDiscriminantGroupsAutCategory)
-    Hom = LatticeDiscriminantGroupsHom
-    End = LatticeDiscriminantGroupsEnd
-    Aut = LatticeDiscriminantGroupsAut
-    Endomorphism = LatticeDiscriminantGroupsEndomorphism
-    Automorphism = LatticeDiscriminantGroupsAutomorphism
+DiscriminantGroupTypes = SimpleNamespace(
+    Category=LatticeDiscriminantGroupsCategory,
+    Object=LatticeDiscriminantGroupsObject,
+    Element=LatticeDiscriminantGroupsElement,
+    Morphism=LatticeDiscriminantGroupsMorphism,
+    HomCategory=LatticeDiscriminantGroupsHomCategory,
+    EndCategory=LatticeDiscriminantGroupsEndCategory,
+    AutCategory=LatticeDiscriminantGroupsAutCategory,
+    Hom=LatticeDiscriminantGroupsHom,
+    End=LatticeDiscriminantGroupsEnd,
+    Aut=LatticeDiscriminantGroupsAut,
+    Endomorphism=LatticeDiscriminantGroupsEndomorphism,
+    Automorphism=LatticeDiscriminantGroupsAutomorphism,
+)

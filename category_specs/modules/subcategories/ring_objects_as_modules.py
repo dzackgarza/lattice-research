@@ -2,9 +2,10 @@ r"""Ring objects regarded as modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -22,7 +23,7 @@ class _RingObjectsAsModules(Category_over_base_ring):
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [Modules(R)]
 
@@ -32,15 +33,13 @@ class _RingObjectsAsModules(Category_over_base_ring):
         def is_ring_object_as_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def structure_ring(self) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def structure_map(self) -> RingMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def module_generators(self) -> tuple[RModuleElement, ...]: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

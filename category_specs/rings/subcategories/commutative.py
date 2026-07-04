@@ -2,12 +2,11 @@ r"""CommutativeRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
@@ -52,7 +51,6 @@ class _CommutativeRings(CategoryWithAxiom):
     IntegralDomains = LazyImport(
         "category_specs.rings.subcategories.integral_domain", "_IntegralDomains"
     )
-    Field = LazyImport("category_specs.rings.subcategories.field", "_Fields")
     Noetherian = LazyImport(
         "category_specs.rings.subcategories.noetherian", "_NoetherianRings"
     )
@@ -60,27 +58,25 @@ class _CommutativeRings(CategoryWithAxiom):
     Reduced = LazyImport("category_specs.rings.subcategories.reduced", "_ReducedRings")
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def IntegralDomains(self) -> Category:
             return self._with_axiom("IntegralDomains")
-
-        @cached_method
         @final
         def Field(self) -> Category:
-            return self._with_axiom("Field")
-
-        @cached_method
+            return (
+                self.IntegralDomains()
+                .Gcd()
+                .UniqueFactorization()
+                .PrincipalIdeal()
+                .Euclidean()
+                .Field()
+            )
         @final
         def Noetherian(self) -> Category:
             return self._with_axiom("Noetherian")
-
-        @cached_method
         @final
         def Local(self) -> Category:
             return self._with_axiom("Local")
-
-        @cached_method
         @final
         def Reduced(self) -> Category:
             return self._with_axiom("Reduced")
@@ -91,30 +87,30 @@ class _CommutativeRings(CategoryWithAxiom):
         def is_commutative_ring(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def completion(self, ideal: Ideal) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def gens(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def ngens(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def characteristic(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def krull_dimension(self) -> Cardinality: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def hilbert_polynomial(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def extension(
             self,
             poly: RingElement,
@@ -131,5 +127,3 @@ class _CommutativeRings(CategoryWithAxiom):
         ) -> Ring: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

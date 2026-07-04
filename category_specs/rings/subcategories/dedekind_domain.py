@@ -9,20 +9,21 @@ from sage.categories.dedekind_domains import DedekindDomains as SageDedekindDoma
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
-from ._lazy_subcategories import (
-    _IntegrallyClosedDomains,
-    _NoetherianRings,
+from ._lazy_subcategories import _NoetherianRings
+from .integrally_closed_domain import (
+    _IntegrallyClosedDomains as _IntegrallyClosedDomains,
 )
-from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     pass
 
 
 class _DedekindDomains(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().IntegralDomains().Dedekind()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().IntegralDomains().IntegrallyClosed().Dedekind()``.
+    """
 
-    _base_category_class_and_axiom = (_IntegralDomains, "Dedekind")
+    _base_category_class_and_axiom = (_IntegrallyClosedDomains, "Dedekind")
 
     @override
     @final
@@ -34,7 +35,6 @@ class _DedekindDomains(CategoryWithAxiom):
     def super_categories(self) -> list[Category]:
         return [
             SageDedekindDomains(),
-            _IntegralDomains(),
             _NoetherianRings(),
             _IntegrallyClosedDomains(),
             Rings().KrullDimension(1),
@@ -54,5 +54,3 @@ class _DedekindDomains(CategoryWithAxiom):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

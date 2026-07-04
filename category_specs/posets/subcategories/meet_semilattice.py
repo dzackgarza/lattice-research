@@ -2,19 +2,29 @@ r"""Order-theoretic meet-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, overload, override
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, cast, final, overload, override
 
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
-from ...utils import foldable_operation
+from ...utils import with_axiom
 from .. import Posets
 
 if TYPE_CHECKING:
     from ...types import PosetElement
+
+if TYPE_CHECKING:
+    def foldable_operation[MethodT: Callable[..., object]](
+        function: MethodT,
+    ) -> MethodT: ...
+
+    def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
+else:
+    from sage.misc.cachefunc import cached_method
+
+    from ...utils import foldable_operation
 
 
 class _MeetSemilatticePosets(Category):
@@ -30,11 +40,10 @@ class _MeetSemilatticePosets(Category):
         return [Posets()]
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Finite(self) -> Category:
             r"""Return the finite meet-semilattice subcategory."""
-            return self._with_axiom("Finite")
+            return cast(Category, with_axiom(self, "Finite"))
 
     Finite = LazyImport(
         "category_specs.posets.subcategories.finite_meet_semilattice",
@@ -48,7 +57,7 @@ class _MeetSemilatticePosets(Category):
         @overload
         def meet(self, elements: Sequence[PosetElement]) -> PosetElement: ...
 
-        @abstract_method
+        @abstractmethod
         @foldable_operation
         def meet(self, x: PosetElement, y: PosetElement) -> PosetElement:
             r"""Return the greatest lower bound of ``x`` and ``y``.
@@ -59,5 +68,3 @@ class _MeetSemilatticePosets(Category):
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

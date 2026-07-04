@@ -2,9 +2,8 @@ r"""Finite join-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
-
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
+from typing import TYPE_CHECKING, cast, final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -31,12 +30,12 @@ class _FiniteJoinSemilatticePosets(CategoryWithAxiom):
         return [_JoinSemilatticePosets(), Posets().Finite()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def coatoms(self) -> list[PosetElement]:
             r"""Return the elements covered by the top element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def join_matrix(self) -> Matrix:
             r"""Return the matrix of pairwise joins."""
             ...
@@ -64,8 +63,9 @@ class _FiniteJoinSemilatticePosets(CategoryWithAxiom):
                 closure.add(generator)
 
             raw = SageJoinSemilattice(self.subposet(closure))
-            return refine_category(raw, [Posets().JoinSemilattice().Finite()])
+            return cast(
+                "FiniteJoinSemilatticePoset",
+                refine_category(raw, [Posets().JoinSemilattice().Finite()]),
+            )
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

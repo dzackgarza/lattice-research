@@ -310,8 +310,8 @@ Additional methods: `_repr_()`, `an_element()` (returns 42), `_sympy_()` (return
 ### `Primes` — `src/sage/sets/primes.py`
 
 Category for the full Sage `Primes()` parent: `InfiniteEnumeratedSets().Facade()`.
-Hosted docs mention congruence data for prime subsets; the installed source inspected
-in this environment exposes the full `Primes()` parent.
+Hosted docs mention congruence data for prime subsets; the installed source inspected in
+this environment exposes the full `Primes()` parent.
 Key methods: `__contains__(x)`, `__iter__()`, `cardinality()`, `first()`, `next(x)`,
 `an_element()`, `unrank(n)`.
 
@@ -322,7 +322,8 @@ Key methods: `__contains__(x)`, `__iter__()`, `cardinality()`, `first()`, `next(
 ### `RealSet` — `src/sage/sets/real_set.py`
 
 A subset of the real line represented as a finite union of intervals.
-Sage implements set-operation mixins here. Category: `TopologicalSpaces()`.
+Sage implements set-operation mixins here.
+Category: `TopologicalSpaces()`.
 
 **Construction class methods:**
 
@@ -339,10 +340,23 @@ Sage implements set-operation mixins here. Category: `TopologicalSpaces()`.
 | `RealSet.unbounded_above_closed(a)` | `[a, +oo)` |
 | `RealSet.interval(a, b, lower_closed, upper_closed)` | General interval |
 
-**Instance methods:** `union`, `intersection`, `difference`, `symmetric_difference`,
-`complement()`, `is_empty()`, `is_finite()`, `is_connected()`, `inf()`, `sup()`,
-`measure()`, `closure()`, `interior()`, `boundary()`, `contains(x)`, `__iter__()` (over
-`InternalRealInterval` components), `_sympy_()`.
+**Instance methods — owned by `Sets()`:** `cardinality`, `is_empty`, `is_finite`,
+`__contains__`, `_an_element_`, `_sympy_`, `is_subset` — inherited from `Sets()`.
+
+**Instance methods — owned by `Sets().Subobjects()`:** `ambient`, `lift`, `retract`,
+`union`, `intersection`, `complement`, `difference`, `symmetric_difference`,
+`is_universe` — inherited from `Sets().Subobjects()`.
+
+**Instance methods — owned by `TopologicalSpaces()`:** `is_connected` — inherited from
+`TopologicalSpaces()`.
+
+**Instance methods — owned by `TopologicalSpaces().Subobjects()`:** `closure`,
+`interior`, `boundary`, `is_open`, `is_closed` — inherited from
+`TopologicalSpaces().Subobjects()`.
+
+**Instance methods — owned by `_RealSets` (this spec):** `inf`, `sup`, `is_compact`
+(concrete, derived from `inf`/`sup`), `interval_components()` (returns the finite set of
+interval basis elements).
 
 **`InternalRealInterval`** (internal component class):
 
@@ -429,10 +443,11 @@ Key methods: `__contains__(x)` (applies all predicates), `ambient()`, `arguments
 
 The image `{f(x) | x ∈ X}` of a set under a map.
 Options: `is_injective` (`None`, `False`, `True`, `'check'`), `inverse`. Key methods:
-`ambient()`, `lift(x)`, `retract(x)`, `__iter__()`, `__contains__(x)`,
-`cardinality()`, `an_element()`, `_sympy_()`, equality, and hash. The ambient is the
-codomain of the defining map when the map has one. Sage can wrap arbitrary callables
-and non-parent domains; the project public constructor does not expose that fallback.
+`ambient()`, `lift(x)`, `retract(x)`, `__iter__()`, `__contains__(x)`, `cardinality()`,
+`an_element()`, `_sympy_()`, equality, and hash.
+The ambient is the codomain of the defining map when the map has one.
+Sage can wrap arbitrary callables and non-parent domains; the project public constructor
+does not expose that fallback.
 
 [27](#0-26)
 
@@ -485,15 +500,15 @@ Key methods:
 
 ### `SetPartition` / `SetPartitions` — `src/sage/combinat/set_partition.py`
 
-`SetPartition` is an immutable partition of a finite set.  Sage represents a
-partition as a set of pairwise disjoint nonempty subsets whose union is the base set.
-`SetPartitions(s)` is the `Parent` of all partitions of `s`; `SetPartitions(n)` uses
-`{1, ..., n}` as the base set.  `SetPartitions(s, k)` restricts to partitions into
-`k` blocks, and `SetPartitions(s, part)` restricts to partitions with the given block
-sizes.
+`SetPartition` is an immutable partition of a finite set.
+Sage represents a partition as a set of pairwise disjoint nonempty subsets whose union
+is the base set. `SetPartitions(s)` is the `Parent` of all partitions of `s`;
+`SetPartitions(n)` uses `{1, ..., n}` as the base set.
+`SetPartitions(s, k)` restricts to partitions into `k` blocks, and
+`SetPartitions(s, part)` restricts to partitions with the given block sizes.
 
-`SetPartitions()` is the countable parent of all finite set partitions.  Fixed-base
-parents are finite enumerated sets.
+`SetPartitions()` is the countable parent of all finite set partitions.
+Fixed-base parents are finite enumerated sets.
 
 Key `SetPartition` methods:
 
@@ -642,16 +657,16 @@ This section maps reference markers to their source files and line numbers.
 
 Source pass:
 - Official docs: `doc.sagemath.org` pages for `Sets`, `EnumeratedSets`,
-  `FiniteEnumeratedSets`, `InfiniteEnumeratedSets`, `FacadeSets`, set partitions,
-  and the public `sage.sets` constructors.
+  `FiniteEnumeratedSets`, `InfiniteEnumeratedSets`, `FacadeSets`, set partitions, and
+  the public `sage.sets` constructors.
 - Context7: `/sagemath/documentation` for category and set constructor pages.
 - DeepWiki: `sagemath/sage`, question on set/enumerated-set public method surfaces.
 - Local Sage source:
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/`
-  and `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/`.
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/` and
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/`.
 
-This section is the working Sage inventory for the redesign pass. It records Sage
-classes, categories, constructors, and methods.
+This section is the working Sage inventory for the redesign pass.
+It records Sage classes, categories, constructors, and methods.
 
 ### Category Method Surfaces
 
@@ -676,7 +691,7 @@ classes, categories, constructors, and methods.
 | `NonNegativeIntegers` | `sage/sets/non_negative_integers.py` | countably infinite facade set | `__contains__`, `_element_constructor_`, `__iter__`, `an_element`, `some_elements`, `next`, `unrank`, `_sympy_`. |
 | `PositiveIntegers` | `sage/sets/positive_integers.py` | positive integer range; countably infinite facade set | `an_element`, `_sympy_`; inherited integer-range rank/unrank/iteration. |
 | `Primes` | `sage/sets/primes.py` | countably infinite set of prime integers | `__contains__`, `_an_element_`, `first`, `next`, `unrank`. |
-| `RealSet` | `sage/sets/real_set.py` | finite union of intervals, i.e. a real subset represented by interval components | Constructors: `interval`, `open`, `closed`, `point`, `open_closed`, `closed_open`, unbounded interval constructors, `real_line`; parent methods: `n_components`, `cardinality`, `is_empty`, `is_universe`, `get_interval`, `ambient`, `lift`, `retract`, `union`, `intersection`, `inf`, `sup`, `complement`, `difference`, `symmetric_difference`, `contains`, `is_subset`, `is_open`, `is_closed`, `closure`, `interior`, `boundary`, `convex_hull`, `is_connected`, `is_disjoint`, `are_pairwise_disjoint`, `_sympy_`, interval iteration. |
+| `RealSet` | `sage/sets/real_set.py` | finite union of intervals, i.e. a real subset represented by interval components | Constructors: `interval`, `open`, `closed`, `point`, `open_closed`, `closed_open`, unbounded interval constructors, `real_line`; inherited from `Sets()`: `cardinality`, `is_empty`, `is_finite`, `__contains__`, `_an_element_`, `_sympy_`, `is_subset`; inherited from `Sets().Subobjects()`: `ambient`, `lift`, `retract`, `union`, `intersection`, `complement`, `difference`, `symmetric_difference`, `is_universe`; inherited from `TopologicalSpaces()`: `is_connected`; inherited from `TopologicalSpaces().Subobjects()`: `closure`, `interior`, `boundary`, `is_open`, `is_closed`; RealSet spec: `inf`, `sup`, `is_compact` (concrete, Heine-Borel via `inf`/`sup`), `interval_components`. |
 | `InternalRealInterval` | `sage/sets/real_set.py` | interval component of a real subset | `is_empty`, `is_point`, `lower`, `upper`, `lower_closed`, `upper_closed`, `lower_open`, `upper_open`, `closure`, `interior`, `boundary_points`, `is_connected`, `convex_hull`, `intersection`, `contains`. |
 | `ConditionSet` | `sage/sets/condition_set.py` | predicate-defined subobject of an ambient set | `_first_ngens`, `arguments`, `_element_constructor_`, `_an_element_`, `ambient`, `_sympy_`, `intersection`, `__iter__`. Installed Sage exposes `ambient` and `arguments` for the ambient set and predicate data. |
 | `ImageSubobject` / `ImageSet` | `sage/sets/image_set.py` | image subobject under a map; `ImageSet` also has boolean set mixins | `_element_constructor_`, `ambient`, `lift`, `retract`, `cardinality`, `__iter__`, `_an_element_`, `_sympy_`, equality/hash. |
@@ -693,8 +708,12 @@ classes, categories, constructors, and methods.
 
 ### Sage Source Caveats
 
-- `Topological()` and `Metric()` are Sage category navigation methods, but `RealSet`
-  lives in Sage `TopologicalSpaces()`.
+- `Topological()` and `Metric()` are Sage category navigation methods.
+  `RealSet` lives in `TopologicalSpaces()`; the spec decomposes its method surface by
+  mathematical owner: `Sets()` (set predicates), `Sets().Subobjects()` (set operations
+  and subobject structure), `TopologicalSpaces()` (connectivity),
+  `TopologicalSpaces().Subobjects()` (subspace topology), and `_RealSets` (infimum,
+  supremum, the interval-component basis expression).
 - Sage `EnumeratedSets` includes finite and countable sets or multisets with a canonical
   enumeration.
 - Sage boolean mixins are implementation artifacts on concrete set parents.

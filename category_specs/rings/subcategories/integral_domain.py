@@ -2,12 +2,11 @@ r"""IntegralDomains ring subcategory spec."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -19,7 +18,6 @@ if TYPE_CHECKING:
         Field,
         LocalRing,
         RingElement,
-        RingMorphism,
     )
 
 
@@ -46,75 +44,44 @@ class _IntegralDomains(CategoryWithAxiom):
         )
 
     Gcd = LazyImport("category_specs.rings.subcategories.gcd_domain", "_GcdDomains")
-    UniqueFactorization = LazyImport(
-        "category_specs.rings.subcategories.unique_factorization_domain",
-        "_UniqueFactorizationDomains",
-    )
-    PrincipalIdeal = LazyImport(
-        "category_specs.rings.subcategories.principal_ideal_domain",
-        "_PrincipalIdealDomains",
-    )
-    Euclidean = LazyImport(
-        "category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains"
-    )
     IntegrallyClosed = LazyImport(
         "category_specs.rings.subcategories.integrally_closed_domain",
         "_IntegrallyClosedDomains",
     )
-    Dedekind = LazyImport(
-        "category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains"
-    )
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Gcd(self) -> Category:
             return self._with_axiom("Gcd")
-
-        @cached_method
         @final
         def UniqueFactorization(self) -> Category:
-            return self._with_axiom("UniqueFactorization")
-
-        @cached_method
+            return self.Gcd().UniqueFactorization()
         @final
         def PrincipalIdeal(self) -> Category:
-            return self._with_axiom("PrincipalIdeal")
-
-        @cached_method
+            return self.Gcd().UniqueFactorization().PrincipalIdeal()
         @final
         def Euclidean(self) -> Category:
-            return self._with_axiom("Euclidean")
-
-        @cached_method
+            return self.Gcd().UniqueFactorization().PrincipalIdeal().Euclidean()
         @final
         def IntegrallyClosed(self) -> Category:
             return self._with_axiom("IntegrallyClosed")
-
-        @cached_method
         @final
         def Dedekind(self) -> Category:
-            return self._with_axiom("Dedekind")
+            return self.IntegrallyClosed().Dedekind()
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def fraction_field(self) -> Field: ...
 
-        @abstract_method
+        @abstractmethod
         def localization(
             self,
             additional_units: RingElement | Sequence[RingElement],
             names: str | Sequence[str] | None = None,
             normalize: bool = True,
             category: Category | None = None,
-        ) -> LocalRing:
-            del additional_units, normalize
-            ...
+        ) -> LocalRing: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def divides(self, other: RingElement) -> bool: ...
-
-    class MorphismMethods:
-        @abstract_method
-        def extend_to_fraction_field(self) -> RingMorphism: ...
