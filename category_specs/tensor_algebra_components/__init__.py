@@ -19,7 +19,6 @@ from typing import (
     override,
 )
 
-
 from ..cat import Category, Category_over_base_ring, DualObjectsCategory
 from ..modules import Modules
 from ..modules.homsets import (

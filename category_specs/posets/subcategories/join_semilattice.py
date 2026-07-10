@@ -22,7 +22,6 @@ if TYPE_CHECKING:
 
     def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
 else:
-    from sage.misc.cachefunc import cached_method
 
     from ...utils import foldable_operation
 

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from sage.all import ZZ, Modules
+from sage.all import Modules
 from sage.categories.rings import Rings
 from sage.rings.ideal import Ideal_generic
 

@@ -9,7 +9,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
@@ -32,8 +31,6 @@ class GraphFailure:
 
 
 def project_category_checks() -> tuple[GraphCheck, ...]:
-    from sage.all import GF, QQ, ZZ, IntegerModRing, PolynomialRing
-
     from category_specs.algebras import Algebras
     from category_specs.cat import Cat
     from category_specs.forms import FormedModules
@@ -43,6 +40,7 @@ def project_category_checks() -> tuple[GraphCheck, ...]:
     from category_specs.rings import Rings
     from category_specs.sets import Sets
     from category_specs.topological_spaces import TopologicalSpaces
+    from sage.all import GF, QQ, ZZ, IntegerModRing, PolynomialRing
 
     polynomial_ring = PolynomialRing(ZZ, name="x")
 

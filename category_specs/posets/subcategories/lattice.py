@@ -2,8 +2,7 @@ r"""Order-theoretic lattice poset subcategory."""
 
 from __future__ import annotations
 
-from collections.abc import Callable
-from typing import TYPE_CHECKING, cast, final, override
+from typing import cast, final, override
 
 from sage.categories.lattice_posets import LatticePosets as SageLatticePosets
 from sage.misc.lazy_import import LazyImport

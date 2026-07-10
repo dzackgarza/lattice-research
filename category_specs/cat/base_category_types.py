@@ -93,18 +93,20 @@ from sage.categories.tensor import TensorProductsCategory as SageTensorProductsC
 from sage.categories.with_realizations import (
     WithRealizationsCategory as SageWithRealizationsCategory,
 )
+from sage.cpython.type import can_assign_class
 from sage.misc.classcall_metaclass import ClasscallMetaclass
 from sage.misc.constant_function import ConstantFunction
 from sage.misc.inherit_comparison import (
     InheritComparisonMetaclass,
 )
-from sage.cpython.type import can_assign_class
 from sage.structure.category_object import CategoryObject
 from sage.structure.dynamic_class import (
     DynamicClasscallMetaclass,
     DynamicInheritComparisonClasscallMetaclass,
     DynamicInheritComparisonMetaclass,
     DynamicMetaclass,
+)
+from sage.structure.dynamic_class import (
     dynamic_class as sage_dynamic_class,
 )
 from sage.structure.parent import Parent

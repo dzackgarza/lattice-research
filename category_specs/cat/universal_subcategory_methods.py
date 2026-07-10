@@ -7,9 +7,7 @@ receive through their ``SubcategoryMethods`` provider.
 
 from __future__ import annotations
 
-from collections.abc import Callable
 from typing import TYPE_CHECKING, cast, final
-
 
 if TYPE_CHECKING:
     from ..types import (

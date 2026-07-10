@@ -10,8 +10,8 @@ from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .laurent_series_ring import _LaurentSeriesRings as _LaurentSeriesRings
 from ._sage_ring_classes import _SAGE_POWER_SERIES_RING_CLASSES
+from .laurent_series_ring import _LaurentSeriesRings as _LaurentSeriesRings
 
 if TYPE_CHECKING:
     from ...types import (

@@ -1,9 +1,9 @@
 r"""Finite torsion modules with quadratic forms."""
 
 from __future__ import annotations
-from collections.abc import Sequence
 
 from abc import abstractmethod
+from collections.abc import Sequence
 from typing import TYPE_CHECKING, Self, final
 
 from sage.categories.category import Category
@@ -13,7 +13,7 @@ from ...modules import Modules
 from .quadratic import QuadraticModulesMorphism
 
 if TYPE_CHECKING:
-    from ...types import Group, Matrix, Morphism, RModule, RModuleElement, RingElement, SetFamily
+    from ...types import Group, Matrix, Morphism, RingElement, RModule, RModuleElement, SetFamily
 
 
 class TorsionQuadraticModulesCategory(Category_over_base_ring):

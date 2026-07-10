@@ -26,7 +26,6 @@ if TYPE_CHECKING:
         Category as CategoryType,
     )
     from ..types import (
-        Lattice,
         OrthogonalGroup,
         RModuleElement,
         RModuleMorphism,

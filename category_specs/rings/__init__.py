@@ -1514,8 +1514,8 @@ class Rings(Category_singleton):
             default_prec: Integer | None = None,
             implementation: str | None = None,
         ) -> Ring:
-            from sage.misc.classcall_metaclass import typecall
             from sage.all import LaurentSeriesRing, PuiseuxSeriesRing
+            from sage.misc.classcall_metaclass import typecall
 
             if laurent_series_ring is not None:
                 assert base_ring is None

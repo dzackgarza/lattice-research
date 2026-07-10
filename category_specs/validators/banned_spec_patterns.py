@@ -3,15 +3,14 @@
 
 from __future__ import annotations
 
+import ast
 import re
 import subprocess
 import sys
-import ast
-from collections import Counter
-from collections import defaultdict
+from collections import Counter, defaultdict
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 
 
 @dataclass(frozen=True)

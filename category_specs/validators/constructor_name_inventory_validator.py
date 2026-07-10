@@ -4,12 +4,11 @@
 from __future__ import annotations
 
 import ast
+import re
 from dataclasses import dataclass
 from pathlib import Path
-import re
 
 import yaml
-
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SPEC_ROOT = (

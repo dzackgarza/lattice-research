@@ -3,7 +3,6 @@ r"""ValuedRings ring subcategory spec."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.misc.lazy_import import LazyImport

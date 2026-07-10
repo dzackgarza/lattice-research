@@ -3,7 +3,6 @@ r"""Modules equipped with forms."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Callable
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category

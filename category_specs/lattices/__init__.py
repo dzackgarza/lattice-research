@@ -35,8 +35,8 @@ Subcategory hierarchy::
 """
 
 from __future__ import annotations
-from abc import abstractmethod
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Literal, TypeVar, final, overload
 

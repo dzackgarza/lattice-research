@@ -8,8 +8,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from sage.groups.additive_abelian.additive_abelian_wrapper import AdditiveAbelianGroupWrapper
 from sage.groups.abelian_gps.abelian_group_gap import AbelianGroupGap
+from sage.groups.additive_abelian.additive_abelian_wrapper import AdditiveAbelianGroupWrapper
 from sage.modules.fg_pid.fgp_module import FGP_Module_class
 from sage.modules.free_module import FreeModule
 from sage.modules.torsion_quadratic_module import TorsionQuadraticModule

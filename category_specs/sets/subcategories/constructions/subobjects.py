@@ -40,7 +40,6 @@ class Subsets(SubobjectsCategory):
         ``ambient``.
         """
         from ....utils import refine_category
-        from ... import Sets
         from ..condition import condition_subset
 
         subset_category = self if category is None else category
