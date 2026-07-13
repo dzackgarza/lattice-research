@@ -5,6 +5,12 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final
 
+from category_specs.cat import Category_over_base_ring, CategoryWithAxiom_over_base_ring
+from category_specs.forms.subcategories.torsion_quadratic_modules import (
+    TorsionQuadraticModulesCategory,
+)
+from category_specs.modules import Modules
+from category_specs.utils import refine_category
 from sage.categories.category import Category
 from sage.groups.abelian_gps.abelian_group_gap import AbelianGroupGap
 from sage.groups.additive_abelian.additive_abelian_wrapper import AdditiveAbelianGroupWrapper
@@ -15,12 +21,6 @@ from sage.modules.free_quadratic_module_integer_symmetric import IntegralLattice
 from sage.rings.integer_ring import ZZ
 from sage.rings.rational_field import QQ
 
-from category_specs.cat import Category_over_base_ring, CategoryWithAxiom_over_base_ring
-from category_specs.forms.subcategories.torsion_quadratic_modules import (
-    TorsionQuadraticModulesCategory,
-)
-from category_specs.modules import Modules
-from category_specs.utils import refine_category
 from src.sage_patches import module_operations
 
 module_operations.install()
