@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Self, final
+from typing import TYPE_CHECKING, Self, final, TypeAlias
 
 from sage.categories.category import Category
 
@@ -391,6 +391,6 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
     class ElementMethods: ...
 
 
-TorsionQuadraticModulesObject = TorsionQuadraticModulesCategory.ParentMethods
-TorsionQuadraticModulesElement = TorsionQuadraticModulesCategory.ElementMethods
-TorsionQuadraticModulesMorphism = QuadraticModulesMorphism
+TorsionQuadraticModulesObject : TypeAlias = TorsionQuadraticModulesCategory.ParentMethods
+TorsionQuadraticModulesElement : TypeAlias = TorsionQuadraticModulesCategory.ElementMethods
+TorsionQuadraticModulesMorphism : TypeAlias = QuadraticModulesMorphism

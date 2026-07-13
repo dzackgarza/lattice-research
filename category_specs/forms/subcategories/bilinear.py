@@ -3,7 +3,7 @@ r"""Modules equipped with bilinear forms."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Protocol, final, override
+from typing import TYPE_CHECKING, Protocol, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -126,7 +126,7 @@ class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (OverPIDFormedModulesCategory, "Bilinear")
     _defining_predicates = ("is_bilinear",)
 
-    ParentMethods = BilinearModulesCategory.ParentMethods
+    ParentMethods : TypeAlias = BilinearModulesCategory.ParentMethods
 
     class SubcategoryMethods:
         @final
@@ -155,7 +155,7 @@ class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
             return OverPIDRationalBilinearModulesCategory(self)
 
-    ElementMethods = BilinearModulesCategory.ElementMethods
+    ElementMethods : TypeAlias = BilinearModulesCategory.ElementMethods
 
     Symmetric = LazyImport(
         "category_specs.forms.subcategories.symmetric",
@@ -179,9 +179,9 @@ class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     )
 
 
-BilinearModulesObject = BilinearModulesCategory.ParentMethods
-BilinearModulesElement = BilinearModulesCategory.ElementMethods
-BilinearModulesMorphism = FormedModulesMorphism
-OverPIDBilinearModulesObject = OverPIDBilinearModulesCategory.ParentMethods
-OverPIDBilinearModulesElement = OverPIDBilinearModulesCategory.ElementMethods
-OverPIDBilinearModulesMorphism = OverPIDFormedModulesMorphism
+BilinearModulesObject : TypeAlias = BilinearModulesCategory.ParentMethods
+BilinearModulesElement : TypeAlias = BilinearModulesCategory.ElementMethods
+BilinearModulesMorphism : TypeAlias = FormedModulesMorphism
+OverPIDBilinearModulesObject : TypeAlias = OverPIDBilinearModulesCategory.ParentMethods
+OverPIDBilinearModulesElement : TypeAlias = OverPIDBilinearModulesCategory.ElementMethods
+OverPIDBilinearModulesMorphism : TypeAlias = OverPIDFormedModulesMorphism

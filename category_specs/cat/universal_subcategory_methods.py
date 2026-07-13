@@ -48,7 +48,11 @@ class UniversalSubcategoryMethods:
             SubobjectsCategory.category_of(self._category_self()),
         )
 
-    Subsets = Subobjects
+    @final
+    def Subsets(self) -> Category:
+        """Alias for :meth:`Subobjects`."""
+        return self.Subobjects()
+
     @final
     def Quotients(self) -> Category:
         r"""Return the quotient-object construction category of this category."""
@@ -86,8 +90,15 @@ class UniversalSubcategoryMethods:
             _ObjectsUnder.category_of(self._category_self(), structure_object),
         )
 
-    Slice = ObjectsOver
-    Coslice = ObjectsUnder
+    @final
+    def Slice(self, structure_object: CategoryObject) -> Category:
+        """Alias for :meth:`ObjectsOver`."""
+        return self.ObjectsOver(structure_object)
+
+    @final
+    def Coslice(self, structure_object: CategoryObject) -> Category:
+        """Alias for :meth:`ObjectsUnder`."""
+        return self.ObjectsUnder(structure_object)
     @final
     def CartesianProducts(self) -> Category:
         r"""Return the Cartesian-product construction category of this category."""

@@ -7,10 +7,11 @@ categories for Phase 2 implementation work.
 
 from __future__ import annotations
 
-from category_specs.utils import with_axiom
 from sage.categories.category import Category
 from sage.categories.category_types import Category_over_base_ring
 from sage.categories.category_with_axiom import CategoryWithAxiom_singleton
+
+from category_specs.utils import with_axiom
 
 
 class ModulesWithFormsCategory(Category_over_base_ring):

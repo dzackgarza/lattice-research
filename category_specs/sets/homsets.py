@@ -8,7 +8,7 @@ automorphisms of sets.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -96,8 +96,8 @@ class SetHomCategory(HomCategoryOf):
         r"""Return the generic hom-category surface refined by set maps."""
         return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _SetHomCategoryObjectMethods
-    ElementMethods = _SetMorphisms
+    ParentMethods : TypeAlias = _SetHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _SetMorphisms
 
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -115,7 +115,7 @@ class SetEndCategory(GenericEndCategory):
 
     class ParentMethods: ...
 
-    ElementMethods = _SetEndomorphisms
+    ElementMethods : TypeAlias = _SetEndomorphisms
 
 
 
@@ -129,4 +129,4 @@ class SetAutCategory(GenericAutCategory):
 
     class ParentMethods: ...
 
-    ElementMethods = _SetAutomorphisms
+    ElementMethods : TypeAlias = _SetAutomorphisms

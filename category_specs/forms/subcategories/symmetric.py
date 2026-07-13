@@ -6,7 +6,7 @@ A symmetric bilinear form satisfies ``b(v, w) = b(w, v)`` for all ``v``, ``w``.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import (
@@ -114,9 +114,9 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
 
 
-SymmetricBilinearModulesObject = SymmetricBilinearModulesCategory.ParentMethods
-SymmetricBilinearModulesElement = SymmetricBilinearModulesCategory.ElementMethods
-SymmetricBilinearModulesMorphism = BilinearModulesMorphism
+SymmetricBilinearModulesObject : TypeAlias = SymmetricBilinearModulesCategory.ParentMethods
+SymmetricBilinearModulesElement : TypeAlias = SymmetricBilinearModulesCategory.ElementMethods
+SymmetricBilinearModulesMorphism : TypeAlias = BilinearModulesMorphism
 
 
 class OverPIDSymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -128,8 +128,8 @@ class OverPIDSymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Symmetric")
     _defining_predicates = ("is_symmetric",)
 
-    ParentMethods = SymmetricBilinearModulesCategory.ParentMethods
-    ElementMethods = SymmetricBilinearModulesCategory.ElementMethods
+    ParentMethods : TypeAlias = SymmetricBilinearModulesCategory.ParentMethods
+    ElementMethods : TypeAlias = SymmetricBilinearModulesCategory.ElementMethods
 
 
 OverPIDSymmetricBilinearModulesObject = (

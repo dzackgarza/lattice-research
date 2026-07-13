@@ -36,8 +36,8 @@ Cat()
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Callable, Iterable
-from typing import TYPE_CHECKING, Any, cast, final, override
+from collections.abc import Iterable
+from typing import TYPE_CHECKING, Any, cast, final, override, TypeAlias
 
 from sage.categories.category_singleton import (
     Category_singleton as SageCategorySingleton,
@@ -140,9 +140,7 @@ from .base_category_types import (
     register_cat_constructor_class as register_cat_constructor_class,
 )
 
-_make_named_class_with_cat_subcategory_methods = (
-    _base_category_types._make_named_class_with_cat_subcategory_methods
-)
+_make_named_class_with_cat_subcategory_methods = _base_category_types._make_named_class_with_cat_subcategory_methods
 
 if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
@@ -273,6 +271,7 @@ class Cat(SageCategorySingleton):
 
     class SubcategoryMethods:
         r"""Category-level construction methods supplied by Sage's machinery."""
+
         @final
         def JoinCategories(self) -> Category:
             r"""Return the subcategory of join objects in ``Cat()``."""
@@ -280,20 +279,12 @@ class Cat(SageCategorySingleton):
 
             return JoinCategories()
 
-    ParentMethods = _CatObjectMethods
-    ElementMethods = _CategoryElementMethods
-    Subobjects = LazyImport(
-        "category_specs.cat.subcategories.constructions.subobjects", "Subcategories"
-    )
-    Quotients = LazyImport(
-        "category_specs.cat.subcategories.constructions.quotients", "_Quotients"
-    )
-    Subquotients = LazyImport(
-        "category_specs.cat.subcategories.constructions.subquotients", "_Subquotients"
-    )
-    ObjectsOver = LazyImport(
-        "category_specs.cat.subcategories.constructions.objects_over", "SliceCategories"
-    )
+    ParentMethods : TypeAlias = _CatObjectMethods
+    ElementMethods : TypeAlias = _CategoryElementMethods
+    Subobjects = LazyImport("category_specs.cat.subcategories.constructions.subobjects", "Subcategories")
+    Quotients = LazyImport("category_specs.cat.subcategories.constructions.quotients", "_Quotients")
+    Subquotients = LazyImport("category_specs.cat.subcategories.constructions.subquotients", "_Subquotients")
+    ObjectsOver = LazyImport("category_specs.cat.subcategories.constructions.objects_over", "SliceCategories")
     ObjectsUnder = LazyImport(
         "category_specs.cat.subcategories.constructions.objects_under",
         "CosliceCategories",
@@ -336,12 +327,12 @@ from .endsets import CatEndCategory, _CatEndofunctorMethods  # noqa: E402
 from .homsets import CatHomCategory as CatHomCategory  # noqa: E402
 from .homsets import _CatFunctorMethods, _CatHomCategoryObjectMethods  # noqa: E402
 
-CatCategory = Cat
-CatObject = _CatObjectMethods
-CatElement = _CategoryElementMethods
-CatMorphism = _CatFunctorMethods
-CatHom = _CatHomCategoryObjectMethods
-CatEnd = CatEndCategory.ParentMethods
-CatAut = CatAutCategory.ParentMethods
-CatEndomorphism = _CatEndofunctorMethods
-CatAutomorphism = _CatAutofunctorMethods
+CatCategory : TypeAlias = Cat
+CatObject : TypeAlias = _CatObjectMethods
+CatElement : TypeAlias = _CategoryElementMethods
+CatMorphism : TypeAlias = _CatFunctorMethods
+CatHom : TypeAlias = _CatHomCategoryObjectMethods
+CatEnd : TypeAlias = CatEndCategory.ParentMethods
+CatAut : TypeAlias = CatAutCategory.ParentMethods
+CatEndomorphism : TypeAlias = _CatEndofunctorMethods
+CatAutomorphism : TypeAlias = _CatAutofunctorMethods

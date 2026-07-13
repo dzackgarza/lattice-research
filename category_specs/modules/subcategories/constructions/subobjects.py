@@ -3,7 +3,7 @@ r"""Submodules."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, cast, final
 
 from ....cat import SubobjectsCategory
 
@@ -58,11 +58,11 @@ class _Subobjects(SubobjectsCategory):
 
         @final
         def index(self) -> Cardinality:
-            return self.inclusion().index()
+            return cast(Cardinality, getattr(self.inclusion(), "index")())
 
         @final
         def is_primitive(self) -> bool:
-            return bool(self.inclusion().is_primitive())
+            return bool(getattr(self.inclusion(), "is_primitive")())
 
         @abstractmethod
         def saturation(self) -> SubModule: ...
@@ -85,6 +85,6 @@ class _Subobjects(SubobjectsCategory):
 
         @final
         def quotient_module(self) -> QuotientModule:
-            return self.inclusion().cokernel()
+            return cast(QuotientModule, getattr(self.inclusion(), "cokernel")())
 
     class ElementMethods: ...

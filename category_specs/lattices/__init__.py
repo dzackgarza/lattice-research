@@ -38,7 +38,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Literal, TypeVar, final, overload
+from typing import TYPE_CHECKING, Literal, TypeVar, final, overload, TypeAlias
 
 from sage.categories.category import Category
 from sage.misc.lazy_import import LazyImport
@@ -53,7 +53,9 @@ from .homsets import (
     LatticeAutCategory,
     LatticeEndCategory,
     LatticeHomCategory,
-    _LatticeMorphisms,
+)
+from .homsets import (
+    _LatticeMorphisms as _LatticeMorphisms,
 )
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import LatticeDualObjectsCategory
@@ -79,11 +81,9 @@ if TYPE_CHECKING:
         RModuleElement,
     )
 
-type LatticeBasisData = (
-    Matrix | Sequence[RModuleElement] | Sequence[Sequence[RingElement]]
-)
-type CartanTypeData = str | Sequence[str | Integer | int]
-type LatticeWithEmbeddings = tuple[Lattice, Sequence[LatticeMorphism]]
+LatticeBasisData = Matrix | Sequence[RModuleElement] | Sequence[Sequence[RingElement]]
+CartanTypeData = str | Sequence[str | Integer | int]
+LatticeWithEmbeddings = tuple[Lattice, Sequence[LatticeMorphism]]
 
 
 class LatticesCategory(CategoryWithAxiom_over_base_ring):
@@ -144,19 +144,13 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             return refine_category(lattice, self.category(), test=False)
 
         @overload
-        def IntegralLattice(
-            self, *, gram_matrix: Matrix, basis: LatticeBasisData | None = None
-        ) -> Lattice: ...
+        def IntegralLattice(self, *, gram_matrix: Matrix, basis: LatticeBasisData | None = None) -> Lattice: ...
 
         @overload
-        def IntegralLattice(
-            self, *, rank: Integer | int, basis: LatticeBasisData | None = None
-        ) -> Lattice: ...
+        def IntegralLattice(self, *, rank: Integer | int, basis: LatticeBasisData | None = None) -> Lattice: ...
 
         @overload
-        def IntegralLattice(
-            self, *, cartan_type: CartanTypeData, basis: LatticeBasisData | None = None
-        ) -> Lattice: ...
+        def IntegralLattice(self, *, cartan_type: CartanTypeData, basis: LatticeBasisData | None = None) -> Lattice: ...
 
         @overload
         def IntegralLattice(
@@ -190,9 +184,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             ]
             supplied = [datum for datum in data if datum is not None]
             assert len(supplied) == 1
-            return self._refine_constructed_lattice(
-                IntegralLattice(supplied[0], basis=basis)
-            )
+            return self._refine_constructed_lattice(IntegralLattice(supplied[0], basis=basis))
 
         @overload
         def IntegralLatticeDirectSum(
@@ -223,9 +215,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             )
 
             self._assert_integral_constructor_base_ring()
-            result = IntegralLatticeDirectSum(
-                list(lattices), return_embeddings=return_embeddings
-            )
+            result = IntegralLatticeDirectSum(list(lattices), return_embeddings=return_embeddings)
             if return_embeddings:
                 lattice, embeddings = result
                 return (self._refine_constructed_lattice(lattice), tuple(embeddings))
@@ -282,38 +272,48 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         @final
         def OverIntegralDomain(self) -> Category:
             return self._with_axiom("OverIntegralDomain")
+
         @final
         def OverDedekindDomain(self) -> Category:
             return self._with_axiom("OverDedekindDomain")
+
         @final
         def OverPID(self) -> Category:
             return self.OverDedekindDomain().OverPID()
+
         @final
         def OverIntegers(self) -> Category:
             return self.OverPID().OverIntegers()
+
         @final
         def Even(self) -> Category:
             return self._with_axiom("Even")
+
         @final
         def Unimodular(self) -> Category:
             return self._with_axiom("Unimodular")
+
         @final
         def PositiveDefinite(self) -> Category:
             return self._with_axiom("PositiveDefinite")
+
         @final
         def DualObjects(self) -> Category:
             return LatticeDualObjectsCategory.category_of(self)
+
         @final
         def DualLattices(self) -> Category:
             r"""Return the metric-dual lattice construction category."""
             from .subcategories.constructions.dual_lattices import DualLatticesCategory
 
             return DualLatticesCategory(self.base_ring())
+
         @final
         def Overlattices(self) -> Category:
             from .subcategories.constructions.overlattices import OverlatticesCategory
 
             return OverlatticesCategory(self.base_ring())
+
         @final
         def OrthogonalDirectSums(self) -> Category:
             from .subcategories.constructions.orthogonal_direct_sums import (
@@ -321,6 +321,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             )
 
             return OrthogonalDirectSumsCategory(self.base_ring())
+
         @final
         def DiscriminantGroups(self) -> Category:
             from .subcategories.constructions.discriminant_groups import (
@@ -560,12 +561,24 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstractmethod
-        def similarity(self, matrix_or_images: object, multiplier: RingElement, *, codomain: Lattice | None = None) -> LatticeMorphism:
+        def similarity(
+            self,
+            matrix_or_images: object,
+            multiplier: RingElement,
+            *,
+            codomain: Lattice | None = None,
+        ) -> LatticeMorphism:
             """Return a lattice similarity satisfying F^T G_M F = multiplier * G_L."""
             ...
 
         @abstractmethod
-        def embedding(self, matrix_or_images: object, *, codomain: Lattice, primitive: bool = False) -> LatticeMorphism:
+        def embedding(
+            self,
+            matrix_or_images: object,
+            *,
+            codomain: Lattice,
+            primitive: bool = False,
+        ) -> LatticeMorphism:
             """Return a lattice embedding, optionally requiring primitive image."""
             ...
 
@@ -583,9 +596,10 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         def underlying_quotient_module(self) -> object:
             """Return the raw Sage quotient-module surface when direct quotient access is required."""
             ...
+
     class ElementMethods: ...
 
-    HomCategory = LatticeHomCategory
+    HomCategory : TypeAlias = LatticeHomCategory
 
     OverDedekindDomain = LazyImport(
         "category_specs.lattices.subcategories.over_dedekind",
@@ -595,28 +609,22 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         "category_specs.lattices.subcategories.over_integral_domain",
         "_LatticesOverIntegralDomain",
     )
-    OverPID = LazyImport(
-        "category_specs.lattices.subcategories.over_pid", "_LatticesOverPID"
-    )
-    OverIntegers = LazyImport(
-        "category_specs.lattices.subcategories.over_integers", "_LatticesOverIntegers"
-    )
+    OverPID = LazyImport("category_specs.lattices.subcategories.over_pid", "_LatticesOverPID")
+    OverIntegers = LazyImport("category_specs.lattices.subcategories.over_integers", "_LatticesOverIntegers")
     Even = LazyImport("category_specs.lattices.subcategories.even", "_EvenLattices")
-    Unimodular = LazyImport(
-        "category_specs.lattices.subcategories.unimodular", "_UnimodularLattices"
-    )
+    Unimodular = LazyImport("category_specs.lattices.subcategories.unimodular", "_UnimodularLattices")
     PositiveDefinite = LazyImport(
         "category_specs.lattices.subcategories.positive_definite",
         "_PositiveDefiniteLattices",
     )
 
-    Subobjects = _Subobjects
-    Quotients = _Quotients
-    Subquotients = _Subquotients
-    ObjectsOver = _ObjectsOver
-    ObjectsUnder = _ObjectsUnder
-    CartesianProducts = _CartesianProducts
-    DualObjects = LatticeDualObjectsCategory
+    Subobjects : TypeAlias = _Subobjects
+    Quotients : TypeAlias = _Quotients
+    Subquotients : TypeAlias = _Subquotients
+    ObjectsOver : TypeAlias = _ObjectsOver
+    ObjectsUnder : TypeAlias = _ObjectsUnder
+    CartesianProducts : TypeAlias = _CartesianProducts
+    DualObjects : TypeAlias = LatticeDualObjectsCategory
     DualLatticesCategoryClass = LazyImport(
         "category_specs.lattices.subcategories.constructions.dual_lattices",
         "DualLatticesCategory",
@@ -637,16 +645,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
 def _lattice_chain(base_ring: Ring) -> Category:
     r"""Return the immediate ambient category for ``Lattices(base_ring)``."""
-    return (
-        Modules(base_ring, dispatch=False)
-        .Free()
-        .FiniteRank()
-        .WithForms()
-        .Bilinear()
-        .Symmetric()
-        .Nondegenerate()
-        .Integral()
-    )
+    return Modules(base_ring, dispatch=False).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
 
 
 def lattice_category(base_ring: Ring) -> LatticesCategory:
@@ -659,14 +658,14 @@ def Lattices(base_ring: Ring) -> LatticesCategory:
     return lattice_category(base_ring)
 
 
-type LatticesObject = LatticesCategory.ParentMethods
-type LatticesElement = LatticesCategory.ElementMethods
-type LatticesMorphism = LatticeHomCategory.ElementMethods
-LatticesHomCategory = LatticeHomCategory
-LatticesEndCategory = LatticeEndCategory
-LatticesAutCategory = LatticeAutCategory
-LatticesHom = LatticeHomCategory.ParentMethods
-LatticesEnd = LatticeEndCategory.ParentMethods
-LatticesAut = LatticeAutCategory.ParentMethods
-LatticesEndomorphism = LatticeEndCategory.ElementMethods
-LatticesAutomorphism = LatticeAutCategory.ElementMethods
+LatticesObject : TypeAlias = LatticesCategory.ParentMethods
+LatticesElement : TypeAlias = LatticesCategory.ElementMethods
+LatticesMorphism : TypeAlias = LatticeHomCategory.ElementMethods
+LatticesHomCategory : TypeAlias = LatticeHomCategory
+LatticesEndCategory : TypeAlias = LatticeEndCategory
+LatticesAutCategory : TypeAlias = LatticeAutCategory
+LatticesHom : TypeAlias = LatticeHomCategory.ParentMethods
+LatticesEnd : TypeAlias = LatticeEndCategory.ParentMethods
+LatticesAut : TypeAlias = LatticeAutCategory.ParentMethods
+LatticesEndomorphism : TypeAlias = LatticeEndCategory.ElementMethods
+LatticesAutomorphism : TypeAlias = LatticeAutCategory.ElementMethods

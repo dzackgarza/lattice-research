@@ -11,7 +11,7 @@ quadratic forms over ``\mathbb{Q}``.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import (
@@ -65,9 +65,9 @@ class RationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
 
 
-RationalBilinearModulesObject = RationalBilinearModulesCategory.ParentMethods
-RationalBilinearModulesElement = RationalBilinearModulesCategory.ElementMethods
-RationalBilinearModulesMorphism = BilinearModulesMorphism
+RationalBilinearModulesObject : TypeAlias = RationalBilinearModulesCategory.ParentMethods
+RationalBilinearModulesElement : TypeAlias = RationalBilinearModulesCategory.ElementMethods
+RationalBilinearModulesMorphism : TypeAlias = BilinearModulesMorphism
 
 
 class OverPIDRationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -79,8 +79,8 @@ class OverPIDRationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Rational")
     _defining_predicates = ("is_rational",)
 
-    ParentMethods = RationalBilinearModulesCategory.ParentMethods
-    ElementMethods = RationalBilinearModulesCategory.ElementMethods
+    ParentMethods : TypeAlias = RationalBilinearModulesCategory.ParentMethods
+    ElementMethods : TypeAlias = RationalBilinearModulesCategory.ElementMethods
 
 
 OverPIDRationalBilinearModulesObject = (

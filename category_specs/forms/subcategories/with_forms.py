@@ -3,7 +3,7 @@ r"""Modules equipped with forms."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from sage.categories.category import Category
 from sage.misc.lazy_import import LazyImport
@@ -147,11 +147,11 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (_OverPID, "WithForms")
     _defining_predicates = ("has_form",)
 
-    ParentMethods = FormedModulesCategory.ParentMethods
+    ParentMethods : TypeAlias = FormedModulesCategory.ParentMethods
 
-    SubcategoryMethods = FormedModulesCategory.SubcategoryMethods
+    SubcategoryMethods : TypeAlias = FormedModulesCategory.SubcategoryMethods
 
-    ElementMethods = FormedModulesCategory.ElementMethods
+    ElementMethods : TypeAlias = FormedModulesCategory.ElementMethods
 
     class HomCategory(HomCategoryConstruction):
         class ElementMethods(FormedModulesCategory.HomCategory.ElementMethods): ...
@@ -165,9 +165,9 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
     )
 
 
-FormedModulesObject = FormedModulesCategory.ParentMethods
-FormedModulesElement = FormedModulesCategory.ElementMethods
-FormedModulesMorphism = FormedModulesCategory.HomCategory.ElementMethods
-OverPIDFormedModulesObject = OverPIDFormedModulesCategory.ParentMethods
-OverPIDFormedModulesElement = OverPIDFormedModulesCategory.ElementMethods
-OverPIDFormedModulesMorphism = OverPIDFormedModulesCategory.HomCategory.ElementMethods
+FormedModulesObject : TypeAlias = FormedModulesCategory.ParentMethods
+FormedModulesElement : TypeAlias = FormedModulesCategory.ElementMethods
+FormedModulesMorphism : TypeAlias = FormedModulesCategory.HomCategory.ElementMethods
+OverPIDFormedModulesObject : TypeAlias = OverPIDFormedModulesCategory.ParentMethods
+OverPIDFormedModulesElement : TypeAlias = OverPIDFormedModulesCategory.ElementMethods
+OverPIDFormedModulesMorphism : TypeAlias = OverPIDFormedModulesCategory.HomCategory.ElementMethods

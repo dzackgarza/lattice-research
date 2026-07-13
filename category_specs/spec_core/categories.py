@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from functools import cached_property
 from typing import Self
 
@@ -23,9 +24,7 @@ class CategorySpec(BaseModel):
     @model_validator(mode="after")
     def _reject_duplicates(self) -> Self:
         if len(self.direct_obligation_ids) != len(set(self.direct_obligation_ids)):
-            raise ValueError(
-                "category direct obligations must not contain duplicates"
-            )
+            raise ValueError("category direct obligations must not contain duplicates")
         if len(self.super_category_ids) != len(set(self.super_category_ids)):
             raise ValueError("category super ids must not contain duplicates")
         if len(self.provider_ids) != len(set(self.provider_ids)):
@@ -120,21 +119,16 @@ class CategorySpecRegistry(BaseModel):
         return obligation_id
 
     def _assert_unique_category_ids(self) -> None:
-        seen: dict[str, int] = {}
-        for category in self.categories:
-            seen[category.id] = seen.get(category.id, 0) + 1
-            if seen[category.id] > 1:
-                raise ValueError(f"duplicate category id: {category.id}")
+        id_counts = Counter(category.id for category in self.categories)
+        duplicates = [id for id, count in id_counts.items() if count > 1]
+        assert not duplicates, f"duplicate category ids: {duplicates}"
 
     def _validate_known_obligation_ids(self) -> None:
         known_obligation_ids = self.obligation_ids_by_id
         for category in self.categories:
             for obligation_id in category.direct_obligation_ids:
                 if obligation_id not in known_obligation_ids:
-                    raise ValueError(
-                        f"unknown obligation id {obligation_id} "
-                        f"in category {category.id}"
-                    )
+                    raise ValueError(f"unknown obligation id {obligation_id} in category {category.id}")
         if len(self.obligation_ids) != len(known_obligation_ids):
             raise ValueError("obligation ids must not contain duplicates")
 
@@ -142,10 +136,7 @@ class CategorySpecRegistry(BaseModel):
         for category in self.categories:
             for super_category_id in category.super_category_ids:
                 if super_category_id not in self.categories_by_id:
-                    raise ValueError(
-                        f"unknown super category id {super_category_id} "
-                        f"in category {category.id}"
-                    )
+                    raise ValueError(f"unknown super category id {super_category_id} in category {category.id}")
 
     def _validate_no_cycles(self) -> None:
         categories_by_id = self.categories_by_id
@@ -157,10 +148,7 @@ class CategorySpecRegistry(BaseModel):
                 return
             if category_id in visiting:
                 cycle = list(path)
-                raise ValueError(
-                    "category hierarchy cycle detected: "
-                    + " -> ".join(cycle + [category_id])
-                )
+                raise ValueError("category hierarchy cycle detected: " + " -> ".join(cycle + [category_id]))
 
             visiting.add(category_id)
             next_path = path + (category_id,)

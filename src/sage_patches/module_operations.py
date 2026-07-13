@@ -183,9 +183,7 @@ def _tqm_discrete_exp(
     """Build an element from coordinates in the requested generators."""
     if gens is None:
         return self.linear_combination_of_smith_form_gens(v)
-    return AdditiveAbelianGroupWrapper.from_generators(
-        gens, universe=self
-    ).discrete_exp(v)
+    return AdditiveAbelianGroupWrapper.from_generators(gens, universe=self).discrete_exp(v)
 
 
 def _tqm_coordinates(
@@ -198,9 +196,7 @@ def _tqm_coordinates(
     """Return additive coordinates of an element."""
     if gens is None:
         return self.gens_vector(x, reduce=reduce)
-    return AdditiveAbelianGroupWrapper.from_generators(
-        gens, universe=self
-    ).discrete_log(x)
+    return AdditiveAbelianGroupWrapper.from_generators(gens, universe=self).discrete_log(x)
 
 
 def _tqm_relations_among(self: Any, gens: Any) -> Any:
@@ -299,9 +295,7 @@ def _tqm_q(self: Any, x: Any) -> Any:
     return x.q()
 
 
-def _tqm_orthogonal_group(
-    self: Any, gens: Any | None = None, *, kind: str = "quadratic", check: bool = False
-) -> Any:
+def _tqm_orthogonal_group(self: Any, gens: Any | None = None, *, kind: str = "quadratic", check: bool = False) -> Any:
     """Return the requested finite form-preserving group."""
     if kind == "quadratic":
         return _native_tqm_orthogonal_group(self, gens=gens, check=check)
@@ -315,9 +309,7 @@ def _tqm_bilinear_orthogonal_group(self: Any) -> Any:
     raise NotImplementedError("Sage exposes quadratic orthogonal_group here, not the larger bilinear group")
 
 
-def _tqm_normal_form(
-    self: Any, *, partial: bool = False, return_isometry: bool = False
-) -> Any:
+def _tqm_normal_form(self: Any, *, partial: bool = False, return_isometry: bool = False) -> Any:
     """Return Sage's torsion quadratic normal form with plan-compatible keyword spelling."""
     if return_isometry:
         raise NotImplementedError("Sage normal_form does not return an isometry")
@@ -399,9 +391,7 @@ def _tqm_is_anisotropic(self: Any) -> bool:
 
 def _tqm_is_maximal_isotropic(self: Any, H: Any) -> bool:
     """Return whether H is maximal among isotropic subgroups."""
-    return _tqm_is_isotropic_subgroup(self, H) and not any(
-        H != K and H.is_submodule(K) for K in _tqm_isotropic_subgroups(self)
-    )
+    return _tqm_is_isotropic_subgroup(self, H) and not any(H != K and H.is_submodule(K) for K in _tqm_isotropic_subgroups(self))
 
 
 def _tqm_maximal_isotropic_subgroups(self: Any) -> tuple[Any, ...]:
@@ -447,10 +437,7 @@ def _tqm_radical(self: Any) -> Any:
 
 def _tqm_is_nondegenerate(self: Any) -> bool:
     """Return whether the finite bilinear pairing is nondegenerate."""
-    return bool(
-        _tqm_left_kernel(self).cardinality() == 1
-        and _tqm_right_kernel(self).cardinality() == 1
-    )
+    return bool(_tqm_left_kernel(self).cardinality() == 1 and _tqm_right_kernel(self).cardinality() == 1)
 
 
 def _tqm_pairing_isomorphism_to_dual(self: Any) -> Any:

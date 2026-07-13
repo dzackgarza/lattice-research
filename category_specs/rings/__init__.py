@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Literal, TypeVar, final, overload, override
+from typing import TYPE_CHECKING, Literal, TypeVar, final, overload, override, TypeAlias
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
@@ -594,8 +594,8 @@ class _RingIdeals(Category_ideal):
         R = sage_ideal.ring()
         return refine_category(sage_ideal.parent(), cls(R))
 
-    ParentMethods = _RingIdealParentMethods
-    ElementMethods = _RingIdealElementMethods
+    ParentMethods : TypeAlias = _RingIdealParentMethods
+    ElementMethods : TypeAlias = _RingIdealElementMethods
 
 
 # ---------------------------------------------------------------------------
@@ -1724,29 +1724,29 @@ class Rings(Category_singleton):
 
     # ----- Functorial constructions ----------------------------------------
 
-    Subobjects = _Subobjects
-    Subquotients = _Subquotients
-    Quotients = _Quotients
-    RingsUnder = _RingsUnder
-    RingsOver = _RingsOver
-    CartesianProducts = _CartesianProducts
-    MatrixAlgebras = _MatrixAlgebras
+    Subobjects : TypeAlias = _Subobjects
+    Subquotients : TypeAlias = _Subquotients
+    Quotients : TypeAlias = _Quotients
+    RingsUnder : TypeAlias = _RingsUnder
+    RingsOver : TypeAlias = _RingsOver
+    CartesianProducts : TypeAlias = _CartesianProducts
+    MatrixAlgebras : TypeAlias = _MatrixAlgebras
 
-    HomCategory = RingHomCategory
+    HomCategory : TypeAlias = RingHomCategory
 
-    ParentMethods = _RingObjectMethods
-    ElementMethods = _RingElementMethods
+    ParentMethods : TypeAlias = _RingObjectMethods
+    ElementMethods : TypeAlias = _RingElementMethods
 
 
-RingsCategory = Rings
-RingsObject = Rings.ParentMethods
-RingsElement = Rings.ElementMethods
-RingsMorphism = RingHomCategory.ElementMethods
-RingsHomCategory = RingHomCategory
-RingsEndCategory = RingEndCategory
-RingsAutCategory = RingAutCategory
-RingsHom = RingHomCategory.ParentMethods
-RingsEnd = RingEndCategory.ParentMethods
-RingsAut = RingAutCategory.ParentMethods
-RingsEndomorphism = RingEndCategory.ElementMethods
-RingsAutomorphism = RingAutCategory.ElementMethods
+RingsCategory : TypeAlias = Rings
+RingsObject : TypeAlias = Rings.ParentMethods
+RingsElement : TypeAlias = Rings.ElementMethods
+RingsMorphism : TypeAlias = RingHomCategory.ElementMethods
+RingsHomCategory : TypeAlias = RingHomCategory
+RingsEndCategory : TypeAlias = RingEndCategory
+RingsAutCategory : TypeAlias = RingAutCategory
+RingsHom : TypeAlias = RingHomCategory.ParentMethods
+RingsEnd : TypeAlias = RingEndCategory.ParentMethods
+RingsAut : TypeAlias = RingAutCategory.ParentMethods
+RingsEndomorphism : TypeAlias = RingEndCategory.ElementMethods
+RingsAutomorphism : TypeAlias = RingAutCategory.ElementMethods

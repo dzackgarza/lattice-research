@@ -3,17 +3,13 @@ r"""Rings over a fixed ambient ring."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from ....cat import (
     Cat,
     Category,
     Category_over_base_ring,
     RegressiveCovariantConstructionCategory,
-)
-from ....cat.subcategories.constructions.objects_over import (
-    structure_codomain,
-    structure_domain,
 )
 
 if TYPE_CHECKING:
@@ -27,9 +23,7 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
 
     @classmethod
     @final
-    def default_super_categories(
-        cls, category: Category, ambient: Ring
-    ) -> list[Category]:
+    def default_super_categories(cls, category: Category, ambient: Ring) -> list[Category]:
         from ... import Rings
 
         return Cat().join(
@@ -57,14 +51,19 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
 
         @final
         def structure_map(self) -> RingMorphism:
-            return self.structure_ring().coerce_map_from(self)
+            return cast(RingMorphism, getattr(self.structure_ring(), "coerce_map_from")(self))
 
         @final
         def structure_morphism(self) -> RingMorphism:
             r"""Return the structure map as the universal structure morphism."""
             return self.structure_map()
 
-        structure_domain = structure_domain
-        structure_codomain = structure_codomain
+        @final
+        def structure_domain(self) -> Ring:
+            return self.structure_ring()
+
+        @final
+        def structure_codomain(self) -> Ring:
+            return self.structure_ring()
 
     class ElementMethods: ...

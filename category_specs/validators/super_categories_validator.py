@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import sys
 import traceback
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -31,6 +32,8 @@ class GraphFailure:
 
 
 def project_category_checks() -> tuple[GraphCheck, ...]:
+    from sage.all import GF, QQ, ZZ, IntegerModRing, PolynomialRing
+
     from category_specs.algebras import Algebras
     from category_specs.cat import Cat
     from category_specs.forms import FormedModules
@@ -40,7 +43,6 @@ def project_category_checks() -> tuple[GraphCheck, ...]:
     from category_specs.rings import Rings
     from category_specs.sets import Sets
     from category_specs.topological_spaces import TopologicalSpaces
-    from sage.all import GF, QQ, ZZ, IntegerModRing, PolynomialRing
 
     polynomial_ring = PolynomialRing(ZZ, name="x")
 
@@ -120,9 +122,7 @@ def _category_graph_edges(nodes: tuple[Any, ...]) -> tuple[tuple[Any, Any], ...]
 def _category_graph_labels(nodes: tuple[Any, ...]) -> dict[int, str]:
     r"""Return labels that distinguish project and Sage categories."""
     base_labels = {id(node): _base_category_label(node) for node in nodes}
-    counts: dict[str, int] = {}
-    for label in base_labels.values():
-        counts[label] = counts.get(label, 0) + 1
+    counts: Counter[str] = Counter(base_labels.values())
 
     labels: dict[int, str] = {}
     for node in nodes:
@@ -134,9 +134,7 @@ def _category_graph_labels(nodes: tuple[Any, ...]) -> dict[int, str]:
     return labels
 
 
-def _identity_graph_is_directed_acyclic(
-    nodes: tuple[Any, ...], edges: tuple[tuple[Any, Any], ...]
-) -> bool:
+def _identity_graph_is_directed_acyclic(nodes: tuple[Any, ...], edges: tuple[tuple[Any, Any], ...]) -> bool:
     r"""Return whether the immediate-supercategory graph is acyclic."""
     adjacency: dict[int, list[int]] = {id(node): [] for node in nodes}
     for source, target in edges:
@@ -173,9 +171,7 @@ def _print_identity_category_graph(label: str, category: Any) -> bool:
     print(f"vertices: {len(nodes)}")
     print(f"edges: {len(edges)}")
     print(f"directed acyclic: {directed_acyclic}")
-    for source, target in sorted(
-        edges, key=lambda edge: (labels[id(edge[0])], labels[id(edge[1])])
-    ):
+    for source, target in sorted(edges, key=lambda edge: (labels[id(edge[0])], labels[id(edge[1])])):
         print(f"  {labels[id(source)]} -> {labels[id(target)]}")
     return directed_acyclic
 

@@ -3,7 +3,7 @@ r"""Approximate rings with explicit precision control."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, final, override, TypeAlias
 
 from sage.rings.abc import ComplexBallField as SageComplexBallField
 from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
@@ -72,6 +72,6 @@ class ApproximateRingsCategory(Category_singleton):
     class ElementMethods: ...
 
 
-ApproximateRingsObject = ApproximateRingsCategory.ParentMethods
-ApproximateRingsElement = ApproximateRingsCategory.ElementMethods
-ApproximateRingsMorphism = RingHomCategory.ElementMethods
+ApproximateRingsObject : TypeAlias = ApproximateRingsCategory.ParentMethods
+ApproximateRingsElement : TypeAlias = ApproximateRingsCategory.ElementMethods
+ApproximateRingsMorphism : TypeAlias = RingHomCategory.ElementMethods

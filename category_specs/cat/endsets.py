@@ -2,7 +2,7 @@ r"""End categories internal to ``Cat()``."""
 
 from __future__ import annotations
 
-from typing import ClassVar, final, override
+from typing import ClassVar, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -33,7 +33,7 @@ class CatEndCategory(EndCategoryOf):
     def _repr_object_names(self) -> str:
         return f"endofunctor categories internal to {self.base_category()}"
 
-    ElementMethods = _CatEndofunctorMethods
+    ElementMethods : TypeAlias = _CatEndofunctorMethods
 
     class ParentMethods: ...
 

@@ -5,12 +5,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final
 
-from category_specs.cat import Category_over_base_ring, CategoryWithAxiom_over_base_ring
-from category_specs.forms.subcategories.torsion_quadratic_modules import (
-    TorsionQuadraticModulesCategory,
-)
-from category_specs.modules import Modules
-from category_specs.utils import refine_category
 from sage.categories.category import Category
 from sage.groups.abelian_gps.abelian_group_gap import AbelianGroupGap
 from sage.groups.additive_abelian.additive_abelian_wrapper import AdditiveAbelianGroupWrapper
@@ -20,6 +14,13 @@ from sage.modules.free_quadratic_module import QuadraticSpace
 from sage.modules.free_quadratic_module_integer_symmetric import IntegralLattice
 from sage.rings.integer_ring import ZZ
 from sage.rings.rational_field import QQ
+
+from category_specs.cat import Category_over_base_ring, CategoryWithAxiom_over_base_ring
+from category_specs.forms.subcategories.torsion_quadratic_modules import (
+    TorsionQuadraticModulesCategory,
+)
+from category_specs.modules import Modules
+from category_specs.utils import refine_category
 from src.sage_patches import module_operations
 
 module_operations.install()
@@ -76,9 +77,7 @@ def _wrap_span_with_form(result: Any, ambient_gram: Matrix) -> ConsolidatedLatti
         return wrapped
     assert hasattr(result, "basis_matrix")
     basis = result.basis_matrix()
-    return ConsolidatedLattice(
-        _quadratic_space_from_gram(basis * ambient_gram * basis.transpose())
-    )
+    return ConsolidatedLattice(_quadratic_space_from_gram(basis * ambient_gram * basis.transpose()))
 
 
 def _sage_object(obj: object) -> object:
@@ -165,20 +164,12 @@ class RationalLatticesCategory(Category_over_base_ring):
     @final
     def super_categories(self) -> list[Category]:
         return [
-            Modules(self.base_ring(), dispatch=False)
-            .Free()
-            .FiniteRank()
-            .WithForms()
-            .Bilinear()
-            .Symmetric()
-            .Rational(),
+            Modules(self.base_ring(), dispatch=False).Free().FiniteRank().WithForms().Bilinear().Symmetric().Rational(),
         ]
 
     @final
     def __contains__(self, obj: object) -> bool:
-        return isinstance(obj, ConsolidatedLattice) and obj.category().is_subcategory(
-            self
-        )
+        return isinstance(obj, ConsolidatedLattice) and obj.category().is_subcategory(self)
 
     class SubcategoryMethods:
         @final
@@ -254,27 +245,15 @@ class _NegativeDefiniteRationalLattices(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (RationalLatticesCategory, "NegativeDefinite")
 
 
-RationalLatticesCategory.Symmetric = LazyImport(
-    __name__, "_SymmetricRationalLattices"
-)
-RationalLatticesCategory.Nondegenerate = LazyImport(
-    __name__, "_NondegenerateRationalLattices"
-)
+RationalLatticesCategory.Symmetric = LazyImport(__name__, "_SymmetricRationalLattices")
+RationalLatticesCategory.Nondegenerate = LazyImport(__name__, "_NondegenerateRationalLattices")
 RationalLatticesCategory.Integral = LazyImport(__name__, "_IntegralRationalLattices")
 RationalLatticesCategory.Even = LazyImport(__name__, "_EvenRationalLattices")
-RationalLatticesCategory.Unimodular = LazyImport(
-    __name__, "_UnimodularRationalLattices"
-)
+RationalLatticesCategory.Unimodular = LazyImport(__name__, "_UnimodularRationalLattices")
 RationalLatticesCategory.Definite = LazyImport(__name__, "_DefiniteRationalLattices")
-RationalLatticesCategory.Indefinite = LazyImport(
-    __name__, "_IndefiniteRationalLattices"
-)
-RationalLatticesCategory.PositiveDefinite = LazyImport(
-    __name__, "_PositiveDefiniteRationalLattices"
-)
-RationalLatticesCategory.NegativeDefinite = LazyImport(
-    __name__, "_NegativeDefiniteRationalLattices"
-)
+RationalLatticesCategory.Indefinite = LazyImport(__name__, "_IndefiniteRationalLattices")
+RationalLatticesCategory.PositiveDefinite = LazyImport(__name__, "_PositiveDefiniteRationalLattices")
+RationalLatticesCategory.NegativeDefinite = LazyImport(__name__, "_NegativeDefiniteRationalLattices")
 
 
 class DiscriminantGroupsCategory(TorsionQuadraticModulesCategory):
@@ -336,16 +315,10 @@ class _WithSourceLatticeDiscriminantGroups(CategoryWithAxiom_over_base_ring):
     )
 
 
-DiscriminantGroupsCategory.FiniteBilinearForms = LazyImport(
-    __name__, "_FiniteBilinearDiscriminantGroups"
-)
-DiscriminantGroupsCategory.FiniteQuadraticForms = LazyImport(
-    __name__, "_FiniteQuadraticDiscriminantGroups"
-)
+DiscriminantGroupsCategory.FiniteBilinearForms = LazyImport(__name__, "_FiniteBilinearDiscriminantGroups")
+DiscriminantGroupsCategory.FiniteQuadraticForms = LazyImport(__name__, "_FiniteQuadraticDiscriminantGroups")
 DiscriminantGroupsCategory.Even = LazyImport(__name__, "_EvenDiscriminantGroups")
-DiscriminantGroupsCategory.WithSourceLattice = LazyImport(
-    __name__, "_WithSourceLatticeDiscriminantGroups"
-)
+DiscriminantGroupsCategory.WithSourceLattice = LazyImport(__name__, "_WithSourceLatticeDiscriminantGroups")
 
 
 class LatticeMorphismAdapter:
@@ -418,10 +391,7 @@ class LatticeMorphismAdapter:
     ) -> object:
         domain_quotient = self.domain().quotient_by_sublattice(domain_relation)
         codomain_quotient = self.codomain().quotient_by_sublattice(codomain_relation)
-        images = [
-            codomain_quotient.sage_object()(self._sage_morphism(generator.lift()))
-            for generator in domain_quotient.sage_object().gens()
-        ]
+        images = [codomain_quotient.sage_object()(self._sage_morphism(generator.lift())) for generator in domain_quotient.sage_object().gens()]
         return domain_quotient.sage_object().hom(
             images,
             codomain=codomain_quotient.sage_object(),
@@ -433,9 +403,7 @@ class LatticeMorphismAdapter:
         codomain_group = self.codomain().discriminant_group()
 
         def induced(x: object) -> object:
-            return codomain_group.project_from_dual(
-                self._sage_morphism(domain_group.lift_to_dual(x))
-            )
+            return codomain_group.project_from_dual(self._sage_morphism(domain_group.lift_to_dual(x)))
 
         return induced
 
@@ -541,10 +509,7 @@ class LatticeQuotientAdapter:
     @final
     def __getattr__(self, name: str) -> object:
         if name in _RAW_MODULE_METHODS_NOT_PROMOTED:
-            raise AttributeError(
-                f"{name} is a raw Sage module method, not a promoted lattice quotient operation; "
-                "use underlying_quotient_module() explicitly"
-            )
+            raise AttributeError(f"{name} is a raw Sage module method, not a promoted lattice quotient operation; use underlying_quotient_module() explicitly")
         return getattr(self._sage_parent, name)
 
     @final
@@ -617,14 +582,8 @@ class LatticeQuotientAdapter:
     def form_descends(self) -> bool:
         cover_basis = self.cover_lattice().basis()
         relation_basis = self.relation_lattice().basis()
-        return all(
-            _bilinear_value(self.cover_lattice(), relation_vector, cover_vector) in ZZ
-            for relation_vector in relation_basis
-            for cover_vector in cover_basis
-        ) and all(
-            _bilinear_value(self.cover_lattice(), relation_vector, relation_vector) / 2
-            in ZZ
-            for relation_vector in relation_basis
+        return all(_bilinear_value(self.cover_lattice(), relation_vector, cover_vector) in ZZ for relation_vector in relation_basis for cover_vector in cover_basis) and all(
+            _bilinear_value(self.cover_lattice(), relation_vector, relation_vector) / 2 in ZZ for relation_vector in relation_basis
         )
 
     @final
@@ -668,14 +627,9 @@ class DiscriminantGroupAdapter:
     @final
     def __getattr__(self, name: str) -> object:
         if name in _RAW_MODULE_METHODS_NOT_PROMOTED:
-            raise AttributeError(
-                f"{name} is a raw Sage module method, not a promoted lattice operation; "
-                "use underlying_module() or underlying_quadratic_module() explicitly"
-            )
+            raise AttributeError(f"{name} is a raw Sage module method, not a promoted lattice operation; use underlying_module() or underlying_quadratic_module() explicitly")
         if name in _POSITIVE_DEFINITE_ALGORITHMS:
-            raise AttributeError(
-                f"{name} is a positive-definite lattice algorithm, not a discriminant-group operation"
-            )
+            raise AttributeError(f"{name} is a positive-definite lattice algorithm, not a discriminant-group operation")
         return getattr(self._sage_parent, name)
 
     @final
@@ -785,9 +739,7 @@ class DiscriminantGroupAdapter:
     ) -> object:
         if gens is None:
             return self._sage_parent.gens_vector(x, reduce=reduce)
-        return AdditiveAbelianGroupWrapper.from_generators(
-            gens, universe=self._sage_parent
-        ).discrete_log(x)
+        return AdditiveAbelianGroupWrapper.from_generators(gens, universe=self._sage_parent).discrete_log(x)
 
     @final
     def discrete_log(
@@ -805,15 +757,11 @@ class DiscriminantGroupAdapter:
     ) -> object:
         if gens is None:
             return self._sage_parent.linear_combination_of_smith_form_gens(v)
-        return AdditiveAbelianGroupWrapper.from_generators(
-            gens, universe=self._sage_parent
-        ).discrete_exp(v)
+        return AdditiveAbelianGroupWrapper.from_generators(gens, universe=self._sage_parent).discrete_exp(v)
 
     @final
     def as_additive_abelian_group(self) -> object:
-        return AdditiveAbelianGroupWrapper.from_generators(
-            self.gens(), universe=self._sage_parent
-        )
+        return AdditiveAbelianGroupWrapper.from_generators(self.gens(), universe=self._sage_parent)
 
     @final
     def underlying_abelian_group(self) -> object:
@@ -825,15 +773,11 @@ class DiscriminantGroupAdapter:
 
     @final
     def relations_among(self, gens: Sequence[object]) -> object:
-        return AdditiveAbelianGroupWrapper.from_generators(
-            gens, universe=self._sage_parent
-        ).W()
+        return AdditiveAbelianGroupWrapper.from_generators(gens, universe=self._sage_parent).W()
 
     @final
     def basis_from_generators(self, gens: Sequence[object]) -> object:
-        return AdditiveAbelianGroupWrapper.from_generators(
-            gens, universe=self._sage_parent
-        ).gens()
+        return AdditiveAbelianGroupWrapper.from_generators(gens, universe=self._sage_parent).gens()
 
     @final
     def from_generators(self, gens: Sequence[object]) -> object:
@@ -903,9 +847,7 @@ class DiscriminantGroupAdapter:
 
     @final
     def automorphism_group(self) -> object:
-        return AbelianGroupGap(
-            [invariant for invariant in self.invariants() if invariant != 1]
-        ).automorphism_group()
+        return AbelianGroupGap([invariant for invariant in self.invariants() if invariant != 1]).automorphism_group()
 
     @final
     def q(self, x: object) -> object:
@@ -966,9 +908,7 @@ class DiscriminantGroupAdapter:
     @final
     def is_maximal_isotropic(self, H: object) -> bool:
         H0 = _sage_object(H)
-        return self.is_isotropic_subgroup(H0) and not any(
-            H0 != K and H0.is_submodule(K) for K in self.isotropic_subgroups()
-        )
+        return self.is_isotropic_subgroup(H0) and not any(H0 != K and H0.is_submodule(K) for K in self.isotropic_subgroups())
 
     @final
     def maximal_isotropic_subgroups(self) -> tuple[object, ...]:
@@ -1026,18 +966,14 @@ class DiscriminantGroupAdapter:
         return bool(self._sage_parent == other_obj)
 
     @final
-    def normal_form(
-        self, *, partial: bool = False, return_isometry: bool = False
-    ) -> object:
+    def normal_form(self, *, partial: bool = False, return_isometry: bool = False) -> object:
         if return_isometry:
             raise NotImplementedError("Sage normal_form does not return an isometry on this adapter path")
         return self._sage_parent.normal_form(partial=partial)
 
     @final
     def character_group(self) -> object:
-        return AbelianGroupGap(
-            [invariant for invariant in self.invariants() if invariant != 1]
-        )
+        return AbelianGroupGap([invariant for invariant in self.invariants() if invariant != 1])
 
     @final
     def pontryagin_dual(self) -> object:
@@ -1102,9 +1038,7 @@ class DiscriminantGroupAdapter:
     @final
     def action_of_lattice_isometry(self, g: object) -> object:
         def action(x: object) -> object:
-            return self.project_from_dual(
-                _apply_lattice_isometry(g, self.lift_to_dual(x))
-            )
+            return self.project_from_dual(_apply_lattice_isometry(g, self.lift_to_dual(x)))
 
         return action
 
@@ -1133,9 +1067,7 @@ class DiscriminantGroupAdapter:
         return tuple(orbit)
 
     @final
-    def _subgroup_orbit_from_generators(
-        self, H: object, gens: Sequence[object]
-    ) -> tuple[object, ...]:
+    def _subgroup_orbit_from_generators(self, H: object, gens: Sequence[object]) -> tuple[object, ...]:
         orbit = [H]
         frontier = [H]
         while frontier:
@@ -1164,11 +1096,7 @@ class DiscriminantGroupAdapter:
         if hasattr(action, "kernel"):
             return action.kernel()
         if hasattr(G, "__iter__") and hasattr(G, "subgroup"):
-            kernel_elements = [
-                g
-                for g in G
-                if all(self.action_of_lattice_isometry(g)(x) == x for x in self)
-            ]
+            kernel_elements = [g for g in G if all(self.action_of_lattice_isometry(g)(x) == x for x in self)]
             return G.subgroup(kernel_elements)
         raise NotImplementedError("kernel computation requires a finite iterable group with subgroup construction")
 
@@ -1257,21 +1185,13 @@ class ConsolidatedLattice:
     @final
     def __getattribute__(self, name: str) -> object:
         if name in _RAW_MODULE_METHODS_NOT_PROMOTED:
-            raise AttributeError(
-                f"{name} is a raw Sage module method, not a promoted lattice operation; "
-                "use underlying_module() or underlying_quadratic_module() explicitly"
-            )
+            raise AttributeError(f"{name} is a raw Sage module method, not a promoted lattice operation; use underlying_module() or underlying_quadratic_module() explicitly")
         if name in _FINITE_CONTEXT_METHODS_NOT_PROMOTED_ON_LATTICES:
-            raise AttributeError(
-                f"{name} is a finite quotient/discriminant-group operation, not a generic lattice operation"
-            )
+            raise AttributeError(f"{name} is a finite quotient/discriminant-group operation, not a generic lattice operation")
         if name in _POSITIVE_DEFINITE_ALGORITHMS:
             is_positive_definite = object.__getattribute__(self, "is_positive_definite")
             if not is_positive_definite():
-                raise AttributeError(
-                    f"{name} is only exposed on positive-definite lattice wrappers; "
-                    "use underlying_quadratic_module() for raw Sage access"
-                )
+                raise AttributeError(f"{name} is only exposed on positive-definite lattice wrappers; use underlying_quadratic_module() for raw Sage access")
         return object.__getattribute__(self, name)
 
     @final
@@ -1512,9 +1432,7 @@ class ConsolidatedLattice:
         check_integral: bool = True,
     ) -> ConsolidatedLattice:
         lattice = ConsolidatedLattice(self._sage_parent.overlattice(gens))
-        _assert_requested_lattice_properties(
-            lattice, check_integral=True if check_integral else None
-        )
+        _assert_requested_lattice_properties(lattice, check_integral=True if check_integral else None)
         return lattice
 
     @final
@@ -1544,9 +1462,7 @@ class ConsolidatedLattice:
                 self._sage_parent.change_ring(target_ring).span(gens, **kwds),
                 self.ambient_gram_matrix(),
             )
-        _assert_requested_lattice_properties(
-            lattice, check_integral=check_integral, check_even=check_even
-        )
+        _assert_requested_lattice_properties(lattice, check_integral=check_integral, check_even=check_even)
         return lattice
 
     @final
@@ -1576,9 +1492,7 @@ class ConsolidatedLattice:
                 self._sage_parent.change_ring(target_ring).span_of_basis(basis, **kwds),
                 self.ambient_gram_matrix(),
             )
-        _assert_requested_lattice_properties(
-            lattice, check_integral=check_integral, check_even=check_even
-        )
+        _assert_requested_lattice_properties(lattice, check_integral=check_integral, check_even=check_even)
         return lattice
 
     @final
@@ -1654,10 +1568,7 @@ class ConsolidatedLattice:
     @final
     def _require_positive_definite_algorithm(self, name: str) -> None:
         if not self.is_positive_definite():
-            raise AttributeError(
-                f"{name} is only exposed on positive-definite lattice wrappers; "
-                "use underlying_quadratic_module() for raw Sage access"
-            )
+            raise AttributeError(f"{name} is only exposed on positive-definite lattice wrappers; use underlying_quadratic_module() for raw Sage access")
 
     @final
     def LLL(self, *args: object, **kwds: object) -> Any:
@@ -1744,10 +1655,7 @@ class ConsolidatedLattice:
         target = self if codomain is None else codomain
         morphism = self.sage_object().Hom(target.sage_object())(matrix_or_images)
         matrix_data = morphism.matrix()
-        if (
-            matrix_data.transpose() * target.gram_matrix() * matrix_data
-            != multiplier * self.gram_matrix()
-        ):
+        if matrix_data.transpose() * target.gram_matrix() * matrix_data != multiplier * self.gram_matrix():
             raise ValueError("lattice similarities must satisfy F^T G_M F = multiplier * G_L")
         return LatticeMorphismAdapter(morphism, self, target)
 

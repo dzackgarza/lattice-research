@@ -9,7 +9,7 @@ A symmetric bilinear form is *definite* iff it is either positive-definite
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import final, override
+from typing import final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .symmetric import (
@@ -78,6 +78,6 @@ class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
 
 
-DefiniteBilinearModulesObject = DefiniteBilinearModulesCategory.ParentMethods
-DefiniteBilinearModulesElement = DefiniteBilinearModulesCategory.ElementMethods
-DefiniteBilinearModulesMorphism = SymmetricBilinearModulesMorphism
+DefiniteBilinearModulesObject : TypeAlias = DefiniteBilinearModulesCategory.ParentMethods
+DefiniteBilinearModulesElement : TypeAlias = DefiniteBilinearModulesCategory.ElementMethods
+DefiniteBilinearModulesMorphism : TypeAlias = SymmetricBilinearModulesMorphism

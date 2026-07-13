@@ -2,7 +2,7 @@ r"""Aut categories internal to ``Cat()``."""
 
 from __future__ import annotations
 
-from typing import final, override
+from typing import final, override, TypeAlias
 
 from ..homsets import AutCategoryOf, UniversalAutElementMethods
 from .endsets import CatEndCategory, _CatEndofunctorMethods
@@ -28,6 +28,6 @@ class CatAutCategory(AutCategoryOf):
     def _repr_object_names(self) -> str:
         return f"autofunctor categories internal to {self.base_category()}"
 
-    ElementMethods = _CatAutofunctorMethods
+    ElementMethods : TypeAlias = _CatAutofunctorMethods
 
     class ParentMethods: ...

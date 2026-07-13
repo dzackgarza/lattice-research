@@ -11,7 +11,7 @@ equivalent to ``\det(G) \neq 0``.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import (
@@ -71,7 +71,7 @@ class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
 
 
-NondegenerateBilinearModulesObject = NondegenerateBilinearModulesCategory.ParentMethods
+NondegenerateBilinearModulesObject : TypeAlias = NondegenerateBilinearModulesCategory.ParentMethods
 NondegenerateBilinearModulesElement = (
     NondegenerateBilinearModulesCategory.ElementMethods
 )
@@ -89,8 +89,8 @@ class OverPIDNondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ri
     _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Nondegenerate")
     _defining_predicates = ("is_nondegenerate",)
 
-    ParentMethods = NondegenerateBilinearModulesCategory.ParentMethods
-    ElementMethods = NondegenerateBilinearModulesCategory.ElementMethods
+    ParentMethods : TypeAlias = NondegenerateBilinearModulesCategory.ParentMethods
+    ElementMethods : TypeAlias = NondegenerateBilinearModulesCategory.ElementMethods
 
 
 OverPIDNondegenerateBilinearModulesObject = (

@@ -3188,8 +3188,8 @@ i.e. with $M$ being pseudoeffective.
 If $E$ is a nef vector bundle on a smooth projective variety $X$, then $E$ is weakly positive.
 Indeed, fix an ample line bundle $H$ on $X$, and a positive integer $\alpha$.
 If $\pi:\mathbf{P}=\mathbf{P}(E)\to X$ is the associated projective bundle, note first that $\mathcal{O}*{\mathbf{P}}(\alpha)\otimes\pi^{*}H$ is an ample line bundle on $\mathbf{P}$; indeed, both $\mathcal{O}*{\mathbf{P}}(\alpha)$ and $\pi^{*}H$ are nef, so have non-negative intersection with all subvarieties.
-On the other hand, $\mathcal{O}_{\mathbf{P}}(\alpha)$ is relatively ample, and so has positive intersection with subvarieties in the fibers of $\pi$ (“vertical” subvarieties), while $\pi^{*}H$ has positive intersection with subvarieties that are not contracted to a point by $\pi$ (“horizontal” subvarieties).
-It follows that $\mathcal{O}_{\mathbf{P}}(\alpha\beta)\otimes\pi^{*}H^{\otimes\beta}$ is globally generated for $\beta\gg 0$.
+On the other hand, $\mathcal{O}*{\mathbf{P}}(\alpha)$ is relatively ample, and so has positive intersection with subvarieties in the fibers of $\pi$ (“vertical” subvarieties), while $\pi^{*}H$ has positive intersection with subvarieties that are not contracted to a point by $\pi$ (“horizontal” subvarieties).
+It follows that $\mathcal{O}*{\mathbf{P}}(\alpha\beta)\otimes\pi^{*}H^{\otimes\beta}$ is globally generated for $\beta\gg 0$.
 On the other hand, by the projection formula we have that
 
 $\pi_{*}\big{(}\mathcal{O}_{\mathbf{P}}(\alpha\beta)\otimes\pi^{*}H^{\otimes\beta}\big{)}\simeq S^{\alpha\beta}E\otimes H^{\otimes\beta}.$

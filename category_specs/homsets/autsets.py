@@ -3,7 +3,7 @@ r"""Aut categories and automorphism method surfaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override, TypeAlias
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
 
@@ -40,9 +40,12 @@ def _is_invertible_endomorphism(endomorphism: UniversalEndElementMethods) -> boo
 
 def _condition_aut_object_from_end_category(end_category: End) -> Aut:
     r"""Return the private Sage condition subset backing an aut object."""
-    return SageConditionSet(
-        end_category,
-        _is_invertible_endomorphism,
+    return cast(
+        Aut,
+        SageConditionSet(
+            end_category,
+            _is_invertible_endomorphism,
+        ),
     )
 
 
@@ -133,8 +136,8 @@ class AutCategory(CategoryWithAxiom_singleton):
         r"""Return the unit subobject of an endomorphism object."""
         return _aut_object_from_end_category(end_category, self)
 
-    ParentMethods = UniversalAutObjectMethods
-    ElementMethods = UniversalAutElementMethods
+    ParentMethods : TypeAlias = UniversalAutObjectMethods
+    ElementMethods : TypeAlias = UniversalAutElementMethods
 
 
 class AutCategoryConstruction(EndCategoryConstruction):
@@ -155,7 +158,7 @@ class AutCategoryConstruction(EndCategoryConstruction):
         return _aut_object_from_end_category(end_category, self)
 
     @final
-    def Of(self, domain: CategoryObject) -> Aut:
+    def Of(self, domain: CategoryObject) -> Aut:  # type: ignore[override]
         r"""Return ``Aut_C(domain)`` for ``C = self.base_category()``."""
         end_category = self.base_category().EndCategory().Of(domain)
         return self.from_end_category(end_category)
@@ -169,9 +172,7 @@ class AutCategoryConstruction(EndCategoryConstruction):
         super_categories = category.super_categories()
         if not super_categories:
             return AutCategory()
-        return Cat().join(
-            [_aut_categories_of(super_category) for super_category in super_categories]
-        )
+        return Cat().join([_aut_categories_of(super_category) for super_category in super_categories])
 
 
 class AutCategoryOf(CategoryWithAxiom):
@@ -208,5 +209,5 @@ class AutCategoryOf(CategoryWithAxiom):
         end_category = self.base_category().Of(domain)
         return self.from_end_category(end_category)
 
-    ParentMethods = UniversalAutObjectMethods
-    ElementMethods = UniversalAutElementMethods
+    ParentMethods : TypeAlias = UniversalAutObjectMethods
+    ElementMethods : TypeAlias = UniversalAutElementMethods

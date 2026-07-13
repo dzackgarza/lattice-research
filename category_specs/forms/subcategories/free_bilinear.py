@@ -12,7 +12,7 @@ genuine matrix (entries in ``S``), and the first tier at which
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, cast, final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -236,6 +236,6 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
                 ...
 
 
-FreeBilinearModulesObject = FreeBilinearModulesCategory.ParentMethods
-FreeBilinearModulesElement = FreeBilinearModulesCategory.ElementMethods
-FreeBilinearModulesMorphism = FreeBilinearModulesCategory.HomCategory.ElementMethods
+FreeBilinearModulesObject : TypeAlias = FreeBilinearModulesCategory.ParentMethods
+FreeBilinearModulesElement : TypeAlias = FreeBilinearModulesCategory.ElementMethods
+FreeBilinearModulesMorphism : TypeAlias = FreeBilinearModulesCategory.HomCategory.ElementMethods

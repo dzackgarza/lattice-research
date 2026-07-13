@@ -3,7 +3,7 @@ r"""Metric-dual lattice construction category."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, TypeAlias
 
 from ....cat import Category_module
 from ...homsets import LatticeHomCategory
@@ -73,6 +73,6 @@ class DualLatticesCategory(Category_module):
 
 
 
-DualLatticesObject = DualLatticesCategory.ParentMethods
-DualLatticesElement = DualLatticesCategory.ElementMethods
-DualLatticesMorphism = LatticeHomCategory.ElementMethods
+DualLatticesObject : TypeAlias = DualLatticesCategory.ParentMethods
+DualLatticesElement : TypeAlias = DualLatticesCategory.ElementMethods
+DualLatticesMorphism : TypeAlias = LatticeHomCategory.ElementMethods

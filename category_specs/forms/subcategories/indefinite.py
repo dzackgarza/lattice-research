@@ -9,7 +9,7 @@ All hyperbolic lattices, K3 lattices, and Lorentzian lattices are indefinite.
 
 from __future__ import annotations
 
-from typing import final, override
+from typing import final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .symmetric import (
@@ -67,6 +67,6 @@ class IndefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
 
 
-IndefiniteBilinearModulesObject = IndefiniteBilinearModulesCategory.ParentMethods
-IndefiniteBilinearModulesElement = IndefiniteBilinearModulesCategory.ElementMethods
-IndefiniteBilinearModulesMorphism = SymmetricBilinearModulesMorphism
+IndefiniteBilinearModulesObject : TypeAlias = IndefiniteBilinearModulesCategory.ParentMethods
+IndefiniteBilinearModulesElement : TypeAlias = IndefiniteBilinearModulesCategory.ElementMethods
+IndefiniteBilinearModulesMorphism : TypeAlias = SymmetricBilinearModulesMorphism

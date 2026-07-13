@@ -16,6 +16,8 @@ individual category families.
 
 from __future__ import annotations
 
+from typing import TypeAlias
+
 from .autsets import (
     AutCategory,
 )
@@ -62,20 +64,20 @@ from .homsets import (
     UniversalHomObjectMethods as UniversalHomObjectMethods,
 )
 
-GenericEndCategory = EndCategoryOf
-GenericAutCategory = AutCategoryOf
+GenericEndCategory : TypeAlias = EndCategoryOf
+GenericAutCategory : TypeAlias = AutCategoryOf
 
-HomCategoriesCategory = HomCategory
-HomCategoriesObject = UniversalHomObjectMethods
-HomCategoriesElement = UniversalHomElementMethods
-HomCategoriesMorphism = UniversalHomElementMethods
+HomCategoriesCategory : TypeAlias = HomCategory
+HomCategoriesObject : TypeAlias = UniversalHomObjectMethods
+HomCategoriesElement : TypeAlias = UniversalHomElementMethods
+HomCategoriesMorphism : TypeAlias = UniversalHomElementMethods
 
-EndCategoriesCategory = EndCategory
-EndCategoriesObject = UniversalEndObjectMethods
-EndCategoriesElement = UniversalEndElementMethods
-EndCategoriesMorphism = UniversalEndElementMethods
+EndCategoriesCategory : TypeAlias = EndCategory
+EndCategoriesObject : TypeAlias = UniversalEndObjectMethods
+EndCategoriesElement : TypeAlias = UniversalEndElementMethods
+EndCategoriesMorphism : TypeAlias = UniversalEndElementMethods
 
-AutCategoriesCategory = AutCategory
-AutCategoriesObject = UniversalAutObjectMethods
-AutCategoriesElement = UniversalAutElementMethods
-AutCategoriesMorphism = UniversalAutElementMethods
+AutCategoriesCategory : TypeAlias = AutCategory
+AutCategoriesObject : TypeAlias = UniversalAutObjectMethods
+AutCategoriesElement : TypeAlias = UniversalAutElementMethods
+AutCategoriesMorphism : TypeAlias = UniversalAutElementMethods

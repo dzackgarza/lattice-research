@@ -2628,8 +2628,8 @@ $$
 $$
 
 where $\nu = 1 / 2$ (resp.
-1) in case $C _ { s }$ (resp.
-$B C _ { s . }$ ). There is an analogous formula for the restriction of $\Delta$ to each irreducible factor $^ \sigma G ^ { \prime }$ of $G$ (notation of 3.3 (ii)). Moreover (3.3 (ii)) the first simple $\sigma ( k )$ -root of $^ { \sigma } G ^ { \prime }$ is the restriction of only one simple $\mathbf { R }$ -root,with index $c ( 1 , \sigma )$ .Using the fact that $\mathbf { \_ } A$ is diagonally embedded in $( R _ { k / \mathbf { Q } } S ^ { \prime } ) _ { \mathbf { R } }$ and applying 1.12 to $G _ { \sigma } = ( ^ { \sigma } G ^ { \prime } ) _ { \bf R } ^ { 0 }$ for each $\sigma$ ， we see that
+1. in case $C _ { s }$ (resp.
+   $B C _ { s . }$ ). There is an analogous formula for the restriction of $\Delta$ to each irreducible factor $^ \sigma G ^ { \prime }$ of $G$ (notation of 3.3 (ii)). Moreover (3.3 (ii)) the first simple $\sigma ( k )$ -root of $^ { \sigma } G ^ { \prime }$ is the restriction of only one simple $\mathbf { R }$ -root,with index $c ( 1 , \sigma )$ .Using the fact that $\mathbf { \_ } A$ is diagonally embedded in $( R _ { k / \mathbf { Q } } S ^ { \prime } ) _ { \mathbf { R } }$ and applying 1.12 to $G _ { \sigma } = ( ^ { \sigma } G ^ { \prime } ) _ { \bf R } ^ { 0 }$ for each $\sigma$ ， we see that
 
 $$
 \begin{array} { r } { m _ { b } = l { \cdot } \sum _ { \sigma } m _ { \nu , \sigma } { \cdot } c ( 1 , \sigma ) , } \end{array}

@@ -2,7 +2,7 @@ r"""Dual-object construction category for lattices."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, TypeAlias
 
 from ....cat import DualObjectsCategory
 from ...homsets import LatticeHomCategory
@@ -37,6 +37,6 @@ class LatticeDualObjectsCategory(DualObjectsCategory):
 
 
 
-LatticeDualObjectsObject = LatticeDualObjectsCategory.ParentMethods
-LatticeDualObjectsElement = LatticeDualObjectsCategory.ElementMethods
-LatticeDualObjectsMorphism = LatticeHomCategory.ElementMethods
+LatticeDualObjectsObject : TypeAlias = LatticeDualObjectsCategory.ParentMethods
+LatticeDualObjectsElement : TypeAlias = LatticeDualObjectsCategory.ElementMethods
+LatticeDualObjectsMorphism : TypeAlias = LatticeHomCategory.ElementMethods

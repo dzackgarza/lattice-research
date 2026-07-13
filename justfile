@@ -3,7 +3,7 @@
 
 export PYTHONPATH := "."
 export SAGE_PYTEST := "1"
-test_timing_dir := env_var_or_default("COBLE_RESEARCH_TEST_TIMING_DIR", justfile_directory() / ".cache/test_timings")
+test_timing_dir := env("COBLE_RESEARCH_TEST_TIMING_DIR")
 
 # Show available recipes
 default: _clean
@@ -68,7 +68,7 @@ _clean:
         -type d -empty -print0 \
         | sort -rz \
         | while IFS= read -r -d '' path; do
-            rmdir "$path" 2>/dev/null || true
+            rmdir "$path"
         done
 
 [private]

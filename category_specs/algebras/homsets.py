@@ -3,7 +3,7 @@ r"""Hom, end, and aut categories for algebras."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -45,8 +45,8 @@ class AlgebraHomCategory(HomCategoryOf):
         r"""Return the generic hom-category surface refined by algebra maps."""
         return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _AlgebraHomCategoryObjectMethods
-    ElementMethods = _AlgebraHomomorphisms
+    ParentMethods : TypeAlias = _AlgebraHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _AlgebraHomomorphisms
 
 
     # Sage axiom interop hook for _with_axiom("Endset").

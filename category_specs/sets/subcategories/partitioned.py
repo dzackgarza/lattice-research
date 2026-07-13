@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Iterator, Sequence
-from typing import TYPE_CHECKING, Any, cast, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override, TypeAlias
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -333,18 +333,18 @@ class TotallyOrderedSetsCategory(CategoryWithAxiom):
 # Type aliases
 # ---------------------------------------------------------------------------
 
-PartitionedSetsObject = PartitionedSetsCategory.ParentMethods
-PartitionedSetsElement = PartitionedSetsCategory.ElementMethods
-PartitionedSetsMorphism = SetHomCategory.ElementMethods
-PartitionedSetsHomCategory = SetHomCategory
-PartitionedSetsEndCategory = SetEndCategory
-PartitionedSetsAutCategory = SetAutCategory
-PartitionedSetsHom = SetHomCategory.ParentMethods
-PartitionedSetsEnd = SetEndCategory.ParentMethods
-PartitionedSetsAut = SetAutCategory.ParentMethods
-PartitionedSetsEndomorphism = SetEndCategory.ElementMethods
-PartitionedSetsAutomorphism = SetAutCategory.ElementMethods
+PartitionedSetsObject : TypeAlias = PartitionedSetsCategory.ParentMethods
+PartitionedSetsElement : TypeAlias = PartitionedSetsCategory.ElementMethods
+PartitionedSetsMorphism : TypeAlias = SetHomCategory.ElementMethods
+PartitionedSetsHomCategory : TypeAlias = SetHomCategory
+PartitionedSetsEndCategory : TypeAlias = SetEndCategory
+PartitionedSetsAutCategory : TypeAlias = SetAutCategory
+PartitionedSetsHom : TypeAlias = SetHomCategory.ParentMethods
+PartitionedSetsEnd : TypeAlias = SetEndCategory.ParentMethods
+PartitionedSetsAut : TypeAlias = SetAutCategory.ParentMethods
+PartitionedSetsEndomorphism : TypeAlias = SetEndCategory.ElementMethods
+PartitionedSetsAutomorphism : TypeAlias = SetAutCategory.ElementMethods
 
-PartitionsObject = PartitionsCategory.ParentMethods
-PartitionsElement = PartitionsCategory.ElementMethods
-PartitionsMorphism = SetHomCategory.ElementMethods
+PartitionsObject : TypeAlias = PartitionsCategory.ParentMethods
+PartitionsElement : TypeAlias = PartitionsCategory.ElementMethods
+PartitionsMorphism : TypeAlias = SetHomCategory.ElementMethods

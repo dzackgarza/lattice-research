@@ -6,7 +6,7 @@ which implies ``b(v, w) = -b(w, v)`` (skew-symmetry) when ``2`` is invertible.
 
 from __future__ import annotations
 
-from typing import final, override
+from typing import final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import (
@@ -51,9 +51,9 @@ class AlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
 
 
-AlternatingBilinearModulesObject = AlternatingBilinearModulesCategory.ParentMethods
-AlternatingBilinearModulesElement = AlternatingBilinearModulesCategory.ElementMethods
-AlternatingBilinearModulesMorphism = BilinearModulesMorphism
+AlternatingBilinearModulesObject : TypeAlias = AlternatingBilinearModulesCategory.ParentMethods
+AlternatingBilinearModulesElement : TypeAlias = AlternatingBilinearModulesCategory.ElementMethods
+AlternatingBilinearModulesMorphism : TypeAlias = BilinearModulesMorphism
 
 
 class OverPIDAlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -65,8 +65,8 @@ class OverPIDAlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring
     _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Alternating")
     _defining_predicates = ("is_alternating",)
 
-    ParentMethods = AlternatingBilinearModulesCategory.ParentMethods
-    ElementMethods = AlternatingBilinearModulesCategory.ElementMethods
+    ParentMethods : TypeAlias = AlternatingBilinearModulesCategory.ParentMethods
+    ElementMethods : TypeAlias = AlternatingBilinearModulesCategory.ElementMethods
 
 
 OverPIDAlternatingBilinearModulesObject = (

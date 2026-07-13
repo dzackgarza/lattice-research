@@ -22,7 +22,9 @@ def constructor_registry_for_category(
     sage_category = cast(SageCategory, category)
     provider = cat_base._explicit_constructors_provider(sage_category)  # noqa: SLF001
     if provider is None:
-        constructors = getattr(category, "Constructors", None)
+        if not hasattr(category, "Constructors"):
+            return ConstructorRegistry()
+        constructors = category.Constructors
         if not callable(constructors):
             return ConstructorRegistry()
         provider = type(constructors())
@@ -40,15 +42,9 @@ def constructor_registry_for_category(
                 method_name=constructor_name,
                 provider=provider,
                 constructor_name=constructor_name,
-                sage_entry_point=(
-                    f"{provider.__module__}.{provider.__qualname__}.{constructor_name}"
-                ),
-                target_category=_constructor_target_category(
-                    provider, constructor_name, owner
-                ),
-                target_refinement_route=_constructor_target_refinement_route(
-                    provider, constructor_name, owner
-                ),
+                sage_entry_point=(f"{provider.__module__}.{provider.__qualname__}.{constructor_name}"),
+                target_category=_constructor_target_category(provider, constructor_name, owner),
+                target_refinement_route=_constructor_target_refinement_route(provider, constructor_name, owner),
             )
             for constructor_name in constructor_names
         )
@@ -70,9 +66,7 @@ def cat_constructor_registry() -> ConstructorRegistry:
             prefix, provider
         ):
             method_name = f"{prefix}_{constructor_name}"
-            target_category = _constructor_target_category(
-                provider, constructor_name, owner
-            )
+            target_category = _constructor_target_category(provider, constructor_name, owner)
             specs.append(
                 _constructor_spec(
                     constructor_id=f"cat.{prefix}.{constructor_name}",
@@ -87,9 +81,7 @@ def cat_constructor_registry() -> ConstructorRegistry:
                         f"{owner}.Constructors()",
                         target_category,
                     ),
-                    description=(
-                        f"Forward to {owner}.Constructors().{constructor_name}."
-                    ),
+                    description=(f"Forward to {owner}.Constructors().{constructor_name}."),
                 )
             )
     return ConstructorRegistry(constructors=tuple(specs))
@@ -126,34 +118,36 @@ def _constructor_return_label(provider: type, constructor_name: str) -> str:
         return ""
     if isinstance(annotation, str):
         return annotation.strip("'\"")
-    name = getattr(annotation, "__name__", "")
-    if name:
-        return str(name)
+    if isinstance(annotation, type):
+        return str(annotation.__name__)
     return str(annotation)
 
 
-def _constructor_target_category(
-    provider: type, constructor_name: str, owner: str
-) -> str:
-    target_categories = getattr(provider, "_constructor_target_categories", {})
-    target_category = target_categories.get(constructor_name)
-    if target_category is not None:
-        return str(target_category)
+def _constructor_target_category(provider: type, constructor_name: str, owner: str) -> str:
+    match hasattr(provider, "_constructor_target_categories"):
+        case True:
+            target_categories = provider._constructor_target_categories  # type: ignore[attr-defined]
+            if constructor_name in target_categories:
+                return str(target_categories[constructor_name])
+            return_label = _constructor_return_label(provider, constructor_name)
+            if return_label:
+                return return_label
+            return owner
+        case False:
+            return_label = _constructor_return_label(provider, constructor_name)
+            if return_label:
+                return return_label
+            return owner
 
-    return_label = _constructor_return_label(provider, constructor_name)
-    if return_label:
-        return return_label
-    return owner
 
-
-def _constructor_target_refinement_route(
-    provider: type, constructor_name: str, owner: str
-) -> tuple[str, ...]:
-    target_routes = getattr(provider, "_constructor_target_refinement_routes", {})
-    target_route = target_routes.get(constructor_name)
-    if target_route is not None:
-        return tuple(str(route) for route in target_route)
-
+def _constructor_target_refinement_route(provider: type, constructor_name: str, owner: str) -> tuple[str, ...]:
+    match hasattr(provider, "_constructor_target_refinement_routes"):
+        case True:
+            target_routes = provider._constructor_target_refinement_routes  # type: ignore[attr-defined]
+            if constructor_name in target_routes:
+                return tuple(str(route) for route in target_routes[constructor_name])
+        case False:
+            pass
     target_category = _constructor_target_category(provider, constructor_name, owner)
     if target_category == owner:
         return (owner,)
@@ -172,7 +166,11 @@ def _category_owner_label(category: object) -> str:
 
 
 def _base_ring_or_none(category: object) -> Any | None:
-    base_getter = getattr(category, "base_ring", None)
-    if not callable(base_getter):
-        return None
-    return base_getter()
+    match hasattr(category, "base_ring"):
+        case False:
+            return None
+        case True:
+            base_getter = getattr(category, "base_ring")
+            if not callable(base_getter):
+                return None
+            return base_getter()

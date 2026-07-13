@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 from sage.structure.parent import Parent
@@ -139,8 +139,8 @@ class HomCategory(SageHomsetsBase):
         super_categories: list[Category] = super().super_categories()
         return super_categories
 
-    ParentMethods = UniversalHomObjectMethods
-    ElementMethods = UniversalHomElementMethods
+    ParentMethods : TypeAlias = UniversalHomObjectMethods
+    ElementMethods : TypeAlias = UniversalHomElementMethods
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport("category_specs.homsets.endsets", "EndCategory")
@@ -161,8 +161,8 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
     _functor_category = "HomCategory"
     _base_category_class = (_SageCategory,)
 
-    ParentMethods = UniversalHomObjectMethods
-    ElementMethods = UniversalHomElementMethods
+    ParentMethods : TypeAlias = UniversalHomObjectMethods
+    ElementMethods : TypeAlias = UniversalHomElementMethods
 
     def Of(self, domain: CategoryObject, codomain: CategoryObject) -> Hom:
         r"""Return ``Hom_C(domain, codomain)`` for ``C = self.base_category()``."""
@@ -213,5 +213,5 @@ class HomCategoryOf(HomCategoryConstruction):
             object_names = base_category._repr_object_names()
         return f"hom categories of {object_names}"
 
-    ParentMethods = UniversalHomObjectMethods
-    ElementMethods = UniversalHomElementMethods
+    ParentMethods : TypeAlias = UniversalHomObjectMethods
+    ElementMethods : TypeAlias = UniversalHomElementMethods

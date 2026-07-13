@@ -3,7 +3,7 @@ r"""Orthogonal direct-sum construction category."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, TypeAlias
 
 from ....cat import Category_module
 from ...homsets import LatticeHomCategory
@@ -40,6 +40,6 @@ class OrthogonalDirectSumsCategory(Category_module):
 
 
 
-OrthogonalDirectSumsObject = OrthogonalDirectSumsCategory.ParentMethods
-OrthogonalDirectSumsElement = OrthogonalDirectSumsCategory.ElementMethods
-OrthogonalDirectSumsMorphism = LatticeHomCategory.ElementMethods
+OrthogonalDirectSumsObject : TypeAlias = OrthogonalDirectSumsCategory.ParentMethods
+OrthogonalDirectSumsElement : TypeAlias = OrthogonalDirectSumsCategory.ElementMethods
+OrthogonalDirectSumsMorphism : TypeAlias = LatticeHomCategory.ElementMethods

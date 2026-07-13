@@ -23,6 +23,7 @@ from __future__ import annotations
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from typing import (
+    TypeAlias,
     TYPE_CHECKING,
     Any,
     final,
@@ -50,7 +51,7 @@ if TYPE_CHECKING:
         FiniteJoinSemilatticePoset,
         FiniteLatticePoset,
         FiniteMeetSemilatticePoset,
-        Poset,
+        Poset as _Poset,
         PosetElement,
         PosetSubset,
         SageFinitePoset,
@@ -315,7 +316,7 @@ class Posets(Category):
         @final
         def _refine_constructed_poset(
             self, poset: SageFinitePoset, category: Category
-        ) -> Poset:
+        ) -> _Poset:
             return refine_category(poset, category)
 
         @final
@@ -396,7 +397,7 @@ class Posets(Category):
             upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
             | None = None,
             upper_covers: Sequence[Sequence[PosetElement]] | None = None,
-            existing: Poset | None = None,
+            existing: _Poset | None = None,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
@@ -511,7 +512,7 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
@@ -524,7 +525,7 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
@@ -538,7 +539,7 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
@@ -552,7 +553,7 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
@@ -566,7 +567,7 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
@@ -580,7 +581,7 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
@@ -593,7 +594,7 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
@@ -606,14 +607,14 @@ class Posets(Category):
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset: ...
+        ) -> _Poset: ...
 
         @overload
         def Poset(
             self,
             *,
-            existing: Poset,
-        ) -> Poset: ...
+            existing: _Poset,
+        ) -> _Poset: ...
 
         @final
         def Poset(
@@ -631,14 +632,14 @@ class Posets(Category):
             upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
             | None = None,
             upper_covers: Sequence[Sequence[PosetElement]] | None = None,
-            existing: Poset | None = None,
+            existing: _Poset | None = None,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
             linear_extension: bool = False,
             facade: bool | None = None,
             key: Callable[[PosetElement], Any] | None = None,
-        ) -> Poset:
+        ) -> _Poset:
             r"""Return the finite poset determined by one named input shape."""
             return self._refine_constructed_poset(
                 self._raw_poset_from_named_input(
@@ -772,7 +773,7 @@ class Posets(Category):
         def MeetSemilattice(
             self,
             *,
-            existing: Poset,
+            existing: _Poset,
         ) -> FiniteMeetSemilatticePoset: ...
 
         @final
@@ -791,7 +792,7 @@ class Posets(Category):
             upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
             | None = None,
             upper_covers: Sequence[Sequence[PosetElement]] | None = None,
-            existing: Poset | None = None,
+            existing: _Poset | None = None,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
@@ -931,7 +932,7 @@ class Posets(Category):
         def JoinSemilattice(
             self,
             *,
-            existing: Poset,
+            existing: _Poset,
         ) -> FiniteJoinSemilatticePoset: ...
 
         @final
@@ -950,7 +951,7 @@ class Posets(Category):
             upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
             | None = None,
             upper_covers: Sequence[Sequence[PosetElement]] | None = None,
-            existing: Poset | None = None,
+            existing: _Poset | None = None,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
@@ -1090,7 +1091,7 @@ class Posets(Category):
         def LatticePoset(
             self,
             *,
-            existing: Poset,
+            existing: _Poset,
         ) -> FiniteLatticePoset: ...
 
         @final
@@ -1109,7 +1110,7 @@ class Posets(Category):
             upper_covers_dict: dict[PosetElement, Sequence[PosetElement]]
             | None = None,
             upper_covers: Sequence[Sequence[PosetElement]] | None = None,
-            existing: Poset | None = None,
+            existing: _Poset | None = None,
             element_labels: Sequence[PosetElement]
             | dict[PosetElement, PosetElement]
             | None = None,
@@ -1172,21 +1173,21 @@ class Posets(Category):
         "category_specs.posets.subcategories.constructions.cartesian_products",
         "_CartesianProducts",
     )
-    HomCategory = PosetHomCategory
+    HomCategory : TypeAlias = PosetHomCategory
 
-    ParentMethods = _PosetParentMethods
-    ElementMethods = _PosetElementMethods
+    ParentMethods : TypeAlias = _PosetParentMethods
+    ElementMethods : TypeAlias = _PosetElementMethods
 
 
-PosetsCategory = Posets
-type PosetsObject = _PosetParentMethods
-type PosetsElement = _PosetElementMethods
-type PosetsMorphism = _OrderPreservingMaps
-PosetsHomCategory = PosetHomCategory
-PosetsEndCategory = PosetEndCategory
-PosetsAutCategory = PosetAutCategory
-PosetsHom = PosetHomCategory.ParentMethods
-PosetsEnd = PosetEndCategory.ParentMethods
-PosetsAut = PosetAutCategory.ParentMethods
-PosetsEndomorphism = PosetEndCategory.ElementMethods
-PosetsAutomorphism = PosetAutCategory.ElementMethods
+PosetsCategory : TypeAlias = Posets
+PosetsObject : TypeAlias = _PosetParentMethods
+PosetsElement : TypeAlias = _PosetElementMethods
+PosetsMorphism : TypeAlias = _OrderPreservingMaps
+PosetsHomCategory : TypeAlias = PosetHomCategory
+PosetsEndCategory : TypeAlias = PosetEndCategory
+PosetsAutCategory : TypeAlias = PosetAutCategory
+PosetsHom : TypeAlias = PosetHomCategory.ParentMethods
+PosetsEnd : TypeAlias = PosetEndCategory.ParentMethods
+PosetsAut : TypeAlias = PosetAutCategory.ParentMethods
+PosetsEndomorphism : TypeAlias = PosetEndCategory.ElementMethods
+PosetsAutomorphism : TypeAlias = PosetAutCategory.ElementMethods

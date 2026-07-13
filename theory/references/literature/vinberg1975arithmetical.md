@@ -652,7 +652,7 @@ This completes the proof of the theorem.
 
 Remarks.
 1. If the fundamental polyhedron $P$ of the group $\Gamma$ is noncompact, the formulation of Theorem 2 can be greatly simplified.
-Indeed, in this case the necessary and sufficient condition for a group $\Gamma$ to be quasi-arithmetic is that the numbers (26) be rational.
+   Indeed, in this case the necessary and sufficient condition for a group $\Gamma$ to be quasi-arithmetic is that the numbers (26) be rational.
 
 For the proof let us consider the principal $C^0$-submatrix $B$ of $A$, which corresponds to some infinitely distant vertex of $P$.
 Its rows are linearly dependent, but the rows of the matrix $A$ which pass through it are linearly independent.
@@ -681,11 +681,11 @@ No proofs will be presented, since by virtue of Theorems 1 and 2 these proofs re
 1. Groups $\Gamma$ whose fundamental polyhedra are simplexes.
    Such groups are easiest to construct: it is merely necessary to draw any connected diagram that has the following properties.
 
-1. The number of vertices is $n + 1$.
+2. The number of vertices is $n + 1$.
 
-2. The diagram is not contained in Coxeter's tables (presented in $\frac{\sigma}{2}4$).
+3. The diagram is not contained in Coxeter's tables (presented in $\frac{\sigma}{2}4$).
 
-3. Any subdiagram of $n$ vertices either is a combination of several diagrams from Coxeter's first table, or is contained in Coxeter's second table.
+4. Any subdiagram of $n$ vertices either is a combination of several diagrams from Coxeter's first table, or is contained in Coxeter's second table.
 
 To subdiagrams of the first type (Condition 3) there correspond ordinary vertices of the simplex $P$, and to subdiagrams of the second type correspond infinitely distant vertices.
 

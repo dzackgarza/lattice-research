@@ -3,7 +3,7 @@ r"""Hom, end, and aut categories for topological spaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import final, override
+from typing import final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -62,8 +62,8 @@ class TopologicalSpaceHomCategory(HomCategoryOf):
         r"""Return the generic hom-category surface refined by continuous maps."""
         return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _TopologicalHomCategoryObjectMethods
-    ElementMethods = _ContinuousMaps
+    ParentMethods : TypeAlias = _TopologicalHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _ContinuousMaps
 
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -90,7 +90,7 @@ class TopologicalSpaceAutCategory(GenericAutCategory):
 
     class ParentMethods: ...
 
-    ElementMethods = _Homeomorphisms
+    ElementMethods : TypeAlias = _Homeomorphisms
 
 
 
@@ -106,7 +106,7 @@ class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
         r"""Return the continuous-map hom category refined by short maps."""
         return [TopologicalSpaceHomCategory(self.base_category())]
 
-    ElementMethods = _ShortMaps
+    ElementMethods : TypeAlias = _ShortMaps
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "MetricSpaceEndCategory")
@@ -132,4 +132,4 @@ class MetricSpaceAutCategory(GenericAutCategory):
 
     class ParentMethods: ...
 
-    ElementMethods = _Isometries
+    ElementMethods : TypeAlias = _Isometries

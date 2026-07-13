@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, cast, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -57,16 +57,15 @@ class RingHomCategory(HomCategoryOf):
     def from_sage_hom(cls, hom: RingHom) -> RingHom:
         from . import Rings
 
-        return refine_category(hom, Rings().HomCategory())
+        return refine_category(hom, Rings().HomCategory())  # type: ignore[call-arg]
 
     @override
     @final
     def extra_super_categories(self) -> list[Category]:
         return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _RingHomCategoryObjectMethods
-    ElementMethods = _RingHomomorphisms
-
+    ParentMethods : TypeAlias = _RingHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _RingHomomorphisms
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "RingEndCategory")
@@ -97,12 +96,9 @@ class RingEndCategory(GenericEndCategory):
 
         @final
         def unit_group(self) -> RingAut:
-            return cast(
-                "RingAut", self.category().AutCategory().from_end_category(self)
-            )
+            return cast("RingAut", self.category().AutCategory().from_end_category(self))
 
-    ElementMethods = _RingEndomorphisms
-
+    ElementMethods : TypeAlias = _RingEndomorphisms
 
 
 class RingAutCategory(GenericAutCategory):
@@ -122,4 +118,4 @@ class RingAutCategory(GenericAutCategory):
         def unit_group(self) -> RingAut:
             return self
 
-    ElementMethods = _RingAutomorphisms
+    ElementMethods : TypeAlias = _RingAutomorphisms

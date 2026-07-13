@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Sequence
-from typing import TYPE_CHECKING, Any, Literal, TypeVar, final, overload, override
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, final, overload, override, TypeAlias
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
@@ -47,7 +47,9 @@ from .homsets import (
     AlgebraAutCategory,
     AlgebraEndCategory,
     AlgebraHomCategory,
-    _AlgebraHomomorphisms,
+)
+from .homsets import (
+    _AlgebraHomomorphisms as _AlgebraHomomorphisms,
 )
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
@@ -135,8 +137,8 @@ class MagmaticAlgebras(Category_over_base_ring):
         r"""Return whether ``A`` is a Sage magmatic algebra over this base ring."""
         return A in SageMagmaticAlgebras(self.base_ring())
 
-    ParentMethods = _MagmaticAlgebraParentMethods
-    ElementMethods = _MagmaticAlgebraElementMethods
+    ParentMethods : TypeAlias = _MagmaticAlgebraParentMethods
+    ElementMethods : TypeAlias = _MagmaticAlgebraElementMethods
 
     class _Constructors:
         r"""Magmatic-algebra constructors over a fixed base ring."""
@@ -174,17 +176,10 @@ class MagmaticAlgebras(Category_over_base_ring):
             target_category: Category,
             project_target_category: Category,
         ) -> MagmaticAlgebra:
-            assert source in source_category, (
-                f"Expected source in {source_category}: {source}"
-            )
+            assert source in source_category, f"Expected source in {source_category}: {source}"
             algebra = source.algebra(self.base_ring(), category=source_category)
-            assert algebra in target_category, (
-                f"Sage constructed algebra should lie in {target_category}: "
-                f"{algebra.category()}"
-            )
-            return self._refine_constructed_magmatic_algebra(
-                algebra, project_target_category
-            )
+            assert algebra in target_category, f"Sage constructed algebra should lie in {target_category}: {algebra.category()}"
+            return self._refine_constructed_magmatic_algebra(algebra, project_target_category)
 
         @final
         def algebra(self, *, magma: Magma) -> MagmaticAlgebra:
@@ -210,31 +205,19 @@ class MagmaticAlgebras(Category_over_base_ring):
         ) -> Sequence[Matrix]:
             from sage.matrix.constructor import matrix
 
-            assert all(
-                constants.nrows() == rank and constants.ncols() == rank
-                for constants in structure_constants
-            ), (
-                f"Each structure-constant matrix must be {rank} by {rank}: "
-                f"{structure_constants}"
+            assert all(constants.nrows() == rank and constants.ncols() == rank for constants in structure_constants), (
+                f"Each structure-constant matrix must be {rank} by {rank}: {structure_constants}"
             )
             return tuple(
                 matrix(
                     self.base_ring(),
-                    [
-                        [
-                            structure_constants[output][left, right]
-                            for output in range(rank)
-                        ]
-                        for left in range(rank)
-                    ],
+                    [[structure_constants[output][left, right] for output in range(rank)] for left in range(rank)],
                 )
                 for right in range(rank)
             )
 
         @final
-        def FiniteDimensionalAlgebra(
-            self, *, multiplication: Tensor
-        ) -> MagmaticAlgebra:
+        def FiniteDimensionalAlgebra(self, *, multiplication: Tensor) -> MagmaticAlgebra:
             r"""Return the algebra whose product is encoded by ``multiplication``.
 
             The tensor must lie in ``T_R(M)[1, 2]``. Its parent determines the
@@ -243,34 +226,19 @@ class MagmaticAlgebras(Category_over_base_ring):
             of matrices, module-element matrix, or right-multiplication data
             belongs in this constructor surface.
             """
-            assert multiplication.tensor_type() == (1, 2), (
-                "Algebra multiplication tensors must have type (1, 2): "
-                f"{multiplication.tensor_type()}"
-            )
+            assert multiplication.tensor_type() == (1, 2), f"Algebra multiplication tensors must have type (1, 2): {multiplication.tensor_type()}"
             base_module = multiplication.base_module()
-            assert base_module.base_ring() is self.base_ring(), (
-                f"Multiplication tensor must be over {self.base_ring()}: "
-                f"{base_module.base_ring()}"
-            )
+            assert base_module.base_ring() is self.base_ring(), f"Multiplication tensor must be over {self.base_ring()}: {base_module.base_ring()}"
             structure_constants = multiplication.structure_constants()
-            assert len(structure_constants) == base_module.rank(), (
-                f"Expected one coordinate matrix for each output generator of "
-                f"{base_module}: {structure_constants}"
-            )
+            assert len(structure_constants) == base_module.rank(), f"Expected one coordinate matrix for each output generator of {base_module}: {structure_constants}"
             from sage.algebras.finite_dimensional_algebras import (
                 finite_dimensional_algebra,
             )
 
             R = self.base_ring()
-            FiniteDimensionalAlgebra = (
-                finite_dimensional_algebra.FiniteDimensionalAlgebra
-            )
-            table = self._right_multiplication_table(
-                structure_constants, base_module.rank()
-            )
-            sage_magmatic_target = (
-                SageMagmaticAlgebras(R).FiniteDimensional().WithBasis()
-            )
+            FiniteDimensionalAlgebra = finite_dimensional_algebra.FiniteDimensionalAlgebra
+            table = self._right_multiplication_table(structure_constants, base_module.rank())
+            sage_magmatic_target = SageMagmaticAlgebras(R).FiniteDimensional().WithBasis()
             algebra = FiniteDimensionalAlgebra(R, table, category=sage_magmatic_target)
             project_target: Category = self.category()
             if algebra.is_associative():
@@ -306,9 +274,7 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
     @final
     def __contains__(self, A: Any) -> bool:
         r"""Return whether ``A`` is a Sage associative algebra over this base ring."""
-        return A in MagmaticAlgebras(self.base_ring()) and A in SageAssociativeAlgebras(
-            self.base_ring()
-        )
+        return A in MagmaticAlgebras(self.base_ring()) and A in SageAssociativeAlgebras(self.base_ring())
 
     class ParentMethods:
         @final
@@ -337,9 +303,7 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
         def algebra(self, *, semigroup: Semigroup) -> AssociativeAlgebra: ...
 
         @overload
-        def algebra(
-            self, *, additive_semigroup: AdditiveSemigroup
-        ) -> AssociativeAlgebra: ...
+        def algebra(self, *, additive_semigroup: AdditiveSemigroup) -> AssociativeAlgebra: ...
 
         @final
         def algebra(
@@ -352,10 +316,7 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
 
             Multiplication is induced by the semigroup law.
             """
-            assert (semigroup is None) != (additive_semigroup is None), (
-                "algebra requires exactly one named source: "
-                "semigroup or additive_semigroup"
-            )
+            assert (semigroup is None) != (additive_semigroup is None), "algebra requires exactly one named source: semigroup or additive_semigroup"
             target = SageAssociativeAlgebras(self.base_ring()).WithBasis()
             if semigroup is not None:
                 from sage.categories.semigroups import Semigroups
@@ -441,9 +402,7 @@ class _AlgebraParentMethods:
         r"""Return the smallest ``R``-submodule containing ``generators`` and
         closed under left and right multiplication by ``A``."""
         algebra_parent: Any = self
-        ideal: AlgebraIdeal = algebra_parent.ideal_submodule(
-            generators, side="twosided"
-        )
+        ideal: AlgebraIdeal = algebra_parent.ideal_submodule(generators, side="twosided")
         return ideal
 
     @final
@@ -464,9 +423,7 @@ class _AlgebraParentMethods:
     def principal_two_sided_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal two-sided ideal ``A * generator * A``."""
         algebra_parent: Any = self
-        ideal: AlgebraIdeal = algebra_parent.principal_ideal(
-            generator, side="twosided"
-        )
+        ideal: AlgebraIdeal = algebra_parent.principal_ideal(generator, side="twosided")
         return ideal
 
     @abstractmethod
@@ -543,9 +500,9 @@ class Algebras(Category_module):
             SageAlgebras(R),
         ]
 
-    ParentMethods = _AlgebraParentMethods
-    ElementMethods = _AlgebraElementMethods
-    HomCategory = AlgebraHomCategory
+    ParentMethods : TypeAlias = _AlgebraParentMethods
+    ElementMethods : TypeAlias = _AlgebraElementMethods
+    HomCategory : TypeAlias = AlgebraHomCategory
 
     class SubcategoryMethods:
         @final
@@ -618,26 +575,16 @@ class Algebras(Category_module):
             return self.category().base_ring()
 
         @final
-        def _refine_constructed_algebra(
-            self, algebra: Algebra, category: Category
-        ) -> Algebra:
+        def _refine_constructed_algebra(self, algebra: Algebra, category: Category) -> Algebra:
             return refine_category(algebra, category, test=False)
 
         @final
         def _sage_algebra_from_source(
             self,
-            source: Magma
-            | Semigroup
-            | Monoid
-            | Group
-            | AdditiveSemigroup
-            | AdditiveMonoid
-            | AdditiveGroup,
+            source: Magma | Semigroup | Monoid | Group | AdditiveSemigroup | AdditiveMonoid | AdditiveGroup,
             source_category: Category,
         ) -> Algebra:
-            assert source in source_category, (
-                f"Expected source in {source_category}: {source}"
-            )
+            assert source in source_category, f"Expected source in {source_category}: {source}"
             algebra = source.algebra(self.base_ring(), category=source_category)
             return self._refine_constructed_algebra(algebra, self.category().WithBasis())
 
@@ -712,39 +659,23 @@ class Algebras(Category_module):
                     ("generator_names", generator_names is not None),
                     (
                         "generator_count plus names/name",
-                        generator_count is not None
-                        and (names is not None or name is not None),
+                        generator_count is not None and (names is not None or name is not None),
                     ),
                 )
                 if present
             )
             assert len(named_shapes) == 1, (
-                "FreeAlgebra requires exactly one source shape: generators, "
-                "generator_names, or generator_count with names/name; received "
-                f"{named_shapes}"
+                f"FreeAlgebra requires exactly one source shape: generators, generator_names, or generator_count with names/name; received {named_shapes}"
             )
-            assert not (names is not None and name is not None), (
-                "FreeAlgebra accepts names or name, not both"
-            )
+            assert not (names is not None and name is not None), "FreeAlgebra accepts names or name, not both"
 
             if generators is not None:
-                assert (
-                    generator_names is None
-                    and generator_count is None
-                    and names is None
-                    and name is None
-                ), (
-                    "FreeAlgebra(generators=...) does not accept generator_names, "
-                    "generator_count, names, or name"
+                assert generator_names is None and generator_count is None and names is None and name is None, (
+                    "FreeAlgebra(generators=...) does not accept generator_names, generator_count, names, or name"
                 )
-                assert generators.is_finite(), (
-                    "FreeAlgebra currently requires a finite generator set"
-                )
+                assert generators.is_finite(), "FreeAlgebra currently requires a finite generator set"
                 generator_tuple: tuple[SetElement, ...] = tuple(generators)
-                assert len(generator_tuple) == generators.cardinality(), (
-                    "finite generator set iteration must recover every generator of "
-                    f"{generators}"
-                )
+                assert len(generator_tuple) == generators.cardinality(), f"finite generator set iteration must recover every generator of {generators}"
                 generated_names = tuple(f"x{i}" for i, _ in enumerate(generator_tuple))
                 algebra = FreeAlgebra(
                     self.base_ring(),
@@ -756,27 +687,15 @@ class Algebras(Category_module):
                     order=order,
                 )
                 algebra._category_specs_generator_set = generators
-                algebra._category_specs_generator_presentation = tuple(
-                    zip(generator_tuple, algebra.gens(), strict=True)
-                )
-                return self._refine_constructed_algebra(
-                    algebra, self.category().WithBasis()
-                )
+                algebra._category_specs_generator_presentation = tuple(zip(generator_tuple, algebra.gens(), strict=True))
+                return self._refine_constructed_algebra(algebra, self.category().WithBasis())
 
             if generator_names is not None:
-                assert generators is None and names is None and name is None, (
-                    "FreeAlgebra(generator_names=...) does not accept generators, "
-                    "names, or name"
-                )
-                assert not isinstance(generator_names, str), (
-                    "generator_names must be a finite sequence of complete names, "
-                    "not one combined name string"
-                )
+                assert generators is None and names is None and name is None, "FreeAlgebra(generator_names=...) does not accept generators, names, or name"
+                assert not isinstance(generator_names, str), "generator_names must be a finite sequence of complete names, not one combined name string"
                 generator_name_tuple = tuple(generator_names)
                 if generator_count is not None:
-                    assert int(generator_count) == len(generator_name_tuple), (
-                        "generator_count must equal the number of generator_names"
-                    )
+                    assert int(generator_count) == len(generator_name_tuple), "generator_count must equal the number of generator_names"
                     algebra = FreeAlgebra(
                         self.base_ring(),
                         generator_name_tuple,
@@ -795,9 +714,7 @@ class Algebras(Category_module):
                         sparse=sparse,
                         order=order,
                     )
-                return self._refine_constructed_algebra(
-                    algebra, self.category().WithBasis()
-                )
+                return self._refine_constructed_algebra(algebra, self.category().WithBasis())
 
             assert generator_count is not None
             if names is not None:
@@ -848,15 +765,8 @@ class Algebras(Category_module):
             additive_group: AdditiveGroup | None = None,
         ) -> Algebra:
             r"""Return the algebra induced by the named source structure."""
-            named_sources = tuple(
-                source
-                for source in (monoid, additive_monoid, additive_group)
-                if source is not None
-            )
-            assert len(named_sources) == 1, (
-                "algebra requires exactly one named source: "
-                "monoid, additive_monoid, or additive_group"
-            )
+            named_sources = tuple(source for source in (monoid, additive_monoid, additive_group) if source is not None)
+            assert len(named_sources) == 1, "algebra requires exactly one named source: monoid, additive_monoid, or additive_group"
             if monoid is not None:
                 from sage.categories.monoids import Monoids
 
@@ -864,9 +774,7 @@ class Algebras(Category_module):
             if additive_monoid is not None:
                 from sage.categories.additive_monoids import AdditiveMonoids
 
-                return self._sage_algebra_from_source(
-                    additive_monoid, AdditiveMonoids()
-                )
+                return self._sage_algebra_from_source(additive_monoid, AdditiveMonoids())
             from sage.categories.additive_groups import AdditiveGroups
 
             assert additive_group is not None
@@ -877,49 +785,43 @@ class Algebras(Category_module):
         r"""Return the named algebra constructor collector over this base ring."""
         return self.__class__._Constructors(self)
 
-    Commutative = LazyImport(
-        "category_specs.algebras.subcategories.commutative", "_CommutativeAlgebras"
-    )
-    WithBasis = LazyImport(
-        "category_specs.algebras.subcategories.with_basis", "_AlgebrasWithBasis"
-    )
+    Commutative = LazyImport("category_specs.algebras.subcategories.commutative", "_CommutativeAlgebras")
+    WithBasis = LazyImport("category_specs.algebras.subcategories.with_basis", "_AlgebrasWithBasis")
     FiniteDimensional = LazyImport(
         "category_specs.algebras.subcategories.finite_dimensional",
         "_FiniteDimensionalAlgebras",
     )
-    Semisimple = LazyImport(
-        "category_specs.algebras.subcategories.semisimple", "_SemisimpleAlgebras"
-    )
+    Semisimple = LazyImport("category_specs.algebras.subcategories.semisimple", "_SemisimpleAlgebras")
 
-    Subobjects = _Subobjects
-    Quotients = _Quotients
-    Subquotients = _Subquotients
-    ObjectsOver = _ObjectsOver
-    ObjectsUnder = _ObjectsUnder
-    Ideals = AlgebraIdealsCategory
-    CartesianProducts = _CartesianProducts
-    TensorProducts = _TensorProducts
-    DualObjects = _DualObjects
+    Subobjects : TypeAlias = _Subobjects
+    Quotients : TypeAlias = _Quotients
+    Subquotients : TypeAlias = _Subquotients
+    ObjectsOver : TypeAlias = _ObjectsOver
+    ObjectsUnder : TypeAlias = _ObjectsUnder
+    Ideals : TypeAlias = AlgebraIdealsCategory
+    CartesianProducts : TypeAlias = _CartesianProducts
+    TensorProducts : TypeAlias = _TensorProducts
+    DualObjects : TypeAlias = _DualObjects
 
 
-AlgebrasCategory = Algebras
-type AlgebrasObject = Algebras.ParentMethods
-type AlgebrasElement = Algebras.ElementMethods
-type AlgebrasMorphism = AlgebraHomCategory.ElementMethods
-AlgebrasHomCategory = AlgebraHomCategory
-AlgebrasEndCategory = AlgebraEndCategory
-AlgebrasAutCategory = AlgebraAutCategory
-AlgebrasHom = AlgebraHomCategory.ParentMethods
-AlgebrasEnd = AlgebraEndCategory.ParentMethods
-AlgebrasAut = AlgebraAutCategory.ParentMethods
-AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
-AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
+AlgebrasCategory : TypeAlias = Algebras
+AlgebrasObject : TypeAlias = Algebras.ParentMethods
+AlgebrasElement : TypeAlias = Algebras.ElementMethods
+AlgebrasMorphism : TypeAlias = AlgebraHomCategory.ElementMethods
+AlgebrasHomCategory : TypeAlias = AlgebraHomCategory
+AlgebrasEndCategory : TypeAlias = AlgebraEndCategory
+AlgebrasAutCategory : TypeAlias = AlgebraAutCategory
+AlgebrasHom : TypeAlias = AlgebraHomCategory.ParentMethods
+AlgebrasEnd : TypeAlias = AlgebraEndCategory.ParentMethods
+AlgebrasAut : TypeAlias = AlgebraAutCategory.ParentMethods
+AlgebrasEndomorphism : TypeAlias = AlgebraEndCategory.ElementMethods
+AlgebrasAutomorphism : TypeAlias = AlgebraAutCategory.ElementMethods
 
-MagmaticAlgebrasCategory = MagmaticAlgebras
-type MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
-MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
-MagmaticAlgebrasMorphism = AlgebraHomCategory.ElementMethods
-AssociativeAlgebrasCategory = AssociativeAlgebras
-AssociativeAlgebrasObject = AssociativeAlgebras.ParentMethods
-AssociativeAlgebrasElement = AssociativeAlgebras.ElementMethods
-AssociativeAlgebrasMorphism = AlgebraHomCategory.ElementMethods
+MagmaticAlgebrasCategory : TypeAlias = MagmaticAlgebras
+MagmaticAlgebrasObject : TypeAlias = MagmaticAlgebras.ParentMethods
+MagmaticAlgebrasElement : TypeAlias = MagmaticAlgebras.ElementMethods
+MagmaticAlgebrasMorphism : TypeAlias = AlgebraHomCategory.ElementMethods
+AssociativeAlgebrasCategory : TypeAlias = AssociativeAlgebras
+AssociativeAlgebrasObject : TypeAlias = AssociativeAlgebras.ParentMethods
+AssociativeAlgebrasElement : TypeAlias = AssociativeAlgebras.ElementMethods
+AssociativeAlgebrasMorphism : TypeAlias = AlgebraHomCategory.ElementMethods

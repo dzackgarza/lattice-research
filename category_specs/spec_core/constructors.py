@@ -78,7 +78,9 @@ class ConstructorRegistry(BaseModel):
     def _constructors_by_owner(self) -> dict[str, tuple[ConstructorSpec, ...]]:
         grouped: dict[str, list[ConstructorSpec]] = {}
         for constructor in self.constructors:
-            grouped.setdefault(constructor.owner_category, []).append(constructor)
+            if constructor.owner_category not in grouped:
+                grouped[constructor.owner_category] = []
+            grouped[constructor.owner_category].append(constructor)
         return {owner: tuple(items) for owner, items in grouped.items()}
 
     @cached_property
@@ -86,11 +88,10 @@ class ConstructorRegistry(BaseModel):
         grouped: dict[str, list[ConstructorSpec]] = {}
         for constructor in self.constructors:
             for obligation_id in constructor.obligation_ids:
-                grouped.setdefault(obligation_id, []).append(constructor)
-        return {
-            obligation_id: tuple(items)
-            for obligation_id, items in grouped.items()
-        }
+                if obligation_id not in grouped:
+                    grouped[obligation_id] = []
+                grouped[obligation_id].append(constructor)
+        return {obligation_id: tuple(items) for obligation_id, items in grouped.items()}
 
     def has_constructor(self, constructor_id: str) -> bool:
         return constructor_id in self._constructors_by_id
@@ -102,21 +103,19 @@ class ConstructorRegistry(BaseModel):
         return constructor
 
     def by_owner(self, owner_category: str) -> tuple[ConstructorSpec, ...]:
-        return self._constructors_by_owner.get(owner_category, ())
+        assert owner_category in self._constructors_by_owner, f"unknown owner category: {owner_category}"
+        return self._constructors_by_owner[owner_category]
 
     def owners(self) -> tuple[str, ...]:
         owners = tuple(self._constructors_by_owner.keys())
         return tuple(sorted(owners))
 
     def with_obligation(self, obligation_id: str) -> tuple[ConstructorSpec, ...]:
-        return self._constructors_by_obligation.get(obligation_id, ())
+        assert obligation_id in self._constructors_by_obligation, f"unknown obligation id: {obligation_id}"
+        return self._constructors_by_obligation[obligation_id]
 
     def by_route_target(self, target_category: str) -> tuple[ConstructorSpec, ...]:
-        return tuple(
-            constructor
-            for constructor in self.constructors
-            if constructor.target_category == target_category
-        )
+        return tuple(constructor for constructor in self.constructors if constructor.target_category == target_category)
 
 
 ConstructorRegistry.model_rebuild()

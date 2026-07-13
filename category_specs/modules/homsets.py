@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, final, override
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override, TypeAlias
 
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.lazy_import import LazyImport
@@ -34,6 +34,7 @@ from ..homsets import (
     UniversalHomElementMethods,
     UniversalHomObjectMethods,
 )
+from ..types import Ring, RModMorphism, RModuleElement
 
 if TYPE_CHECKING:
     from typing import Self
@@ -46,13 +47,10 @@ if TYPE_CHECKING:
         QuadraticForm,
         QuadraticFormsModule,
         QuotientModule,
-        Ring,
         RingElement,
         RingMorphism,
         RModAut,
-        RModMorphism,
         RModule,
-        RModuleElement,
         SubModule,
     )
 
@@ -65,20 +63,11 @@ _F = TypeVar("_F", bound=Callable[..., object])
 
 
 class _RModHomCategoryObjectMethods(UniversalHomObjectMethods):
-    @abstractmethod
-    def domain(self) -> RModule:
-        r"""Return the source module of this hom object."""
-        ...
-
-    @abstractmethod
-    def codomain(self) -> RModule:
-        r"""Return the target module of this hom object."""
-        ...
-
     @final
     def base_ring(self) -> Ring:
         r"""Return the scalar ring of this module Hom object."""
-        return self.domain().base_ring()
+        domain: Any = self.domain()
+        return cast(Ring, domain.base_ring())
 
     @abstractmethod
     def __call__(
@@ -87,13 +76,13 @@ class _RModHomCategoryObjectMethods(UniversalHomObjectMethods):
     ) -> RModMorphism:
         r"""Coerce module-morphism data into this hom object."""
         ...
+
     @final
     def zero(self) -> RModMorphism:
         from sage.misc.constant_function import ConstantFunction
 
-        zero_function: Callable[[RModuleElement], RModuleElement] = ConstantFunction(
-            self.codomain().zero()
-        )
+        codomain: Any = self.codomain()
+        zero_function: Callable[[RModuleElement], RModuleElement] = ConstantFunction(cast(RModuleElement, codomain.zero()))
         return self(zero_function)
 
     @abstractmethod
@@ -231,7 +220,10 @@ class _RModMorphisms(UniversalHomElementMethods):
         Sat_B(im(f)) and return ``h := g \circ f`` in Hom_R(A, B) so that
         im(h) is saturated.
         """
-        return self.image().saturation().inclusion().pre_compose(self)
+        im: Any = self.image()
+        sat: Any = im.saturation()
+        incl: Any = sat.inclusion()
+        return cast(Self, incl.pre_compose(self))
 
 
 # ---------------------------------------------------------------------------
@@ -277,11 +269,11 @@ class RModuleHomCategory(HomCategoryOf):
     class SubcategoryMethods:
         @final
         def Forms(self) -> Category:
-            return self._with_axiom("Forms")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Forms"))
 
-    ParentMethods = _RModHomCategoryObjectMethods
-    ElementMethods = _RModMorphisms
-
+    ParentMethods : TypeAlias = _RModHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _RModMorphisms
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "RModuleEndCategory")
@@ -320,41 +312,55 @@ class _Forms(CategoryWithAxiom):
         @final
         def Rational(self) -> Category:
             r"""Forms with target ``S = K`` in ``Hom_R(T_R(M)[p,q], S)``."""
-            return self._with_axiom("Rational")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Rational"))
+
         @final
         def Integral(self) -> Category:
             r"""Forms with target ``S = R`` in ``Hom_R(T_R(M)[p,q], S)``."""
-            return self._with_axiom("Integral")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Integral"))
+
         @final
         def Linear(self) -> Category:
             r"""Linear forms: domain ``T_R(M)[1,0]=M``, represented type ``(0,1)``."""
-            return self._with_axiom("Linear")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Linear"))
+
         @final
         def Bilinear(self) -> Category:
             r"""Bilinear forms: domain ``T_R(M)[2,0]``, represented type ``(0,2)``."""
-            return self._with_axiom("Bilinear")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Bilinear"))
+
         @final
         def Quadratic(self) -> Category:
             r"""Quadratic forms on ``M``."""
-            return self._with_axiom("Quadratic")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Quadratic"))
+
         @final
         def NonDegenerate(self) -> Category:
             r"""Forms with trivial kernels."""
-            return self._with_axiom("NonDegenerate")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("NonDegenerate"))
+
         @final
         def Symmetric(self) -> Category:
             r"""Symmetric forms: represented type ``(0,n)``."""
-            return self._with_axiom("Symmetric")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Symmetric"))
+
         @final
         def Alternating(self) -> Category:
             r"""Alternating forms: represented type ``(0,n)``."""
-            return self._with_axiom("Alternating")
+            self_any: Any = self
+            return cast(Category, self_any._with_axiom("Alternating"))
 
     Bilinear = LazyImport(__name__, "_Bilinear")
     Quadratic = LazyImport(__name__, "_Quadratic")
 
     class ElementMethods: ...
-
 
 
 class _Bilinear(CategoryWithAxiom):
@@ -375,8 +381,8 @@ class _Bilinear(CategoryWithAxiom):
 
         @final
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            return self.evaluate(v.tensor(w))
-
+            v_any: Any = v
+            return self.evaluate(v_any.tensor(w))
 
 
 class _Quadratic(CategoryWithAxiom):
@@ -398,7 +404,6 @@ class _Quadratic(CategoryWithAxiom):
         @final
         def q(self, v: RModuleElement) -> RModuleElement:
             return self.evaluate(v)
-
 
 
 # ---------------------------------------------------------------------------
@@ -447,9 +452,8 @@ class RModuleEndCategory(GenericEndCategory):
             Modules(R),
         ]
 
-    ParentMethods = _RModEndObjectMethods
-    ElementMethods = _RModEndomorphisms
-
+    ParentMethods : TypeAlias = _RModEndObjectMethods
+    ElementMethods : TypeAlias = _RModEndomorphisms
 
 
 class RModuleAutCategory(GenericAutCategory):
@@ -471,5 +475,5 @@ class RModuleAutCategory(GenericAutCategory):
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
         return super().extra_super_categories()
 
-    ParentMethods = _RModAutObjectMethods
-    ElementMethods = _RModAutomorphisms
+    ParentMethods : TypeAlias = _RModAutObjectMethods
+    ElementMethods : TypeAlias = _RModAutomorphisms

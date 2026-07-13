@@ -8,7 +8,7 @@ declares the category-spec surface that will wrap that machinery.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import Any, final, override
+from typing import Any, final, override, TypeAlias
 
 from sage.categories.functor import Functor
 from sage.categories.pushout import ConstructionFunctor
@@ -124,10 +124,10 @@ class CatHomCategory(HomCategoryOf):
         r"""Return Sage's supercategories refined by Cat functor semantics."""
         return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _CatHomCategoryObjectMethods
-    ElementMethods = _CatFunctorMethods
+    ParentMethods : TypeAlias = _CatHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _CatFunctorMethods
 
 
-    ConstructionFunctorMethods = _CatConstructionFunctorMethods
+    ConstructionFunctorMethods : TypeAlias = _CatConstructionFunctorMethods
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport("category_specs.cat.endsets", "CatEndCategory")

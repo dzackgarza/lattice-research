@@ -259,8 +259,8 @@ $\omega_{\tilde{A}} \simeq \mathcal{O}(\sum E_i)$  and  $\omega_{\tilde{A}} \sim
 
 This shows $\pi^{*}\omega_{X} \simeq \mathcal{O}*{\tilde{A}}$.
 Here, the $E*{i}$ are the exceptional divisors of $\tilde{A} \longrightarrow A$.
-Their images $\bar{E}_i$ in $X$ satisfy $\pi^{*}\mathcal{O}(\bar{E}*{i}) \simeq \mathcal{O}(2E*{i})$.
-$\pi_{*}\mathcal{O}*{\tilde{A}} \simeq \mathcal{O}*{X} \oplus L^{*}$, where the line bundle $L$ is a square root of $\mathcal{O}(\sum \bar{E}*i)$, and hence $\pi^{*}\omega*{X} \simeq \mathcal{O}*{\tilde{A}}$ implies $\omega*{X} \simeq \mathcal{O}*{X}$.
+Their images $\bar{E}*i$ in $X$ satisfy $\pi^{*}\mathcal{O}(\bar{E}*{i}) \simeq \mathcal{O}(2E*{i})$.
+$\pi*{*}\mathcal{O}*{\tilde{A}} \simeq \mathcal{O}*{X} \oplus L^{*}$, where the line bundle $L$ is a square root of $\mathcal{O}(\sum \bar{E}*i)$, and hence $\pi^{*}\omega*{X} \simeq \mathcal{O}*{\tilde{A}}$ implies $\omega*{X} \simeq \mathcal{O}*{X}$.
 Finally note that the image of the injection $H^{1}(X,\mathcal{O}*{X}) \hookrightarrow H^{1}(\tilde{A},\mathcal{O}*{\tilde{A}}) = H^{1}(A,\mathcal{O}*{A})$ is contained in the invariant part of the action induced by $\iota$.
 Hence, $H^{1}(X,\mathcal{O}_{X}) = 0$.
 See Remark 14.3.16 for a converse describing which K3 surfaces are Kummer surfaces.

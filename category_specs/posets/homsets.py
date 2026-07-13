@@ -3,7 +3,7 @@ r"""Hom, end, and aut categories for posets."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -61,8 +61,8 @@ class PosetHomCategory(HomCategoryOf):
         r"""Return the generic hom-category surface refined by order-preserving maps."""
         return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _PosetHomCategoryObjectMethods
-    ElementMethods = _OrderPreservingMaps
+    ParentMethods : TypeAlias = _PosetHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _OrderPreservingMaps
 
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -82,7 +82,7 @@ class PosetEndCategory(GenericEndCategory):
             r"""Return the poset whose endomorphisms this object contains."""
             ...
 
-    ElementMethods = _PosetEndomorphisms
+    ElementMethods : TypeAlias = _PosetEndomorphisms
 
 
 
@@ -93,4 +93,4 @@ class PosetAutCategory(GenericAutCategory):
 
     class ParentMethods: ...
 
-    ElementMethods = _PosetAutomorphisms
+    ElementMethods : TypeAlias = _PosetAutomorphisms

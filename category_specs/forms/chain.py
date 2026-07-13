@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Protocol, TypeVar, final
+from typing import TYPE_CHECKING, Protocol, TypeVar, final, TypeAlias
 
 from sage.categories.category import Category
 from sage.misc.lazy_import import LazyImport
@@ -235,9 +235,9 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
     Lattice = LazyImport("category_specs.lattices.chain", "LatticesCategory")
 
 
-FiniteRankFreeFormedModulesObject = FiniteRankFreeFormedModulesCategory.ParentMethods
-FiniteRankFreeFormedModulesElement = FiniteRankFreeFormedModulesCategory.ElementMethods
-FiniteRankFreeFormedModulesMorphism = FormedModulesMorphism
+FiniteRankFreeFormedModulesObject : TypeAlias = FiniteRankFreeFormedModulesCategory.ParentMethods
+FiniteRankFreeFormedModulesElement : TypeAlias = FiniteRankFreeFormedModulesCategory.ElementMethods
+FiniteRankFreeFormedModulesMorphism : TypeAlias = FormedModulesMorphism
 
 FiniteRankFreeBilinearModulesObject = (
     FiniteRankFreeBilinearModulesCategory.ParentMethods
@@ -245,7 +245,7 @@ FiniteRankFreeBilinearModulesObject = (
 FiniteRankFreeBilinearModulesElement = (
     FiniteRankFreeBilinearModulesCategory.ElementMethods
 )
-FiniteRankFreeBilinearModulesMorphism = FreeBilinearModulesMorphism
+FiniteRankFreeBilinearModulesMorphism : TypeAlias = FreeBilinearModulesMorphism
 
 SymmetricFiniteRankFreeBilinearModulesObject = (
     SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
@@ -253,7 +253,7 @@ SymmetricFiniteRankFreeBilinearModulesObject = (
 SymmetricFiniteRankFreeBilinearModulesElement = (
     SymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
 )
-SymmetricFiniteRankFreeBilinearModulesMorphism = FreeBilinearModulesMorphism
+SymmetricFiniteRankFreeBilinearModulesMorphism : TypeAlias = FreeBilinearModulesMorphism
 
 NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
     NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods

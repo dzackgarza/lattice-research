@@ -10,7 +10,7 @@ object; generators or presentations belong only to stronger group refinements.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -83,8 +83,8 @@ class LatticeHomCategory(HomCategoryOf):
         R = self.base_category().base_ring()
         return [HomCategoryOf(self.base_category()), Modules(R).HomCategory()]
 
-    ParentMethods = _LatticeHomCategoryObjectMethods
-    ElementMethods = _LatticeMorphisms
+    ParentMethods : TypeAlias = _LatticeHomCategoryObjectMethods
+    ElementMethods : TypeAlias = _LatticeMorphisms
 
 
     Endset = LazyImport(__name__, "LatticeEndCategory")
@@ -103,7 +103,7 @@ class LatticeEndCategory(GenericEndCategory):
         @abstractmethod
         def base_lattice(self) -> Lattice: ...
 
-    ElementMethods = _LatticeEndomorphisms
+    ElementMethods : TypeAlias = _LatticeEndomorphisms
 
 
 
@@ -212,4 +212,4 @@ class LatticeAutCategory(GenericAutCategory):
             r"""Return ``\widetilde{SO}^+(L)``."""
             return self.stable_special_plus_subgroup()
 
-    ElementMethods = _LatticeAutomorphisms
+    ElementMethods : TypeAlias = _LatticeAutomorphisms

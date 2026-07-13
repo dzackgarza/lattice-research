@@ -31,7 +31,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, TypeVar, cast, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -116,9 +116,9 @@ class TopologicalSpaces(CategoryWithAxiom):
     """
 
     _base_category_class_and_axiom = (Sets, "Topological")
-    ParentMethods = _TopologicalSpaceObjectMethods
-    ElementMethods = _TopologicalSpaceElementMethods
-    HomCategory = TopologicalSpaceHomCategory
+    ParentMethods : TypeAlias = _TopologicalSpaceObjectMethods
+    ElementMethods : TypeAlias = _TopologicalSpaceElementMethods
+    HomCategory : TypeAlias = TopologicalSpaceHomCategory
     Metric = LazyImport(
         "category_specs.topological_spaces.subcategories.metric", "MetricSpacesCategory"
     )
@@ -183,38 +183,38 @@ class TopologicalSpaces(CategoryWithAxiom):
             r"""Return the metric-space subcategory."""
             return cast(Category, with_axiom(self, "Metric"))
 
-    Subobjects = _Subobjects
-    Quotients = _Quotients
-    Subquotients = _Subquotients
-    ObjectsOver = _ObjectsOver
-    ObjectsUnder = _ObjectsUnder
-    CartesianProducts = _CartesianProducts
+    Subobjects : TypeAlias = _Subobjects
+    Quotients : TypeAlias = _Quotients
+    Subquotients : TypeAlias = _Subquotients
+    ObjectsOver : TypeAlias = _ObjectsOver
+    ObjectsUnder : TypeAlias = _ObjectsUnder
+    CartesianProducts : TypeAlias = _CartesianProducts
 
 
 from .subcategories.metric import MetricSpacesCategory  # noqa: E402
 
-MetricSpacesObject = MetricSpacesCategory.ParentMethods
-MetricSpacesElement = MetricSpacesCategory.ElementMethods
-MetricSpacesMorphism = MetricSpaceHomCategory.ElementMethods
-MetricSpacesHomCategory = MetricSpaceHomCategory
-MetricSpacesEndCategory = MetricSpaceEndCategory
-MetricSpacesAutCategory = MetricSpaceAutCategory
-MetricSpacesHom = MetricSpaceHomCategory.ParentMethods
-MetricSpacesEnd = MetricSpaceEndCategory.ParentMethods
-MetricSpacesAut = MetricSpaceAutCategory.ParentMethods
-MetricSpacesEndomorphism = MetricSpaceEndCategory.ElementMethods
-MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
+MetricSpacesObject : TypeAlias = MetricSpacesCategory.ParentMethods
+MetricSpacesElement : TypeAlias = MetricSpacesCategory.ElementMethods
+MetricSpacesMorphism : TypeAlias = MetricSpaceHomCategory.ElementMethods
+MetricSpacesHomCategory : TypeAlias = MetricSpaceHomCategory
+MetricSpacesEndCategory : TypeAlias = MetricSpaceEndCategory
+MetricSpacesAutCategory : TypeAlias = MetricSpaceAutCategory
+MetricSpacesHom : TypeAlias = MetricSpaceHomCategory.ParentMethods
+MetricSpacesEnd : TypeAlias = MetricSpaceEndCategory.ParentMethods
+MetricSpacesAut : TypeAlias = MetricSpaceAutCategory.ParentMethods
+MetricSpacesEndomorphism : TypeAlias = MetricSpaceEndCategory.ElementMethods
+MetricSpacesAutomorphism : TypeAlias = MetricSpaceAutCategory.ElementMethods
 
 
-TopologicalSpacesCategory = TopologicalSpaces
-type TopologicalSpacesObject = TopologicalSpaces.ParentMethods
-TopologicalSpacesElement = TopologicalSpaces.ElementMethods
-TopologicalSpacesMorphism = TopologicalSpaceHomCategory.ElementMethods
-TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
-TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
-TopologicalSpacesAutCategory = TopologicalSpaceAutCategory
-TopologicalSpacesHom = TopologicalSpaceHomCategory.ParentMethods
-TopologicalSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
-TopologicalSpacesAut = TopologicalSpaceAutCategory.ParentMethods
-TopologicalSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
-TopologicalSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods
+TopologicalSpacesCategory : TypeAlias = TopologicalSpaces
+TopologicalSpacesObject : TypeAlias = TopologicalSpaces.ParentMethods
+TopologicalSpacesElement : TypeAlias = TopologicalSpaces.ElementMethods
+TopologicalSpacesMorphism : TypeAlias = TopologicalSpaceHomCategory.ElementMethods
+TopologicalSpacesHomCategory : TypeAlias = TopologicalSpaceHomCategory
+TopologicalSpacesEndCategory : TypeAlias = TopologicalSpaceEndCategory
+TopologicalSpacesAutCategory : TypeAlias = TopologicalSpaceAutCategory
+TopologicalSpacesHom : TypeAlias = TopologicalSpaceHomCategory.ParentMethods
+TopologicalSpacesEnd : TypeAlias = TopologicalSpaceEndCategory.ParentMethods
+TopologicalSpacesAut : TypeAlias = TopologicalSpaceAutCategory.ParentMethods
+TopologicalSpacesEndomorphism : TypeAlias = TopologicalSpaceEndCategory.ElementMethods
+TopologicalSpacesAutomorphism : TypeAlias = TopologicalSpaceAutCategory.ElementMethods

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast, final, overload, override
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast, final, overload, override, TypeAlias
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.lazy_import import LazyImport

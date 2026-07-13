@@ -17963,7 +17963,7 @@ Table 29.1． Action of the generators of $N$ on basis vectors.
 Notes: $D = d ^ { - 1 }$ $\delta ^ { \prime } = \tilde { d } \cap \tilde { e } , u = | \{ i \} \cap \tilde { e } |$ $m = \left| \delta \cap { \tilde { e } } \right|$ $n = \% \left.
 { \delta } ^ { \prime } \right.
 + m$\
-![](images/032c458653139261f6f58000da90074a4215c5d903a64005bd4216dc8d967faf.jpg)
+  ![](images/032c458653139261f6f58000da90074a4215c5d903a64005bd4216dc8d967faf.jpg)
 
 # 11． The Dictionary
 

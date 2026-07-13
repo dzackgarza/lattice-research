@@ -3,7 +3,7 @@ r"""Modules equipped with quadratic forms."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Protocol, final, override
+from typing import TYPE_CHECKING, Protocol, final, override, TypeAlias
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .with_forms import (
@@ -57,13 +57,13 @@ class OverPIDQuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (OverPIDFormedModulesCategory, "Quadratic")
     _defining_predicates = ("is_quadratic",)
 
-    ParentMethods = QuadraticModulesCategory.ParentMethods
-    ElementMethods = QuadraticModulesCategory.ElementMethods
+    ParentMethods : TypeAlias = QuadraticModulesCategory.ParentMethods
+    ElementMethods : TypeAlias = QuadraticModulesCategory.ElementMethods
 
 
-QuadraticModulesObject = QuadraticModulesCategory.ParentMethods
-QuadraticModulesElement = QuadraticModulesCategory.ElementMethods
-QuadraticModulesMorphism = FormedModulesMorphism
-OverPIDQuadraticModulesObject = OverPIDQuadraticModulesCategory.ParentMethods
-OverPIDQuadraticModulesElement = OverPIDQuadraticModulesCategory.ElementMethods
-OverPIDQuadraticModulesMorphism = OverPIDFormedModulesMorphism
+QuadraticModulesObject : TypeAlias = QuadraticModulesCategory.ParentMethods
+QuadraticModulesElement : TypeAlias = QuadraticModulesCategory.ElementMethods
+QuadraticModulesMorphism : TypeAlias = FormedModulesMorphism
+OverPIDQuadraticModulesObject : TypeAlias = OverPIDQuadraticModulesCategory.ParentMethods
+OverPIDQuadraticModulesElement : TypeAlias = OverPIDQuadraticModulesCategory.ElementMethods
+OverPIDQuadraticModulesMorphism : TypeAlias = OverPIDFormedModulesMorphism

@@ -36,7 +36,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, TypeVar, final, overload, override
+from typing import TYPE_CHECKING, TypeVar, final, overload, override, TypeAlias
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
@@ -1736,9 +1736,9 @@ class Modules(Category_module):
     # Method providers
     # ------------------------------------------------------------------
 
-    ParentMethods = _RModObjects
-    ElementMethods = _RModElements
-    HomCategory = RModuleHomCategory
+    ParentMethods : TypeAlias = _RModObjects
+    ElementMethods : TypeAlias = _RModElements
+    HomCategory : TypeAlias = RModuleHomCategory
 
     # ------------------------------------------------------------------
     # Named subcategories
@@ -1812,15 +1812,15 @@ class Modules(Category_module):
     # Functorial constructions
     # ------------------------------------------------------------------
 
-    Subobjects = _Subobjects
-    SubModules = Subobjects
-    Quotients = _Quotients
-    Subquotients = _Subquotients
-    ObjectsOver = _ObjectsOver
-    ObjectsUnder = _ObjectsUnder
-    TensorProducts = _TensorProducts
-    CartesianProducts = _CartesianProducts
-    DualObjects = _DualObjects
+    Subobjects : TypeAlias = _Subobjects
+    SubModules : TypeAlias = Subobjects
+    Quotients : TypeAlias = _Quotients
+    Subquotients : TypeAlias = _Subquotients
+    ObjectsOver : TypeAlias = _ObjectsOver
+    ObjectsUnder : TypeAlias = _ObjectsUnder
+    TensorProducts : TypeAlias = _TensorProducts
+    CartesianProducts : TypeAlias = _CartesianProducts
+    DualObjects : TypeAlias = _DualObjects
 
     Filtered = LazyImport("sage.categories.filtered_modules", "FilteredModules")
     Super = LazyImport("sage.categories.super_modules", "SuperModules")
@@ -1887,15 +1887,15 @@ class Modules(Category_module):
 # surface usable until the meet class is wired with a non-recursive base.
 
 
-ModulesCategory = Modules
-type ModulesObject = Modules.ParentMethods
-type ModulesElement = Modules.ElementMethods
-ModulesMorphism = RModuleHomCategory.ElementMethods
-ModulesHomCategory = RModuleHomCategory
-ModulesEndCategory = RModuleEndCategory
-ModulesAutCategory = RModuleAutCategory
-ModulesHom = RModuleHomCategory.ParentMethods
-ModulesEnd = RModuleEndCategory.ParentMethods
-ModulesAut = RModuleAutCategory.ParentMethods
-ModulesEndomorphism = RModuleEndCategory.ElementMethods
-ModulesAutomorphism = RModuleAutCategory.ElementMethods
+ModulesCategory : TypeAlias = Modules
+ModulesObject : TypeAlias = Modules.ParentMethods
+ModulesElement : TypeAlias = Modules.ElementMethods
+ModulesMorphism : TypeAlias = RModuleHomCategory.ElementMethods
+ModulesHomCategory : TypeAlias = RModuleHomCategory
+ModulesEndCategory : TypeAlias = RModuleEndCategory
+ModulesAutCategory : TypeAlias = RModuleAutCategory
+ModulesHom : TypeAlias = RModuleHomCategory.ParentMethods
+ModulesEnd : TypeAlias = RModuleEndCategory.ParentMethods
+ModulesAut : TypeAlias = RModuleAutCategory.ParentMethods
+ModulesEndomorphism : TypeAlias = RModuleEndCategory.ElementMethods
+ModulesAutomorphism : TypeAlias = RModuleAutCategory.ElementMethods

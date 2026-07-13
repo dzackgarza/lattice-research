@@ -3,7 +3,7 @@ r"""Discriminant-group construction category."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, TypeAlias
 
 from ....cat import Category_module
 from ....forms.subcategories.quadratic import QuadraticModulesMorphism
@@ -230,14 +230,14 @@ class LatticeDiscriminantGroupsCategory(Category_module):
             """Return a preferred representative of this discriminant class."""
             return self.parent().coset_representative(self)
 
-LatticeDiscriminantGroupsObject = LatticeDiscriminantGroupsCategory.ParentMethods
-LatticeDiscriminantGroupsElement = LatticeDiscriminantGroupsCategory.ElementMethods
-LatticeDiscriminantGroupsMorphism = QuadraticModulesMorphism
-LatticeDiscriminantGroupsHomCategory = ModulesHomCategory
-LatticeDiscriminantGroupsEndCategory = ModulesEndCategory
-LatticeDiscriminantGroupsAutCategory = ModulesAutCategory
-LatticeDiscriminantGroupsHom = ModulesHom
-LatticeDiscriminantGroupsEnd = ModulesEnd
-LatticeDiscriminantGroupsAut = ModulesAut
-LatticeDiscriminantGroupsEndomorphism = ModulesEndomorphism
-LatticeDiscriminantGroupsAutomorphism = ModulesAutomorphism
+LatticeDiscriminantGroupsObject : TypeAlias = LatticeDiscriminantGroupsCategory.ParentMethods
+LatticeDiscriminantGroupsElement : TypeAlias = LatticeDiscriminantGroupsCategory.ElementMethods
+LatticeDiscriminantGroupsMorphism : TypeAlias = QuadraticModulesMorphism
+LatticeDiscriminantGroupsHomCategory : TypeAlias = ModulesHomCategory
+LatticeDiscriminantGroupsEndCategory : TypeAlias = ModulesEndCategory
+LatticeDiscriminantGroupsAutCategory : TypeAlias = ModulesAutCategory
+LatticeDiscriminantGroupsHom : TypeAlias = ModulesHom
+LatticeDiscriminantGroupsEnd : TypeAlias = ModulesEnd
+LatticeDiscriminantGroupsAut : TypeAlias = ModulesAut
+LatticeDiscriminantGroupsEndomorphism : TypeAlias = ModulesEndomorphism
+LatticeDiscriminantGroupsAutomorphism : TypeAlias = ModulesAutomorphism

@@ -11,14 +11,7 @@ from pathlib import Path
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SPEC_ROOT = (
-    REPO_ROOT
-    / ".agents"
-    / "plans"
-    / "features"
-    / "FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES"
-    / "specs"
-)
+SPEC_ROOT = REPO_ROOT / ".agents" / "plans" / "features" / "FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES" / "specs"
 NON_CONSTRUCTOR_METHOD_NAMES = frozenset({"provenance", "category", "base_ring"})
 CONSTRUCTOR_SOURCE_GLOB_ROOTS = (
     SPEC_ROOT,
@@ -84,9 +77,7 @@ class ConstructorCollectorVisitor(ast.NodeVisitor):
             owner = self._owner_name()
             for child in node.body:
                 if isinstance(child, ast.FunctionDef) and self._is_public(child.name):
-                    self.methods.append(
-                        ConstructorMethod(owner, child.name, self.path, child.lineno)
-                    )
+                    self.methods.append(ConstructorMethod(owner, child.name, self.path, child.lineno))
         self.generic_visit(node)
         self.class_stack.pop()
 
@@ -103,12 +94,7 @@ class ConstructorCollectorVisitor(ast.NodeVisitor):
 
 
 def tracked_python_paths() -> list[Path]:
-    return [
-        path
-        for path in sorted((REPO_ROOT / "category_specs").rglob("*.py"))
-        if "__pycache__" not in path.parts
-        and path.relative_to(REPO_ROOT).parts[1] != "validators"
-    ]
+    return [path for path in sorted((REPO_ROOT / "category_specs").rglob("*.py")) if "__pycache__" not in path.parts and path.relative_to(REPO_ROOT).parts[1] != "validators"]
 
 
 def constructor_methods() -> list[ConstructorMethod]:
@@ -136,27 +122,17 @@ def constructor_name_inventories() -> dict[str, ConstructorNameInventory]:
     inventories: dict[str, ConstructorNameInventory] = {}
     for path in sorted(SPEC_ROOT.glob("SPEC-MAPPING-*.md")):
         data = spec_frontmatter(path)
-        raw_inventories = data.get("constructorNameInventories", [])
-        assert isinstance(raw_inventories, list), (
-            f"{path} constructorNameInventories must be a list"
-        )
+        raw_inventories = data["constructorNameInventories"]
+        assert isinstance(raw_inventories, list), f"{path} constructorNameInventories must be a list"
         for raw_inventory in raw_inventories:
-            assert isinstance(raw_inventory, dict), (
-                f"{path} constructorNameInventories entries must be mappings"
-            )
-            owner = raw_inventory.get("owner")
-            sage_names = raw_inventory.get("sageConstructorNames", [])
-            project_owned_names = raw_inventory.get("projectOwnedConstructionNames", [])
+            assert isinstance(raw_inventory, dict), f"{path} constructorNameInventories entries must be mappings"
+            owner = raw_inventory["owner"]
+            sage_names = raw_inventory["sageConstructorNames"]
+            project_owned_names = raw_inventory["projectOwnedConstructionNames"]
             assert isinstance(owner, str), f"{path} constructor inventory owner missing"
-            assert isinstance(sage_names, list), (
-                f"{path} sageConstructorNames for {owner} must be a list"
-            )
-            assert isinstance(project_owned_names, list), (
-                f"{path} projectOwnedConstructionNames for {owner} must be a list"
-            )
-            assert owner not in inventories, (
-                f"{owner} constructor-name inventory is declared more than once"
-            )
+            assert isinstance(sage_names, list), f"{path} sageConstructorNames for {owner} must be a list"
+            assert isinstance(project_owned_names, list), f"{path} projectOwnedConstructionNames for {owner} must be a list"
+            assert owner not in inventories, f"{owner} constructor-name inventory is declared more than once"
             inventories[owner] = ConstructorNameInventory(
                 owner=owner,
                 sage_names=frozenset(str(name) for name in sage_names),
@@ -177,9 +153,7 @@ def constructor_source_failures() -> list[ConstructorSourceFailure]:
     failures: list[ConstructorSourceFailure] = []
     for absolute_path in constructor_source_paths():
         relative_path = absolute_path.relative_to(REPO_ROOT)
-        for line_number, line in enumerate(
-            absolute_path.read_text(encoding="utf-8").splitlines(), start=1
-        ):
+        for line_number, line in enumerate(absolute_path.read_text(encoding="utf-8").splitlines(), start=1):
             for pattern in CONSTRUCTOR_SOURCE_BANNED_PATTERNS:
                 if not pattern.search(line):
                     continue
@@ -189,9 +163,7 @@ def constructor_source_failures() -> list[ConstructorSourceFailure]:
                         line_number=line_number,
                         line=line,
                         reason=(
-                            "constructor source artifacts must not preserve "
-                            "deferred/not-admitted constructor ideas; return to "
-                            "Sage source and mapping reconstruction instead"
+                            "constructor source artifacts must not preserve deferred/not-admitted constructor ideas; return to Sage source and mapping reconstruction instead"
                         ),
                     )
                 )
@@ -203,8 +175,7 @@ def validate_method(method: ConstructorMethod) -> ConstructorNameFailure | None:
     if method.owner not in inventories:
         return ConstructorNameFailure(
             method,
-            "constructor collector has no constructor-name inventory entry in "
-            "tracked mapping specs",
+            "constructor collector has no constructor-name inventory entry in tracked mapping specs",
         )
 
     inventory = inventories[method.owner]
@@ -213,18 +184,13 @@ def validate_method(method: ConstructorMethod) -> ConstructorNameFailure | None:
 
     return ConstructorNameFailure(
         method,
-        "name is neither an inventoried Sage constructor name nor an explicit "
-        "project-owned construction",
+        "name is neither an inventoried Sage constructor name nor an explicit project-owned construction",
     )
 
 
 def main() -> int:
     inventories = constructor_name_inventories()
-    failures = [
-        failure
-        for method in constructor_methods()
-        if (failure := validate_method(method)) is not None
-    ]
+    failures = [failure for method in constructor_methods() if (failure := validate_method(method)) is not None]
     source_failures = constructor_source_failures()
 
     if not failures and not source_failures:
@@ -251,9 +217,9 @@ def main() -> int:
             "shape is not source-grounded and mapped, it must be absent rather than "
             "preserved as deferred, not-admitted, blocked, or gap evidence."
         )
-        for failure in source_failures:
-            print(f"- {failure.location}: {failure.reason}")
-            print(f"  Code: {failure.line.strip()}")
+        for source_failure in source_failures:
+            print(f"- {source_failure.location}: {source_failure.reason}")
+            print(f"  Code: {source_failure.line.strip()}")
     return 1
 
 

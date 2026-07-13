@@ -23,11 +23,7 @@ def _timing_root() -> Path:
 
 
 def _utc_timestamp(epoch_seconds: float) -> str:
-    return (
-        datetime.fromtimestamp(epoch_seconds, tz=UTC)
-        .isoformat(timespec="seconds")
-        .replace("+00:00", "Z")
-    )
+    return datetime.fromtimestamp(epoch_seconds, tz=UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _append_jsonl(path: Path, payload: dict[str, object]) -> None:
@@ -38,15 +34,11 @@ def _append_jsonl(path: Path, payload: dict[str, object]) -> None:
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
-    parser.addoption(
-        "--run-slow", action="store_true", default=False, help="run slow tests (>2 min)"
-    )
+    parser.addoption("--run-slow", action="store_true", default=False, help="run slow tests (>2 min)")
 
 
 def pytest_configure(config: pytest.Config) -> None:
-    config.addinivalue_line(
-        "markers", "slow: marks tests that take more than 2 minutes"
-    )
+    config.addinivalue_line("markers", "slow: marks tests that take more than 2 minutes")
 
 
 def pytest_sessionstart(session: pytest.Session) -> None:
@@ -70,9 +62,7 @@ def pytest_deselected(items: list[pytest.Item]) -> None:
     _SESSION_DESELECTED += len(items)
 
 
-def pytest_collection_modifyitems(
-    config: pytest.Config, items: list[pytest.Item]
-) -> None:
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
     if config.getoption("--run-slow"):
         return
     skip_slow = pytest.mark.skip(reason="skipped by default; use --run-slow to enable")
@@ -82,9 +72,19 @@ def pytest_collection_modifyitems(
 
 
 def pytest_runtest_logreport(report: pytest.TestReport) -> None:
-    node_report = _SESSION_REPORTS.setdefault(report.nodeid, {"nodeid": report.nodeid})
+    match report.nodeid in _SESSION_REPORTS:
+        case True:
+            node_report = _SESSION_REPORTS[report.nodeid]
+        case False:
+            node_report = {"nodeid": report.nodeid}
+            _SESSION_REPORTS[report.nodeid] = node_report
     node_report[f"{report.when}_seconds"] = report.duration
-    phase_outcomes = node_report.setdefault("phase_outcomes", {})
+    match "phase_outcomes" in node_report:
+        case True:
+            phase_outcomes = node_report["phase_outcomes"]
+        case False:
+            phase_outcomes = {}
+            node_report["phase_outcomes"] = phase_outcomes
     phase_outcomes[report.when] = report.outcome
     if report.outcome == "failed":
         node_report["outcome"] = "failed"
@@ -98,14 +98,16 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     finished_at = time.time()
     records: list[dict[str, Any]] = []
     for report in _SESSION_REPORTS.values():
-        setup_seconds = float(report.get("setup_seconds", 0.0))
-        call_seconds = float(report.get("call_seconds", 0.0))
-        teardown_seconds = float(report.get("teardown_seconds", 0.0))
+        setup_seconds = float(report["setup_seconds"]) if "setup_seconds" in report else 0.0
+        call_seconds = float(report["call_seconds"]) if "call_seconds" in report else 0.0
+        teardown_seconds = float(report["teardown_seconds"]) if "teardown_seconds" in report else 0.0
+        outcome = report["outcome"] if "outcome" in report else "passed"
+        phase_outcomes = report["phase_outcomes"] if "phase_outcomes" in report else {}
         records.append(
             {
                 "nodeid": report["nodeid"],
-                "outcome": report.get("outcome", "passed"),
-                "phase_outcomes": report.get("phase_outcomes", {}),
+                "outcome": outcome,
+                "phase_outcomes": phase_outcomes,
                 "setup_seconds": setup_seconds,
                 "call_seconds": call_seconds,
                 "teardown_seconds": teardown_seconds,
@@ -157,10 +159,7 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
         "deselected_count": _SESSION_DESELECTED,
         "slow_enabled": session_payload["slow_enabled"],
         "session_file": str(session_path),
-        "slowest": [
-            {"nodeid": record["nodeid"], "total_seconds": record["total_seconds"]}
-            for record in records[:20]
-        ],
+        "slowest": [{"nodeid": record["nodeid"], "total_seconds": record["total_seconds"]} for record in records[:20]],
     }
     history_path = timing_root / "history.jsonl"
     _append_jsonl(history_path, history_entry)
@@ -169,14 +168,15 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     config_storage._timing_history_path = history_path
 
 
-def pytest_terminal_summary(
-    terminalreporter: pytest.TerminalReporter, exitstatus: int, config: pytest.Config
-) -> None:
+def pytest_terminal_summary(terminalreporter: pytest.TerminalReporter, exitstatus: int, config: pytest.Config) -> None:
     config_storage = cast(Any, config)
-    session_path = getattr(config_storage, "_timing_session_path", None)
-    history_path = getattr(config_storage, "_timing_history_path", None)
-    if session_path is not None and history_path is not None:
-        terminalreporter.write_sep(
-            "-",
-            f"timing log: session={session_path} history={history_path}",
-        )
+    match hasattr(config_storage, "_timing_session_path"):
+        case True:
+            session_path = config_storage._timing_session_path
+            history_path = config_storage._timing_history_path
+            terminalreporter.write_sep(
+                "-",
+                f"timing log: session={session_path} history={history_path}",
+            )
+        case False:
+            pass

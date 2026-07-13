@@ -2,7 +2,10 @@
 name = "research"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["pydantic", "pyyaml", "pytest"]
+
+[dependency-groups]
+typing = ["types-PyYAML"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests/category_specs"]
@@ -23,6 +26,9 @@ per_rule_ignores = {DEP001 = ["sage", "ore_algebra", "pydantic"], DEP003 = ["sag
 
 [tool.importlinter]
 root_package = "research"
+
+[tool.hatch.build.targets.wheel]
+packages = ["category_specs", "src"]
 
 [build-system]
 requires = ["hatchling"]

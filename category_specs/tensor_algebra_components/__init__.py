@@ -10,6 +10,7 @@ from __future__ import annotations
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import (
+    TypeAlias,
     TYPE_CHECKING,
     Any,
     Protocol,
@@ -25,7 +26,9 @@ from ..modules.homsets import (
     RModuleAutCategory,
     RModuleEndCategory,
     RModuleHomCategory,
-    _RModMorphisms,
+)
+from ..modules.homsets import (
+    _RModMorphisms as _RModMorphisms,
 )
 from ..utils import refine_category
 
@@ -109,9 +112,7 @@ class _TensorElementMethods:
         ...
 
     @abstractmethod
-    def trace(
-        self, contravariant_position: Integer, covariant_position: Integer
-    ) -> Tensor | RingElement:
+    def trace(self, contravariant_position: Integer, covariant_position: Integer) -> Tensor | RingElement:
         r"""Contract one contravariant slot and one covariant slot of ``self``.
 
         If ``tensor_type() == (1, 1)``, the result lies in the base ring. Otherwise
@@ -121,9 +122,7 @@ class _TensorElementMethods:
         ...
 
     @abstractmethod
-    def contract(
-        self, left_position: Integer, other: Tensor, right_position: Integer
-    ) -> Tensor | RingElement:
+    def contract(self, left_position: Integer, other: Tensor, right_position: Integer) -> Tensor | RingElement:
         r"""Contract ``self`` with ``other`` along one opposite-variance index pair.
 
         The positions are counted in Sage's tensor-argument order: all
@@ -136,15 +135,10 @@ class _TensorElementMethods:
     @final
     def structure_constants(self) -> tuple[Matrix, ...]:
         r"""Return coordinate structure constants encoded by a product tensor."""
-        assert self.tensor_type() == (1, 2), (
-            "Structure constants are only defined for multiplication tensors "
-            f"of type (1, 2): {self.tensor_type()}"
-        )
+        assert self.tensor_type() == (1, 2), f"Structure constants are only defined for multiplication tensors of type (1, 2): {self.tensor_type()}"
         from sage.matrix.constructor import matrix
 
-        return tuple(
-            matrix(self.base_module().base_ring(), entries) for entries in self[:]
-        )
+        return tuple(matrix(self.base_module().base_ring(), entries) for entries in self[:])
 
 
 class _DualObjects(DualObjectsCategory):
@@ -190,6 +184,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
         r"""Return the module categories satisfied by tensor-algebra components."""
         RMod = Modules(self.base_ring())
         return [RMod.TensorProducts(), RMod.Free().FiniteRank()]
+
     @final
     def DualObjects(self) -> Category:
         r"""Return dual tensor components, equivalently integral forms."""
@@ -231,13 +226,9 @@ class TensorAlgebraComponents(Category_over_base_ring):
             return base_ring
 
         @final
-        def _check_tensor_type(
-            self, tensor_type: tuple[Integer, Integer]
-        ) -> tuple[Integer, Integer]:
+        def _check_tensor_type(self, tensor_type: tuple[Integer, Integer]) -> tuple[Integer, Integer]:
             p, q = tensor_type
-            assert p >= 0 and q >= 0, (
-                f"Tensor type entries must be nonnegative: {tensor_type}"
-            )
+            assert p >= 0 and q >= 0, f"Tensor type entries must be nonnegative: {tensor_type}"
             return p, q
 
         @final
@@ -250,14 +241,10 @@ class TensorAlgebraComponents(Category_over_base_ring):
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> TensorAlgebraComponent:
             r"""Return ``T_R(M)[p,q]`` for ``tensor_type=(p,q)``."""
-            assert base_module.base_ring() is self.base_ring(), (
-                f"Tensor base module must be over {self.base_ring()}: {base_module}"
-            )
+            assert base_module.base_ring() is self.base_ring(), f"Tensor base module must be over {self.base_ring()}: {base_module}"
             p, q = self._check_tensor_type(tensor_type)
             T = base_module.tensor_module(p, q, sym=sym, antisym=antisym)
-            component: TensorAlgebraComponent = refine_category(
-                T, self.category(), test=False
-            )
+            component: TensorAlgebraComponent = refine_category(T, self.category(), test=False)
             return component
 
         @overload
@@ -279,9 +266,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             *,
-            components: Sequence[RingElement]
-            | Sequence[Sequence[RingElement]]
-            | Sequence[Sequence[Sequence[RingElement]]],
+            components: Sequence[RingElement] | Sequence[Sequence[RingElement]] | Sequence[Sequence[Sequence[RingElement]]],
             basis: ModuleBasis | None = None,
             name: str | None = None,
             latex_name: str | None = None,
@@ -337,10 +322,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             *,
-            components: Sequence[RingElement]
-            | Sequence[Sequence[RingElement]]
-            | Sequence[Sequence[Sequence[RingElement]]]
-            | None = None,
+            components: Sequence[RingElement] | Sequence[Sequence[RingElement]] | Sequence[Sequence[Sequence[RingElement]]] | None = None,
             matrix: Matrix | None = None,
             module_element_matrix: Sequence[Sequence[RModuleElement]] | None = None,
             matrices: Sequence[Matrix] | None = None,
@@ -357,9 +339,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
                 module_element_matrix is not None,
                 matrices is not None,
             )
-            assert sum(selected_coordinate_shapes) <= 1, (
-                "tensor accepts at most one coordinate input shape"
-            )
+            assert sum(selected_coordinate_shapes) <= 1, "tensor accepts at most one coordinate input shape"
             if matrix is not None:
                 return self._tensor_from_matrix(
                     base_module,
@@ -406,9 +386,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
                 )
 
             self.tensor_module(base_module, tensor_type, sym=sym, antisym=antisym)
-            tensor: Tensor = base_module.tensor(
-                tensor_type, name=name, latex_name=latex_name, sym=sym, antisym=antisym
-            )
+            tensor: Tensor = base_module.tensor(tensor_type, name=name, latex_name=latex_name, sym=sym, antisym=antisym)
             return tensor
 
         @final
@@ -416,11 +394,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             self,
             base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
-            components: Matrix
-            | Sequence[RingElement]
-            | Sequence[Sequence[RingElement]]
-            | Sequence[Sequence[Sequence[RingElement]]]
-            | Sequence[Matrix],
+            components: Matrix | Sequence[RingElement] | Sequence[Sequence[RingElement]] | Sequence[Sequence[Sequence[RingElement]]] | Sequence[Matrix],
             *,
             basis: ModuleBasis | None = None,
             name: str | None = None,
@@ -429,9 +403,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct a tensor from component data in preferred generators."""
-            component_module = self.tensor_module(
-                base_module, tensor_type, sym=sym, antisym=antisym
-            )
+            component_module = self.tensor_module(base_module, tensor_type, sym=sym, antisym=antisym)
             component_constructor: Any = component_module
             tensor: Tensor = component_constructor(
                 components,
@@ -457,17 +429,10 @@ class TensorAlgebraComponents(Category_over_base_ring):
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct the scalar-valued ``(0,2)`` tensor encoded by entries."""
-            assert tensor_type == (0, 2), (
-                f"Matrix coordinate input constructs a (0, 2) tensor, not {tensor_type}"
-            )
-            assert entries.base_ring() is self.base_ring(), (
-                f"Tensor matrix must be over {self.base_ring()}: {entries}"
-            )
+            assert tensor_type == (0, 2), f"Matrix coordinate input constructs a (0, 2) tensor, not {tensor_type}"
+            assert entries.base_ring() is self.base_ring(), f"Tensor matrix must be over {self.base_ring()}: {entries}"
             rank = base_module.rank()
-            assert entries.nrows() == rank and entries.ncols() == rank, (
-                f"Tensor matrix must be {rank} by {rank}: "
-                f"{entries.nrows()} by {entries.ncols()}"
-            )
+            assert entries.nrows() == rank and entries.ncols() == rank, f"Tensor matrix must be {rank} by {rank}: {entries.nrows()} by {entries.ncols()}"
             return self._from_components(
                 base_module,
                 tensor_type,
@@ -487,9 +452,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             basis: ModuleBasis | None,
         ) -> tuple[RingElement, ...]:
             element_data: Any = element
-            assert element_data.parent() is base_module, (
-                f"Tensor output element must lie in {base_module}: {element}"
-            )
+            assert element_data.parent() is base_module, f"Tensor output element must lie in {base_module}: {element}"
             if basis is None:
                 return tuple(element_data[:])
             return tuple(element_data[basis, :])
@@ -508,41 +471,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct the ``(1,2)`` tensor encoded by module-valued products."""
-            assert tensor_type == (1, 2), (
-                "Module-element multiplication tables construct a (1, 2) tensor, "
-                f"not {tensor_type}"
-            )
+            assert tensor_type == (1, 2), f"Module-element multiplication tables construct a (1, 2) tensor, not {tensor_type}"
             rank = base_module.rank()
-            output_coordinates = [
-                [
-                    self._module_element_coordinates(base_module, element, basis)
-                    for element in row
-                ]
-                for row in entries
-            ]
-            assert len(output_coordinates) == rank, (
-                f"Module-element matrix must have {rank} rows: "
-                f"{len(output_coordinates)}"
+            output_coordinates = [[self._module_element_coordinates(base_module, element, basis) for element in row] for row in entries]
+            assert len(output_coordinates) == rank, f"Module-element matrix must have {rank} rows: {len(output_coordinates)}"
+            assert all(len(row) == rank for row in output_coordinates), f"Module-element matrix rows must all have length {rank}: {output_coordinates}"
+            assert all(len(coordinates) == rank for row in output_coordinates for coordinates in row), (
+                f"Each product must have {rank} coordinates in {base_module}: {output_coordinates}"
             )
-            assert all(len(row) == rank for row in output_coordinates), (
-                f"Module-element matrix rows must all have length {rank}: "
-                f"{output_coordinates}"
-            )
-            assert all(
-                len(coordinates) == rank
-                for row in output_coordinates
-                for coordinates in row
-            ), (
-                f"Each product must have {rank} coordinates in {base_module}: "
-                f"{output_coordinates}"
-            )
-            components = [
-                [
-                    [output_coordinates[i][j][k] for j in range(rank)]
-                    for i in range(rank)
-                ]
-                for k in range(rank)
-            ]
+            components = [[[output_coordinates[i][j][k] for j in range(rank)] for i in range(rank)] for k in range(rank)]
             return self._from_components(
                 base_module,
                 tensor_type,
@@ -553,25 +490,26 @@ class TensorAlgebraComponents(Category_over_base_ring):
                 sym=sym,
                 antisym=antisym,
             )
+
     @final
     def Constructors(self) -> TensorAlgebraComponents._Constructors:
         r"""Return the tensor-component constructor collector."""
         return self.__class__._Constructors(self)
 
-    ParentMethods = _TensorAlgebraComponentParentMethods
-    ElementMethods = _TensorElementMethods
-    HomCategory = RModuleHomCategory
+    ParentMethods : TypeAlias = _TensorAlgebraComponentParentMethods
+    ElementMethods : TypeAlias = _TensorElementMethods
+    HomCategory : TypeAlias = RModuleHomCategory
 
 
-TensorAlgebraComponentsCategory = TensorAlgebraComponents
-type TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
-type TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
-TensorAlgebraComponentsMorphism = RModuleHomCategory.ElementMethods
-TensorAlgebraComponentsHomCategory = RModuleHomCategory
-TensorAlgebraComponentsEndCategory = RModuleEndCategory
-TensorAlgebraComponentsAutCategory = RModuleAutCategory
-TensorAlgebraComponentsHom = RModuleHomCategory.ParentMethods
-TensorAlgebraComponentsEnd = RModuleEndCategory.ParentMethods
-TensorAlgebraComponentsAut = RModuleAutCategory.ParentMethods
-TensorAlgebraComponentsEndomorphism = RModuleEndCategory.ElementMethods
-TensorAlgebraComponentsAutomorphism = RModuleAutCategory.ElementMethods
+TensorAlgebraComponentsCategory : TypeAlias = TensorAlgebraComponents
+TensorAlgebraComponentsObject : TypeAlias = TensorAlgebraComponents.ParentMethods
+TensorAlgebraComponentsElement : TypeAlias = TensorAlgebraComponents.ElementMethods
+TensorAlgebraComponentsMorphism : TypeAlias = RModuleHomCategory.ElementMethods
+TensorAlgebraComponentsHomCategory : TypeAlias = RModuleHomCategory
+TensorAlgebraComponentsEndCategory : TypeAlias = RModuleEndCategory
+TensorAlgebraComponentsAutCategory : TypeAlias = RModuleAutCategory
+TensorAlgebraComponentsHom : TypeAlias = RModuleHomCategory.ParentMethods
+TensorAlgebraComponentsEnd : TypeAlias = RModuleEndCategory.ParentMethods
+TensorAlgebraComponentsAut : TypeAlias = RModuleAutCategory.ParentMethods
+TensorAlgebraComponentsEndomorphism : TypeAlias = RModuleEndCategory.ElementMethods
+TensorAlgebraComponentsAutomorphism : TypeAlias = RModuleAutCategory.ElementMethods

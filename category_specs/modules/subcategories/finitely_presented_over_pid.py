@@ -115,11 +115,10 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
         @final
         def free_rank(self) -> Integer:
-            return SageInteger(sum(r.is_zero() for r in self.invariant_factors()))
+            return SageInteger(sum(bool(getattr(r, "is_zero")()) for r in self.invariant_factors()))
 
         @abstractmethod
-        def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement:
-            ...
+        def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement: ...
 
         @abstractmethod
         def V(self) -> RModule: ...
@@ -131,8 +130,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         def optimized(self) -> RModule: ...
 
         @abstractmethod
-        def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism:
-            ...
+        def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism: ...
 
         @abstractmethod
         def cardinality(self) -> Cardinality:
@@ -165,9 +163,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstractmethod
-        def linear_combination_of_smith_form_gens(
-            self, v: Sequence[RingElement]
-        ) -> RModuleElement:
+        def linear_combination_of_smith_form_gens(self, v: Sequence[RingElement]) -> RModuleElement:
             """Return the element represented by Smith-basis coordinates ``v``."""
             ...
 
@@ -226,17 +222,13 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstractmethod
-            def from_dict(
-                self, mapping: dict[RModuleElement, RModuleElement]
-            ) -> RModMorphism:
-                ...
+            def from_dict(self, mapping: dict[RModuleElement, RModuleElement]) -> RModMorphism: ...
 
             @abstractmethod
             def from_matrix(self, M: Matrix) -> RModMorphism: ...
 
             @abstractmethod
-            def from_images(self, images: Sequence[RModuleElement]) -> RModMorphism:
-                ...
+            def from_images(self, images: Sequence[RModuleElement]) -> RModMorphism: ...
 
         class ElementMethods:
             @abstractmethod
@@ -300,7 +292,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
                 return bool(self == self.p_part(p))
 
         class ElementMethods: ...
-
 
     # ------------------------------------------------------------------
     # Lattices subcategory

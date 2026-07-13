@@ -7,8 +7,8 @@ import ast
 import re
 import subprocess
 import sys
-from collections import Counter, defaultdict
-from collections.abc import Iterable
+from collections import Counter
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -39,43 +39,25 @@ RULES = (
     Rule(
         name="typing-cast-call",
         pattern=re.compile(r"\bcast\s*\("),
-        message=(
-            "category_specs spec code must not use typing.cast; "
-            "fix the owner/type surface instead"
-        ),
-        action=(
-            "Replace with a real annotation, protocol, public semantic type, "
-            "or category/plugin model change; do not silence the checker."
-        ),
+        message=("category_specs spec code must not use typing.cast; fix the owner/type surface instead"),
+        action=("Replace with a real annotation, protocol, public semantic type, or category/plugin model change; do not silence the checker."),
     ),
     Rule(
         name="typing-cast-import",
         pattern=re.compile(r"\bimport\b.*\bcast\b"),
         message="category_specs spec code must not import typing.cast",
-        action=(
-            "Remove the import after replacing all casts in the file with "
-            "source-grounded types or framework fixes."
-        ),
+        action=("Remove the import after replacing all casts in the file with source-grounded types or framework fixes."),
     ),
     Rule(
         name="with-axiom-helper-on-self",
         pattern=re.compile(r"\bwith_axiom\s*\(\s*self\s*,\s*['\"]"),
-        message=(
-            "axiom SubcategoryMethods must use Sage's "
-            "self._with_axiom(...) binding idiom"
-        ),
-        action=(
-            "Use self._with_axiom(\"A\") and verify the corresponding class "
-            "is bound on the base named by _base_category_class_and_axiom."
-        ),
+        message=("axiom SubcategoryMethods must use Sage's self._with_axiom(...) binding idiom"),
+        action=('Use self._with_axiom("A") and verify the corresponding class is bound on the base named by _base_category_class_and_axiom.'),
     ),
     Rule(
         name="cached-method-import",
         pattern=re.compile(r"from\s+sage\.misc\.cachefunc\s+import\s+cached_method"),
-        message=(
-            "category_specs spec code must not import cached_method without "
-            "a source-grounded Sage runtime need"
-        ),
+        message=("category_specs spec code must not import cached_method without a source-grounded Sage runtime need"),
         action=(
             "Remove cached_method plumbing from mathematical spec selectors unless "
             "the file records a Sage category identity/cache obligation; plain "
@@ -84,13 +66,8 @@ RULES = (
     ),
     Rule(
         name="cached-method-adapter",
-        pattern=re.compile(
-            r"\bdef\s+_\w*cached_method\b|_\w*cached_method\s*=\s*cast\s*\("
-        ),
-        message=(
-            "local cached_method adapters are engineering wrappers, not "
-            "mathematical spec content"
-        ),
+        pattern=re.compile(r"\bdef\s+_\w*cached_method\b|_\w*cached_method\s*=\s*cast\s*\("),
+        message=("local cached_method adapters are engineering wrappers, not mathematical spec content"),
         action=(
             "Delete local cached_method adapters; if caching is required by Sage "
             "runtime semantics, centralize and document that interop boundary "
@@ -100,10 +77,7 @@ RULES = (
     Rule(
         name="cached-method-decorator",
         pattern=re.compile(r"^\s*@\w*cached_method\b"),
-        message=(
-            "cached_method decorators in category specs are suspect runtime "
-            "plumbing and must be justified"
-        ),
+        message=("cached_method decorators in category specs are suspect runtime plumbing and must be justified"),
         action=(
             "Remove the decorator unless the selector's cached category identity is "
             "a documented Sage interop requirement; do not add cached_method to "
@@ -113,10 +87,7 @@ RULES = (
     Rule(
         name="attribute-rebinding-call",
         pattern=re.compile(r"\b(?:setattr|delattr)\s*\(|__setattr__\s*\("),
-        message=(
-            "category_specs spec code must not mutate attributes to install, "
-            "replace, or temporarily inject category behavior"
-        ),
+        message=("category_specs spec code must not mutate attributes to install, replace, or temporarily inject category behavior"),
         action=(
             "Replace attribute rebinding with explicit category-owned surfaces. "
             "Constructor routes belong on Cat().Constructors(); method/provider "
@@ -127,13 +98,8 @@ RULES = (
     ),
     Rule(
         name="ambient-attribute-assignment",
-        pattern=re.compile(
-            r"^\s*(?!self\.)(?:\w+_module|sage_all|category|cls)\.[A-Za-z_]\w*\s*="
-        ),
-        message=(
-            "category_specs spec code must not publish mathematical behavior "
-            "by direct assignment to module, category, or class attributes"
-        ),
+        pattern=re.compile(r"^\s*(?!self\.)(?:\w+_module|sage_all|category|cls)\.[A-Za-z_]\w*\s*="),
+        message=("category_specs spec code must not publish mathematical behavior by direct assignment to module, category, or class attributes"),
         action=(
             "Expose the constructor or method on the owning category class. "
             "Direct ambient assignment is a monkeypatch-shaped substitute for "
@@ -143,13 +109,8 @@ RULES = (
     ),
     Rule(
         name="dynamic-namespace-mutation",
-        pattern=re.compile(
-            r"\b(?:globals|locals)\s*\(\s*\)\s*\[|\bvars\s*\([^)]*\)\s*\["
-        ),
-        message=(
-            "category_specs spec code must not mutate dynamic namespaces to "
-            "publish or redirect mathematical surfaces"
-        ),
+        pattern=re.compile(r"\b(?:globals|locals)\s*\(\s*\)\s*\[|\bvars\s*\([^)]*\)\s*\["),
+        message=("category_specs spec code must not mutate dynamic namespaces to publish or redirect mathematical surfaces"),
         action=(
             "Declare the public surface on the mathematical owner directly. "
             "If a dynamic namespace bridge is truly unavoidable, move it out "
@@ -161,10 +122,7 @@ RULES = (
     Rule(
         name="multi-category-refinement",
         pattern=re.compile(r"a^"),
-        message=(
-            "category_specs spec code must refine to the smallest correct "
-            "category, not manually list several categories"
-        ),
+        message=("category_specs spec code must refine to the smallest correct category, not manually list several categories"),
         action=(
             "Replace refine_category(X, [A, B, ...]) with refinement to the "
             "single mathematically minimal category. The category hierarchy owns "
@@ -176,10 +134,7 @@ RULES = (
     Rule(
         name="constructor-cast-call",
         pattern=re.compile(r"a^"),
-        message=(
-            "category constructor collectors must not use typing.cast to assert "
-            "category membership or constructor result type"
-        ),
+        message=("category constructor collectors must not use typing.cast to assert category membership or constructor result type"),
         action=(
             "Return the Sage-constructed object through refine_category to the "
             "single source-grounded target category. If the type checker cannot "
@@ -197,15 +152,9 @@ ATTRIBUTE_REBINDING_INTEROP_BOUNDARIES = frozenset(
         "category_specs/cat/base_category_types.py",
     }
 )
-AXIOM_HELPER_PATTERN = re.compile(
-    r"\bwith_axiom\s*\(\s*self\s*,\s*['\"](?P<axiom>[^'\"]+)['\"]"
-)
-MULTI_CATEGORY_REFINEMENT_RULE = next(
-    rule for rule in RULES if rule.name == "multi-category-refinement"
-)
-CONSTRUCTOR_CAST_RULE = next(
-    rule for rule in RULES if rule.name == "constructor-cast-call"
-)
+AXIOM_HELPER_PATTERN = re.compile(r"\bwith_axiom\s*\(\s*self\s*,\s*['\"](?P<axiom>[^'\"]+)['\"]")
+MULTI_CATEGORY_REFINEMENT_RULE = next(rule for rule in RULES if rule.name == "multi-category-refinement")
+CONSTRUCTOR_CAST_RULE = next(rule for rule in RULES if rule.name == "constructor-cast-call")
 
 
 def tracked_spec_python_paths() -> list[str]:
@@ -215,19 +164,11 @@ def tracked_spec_python_paths() -> list[str]:
         text=True,
         capture_output=True,
     )
-    return [
-        path
-        for path in result.stdout.splitlines()
-        if path.endswith(".py") and not path.startswith(EXCLUDED_PREFIXES)
-        and Path(path).is_file()
-    ]
+    return [path for path in result.stdout.splitlines() if path.endswith(".py") and not path.startswith(EXCLUDED_PREFIXES) and Path(path).is_file()]
 
 
 def rule_applies(path: str, rule: Rule) -> bool:
-    if (
-        rule.name == "attribute-rebinding-call"
-        and path in ATTRIBUTE_REBINDING_INTEROP_BOUNDARIES
-    ):
+    if rule.name == "attribute-rebinding-call" and path in ATTRIBUTE_REBINDING_INTEROP_BOUNDARIES:
         return False
     return True
 
@@ -239,13 +180,7 @@ def staged_spec_python_paths() -> set[str]:
         text=True,
         capture_output=True,
     )
-    return {
-        path
-        for path in result.stdout.splitlines()
-        if path.startswith(SPEC_PATH_PREFIX)
-        and path.endswith(".py")
-        and not path.startswith(EXCLUDED_PREFIXES)
-    }
+    return {path for path in result.stdout.splitlines() if path.startswith(SPEC_PATH_PREFIX) and path.endswith(".py") and not path.startswith(EXCLUDED_PREFIXES)}
 
 
 def location_list(findings: Iterable[Finding]) -> str:
@@ -262,10 +197,66 @@ def axiom_names(findings: Iterable[Finding]) -> str:
 
 
 def findings_by_path(findings: Iterable[Finding]) -> dict[str, list[Finding]]:
-    grouped: dict[str, list[Finding]] = defaultdict(list)
+    grouped: dict[str, list[Finding]] = {}
     for finding in findings:
+        if finding.path not in grouped:
+            grouped[finding.path] = []
         grouped[finding.path].append(finding)
-    return dict(grouped)
+    return grouped
+
+
+def _format_typing_cast_call(findings: list[Finding]) -> str:
+    any_casts = [f for f in findings if "cast(Any" in f.line]
+    lines = [f"  - eliminate cast calls at lines {location_list(findings)}"]
+    if any_casts:
+        lines.append(f"  - highest-risk Any casts at lines {location_list(any_casts)}; these require a real owner/type surface, not a narrower local assertion")
+    return "\n".join(lines)
+
+
+def _format_with_axiom(findings: list[Finding]) -> str:
+    names = axiom_names(findings)
+    suffix = f" for axioms {names}" if names else ""
+    return "\n".join(
+        [
+            f"  - replace with_axiom(self, ...) selectors at lines {location_list(findings)} with self._with_axiom(...){suffix}",
+            "  - verify each named axiom is a descriptor on the exact _base_category_class_and_axiom base class identity",
+        ]
+    )
+
+
+_RULE_FORMATTERS: dict[str, Callable[[list[Finding]], str]] = {
+    "typing-cast-import": lambda fs: f"  - remove typing.cast imports at lines {location_list(fs)} after replacing casts in this file",
+    "typing-cast-call": _format_typing_cast_call,
+    "with-axiom-helper-on-self": _format_with_axiom,
+    "cached-method-import": lambda fs: (
+        f"  - remove cached_method imports at lines {location_list(fs)} unless this file records a concrete Sage runtime identity/cache obligation"
+    ),
+    "cached-method-adapter": lambda fs: f"  - delete local cached_method adapters at lines {location_list(fs)}; wrapper aliases are engineering leakage in spec code",
+    "cached-method-decorator": lambda fs: (
+        f"  - review cached_method decorators at lines {location_list(fs)}; keep only if a source-grounded Sage category identity/cache requirement is visible"
+    ),
+    "attribute-rebinding-call": lambda fs: (
+        f"  - remove attribute rebinding calls at lines {location_list(fs)}; "
+        "category specs must expose constructors and methods through their "
+        "mathematical owners, not through ambient mutation"
+    ),
+    "ambient-attribute-assignment": lambda fs: (
+        f"  - remove ambient attribute assignments at lines {location_list(fs)}; publish the constructor or method on the owning category surface instead"
+    ),
+    "dynamic-namespace-mutation": lambda fs: (
+        f"  - remove dynamic namespace mutation at lines {location_list(fs)}; publish the surface on the owning category or move a proven interop bridge out of spec code"
+    ),
+    "multi-category-refinement": lambda fs: (
+        f"  - replace multi-category refinements at lines {location_list(fs)} "
+        "with the single smallest mathematically correct category; inherited "
+        "categories belong to the category graph"
+    ),
+    "constructor-cast-call": lambda fs: (
+        f"  - remove constructor-local casts at lines {location_list(fs)}; "
+        "constructor results must be admitted by refine_category into the "
+        "source-grounded target category, not asserted by typing.cast"
+    ),
+}
 
 
 def print_repair_frontier(title: str, findings: list[Finding]) -> None:
@@ -275,123 +266,20 @@ def print_repair_frontier(title: str, findings: list[Finding]) -> None:
         return
 
     grouped = findings_by_path(findings)
-    for path, file_findings in sorted(
-        grouped.items(), key=lambda item: (-len(item[1]), item[0])
-    ):
-        by_rule: dict[str, list[Finding]] = defaultdict(list)
+    for path, file_findings in sorted(grouped.items(), key=lambda item: (-len(item[1]), item[0])):
+        by_rule: dict[str, list[Finding]] = {rule.name: [] for rule in RULES}
         for finding in file_findings:
             by_rule[finding.rule.name].append(finding)
 
         print(f"- {path}: {len(file_findings)} findings")
 
-        import_findings = by_rule.get("typing-cast-import", [])
-        if import_findings:
-            print(
-                "  - remove typing.cast imports at lines "
-                f"{location_list(import_findings)} after replacing casts in this file"
-            )
-
-        cast_findings = by_rule.get("typing-cast-call", [])
-        if cast_findings:
-            any_casts = [
-                finding for finding in cast_findings if "cast(Any" in finding.line
-            ]
-            print(
-                "  - eliminate cast calls at lines "
-                f"{location_list(cast_findings)}"
-            )
-            if any_casts:
-                print(
-                    "  - highest-risk Any casts at lines "
-                    f"{location_list(any_casts)}; these require a real owner/type "
-                    "surface, not a narrower local assertion"
-                )
-
-        axiom_findings = by_rule.get("with-axiom-helper-on-self", [])
-        if axiom_findings:
-            names = axiom_names(axiom_findings)
-            suffix = f" for axioms {names}" if names else ""
-            print(
-                "  - replace with_axiom(self, ...) selectors at lines "
-                f"{location_list(axiom_findings)} with self._with_axiom(...){suffix}"
-            )
-            print(
-                "  - verify each named axiom is a descriptor on the exact "
-                "_base_category_class_and_axiom base class identity"
-            )
-
-        cached_import_findings = by_rule.get("cached-method-import", [])
-        if cached_import_findings:
-            print(
-                "  - remove cached_method imports at lines "
-                f"{location_list(cached_import_findings)} unless this file records "
-                "a concrete Sage runtime identity/cache obligation"
-            )
-
-        cached_adapter_findings = by_rule.get("cached-method-adapter", [])
-        if cached_adapter_findings:
-            print(
-                "  - delete local cached_method adapters at lines "
-                f"{location_list(cached_adapter_findings)}; wrapper aliases are "
-                "engineering leakage in spec code"
-            )
-
-        cached_decorator_findings = by_rule.get("cached-method-decorator", [])
-        if cached_decorator_findings:
-            print(
-                "  - review cached_method decorators at lines "
-                f"{location_list(cached_decorator_findings)}; keep only if a "
-                "source-grounded Sage category identity/cache requirement is visible"
-            )
-
-        attribute_rebinding_findings = by_rule.get("attribute-rebinding-call", [])
-        if attribute_rebinding_findings:
-            print(
-                "  - remove attribute rebinding calls at lines "
-                f"{location_list(attribute_rebinding_findings)}; category specs "
-                "must expose constructors and methods through their mathematical "
-                "owners, not through ambient mutation"
-            )
-
-        ambient_assignment_findings = by_rule.get("ambient-attribute-assignment", [])
-        if ambient_assignment_findings:
-            print(
-                "  - remove ambient attribute assignments at lines "
-                f"{location_list(ambient_assignment_findings)}; publish the "
-                "constructor or method on the owning category surface instead"
-            )
-
-        dynamic_namespace_findings = by_rule.get("dynamic-namespace-mutation", [])
-        if dynamic_namespace_findings:
-            print(
-                "  - remove dynamic namespace mutation at lines "
-                f"{location_list(dynamic_namespace_findings)}; publish the surface "
-                "on the owning category or move a proven interop bridge out of "
-                "spec code"
-            )
-
-        multi_refinement_findings = by_rule.get("multi-category-refinement", [])
-        if multi_refinement_findings:
-            print(
-                "  - replace multi-category refinements at lines "
-                f"{location_list(multi_refinement_findings)} with the single "
-                "smallest mathematically correct category; inherited categories "
-                "belong to the category graph"
-            )
-
-        constructor_cast_findings = by_rule.get("constructor-cast-call", [])
-        if constructor_cast_findings:
-            print(
-                "  - remove constructor-local casts at lines "
-                f"{location_list(constructor_cast_findings)}; constructor results "
-                "must be admitted by refine_category into the source-grounded "
-                "target category, not asserted by typing.cast"
-            )
+        for rule in RULES:
+            rule_findings = by_rule[rule.name]
+            if rule_findings:
+                print(_RULE_FORMATTERS[rule.name](rule_findings))
 
 
-def ast_multi_category_refinement_findings(
-    path: str, text: str, staged: bool
-) -> list[Finding]:
+def ast_multi_category_refinement_findings(path: str, text: str, staged: bool) -> list[Finding]:
     try:
         tree = ast.parse(text, filename=path)
     except SyntaxError:
@@ -449,10 +337,7 @@ def ast_constructor_cast_findings(path: str, text: str, staged: bool) -> list[Fi
             self.class_stack.pop()
 
         def visit_Call(self, node: ast.Call) -> None:
-            if any(
-                class_name in {"Constructors", "_Constructors"}
-                for class_name in self.class_stack
-            ):
+            if any(class_name in {"Constructors", "_Constructors"} for class_name in self.class_stack):
                 function = node.func
                 if isinstance(function, ast.Name):
                     function_name = function.id
@@ -462,11 +347,7 @@ def ast_constructor_cast_findings(path: str, text: str, staged: bool) -> list[Fi
                     function_name = ""
                 if function_name == "cast":
                     line_number = node.lineno
-                    line = (
-                        lines[line_number - 1]
-                        if 0 < line_number <= len(lines)
-                        else ""
-                    )
+                    line = lines[line_number - 1] if 0 < line_number <= len(lines) else ""
                     findings.append(
                         Finding(
                             path=path,
@@ -490,10 +371,7 @@ def print_exact_findings(title: str, findings: list[Finding]) -> None:
 
     for finding in findings:
         staged_marker = " [staged]" if finding.staged else ""
-        print(
-            f"- {finding.location}{staged_marker}: "
-            f"{finding.rule.name}: {finding.rule.message}"
-        )
+        print(f"- {finding.location}{staged_marker}: {finding.rule.name}: {finding.rule.message}")
         print(f"  Code: {finding.line.strip()}")
 
 
@@ -517,23 +395,15 @@ def main() -> int:
                             staged=path in staged_paths,
                         )
                     )
-        findings.extend(
-            ast_multi_category_refinement_findings(
-                path, text, path in staged_paths
-            )
-        )
+        findings.extend(ast_multi_category_refinement_findings(path, text, path in staged_paths))
         findings.extend(ast_constructor_cast_findings(path, text, path in staged_paths))
 
     if findings:
         staged_findings = [finding for finding in findings if finding.staged]
-        hard_fail_findings = [
-            finding for finding in findings if finding.rule.hard_fail
-        ]
+        hard_fail_findings = [finding for finding in findings if finding.rule.hard_fail]
         by_rule = Counter(finding.rule.name for finding in findings)
         staged_by_rule = Counter(finding.rule.name for finding in staged_findings)
-        hard_fail_by_rule = Counter(
-            finding.rule.name for finding in hard_fail_findings
-        )
+        hard_fail_by_rule = Counter(finding.rule.name for finding in hard_fail_findings)
         by_file = Counter(finding.path for finding in findings)
         print("WARNING: category_specs spec code contains banned patterns.")
         print()
@@ -583,17 +453,10 @@ def main() -> int:
 
         if fail_on_staged and staged_findings:
             print()
-            print(
-                "Commit rejected: staged category_specs files still contain "
-                f"{len(staged_findings)} banned pattern findings."
-            )
+            print(f"Commit rejected: staged category_specs files still contain {len(staged_findings)} banned pattern findings.")
             return 1
         print()
-        print(
-            f"Warning-only result: {len(findings)} repo-wide findings remain. "
-            f"Use --fail-on-staged to reject commits touching the "
-            f"{len(staged_findings)} staged findings."
-        )
+        print(f"Warning-only result: {len(findings)} repo-wide findings remain. Use --fail-on-staged to reject commits touching the {len(staged_findings)} staged findings.")
         return 0
 
     print("No banned category_specs spec patterns found.")

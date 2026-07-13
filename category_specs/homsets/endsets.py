@@ -3,7 +3,7 @@ r"""End categories and endomorphism method surfaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, ClassVar, final, override
+from typing import TYPE_CHECKING, ClassVar, final, override, TypeAlias
 
 from sage.misc.lazy_import import LazyImport
 
@@ -87,8 +87,8 @@ class EndCategory(CategoryWithAxiom_singleton):
 
         return [SageHomsets().Endset()]
 
-    ParentMethods = UniversalEndObjectMethods
-    ElementMethods = UniversalEndElementMethods
+    ParentMethods : TypeAlias = UniversalEndObjectMethods
+    ElementMethods : TypeAlias = UniversalEndElementMethods
 
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport("category_specs.homsets.autsets", "AutCategory")
@@ -106,7 +106,7 @@ class EndCategoryConstruction(HomCategoryConstruction):
 
     class ElementMethods: ...
 
-    def Of(self, domain: CategoryObject) -> End:
+    def Of(self, domain: CategoryObject) -> End:  # type: ignore[override]
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
         end_object: End = self.base_category().HomCategory().Of(domain, domain)
         return end_object
@@ -120,9 +120,7 @@ class EndCategoryConstruction(HomCategoryConstruction):
         super_categories = category.super_categories()
         if not super_categories:
             return EndCategory()
-        return Cat().join(
-            [_end_categories_of(super_category) for super_category in super_categories]
-        )
+        return Cat().join([_end_categories_of(super_category) for super_category in super_categories])
 
 
 class EndCategoryOf(CategoryWithAxiom):
@@ -155,8 +153,8 @@ class EndCategoryOf(CategoryWithAxiom):
         end_object: End = self.base_category().Of(domain, domain)
         return end_object
 
-    ParentMethods = UniversalEndObjectMethods
-    ElementMethods = UniversalEndElementMethods
+    ParentMethods : TypeAlias = UniversalEndObjectMethods
+    ElementMethods : TypeAlias = UniversalEndElementMethods
 
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport("category_specs.homsets.autsets", "AutCategoryOf")

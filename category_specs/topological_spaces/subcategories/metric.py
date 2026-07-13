@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, TypeVar, cast, final, override, TypeAlias
 
 from sage.categories.metric_spaces import MetricSpaces as SageMetricSpaces
 from sage.misc.lazy_import import LazyImport
@@ -68,9 +68,9 @@ class MetricSpacesCategory(CategoryWithAxiom):
     """
 
     _base_category_class_and_axiom = (TopologicalSpaces, "Metric")
-    ParentMethods = _MetricSpaceObjectMethods
-    ElementMethods = _MetricSpaceElementMethods
-    HomCategory = MetricSpaceHomCategory
+    ParentMethods : TypeAlias = _MetricSpaceObjectMethods
+    ElementMethods : TypeAlias = _MetricSpaceElementMethods
+    HomCategory : TypeAlias = MetricSpaceHomCategory
     Complete = LazyImport(
         "category_specs.topological_spaces.subcategories.complete",
         "_CompleteMetricSpaces",

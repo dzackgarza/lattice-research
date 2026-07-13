@@ -28,11 +28,8 @@ class _CartesianProducts(CartesianProductsCategory):
         _sets: Sequence[_RModObjects]
 
         @abstractmethod
-        def _cartesian_product_of_elements(
-            self, elements: Iterable[RModuleElement]
-        ) -> RModuleElement: ...
+        def _cartesian_product_of_elements(self, elements: Iterable[RModuleElement]) -> RModuleElement: ...
 
-        @override
         @final
         def __init_extra__(self) -> None:
             factors = self._sets
@@ -48,9 +45,6 @@ class _CartesianProducts(CartesianProductsCategory):
         @abstractmethod
         def cartesian_factors(self) -> Sequence[_RModElements]: ...
 
-        @override
         @final
         def _lmul_(self, x: RingElement) -> RModuleElement:
-            return self.parent()._cartesian_product_of_elements(
-                y._lmul_(x) for y in self.cartesian_factors()
-            )
+            return self.parent()._cartesian_product_of_elements(y._lmul_(x) for y in self.cartesian_factors())

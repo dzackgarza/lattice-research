@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, TypeVar, cast, final, override, TypeAlias
 
 from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGrading
 from sage.misc.abstract_method import abstract_method
@@ -75,6 +75,6 @@ class GradedSetsCategory(CategoryWithAxiom):
 
 
 
-GradedSetsObject = GradedSetsCategory.ParentMethods
-GradedSetsElement = GradedSetsCategory.ElementMethods
-GradedSetsMorphism = SetHomCategory.ElementMethods
+GradedSetsObject : TypeAlias = GradedSetsCategory.ParentMethods
+GradedSetsElement : TypeAlias = GradedSetsCategory.ElementMethods
+GradedSetsMorphism : TypeAlias = SetHomCategory.ElementMethods

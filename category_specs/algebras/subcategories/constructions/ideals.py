@@ -3,7 +3,7 @@ r"""Algebra ideals as module subobjects."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
 from ....cat import Category, Category_module
 from ....modules import Modules
@@ -59,6 +59,6 @@ class AlgebraIdealsCategory(Category_module):
     class ElementMethods: ...
 
 
-AlgebraIdealsObject = AlgebraIdealsCategory.ParentMethods
-AlgebraIdealsElement = AlgebraIdealsCategory.ElementMethods
-AlgebraIdealsMorphism = RModuleHomCategory.ElementMethods
+AlgebraIdealsObject : TypeAlias = AlgebraIdealsCategory.ParentMethods
+AlgebraIdealsElement : TypeAlias = AlgebraIdealsCategory.ElementMethods
+AlgebraIdealsMorphism : TypeAlias = RModuleHomCategory.ElementMethods

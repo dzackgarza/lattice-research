@@ -3,7 +3,7 @@ import os
 from collections.abc import Callable, Sequence
 from functools import wraps
 from textwrap import dedent
-from typing import Any, Protocol, TypeVar, overload, runtime_checkable
+from typing import Any, Protocol, TypeVar, cast, overload, runtime_checkable
 
 from sage.categories.category import Category
 from sage.structure.parent import Parent
@@ -12,8 +12,6 @@ CATEGORY_DIAGNOSTIC_LOGGER_NAME = "category_specs.diagnostics"
 
 _FoldParent = TypeVar("_FoldParent", contravariant=True)
 _FoldElement = TypeVar("_FoldElement")
-_ParentT = TypeVar("_ParentT", bound=Parent)
-_ParentClassT = TypeVar("_ParentClassT", bound=type[Parent])
 _CATEGORY_DIAGNOSTICS_ENABLED = False
 _CATEGORY_DIAGNOSTIC_LOGGER = logging.getLogger(CATEGORY_DIAGNOSTIC_LOGGER_NAME)
 _EMITTED_CATEGORY_DIAGNOSTICS: set[str] = set()
@@ -112,7 +110,7 @@ def _fold_nonempty_binary_operation[FoldParent, FoldElement](
     elements: Sequence[FoldElement],
 ) -> FoldElement:
     assert len(elements) >= 1, "foldable binary operation requires a nonempty sequence"
-    result = elements[0]
+    result: FoldElement = elements[0]
     for element in elements[1:]:
         result = operation(parent, result, element)
     return result
@@ -130,29 +128,19 @@ def foldable_operation[FoldParent, FoldElement](
         right: FoldElement | _MissingFoldArgument = _MISSING_FOLD_ARGUMENT,
     ) -> FoldElement:
         if right is _MISSING_FOLD_ARGUMENT:
-            assert isinstance(left_or_elements, Sequence), (
-                "sequence overload requires a finite sequence"
-            )
+            assert isinstance(left_or_elements, Sequence), "sequence overload requires a finite sequence"
             return _fold_nonempty_binary_operation(
                 operation,
                 parent,
-                left_or_elements,
+                cast(Sequence[FoldElement], left_or_elements),
             )
         return operation(
             parent,
-            left_or_elements,
-            right,
+            cast(FoldElement, left_or_elements),
+            cast(FoldElement, right),
         )
 
-    return folded_operation
-
-
-@overload
-def refine_category[_ParentT: Parent](
-    X: _ParentT,
-    C: Category | Sequence[Category],
-    test: bool = True,
-) -> _ParentT: ...
+    return cast("_FoldableOperation[FoldParent, FoldElement]", folded_operation)
 
 
 @overload
@@ -163,7 +151,15 @@ def refine_category[_ParentClassT: type[Parent]](
 ) -> _ParentClassT: ...
 
 
-def refine_category(
+@overload
+def refine_category[_ParentT: Parent](
+    X: _ParentT,
+    C: Category | Sequence[Category],
+    test: bool = True,
+) -> _ParentT: ...
+
+
+def refine_category[_ParentT: Parent, _ParentClassT: type[Parent]](
     X: _ParentT | _ParentClassT,
     C: Category | Sequence[Category],
     test: bool = True,
@@ -172,7 +168,7 @@ def refine_category(
 
     categories = tuple(C) if isinstance(C, (list, tuple)) else (C,)
     if isinstance(X, type):
-        return refine_parent_class(X, categories)
+        return cast(_ParentClassT, refine_parent_class(X, categories))
     refine_parent_category(X, categories)
     return X
 
@@ -211,9 +207,7 @@ def _run_category_statement_isolated(
     if pid == 0:
         os.close(read_fd)
         failure = _run_category_statement(message, statement)
-        payload = (
-            b"" if failure is None else failure.encode("utf-8", "backslashreplace")
-        )
+        payload = b"" if failure is None else failure.encode("utf-8", "backslashreplace")
         try:
             _write_all(write_fd, payload)
         finally:
@@ -235,19 +229,10 @@ def _run_category_statement_isolated(
         exit_status = os.WEXITSTATUS(status)
         if exit_status == 0:
             return None
-        return (
-            failure
-            or f"{message}: category assertion child exited with status {exit_status}"
-        )
+        return failure or f"{message}: category assertion child exited with status {exit_status}"
     if os.WIFSIGNALED(status):
-        return (
-            f"{message}: category assertion child terminated "
-            f"by signal {os.WTERMSIG(status)}"
-        )
-    return (
-        failure
-        or f"{message}: category assertion child ended with wait status {status}"
-    )
+        return f"{message}: category assertion child terminated by signal {os.WTERMSIG(status)}"
+    return failure or f"{message}: category assertion child ended with wait status {status}"
 
 
 def assert_category_statements(
@@ -268,26 +253,26 @@ def _format_category_obligation_failure_message(failures: list[str]) -> str:
     reminder = dedent(
         """
         Failed category assertions are mathematical evidence, not a spec-weakening signal.
-
+    
         A failed category assertion means that the tested object does not currently
         satisfy the declared category obligation, or that the asserted obligation is
         misstated. It is not by itself evidence that the category definition should
         be weakened.
-
+    
         Before editing specs, abstract methods, constructor routing, or category
         assertions in response to this output, load:
         - category-spec-style
         - category-spec-obligation-test-triage
         - category-spec-workflow
-
+    
         Also check repo memory:
         - .agents/memories/category-specs-sage-interop-is-a-design-constraint.md
-
+    
         Do not remove or move a category obligation merely because a tested Sage
         object fails it. Either implement the missing obligation, refine the object
         through a correct constructor, or prove that the obligation belongs to a
         different weakest category.
-
+    
         Before advancing the task, review git diff output and any task-local commits
         for deleted obligations, narrowed category assertions, or Sage-gap-driven
         interface shrinkage.
