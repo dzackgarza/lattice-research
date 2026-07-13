@@ -13,7 +13,9 @@ This is treated as part of the theory of representations of an integer $n$ by an
 - **Siegel's Main Theorem** on representations of integers by quadratic forms — see Schulze-Pillot (2004), especially pp. 305–306.
 - **Kitaoka**, *Arithmetic of Quadratic Forms* — treatment of Siegel's theorems and representation by indefinite forms.
 
-Key idea: for positive-definite forms, the mass-formula approach counts representations by each class in the genus, divided by automorph counts. For **indefinite** forms, one instead counts orbits under the integral orthogonal group $O(L)$, and shows each representation set splits into finitely many such orbits. This is independent of dimension.
+Key idea: for positive-definite forms, the mass-formula approach counts representations by each class in the genus, divided by automorph counts.
+For **indefinite** forms, one instead counts orbits under the integral orthogonal group $O(L)$, and shows each representation set splits into finitely many such orbits.
+This is independent of dimension.
 
 ### Quantitative / Asymptotic Results
 

@@ -14,17 +14,26 @@ Dale Husemoller Haverford College,Haverford,Pennsylvania 19041, U.S.A.
 
 # ISBN 0-387-06009-X Springer-Verlag New York Heidelberg Berlin ISBN 3-540-06009-X Springer-Verlag Berlin Heidelberg New York
 
-This work is subject to copyright.Allrights arereserved,whether the whole or part of the material is concerned,specifically those of translation,reprinting,re-use of ilustrations,broadcasting,reproduction by photocopying machine or similar means,and storage in data banks. Under $\ S 5 4$ of the German Copyright Law where {copies are made for other than private use,afee is payable to the publisher, the amount of the fee to be determined by agreement with the publisher. $\circledcirc$ by Springer-Verlag BerlinHeidelberg 1973.Library of Congress Catalog Card Number 72-90190.Printedin Germany. Typeseting, printing and binding: Universitatsdruckerei H.Sturtz AG,Wurzburg.
+This work is subject to copyright.Allrights arereserved,whether the whole or part of the material is concerned,specifically those of translation,reprinting,re-use of ilustrations,broadcasting,reproduction by photocopying machine or similar means,and storage in data banks.
+Under $\ S 5 4$ of the German Copyright Law where {copies are made for other than private use,afee is payable to the publisher, the amount of the fee to be determined by agreement with the publisher.
+$\circledcirc$ by Springer-Verlag BerlinHeidelberg 1973.Library of Congress Catalog Card Number 72-90190.Printedin Germany.
+Typeseting, printing and binding: Universitatsdruckerei H.Sturtz AG,Wurzburg.
 
 ![](images/0578a1f4c7abd984cf1c9a93d50a71d09c548dba8e6c12b16a4fc8c358cb4108.jpg)
 
-The theory of quadratic forms and the intimately related theory of symmetric bilinear forms have a long and rich history,highlighted by the work of Legendre, Gauss,Minkowski, and Hasse. (Compare [Dickson] and [Bourbaki, 24, p.185].) Our exposition will concentrate on the relatively recent developments which begin with and are inspired by Witt's 1937 paper “Theorie der quadratischen Formen in beliebigen Korpern.” We will be particularly interested in the work of A.Pfister and M. Knebusch. However,some older material willbe described, particularly in ChapterII. The presentation is based on lectures by Milnor at the Institute for Advanced Study, and at Haverford College under the Phillips Lecture Program,during the Fall of 1970,as well as lectures at Princeton University in 1966. We want to thank J. Cunningham, M. Knebusch,M. Kneser, A. Rosenberg, W. Scharlau and J.-P. Serre for helpful suggestions and corrections.   
-Prerequisites. The reader should be familiar with the rudiments of algebra, including for example the concept of tensor product for modules over a commutative ring. A few individual sections will require quite a bit more.
+The theory of quadratic forms and the intimately related theory of symmetric bilinear forms have a long and rich history,highlighted by the work of Legendre, Gauss,Minkowski, and Hasse.
+(Compare [Dickson] and [Bourbaki, 24, p.185].) Our exposition will concentrate on the relatively recent developments which begin with and are inspired by Witt's 1937 paper “Theorie der quadratischen Formen in beliebigen Korpern.”
+We will be particularly interested in the work of A.Pfister and M. Knebusch.
+However,some older material willbe described, particularly in ChapterII. The presentation is based on lectures by Milnor at the Institute for Advanced Study, and at Haverford College under the Phillips Lecture Program,during the Fall of 1970,as well as lectures at Princeton University in 1966. We want to thank J. Cunningham, M. Knebusch,M. Kneser, A. Rosenberg, W. Scharlau and J.-P. Serre for helpful suggestions and corrections.\
+Prerequisites.
+The reader should be familiar with the rudiments of algebra, including for example the concept of tensor product for modules over a commutative ring.
+A few individual sections will require quite a bit more.
 
-The logical relationship between the various chapters can be roughly described by the diagram below. There are also five appendices,largely self-contained, which treat special topics.
+The logical relationship between the various chapters can be roughly described by the diagram below.
+There are also five appendices,largely self-contained, which treat special topics.
 
-I. Arbitrary commutative rings ← ← ←   
-II. The ring of II. Fields V. Miscellaneous   
+I. Arbitrary commutative rings ← ← ←\
+II. The ring of II. Fields V. Miscellaneous\
 integers examples ← IV.Dedekind domains
 
 ![](images/60b8dfef6381a83d1e94465a04c5bf0422c4b77f2ee992ef81148142c109cbe4.jpg)
@@ -33,46 +42,51 @@ integers examples ← IV.Dedekind domains
 
 # Chapter I. Basic Concepts.．．.
 
-$\ S 1$ . Bilinear Forms and Inner Products.. 1   
-$\ S 2$ .Bilinear Forms over a Free Module . 3   
-$\ S 3$ .Orthogonal Sums 4   
-$\ S 4 .$ .Witt's Theorem. 7   
-$\ S$ 5.Tensor Products and Exterior Powers 9   
-$\ S 6$ .Split Inner Product Spaces 12   
+$\ S 1$ . Bilinear Forms and Inner Products.. 1\
+$\ S 2$ .Bilinear Forms over a Free Module . 3\
+$\ S 3$ .Orthogonal Sums 4\
+$\ S 4 .$ .Witt's Theorem.
+7\
+$\ S$ 5.Tensor Products and Exterior Powers 9\
+$\ S 6$ .Split Inner Product Spaces 12\
 $\ S 7$ The Witt Ring.. 14
 
 Chapter II.Symmetric Inner Product Spaces over Z ....．. 15
 
-$\ S 1$ . Minkowski's Convex Body Theorem 15   
-$\ S 2$ .Inner Product Spaces of Rank ≤4 over Z 18   
-$\ S 3$ . The Hasse-Minkowski Theorem and Meyer's Theorem 20   
-$\ S 4$ Indefinite Spaces over Z. 22   
-$\ S 5$ .Spaces of Type II . 24   
-$\ S 6$ .The Classification Problem for Positive Definite Spaces 26   
-$\ S 7 .$ .The Packing of Equal Balls in $\mathbf { R } ^ { n }$ 29   
-$\ S 8$ . Sums of Two and Four Squares. 39   
+$\ S 1$ . Minkowski's Convex Body Theorem 15\
+$\ S 2$ .Inner Product Spaces of Rank ≤4 over Z 18\
+$\ S 3$ . The Hasse-Minkowski Theorem and Meyer's Theorem 20\
+$\ S 4$ Indefinite Spaces over Z. 22\
+$\ S 5$ .Spaces of Type II . 24\
+$\ S 6$ .The Classification Problem for Positive Definite Spaces 26\
+$\ S 7 .$ .The Packing of Equal Balls in $\mathbf { R } ^ { n }$ 29\
+$\ S 8$ . Sums of Two and Four Squares.
+39\
 $\ S 9$ A Theorem of Siegel ：. 41
 
 # Chapter II. Inner Product Spaces over a Field．．.....．． 56
 
-\$1. Anisotropic Inner Product Spaces . . .. 56   
-\$2.Ordered Fields． 59   
-\$ 3.Prime Ideals in the Witt Ring. 65   
-\$ 4.Multiplicative Inner Product Spaces . 72   
+\$1. Anisotropic Inner Product Spaces . . .. 56\
+\$2.Ordered Fields． 59\
+\$ 3.Prime Ideals in the Witt Ring.
+65\
+\$ 4.Multiplicative Inner Product Spaces . 72\
 \$5.The Powers of the Fundamental Ideal .. 76
 
 Chapter IV. Discrete Valuations and Dedekind Domains ..... 84
 
-$\ S 1$ . The Homomorphism $\partial _ { v } \colon W ( F ) \to W ( { \overrightarrow { F } } )$ 84   
-$\ S 2 .$ Computation of $W ( \mathbf { Q } )$ 87   
-$\ S 3 .$ Dedekind Domains 91   
-$\ S 4$ Number Fields. 94
+$\ S 1$ . The Homomorphism $\partial _ { v } \colon W ( F ) \to W ( { \overrightarrow { F } } )$ 84\
+$\ S 2 .$ Computation of $W ( \mathbf { Q } )$ 87\
+$\ S 3 .$ Dedekind Domains 91\
+$\ S 4$ Number Fields.
+94
 
 Chapter V. Some Examples ... ..100
 
-$\ S 1$ .Homology Theory of Manifolds．．．．．． ．．．100   
-$\ S 2$ .Rings of Smooth Real Valued Functions．．． ．． 105   
-\$ 3.The Discriminant of a Field Extension. 107
+$\ S 1$ .Homology Theory of Manifolds．．．．．． ．．．100\
+$\ S 2$ .Rings of Smooth Real Valued Functions．．． ．． 105\
+\$ 3.The Discriminant of a Field Extension.
+107
 
 Appendix 1. Quadratic Forms 110
 
@@ -84,19 +98,22 @@ Appendix 3.The Hass-Minkowski Theorem．..．．..．．.120
 
 ![](images/59b449e494b55c42cd64cd111bc0c358236e73edc0d7689fea35886e05071614.jpg)
 
-This chapter will define the concept of an inner product space over a commutative ring $R$ ，and describe basic constructions which are independent of the ring $R$ .In particular it introduces the Witt ring $W ( R ) _ { : }$ which will play a central role in later chapters.Roughly speaking, $W ( R )$ is the collection of all symmetric inner product spaces $X$ over $R$ modulo the collection of “ split" inner product spaces. The inner product space $X$ is said to be split if $X { = } X _ { 1 } { + } X _ { 2 }$ where the submodules $X _ { 1 }$ and $X _ { 2 }$ are dually paired by the inner product, and $X _ { 1 } \cdot X _ { 1 } { = } 0 .$
+This chapter will define the concept of an inner product space over a commutative ring $R$ ，and describe basic constructions which are independent of the ring $R$ .In particular it introduces the Witt ring $W ( R ) _ { : }$ which will play a central role in later chapters.Roughly speaking, $W ( R )$ is the collection of all symmetric inner product spaces $X$ over $R$ modulo the collection of “ split" inner product spaces.
+The inner product space $X$ is said to be split if $X { = } X _ { 1 } { + } X _ { 2 }$ where the submodules $X _ { 1 }$ and $X _ { 2 }$ are dually paired by the inner product, and $X _ { 1 } \cdot X _ { 1 } { = } 0 .$
 
 # §1.Bilinear Forms and Inner Products
 
 Let $R$ be a commutative ring with 1,and let $X$ be a left $R$ -module.
 
-(1.1) Definition. A bitinear form on $\boldsymbol { \cal X }$ is a function
+(1.1) Definition.
+A bitinear form on $\boldsymbol { \cal X }$ is a function
 
 $$
 \beta \colon X \times X \to R
 $$
 
-such that $\beta ( x , y )$ is $R$ -linear as a function of $x$ for fixed $y _ { : }$ and $R$ -linear as a function of $y$ for fixed $x$ .Such a bilinear form $\beta$ will be called an inner product on $X$ if the following strong non-degeneracy conditions are satisfied. For each $R$ -linear map
+such that $\beta ( x , y )$ is $R$ -linear as a function of $x$ for fixed $y _ { : }$ and $R$ -linear as a function of $y$ for fixed $x$ .Such a bilinear form $\beta$ will be called an inner product on $X$ if the following strong non-degeneracy conditions are satisfied.
+For each $R$ -linear map
 
 $$
 \varphi \colon X \to R
@@ -140,7 +157,8 @@ $$
 \beta ( x , y ) { = } \sum \beta _ { i j } \xi _ { i } \eta _ { j } .
 $$
 
-(2.1) Definition. Given any $n \times n$ matrix $B { = } ( \beta _ { i j } )$ with entries in $R$
+(2.1) Definition.
+Given any $n \times n$ matrix $B { = } ( \beta _ { i j } )$ with entries in $R$
 
 $$
 \langle B \rangle { = } \langle B \rangle _ { R }
@@ -148,7 +166,8 @@ $$
 
 will stand for the free bilinear form space over R with basis $e _ { 1 } , \ldots , e _ { n }$ andwith bilinear form $\beta ( e _ { i } , e _ { j } ) { = } \beta _ { i j }$
 
-(2.2)Lemma. This bilinear form is an inner product if and only if the matrixBis invertible(i.e.,has a 2-sidedinverse).
+(2.2)Lemma.
+This bilinear form is an inner product if and only if the matrixBis invertible(i.e.,has a 2-sidedinverse).
 
 This is clear since the homomorphism x-→β(x, ) from $\overline { { \boldsymbol X } }$ to the dual module ${ \mathrm { H o m } } _ { R } ( X , R ) .$ equipped with the dual basis $e _ { 1 } ^ { * } , \ldots , e _ { n } ^ { * }$ , is given by $e _ { i } \mathrm { { i } } \xrightarrow [ { j } ] { } \beta _ { i j } e _ { j } ^ { * }$ □
 
@@ -156,7 +175,8 @@ Note that the bilinear form space $\langle B \rangle$ is symmetric if and only i
 
 Now let us see what happens if we change the basis.
 
-(2.3) Lemma. The bilinear form space $\langle B \rangle$ is isomorphic to <B'>if and onlv if
+(2.3) Lemma.
+The bilinear form space $\langle B \rangle$ is isomorphic to <B'>if and onlv if
 
 for some invertible $n \times n$ matrix A.
 
@@ -174,7 +194,8 @@ $$
 
 The following special case is of particular interest.
 
-(2.4) Example. Let $u$ be any element in the group $R ^ { \bullet }$ consisting of all units in $R$ .Then the symbol $\langle u \rangle$ denotes the symmetric inner product -space having one basis element $e _ { 1 } ,$ where $e _ { 1 } \cdot e _ { 1 } { = } u$ Note that
+(2.4) Example.
+Let $u$ be any element in the group $R ^ { \bullet }$ consisting of all units in $R$ .Then the symbol $\langle u \rangle$ denotes the symmetric inner product -space having one basis element $e _ { 1 } ,$ where $e _ { 1 } \cdot e _ { 1 } { = } u$ Note that
 
 $$
 \langle u \rangle \cong \langle u ^ { \prime } \rangle
@@ -182,17 +203,21 @@ $$
 
 if and only if $u ^ { \prime } { = } { \alpha } ^ { 2 } u$ for some $\alpha \in R ^ { \bullet }$ ：
 
-A useful invariant of free inner product spaces is the determinant. Let $R ^ { \bullet 2 }$ denote the subgroup of $R ^ { \bullet }$ consisting of all squares of units.
+A useful invariant of free inner product spaces is the determinant.
+Let $R ^ { \bullet 2 }$ denote the subgroup of $R ^ { \bullet }$ consisting of all squares of units.
 
-(2.5) Definition. The determinant of a free inner product space $X$ is the element of the quotient group $R ^ { \bullet } / R ^ { \bullet 2 }$ represented by det $( B ) _ { : }$ ，where $B$ is any matrix with $\langle B \rangle \cong X$
+(2.5) Definition.
+The determinant of a free inner product space $X$ is the element of the quotient group $R ^ { \bullet } / R ^ { \bullet 2 }$ represented by det $( B ) _ { : }$ ，where $B$ is any matrix with $\langle B \rangle \cong X$
 
 More generally, if $\boldsymbol { X }$ is a free bilinear form module, then det $( X )$ is the element of the quotient monoid $R / R ^ { \bullet 2 }$ represented by det $( B ) _ { : }$ where $B$ is any matrix with $\langle B \rangle \cong X$ . It follows from (2.3) that this determinant is well defined.
 
-We conclude with one more useful and classical construction. Given a basis $e _ { 1 } , \ldots , e _ { n }$ for a fre inerproduct space $X$ , the dual basis $e _ { 1 } ^ { \# } , \ldots , e _ { n } ^ { \# }$ for $X$ is defined by the conditions
+We conclude with one more useful and classical construction.
+Given a basis $e _ { 1 } , \ldots , e _ { n }$ for a fre inerproduct space $X$ , the dual basis $e _ { 1 } ^ { \# } , \ldots , e _ { n } ^ { \# }$ for $X$ is defined by the conditions
 
 and
 
-(2.6) Lemma. To each basis for $a$ free inner product space there corresponds a unique dual basis.
+(2.6) Lemma.
+To each basis for $a$ free inner product space there corresponds a unique dual basis.
 
 For the matrix $( \beta _ { i j } ) { = } ( e _ { i } \cdot e _ { j } )$ is invertible, with inverse matrix ${ { \left( { \gamma } _ { j k } \right) } }$ The equations
 
@@ -204,7 +229,8 @@ now yield the required dual basis.□
 
 # S 3. Orthogonal Sums
 
-Let $X _ { 1 } , \ldots , X _ { n }$ be bilinear form modules,with bilinear forms $\beta _ { 1 } , \ldots , \beta _ { n }$ respectively. The orthogonal sum $X _ { 1 } \oplus \cdots \oplus X _ { n }$ is defined to be the direct sum of the modules $X _ { i }$ with bilinear form $\beta$ defined by the equation
+Let $X _ { 1 } , \ldots , X _ { n }$ be bilinear form modules,with bilinear forms $\beta _ { 1 } , \ldots , \beta _ { n }$ respectively.
+The orthogonal sum $X _ { 1 } \oplus \cdots \oplus X _ { n }$ is defined to be the direct sum of the modules $X _ { i }$ with bilinear form $\beta$ defined by the equation
 
 $$
 \begin{array} { r } { \beta ( x _ { 1 } \oplus \cdots \oplus x _ { n } , y _ { 1 } \oplus \cdots \oplus y _ { n } ) = \sum \beta _ { i } ( x _ { i } , y _ { i } ) } \end{array}
@@ -212,7 +238,8 @@ $$
 
 summed over $1 \leq i \leq n .$
 
-Evidently $X _ { 1 } \oplus \cdots \oplus X _ { n }$ is an inner product module (or an inner product space) if and only if each $X _ { i }$ is an inner product module (or an inner product space). If the $X _ { i }$ are free and finitely generated, note that
+Evidently $X _ { 1 } \oplus \cdots \oplus X _ { n }$ is an inner product module (or an inner product space) if and only if each $X _ { i }$ is an inner product module (or an inner product space).
+If the $X _ { i }$ are free and finitely generated, note that
 
 $$
 \mathrm { \bf ~ r k } ( X _ { 1 } \oplus \cdots \oplus X _ { n } ) { \bf = } \sum \mathrm { \bf ~ r k } ( X _ { i } ) ,
@@ -222,13 +249,16 @@ $$
 \begin{array} { r } { \operatorname* { d e t } ( X _ { 1 } \oplus \cdots \oplus X _ { n } ) { = } \prod \operatorname* { d e t } ( X _ { i } ) . } \end{array}
 $$
 
-The following lemma is easy to prove, but extremely important.Let $X$ be a bilinear form module,and $M$ a submodule. We assume that the bilinear form $\beta$ is either symmetric or skew-symmetric, so that $\beta ( x , y ) { = } 0$ implies $\beta ( y , x ) = 0$ ，
+The following lemma is easy to prove, but extremely important.Let $X$ be a bilinear form module,and $M$ a submodule.
+We assume that the bilinear form $\beta$ is either symmetric or skew-symmetric, so that $\beta ( x , y ) { = } 0$ implies $\beta ( y , x ) = 0$ ，
 
-(3.1) Orthogonal decomposition lemma. If the bilinear form $\beta$ re-stricted to $M \times M$ is an inner product on $M _ { ; }$ then $X$ is isomorphic to the orthogonal sum $M \oplus M ^ { \perp }$
+(3.1) Orthogonal decomposition lemma.
+If the bilinear form $\beta$ re-stricted to $M \times M$ is an inner product on $M _ { ; }$ then $X$ is isomorphic to the orthogonal sum $M \oplus M ^ { \perp }$
 
 Here $M ^ { \perp }$ denotes the orthogonal complement, consisting of all xeX such that $\beta ( x , M ) = 0$ ：
 
-Proof. If $m { \in } M \cap M ^ { \bot }$ ，then $\beta ( m , m ^ { \prime } ) { = } 0$ for all $m ^ { \prime } { \in } M _ { \mathrm { { \ell } } }$ ，and therefore $m { = } 0 .$ Thus to prove (3.1) it suffices to show that every $_ x$ in $X$ can be written as a sum m+y with m∈M and y∈M-.
+Proof.
+If $m { \in } M \cap M ^ { \bot }$ ，then $\beta ( m , m ^ { \prime } ) { = } 0$ for all $m ^ { \prime } { \in } M _ { \mathrm { { \ell } } }$ ，and therefore $m { = } 0 .$ Thus to prove (3.1) it suffices to show that every $_ x$ in $X$ can be written as a sum m+y with m∈M and y∈M-.
 
 Given ${ \mathbf { { \mathit { x } } } } \in X ,$ consider the linear form $m ^ { \prime } \mapsto \beta ( x , m ^ { \prime } )$ on M. By the definition of inner product, there exists one and only one element m∈M so that
 
@@ -242,9 +272,12 @@ $$
 { \pmb x } = m + ( { \pmb x } - m )
 $$
 
-as required. This completes the proof.
+as required.
+This completes the proof.
 
-(3.2) Theorem. Let $X$ be a symmetric or skew-symmetric bilinear form module, and let $\overline { { x _ { 1 } , \ldots , x _ { k } } }$ be elements such that the k×k matrix $\left( \beta ( x _ { i } , x _ { j } ) \right)$ is invertible. Then $x _ { 1 } , \ldots , x _ { k }$ are linearly independent, and
+(3.2) Theorem.
+Let $X$ be a symmetric or skew-symmetric bilinear form module, and let $\overline { { x _ { 1 } , \ldots , x _ { k } } }$ be elements such that the k×k matrix $\left( \beta ( x _ { i } , x _ { j } ) \right)$ is invertible.
+Then $x _ { 1 } , \ldots , x _ { k }$ are linearly independent, and
 
 $$
 X \cong M \oplus M ^ { \perp }
@@ -252,11 +285,14 @@ $$
 
 where M denotes the free module spanned by the $x _ { i }$
 
-Proof. Since any relation $\rho _ { 1 } x _ { 1 } + \cdots + \rho _ { k } x _ { k } { = } 0$ would contradict the hypothesis that $\left( \beta ( x _ { i } , x _ { j } ) \right)$ isinvertible, this follows easily from the lemma.
+Proof.
+Since any relation $\rho _ { 1 } x _ { 1 } + \cdots + \rho _ { k } x _ { k } { = } 0$ would contradict the hypothesis that $\left( \beta ( x _ { i } , x _ { j } ) \right)$ isinvertible, this follows easily from the lemma.
 
-This theorem has many applications. Here are some examples.
+This theorem has many applications.
+Here are some examples.
 
-(3.3) Corollary. If $X$ is $^ { a }$ finitely generated symmetric bilinear form module, then
+(3.3) Corollary.
+If $X$ is $^ { a }$ finitely generated symmetric bilinear form module, then
 
 $$
 X \cong \langle u _ { 1 } \rangle \oplus \dots \oplus \langle u _ { k } \rangle \oplus N
@@ -276,13 +312,19 @@ $$
 R x _ { 1 } \cong \langle u _ { 1 } \rangle
 $$
 
-is free. Now apply the same construction to $( R x _ { 1 } ) ^ { \perp }$ ,and continue inductively.
+is free.
+Now apply the same construction to $( R x _ { 1 } ) ^ { \perp }$ ,and continue inductively.
 
-This procedure must terminate after finitely many steps.For suppose that the module X is generated by $_ n$ elements. If the construction continued for more than n steps, we could construct a homomorphism from a free module of rank $n$ onto a free module of rank $n + 1$ Since $R$ is commutative, this is impossible; and this completes the proof.□
+This procedure must terminate after finitely many steps.For suppose that the module X is generated by $_ n$ elements.
+If the construction continued for more than n steps, we could construct a homomorphism from a free module of rank $n$ onto a free module of rank $n + 1$ Since $R$ is commutative, this is impossible; and this completes the proof.□
 
-If R is a field,it follows that $\beta ( x , x ) = 0$ for every $\mathbf { \boldsymbol { x } } \in N ,$ so that N is symplectic. In fact if $\pmb R$ is a field of characteristic $\neq 2 ,$ then $\beta$ restricted to $\mathcal { N } \times N$ being both symmetric and symplectic must actually be zero. In the case of an inner product, this implies that $N$ itself must be zero. More generally consider a local ring (i.e.,a ring with unique maximal ideal).
+If R is a field,it follows that $\beta ( x , x ) = 0$ for every $\mathbf { \boldsymbol { x } } \in N ,$ so that N is symplectic.
+In fact if $\pmb R$ is a field of characteristic $\neq 2 ,$ then $\beta$ restricted to $\mathcal { N } \times N$ being both symmetric and symplectic must actually be zero.
+In the case of an inner product, this implies that $N$ itself must be zero.
+More generally consider a local ring (i.e.,a ring with unique maximal ideal).
 
-(3.4) Corollary. If $R$ is $a$ local ring in which 2 is $a$ unit, then every symmetric inner product space $X$ over $R$ possesses an orthogonal basis.
+(3.4) Corollary.
+If $R$ is $a$ local ring in which 2 is $a$ unit, then every symmetric inner product space $X$ over $R$ possesses an orthogonal basis.
 
 That is, $X$ possesses a basis $e _ { 1 } , \ldots , e _ { k }$ so that $e _ { i } \cdot e _ { j } { = } 0$ for $i \neq j .$ In other words
 
@@ -292,17 +334,23 @@ $$
 
 for suitable units u1,. uk:
 
-Proof of (3.4). Consider the submodule $_ N$ of (3.3). As an orthogonal summand of an inner product space, $\overline { { N } }$ must itself be an inner product space. Suppose that $N$ were non-zero. Since every finitely generated projective over a local ring is free,see [Swan,1968] or [Milnor, Intr. algebr. $K$ -theory],we could choose a basis $e _ { 1 } , \ldots , e _ { n }$ for $N ,$ with $n { \geq } 1$ Let $e _ { 1 } ^ { \# } , \ldots , e _ { n } ^ { \# }$ be the dual basis.Then the computation
+Proof of (3.4). Consider the submodule $_ N$ of (3.3). As an orthogonal summand of an inner product space, $\overline { { N } }$ must itself be an inner product space.
+Suppose that $N$ were non-zero.
+Since every finitely generated projective over a local ring is free,see [Swan,1968] or [Milnor, Intr. algebr. $K$ -theory],we could choose a basis $e _ { 1 } , \ldots , e _ { n }$ for $N ,$ with $n { \geq } 1$ Let $e _ { 1 } ^ { \# } , \ldots , e _ { n } ^ { \# }$ be the dual basis.Then the computation
 
 $$
 \scriptstyle 2 = 2 e _ { 1 } \cdot e _ { 1 } ^ { \# } = ( e _ { 1 } + e _ { 1 } ^ { \# } ) \cdot ( e _ { 1 } + e _ { 1 } ^ { \# } ) - e _ { 1 } \cdot e _ { 1 } - e _ { 1 } ^ { \# } \cdot e _ { 1 } ^ { \# }
 $$
 
-would show that 2 belonged to the ideal of non units, contradicting our hypothesis. Thus $N { = } 0 $ ，which completes the proof.□
+would show that 2 belonged to the ideal of non units, contradicting our hypothesis.
+Thus $N { = } 0 $ ，which completes the proof.□
 
-Here is a final example. Let $X$ be a symplectic inner product space. By a symplectic basis for $X$ we will mean a basis $e _ { 1 } , \ldots , e _ { n }$ such that the associated inner product matrix $( e _ { i } \cdot e _ { j } )$ has the form $\left( \begin{array} { l l } { 0 } & { I } \\ { - I } & { 0 } \end{array} \right)$
+Here is a final example.
+Let $X$ be a symplectic inner product space.
+By a symplectic basis for $X$ we will mean a basis $e _ { 1 } , \ldots , e _ { n }$ such that the associated inner product matrix $( e _ { i } \cdot e _ { j } )$ has the form $\left( \begin{array} { l l } { 0 } & { I } \\ { - I } & { 0 } \end{array} \right)$
 
-(3.5) Corollary. If R is either a Dedekind domain (see p.91 for a definition) or a local ring, then every symplectic inner product space over R is free, and possesses a symplectic basis.
+(3.5) Corollary.
+If R is either a Dedekind domain (see p.91 for a definition) or a local ring, then every symplectic inner product space over R is free, and possesses a symplectic basis.
 
 Thus the rank of such a space is always even, and the determinant is always the identity element of $R ^ { \bullet } / R ^ { \bullet 2 }$ .(More generally, for any free symplectic bilinear form space,the determinant in $R / R ^ { \bullet 2 }$ has a canonical square root in $R / R ^ { \bullet }$ called the“Pfaffian" See [Bourbaki, v.24,p.83].)
 
@@ -316,7 +364,8 @@ $$
 ( x _ { i } \cdot x _ { j } ) { = } \left( \begin{array} { l l } { 0 } & { 1 } \\ { - 1 } & { 0 } \end{array} \right)
 $$
 
-is evidently invertible, so by (3.2) these two elements span a free orthogonal summand. An easy inductive argument now completes the proof.□
+is evidently invertible, so by (3.2) these two elements span a free orthogonal summand.
+An easy inductive argument now completes the proof.□
 
 An example of a symplectic inner product space with no symplectic basis will be constructed in Chapter V, \$ 2.
 
@@ -324,7 +373,8 @@ An example of a symplectic inner product space with no symplectic basis will be 
 
 Let $X$ be a symmetric bilinear form module over the ring $R$ .Suppose that we are given an orthogonal sum decomposition $X = M \oplus N .$
 
-(4.1) Definition. The reflection of $X$ with respect to $( M , N )$ is the linear transformation r: $X \to X$ which leaves $\boldsymbol { M }$ pointwise fixed and carries each point of $\mathcal { N }$ to its negative.
+(4.1) Definition.
+The reflection of $X$ with respect to $( M , N )$ is the linear transformation r: $X \to X$ which leaves $\boldsymbol { M }$ pointwise fixed and carries each point of $\mathcal { N }$ to its negative.
 
 Thus r maps each sum $x = m + n$ in $X$ to $r ( x ) = m - n .$ Evidently $r$ is an involution
 
@@ -340,7 +390,9 @@ $$
 
 for all $\boldsymbol { x }$ and y. If 2 is a unit in $\pmb R$ ,then conversely it is easy to show that every linear involution preserving the bilinear form on $X$ is a reflection.
 
-(4.2) Lemma. Suppose that $R$ is $a$ local ring in which 2 is $a$ unit. If $x$ and y are elements in the symmetric bilinear form module $X$ such that
+(4.2) Lemma.
+Suppose that $R$ is $a$ local ring in which 2 is $a$ unit.
+If $x$ and y are elements in the symmetric bilinear form module $X$ such that
 
 $$
 \beta ( x , x ) { = } \beta ( y , y )
@@ -348,25 +400,36 @@ $$
 
 is a unit of R,then there exists $a$ reflection of $X$ carrying x to y.
 
-Proof. Express $\overline { { x } }$ as the sum of two mutually orthogonal vectors $\scriptstyle u = ( x + y ) / 2$ and $v = ( x - y ) / 2$ .Then
+Proof.
+Express $\overline { { x } }$ as the sum of two mutually orthogonal vectors $\scriptstyle u = ( x + y ) / 2$ and $v = ( x - y ) / 2$ .Then
 
 $$
 \beta ( x , x ) = \beta ( u , u ) + \beta ( v , v ) .
 $$
 
-Since $R$ is local,at least one of the two ring elements $\beta ( u , u )$ and $\beta ( v , v )$ must be a unit. If $\beta ( u , u )$ is a unit, then $X { = } ( R u ) \oplus ( R u ) ^ { \perp }$ ,and the reflection with respect to $( ( R u ) , ( R u ) ^ { \perp } )$ carries $\textbf { \em u }$ + $v = x$ to $\scriptstyle u - v = y$ Similarly， if $\beta ( v , v )$ is a unit, then reflection with respect to $( ( R v ) ^ { \perp } , ( R v ) )$ carries $\boldsymbol { x }$ to y. This completes the proof.
+Since $R$ is local,at least one of the two ring elements $\beta ( u , u )$ and $\beta ( v , v )$ must be a unit.
+If $\beta ( u , u )$ is a unit, then $X { = } ( R u ) \oplus ( R u ) ^ { \perp }$ ,and the reflection with respect to $( ( R u ) , ( R u ) ^ { \perp } )$ carries $\textbf { \em u }$ + $v = x$ to $\scriptstyle u - v = y$ Similarly， if $\beta ( v , v )$ is a unit, then reflection with respect to $( ( R v ) ^ { \perp } , ( R v ) )$ carries $\boldsymbol { x }$ to y. This completes the proof.
 
-(4.3) Corollary. With $R$ as above, if $X$ is $a$ symmetric inner product space of rank n over $R$ ,then every automorphism $f$ of $X$ can be expressed as the composition of n reflections.
+(4.3) Corollary.
+With $R$ as above, if $X$ is $a$ symmetric inner product space of rank n over $R$ ,then every automorphism $f$ of $X$ can be expressed as the composition of n reflections.
 
-Proof by induction. By (3.4) there exists an orthogonal basis $e _ { 1 } , \ldots , e _ { n }$ for $X$ .Choose a reflection $r _ { 1 }$ carrying $f ( e _ { 1 } )$ to $e _ { 1 }$ . Then $r _ { 1 } f$ fixes $e _ { 1 }$ and hence carries the space $( R e _ { 1 } ) ^ { \perp }$ of rank $\overline { { n - 1 } }$ to itself. Therefore $\overline { { r _ { 1 } f } }$ restricted to $( R e _ { 1 } ) ^ { \perp }$ is a composition $r _ { 2 } \ldots r _ { n }$ of reflections. Extending each $\underline { { r _ { i } } }$ to $\overline { { X } }$ by setting $\underline { { r _ { i } ( e _ { 1 } ) } } = e _ { 1 }$ for $i > 1$ we have $\overline { { f = r _ { 1 } \ldots r _ { n } } }$ asrequired.
+Proof by induction.
+By (3.4) there exists an orthogonal basis $e _ { 1 } , \ldots , e _ { n }$ for $X$ .Choose a reflection $r _ { 1 }$ carrying $f ( e _ { 1 } )$ to $e _ { 1 }$ . Then $r _ { 1 } f$ fixes $e _ { 1 }$ and hence carries the space $( R e _ { 1 } ) ^ { \perp }$ of rank $\overline { { n - 1 } }$ to itself.
+Therefore $\overline { { r _ { 1 } f } }$ restricted to $( R e _ { 1 } ) ^ { \perp }$ is a composition $r _ { 2 } \ldots r _ { n }$ of reflections.
+Extending each $\underline { { r _ { i } } }$ to $\overline { { X } }$ by setting $\underline { { r _ { i } ( e _ { 1 } ) } } = e _ { 1 }$ for $i > 1$ we have $\overline { { f = r _ { 1 } \ldots r _ { n } } }$ asrequired.
 
-Another corollary, more important for our purposes, is the following. We continue to assume that $R$ is a local ring in which 2 is a unit.
+Another corollary, more important for our purposes, is the following.
+We continue to assume that $R$ is a local ring in which 2 is a unit.
 
-(4.4) Witt's theorem. Let $X$ Y $Z$ be inner product spaces over R. If $X \oplus Y \cong X \oplus Z$ ,then $Y \cong Z$
+(4.4) Witt's theorem.
+Let $X$ Y $Z$ be inner product spaces over R. If $X \oplus Y \cong X \oplus Z$ ,then $Y \cong Z$
 
-Proof. Since $X$ is an orthogonal sum of rank 1 spaces by (3.4), it suffices to prove this theorem when $X$ is free of rank 1.Let e be a basis element for $X$ ,and let
+Proof.
+Since $X$ is an orthogonal sum of rank 1 spaces by (3.4), it suffices to prove this theorem when $X$ is free of rank 1.Let e be a basis element for $X$ ,and let
 
-be an arbitrary isomorphism. To avoid confusion, let $0 _ { X } , ~ 0 _ { Y }$ ，and $0 _ { z }$ denote the zero elements in $X , ~ Y$ and $Z$ respectively. Then the two elements $f ( e \oplus 0 _ { Y } )$ and $e \oplus 0 _ { z }$ of $X \oplus Z$ satisfy the hypothesis of (4.2), so there exists a reflection $r$ of $X \oplus Z$ carrying $f ( e \oplus 0 _ { Y } )$ to $e \oplus 0 _ { z }$ . Now the isomorphism
+be an arbitrary isomorphism.
+To avoid confusion, let $0 _ { X } , ~ 0 _ { Y }$ ，and $0 _ { z }$ denote the zero elements in $X , ~ Y$ and $Z$ respectively.
+Then the two elements $f ( e \oplus 0 _ { Y } )$ and $e \oplus 0 _ { z }$ of $X \oplus Z$ satisfy the hypothesis of (4.2), so there exists a reflection $r$ of $X \oplus Z$ carrying $f ( e \oplus 0 _ { Y } )$ to $e \oplus 0 _ { z }$ . Now the isomorphism
 
 $$
 r f \colon X \oplus Y \to X \oplus Z
@@ -404,9 +467,11 @@ It is interesting to note that Witt's theorem remains true for quadratic forms o
 
 # S 5.Tensor Products and Exterior Powers
 
-Let $X _ { 1 } , . . . , X _ { n }$ be bilinear form modules over $R ,$ with bilinear forms $\beta _ { 1 } , \ldots , \beta _ { n }$ respectively. Then the tensor product $X _ { 1 } \otimes \cdots \otimes X _ { n }$ Over R can be made into a bilinear form module as follows.
+Let $X _ { 1 } , . . . , X _ { n }$ be bilinear form modules over $R ,$ with bilinear forms $\beta _ { 1 } , \ldots , \beta _ { n }$ respectively.
+Then the tensor product $X _ { 1 } \otimes \cdots \otimes X _ { n }$ Over R can be made into a bilinear form module as follows.
 
-(5.1) Lemma. There is one and only one bilinear form $\beta$ on $X _ { 1 } \otimes \cdots \otimes X _ { n }$ which satisfies the identity.
+(5.1) Lemma.
+There is one and only one bilinear form $\beta$ on $X _ { 1 } \otimes \cdots \otimes X _ { n }$ which satisfies the identity.
 
 $$
 \beta ( x _ { 1 } \otimes \cdots \otimes x _ { n } , y _ { 1 } \otimes \cdots \otimes y _ { n } ) { \stackrel { } { = } } \prod _ { i = 1 } ^ { n } \beta _ { i } ( x _ { i } , y _ { i } )
@@ -414,7 +479,8 @@ $$
 
 for all $x _ { i }$ and yiin X,1≤i≤n.
 
-Proof. The 2n-linear function
+Proof.
+The 2n-linear function
 
 $$
 ( x _ { 1 } , . . . , x _ { n } , y _ { 1 } , . . . , y _ { n } ) { \mapsto } \beta _ { 1 } ( x _ { 1 } , y _ { 1 } ) . . . \beta _ { n } ( x _ { n } , y _ { n } )
@@ -434,13 +500,19 @@ $$
 
 we obtain the required bilinear form $\beta$ □
 
-(5.2) Remark. If each $X _ { i }$ is symmetric, then the tensor product is clearly symmetric. More generally, if each $X _ { i }$ is $\varepsilon _ { i }$ -symmetric (where 1-symmetric means symmetric and $( - 1 )$ -symmetric means skewsymmetric), then the tensor product $X _ { 1 } \otimes \cdots \otimes X _ { n }$ is $( \varepsilon _ { 1 } . . . \varepsilon _ { n } )$ -symmetric. Similarly, if $X _ { 1 }$ is symmetric and $X _ { 2 }$ is sympleetie, then $X _ { 1 } \otimes X _ { 2 }$ is symplectic.
+(5.2) Remark.
+If each $X _ { i }$ is symmetric, then the tensor product is clearly symmetric.
+More generally, if each $X _ { i }$ is $\varepsilon _ { i }$ -symmetric (where 1-symmetric means symmetric and $( - 1 )$ -symmetric means skewsymmetric), then the tensor product $X _ { 1 } \otimes \cdots \otimes X _ { n }$ is $( \varepsilon _ { 1 } . . . \varepsilon _ { n } )$ -symmetric.
+Similarly, if $X _ { 1 }$ is symmetric and $X _ { 2 }$ is sympleetie, then $X _ { 1 } \otimes X _ { 2 }$ is symplectic.
 
 Now let us suppose that each $X _ { i }$ is an inner product space.
 
-(5.3) Lemma. If $X _ { 1 } , . . . , X _ { n }$ are inner product spaces over $R$ ，then $X _ { 1 } \otimes \cdots \otimes X _ { n }$ is an inner product space over $R$
+(5.3) Lemma.
+If $X _ { 1 } , . . . , X _ { n }$ are inner product spaces over $R$ ，then $X _ { 1 } \otimes \cdots \otimes X _ { n }$ is an inner product space over $R$
 
-Proof. Since each module $X _ { i }$ is a direct summand of a finitely generated free $R$ -module, it follows easily that the tensor product $X _ { 1 } \otimes \cdots \otimes X _ { n }$ is a direct summand of a finitely generated free $R$ -module. Let $X ^ { * }$ denote the module Hom $( X , R )$ dual to X. Each inner product $\beta _ { i }$ gives rise to an associated bijection
+Proof.
+Since each module $X _ { i }$ is a direct summand of a finitely generated free $R$ -module, it follows easily that the tensor product $X _ { 1 } \otimes \cdots \otimes X _ { n }$ is a direct summand of a finitely generated free $R$ -module.
+Let $X ^ { * }$ denote the module Hom $( X , R )$ dual to X. Each inner product $\beta _ { i }$ gives rise to an associated bijection
 
 $$
 { \bar { \beta } } _ { i } \colon X _ { i } \to X _ { i } ^ { * } ,
@@ -460,9 +532,11 @@ $$
 
 where n is the homomorphism from $X _ { 1 } ^ { * } \otimes \cdots \otimes X _ { n } ^ { * }$ to $( X _ { 1 } \otimes \cdots \otimes X _ { n } ) ^ { * }$ which maps each generator $f _ { 1 } \otimes \cdots \otimes f _ { n }$ to the homomorphism X1@·-@xn→
 
-$f ( x _ { 1 } ) \ldots f ( x _ { n } ) .$ But each $X _ { i }$ is finitely generated and projective,so it is easy to check that $\eta$ is an isomorphism. This completes the proof.
+$f ( x _ { 1 } ) \ldots f ( x _ { n } ) .$ But each $X _ { i }$ is finitely generated and projective,so it is easy to check that $\eta$ is an isomorphism.
+This completes the proof.
 
-In this lemma the hypothesis that the $X _ { i }$ are projective is essential. (For a counter-example in the non-projective case, consider modules of -order 3 over $\mathbf { Z } / 9 \mathbf { Z } . )$
+In this lemma the hypothesis that the $X _ { i }$ are projective is essential.
+(For a counter-example in the non-projective case, consider modules of -order 3 over $\mathbf { Z } / 9 \mathbf { Z } . )$
 
 As examples of this tensor product operation, note that
 
@@ -482,9 +556,12 @@ $$
 \operatorname { r k } { ( X \otimes Y ) } { = } \operatorname { r k } { ( X ) } \operatorname { r k } { ( Y ) } .
 $$
 
-The tensor product operation will play a very important role in subsequent sections. In particular, it is used to provide the product operation in the Witt ring (S7)./Here is a related construction which will also play an important role.
+The tensor product operation will play a very important role in subsequent sections.
+In particular, it is used to provide the product operation in the Witt ring (S7)./Here is a related construction which will also play an important role.
 
-(5.4) Change of rings. Let $f \colon R \to R ^ { \prime }$ be a ring homomorphism. Then any inner product space $X$ over $R$ gives rise to an inner product space
+(5.4) Change of rings.
+Let $f \colon R \to R ^ { \prime }$ be a ring homomorphism.
+Then any inner product space $X$ over $R$ gives rise to an inner product space
 
 $$
 f _ { \# } ( X ) { = } R _ { \# } ^ { \prime } X
@@ -502,20 +579,23 @@ $$
 \mathrm { r a n k } ( P ) { \in } \mathbf { Z } ^ { \mathrm { S p e c } ( R ) }
 $$
 
-is the function which assigns to each prime ideal p the dimension of the   
-vector space $F _ { \otimes P } { \otimes } P ,$ where ${ \bf \nabla } ^ { F }$ is the quotient field of $\mathbf { \mathcal { R } } / \mathbf { \bar { p } }$ . This coincides R   
+is the function which assigns to each prime ideal p the dimension of the\
+vector space $F _ { \otimes P } { \otimes } P ,$ where ${ \bf \nabla } ^ { F }$ is the quotient field of $\mathbf { \mathcal { R } } / \mathbf { \bar { p } }$ . This coincides R\
 with our previous definition whenever $P$ is free.
 
-(5.6) Exterior powers. If $X$ is a bilinear form module over $R _ { ; }$ ，then the exterior power $\wedge ^ { k } X$ over $R$ possesses a unique bilinear form $\hat { \beta }$ satisfying the identity
+(5.6) Exterior powers.
+If $X$ is a bilinear form module over $R _ { ; }$ ，then the exterior power $\wedge ^ { k } X$ over $R$ possesses a unique bilinear form $\hat { \beta }$ satisfying the identity
 
 $$
 \widehat { \beta } ( x _ { 1 } \wedge \ldots \wedge x _ { k } , y _ { 1 } \wedge \ldots \wedge y _ { k } ) = { \tt d e t } ( \beta ( x _ { i } , y _ { j } ) ) .
 $$
 
-See [Bourbaki, $2 4 , \mathsf { p } . 3 0 ]$ If X is ε-symmetric,then $\triangle ^ { k } X$ is $\varepsilon ^ { k } .$ -symmetric.   
+See [Bourbaki, $2 4 , \mathsf { p } . 3 0 ]$ If X is ε-symmetric,then $\triangle ^ { k } X$ is $\varepsilon ^ { k } .$ -symmetric.\
 If X is an inner product space, then $\triangle ^ { k } X$ is also an inner product space.
 
-(5.7) The determinant. Let $X$ be a bilinear form space over $R$ whose underlying projective module has rank $n$ at every prime ideal. Then the bilinear form space $\textstyle { \bigwedge } ^ { n } X$ of rank 1 is called the“determinant”of $X$ Compare [Knebusch, $1 9 6 9 / 7 0 ]$ . This subsumes our previous concept of determinant, since if $X$ is free with basis $e _ { 1 } , \ldots , e _ { n }$ ,then $\wedge ^ { n } X$ is free with basis $e { = } e _ { 1 } \wedge \ldots \wedge e _ { n }$ , and hence
+(5.7) The determinant.
+Let $X$ be a bilinear form space over $R$ whose underlying projective module has rank $n$ at every prime ideal.
+Then the bilinear form space $\textstyle { \bigwedge } ^ { n } X$ of rank 1 is called the“determinant”of $X$ Compare [Knebusch, $1 9 6 9 / 7 0 ]$ . This subsumes our previous concept of determinant, since if $X$ is free with basis $e _ { 1 } , \ldots , e _ { n }$ ,then $\wedge ^ { n } X$ is free with basis $e { = } e _ { 1 } \wedge \ldots \wedge e _ { n }$ , and hence
 
 where the element
 
@@ -529,11 +609,13 @@ An illustration of this concept of “determinant” willbe given in Chapter V, 
 
 # 6. Split Inner Product Spaces
 
-(6.1) Definition. A symmetric inner product space $s$ over the ring $R$ is split if there exists a submodule $N { \subset } S $ ,such that $N$ is a direct summand of S,and such that $N$ is precisely equal to its orthogonal complement $N ^ { \perp }$
+(6.1) Definition.
+A symmetric inner product space $s$ over the ring $R$ is split if there exists a submodule $N { \subset } S $ ,such that $N$ is a direct summand of S,and such that $N$ is precisely equal to its orthogonal complement $N ^ { \perp }$
 
 This concept is due to Knebusch, who uses the term“metabolic”in place of our“split".
 
-An equivalent form of the definition would be the following. The space S is split if it is the direct sum of two submodules M, $\overline { { N } }$ which are dually paired to $R$ by the inner product,
+An equivalent form of the definition would be the following.
+The space S is split if it is the direct sum of two submodules M, $\overline { { N } }$ which are dually paired to $R$ by the inner product,
 
 $$
 { \cal M } \stackrel { \cong } { \longrightarrow } \mathrm { H o m } _ { R } ( N , R ) , ~ N { \stackrel { \cong } { \longrightarrow } } \mathrm { H o m } _ { R } ( M , R ) ,
@@ -541,9 +623,14 @@ $$
 
 and such that $N$ is self-orthogonal, $N \cdot N { = } 0$ [Still another formulation would be that $s$ is split if it contains a self-orthogonal direct summand $N$ whose rank,in the sense of $\ S 5 . 5 .$ , is equal to $\textstyle { \frac { 1 } { 2 } }$ rank (S).]
 
-Here are two examples. The hyperbolic plane, with inner product matrix 10 is clearly split. Furthermore, for any unit ${ \underline { { \boldsymbol { u } } } } .$ the orthois split. For if $e _ { 1 } , e _ { 2 }$ is an orthogonal basis with inner product matrix $\left( { \begin{array} { c c } { u } & { 0 } \\ { 0 } & { - u } \end{array} } \right)$ , then the element $e _ { 1 } + e _ { 2 }$ spans the required irect summand $N$ with $N = N ^ { \perp }$
+Here are two examples.
+The hyperbolic plane, with inner product matrix 10 is clearly split.
+Furthermore, for any unit ${ \underline { { \boldsymbol { u } } } } .$ the orthois split.
+For if $e _ { 1 } , e _ { 2 }$ is an orthogonal basis with inner product matrix $\left( { \begin{array} { c c } { u } & { 0 } \\ { 0 } & { - u } \end{array} } \right)$ , then the element $e _ { 1 } + e _ { 2 }$ spans the required irect summand $N$ with $N = N ^ { \perp }$
 
-(6.2) Lemma. Let S and $\pmb { S } ^ { \prime }$ be split inner product spaces, and let $X = ( X , \beta )$ be an arbitrary inner product space. Then the orthogonal sum SS' is split, and the tensor product $S \otimes X$ is split.Furthermore the orthogonal sum
+(6.2) Lemma.
+Let S and $\pmb { S } ^ { \prime }$ be split inner product spaces, and let $X = ( X , \beta )$ be an arbitrary inner product space.
+Then the orthogonal sum SS' is split, and the tensor product $S \otimes X$ is split.Furthermore the orthogonal sum
 
 $$
 ( X , \beta ) \oplus ( X , - \beta )
@@ -551,7 +638,8 @@ $$
 
 is split.
 
-Proofs of the first two assertions are easily supplied. To prove the third, we use the split inner product space $\langle 1 \rangle \oplus \langle - 1 \rangle$ to conclude that the tensor product
+Proofs of the first two assertions are easily supplied.
+To prove the third, we use the split inner product space $\langle 1 \rangle \oplus \langle - 1 \rangle$ to conclude that the tensor product
 
 $$
 \displaystyle \begin{array} { r l } & { \frac { ( \langle 1 \rangle \oplus \langle - 1 \rangle ) \otimes ( X , \beta ) \cong \left( \langle 1 \rangle \otimes ( X , \beta ) \right) \oplus \left( \langle - 1 \rangle \otimes ( X , \beta ) \right) } { \mathrm { ~ a ~ n ~ } } } \\ & { \frac { \mathrm { ~ p l i t . ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } } { \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } \mathrm { ~ } } } \end{array}
@@ -561,11 +649,16 @@ is also
 
 In special cases we can give a more precise description of split spaces.
 
-(6.3) Lemma. Let R be a ring such that every finitely generated projective over R is free. Then an inner product space over R is split if and only if it possesses a basis so that the associated inner product matrix has theform().Ifweasoasuetat2sunit,teneverysplitier product space has matrix $\binom { 0 } { I } \binom { I } { 0 }$ with respect to a suitble basis.
+(6.3) Lemma.
+Let R be a ring such that every finitely generated projective over R is free.
+Then an inner product space over R is split if and only if it possesses a basis so that the associated inner product matrix has theform().Ifweasoasuetat2sunit,teneverysplitier product space has matrix $\binom { 0 } { I } \binom { I } { 0 }$ with respect to a suitble basis.
 
-Thus every split space is isomorphic to an orthogonal sum of hyperbolic planes,when all of the hypotheses of (6.3) are satisfied. This is the case when $R$ is a field of characteristic ≠2.
+Thus every split space is isomorphic to an orthogonal sum of hyperbolic planes,when all of the hypotheses of (6.3) are satisfied.
+This is the case when $R$ is a field of characteristic ≠2.
 
-Proof. Given any direct summand $N \subset X$ ,choose a basis basis. Then clearly for $\underline { { N } } ,$ and extend to a basis $e _ { n + 1 } ^ { \# } , \ldots , e _ { k } ^ { \# }$ $e _ { 1 } , \ldots , e _ { k }$ forbasis fortherogoalco for $X$ Let $e _ { 1 } ^ { \# } , \ldots , e _ { k } ^ { \# }$ be the dual plement $N ^ { \perp }$
+Proof.
+Given any direct summand $N \subset X$ ,choose a basis basis.
+Then clearly for $\underline { { N } } ,$ and extend to a basis $e _ { n + 1 } ^ { \# } , \ldots , e _ { k } ^ { \# }$ $e _ { 1 } , \ldots , e _ { k }$ forbasis fortherogoalco for $X$ Let $e _ { 1 } ^ { \# } , \ldots , e _ { k } ^ { \# }$ be the dual plement $N ^ { \perp }$
 
 Suppose that $N = N ^ { \perp }$ . Then substituting $e _ { 1 } , \ldots , e _ { n }$ for $e _ { n + 1 } ^ { \# } , \ldots , e _ { k } ^ { \# }$ we see that the elements
 
@@ -585,39 +678,51 @@ This completes the proof.0
 
 # \$7. The Witt Ring
 
-Following Knebusch,we bring some order into the collection of all inner product spaces over $R$ by introducing an equivalence relation. (See also [Frohlich-McEvett].)
+Following Knebusch,we bring some order into the collection of all inner product spaces over $R$ by introducing an equivalence relation.
+(See also [Frohlich-McEvett].)
 
-(7.1) Definition. Two symmetric inner product spaces $X$ and $X ^ { \prime }$   
-over $R$ belong to the same Witt class, written $X { \sim } X ^ { \prime }$ ，if there exist split   
+(7.1) Definition.
+Two symmetric inner product spaces $X$ and $X ^ { \prime }$\
+over $R$ belong to the same Witt class, written $X { \sim } X ^ { \prime }$ ，if there exist split\
 inner product spaces S and S' so that $X \oplus S$ is isomorphic to $X ^ { \prime } \oplus S ^ { \prime }$ Evidently this is an equivalence relation.Furthermore:
 
-(7.2) Lemma. If $X { \sim } X ^ { \prime }$ and $Y { \sim } Y ^ { \prime }$ ,then $X \oplus Y { \sim } X ^ { \prime } \oplus Y ^ { \prime }$ and $X \otimes Y \sim$ $X ^ { \prime } { \otimes } Y ^ { \prime }$
+(7.2) Lemma.
+If $X { \sim } X ^ { \prime }$ and $Y { \sim } Y ^ { \prime }$ ,then $X \oplus Y { \sim } X ^ { \prime } \oplus Y ^ { \prime }$ and $X \otimes Y \sim$ $X ^ { \prime } { \otimes } Y ^ { \prime }$
 
-Proof. These statements follow easily from (6.2).
+Proof.
+These statements follow easily from (6.2).
 
 Now recalling that $( X , \beta ) \oplus ( X , - \beta ) { \sim } 0 \operatorname { a n d } \langle 1 \rangle \otimes X { \cong } X ,$ we evidentlyobtain the following.
 
-(7.3) Theorem. The collection $W ( R )$ of all Witt classes of symmetric inner product spaces over $R$ forms $a$ commutative ring with 1,using the orthogonal sum as addition operation and the tensor product as multiplication operation.
+(7.3) Theorem.
+The collection $W ( R )$ of all Witt classes of symmetric inner product spaces over $R$ forms $a$ commutative ring with 1,using the orthogonal sum as addition operation and the tensor product as multiplication operation.
 
 Following Knebusch, $W ( R )$ is called the Witt ring of R.Using (5.4) we see that any ring homomorphism $R \to R ^ { \prime }$ induces a ring homomorphism $W ( R ) \to W ( R ^ { \prime } ) .$ We will investigate the structure of this ring $W ( R )$ in subsequent chapters.
 
 Note the following.
 
-(7.4) Lemma. If $R$ is a local ring in which 2 is a unit,then two symmetric inner product spaces over R are isomorphic if and only if they belong to the same Witt class and have the same rank.
+(7.4) Lemma.
+If $R$ is a local ring in which 2 is a unit,then two symmetric inner product spaces over R are isomorphic if and only if they belong to the same Witt class and have the same rank.
 
-Proof. This follows easily from (4.4) and (6.3).□
+Proof.
+This follows easily from (4.4) and (6.3).□
 
 # Chapter II. Symmetric Inner Product Spaces over Z
 
-This chapter will discuss the classification problem for inner product spaces over the ring $\mathbf { Z }$ of rational integers. All inner products are to be symmetric. Our presentation is based on the classical theorem of Minkowski concerning lattice points in a convex symmetric subset of $\mathbf { R } ^ { n }$ .This theorem is first used to classify inner product spaces of rank $\leq 4$ over Z. Making use of the Hasse-Minkowski theorem (which we do not prove), it is shown that an indefinite inner product space over Z is completely determined by its rank, type, and signature; where the type is defined to be either I or $H$ according as the space does or does not contain a vector of odd norm. It follows that the Wit ring $W ( \mathbf { Z } )$ is isomorphic to Z.
+This chapter will discuss the classification problem for inner product spaces over the ring $\mathbf { Z }$ of rational integers.
+All inner products are to be symmetric.
+Our presentation is based on the classical theorem of Minkowski concerning lattice points in a convex symmetric subset of $\mathbf { R } ^ { n }$ .This theorem is first used to classify inner product spaces of rank $\leq 4$ over Z. Making use of the Hasse-Minkowski theorem (which we do not prove), it is shown that an indefinite inner product space over Z is completely determined by its rank, type, and signature; where the type is defined to be either I or $H$ according as the space does or does not contain a vector of odd norm.
+It follows that the Wit ring $W ( \mathbf { Z } )$ is isomorphic to Z.
 
-The classification problem for positive definite inner product spaces, on the other hand, is extraordinarily difficult. After a discussion of this problem, and the related problem of close packing of balls in euclidean space,we present the classical characterization of sums of two or four squares in Z. The chapter concludes with an outline of Siegel’s work on positive definite bilinear forms over Z.
+The classification problem for positive definite inner product spaces, on the other hand, is extraordinarily difficult.
+After a discussion of this problem, and the related problem of close packing of balls in euclidean space,we present the classical characterization of sums of two or four squares in Z. The chapter concludes with an outline of Siegel’s work on positive definite bilinear forms over Z.
 
 # \$1.Minkowski's Convex Body Theorem
 
 Let $\mathbf { R } ^ { n }$ be the cartesian space consisting of all $\boldsymbol { n }$ -tuples ${ \mathfrak { x } } = ( x _ { 1 } , \ldots , x _ { n } )$ of real numbers, and provided with the standard Lebesgue measure $\overline { { d { x _ { 1 } } . . . d { x _ { n } } } }$ ：
 
-(1.1) Definition. A lattice in $\mathbf { \mathbf { R } } ^ { n }$ is an additive subgroup $L { \bf C } { \bf R } ^ { n }$ which is additively generated by some basis $\boldsymbol { b } _ { 1 } , \ldots , \boldsymbol { b } _ { n }$ for the real vector space $\mathbf { R } ^ { n }$
+(1.1) Definition.
+A lattice in $\mathbf { \mathbf { R } } ^ { n }$ is an additive subgroup $L { \bf C } { \bf R } ^ { n }$ which is additively generated by some basis $\boldsymbol { b } _ { 1 } , \ldots , \boldsymbol { b } _ { n }$ for the real vector space $\mathbf { R } ^ { n }$
 
 $\mathrm { ~ \ , ~ }$ Choosing some basis $b _ { 1 } , \ldots , b _ { n }$ for $L _ { ; }$ ，we can form the fundamental domain $P$ consisting of all $\xi _ { 1 } b _ { 1 } + \cdots + \xi _ { n } b _ { n }$ with $0 \leq \xi _ { i } < 1$ . Clearly every point of $\mathbf { R } ^ { n }$ is congruent modulo $L$ to one and only one point of $P .$ The volume (or Lebesgue measure)
 
@@ -629,7 +734,8 @@ $$
 
 A lattice is called unimodular if $\mathbb { R } ^ { n } / L$ has volume 1.
 
-(1.2) Examples. Clearly $\mathbf { Z } ^ { n } { \subset } \mathbf { R } ^ { n }$ is a lattice with $\operatorname { v o l } ( \mathbf { R } ^ { n } / \mathbf { Z } ^ { n } ) = 1$ If $L$ and $L ^ { \prime }$ are lattices with $L \supset L ^ { \prime }$ ,then clearly the index $| L / L ^ { \prime } |$ is finite and
+(1.2) Examples.
+Clearly $\mathbf { Z } ^ { n } { \subset } \mathbf { R } ^ { n }$ is a lattice with $\operatorname { v o l } ( \mathbf { R } ^ { n } / \mathbf { Z } ^ { n } ) = 1$ If $L$ and $L ^ { \prime }$ are lattices with $L \supset L ^ { \prime }$ ,then clearly the index $| L / L ^ { \prime } |$ is finite and
 
 $$
 \operatorname { v o l } \left( \mathbf { R } ^ { n } / L ^ { \prime } \right) { \bmod { \left( \mathbf { R } ^ { n } / L \right) } } \left| L / L ^ { \prime } \right| .
@@ -639,15 +745,18 @@ If we think of $\mathbf { R } ^ { n }$ as a euclidean inner product space, with 
 
 Recall that a subset $K \subset \mathbf { \mathbb { R } } ^ { n }$ is convex if x, $\boldsymbol { x ^ { \prime } } { \in } K$ implies that $\lambda { \boldsymbol { x } } +$ $( 1 - \lambda ) { x ^ { \prime } } \in K$ for all real numbers λ in the interval $\mathbf { 0 } \leq \lambda \leq 1$ . A subset $\kappa$ of R" is symmetric about 0, if x∈ K implies -x∈ K.
 
-(1.3) Minkowski's theorem. Let K be $\mathbf { \delta } \mathbf { \overline { { \alpha } } } \mathbf { \overline { { \alpha } } } \mathbf { \overline { { \alpha } } } $ convex subset of $\mathbf { R } ^ { n }$ which is symmetric about O. If the volume (or Lebesgue measure) of $\kappa$ is greater than $2 ^ { n }$ times the volume of $a$ fundamental domain for $L$ ,then $K$ contains a non-zero lattice point.
+(1.3) Minkowski's theorem.
+Let K be $\mathbf { \delta } \mathbf { \overline { { \alpha } } } \mathbf { \overline { { \alpha } } } \mathbf { \overline { { \alpha } } } $ convex subset of $\mathbf { R } ^ { n }$ which is symmetric about O. If the volume (or Lebesgue measure) of $\kappa$ is greater than $2 ^ { n }$ times the volume of $a$ fundamental domain for $L$ ,then $K$ contains a non-zero lattice point.
 
-Proof. The subset $K ^ { \prime }$ consisting of all $\textstyle { \frac { 1 } { 2 } } x$ with $\boldsymbol { x } \in K$ clearly satisfies
+Proof.
+The subset $K ^ { \prime }$ consisting of all $\textstyle { \frac { 1 } { 2 } } x$ with $\boldsymbol { x } \in K$ clearly satisfies
 
 $$
 \operatorname { v o l } ( K ^ { \prime } ) > \operatorname { v o l } \left( \mathbf { R } ^ { n } / L \right) .
 $$
 
-Hence the canonical map $K ^ { \prime } {  } \mathbb { R } ^ { n } / L ,$ which is locally a volume preserving embedding, cannot be one-to-one. There must exist two distinct points say $\textstyle { \frac { 1 } { 2 } } x$ and $\textstyle { \frac { 1 } { 2 } }$ yin $\pmb { K } ^ { \prime }$ with the same image in $\mathbf { R } ^ { n } / L$ ; so that
+Hence the canonical map $K ^ { \prime } {  } \mathbb { R } ^ { n } / L ,$ which is locally a volume preserving embedding, cannot be one-to-one.
+There must exist two distinct points say $\textstyle { \frac { 1 } { 2 } } x$ and $\textstyle { \frac { 1 } { 2 } }$ yin $\pmb { K } ^ { \prime }$ with the same image in $\mathbf { R } ^ { n } / L$ ; so that
 
 $$
 0 \neq { \frac { 1 } { 2 } } x - { \frac { 1 } { 2 } } y \in L .
@@ -669,13 +778,17 @@ $$
 
 It follows that $\overline { { \omega _ { n } = \pi ^ { n / 2 } / ( n / 2 ) ! } }$ for even values of n.(In terms of the gamma function, we have $\omega _ { n } { = } \pi ^ { n / 2 } / \Gamma ( 1 { + } \textstyle { \frac { 1 } { 2 } } n )$ for all values of n.） Applying Minkowski's theorem to $D ( r ) ,$ we obtain the following.
 
-(1.4) Corollary. If $r ^ { n } \geq \left( 2 ^ { n } / \omega _ { n } \right) \mathrm { v o l } ( \mathbf { R } ^ { n } / L ) .$ then the disk $D ( r )$ contains $a$ non-zero lattice point.
+(1.4) Corollary.
+If $r ^ { n } \geq \left( 2 ^ { n } / \omega _ { n } \right) \mathrm { v o l } ( \mathbf { R } ^ { n } / L ) .$ then the disk $D ( r )$ contains $a$ non-zero lattice point.
 
-Proof. If $r ^ { n }$ is strictly larger than $( 2 ^ { n } / \omega _ { n } ) \mathrm { v o l } ( \mathbf { R } ^ { n } / L ) .$ ,this follows immediately. If equality holds, we simply note that $D ( r + \varepsilon )$ contains a non-zero lattice point for every $\varepsilon > 0$ .But the compact set $D ( r + \varepsilon )$ can contain only finitely many non-zero lattice points, so the closest one to the origin must lie in $D ( r )$ □
+Proof.
+If $r ^ { n }$ is strictly larger than $( 2 ^ { n } / \omega _ { n } ) \mathrm { v o l } ( \mathbf { R } ^ { n } / L ) .$ ,this follows immediately.
+If equality holds, we simply note that $D ( r + \varepsilon )$ contains a non-zero lattice point for every $\varepsilon > 0$ .But the compact set $D ( r + \varepsilon )$ can contain only finitely many non-zero lattice points, so the closest one to the origin must lie in $D ( r )$ □
 
 Setting $\underline { { r _ { 0 } } }$ precisely equal to the n-th root of $( 2 ^ { n } / \omega _ { n } ) \mathrm { v o l } ( \mathbf { R } ^ { n } / L ) .$ this yields the following.
 
-(1.5) Corollary. Every lattce $L \subset \mathbf { \mathbf { \mathbf { R } } } ^ { n }$ contains $a$ point $( x _ { 1 } , \ldots , x _ { n } )$ with
+(1.5) Corollary.
+Every lattce $L \subset \mathbf { \mathbf { \mathbf { R } } } ^ { n }$ contains $a$ point $( x _ { 1 } , \ldots , x _ { n } )$ with
 
 $$
 \begin{array} { r } { 0 < x _ { 1 } ^ { 2 } + \cdots + x _ { n } ^ { 2 } \le r _ { 0 } ^ { 2 } = 4 ( \omega _ { n } ^ { - 1 } \operatorname { v o l } ( \mathbf { R } ^ { n } / L ) ) ^ { 2 / n } . } \end{array}
@@ -693,7 +806,8 @@ By Stirling's formula, this upper bound $4 / ( \omega _ { n } ) ^ { 2 / n }$ is 
 
 Note in particular that $4 / ( \omega _ { n } ) ^ { 2 / n } < 2$ whenever n≤4.
 
-Remark. More generally,for any positive integer $\pmb { n }$ one has the estimate
+Remark.
+More generally,for any positive integer $\pmb { n }$ one has the estimate
 
 $$
 4 / ( \omega _ { n } ) ^ { 2 / n } < 1 + { \textstyle \frac { 1 } { 4 } } n .
@@ -717,9 +831,11 @@ in $\ S 7$
 
 Here is an important qualitative result which follows from (1.5).
 
-(1.6) Lemma (Eisenstein,Hermite). For each integer n there exist only finitely many distinct isomorphism classes of positive definite inner product spaces of rank n over Z.
+(1.6) Lemma (Eisenstein,Hermite).
+For each integer n there exist only finitely many distinct isomorphism classes of positive definite inner product spaces of rank n over Z.
 
-In fact, given positive integers n and d, there exist only finitely many distinct positive definite bilinear form spaces over Z with rank n and determinant d. (Compare $\ S 7 . 4 . )$ The proof, by induction on n, can be outlined as follows.Clearly any such space can be embedded isometrically as a lattice $L \subset \mathbf { \mathbf { R } } ^ { n } .$ ， where R" has the euclidean inner product. The volume of a fundamental domain for $L$ will be $\overline { { d } }$ .Using (1.5), there is a constant $c ( n , d ) { = } 4 \sqrt [ n ] { d / \omega _ { n } ^ { 2 } } \ \mathrm { s o }$ that every such lattice $\scriptstyle { \pmb { L } }$ contains a vector $_ { x }$ with
+In fact, given positive integers n and d, there exist only finitely many distinct positive definite bilinear form spaces over Z with rank n and determinant d. (Compare $\ S 7 . 4 . )$ The proof, by induction on n, can be outlined as follows.Clearly any such space can be embedded isometrically as a lattice $L \subset \mathbf { \mathbf { R } } ^ { n } .$ ， where R" has the euclidean inner product.
+The volume of a fundamental domain for $L$ will be $\overline { { d } }$ .Using (1.5), there is a constant $c ( n , d ) { = } 4 \sqrt [ n ] { d / \omega _ { n } ^ { 2 } } \ \mathrm { s o }$ that every such lattice $\scriptstyle { \pmb { L } }$ contains a vector $_ { x }$ with
 
 Let $L _ { 0 }$ be the sublattice, of index at most $x \cdot x ,$ ,consisting of all $y \in L$ with
 
@@ -727,17 +843,21 @@ $$
 x \cdot y { \equiv } 0 \mod x \cdot x .
 $$
 
-Then $L _ { 0 }$ decomposes as the orthogonal sum of the subgroup spanned by $x ,$ and its orthogonal complement.Using the induction hypothesis, there exist only finitely many possibilities for $L _ { 0 } ,$ up to isomorphism. Hence there exist only finitely many possibilities for $\scriptstyle L$
+Then $L _ { 0 }$ decomposes as the orthogonal sum of the subgroup spanned by $x ,$ and its orthogonal complement.Using the induction hypothesis, there exist only finitely many possibilities for $L _ { 0 } ,$ up to isomorphism.
+Hence there exist only finitely many possibilities for $\scriptstyle L$
 
 A similar argument can be given for indefinite bilinear forms.
 
 # § 2. Inner Product Spaces of Rank $\leq 4$ over Z
 
-(2.1) Lemma. If $L$ is an inner product space of rank n over Z, then $L$ contains a vector $x \neq 0$ with
+(2.1) Lemma.
+If $L$ is an inner product space of rank n over Z, then $L$ contains a vector $x \neq 0$ with
 
 In particular,if $n { \le } 4$ then L contains a vector x=O with |x· xl<2.
 
-Proof. Note that $L$ embeds isometrically as a lattice in the real inner product space $\mathbf { R } \otimes L$ If $L$ is positive definite, then we can identify $\mathbf { R } \otimes L$ with euclidean $n$ -space,and apply (1.5) directly. In any case, it is possible to choose an orthogonal basis $e _ { 1 } , \ldots , e _ { n }$ for $\mathbf { \delta } \mathbf { \mathcal { R } } \otimes L$ so that $e _ { i } \cdot e _ { i } { = \pm 1 }$ Using this basis to identify $\mathbf { R } \otimes L$ with the cartesian space $\mathbf { R } ^ { n }$ ,and to introduce the volume element $\operatorname { d } x _ { 1 } . . . d x _ { n }$ ，note that the volume of （24号 $( { \pmb { \mathrm { R } } } \otimes { \cal L } ) / L$ is equal to 1. For if $b _ { 1 } , \ldots , b _ { n }$ is a basis for $L ,$ then the matrix equation
+Proof.
+Note that $L$ embeds isometrically as a lattice in the real inner product space $\mathbf { R } \otimes L$ If $L$ is positive definite, then we can identify $\mathbf { R } \otimes L$ with euclidean $n$ -space,and apply (1.5) directly.
+In any case, it is possible to choose an orthogonal basis $e _ { 1 } , \ldots , e _ { n }$ for $\mathbf { \delta } \mathbf { \mathcal { R } } \otimes L$ so that $e _ { i } \cdot e _ { i } { = \pm 1 }$ Using this basis to identify $\mathbf { R } \otimes L$ with the cartesian space $\mathbf { R } ^ { n }$ ,and to introduce the volume element $\operatorname { d } x _ { 1 } . . . d x _ { n }$ ，note that the volume of （24 号 $( { \pmb { \mathrm { R } } } \otimes { \cal L } ) / L$ is equal to 1. For if $b _ { 1 } , \ldots , b _ { n }$ is a basis for $L ,$ then the matrix equation
 
 $$
 ( b _ { i } \cdot b _ { j } ) = \left( \begin{array} { c } { { b _ { 1 } } } \\ { { \cdot } } \\ { { \cdot } } \\ { { b _ { n } } } \end{array} \right) \left( \begin{array} { c } { { \pm 1 } } \\ { { \cdot } } \\ { { \cdot } } \\ { { \phantom { - } } } \\ { { \phantom { - } } } \end{array} \right) ( b _ { 1 } ^ { t } \ldots b _ { n } ^ { t } )
@@ -753,19 +873,26 @@ $$
 | x \cdot x | = | \pm x _ { 1 } ^ { 2 } \pm \cdots \pm x _ { n } ^ { 2 } | \le 4 / ( \omega _ { n } ) ^ { 2 / n } ,
 $$
 
-as required. Since it is easy to check that $4 / ( \omega _ { n } ) ^ { 2 / n } < 2 \ \mathrm { f o r } \ n { \stackrel { < } { = } } 4 ,$ this completes the proof.□
+as required.
+Since it is easy to check that $4 / ( \omega _ { n } ) ^ { 2 / n } < 2 \ \mathrm { f o r } \ n { \stackrel { < } { = } } 4 ,$ this completes the proof.□
 
-(2.2) Theorem. Every inner product space of rank ≤4 over Z either possesses an orthogonal basis, and hence is isomorphic to a sum of copies of <1>and <-1>,or is “hyperbolic",with inner product matrix of the form $\binom { 0 } { I } \binom { I } { 0 } .$
+(2.2) Theorem.
+Every inner product space of rank ≤4 over Z either possesses an orthogonal basis, and hence is isomorphic to a sum of copies of <1>and <-1>,or is “hyperbolic",with inner product matrix of the form $\binom { 0 } { I } \binom { I } { 0 } .$
 
-Proof. We argue by induction. The statement is certainly true in the -rank 1 case. Suppose then that the rank is n>1. If we can find a vector $_ { x }$ in $X$ with ${ \mathbf x } \cdot { \mathbf x } = \pm 1$ ，then evidently
+Proof.
+We argue by induction.
+The statement is certainly true in the -rank 1 case.
+Suppose then that the rank is n>1. If we can find a vector $_ { x }$ in $X$ with ${ \mathbf x } \cdot { \mathbf x } = \pm 1$ ，then evidently
 
 If $X ^ { \prime }$ has an orthogonal basis, we are finished; while if $X ^ { \prime }$ is hyperbolic, spanned by $y$ and $z$ with $y \cdot y = z \cdot z = 0 ,$ $y \cdot z = 1 ,$ ，then the vectors $x + y$ ， $x \mp z ,$ and $x + y \mp z$ form the required orthogonal basis.
 
-Suppose on the other hand that we can find a vector $x _ { 1 } \neq 0$ with $x _ { 1 } \cdot x _ { 1 } = 0 .$ . Without loss of generality, we may assume that $x _ { 1 }$ is indivisible, so that $\mathbf { x _ { 1 } }$ forms part of a basis $x _ { 1 } , \ldots , x _ { n }$ for $X$ Let $y _ { 1 } , \ldots , y _ { n }$ be the dual basis. Then the subspace spanned by $\mathbf { x _ { 1 } }$ and $y _ { 1 }$ has an inner product 0 1 matrix of the form 1 a There are two possibilities.
+Suppose on the other hand that we can find a vector $x _ { 1 } \neq 0$ with $x _ { 1 } \cdot x _ { 1 } = 0 .$ . Without loss of generality, we may assume that $x _ { 1 }$ is indivisible, so that $\mathbf { x _ { 1 } }$ forms part of a basis $x _ { 1 } , \ldots , x _ { n }$ for $X$ Let $y _ { 1 } , \ldots , y _ { n }$ be the dual basis.
+Then the subspace spanned by $\mathbf { x _ { 1 } }$ and $y _ { 1 }$ has an inner product 0 1 matrix of the form 1 a There are two possibilities.
 
-Case 1. If the entry $a = y _ { 1 } \cdot y _ { 1 }$ is even, then the subspace spanned by   
-$x _ { 1 }$ and $y _ { 1 }$ is hyperbolic,with a basis $x _ { 1 }$ and $y _ { 1 } - { \textstyle \frac { 1 } { 2 } } a x _ { 1 }$ consisting of self  
-orthogonal vectors. The inner product matrix with respect to this new   
+Case 1. If the entry $a = y _ { 1 } \cdot y _ { 1 }$ is even, then the subspace spanned by\
+$x _ { 1 }$ and $y _ { 1 }$ is hyperbolic,with a basis $x _ { 1 }$ and $y _ { 1 } - { \textstyle \frac { 1 } { 2 } } a x _ { 1 }$ consisting of self\
+orthogonal vectors.
+The inner product matrix with respect to this new\
 basis is $\textstyle { \left[ { \begin{array} { l l } { 0 } & { 1 } \\ { 1 } & { 0 } \end{array} } \right] }$ Thus $X$ is isomorphic to an orthogonal sum X'；
 
 and applying the induction hypothesis to $X ^ { \prime }$ the proof is easily completed.
@@ -776,13 +903,16 @@ $$
 x ^ { \prime } { = } y _ { 1 } { - } k x _ { 1 } , ~ y ^ { \prime } { = } y _ { 1 } { - } ( k { + } 1 ) x _ { 1 }
 $$
 
-are mutually orthogonal, with inner product matrix $\displaystyle \int _ { 0 } ^ { 1 } \frac { 0 } { - 1 }$ So again we can split off an orthogonal summand and proceed by induction. Since,by (2.1), there always exists a vector x∈ X with either x $x = \pm 1$ or $\mathbf { \boldsymbol { x } } \cdot \mathbf { \boldsymbol { x } } = \mathbf { 0 }$ ,this completes the proof.□
+are mutually orthogonal, with inner product matrix $\displaystyle \int _ { 0 } ^ { 1 } \frac { 0 } { - 1 }$ So again we can split off an orthogonal summand and proceed by induction.
+Since,by (2.1), there always exists a vector x∈ X with either x $x = \pm 1$ or $\mathbf { \boldsymbol { x } } \cdot \mathbf { \boldsymbol { x } } = \mathbf { 0 }$ ,this completes the proof.□
 
-(2.3) Remark. The statement of (2.2) is actually true for ranks 5,6, and 7 also.It is false for ranks $\geq 8 ,$ as we will see in $\ S 6 .$
+(2.3) Remark.
+The statement of (2.2) is actually true for ranks 5,6, and 7 also.It is false for ranks $\geq 8 ,$ as we will see in $\ S 6 .$
 
 # S 3.The Hasse-Minkowski Theorem and Meyer’s Theorem
 
-Next we will invoke a basic theorem of algebraic number theory, which we will not prove. Given an inner product space $X$ over the rational numbers $\mathbf { Q } ,$ ，we want to find a vector $x \neq 0$ with $\boldsymbol { x } \cdot \boldsymbol { x } = 0$ .Choosing an orthogonal basis, so that
+Next we will invoke a basic theorem of algebraic number theory, which we will not prove.
+Given an inner product space $X$ over the rational numbers $\mathbf { Q } ,$ ，we want to find a vector $x \neq 0$ with $\boldsymbol { x } \cdot \boldsymbol { x } = 0$ .Choosing an orthogonal basis, so that
 
 $$
 X \cong \langle a _ { 1 } \rangle \oplus \cdots \oplus \langle a _ { n } \rangle
@@ -794,21 +924,27 @@ $$
 a _ { 1 } \xi _ { 1 } ^ { 2 } + \cdots + a _ { n } \xi _ { n } ^ { 2 } = 0 .
 $$
 
-(3.1) Theorem (Hasse-Minkowski). The equation $a _ { 1 } \zeta _ { 1 } ^ { 2 } + \cdots + a _ { n } \zeta _ { n } ^ { 2 } = 0 ,$ with non-zero rational coefficients, has a non-trivial rational solution if and only if(1) it has a non-trivial real solution and(2)for every prime number $p$ it has a non-trivial solution in the field $\mathbf { Q } _ { p }$ of $p$ -adic numbers.
+(3.1) Theorem (Hasse-Minkowski).
+The equation $a _ { 1 } \zeta _ { 1 } ^ { 2 } + \cdots + a _ { n } \zeta _ { n } ^ { 2 } = 0 ,$ with non-zero rational coefficients, has a non-trivial rational solution if and only if(1) it has a non-trivial real solution and(2)for every prime number $p$ it has a non-trivial solution in the field $\mathbf { Q } _ { p }$ of $p$ -adic numbers.
 
 Proofs are given for example in [Borevich-Shafarevich], [O'Meara] and [Serre]. An outline of a proof is given in Appendix 3.
 
-(3.2) Corollary (Meyer's theorem). An indefinite inner product space of rank n≥5 over Q always possesses a vector $x \neq 0$ with x - x equal to 0.
+(3.2) Corollary (Meyer's theorem).
+An indefinite inner product space of rank n≥5 over Q always possesses a vector $x \neq 0$ with x - x equal to 0.
 
-(The word “indefinite” means that the norm $x \cdot x$ takes on both positive and negative values. The restriction $n \geq 5$ is essential. For example the equation $\xi _ { 1 } ^ { 2 } + \xi _ { 2 } ^ { 2 } + \xi _ { 3 } ^ { 2 } - 7 \xi _ { 4 } ^ { 2 }$ has no non-trivial rational solution as can easily be verified by clearing denominators and then reducing modulo 8.)
+(The word “indefinite” means that the norm $x \cdot x$ takes on both positive and negative values.
+The restriction $n \geq 5$ is essential.
+For example the equation $\xi _ { 1 } ^ { 2 } + \xi _ { 2 } ^ { 2 } + \xi _ { 3 } ^ { 2 } - 7 \xi _ { 4 } ^ { 2 }$ has no non-trivial rational solution as can easily be verified by clearing denominators and then reducing modulo 8.)
 
 To prove the corollary from the theorem, we need only show that the
 
 ![](images/105a925f16e1c205d3d1c71b386ccd6d36c616b2d928032c31b2456aaac1d7d7.jpg)
 
-Proof of (3.2). Given $a _ { 1 } , . . . , a _ { 5 } { \in } \mathbf { Q } _ { p }$ , we may assume that each $a _ { i }$ is either a $p$ -adic unit or $p$ times a unit. If at least three of the $a _ { i }$ are units, we are finished by (3.4). But otherwise at least three of the $a _ { i }$ are equal to $p$ times a unit,and again it follows from (3.4) that there is a $p$ -adic solution.
+Proof of (3.2). Given $a _ { 1 } , . . . , a _ { 5 } { \in } \mathbf { Q } _ { p }$ , we may assume that each $a _ { i }$ is either a $p$ -adic unit or $p$ times a unit.
+If at least three of the $a _ { i }$ are units, we are finished by (3.4). But otherwise at least three of the $a _ { i }$ are equal to $p$ times a unit,and again it follows from (3.4) that there is a $p$ -adic solution.
 
-The proof for $p { = } 2$ is similar, but one must work modulo 8, since a number must be congruent to 1 modulo 8 in order to guarantee that it is a 2-adic square. We may assume, after permuting the coeficients and multiplying by a constant, that $a _ { 1 } = 1$ that $a _ { 2 }$ and $a _ { 3 }$ are 2-adic units, and that $a _ { 4 }$ and $a _ { 5 }$ are divisible by at most 2. It is then not dificult to check that the congruence
+The proof for $p { = } 2$ is similar, but one must work modulo 8, since a number must be congruent to 1 modulo 8 in order to guarantee that it is a 2-adic square.
+We may assume, after permuting the coeficients and multiplying by a constant, that $a _ { 1 } = 1$ that $a _ { 2 }$ and $a _ { 3 }$ are 2-adic units, and that $a _ { 4 }$ and $a _ { 5 }$ are divisible by at most 2. It is then not dificult to check that the congruence
 
 $$
 a _ { 2 } \xi _ { 2 } ^ { 2 } + a _ { 3 } \xi _ { 3 } ^ { 2 } + a _ { 4 } \xi _ { 4 } ^ { 2 } + a _ { 5 } \xi _ { 5 } ^ { 2 } \equiv - 1 ( \mathrm { m o d } 
@@ -818,39 +954,56 @@ has a solution, and the argument proceeds as above.
 
 # \$ 4. Indefinite Spaces over Z
 
-(4.1) Lemma. Every indefinite inner product space over Z possesses a vector $x \neq 0$ with $\boldsymbol { x } \cdot \boldsymbol { x } = 0$
+(4.1) Lemma.
+Every indefinite inner product space over Z possesses a vector $x \neq 0$ with $\boldsymbol { x } \cdot \boldsymbol { x } = 0$
 
-Proof. If the rank is $\geq 5 ,$ ，this follows from Meyer's_theorem (3.2), while if the rank is $\leq 4$ it follows from (2.2).
+Proof.
+If the rank is $\geq 5 ,$ ，this follows from Meyer's_theorem (3.2), while if the rank is $\leq 4$ it follows from (2.2).
 
-Remark. This argument depends of course on the Hasse-Minkowski theorem, which we have not proved.A different and self-contained proof of (4.1) will be given in Chapter IV.
+Remark.
+This argument depends of course on the Hasse-Minkowski theorem, which we have not proved.A different and self-contained proof of (4.1) will be given in Chapter IV.
 
-(4.2) Definition. An inner product space over $\mathbf { Z }$ is of type I if it contains a vector $x$ with $x \cdot x$ odd,and of type II if there is no such vector.
+(4.2) Definition.
+An inner product space over $\mathbf { Z }$ is of type I if it contains a vector $x$ with $x \cdot x$ odd,and of type II if there is no such vector.
 
 Evidently $X$ is of type II if and only if the quadratic function $q ( x ) =$ $\textstyle { \frac { 1 } { 2 } } x \cdot x$ takes values in $\mathbf { Z } .$ Thus the inner product spaces of type I are pre-cisely those which arise from quadratic inner product spaces over $\mathbf { Z }$ (Compare Appendix 1.)
 
-(4.3) Theorem. Every indefinite inner product space of type I over Z possesses an orthogonal basis,and hence is isomorphic to an orthogonal sum of copies of <1> and $\langle - 1 \rangle$
+(4.3) Theorem.
+Every indefinite inner product space of type I over Z possesses an orthogonal basis,and hence is isomorphic to an orthogonal sum of copies of <1> and $\langle - 1 \rangle$
 
-(It follows that such a space is uniquely determined by its rank and signature. Compare the discussion below.)
+(It follows that such a space is uniquely determined by its rank and signature.
+Compare the discussion below.)
 
-Proof by induction. The statement is already known for small values of the rank. Choose a vector $x _ { 1 } \neq 0$ with $x _ { 1 } \cdot x _ { 1 } { = } 0 .$ Without loss of generality we may assume that $x _ { \mathrm { { 1 } } }$ is indivisible,and hence forms part of a-basis $x _ { 1 } , \ldots , x _ { n }$ for X. Let $y _ { 1 } , \ldots , y _ { n }$ be the dual basis. Then $x _ { 1 } \cdot y _ { 1 } = 1 .$
+Proof by induction.
+The statement is already known for small values of the rank.
+Choose a vector $x _ { 1 } \neq 0$ with $x _ { 1 } \cdot x _ { 1 } { = } 0 .$ Without loss of generality we may assume that $x _ { \mathrm { { 1 } } }$ is indivisible,and hence forms part of a-basis $x _ { 1 } , \ldots , x _ { n }$ for X. Let $y _ { 1 } , \ldots , y _ { n }$ be the dual basis.
+Then $x _ { 1 } \cdot y _ { 1 } = 1 .$
 
-By hypothesis, there exists a vector $y$ whose norm $y \cdot y$ is odd. Hence one of the basis vectors $y _ { k }$ must have odd norm. Choose a subspace $X _ { 0 } { \subset } X$ as follows. If $y _ { 1 } \cdot y _ { 1 }$ is odd, let $X _ { 0 }$ be spanned by $x _ { 1 }$ and $y _ { 1 }$ .If $y _ { 1 } \cdot y _ { 1 }$ is even, let $X _ { 0 }$ be spanned by $x _ { 1 }$ and $y _ { 1 } + y _ { k }$ where $k$ is chosen so that
+By hypothesis, there exists a vector $y$ whose norm $y \cdot y$ is odd.
+Hence one of the basis vectors $y _ { k }$ must have odd norm.
+Choose a subspace $X _ { 0 } { \subset } X$ as follows.
+If $y _ { 1 } \cdot y _ { 1 }$ is odd, let $X _ { 0 }$ be spanned by $x _ { 1 }$ and $y _ { 1 }$ .If $y _ { 1 } \cdot y _ { 1 }$ is even, let $X _ { 0 }$ be spanned by $x _ { 1 }$ and $y _ { 1 } + y _ { k }$ where $k$ is chosen so that
 
 ![](images/f7feba893547a6ce420ac8a61f13159ee058d167f8b50d590776a87f82168b5a.jpg)
 
-This homomorphism is surjective since $\sigma \langle 1 \rangle = 1$ . It has kernel zero, since if $\sigma ( X ) { = } 0$ then the sum $X \oplus \langle 1 \rangle \oplus \langle - 1 \rangle$ is isomorphic to a sum of copies of $\left. 1 \right. \oplus \left. - 1 \right.$ by (4.3),and therefore
+This homomorphism is surjective since $\sigma \langle 1 \rangle = 1$ . It has kernel zero, since if $\sigma ( X ) { = } 0$ then the sum $X \oplus \langle 1 \rangle \oplus \langle - 1 \rangle$ is isomorphic to a sum of copies of $\left.
+1 \right.
+\oplus \left.
+- 1 \right.$ by (4.3),and therefore
 
 $$
 X { \sim } X \oplus \langle 1 \rangle \oplus \langle - 1 \rangle { \sim } 0 .
 $$
 
-Thus two inner product spaces over Z have the same signature if and only if they belong to the same Witt class. Since the identity $\sigma \langle 1 \rangle =$ 1 implies that the bijection $W ( \mathbf { Z } ) \to \mathbf { Z }$ is a ring isomorphism, this completes the proof.□
+Thus two inner product spaces over Z have the same signature if and only if they belong to the same Witt class.
+Since the identity $\sigma \langle 1 \rangle =$ 1 implies that the bijection $W ( \mathbf { Z } ) \to \mathbf { Z }$ is a ring isomorphism, this completes the proof.□
 
 # \$ 5. Spaces of Type II
 
 We will first prove the following.
 
-(5.1) Theorem. The signature of an inner product space of type I is necessarily divisible by 8.
+(5.1) Theorem.
+The signature of an inner product space of type I is necessarily divisible by 8.
 
 An example in which the signature is precisely 8 will be described in $\ S 6$
 
@@ -860,17 +1013,20 @@ $$
 u \cdot x \equiv x \cdot x { \pmod { 2 } }
 $$
 
-(5.2) Lemma (van der Blij). Every inner product space X over Z possesses a characteristic element.Furthermore,if $u \in X$ is characteristic, then
+(5.2) Lemma (van der Blij).
+Every inner product space X over Z possesses a characteristic element.Furthermore,if $u \in X$ is characteristic, then
 
 $$
 u \cdot u \equiv \sigma ( X ) { \pmod { 8 } } .
 $$
 
-Proof.Form the induced inner product space $X \otimes \mathbf { F } _ { 2 } = X / 2 X$ over the field with 2 elements. If $\bar { x }$ denotes the image of $x$ in $X / 2 X$ ,then the -inner product $_ x$ .yon $X$ clearly gives rise to an $\mathbf { F } _ { 2 }$ -valued inner product
+Proof.Form the induced inner product space $X \otimes \mathbf { F } _ { 2 } = X / 2 X$ over the field with 2 elements.
+If $\bar { x }$ denotes the image of $x$ in $X / 2 X$ ,then the -inner product $_ x$ .yon $X$ clearly gives rise to an $\mathbf { F } _ { 2 }$ -valued inner product
 
 x · y=(residue class of x · y mod 2) on X/2 x.
 
-The function $\bar { x } \mapsto \bar { x } \cdot \bar { x }$ from X/2 X to $\mathbf { F } _ { 2 }$ is $\mathbf { F } _ { 2 }$ -linear. Hence there is one and only one element ${ \overline { { u } } } \in X / 2 X$ which satisfies the equation
+The function $\bar { x } \mapsto \bar { x } \cdot \bar { x }$ from X/2 X to $\mathbf { F } _ { 2 }$ is $\mathbf { F } _ { 2 }$ -linear.
+Hence there is one and only one element ${ \overline { { u } } } \in X / 2 X$ which satisfies the equation
 
 $$
 { \bar { u } } \cdot { \bar { x } } = { \bar { x } } \cdot { \bar { x } }
@@ -884,7 +1040,8 @@ $$
 u ^ { \prime } \cdot u ^ { \prime } = u \cdot u + 4 ( u \cdot x + x \cdot x ) \equiv u \cdot u ( { \bf m o d } \ : 8 ) .
 $$
 
-Clearly this invariant $u \cdot u$ is additive with respect to direct sums. For the inner product space $\langle 1 \rangle$ note that $u \cdot u \equiv 1$ mod 8, while for $\langle - 1 \rangle$ note that $u \cdot u \equiv - 1$ mod 8. So for the orthogonal sum of $p$ copies of $\langle 1 \rangle$ and $q$ copies of $\langle - 1 \rangle$ we see that $u \cdot u$ is congruent to the signature $\sigma { = } p { - } q { \bmod { 8 } } .$
+Clearly this invariant $u \cdot u$ is additive with respect to direct sums.
+For the inner product space $\langle 1 \rangle$ note that $u \cdot u \equiv 1$ mod 8, while for $\langle - 1 \rangle$ note that $u \cdot u \equiv - 1$ mod 8. So for the orthogonal sum of $p$ copies of $\langle 1 \rangle$ and $q$ copies of $\langle - 1 \rangle$ we see that $u \cdot u$ is congruent to the signature $\sigma { = } p { - } q { \bmod { 8 } } .$
 
 For any inner product space $X$ ,the orthogonal sum $X \oplus \langle 1 \rangle \oplus \langle - 1 \rangle$ is indefinite of type I, and hence is isomorphic to a sum of copies of $\langle 1 \rangle$ and <-1>.Since theinvariant $u \cdot u$ mod 8 associated with $X \oplus \langle 1 \rangle \oplus \langle - 1 \rangle$ is the residue class of $\sigma ( x \oplus \langle 1 \rangle \oplus \langle - 1 \rangle ) { = } \sigma ( X )$ mod 8,and since the invariant associated with $\langle 1 \rangle \oplus \langle - 1 \rangle$ is zero, this proves the lemma.
 
@@ -902,7 +1059,8 @@ W(Z)- →W(Z2) uu $\mathbf { Z } { \longrightarrow } \mathbf { Z } / 8 \mathbf {
 
 is a commutative diagram of ring homomorphisms.
 
-Remark 2.A different and quite intriguing formula for the signature mod 8 has recently been given by J.Milgram, in connection with a problem in topology. Let $V$ be any inner product space of signature $\sigma$ over the rational numbers,and let $L \subset V$ be any lattice which is small enough so that $l \cdot l { \in } 2 \mathbf { Z }$ for every $l \in L$ If $L ^ { \# } \subset V$ denotes the“dual lattice", consisting of all $\boldsymbol { v } \in V$ with ${ \vec { v } } \cdot L \subset \mathbf { Z } .$ and if $\overline { { v _ { 1 } , \ldots , v _ { d } } }$ is a complete set of coset representatives for $L ^ { \# } ~ \mathrm { m o d u l o } ~ L$ ，then Milgram proves that
+Remark 2.A different and quite intriguing formula for the signature mod 8 has recently been given by J.Milgram, in connection with a problem in topology.
+Let $V$ be any inner product space of signature $\sigma$ over the rational numbers,and let $L \subset V$ be any lattice which is small enough so that $l \cdot l { \in } 2 \mathbf { Z }$ for every $l \in L$ If $L ^ { \# } \subset V$ denotes the“dual lattice", consisting of all $\boldsymbol { v } \in V$ with ${ \vec { v } } \cdot L \subset \mathbf { Z } .$ and if $\overline { { v _ { 1 } , \ldots , v _ { d } } }$ is a complete set of coset representatives for $L ^ { \# } ~ \mathrm { m o d u l o } ~ L$ ，then Milgram proves that
 
 $$
 \exp ( 2 \pi i \sigma / 8 ) { = } \sum _ { j = 1 } ^ { d } \exp ( \pi i v _ { j } \cdot v _ { j } ) / \sqrt { d } .
@@ -914,7 +1072,8 @@ See Appendix 4 for further details.As an example,if $L$ is unimodular then $L = 
 
 For type I this was proved in $\ S 4 _ { ; }$ , so we need only consider type II.
 
-Proof (following [Serre]). First consider the following construction. Given an inner product space $X$ of type I, we can form the subset $X _ { 0 }$ consisting of all $x$ with $x \cdot x { \equiv } 0 { \pmod { 2 } }$ . Evidently this is a sublattice of index 2 in X.We would like to construct an inner product space of type II which also contains $X _ { 0 }$ as a sublattice of index 2.If such a space exists, then evidently it must be contained in the“dual lattice”
+Proof (following [Serre]). First consider the following construction.
+Given an inner product space $X$ of type I, we can form the subset $X _ { 0 }$ consisting of all $x$ with $x \cdot x { \equiv } 0 { \pmod { 2 } }$ . Evidently this is a sublattice of index 2 in X.We would like to construct an inner product space of type II which also contains $X _ { 0 }$ as a sublattice of index 2.If such a space exists, then evidently it must be contained in the“dual lattice”
 
 $$
 X _ { 0 } ^ { \# } \subset \mathbf { Q } \otimes X ,
@@ -932,83 +1091,106 @@ Let $Y ^ { \prime }$ be another inner product space of type II having the same r
 
 by Theorem(4.3). Applying the construction above to both sides, it follows that $Y \oplus H \cong Y ^ { \prime } \oplus H .$
 
-But a straightforward argument shows that any indefinite inner product space of type II is isomorphic to the orthogonal sum $Y \oplus H$ for some Y.(Compare Sections 2 and 4.) Evidently this completes the proof. $\bigtriangledown$
+But a straightforward argument shows that any indefinite inner product space of type II is isomorphic to the orthogonal sum $Y \oplus H$ for some Y.(Compare Sections 2 and 4.) Evidently this completes the proof.
+$\bigtriangledown$
 
 # $\ S 6 .$ The Classification Problem for Positive Definite Spaces
 
 First let us describe some examples of positive definite inner product spaces over $\mathbf { Z } .$ Let $\mathbf { R } ^ { 4 m }$ denote the euclidean space with orthonormal basis e.,...,e4m
 
-(6.1) Lemma. The vectors $e _ { i } + e _ { j }$ and $\scriptstyle { \frac { 1 } { 2 } } ( e _ { 1 } + \cdots + e _ { 4 m } )$ span $a$ lattice $ { T _ { 4 m } } \subset  { \mathbb { R } } ^ { 4 m }$ which is an inner product space over $\mathbf { Z }$
+(6.1) Lemma.
+The vectors $e _ { i } + e _ { j }$ and $\scriptstyle { \frac { 1 } { 2 } } ( e _ { 1 } + \cdots + e _ { 4 m } )$ span $a$ lattice $ { T _ { 4 m } } \subset  { \mathbb { R } } ^ { 4 m }$ which is an inner product space over $\mathbf { Z }$
 
-Proof. Let $L _ { 0 }$ be the sublatice of index 2 spanned by the $e _ { i } + e _ { j }$ Evidently $\scriptstyle L _ { 0 }$ can also be considered as a sublattice of index 2 in the lattice spanned by $e _ { 1 } , \ldots , e _ { 4 m }$ . Therefore a fundamental domain for $\scriptstyle L _ { 0 }$ has volume $^ 2$ ; hence a fundamental domain for $T _ { 4 m }$ has volume 1. Since inspection shows that the inner product of any two elements of $T _ { 4 m }$ is an integer, this completes the proof.
+Proof.
+Let $L _ { 0 }$ be the sublatice of index 2 spanned by the $e _ { i } + e _ { j }$ Evidently $\scriptstyle L _ { 0 }$ can also be considered as a sublattice of index 2 in the lattice spanned by $e _ { 1 } , \ldots , e _ { 4 m }$ . Therefore a fundamental domain for $\scriptstyle L _ { 0 }$ has volume $^ 2$ ; hence a fundamental domain for $T _ { 4 m }$ has volume 1. Since inspection shows that the inner product of any two elements of $T _ { 4 m }$ is an integer, this completes the proof.
 
 [More explicitly, $\Gamma _ { 4 m }$ can be described as the set of all linear combinations $\xi _ { 1 } e _ { 1 } + \dots + \xi _ { 4 m } e _ { 4 m }$ with $2 \xi _ { i } \in \mathbf { Z }$ $\xi _ { 1 } \equiv \xi _ { 2 } \equiv \cdots \equiv \xi _ { 4 m }$ mod $\mathbf { Z }$ and $\xi _ { 1 } + \cdots + \xi _ { 4 m } { \equiv } 0$ mod 2 Z.]
 
-(6.2) Lemma. This inner product space $\Gamma _ { 4 m } ^ { \cdot }$ has type $I$ if m is odd, and （2014号 $t y p e I I$ if m is even.
+(6.2) Lemma.
+This inner product space $\Gamma _ { 4 m } ^ { \cdot }$ has type $I$ if m is odd, and （2014 号 $t y p e I I$ if m is even.
 
-Proof. Since each vector $\boldsymbol { \mathbf { \mathit { e } } } _ { i } + \boldsymbol { \mathbf { \mathit { e } } } _ { j }$ has norm 2，and the vector $\scriptstyle { \frac { 1 } { 2 } } ( e _ { 1 } + \cdots + e _ { 4 m } )$ has norm m, the conclusion follows easily.
+Proof.
+Since each vector $\boldsymbol { \mathbf { \mathit { e } } } _ { i } + \boldsymbol { \mathbf { \mathit { e } } } _ { j }$ has norm 2，and the vector $\scriptstyle { \frac { 1 } { 2 } } ( e _ { 1 } + \cdots + e _ { 4 m } )$ has norm m, the conclusion follows easily.
 
 Thus the lattices $\Gamma _ { 8 } , \Gamma _ { 1 6 } , \Gamma _ { 2 4 } , \ldots$ provide examples of positive definite inner product spaces of type II with signatures 8,16,2.4,...
 
 We can get some insight into the collection of all positive definite inner product spaces over $\mathbf { z }$ as follows.
 
-(6.3) Definition. An inner product space X is indecomposable provided it cannot be expressed as the orthogonal sum of two non-trivial subspaces.
+(6.3) Definition.
+An inner product space X is indecomposable provided it cannot be expressed as the orthogonal sum of two non-trivial subspaces.
 
-(6.4) Theorem (Eichler). Every positive definite inner product space over Z splits uniquely as an orthogonal sum of indecomposable spaces.
+(6.4) Theorem (Eichler).
+Every positive definite inner product space over Z splits uniquely as an orthogonal sum of indecomposable spaces.
 
-Proof. (Compare [Kneser, 1954].) Call a vector $x \neq 0$ of $X$ minimal provided $_ { x }$ cannot be expressed as a sum y+z of two strictly shorter vectors of X (vectors with $y \cdot y < x \cdot x$ and $\scriptstyle z \cdot z < x \cdot x )$ Evidently the procedure of expressing a vector as a sum of shorter vectors must stop after a finite number of steps, hence $X$ is spanned (or generated) by its collection of minimal vectors. If $X$ splits as an orthogonal sum $X _ { 1 } \oplus X _ { 2 }$ ， note that every minimal vector of $X$ must belong either to $X _ { 1 }$ or to $X _ { 2 }$ ：
+Proof.
+(Compare [Kneser, 1954].) Call a vector $x \neq 0$ of $X$ minimal provided $_ { x }$ cannot be expressed as a sum y+z of two strictly shorter vectors of X (vectors with $y \cdot y < x \cdot x$ and $\scriptstyle z \cdot z < x \cdot x )$ Evidently the procedure of expressing a vector as a sum of shorter vectors must stop after a finite number of steps, hence $X$ is spanned (or generated) by its collection of minimal vectors.
+If $X$ splits as an orthogonal sum $X _ { 1 } \oplus X _ { 2 }$ ， note that every minimal vector of $X$ must belong either to $X _ { 1 }$ or to $X _ { 2 }$ ：
 
 We say that two minimal vectors $x$ and $\boldsymbol { x ^ { \prime } }$ are equivalent provided there exists a finite sequence $x { = } x _ { 0 } , x _ { 1 } , \ldots , x _ { k } { = } x ^ { \prime }$ of minimal vectors with $x _ { i - 1 } \cdot x _ { i } { \neq } 0$ for $1 \leq i \leq k$ .Then each equivalence class spans a subspace of $X$ ,and clearly $X$ is the orthogonal direct sum of these subspaces.
 
 Since this spliting is uniquely defined, the proof is complete.
 
-Note that the above construction is easy to carry out in practice. Here is an example, where details are left to the reader.
+Note that the above construction is easy to carry out in practice.
+Here is an example, where details are left to the reader.
 
-(6.5) Proposition. The inner product space $\Gamma _ { 4 m }$ is indecomposable for $m \geq 2$ The minimal vectors of $\Gamma _ { 4 m }$ are precisely those vectors of the form $\pm e _ { i } \pm e _ { j } o r { \textstyle { \frac { 1 } { 2 } } } ( \pm e _ { 1 } \pm \dots \pm e _ { 4 m } )$ in $\Gamma _ { 4 m }$
+(6.5) Proposition.
+The inner product space $\Gamma _ { 4 m }$ is indecomposable for $m \geq 2$ The minimal vectors of $\Gamma _ { 4 m }$ are precisely those vectors of the form $\pm e _ { i } \pm e _ { j } o r { \textstyle { \frac { 1 } { 2 } } } ( \pm e _ { 1 } \pm \dots \pm e _ { 4 m } )$ in $\Gamma _ { 4 m }$
 
 Of course $T _ { 4 }$ is not indecomposable， since by (2.2) every positive definite space ofrank 4over Z must be isomorphic to $\langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle .$
 
 ![](images/dea52db8cc877246e639ff0db591cfff8f27eeb67f2706fe818e2ef4190b5c66.jpg)
 
-It is not known whether any such symmetrical lattices exist in higher dimensions. It would be natural to look next in dimension 48, since the theory of modular forms [Serre,pp.171-178] indicates that an inner product space of type I with $x \cdot x { \geq } 6$ for $x \neq 0$ must have dimension at least 48. (It is intriguing to note that $8 = 3 ^ { 2 } - 1 , 2 4 = 5 ^ { 2 } - 1 , 4 8 = 7 ^ { 2 } - 1 . )$
+It is not known whether any such symmetrical lattices exist in higher dimensions.
+It would be natural to look next in dimension 48, since the theory of modular forms [Serre,pp.171-178] indicates that an inner product space of type I with $x \cdot x { \geq } 6$ for $x \neq 0$ must have dimension at least 48. (It is intriguing to note that $8 = 3 ^ { 2 } - 1 , 2 4 = 5 ^ { 2 } - 1 , 4 8 = 7 ^ { 2 } - 1 . )$
 
 # \$7. The Packing of Equal Balls in $\mathbf { R } ^ { n }$
 
-The unimodular lattice $\Gamma _ { 8 }$ has the property that $x \cdot x { \geq } 2$ for every $x \neq 0$ in $\Gamma _ { 8 }$ ，while the Leech lattice has the property that $x \cdot x { \geq } 4$ for every $x \neq 0$ The $n$ -fold tensor product $I _ { 8 } \otimes \cdots \otimes I _ { 8 }$ provides an example of a unimodular lattice with $x \cdot x { \geq } 2 ^ { n }$ for every $x \ne 0$ (Compare $\ S 9 . 6 . )$ These -examples suggest the following question. Fixing $\scriptstyle n _ { 5 }$ what is the largest -possible value for the minimum non-zero norm
+The unimodular lattice $\Gamma _ { 8 }$ has the property that $x \cdot x { \geq } 2$ for every $x \neq 0$ in $\Gamma _ { 8 }$ ，while the Leech lattice has the property that $x \cdot x { \geq } 4$ for every $x \neq 0$ The $n$ -fold tensor product $I _ { 8 } \otimes \cdots \otimes I _ { 8 }$ provides an example of a unimodular lattice with $x \cdot x { \geq } 2 ^ { n }$ for every $x \ne 0$ (Compare $\ S 9 . 6 . )$ These -examples suggest the following question.
+Fixing $\scriptstyle n _ { 5 }$ what is the largest -possible value for the minimum non-zero norm
 
 for a unimodular lattice $L$ in $\mathbf { R } ^ { n }$ ？
 
-An alternative and completely equivalent formulation is the following. What is the largest possible value for the ratio
+An alternative and completely equivalent formulation is the following.
+What is the largest possible value for the ratio
 
 where now $L$ is allowed to vary over all lattices in $\mathbf { R } ^ { n } ?$ This version is equivalent, since any lattice of maximal rank in $\mathbf { R } ^ { n }$ can be transformed into a unimodular lattice by a similarity transformation $x \mapsto x / \sqrt [ 2 \eta ] { \operatorname* { d e t } { \cal L } }$ which does not affect the ratio $\mu ( L )$
 
 Thefollowing observation is classical.(Compare [Watson,pp.29-31].)
 
-(7.1) Lemma. For each dimension n there exists a lattice $L _ { n }$ which maximizes the ratio $\scriptstyle \mu ( L ) = ( \operatorname* { m i n } _ { x \in L - 0 } x \cdot x ) / \sqrt [ n ] { \operatorname* { d e t } L }$ .Furthermore,chooing $a$ basis for $L _ { n }$ , the associated inner product matrix (multiplied by a real constant if necessary）is $a$ matrix of rational numbers.
+(7.1) Lemma.
+For each dimension n there exists a lattice $L _ { n }$ which maximizes the ratio $\scriptstyle \mu ( L ) = ( \operatorname* { m i n } _ { x \in L - 0 } x \cdot x ) / \sqrt [ n ] { \operatorname* { d e t } L }$ .Furthermore,chooing $a$ basis for $L _ { n }$ , the associated inner product matrix (multiplied by a real constant if necessary）is $a$ matrix of rational numbers.
 
-Hence the maximal ratio $\mu ( L _ { n } )$ is the $n$ -th root of a rational number. The proof of (7.1) will be given at the end of this section.
+Hence the maximal ratio $\mu ( L _ { n } )$ is the $n$ -th root of a rational number.
+The proof of (7.1) will be given at the end of this section.
 
-For $n { \le } 5$ the maximum value of $\mu ( L )$ was determined by Korkine and Zolotareff, and for $n { \le } 8$ by Blichfeldt. These maximum values, for $1 \leq n \leq 8 .$ are equal to $1 , { \sqrt { 4 / 3 } } , { \sqrt [ 3 ] { 2 } } , { \sqrt [ 4 ] { 4 } } , { \sqrt [ 3 ] { 8 } } , { \sqrt [ 6 4 / 3 ] { 6 4 } } , { \sqrt [ 7 ] { 6 4 } } ,$ and 2 respectively.Rounded to three decimal places, the values are as follows. (Compare p.36, Fig.3.)
+For $n { \le } 5$ the maximum value of $\mu ( L )$ was determined by Korkine and Zolotareff, and for $n { \le } 8$ by Blichfeldt.
+These maximum values, for $1 \leq n \leq 8 .$ are equal to $1 , { \sqrt { 4 / 3 } } , { \sqrt [ 3 ] { 2 } } , { \sqrt [ 4 ] { 4 } } , { \sqrt [ 3 ] { 8 } } , { \sqrt [ 6 4 / 3 ] { 6 4 } } , { \sqrt [ 7 ] { 6 4 } } ,$ and 2 respectively.Rounded to three decimal places, the values are as follows.
+(Compare p.36, Fig.3.)
 
 ![](images/00ac45b4d0e994add6d28c3481d332bde38d13350107bb26b95e47dcc1df8823.jpg)
 
 In the case $n = 2$ the maximal value $\mu ( L _ { 2 } ) = \sqrt { 4 / 3 }$ is attained by the lattice of Fig.1, with inner product matrix $\binom { 2 } { 1 } \binom { 1 } { 2 }$ . We willrefer to this as the regular hexagonal lattice, since the associated “Voronoi polyhedron", consisting of all points in $ { \mathbf { R } } ^ { 2 }$ which are at least as close to the origin as to any other lattice point, is a regular hexagon.
 
-![](images/7eea47268bdf09e9ec642ac16bf8c21f220249130377ab12e187e485c528e4f7.jpg)  
+![](images/7eea47268bdf09e9ec642ac16bf8c21f220249130377ab12e187e485c528e4f7.jpg)\
 Fig.1. The regular hexagonal latice,and the associated packing of $\mathbf { R } ^ { 2 }$
 
-For $n = 3$ ,4,5 the maximal value $\mu ( L _ { n } )$ is attained by a lattice $L _ { n }$ constructed as follows. Let $\mathbf { Z } ^ { n }$ be the lattice spanned by an orthonormal basis $e _ { 1 } , \ldots , e _ { n }$ for $\overline { { \mathbf { R } ^ { n } } }$ ,and let $\overline { { { L } _ { n } } }$ be the sublattice of index 2 spanned by the elements $\boldsymbol e _ { i } + \boldsymbol e _ { j }$ . In the case $n = 3$ ,this is known as the face centered cubic lattice, since it can be obtained from the“cubic” latice with basis $2 \boldsymbol { e } _ { 1 }$ ， $2 \boldsymbol { e } _ { 2 }$ ， $2 \boldsymbol { e } _ { 3 }$ by adjoining the center points of the faces of all of the cubes.(Compare Fig.2,as well as [Hilbert and Cohn-Vossen].） The inner product matrix, with respect to the basis $e _ { 1 } + e _ { 2 } , e _ { 1 } + e _ { 3 } , e _ { 2 } + e _ { 3 }$ is
+For $n = 3$ ,4,5 the maximal value $\mu ( L _ { n } )$ is attained by a lattice $L _ { n }$ constructed as follows.
+Let $\mathbf { Z } ^ { n }$ be the lattice spanned by an orthonormal basis $e _ { 1 } , \ldots , e _ { n }$ for $\overline { { \mathbf { R } ^ { n } } }$ ,and let $\overline { { { L } _ { n } } }$ be the sublattice of index 2 spanned by the elements $\boldsymbol e _ { i } + \boldsymbol e _ { j }$ . In the case $n = 3$ ,this is known as the face centered cubic lattice, since it can be obtained from the“cubic” latice with basis $2 \boldsymbol { e } _ { 1 }$ ， $2 \boldsymbol { e } _ { 2 }$ ， $2 \boldsymbol { e } _ { 3 }$ by adjoining the center points of the faces of all of the cubes.(Compare Fig.2,as well as [Hilbert and Cohn-Vossen].） The inner product matrix, with respect to the basis $e _ { 1 } + e _ { 2 } , e _ { 1 } + e _ { 3 } , e _ { 2 } + e _ { 3 }$ is
 
 $$
 \left( { \begin{array} { c c c } { 2 } & { 1 } & { 1 } \\ { 1 } & { 2 } & { 1 } \\ { 1 } & { 1 } & { 2 } \end{array} } \right) .
 $$
 
-This lattice occurs in the real world as the configuration of atoms in a crystal of (for example) gold, silver, or aluminum. The Voronoi polyhedron associated with $L _ { 3 }$ is a rhombic dodecahedron; that is, it is a solid bounded by twelve rhombuses.
+This lattice occurs in the real world as the configuration of atoms in a crystal of (for example) gold, silver, or aluminum.
+The Voronoi polyhedron associated with $L _ { 3 }$ is a rhombic dodecahedron; that is, it is a solid bounded by twelve rhombuses.
 
-![](images/8237e76bd4e15f183be069e0455b9bcf5954dbe005c41d2a3b0e51684db7ec5e.jpg)  
+![](images/8237e76bd4e15f183be069e0455b9bcf5954dbe005c41d2a3b0e51684db7ec5e.jpg)\
 Fig.2.The face centered cubic lattice in $\mathbb { R } ^ { 3 }$
 
-For $n = 6 ,$ ，7,8 the function $\mu ( L )$ is maximized by a lattice $L _ { n }$ constructed as follows. Let $L _ { 8 }$ be the lattice $T _ { 8 }$ of $\ S 6$ let $\scriptstyle { L _ { 7 } }$ be the orthogonal complement of a minimal vector in $T _ { 8 }$ , and let $\scriptstyle L _ { 6 }$ be the orthogonal complement of a regular hexagonal lattice in $T _ { 8 }$ . These three lattices can be identified with the lattices generated by the root systems of the exceptional Lie groups $E _ { 6 } , \ E _ { 7 }$ ，and $E _ { 8 }$ . (Similarly the lattices $L _ { 2 } , L _ { 3 } , L _ { 4 } , L _ { 5 }$ are generated by the root systems $A _ { 2 } , A _ { 3 } , D _ { 4 } , D _ { 5 }$ . Compare pp.138-139.) For $n { > } 8$ ,the precise value of $\mu ( L _ { n } ) { = } \operatorname { M a x } _ { L \subset \mathbb { R } ^ { n } } \mu ( L )$ is not known. However it can be computed up to a factor of 4 as follows. Recall that $\omega _ { n } =$ $\pi ^ { n / 2 } / { \cal T } ( 1 + n / 2 )$ denotes the volume of the unit disk in $\mathbf { R } ^ { n }$
+For $n = 6 ,$ ，7,8 the function $\mu ( L )$ is maximized by a lattice $L _ { n }$ constructed as follows.
+Let $L _ { 8 }$ be the lattice $T _ { 8 }$ of $\ S 6$ let $\scriptstyle { L _ { 7 } }$ be the orthogonal complement of a minimal vector in $T _ { 8 }$ , and let $\scriptstyle L _ { 6 }$ be the orthogonal complement of a regular hexagonal lattice in $T _ { 8 }$ . These three lattices can be identified with the lattices generated by the root systems of the exceptional Lie groups $E _ { 6 } , \ E _ { 7 }$ ，and $E _ { 8 }$ . (Similarly the lattices $L _ { 2 } , L _ { 3 } , L _ { 4 } , L _ { 5 }$ are generated by the root systems $A _ { 2 } , A _ { 3 } , D _ { 4 } , D _ { 5 }$ . Compare pp.138-139.) For $n { > } 8$ ,the precise value of $\mu ( L _ { n } ) { = } \operatorname { M a x } _ { L \subset \mathbb { R } ^ { n } } \mu ( L )$ is not known.
+However it can be computed up to a factor of 4 as follows.
+Recall that $\omega _ { n } =$ $\pi ^ { n / 2 } / { \cal T } ( 1 + n / 2 )$ denotes the volume of the unit disk in $\mathbf { R } ^ { n }$
 
 # (7.2) Theorem of Minkowski. The inequality
 
@@ -1028,17 +1210,23 @@ $$
 \mu ( L ) { \le } 4 ( \sigma _ { n } / \omega _ { n } ) ^ { 2 / n } { \sim } n / \pi e
 $$
 
-has been obtained by C.A.Rogers,and will be discussed later in this section. (Compare Fig.3.)
+has been obtained by C.A.Rogers,and will be discussed later in this section.
+(Compare Fig.3.)
 
 ![](images/982564060ffe1666fdcb18c979f93806e6397c7fe2229a66f1cde0b6a04d9b9a.jpg)
 
-(or rather the slightly sharper lower bound $\mu ( L _ { n } ) \geq ( 2 \zeta ( n ) / \omega _ { n } ) ^ { 2 / n } )$ was proved by Minkowski in 1905.The name of E.Hlawka is often attached to this inequality since a generalization, stated by Minkowski, was first proved by Hlawka. Sharper inequalities of this form have been given by W. Schmidt, Rogers and others, but these all have the same asymptotic behavior as $n \to \infty$ . Compare [Rogers, 1964]. A version involving self-dual lattices will be proved in \$ 9.5.
+(or rather the slightly sharper lower bound $\mu ( L _ { n } ) \geq ( 2 \zeta ( n ) / \omega _ { n } ) ^ { 2 / n } )$ was proved by Minkowski in 1905.The name of E.Hlawka is often attached to this inequality since a generalization, stated by Minkowski, was first proved by Hlawka.
+Sharper inequalities of this form have been given by W. Schmidt, Rogers and others, but these all have the same asymptotic behavior as $n \to \infty$ . Compare [Rogers, 1964]. A version involving self-dual lattices will be proved in \$ 9.5.
 
-Proof of the inequality $\mu ( L _ { n } ) \geq ( 2 / \omega _ { n } ) ^ { 2 / n } > \omega _ { n } ^ { - 2 / n }$ .The notation ${ \boldsymbol { x } } =$ $( \xi _ { 1 } , \ldots , \xi _ { n } )$ will be used for a point in $\mathbf { R } ^ { n }$ Let $f ( x ) { = } f ( \xi _ { 1 } , \ldots , \xi _ { n } ) { \\\ \geq } 0$ be a continuous real valued function with compact support. The integral $\int _ { - \infty } ^ { \infty } \cdots \int _ { - \infty } ^ { \infty } f ( \xi _ { 1 } , \ldots , \xi _ { n } ) d \xi _ { 1 } \ldots d \xi _ { n }$ will be written briefly as $\int f ( x ) d x .$ We 1 will first prove the following. Assume that $n \geq 2$
+Proof of the inequality $\mu ( L _ { n } ) \geq ( 2 / \omega _ { n } ) ^ { 2 / n } > \omega _ { n } ^ { - 2 / n }$ .The notation ${ \boldsymbol { x } } =$ $( \xi _ { 1 } , \ldots , \xi _ { n } )$ will be used for a point in $\mathbf { R } ^ { n }$ Let $f ( x ) { = } f ( \xi _ { 1 } , \ldots , \xi _ { n } ) { \\\ \geq } 0$ be a continuous real valued function with compact support.
+The integral $\int _ { - \infty } ^ { \infty } \cdots \int _ { - \infty } ^ { \infty } f ( \xi _ { 1 } , \ldots , \xi _ { n } ) d \xi _ { 1 } \ldots d \xi _ { n }$ will be written briefly as $\int f ( x ) d x .$ We 1 will first prove the following.
+Assume that $n \geq 2$
 
-(7.3) Lemma. Given any real number $\beta { \ > } \int f ( x ) d x ,$ there exists $^ { a }$ unimodular lattice $\mathbf { \mathcal { L } } \mathbf { \mathbf { \Lambda } } = \mathbf { \mathbf { R } } ^ { n }$ so that the sum ∑ f(x)is less than $\beta$ xeL-0
+(7.3) Lemma.
+Given any real number $\beta { \ > } \int f ( x ) d x ,$ there exists $^ { a }$ unimodular lattice $\mathbf { \mathcal { L } } \mathbf { \mathbf { \Lambda } } = \mathbf { \mathbf { R } } ^ { n }$ so that the sum ∑ f(x)is less than $\beta$ xeL-0
 
-Proof. Let $e _ { 1 } , \ldots , e _ { n }$ be the standard orthonormal basis for $\mathbf { R } ^ { n }$ Let $\varepsilon > 0$ be a fixed small number, to be chosen later,and define $\lambda { > } 0$ by the equation $\varepsilon \lambda ^ { n - 1 } = 1$ Given real parameters $\tau _ { 1 } , \dots , \tau _ { n - 1 }$ we consider the unimodular lattice $L = L ( \tau _ { 1 } , \dots , \tau _ { n - 1 } )$ which is spanned by the basis
+Proof.
+Let $e _ { 1 } , \ldots , e _ { n }$ be the standard orthonormal basis for $\mathbf { R } ^ { n }$ Let $\varepsilon > 0$ be a fixed small number, to be chosen later,and define $\lambda { > } 0$ by the equation $\varepsilon \lambda ^ { n - 1 } = 1$ Given real parameters $\tau _ { 1 } , \dots , \tau _ { n - 1 }$ we consider the unimodular lattice $L = L ( \tau _ { 1 } , \dots , \tau _ { n - 1 } )$ which is spanned by the basis
 
 $$
 \lambda e _ { 1 } , \ldots , \lambda e _ { n - 1 } , \quad \tau _ { 1 } \lambda e _ { 1 } + \cdots + \tau _ { n - 1 } \lambda e _ { n - 1 } + \varepsilon e _ { n } .
@@ -1058,7 +1246,8 @@ $$
 \frac { \displaystyle \sum _ { x \in L ( \tau _ { 1 } , \ldots , \tau _ { n - 1 } ) - 0 } f ( x ) { = } \sum ^ { } f ( \lambda ( i _ { 1 } { + } j \tau _ { 1 } ) , \ldots , \lambda ( i _ { n - 1 } { + } j \tau _ { n - 1 } ) , j \varepsilon ) , } { x \in L ( \tau _ { 1 } , \ldots , \tau _ { n - 1 } ) - 0 }
 $$
 
-where the latter sum extends over al $n$ -tuples $i _ { 1 } , \ldots , i _ { n - 1 } , j$ of integers, not all zero. Since $f$ has compact support, we may choose ε so small that
+where the latter sum extends over al $n$ -tuples $i _ { 1 } , \ldots , i _ { n - 1 } , j$ of integers, not all zero.
+Since $f$ has compact support, we may choose ε so small that
 
 $$
 f ( \lambda i _ { 1 } , \ldots , \lambda i _ { n - 1 } , 0 ) { = } 0
@@ -1072,7 +1261,8 @@ $$
 S _ { j } ( \tau _ { 1 } , \dots , \tau _ { n - 1 } ) = \sum _ { i _ { 1 } , \dots , i _ { n - 1 } } f \bigl ( \lambda ( i _ { 1 } + j \tau _ { 1 } ) , \dots , \lambda ( i _ { n - 1 } + j \tau _ { n - 1 } ) , j \varepsilon \bigr )
 $$
 
-is zero for $| j |$ large. Next consider the average
+is zero for $| j |$ large.
+Next consider the average
 
 $$
 \begin{array} { r l r } {  { \frac { 1 } { \int \cdots \int \sum _ { 0 } ^ { 1 } { S _ { j } ( \tau _ { 1 } , \dots , \tau _ { n - 1 } ) d \tau _ { 1 } \dots d \tau _ { n - 1 } } } } } \\ & { } & { \frac { 1 } { \int \cdots \int \sum _ { 0 } ^ { 1 } { S _ { j } ( \tau _ { 1 } , \dots , \tau _ { n - 1 } ) d \tau _ { 1 } \dots d \tau _ { n - 1 } } } } \end{array}
@@ -1116,7 +1306,8 @@ Choosing ε so small that the Riemann sum (3) is less than $\beta _ { : }$ ,it f
 
 To prove Theorem 7.2, we make a particular choice of the function $f .$ Let $r < s$ be positive real numbers which are less than $( 2 / \omega _ { n } ) ^ { 1 / n } .$ Choose $f$ so that T7-. 1 12
 
-with $0 \leq f ( x ) \leq 1$ everywhere. Then evidently
+with $0 \leq f ( x ) \leq 1$ everywhere.
+Then evidently
 
 $$
 \int f ( x ) d x < \omega _ { n } s ^ { n } < 2 .
@@ -1148,9 +1339,13 @@ $$
 
 which completes the proof of 7.2.□
 
-These remarks leave many questions unanswered. Does the ratio $\mu ( L _ { n } ) / n$ tend to a limit as $n \to \infty ?$ If so,what is the limit? Does the sequence $\mu ( L _ { 1 } ) , \mu ( L _ { 2 } )$ ,.. increase monotonically? What are the actual values of $\mu ( L _ { 9 } ) , \mu ( L _ { 1 0 } ) , \ldots ?$
+These remarks leave many questions unanswered.
+Does the ratio $\mu ( L _ { n } ) / n$ tend to a limit as $n \to \infty ?$ If so,what is the limit?
+Does the sequence $\mu ( L _ { 1 } ) , \mu ( L _ { 2 } )$ ,.. increase monotonically?
+What are the actual values of $\mu ( L _ { 9 } ) , \mu ( L _ { 1 0 } ) , \ldots ?$
 
-Closely related to the problem of computing $\overline { { \mu ( L _ { n } ) } }$ is the following classical problem. What is the maximum possible density for a union of non-overlapping balls of fixed radius in the euclidean space $\mathbf { R } ^ { n }$ ?
+Closely related to the problem of computing $\overline { { \mu ( L _ { n } ) } }$ is the following classical problem.
+What is the maximum possible density for a union of non-overlapping balls of fixed radius in the euclidean space $\mathbf { R } ^ { n }$ ?
 
 Such a union $P$ of non-overlapping balls, all of the same radius, will be called briefly a packing of $\mathbf { R } ^ { n } .$ A packing $P$ is said to have density $\rho$ if the ratio
 
@@ -1160,13 +1355,15 @@ $$
 
 where C denotes a large cube, tends uniformly to the limit p as the edge of the cube tends to infinity.
 
-Any lattice $\mathbf { Z } { \mathbf { } } { \mathbf { } } { \mathbf { } } { \mathbf { } } \mathbf { R } ^ { n }$ gives rise to a packing of $\overline { { \mathbf { R } ^ { n } } }$ as follows. Define the radius r by the equation
+Any lattice $\mathbf { Z } { \mathbf { } } { \mathbf { } } { \mathbf { } } { \mathbf { } } \mathbf { R } ^ { n }$ gives rise to a packing of $\overline { { \mathbf { R } ^ { n } } }$ as follows.
+Define the radius r by the equation
 
 $$
 ( 2 r ) ^ { 2 } { = } \operatorname* { M i n } _ { x \in L - 0 } x \cdot x .
 $$
 
-Centering a ball of radius $r$ at each lattice point, the interiors of the different balls will evidently be disjoint. The density of this packing is given by the formula
+Centering a ball of radius $r$ at each lattice point, the interiors of the different balls will evidently be disjoint.
+The density of this packing is given by the formula
 
 $$
 \rho { = } \omega _ { n } r ^ { n } / \sqrt { \operatorname* { d e t } L } { = } \omega _ { n } ( \mu ( L ) / 4 ) ^ { n / 2 } .
@@ -1180,7 +1377,8 @@ $$
 
 Note that Minkowski's estimate (1.5) is just the inequality $\rho { \stackrel { < } { = } } 1 .$
 
-It was proved by A. Thue that the maximum possible density of a packing of $\mathbf { R } ^ { 2 }$ is equal to the density $\rho { = } \pi / \sqrt { 1 2 }$ associated with the regular hexagonal lattice of Fig.1. For $n = 3$ ，the face centered cubic lattice gives rise to a packing with density $\pi / { \sqrt { 1 8 } }$ ，For an arbitrary packing of $\overline { { \mathbf { R } ^ { 3 } } }$ ,according to Rogers, “many mathematicians believe and all physicists know that the density cannot exceed $\pi / \nu ^ { \sqrt { 1 8 } ^ { \ast } } .$ However this has never been proved. Indeed the problem remains unsolved for all $n \geq 3$ .It is noteworthy that Leech and Sloane have recently described examples of non-lattice packings in dimensions 10, 11,13 which are denser than the packings associated with any known lattices in these dimensions.
+It was proved by A. Thue that the maximum possible density of a packing of $\mathbf { R } ^ { 2 }$ is equal to the density $\rho { = } \pi / \sqrt { 1 2 }$ associated with the regular hexagonal lattice of Fig.1. For $n = 3$ ，the face centered cubic lattice gives rise to a packing with density $\pi / { \sqrt { 1 8 } }$ ，For an arbitrary packing of $\overline { { \mathbf { R } ^ { 3 } } }$ ,according to Rogers, “many mathematicians believe and all physicists know that the density cannot exceed $\pi / \nu ^ { \sqrt { 1 8 } ^ { \ast } } .$ However this has never been proved.
+Indeed the problem remains unsolved for all $n \geq 3$ .It is noteworthy that Leech and Sloane have recently described examples of non-lattice packings in dimensions 10, 11,13 which are denser than the packings associated with any known lattices in these dimensions.
 
 An excellent upper bound for the density for any packing of $\mathbf { R } ^ { n }$ ,has been given by Rogers,based on earlier work by Blichfeldt.Let $\varDelta _ { n }$ be an equilateral $\underline { n }$ -simplex in euclidean space, with edge length 2. Let $B$ be the subset consisting of all points in $\varDelta _ { n }$ with distance ≤1 from some vertex of $A _ { n } ,$ and let
 
@@ -1202,12 +1400,13 @@ Numerical values, for $n { \leq } 2 4 ,$ are plotted in Fig.3. All of the data u
 
 note that the Rogers upper bound $4 ( \sigma _ { 8 } / \omega _ { 8 } ) ^ { \frac { 1 } { 4 } } \approx 2 . 0 0 6$ is so close to $\mu ( L _ { 8 } ) { = } 2$ that the two points appear to coincide in the graph.
 
-![](images/6b56d921bb957f3795bc74dfd1d7443ac7e0b1cccd96b84a1fe305b18d616060.jpg)  
+![](images/6b56d921bb957f3795bc74dfd1d7443ac7e0b1cccd96b84a1fe305b18d616060.jpg)\
 Fig.3. The middle row of dots gives the largest possible value of $\overline { { \mu ( L ) { = } \mathbf { M } { \mathrm { i n } } ( \mathbf { x } \cdot \mathbf { x } ) / \sqrt [ n ] { \operatorname* { d e t } L } } }$ for a lattice $\overline { { L } }$ in each dimension $n \leq 8$ ,and the largest known value for each dimension $n$ 2 between 9 and 24. The top row of dots gives the Rogers upper bound 4 $( \sigma _ { n } / \omega _ { n } ) ^ { 2 / n } ;$ and the bottom row gives the crude Minkowski lower bound $( 2 / \omega _ { n } ) ^ { 2 / n }$ ：
 
 To conclude this section we must prove Lemma 7.1. The proof wil be based on the following.
 
-(7.4) Lemma. There exists $^ { a }$ constant $c _ { n } > 0$ so that every lattice in $\mathbf { R } ^ { n }$ possesses a basis $\boldsymbol { b } _ { 1 } , \ldots , \boldsymbol { b } _ { n }$ with
+(7.4) Lemma.
+There exists $^ { a }$ constant $c _ { n } > 0$ so that every lattice in $\mathbf { R } ^ { n }$ possesses a basis $\boldsymbol { b } _ { 1 } , \ldots , \boldsymbol { b } _ { n }$ with
 
 for all i,j.
 
@@ -1291,7 +1490,8 @@ $$
 
 for every n-tuple $( \zeta _ { 1 } , \ldots , \zeta _ { n } )$ of integers, not all zero.Evidently K can be thought of as a closed and convex subset of real $n ( n + 1 ) / 2$ -space.
 
-Note that every matrix in $\kappa$ is positive definite. In fact it follows from 1.5 or 7.2 that every positive definite matrix $\overline { { A } }$ in $\kappa$ satisfies the inequality
+Note that every matrix in $\kappa$ is positive definite.
+In fact it follows from 1.5 or 7.2 that every positive definite matrix $\overline { { A } }$ in $\kappa$ satisfies the inequality
 
 $$
 \operatorname* { d e t } { ( A ) } \geq \omega _ { n } ^ { 2 } / 4 ^ { n } > 0 .
@@ -1307,7 +1507,8 @@ $$
 \operatorname* { d e t } { ( P A P ^ { t } ) } = \operatorname* { d e t } { ( A ) } .
 $$
 
-But the determinant function restricted to the compact set $K _ { 0 }$ certainly attains a minimum value. Therefore we can choose $\mathbf { \delta } _ { A _ { 0 } \in K _ { 0 } }$ with det $\operatorname { \Pi } ( A _ { 0 } ) { \leq } \operatorname* { d e t } ( A )$ for all $\scriptstyle A \in K _ { 0 }$ ,and therefore for all $\mathbf { \nabla } \overline { { A \in K } }$
+But the determinant function restricted to the compact set $K _ { 0 }$ certainly attains a minimum value.
+Therefore we can choose $\mathbf { \delta } _ { A _ { 0 } \in K _ { 0 } }$ with det $\operatorname { \Pi } ( A _ { 0 } ) { \leq } \operatorname* { d e t } ( A )$ for all $\scriptstyle A \in K _ { 0 }$ ,and therefore for all $\mathbf { \nabla } \overline { { A \in K } }$
 
 $L _ { n }$ is a lattice with inner product matrix $A _ { 0 }$ ， then evidently it follows that
 
@@ -1329,7 +1530,8 @@ $$
 \operatorname * { d e t } ( \varLambda _ { \xi } ) / \operatorname * { d e t } ( \varLambda _ { 0 } ) = \operatorname * { d e t } ( I + \xi C ) = \frac { 1 } { 2 } + \frac { 1 } { 2 } \bigl ( 1 + \xi \sum _ { i } c _ { i i } \bigr ) ^ { 2 } - \frac { 1 } { 2 } \xi _ { * } ^ { 2 } \sum _ { i } \sum _ { j } c _ { i j } ^ { 2 } + \cdots
 $$
 
-omitting terms in $\xi ^ { 3 }$ and higher powers. Since $C \neq 0 ,$ ,it follows easily that there exist arbitrarily small values of $\xi$ with det $\begin{array} { r } { ( A _ { \xi } ) { < } \mathrm { d e t } ( A _ { 0 } ) . } \end{array}$
+omitting terms in $\xi ^ { 3 }$ and higher powers.
+Since $C \neq 0 ,$ ,it follows easily that there exist arbitrarily small values of $\xi$ with det $\begin{array} { r } { ( A _ { \xi } ) { < } \mathrm { d e t } ( A _ { 0 } ) . } \end{array}$
 
 If $A _ { 0 }$ is an extreme matrix, let $\pm z _ { ( 1 ) } , . . . , \pm z _ { ( N ) }$ be a complete list of all $n$ -tuples of integers (thought of as $1 \times n$ matrices) which satisfy the matrix equation
 
@@ -1337,7 +1539,8 @@ $$
 z _ { ( i ) } A _ { 0 } z _ { ( i ) } ^ { t } = 1 .
 $$
 
-We will consider $\mathrm { ( 1 1 ) }$ as a collection of N linear equations for ther $\ n ( n + 1 ) / 2$ entries of the matrix $A _ { 0 }$ . We claim that these equations can be solved uniquely for $A _ { 0 }$ . For otherwise,if the solution were not unique, there would exist a one-parameter family of symmetric matrices $\begin{array} { r } { A _ { \xi } = A _ { 0 } + \xi B _ { \xi } } \end{array}$ all satisfying the equations (11). We will prove that $A _ { \xi } { \in } K$ for $\xi$ sufficiently small. If $z$ is a non-zero $n$ -tuple of integers, then either $z A _ { 0 } z ^ { t } = 1$ and hence $z A _ { \xi } z ^ { t } { = } 1$ also,or $z A _ { 0 } z ^ { t } \ge c$ for some constant $c > 1$ In the latter case, choosing a constant $\pmb { \varepsilon } > \mathbf { 0 }$ so that
+We will consider $\mathrm { ( 1 1 ) }$ as a collection of N linear equations for ther $\ n ( n + 1 ) / 2$ entries of the matrix $A _ { 0 }$ . We claim that these equations can be solved uniquely for $A _ { 0 }$ . For otherwise,if the solution were not unique, there would exist a one-parameter family of symmetric matrices $\begin{array} { r } { A _ { \xi } = A _ { 0 } + \xi B _ { \xi } } \end{array}$ all satisfying the equations (11). We will prove that $A _ { \xi } { \in } K$ for $\xi$ sufficiently small.
+If $z$ is a non-zero $n$ -tuple of integers, then either $z A _ { 0 } z ^ { t } = 1$ and hence $z A _ { \xi } z ^ { t } { = } 1$ also,or $z A _ { 0 } z ^ { t } \ge c$ for some constant $c > 1$ In the latter case, choosing a constant $\pmb { \varepsilon } > \mathbf { 0 }$ so that
 
 for all $\boldsymbol { x } \in \mathbb { R } ^ { n } ,$ , it follows that
 
@@ -1351,13 +1554,17 @@ Since the unique solution of rational linear equations is necessarily rational, 
 
 # \$ 8. Sums of Two and Four Squares
 
-This section will use Minkowski's convex body theorem to prove two venerable theorems. The first was stated by Fermat in the seventeenth century,and proved by Euler in the eighteenth century.
+This section will use Minkowski's convex body theorem to prove two venerable theorems.
+The first was stated by Fermat in the seventeenth century,and proved by Euler in the eighteenth century.
 
-(8.1) Theorem. If $\overline { { p } }$ is a prime number of the form 4k+1, then the equation $a ^ { 2 } + b ^ { 2 } = p$ has a solution with $a , b \in \mathbf { Z }$
+(8.1) Theorem.
+If $\overline { { p } }$ is a prime number of the form 4k+1, then the equation $a ^ { 2 } + b ^ { 2 } = p$ has a solution with $a , b \in \mathbf { Z }$
 
 In terms of the ring $\mathbf { Z } [ i ]$ of Gaussian integers,this theorem states that every such prime splits as a product $\left( a + b i \right) ( a - b i ) .$
 
-Proof. Let $p$ be any odd prime. First note that the congruence $u ^ { 2 } { \equiv } \mathrm { - } 1 ( \mathrm { m o d } p )$ has a solution u∈Z if and only if p=1 (mod 4). For the group $( \mathbf { Z } / p \mathbf { Z } ) ^ { \bullet }$ of relatively prime residue classes modulo $p$ is cyclic of order $p { - } 1$ The image of $- 1 \mathrm { i n } ( \mathbf { Z } / p \mathbf { Z } ) ^ { \bullet }$ is the unique element of order 2. Evidently there exists an element of order 4 in this group if and only if 4 divides $p { - } 1$ ,that is,if and only if $p { \equiv } 1 \ ( \mathbf { m o d } \ 4 )$
+Proof.
+Let $p$ be any odd prime.
+First note that the congruence $u ^ { 2 } { \equiv } \mathrm { - } 1 ( \mathrm { m o d } p )$ has a solution u∈Z if and only if p=1 (mod 4). For the group $( \mathbf { Z } / p \mathbf { Z } ) ^ { \bullet }$ of relatively prime residue classes modulo $p$ is cyclic of order $p { - } 1$ The image of $- 1 \mathrm { i n } ( \mathbf { Z } / p \mathbf { Z } ) ^ { \bullet }$ is the unique element of order 2. Evidently there exists an element of order 4 in this group if and only if 4 divides $p { - } 1$ ,that is,if and only if $p { \equiv } 1 \ ( \mathbf { m o d } \ 4 )$
 
 Suppose now that $p$ is congruent to 1 mod 4,and choose some integer $u$ satisfying the congruence $u ^ { 2 } \equiv - 1$ (mod $p \mathrm { ~ , ~ }$ Fixing $u _ { { \scriptscriptstyle \mathrm { i } } }$ ，let $\mathbf { \Delta } L = \mathbf { Z } \oplus \mathbf { Z }$ be the lattice in $\mathbf { R } ^ { 2 }$ consisting of all pairs $( a , b )$ of integers satisfving
 
@@ -1385,11 +1592,13 @@ $$
 
 Therefore $a ^ { 2 } + b ^ { 2 }$ must be precisely equal to $p .$ ，This completes the proof.□
 
-(8.2) Corollary. The subset of $\mathbf { Q } ^ { \bullet }$ consisting of all non-zero rationals which can be expressed as the sum of two squares is $a$ free abelian multiplicative group, with basis 2, $3 ^ { 2 }$ ,5, $7 ^ { 2 }$ $1 1 ^ { 2 }$ ,13,17,...
+(8.2) Corollary.
+The subset of $\mathbf { Q } ^ { \bullet }$ consisting of all non-zero rationals which can be expressed as the sum of two squares is $a$ free abelian multiplicative group, with basis 2, $3 ^ { 2 }$ ,5, $7 ^ { 2 }$ $1 1 ^ { 2 }$ ,13,17,...
 
 (Compare Chapter III, $\ S 4 . 4 . )$
 
-Proof. First consider any equation of the form $\alpha ^ { 2 } + \beta ^ { 2 } = \gamma \neq 0$ in Q. After multiplying by a large square, we may assume that $\alpha , \beta , \gamma \in \mathbf { Z }$ We must show that any odd prime $\overline { { p } }$ which divides y to an odd power must be of the form $4 k + 1$ Let $p ^ { 2 i }$ be the highest power of $p$ dividing both $\alpha ^ { 2 }$ and $\beta ^ { 2 }$ . Then evidently
+Proof.
+First consider any equation of the form $\alpha ^ { 2 } + \beta ^ { 2 } = \gamma \neq 0$ in Q. After multiplying by a large square, we may assume that $\alpha , \beta , \gamma \in \mathbf { Z }$ We must show that any odd prime $\overline { { p } }$ which divides y to an odd power must be of the form $4 k + 1$ Let $p ^ { 2 i }$ be the highest power of $p$ dividing both $\alpha ^ { 2 }$ and $\beta ^ { 2 }$ . Then evidently
 
 $$
 ( \alpha / p ^ { i } ) ^ { 2 } \equiv - ( \beta / p ^ { i } ) ^ { 2 } \not \equiv 0 ( \mathrm { m o d } p ) .
@@ -1403,15 +1612,20 @@ $$
 
 it follows easily that every element of this multiplicative group is a sum of squares.
 
-Here is an exercise for the reader. Prove that an integer is a sum of two rational squares if and only if it is a sum of two integer squares.
+Here is an exercise for the reader.
+Prove that an integer is a sum of two rational squares if and only if it is a sum of two integer squares.
 
 Our second theorem was stated by Bachet de Méziriac in the seventeenth century,and proved by Lagrange in the eighteenth.
 
-(8.3) Theorem. Every positive integer is a sum of four squares.
+(8.3) Theorem.
+Every positive integer is a sum of four squares.
 
-It follows easily that every positive rational is a sum of four rational squares. (This can be interpreted as a special case of Meyer's theorem, corresponding to inner product spaces of the form $\langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle \oplus$ $\langle 1 \rangle \oplus \langle - r \rangle . \rangle$
+It follows easily that every positive rational is a sum of four rational squares.
+(This can be interpreted as a special case of Meyer's theorem, corresponding to inner product spaces of the form $\langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle \oplus$ $\langle 1 \rangle \oplus \langle - r \rangle . \rangle$
 
-Proof. Let $\overline { { p } }$ be any odd prime. By Lemma 3.3, we see that the con
+Proof.
+Let $\overline { { p } }$ be any odd prime.
+By Lemma 3.3, we see that the con
 
 $$
 u ^ { 2 } + v ^ { 2 } + 1 \equiv 0 { \bmod { p } }
@@ -1453,25 +1667,33 @@ $$
 + ( a C - b D + c A + d B ) ^ { 2 } + ( a D + b C - c B + d A ) ^ { 2 } +
 $$
 
-of four squares. Evidently this completes the proof.口
+of four squares.
+Evidently this completes the proof.口
 
 For a characterization of sums of three squares, see for example [Serre, p. 79].
 
 # § 9. A Theorem of Siegel
 
-This section will describe a basic formula due to C.L. Siegel, concerning positive definite bilinear forms over Z. No proof will be given, but some interesting applications will be described in detail. For proofs the reader is referred to [Siegel],[Weil],[Mars].
+This section will describe a basic formula due to C.L. Siegel, concerning positive definite bilinear forms over Z. No proof will be given, but some interesting applications will be described in detail.
+For proofs the reader is referred to [Siegel],[Weil],[Mars].
 
-One of the classical problems of number theory is that of giving a satisfactory formula for the number of solutions to a quadratic equation in several integer variables. For example, given a positive integer $k ,$ how many n-tuples $x _ { 1 } , . . . , x _ { n } { \in } { \mathbf { Z } }$ satisfy the equation $x _ { 1 } ^ { 2 } + \cdots + x _ { n } ^ { 2 } = k ?$ In 1881 the Paris Academy announced that its Grand Prize would be awarded to the author of the best paper on the topic“Théorie de la dé- composition des nombres entiers en une somme de cinq carrés.”The French press was outraged, two years later, when half3a of the prize was awarded to a teen-aged German student who, because of time pressure, had not even followed the rules and submitted his manuscript in the French language. However the French Academy stood firm. In his prize winning paper, Hermann Minkowski laid the groundwork for our 3aTheother prizewinnerwas H.J..SmithofOxford,whohadactuall publishedasolu present theory of quadratic forms over the integers and over the rational numbers.
+One of the classical problems of number theory is that of giving a satisfactory formula for the number of solutions to a quadratic equation in several integer variables.
+For example, given a positive integer $k ,$ how many n-tuples $x _ { 1 } , . . . , x _ { n } { \in } { \mathbf { Z } }$ satisfy the equation $x _ { 1 } ^ { 2 } + \cdots + x _ { n } ^ { 2 } = k ?$ In 1881 the Paris Academy announced that its Grand Prize would be awarded to the author of the best paper on the topic“Théorie de la dé- composition des nombres entiers en une somme de cinq carrés.”The French press was outraged, two years later, when half3a of the prize was awarded to a teen-aged German student who, because of time pressure, had not even followed the rules and submitted his manuscript in the French language.
+However the French Academy stood firm.
+In his prize winning paper, Hermann Minkowski laid the groundwork for our 3aTheother prizewinnerwas H.J..SmithofOxford,whohadactuall publishedasolu present theory of quadratic forms over the integers and over the rational numbers.
 
-This section will be concerned with Siegel's formula for the“average ” number of solutions to a quadratic equation. In order to state the formula,a number of definitions will be needed.
+This section will be concerned with Siegel's formula for the“average ” number of solutions to a quadratic equation.
+In order to state the formula,a number of definitions will be needed.
 
-Let $X$ and Y be topological spaces, each provided with a measure on the $\overline { { \pmb { \sigma } } }$ -ring generated by open sets. The measure ofa set $\boldsymbol { \mathit { t } }$ will be denoted by $\operatorname { v o l } ( U ) .$ Given any continuous map $f \colon X \to Y ,$ the density of solutions to the equation $f ( x ) = y _ { 0 }$ can be measured as follows. Consider small neighborhoods $U$ of $y _ { 0 }$ ,and form the limit
+Let $X$ and Y be topological spaces, each provided with a measure on the $\overline { { \pmb { \sigma } } }$ -ring generated by open sets.
+The measure ofa set $\boldsymbol { \mathit { t } }$ will be denoted by $\operatorname { v o l } ( U ) .$ Given any continuous map $f \colon X \to Y ,$ the density of solutions to the equation $f ( x ) = y _ { 0 }$ can be measured as follows.
+Consider small neighborhoods $U$ of $y _ { 0 }$ ,and form the limit
 
 $$
 \operatorname* { l i m } _ { U \to y _ { 0 } } \operatorname { v o l } f ^ { - 1 } ( U ) / \operatorname { v o l } ( U ) .
 $$
 
-If this limit exists, then it will be caled the density of f-1 at yo,and denoted by $D f ^ { - 1 } ( y _ { 0 } ) .$ If this density is continuous as a function of $y _ { 0 } ,$ （24号 then evidently
+If this limit exists, then it will be caled the density of f-1 at yo,and denoted by $D f ^ { - 1 } ( y _ { 0 } ) .$ If this density is continuous as a function of $y _ { 0 } ,$ （24 号 then evidently
 
 $$
 \intop _ { U } ^ { } D f ^ { - 1 } ( y ) d y { = } \mathrm { v o l } f ^ { - 1 } ( U )
@@ -1495,9 +1717,12 @@ For example
 
 and so on, provided that $y > 0$ Evidently $D f ^ { - 1 } ( y ) = 0$ for $y < 0$ The function $D f ^ { - 1 }$ is continuous at O for $n \geq 3$ ，but is discontinuous for $n { = } 1 , 2$ ，
 
-Example2. Let $\mathbf { Z } _ { p }$ denote the ring of $p$ -adic integers.This ring has a canonical Haar measure, in which the volume of each of the $p ^ { k }$ distinct residue classes modulo $p ^ { k }$ is equal to $p ^ { - k }$ The $n$ -fold cartesian product $\mathbf { Z } _ { p } \times \cdots \times \mathbf { Z } _ { p }$ has a corresponding product Haar measure. Defining $f _ { p } \colon { \mathbf { Z } } _ { p } \times \cdots \times { \mathbf { Z } } _ { p } \to { \mathbf { Z } } _ { p }$ by $f _ { p } ( x _ { 1 } , \ldots , x _ { n } ) = x _ { 1 } ^ { 2 } + \cdots + x _ { n } ^ { 2 }$ ，we can again form the density $D f _ { p } ^ { - 1 } \colon \mathbf { Z } _ { p }  \mathbf { R }$ .
+Example2. Let $\mathbf { Z } _ { p }$ denote the ring of $p$ -adic integers.This ring has a canonical Haar measure, in which the volume of each of the $p ^ { k }$ distinct residue classes modulo $p ^ { k }$ is equal to $p ^ { - k }$ The $n$ -fold cartesian product $\mathbf { Z } _ { p } \times \cdots \times \mathbf { Z } _ { p }$ has a corresponding product Haar measure.
+Defining $f _ { p } \colon { \mathbf { Z } } _ { p } \times \cdots \times { \mathbf { Z } } _ { p } \to { \mathbf { Z } } _ { p }$ by $f _ { p } ( x _ { 1 } , \ldots , x _ { n } ) = x _ { 1 } ^ { 2 } + \cdots + x _ { n } ^ { 2 }$ ，we can again form the density $D f _ { p } ^ { - 1 } \colon \mathbf { Z } _ { p }  \mathbf { R }$ .
 
-Let $u$ be any $p$ -adic unit. Then the transformation $( x _ { 1 } , \ldots , x _ { n } ) \mapsto$ （2014号 $( u x _ { 1 } , \ldots , u x _ { n } )$ is continuous and volume preserving. Since
+Let $u$ be any $p$ -adic unit.
+Then the transformation $( x _ { 1 } , \ldots , x _ { n } ) \mapsto$ （2014 号 $( u x _ { 1 } , \ldots , u x _ { n } )$ is continuous and volume preserving.
+Since
 
 $$
 \begin{array} { r } { f _ { p } ( u x _ { 1 } , \ldots , u x _ { n } ) = u ^ { 2 } f _ { p } ( x _ { 1 } , \ldots , x _ { n } ) , } \end{array}
@@ -1507,10 +1732,12 @@ it follows that $D f _ { p } ^ { - 1 } ( u ^ { 2 } y )$ is equal to $D f _ { p }
 
 Here is an explicit formula for $D f _ { p } ^ { - 1 }$ .To simplify the discussion we consider only the case n even, say $n { = } 2 m$ .Recall that every element $y \ne 0$ in $\mathbf { Z } _ { p }$ can be written uniquely as a product $p ^ { v } u$ where $v$ is a non-negative integer and $\pmb { u }$ is a p-adic unit.
 
-(9.1) Lemma. $\underline { { L e t \ f _ { p } { : } \mathbf Z _ { p } { \times } \dots { \times } \mathbf Z _ { p } } } \to \mathbf Z _ { p } \ b e \ t h e \ f u n c t i o n \ f _ { p } ( x _ { 1 } , \dots , x _ { 2 m } )$   
-$= x _ { 1 } ^ { 2 } + \cdots + x _ { 2 m } ^ { 2 }$ of 2m $p$ -adic variables. Let $\overline { { r = p ^ { 1 - m } } }$ and for $p$ odd let   
-$\varepsilon { = } \left( \frac { - 1 } { p } \right) ^ { n }$ 1 so that ε equals $+ 1$ or $- 1$ according as $p ^ { m } \equiv 1$ or $p ^ { m } \equiv - 1$   
-(mod 4). If $p$ is odd then the associated density function $D f _ { p } ^ { - 1 } ( p ^ { v } u ) \ i$ s   
+(9.1) Lemma.
+$\underline { { L e t \ f _ { p } { : } \mathbf Z _ { p } { \times } \dots { \times } \mathbf Z _ { p } } } \to \mathbf Z _ { p } \ b e \ t h e \ f u n c t i o n \ f _ { p } ( x _ { 1 } , \dots , x _ { 2 m } )$\
+$= x _ { 1 } ^ { 2 } + \cdots + x _ { 2 m } ^ { 2 }$ of 2m $p$ -adic variables.
+Let $\overline { { r = p ^ { 1 - m } } }$ and for $p$ odd let\
+$\varepsilon { = } \left( \frac { - 1 } { p } \right) ^ { n }$ 1 so that ε equals $+ 1$ or $- 1$ according as $p ^ { m } \equiv 1$ or $p ^ { m } \equiv - 1$\
+(mod 4). If $p$ is odd then the associated density function $D f _ { p } ^ { - 1 } ( p ^ { v } u ) \ i$ s\
 equal to $( 1 - \varepsilon r / p ) ( 1 + \varepsilon r + \varepsilon ^ { 2 } r ^ { 2 } + \dots + \varepsilon ^ { v } r ^ { v } ) .$
 
 For $\scriptstyle p = 2$ and m even it is equal to
@@ -1521,21 +1748,26 @@ $$
 
 while for $p { = } 2$ and m odd it is equal to either $1 + r ^ { v + 1 }$ or $1 - r ^ { v + 1 }$ according as $m \equiv u$ or $m \equiv - u ( { \bf m o d } 4 )$
 
-The proof will be given at the end of this section. The formulas for n odd are slightly more complicated.
+The proof will be given at the end of this section.
+The formulas for n odd are slightly more complicated.
 
 Note that $D f _ { p } ^ { - 1 } ( y )$ tends to 1 as $m \to \infty$ .Furthermore, if m≥2, note that $D f _ { p } ^ { - 1 } ( y )$ tends to 1uniformly as $p  \infty$
 
 It will be convenient to unify our notations by declaring that the symbol $\mathbf { Z } _ { \infty }$ shall stand for the real numbers R.Thus we have a canonical embedding $\mathbf { Z } \to \mathbf { Z } _ { p }$ for $\displaystyle p = 2 , 3 , 5 , 7 , \ldots , \infty .$
 
-Definition (Gauss, Minkowski). Two bilinear form spaces $X$ and $Y$ over the integers belong to the same genus if the induced bilinear form space $X \otimes \mathbf { Z } _ { p }$ over $\mathbf { Z } _ { p }$ is isomorphic to $Y \otimes \mathbf { Z } _ { p }$ for every $\displaystyle p = 2 , 3 , \ldots , \infty .$ ， If X andYhave the same genus,then it is not difficult to verify that they also have the same determinant.Hence, using (1.6), we see that each genus contains only finitely many distinct spaces, up to isomorphism.
+Definition (Gauss, Minkowski).
+Two bilinear form spaces $X$ and $Y$ over the integers belong to the same genus if the induced bilinear form space $X \otimes \mathbf { Z } _ { p }$ over $\mathbf { Z } _ { p }$ is isomorphic to $Y \otimes \mathbf { Z } _ { p }$ for every $\displaystyle p = 2 , 3 , \ldots , \infty .$ ， If X andYhave the same genus,then it is not difficult to verify that they also have the same determinant.Hence, using (1.6), we see that each genus contains only finitely many distinct spaces, up to isomorphism.
 
-Example 3.The two bilinear form spaces $\langle 5 \rangle \oplus \langle 1 1 \rangle$ and $\langle 1 \rangle \oplus \langle 5 5 \rangle$ are both positive definite,and it is not difficult to show that the injection $\mathbf { Z } \to \mathbf { Z } _ { p }$ carries them into isomorphic spaces for every finite prime $p$ Hence these two spaces belong to the same genus. They are not isomorphic, since the equation $5 x ^ { 2 } + 1 1 y ^ { 2 } = 1$ has no integer solution.
+Example 3.The two bilinear form spaces $\langle 5 \rangle \oplus \langle 1 1 \rangle$ and $\langle 1 \rangle \oplus \langle 5 5 \rangle$ are both positive definite,and it is not difficult to show that the injection $\mathbf { Z } \to \mathbf { Z } _ { p }$ carries them into isomorphic spaces for every finite prime $p$ Hence these two spaces belong to the same genus.
+They are not isomorphic, since the equation $5 x ^ { 2 } + 1 1 y ^ { 2 } = 1$ has no integer solution.
 
 Similarly the two inner product spaces $\langle 1 \rangle \oplus T _ { 8 }$ and $\langle 1 \rangle \oplus \cdots \oplus \langle 1 \rangle$ of rank 9 belong to the same genus, but are not isomorphic.
 
-We are now ready to state one form of Siegel's theorem. Let $X$ be a positive definite bilinear form space of rank $n \geq 2$ over $\mathbf { Z }$
+We are now ready to state one form of Siegel's theorem.
+Let $X$ be a positive definite bilinear form space of rank $n \geq 2$ over $\mathbf { Z }$
 
-Definition. For each integer $k ,$ let $r _ { X } ( k )$ denote the number of distinct elements $\boldsymbol { x } \in \boldsymbol { X }$ satisfying the equation $x \cdot x { } = k$
+Definition.
+For each integer $k ,$ let $r _ { X } ( k )$ denote the number of distinct elements $\boldsymbol { x } \in \boldsymbol { X }$ satisfying the equation $x \cdot x { } = k$
 
 For each $p$ we can form the induced space $X \otimes \mathbf { Z } _ { p }$ over $\mathbf { Z } _ { p }$ .Let
 
@@ -1545,7 +1777,8 @@ $$
 
 denote the quadratic function $f _ { p } ( \xi ) = \xi \cdot \xi .$ ，
 
-(9.2) Siegel's theorem (preliminary version). If the genus of $X$ contains only one isomorphism class,then
+(9.2) Siegel's theorem (preliminary version).
+If the genus of $X$ contains only one isomorphism class,then
 
 $$
 r _ { X } ( k ) { = } \varepsilon \prod _ { p = 2 , 3 , \ldots , \infty } D f _ { p } ^ { - 1 } ( k )
@@ -1609,11 +1842,14 @@ $$
 
 (see for example [Serre, p.148]), we again obtain $C = 1 6 .$ Thus we have derived the following.
 
-Formula of Jacobi. For any positive integer $k$ ,the number ofrepresentations ofk as a sum of eight squares is equal tc $\frac { \mid 6 \sum _ { d \mid k } ( - 1 ) ^ { d + k } d ^ { 3 } } { d \mid k }$
+Formula of Jacobi.
+For any positive integer $k$ ,the number ofrepresentations ofk as a sum of eight squares is equal tc $\frac { \mid 6 \sum _ { d \mid k } ( - 1 ) ^ { d + k } d ^ { 3 } } { d \mid k }$
 
 We leave the corresponding formulas for sums of two, four, or six squares as exercises for the reader.
 
-Now consider an arbitrary genus $G$ of positive definite bilinear form spaces. Then $G$ contains say $g$ distinct isomorphism classes,where $g$ is a positive integer. Let $X _ { 1 } , \ldots , X _ { g }$ be representatives for these various isomorphism classes.Following Eisenstein,we weight the various isomorphism classes according to their lack of symmetry.More precisely, let $\displaystyle | \theta ( X _ { i } ) |$ denote the order of the orthogonal group consisting of all automorphisms of $X _ { i }$ . Defining
+Now consider an arbitrary genus $G$ of positive definite bilinear form spaces.
+Then $G$ contains say $g$ distinct isomorphism classes,where $g$ is a positive integer.
+Let $X _ { 1 } , \ldots , X _ { g }$ be representatives for these various isomorphism classes.Following Eisenstein,we weight the various isomorphism classes according to their lack of symmetry.More precisely, let $\displaystyle | \theta ( X _ { i } ) |$ denote the order of the orthogonal group consisting of all automorphisms of $X _ { i }$ . Defining
 
 $$
 w _ { i } { = } | O ( X _ { i } ) | ^ { - 1 } \Biggl / \sum _ { j { = } 1 } ^ { g } | O ( X _ { j } ) | ^ { - 1 } ,
@@ -1623,7 +1859,8 @@ we obtain positive rational numbers $w _ { 1 } , \ldots , w _ { g }$ with $w _ {
 
 Let $f _ { p } \colon X _ { 1 } \otimes \mathbf { Z } _ { p } \to \mathbf { Z } _ { p }$ be the quadratic functions $f _ { p } ( x ) = x \cdot x$ ,as above.
 
-(9.3) Siegel's theorem (second version). For any $k \neq 0 ,$ the weighted average $w _ { 1 } r _ { X _ { 1 } } ( k ) + \cdots + w _ { g } r _ { X _ { g } } ( k )$ is equal to ε $D f _ { p } ^ { - 1 } ( k )$ whereε p=2,3,.,8 equals $\textstyle { \frac { 1 } { 2 } }$ or 1 according as the rank is 2 or greater than 2.
+(9.3) Siegel's theorem (second version).
+For any $k \neq 0 ,$ the weighted average $w _ { 1 } r _ { X _ { 1 } } ( k ) + \cdots + w _ { g } r _ { X _ { g } } ( k )$ is equal to ε $D f _ { p } ^ { - 1 } ( k )$ whereε p=2,3,.,8 equals $\textstyle { \frac { 1 } { 2 } }$ or 1 according as the rank is 2 or greater than 2.
 
 Suppose for example that $X _ { 1 }$ is the inner product space $\langle 1 \rangle \oplus \cdots \oplus \langle 1 \rangle$ of rank n. Then the genus $G$ consists of all positive definite inner product spaces of type I and rank $\pmb { n }$ .We denote this genus by the symbol $I _ { n }$ ：
 
@@ -1633,9 +1870,11 @@ $$
 \overline { { { D f _ { \infty } ^ { - 1 } ( k ) = \frac { 1 } { 2 } n \omega _ { n } k ^ { n / 2 - 1 } } } }
 $$
 
-is dominant. Here is a very crude estimate.
+is dominant.
+Here is a very crude estimate.
 
-(9.4) Lemma. If $f _ { p } ( x _ { 1 } , \ldots , x _ { n } ) { = } \sum x _ { i } ^ { 2 }$ with $n \geq 8 ,$ ,then the product over all finite primes of $D f _ { p } ^ { - 1 } ( k )$ lies between $\frac { 5 } { 6 }$ and $\frac { 6 } { 5 }$
+(9.4) Lemma.
+If $f _ { p } ( x _ { 1 } , \ldots , x _ { n } ) { = } \sum x _ { i } ^ { 2 }$ with $n \geq 8 ,$ ,then the product over all finite primes of $D f _ { p } ^ { - 1 } ( k )$ lies between $\frac { 5 } { 6 }$ and $\frac { 6 } { 5 }$
 
 The proof will be given later.
 
@@ -1645,9 +1884,11 @@ J.H.Conway and J.Thompson have pointed out (unpublished) that Siegel’s theorem
 
 For each $n > 0$ let $k ( n )$ denote the closest integer to ${ \bigl ( } { \frac { 5 } { 3 } } \omega _ { n } ^ { - 1 } { \bigr ) } ^ { 2 / n }$ .Clearly this integer $k ( n )$ is asymptotic to $\omega _ { n } ^ { - 2 / n } \sim n / 2 \pi e$ as $n \to \infty$
 
-(9.5) Theorem (Conway, Thompson). For any dimension n there exists a positive definite inner product space $X$ oftypeI and rank nwith
+(9.5) Theorem (Conway, Thompson).
+For any dimension n there exists a positive definite inner product space $X$ oftypeI and rank nwith
 
-Proof.Let $k = k ( n )$ .We may assume that $n \geq 8$ ,since $k \leq 1$ for smaller values of n. Hence Lemma (9.4) applies. If $X _ { 1 } , \ldots , X _ { g }$ are the distinct inner product spaces in the genus $I _ { n }$ ,then $\begin{array} { r } { w _ { 1 } r _ { X _ { 1 } } ( j ) + \cdots + \overset { \circ } { w _ { g } } r _ { X _ { g } } ( j ) < \frac { 6 } { 1 0 } n \omega _ { n } j ^ { n / 2 - 1 } . } \end{array}$ Summing over $j = 1 , 2 , \ldots , k - 1 .$ ,and using the inequality
+Proof.Let $k = k ( n )$ .We may assume that $n \geq 8$ ,since $k \leq 1$ for smaller values of n. Hence Lemma (9.4) applies.
+If $X _ { 1 } , \ldots , X _ { g }$ are the distinct inner product spaces in the genus $I _ { n }$ ,then $\begin{array} { r } { w _ { 1 } r _ { X _ { 1 } } ( j ) + \cdots + \overset { \circ } { w _ { g } } r _ { X _ { g } } ( j ) < \frac { 6 } { 1 0 } n \omega _ { n } j ^ { n / 2 - 1 } . } \end{array}$ Summing over $j = 1 , 2 , \ldots , k - 1 .$ ,and using the inequality
 
 which is valid for $m \geq 1 ,$ ， we see that the weighted average
 
@@ -1733,7 +1974,8 @@ $$
 
 which completes the proof.□
 
-Now let us describe a still more general version of Siegel's formula. Instead of solving a single equation ${ \boldsymbol { x } } \cdot { \boldsymbol { x } } = k$ , suppose that we try to solve a collection of $t ( t + 1 ) / 2$ simultaneous equations of the form
+Now let us describe a still more general version of Siegel's formula.
+Instead of solving a single equation ${ \boldsymbol { x } } \cdot { \boldsymbol { x } } = k$ , suppose that we try to solve a collection of $t ( t + 1 ) / 2$ simultaneous equations of the form
 
 $$
 \boldsymbol { x } _ { i } \cdot \boldsymbol { x } _ { j } = K _ { i j }
@@ -1771,20 +2013,24 @@ $$
 
 which depends only on the genus $\textbf { \textit { G } }$ Classically the reciprocal is called the mass associated with the genus $G$ .Thus we have a more or less effective formula $M ( G ) = \prod _ { p = 2 , . . . , \infty } \bar { ( \frac { 1 } { 2 } D f _ { p } ^ { - 1 } ( K _ { 1 } ) ) ^ { - 1 } }$ for computing the mass associated with any genus of positive definite spaces over $\mathbf { Z }$
 
-Note the basic inequality $g \geq 2 M ( G ) ,$ where $g$ is the number of distinct   
-isomorphism classes in $G .$ ，This is evident since each automorphism   
-group $O ( X )$ contains at least two distinct elements (namely 1 and -1). As an example, consider the genus $I _ { n }$ consisting of all positive definite   
-inner product spaces of type I and rank n. Then the function $M ( I _ { n } )$ is   
-plotted in Fig.4, on a highly condensed logarithmic scale. For small
+Note the basic inequality $g \geq 2 M ( G ) ,$ where $g$ is the number of distinct\
+isomorphism classes in $G .$ ，This is evident since each automorphism\
+group $O ( X )$ contains at least two distinct elements (namely 1 and -1). As an example, consider the genus $I _ { n }$ consisting of all positive definite\
+inner product spaces of type I and rank n. Then the function $M ( I _ { n } )$ is\
+plotted in Fig.4, on a highly condensed logarithmic scale.
+For small
 
-![](images/fc624a4b29abcf32869e3a552e6d114b006e5cf7605df531946f600b11cec887.jpg)  
+![](images/fc624a4b29abcf32869e3a552e6d114b006e5cf7605df531946f600b11cec887.jpg)\
 Fig. 4. The mass $M ( I _ { n } )$ of the genus ${ \cal I } _ { n }$ plotted on a logarithmic scale as a function of $\pmb { n }$
 
-values of $n$ the mass $M ( I _ { n } )$ is very close to zero. For example if $n { \le } 8$ then $M ( I _ { n } )$ is just the reciprocal of the number $n ! 2 ^ { n }$ of automorphisms of the $n$ -fold sum $\langle 1 \rangle \oplus \cdots \oplus \langle 1 \rangle$ .But for larger values of $n$ the mass $M ( I _ { n } )$ is a very large number. Thus computation shows that
+values of $n$ the mass $M ( I _ { n } )$ is very close to zero.
+For example if $n { \le } 8$ then $M ( I _ { n } )$ is just the reciprocal of the number $n ! 2 ^ { n }$ of automorphisms of the $n$ -fold sum $\langle 1 \rangle \oplus \cdots \oplus \langle 1 \rangle$ .But for larger values of $n$ the mass $M ( I _ { n } )$ is a very large number.
+Thus computation shows that
 
 ![](images/60cec0235648fe88c388ed1f28c9165922e0f2eb1cacb750f3076715bbc6dbb9.jpg)
 
-Hence there are at least 2O9 distinct isomorphism classes in $I _ { 2 8 }$ , at least 297185in $I _ { 2 9 }$ , and so on. The number $M ( I _ { n } )$ is asymptotic to
+Hence there are at least 2O9 distinct isomorphism classes in $I _ { 2 8 }$ , at least 297185in $I _ { 2 9 }$ , and so on.
+The number $M ( I _ { n } )$ is asymptotic to
 
 $$
 C ( n / 2 \pi e \sqrt { e } ) ^ { n ^ { 2 } / 4 } ( 8 \pi e / n ) ^ { n / 4 } / \sqrt [ 2 ] { n }
@@ -1792,7 +2038,9 @@ $$
 
 as ${ \underline { { n \to \infty } } }$ ， where the constant $C$ is approximately 0.705, and $2 \pi e \sqrt { e } =$ 28.159...
 
-The actual details of the computation of $M ( I _ { n } )$ are rather tedious. We mention merely that the factors $\scriptstyle { \frac { 1 } { 2 } } D f _ { p } ^ { - 1 } ( I )$ coming from finite primes are reasonable close to 1,and contribute very little to the final result. The manic behavior of the function $n \mapsto M ( I _ { n } )$ is entirely due to the single factor ${ \scriptstyle { \frac { 1 } { 2 } } } D f _ { \infty } ^ { - 1 } ( I )$ .This factor can be computed by the formula
+The actual details of the computation of $M ( I _ { n } )$ are rather tedious.
+We mention merely that the factors $\scriptstyle { \frac { 1 } { 2 } } D f _ { p } ^ { - 1 } ( I )$ coming from finite primes are reasonable close to 1,and contribute very little to the final result.
+The manic behavior of the function $n \mapsto M ( I _ { n } )$ is entirely due to the single factor ${ \scriptstyle { \frac { 1 } { 2 } } } D f _ { \infty } ^ { - 1 } ( I )$ .This factor can be computed by the formula
 
 Further details will be omitted.
 
@@ -1804,7 +2052,9 @@ $$
 x _ { 1 } ^ { 2 } + \ldots + x _ { n } ^ { 2 } \equiv a { \pmod { p } } ,
 $$
 
-where $p$ is a fixed odd prime. In [Siegel, p.344] such numbers are computed by an ingeneous Gauss sum argument. We will use an alternative method.
+where $p$ is a fixed odd prime.
+In [Siegel, p.344] such numbers are computed by an ingeneous Gauss sum argument.
+We will use an alternative method.
 
 Let $( a / p )$ be the Legendre symbol, equal to $+ 1$ or $- 1$ according as $a$ is or is not a quadratic residue modulo $p$ .It will be convenient to extend the usual definition by agreeing that $( a / p ) { = } 0$ whenever $a \equiv 0$ $( \mathbf { m o d } p )$ ，With this convention, the number $N _ { 1 } ( a )$ of solutions to the congruence
 
@@ -1896,7 +2146,8 @@ $$
 x _ { 1 } ^ { 2 } + \cdots + x _ { n } ^ { 2 } \equiv a { \pmod { p ^ { k } } } .
 $$
 
-These numbers can be computed as follows. We will assume that $a = p ^ { v } u$ with $v < k ,$ where $u$ is relatively prime to $p$
+These numbers can be computed as follows.
+We will assume that $a = p ^ { v } u$ with $v < k ,$ where $u$ is relatively prime to $p$
 
 $$
 p ^ { ( n - 1 ) ( k - 1 ) } N _ { n } ( u ) .
@@ -1908,7 +2159,7 @@ $$
 \xi _ { 1 } ^ { 2 } + \dots + \xi _ { n } ^ { 2 } \equiv u { \pmod { p } }
 $$
 
-gives rise to precisely $p ^ { ( n - 1 ) ( k - 1 ) }$ solutions modulo $p ^ { k }$ . To see this, note that the $\xi _ { i }$ cannot all be divisible by $p$ If say $\xi _ { 1 }$ 丰0(mod p), then choosing any residue classes $\mathbf { x } _ { 2 } , \ldots , \mathbf { x } _ { n }$ modulo $p ^ { k }$ with
+gives rise to precisely $p ^ { ( n - 1 ) ( k - 1 ) }$ solutions modulo $p ^ { k }$ . To see this, note that the $\xi _ { i }$ cannot all be divisible by $p$ If say $\xi _ { 1 }$ 丰 0(mod p), then choosing any residue classes $\mathbf { x } _ { 2 } , \ldots , \mathbf { x } _ { n }$ modulo $p ^ { k }$ with
 
 $$
 x _ { 2 } \equiv \xi _ { 2 } , \ldots , x _ { n } \equiv \xi _ { n } { \pmod { p } } ,
@@ -1944,7 +2195,8 @@ $$
 
 Combining Cases 1, 2, 3 with the explicit formulas (3) and (4) for $\mathrm { N } _ { 2 m } ( u )$ and ${ \cal N } _ { 2 m } ( 0 ) ;$ ,a straightforward induction on $v$ now produces the following conclusion.
 
-(9.8) Lemma. If $0 \leq v < k ,$ ，then the number $N _ { 2 m } ( p ^ { v } u$ mod $p ^ { k } .$ of solutions to the congruence
+(9.8) Lemma.
+If $0 \leq v < k ,$ ，then the number $N _ { 2 m } ( p ^ { v } u$ mod $p ^ { k } .$ of solutions to the congruence
 
 $$
 x _ { 1 } ^ { 2 } + \cdots + x _ { 2 m } ^ { 2 } { \equiv } p ^ { v } u { \pmod { p ^ { k } } }
@@ -1956,7 +2208,8 @@ $$
 p ^ { ( 2 m - 1 ) k } ( 1 - s ^ { m } ) ( 1 + p s ^ { m } + p ^ { 2 } s ^ { 2 m } + \cdots + p ^ { v } s ^ { v m } ) ,
 $$
 
-Proof of Lemma (9.1) for $p$ odd. Let $D f _ { p } ^ { - 1 } \colon \mathbf { Z } _ { p } {  } \mathbf { R }$ be the density function associated with $f _ { p } ( x _ { 1 } , . . . , x _ { 2 m } ) { = } x _ { 1 } ^ { 2 } + \dots + x _ { 2 m } ^ { 2 }$ . Comparing the definition of $D f _ { p } ^ { - 1 }$ with (9.8), it follows easily that
+Proof of Lemma (9.1) for $p$ odd.
+Let $D f _ { p } ^ { - 1 } \colon \mathbf { Z } _ { p } {  } \mathbf { R }$ be the density function associated with $f _ { p } ( x _ { 1 } , . . . , x _ { 2 m } ) { = } x _ { 1 } ^ { 2 } + \dots + x _ { 2 m } ^ { 2 }$ . Comparing the definition of $D f _ { p } ^ { - 1 }$ with (9.8), it follows easily that
 
 $$
 D f _ { p } ^ { - 1 } ( p ^ { v } u ) { = } ( 1 { - } s ^ { m } ) ( 1 { + } p s ^ { m } + p ^ { 2 } s ^ { 2 m } + \cdots + p ^ { v } s ^ { v m } ) .
@@ -1992,7 +2245,7 @@ $$
 \frac { N _ { m + n } ( a \bmod p ^ { k } ) = \sum _ { x + y \equiv a ( \bmod p ^ { k } ) } N _ { m } ( x \bmod p ^ { k } ) N _ { n } ( y \bmod p ^ { k } ) } { x + y \equiv a ( \bmod p ^ { k } ) }
 $$
 
-by $p ^ { ( m + n - 1 ) k }$ and passing to the limit as $k \to \infty$ we obtain the con  
+by $p ^ { ( m + n - 1 ) k }$ and passing to the limit as $k \to \infty$ we obtain the con\
 volution formula $\delta _ { m + n } ( a ) = \int \delta _ { m } ( x ) \delta _ { n } ( a - x ) d x .$
 
 Thus, if $\delta _ { 8 } ( x ) { \leq } c$ for all $x _ { i }$ , it follows immediately that
@@ -2005,29 +2258,36 @@ for all $^ { a }$ .This completes the proof.□
 
 # Chapter III. Inner Product Spaces over a Field
 
-This chapter will describe some of the highlights of the theory of the Witt ring $W ( { \boldsymbol { F } } ) _ { : }$ where $F$ is an arbitrary field. We are particularly careful to give proofs which are valid also in characteristic 2. The classical theory for number fields,as described for example in [O'Meara], is largely ignored.
+This chapter will describe some of the highlights of the theory of the Witt ring $W ( { \boldsymbol { F } } ) _ { : }$ where $F$ is an arbitrary field.
+We are particularly careful to give proofs which are valid also in characteristic 2. The classical theory for number fields,as described for example in [O'Meara], is largely ignored.
 
 All inner product spaces are to be symmetric.
 
 # S1. Anisotropic Inner Product Spaces
 
-An inner product space $X$ is anisotropic if $x \cdot x { = } 0$ implies $\scriptstyle x = 0$ In this section we will show that every element in the Witt ring $W ( { \boldsymbol { F } } )$ is represented by an anisotropic inner product space which is unique up to isomorphism. First note the following.
+An inner product space $X$ is anisotropic if $x \cdot x { = } 0$ implies $\scriptstyle x = 0$ In this section we will show that every element in the Witt ring $W ( { \boldsymbol { F } } )$ is represented by an anisotropic inner product space which is unique up to isomorphism.
+First note the following.
 
-(1.1) Lemma. Every inner product space X over F is isomorphic to an orthogonal sum $\pmb { S } \oplus \pmb { A }$ with $s$ split and A anisotropic.
+(1.1) Lemma.
+Every inner product space X over F is isomorphic to an orthogonal sum $\pmb { S } \oplus \pmb { A }$ with $s$ split and A anisotropic.
 
-Proof. If the space $X$ itself is anisotropic, then we can simply choose $\pmb { S } = \mathbf { 0 }$ 、If not, then there exists a vector $x \neq 0$ with $\mathbf { \boldsymbol { x } } \cdot \mathbf { \boldsymbol { x } } = 0$ ,and we can choose a vector $y$ with $x \cdot y = 1$ Then $x$ and $y$ span a subspace $s _ { 1 } \subset X$ with inner product matrix $\binom { 0 } { 1 } \frac { 1 } { * }$ . Evidently $\underline { { S } } _ { 1 }$ is split, and
+Proof.
+If the space $X$ itself is anisotropic, then we can simply choose $\pmb { S } = \mathbf { 0 }$ 、If not, then there exists a vector $x \neq 0$ with $\mathbf { \boldsymbol { x } } \cdot \mathbf { \boldsymbol { x } } = 0$ ,and we can choose a vector $y$ with $x \cdot y = 1$ Then $x$ and $y$ span a subspace $s _ { 1 } \subset X$ with inner product matrix $\binom { 0 } { 1 } \frac { 1 } { * }$ . Evidently $\underline { { S } } _ { 1 }$ is split, and
 
 Applying the same construction to $S _ { 1 } ^ { \perp }$ ，and continuing inductively,one can easily complete the proof.
 
-Choosing such a decomposition $X \cong S \oplus A$ ，we want to show that the anisotropic summand $\pmb { A }$ is unique up to isomorphism. If the characteristic of $F$ is $\neq 2 ,$ ，then this is quite easy to prove,using Chapter I, Theorem (4.4) and Lemma (6.3). We will give a different argument which works also in characteristic 2.
+Choosing such a decomposition $X \cong S \oplus A$ ，we want to show that the anisotropic summand $\pmb { A }$ is unique up to isomorphism.
+If the characteristic of $F$ is $\neq 2 ,$ ，then this is quite easy to prove,using Chapter I, Theorem (4.4) and Lemma (6.3). We will give a different argument which works also in characteristic 2.
 
 Define the index of isotropy $i ( X )$ of an inner product space $X$ to be the maximal dimension of a subspace $N \subset X$ which is self-orthogonal, that is, $N \cdot N { = } 0$
 
-(1.2) Lemma. The index of isotropy, for any inner product space $X ,$ satisfies
+(1.2) Lemma.
+The index of isotropy, for any inner product space $X ,$ satisfies
 
 where the first equality holds if and only if $X$ is anisotropic,and the second holds if and only if $X$ is split.
 
-Proof. If $N \cdot N { = } 0 $ ,then $N { \subset } N ^ { \perp }$ ,and therefore
+Proof.
+If $N \cdot N { = } 0 $ ,then $N { \subset } N ^ { \perp }$ ,and therefore
 
 $$
 \mathbf { r k } \left( N \right) { \le } \mathbf { r k } \left( N ^ { \perp } \right) { = } \mathbf { r k } \left( X \right) { - } \mathbf { r k } \left( N \right) ,
@@ -2037,7 +2297,8 @@ where equality holds if and only if $N { = } N ^ { \perp }$ .The argument is now
 
 We will need the following upper bound.
 
-(1.3) Main lemma. If $\pmb { A }$ is anisotropic, and $X$ is an arbitrary inner product space, then
+(1.3) Main lemma.
+If $\pmb { A }$ is anisotropic, and $X$ is an arbitrary inner product space, then
 
 $$
 i ( X \oplus A ) + i ( X ) \mathop { \leq } \operatorname { r } \mathbf { k } ( X ) .
@@ -2051,9 +2312,11 @@ $$
 
 an anti-isometry if $f ( x ) \cdot f ( x ^ { \prime } ) = - x \cdot x ^ { \prime }$ for all $x$ and $\mathbf { \boldsymbol { x } } ^ { \prime }$ in $X$
 
-(1.4) Lemma. With $X$ and $A$ as above, there exists $^ { a }$ self-orthogonal subspace $N { \Leftarrow } X \oplus A$ of rank n if and only if there exists $a$ subspace $M \subset X$ of rank $n$ and an anti-isometry $f$ $M  A$
+(1.4) Lemma.
+With $X$ and $A$ as above, there exists $^ { a }$ self-orthogonal subspace $N { \Leftarrow } X \oplus A$ of rank n if and only if there exists $a$ subspace $M \subset X$ of rank $n$ and an anti-isometry $f$ $M  A$
 
-Proof. Given such an anti-isometry $f _ { : }$ let Nc XA denote the graph of $f _ { : }$ consisting of all pairs $( x , a )$ with $\mathbf { \boldsymbol { x } } \in M$ and $f ( x ) = a$ .Given any two pairs $( x , f ( x ) )$ and $( x ^ { \prime } , f ( x ^ { \prime } ) )$ in the graph, we have
+Proof.
+Given such an anti-isometry $f _ { : }$ let Nc XA denote the graph of $f _ { : }$ consisting of all pairs $( x , a )$ with $\mathbf { \boldsymbol { x } } \in M$ and $f ( x ) = a$ .Given any two pairs $( x , f ( x ) )$ and $( x ^ { \prime } , f ( x ^ { \prime } ) )$ in the graph, we have
 
 $$
 ( x , f ( x ) ) \cdot ( x ^ { \prime } , f ( x ^ { \prime } ) ) { = } x \cdot x ^ { \prime } + f ( x ) \cdot f ( x ^ { \prime } ) { = } 0 .
@@ -2061,7 +2324,8 @@ $$
 
 Thus $N$ is self-orthogonal of rank $n _ { \mathrm { { \ell } } }$ , as required.
 
-Conversely， given $N { \Leftarrow } X \oplus A$ with $N \cdot N { = } 0 $ ，note that $N$ intersects the anisotropic subspace $\mathbf { 0 } \oplus \mathbf { A }$ in the zero vector only. If the pairs $( x , a )$ and $( x , a ^ { \prime } )$ both belong to $\mathbf { \delta } _ { N } ,$ it follows that $\boldsymbol { a } = \boldsymbol { a } ^ { \prime }$ Thus $N$ can be identified with the graph of a linear mapping $f \colon M \to A$ for some submodule $M \in X ;$ and since N is self-orthogonal it follows that $f$ is an anti-isometry.0
+Conversely， given $N { \Leftarrow } X \oplus A$ with $N \cdot N { = } 0 $ ，note that $N$ intersects the anisotropic subspace $\mathbf { 0 } \oplus \mathbf { A }$ in the zero vector only.
+If the pairs $( x , a )$ and $( x , a ^ { \prime } )$ both belong to $\mathbf { \delta } _ { N } ,$ it follows that $\boldsymbol { a } = \boldsymbol { a } ^ { \prime }$ Thus $N$ can be identified with the graph of a linear mapping $f \colon M \to A$ for some submodule $M \in X ;$ and since N is self-orthogonal it follows that $f$ is an anti-isometry.0
 
 Proof of (1.3); by induction on the rank of $X \oplus A$ . We may assume that $A \ne 0$ since if $A = 0$ the inequality follows from (1.2).
 
@@ -2071,7 +2335,8 @@ $$
 M = M _ { 0 } + M _ { 1 } , \theta = M _ { 0 } \cap M _ { 1 } .
 $$
 
-Then $M _ { 1 }$ maps injectively into $A$ $M _ { 1 }$ is anisotropic. Therefore the inner product, restricted to $M _ { 1 }$ , is again an inner product; and
+Then $M _ { 1 }$ maps injectively into $A$ $M _ { 1 }$ is anisotropic.
+Therefore the inner product, restricted to $M _ { 1 }$ , is again an inner product; and
 
 $$
 X \cong M _ { 1 } ^ { \bot } \oplus M _ { 1 } .
@@ -2097,13 +2362,16 @@ $$
 
 which completes the proof.□
 
-As an example, suppose that $\mathbf { { \boldsymbol { X } } } { = } \mathbf { { \boldsymbol { S } } }$ is split. Then the inequality $i ( S \oplus A ) { \underline { { \leq } } } \mathbf { r } \mathbf { k } ( S ) - i ( S ) = i ( S )$ implies that $i ( S \oplus \mathbf { A } ) = i ( S ) .$
+As an example, suppose that $\mathbf { { \boldsymbol { X } } } { = } \mathbf { { \boldsymbol { S } } }$ is split.
+Then the inequality $i ( S \oplus A ) { \underline { { \leq } } } \mathbf { r } \mathbf { k } ( S ) - i ( S ) = i ( S )$ implies that $i ( S \oplus \mathbf { A } ) = i ( S ) .$
 
-(1.5) Corollary. Suppose that an orthogonal sum $\pmb { S } \oplus \pmb { A }$ ，with $s$ split and $A$ anisotropic,is itself split.Then $A = 0$
+(1.5) Corollary.
+Suppose that an orthogonal sum $\pmb { S } \oplus \pmb { A }$ ，with $s$ split and $A$ anisotropic,is itself split.Then $A = 0$
 
 For substituting $i ( S \oplus A ) { = } { \textstyle { \frac { 1 } { 2 } } } \mathbf { r } \mathbf { k } \left( S \oplus A \right)$ into the inequality $i ( S \oplus A ) +$ $i ( S ) { \leqq } \mathbf { r k } ( S ) ,$ weobtain ${ \scriptstyle { \frac { 1 } { 2 } } } \operatorname { r k } ( S \oplus A ) \equiv \operatorname { r k } ( S ) - i ( S ) = { \scriptstyle { \frac { 1 } { 2 } } } \operatorname { r k } ( S ) ,$ hence $\mathbf { r k } ( A )$ ≤0.□
 
-(1.6) Corollary. An inner product space X represents the zero element ofthe Witt ring if and onlyif Xis split.
+(1.6) Corollary.
+An inner product space X represents the zero element ofthe Witt ring if and onlyif Xis split.
 
 For if $X$ belongs to the Witt class of O, then there exist split spaces $s ^ { \prime }$ and $S ^ { \prime \prime }$ so that
 
@@ -2117,11 +2385,15 @@ $$
 X \cong A \oplus S
 $$
 
-by (1.1), it follows that ${ \big . } A \oplus S \oplus S ^ { \prime }$ is split. Therefore $\scriptstyle { \big . } { \big | } = 0$ ,and $\pmb { X }$ is split.
+by (1.1), it follows that ${ \big . } A \oplus S \oplus S ^ { \prime }$ is split.
+Therefore $\scriptstyle { \big . } { \big | } = 0$ ,and $\pmb { X }$ is split.
 
-(1.7) Theorem. Every element of the Witt ring W(F) is represented by one, and up to isomorphism only one, anisotropic inner product space.
+(1.7) Theorem.
+Every element of the Witt ring W(F) is represented by one, and up to isomorphism only one, anisotropic inner product space.
 
-Proof. If two anisotropic inner product spaces $A$ and $A ^ { \prime }$ belong to the same Witt class, $A \sim A ^ { \prime }$ ， then we must prove that $A \cong A ^ { \prime }$ . Consider the inner product space $B ^ { \prime } { = } \zeta - 1 \rangle { \otimes } A ^ { \prime } .$ Then $A ^ { \prime } { \oplus B ^ { \prime } }$ is split, so it follows from (1.6) that the space $A \oplus B ^ { \prime } \sim A ^ { \prime } \oplus B ^ { \prime }$ is split. Therefore, according to (1.4), there exists a subspace $M \subset A$ and an anti-isometry
+Proof.
+If two anisotropic inner product spaces $A$ and $A ^ { \prime }$ belong to the same Witt class, $A \sim A ^ { \prime }$ ， then we must prove that $A \cong A ^ { \prime }$ . Consider the inner product space $B ^ { \prime } { = } \zeta - 1 \rangle { \otimes } A ^ { \prime } .$ Then $A ^ { \prime } { \oplus B ^ { \prime } }$ is split, so it follows from (1.6) that the space $A \oplus B ^ { \prime } \sim A ^ { \prime } \oplus B ^ { \prime }$ is split.
+Therefore, according to (1.4), there exists a subspace $M \subset A$ and an anti-isometry
 
 $$
 f \colon M \to B ^ { \prime } ,
@@ -2141,7 +2413,8 @@ It follows that $\mathbf { r k } \left( M \right) = \mathbf { r k } \left( A \ri
 
 Thus the Witt ring W(F) can be identified with the collection of isomorphism classes of anisotropic inner product spaces over $E .$ To complete the picture, one more element of structure is needed.
 
-(1.8) Definition. For each element w in the Witt ring $W ( F ) ,$ let $\| w \|$ denote the rank of the unique anisotropic representative for w.
+(1.8) Definition.
+For each element w in the Witt ring $W ( F ) ,$ let $\| w \|$ denote the rank of the unique anisotropic representative for w.
 
 Alternatively, choosing an arbitrary representative $X$ for the Witt class w. we can set
 
@@ -2163,9 +2436,11 @@ and
 
 # \$2. Ordered Fields
 
-This section is mainly a review of classical results concerning ordered fields. It studies the“total signature” $\sigma ( X )$ of an inner product space over a field $F$ .Thisisacertain $\pmb { \Omega }$ -tuple of integers, $\pmb { \Omega }$ being the collection of all orderings of $F$
+This section is mainly a review of classical results concerning ordered fields.
+It studies the“total signature” $\sigma ( X )$ of an inner product space over a field $F$ .Thisisacertain $\pmb { \Omega }$ -tuple of integers, $\pmb { \Omega }$ being the collection of all orderings of $F$
 
-(2.1) Definition. An ordering of a field F is a subset Pc F\* which is closed under addition and multiplication, and satisfies
+(2.1) Definition.
+An ordering of a field F is a subset Pc F\* which is closed under addition and multiplication, and satisfies
 
 $$
 P \cup ( - P ) { = } F ^ { \bullet } .
@@ -2173,17 +2448,24 @@ $$
 
 The elements of $P$ are called positive (or strictly positive),and one writes $\xi > \eta$ if $\xi - \eta \in P .$
 
-Note that the two subsets $P$ and $- \boldsymbol { P }$ are necessarily disjoint. For if both $\xi$ and $- \xi$ belonged to $P ,$ then the sum $\xi + ( - \xi )$ would have to belong to ${ \overline { { P , } } }$ contradicting the hypothesis that $P { \subset } F ^ { \bullet }$ ：
+Note that the two subsets $P$ and $- \boldsymbol { P }$ are necessarily disjoint.
+For if both $\xi$ and $- \xi$ belonged to $P ,$ then the sum $\xi + ( - \xi )$ would have to belong to ${ \overline { { P , } } }$ contradicting the hypothesis that $P { \subset } F ^ { \bullet }$ ：
 
-In an ordered field, every non-zero square is positive. For if $\xi \neq 0$ then either $\xi \in { \cal P } \ \mathrm { o r } - \xi \in { \cal P } ,$ and in either case it follows that $\zeta ^ { 2 } = ( - \zeta ) ^ { 2 } \in P .$
+In an ordered field, every non-zero square is positive.
+For if $\xi \neq 0$ then either $\xi \in { \cal P } \ \mathrm { o r } - \xi \in { \cal P } ,$ and in either case it follows that $\zeta ^ { 2 } = ( - \zeta ) ^ { 2 } \in P .$
 
 An ordered field necessarily has characteristic zero.For $1 = 1 ^ { 2 } \in { \cal P } ,$ hence every sum $1 + 1 + \cdots + 1$ belongs to $P .$ ，Therefore no such sum can equal O in $F .$
 
-(2.2) Artin-Schreier theorem. $\pmb { A }$ field $F$ possesses an ordering if and only if-1is not $^ { a }$ sum of squares in $F .$
+(2.2) Artin-Schreier theorem.
+$\pmb { A }$ field $F$ possesses an ordering if and only if-1is not $^ { a }$ sum of squares in $F .$
 
-Proof. If $\pmb { F }$ possesses an ordering $P ,$ then 1∈P,hence -1‡P,and -1 cannot be a sum of squares.
+Proof.
+If $\pmb { F }$ possesses an ordering $P ,$ then 1∈P,hence -1‡P,and -1 cannot be a sum of squares.
 
-Conversely let $F$ be a field in which $- 1$ is not a sum of squares. Byapartial ordering of $F$ we will mean any subset of $F ^ { \bullet }$ which is closed under addition and multiplication. One partial ordering $P _ { 0 }$ can be constructed as follows. Let $P _ { 0 }$ be the collection of all sums of non-zero squares in $\boldsymbol { \mathsf { { F } } }$ Then $P _ { 0 }$ is clearly closed under addition and multiplication, and if O belonged to $P _ { 0 }$ then the equation
+Conversely let $F$ be a field in which $- 1$ is not a sum of squares.
+Byapartial ordering of $F$ we will mean any subset of $F ^ { \bullet }$ which is closed under addition and multiplication.
+One partial ordering $P _ { 0 }$ can be constructed as follows.
+Let $P _ { 0 }$ be the collection of all sums of non-zero squares in $\boldsymbol { \mathsf { { F } } }$ Then $P _ { 0 }$ is clearly closed under addition and multiplication, and if O belonged to $P _ { 0 }$ then the equation
 
 $$
 \overline { { 0 = \xi _ { 1 } ^ { 2 } + \cdots + \zeta _ { n } ^ { 2 } } }
@@ -2197,7 +2479,8 @@ $$
 
 contradicting our hypothesis.
 
-By Zorn's lemma, the partial ordering $\underline { { P } } _ { 0 }$ is contained in some partial ordering $P$ of $F$ which is maximal with respect to inclusion. Given $\xi \neq 0 ,$ we will prove that either $\xi \in P \ o r \ - \xi \in P .$ This will show that P is an ordering of F.Consider the subset
+By Zorn's lemma, the partial ordering $\underline { { P } } _ { 0 }$ is contained in some partial ordering $P$ of $F$ which is maximal with respect to inclusion.
+Given $\xi \neq 0 ,$ we will prove that either $\xi \in P \ o r \ - \xi \in P .$ This will show that P is an ordering of F.Consider the subset
 
 $$
 Q { = } P \cup \xi P \cup ( P { + } \xi P )
@@ -2213,17 +2496,20 @@ $$
 
 Here is an excursion for the reader.
 
-(2.3) Exercise. Let $F$ be a field of characteristic $\neq 2 .$ Using similar methods, prove that a field element $\xi \neq 0$ can be expressed as a sum of squares if and only if $\xi \in P$ for every ordering $P$ of $F .$ (Such element $\xi$ are called“totally positive".) In particular, if $\pmb { F }$ has no orderings at all, then every element of $\pmb { F }$ is a sum of squares.
+(2.3) Exercise.
+Let $F$ be a field of characteristic $\neq 2 .$ Using similar methods, prove that a field element $\xi \neq 0$ can be expressed as a sum of squares if and only if $\xi \in P$ for every ordering $P$ of $F .$ (Such element $\xi$ are called“totally positive".) In particular, if $\pmb { F }$ has no orderings at all, then every element of $\pmb { F }$ is a sum of squares.
 
 The classical case can be described as follows.
 
 ![](images/0ab6902ee298c1835362345111a82fd70ebf264d1cfe57bc6b40ef87f82947d4.jpg)
 
-positive definite and $X ^ { - }$ negative definite. The ranks of $X ^ { + }$ and $X ^ { - }$ are isomorphism invariants of $X$
+positive definite and $X ^ { - }$ negative definite.
+The ranks of $X ^ { + }$ and $X ^ { - }$ are isomorphism invariants of $X$
 
 That is,these ranks do not depend on the particular choice of $X ^ { + }$ and $X ^ { - }$
 
-Proof. Choosing an orthogonal basis $\underline { { e _ { 1 } , \ldots , e _ { r } } }$ for $X$ ,let $X ^ { + }$ be the subspace spanned by those $\boldsymbol { e } _ { i }$ for which $e _ { i } \cdot e _ { i } > 0 .$ and let $X ^ { - }$ be spanned by those $e _ { i }$ with $e _ { i } \cdot e _ { i } { < 0 }$ .Then evidently $X \cong X ^ { + } \oplus X ^ { - }$ with $X ^ { + }$ positive definite and $X ^ { - }$ negative definite.
+Proof.
+Choosing an orthogonal basis $\underline { { e _ { 1 } , \ldots , e _ { r } } }$ for $X$ ,let $X ^ { + }$ be the subspace spanned by those $\boldsymbol { e } _ { i }$ for which $e _ { i } \cdot e _ { i } > 0 .$ and let $X ^ { - }$ be spanned by those $e _ { i }$ with $e _ { i } \cdot e _ { i } { < 0 }$ .Then evidently $X \cong X ^ { + } \oplus X ^ { - }$ with $X ^ { + }$ positive definite and $X ^ { - }$ negative definite.
 
 Now let $Y$ be an arbitrary positive definite subspace of $X$ Then $Y \cap X ^ { - } = 0$ ,hence
 
@@ -2233,17 +2519,20 @@ $$
 
 Therefore rk $( X ^ { + } )$ can be characterized as the maximum possible dimension of a positive definite subspace of X. This shows that it is an isomorphism invariant of $X ,$ and completes the proof.□
 
-Definition. The difference $\operatorname { r k } ( X ^ { + } ) - \operatorname { r k } ( X ^ { - } )$ is called the signature of the inner product space $X$ at the ordering $P .$ We will use the notation
+Definition.
+The difference $\operatorname { r k } ( X ^ { + } ) - \operatorname { r k } ( X ^ { - } )$ is called the signature of the inner product space $X$ at the ordering $P .$ We will use the notation
 
 $$
 \sigma _ { P } ( X ) { \in } \mathbf { Z }
 $$
 
-for this signature. Evidently $\sigma _ { P } ( X )$ is also an isomorphism invariant of x.
+for this signature.
+Evidently $\sigma _ { P } ( X )$ is also an isomorphism invariant of x.
 
 In the case of an inner product space $\langle x \rangle$ of rank 1, note that the signature $\sigma _ { P } \langle \alpha \rangle$ is just what is usually called the sign of the field element $\alpha$ at the ordering $P .$ That is $\sigma _ { P } \langle \alpha \rangle$ is equal to $+ 1$ or $- 1$ according as $\pmb { \alpha }$ is positive or negative.
 
-(2.6) Lemma. The signature $\sigma _ { P } ( X )$ depends only on the Witt class of $X$ Furthermore
+(2.6) Lemma.
+The signature $\sigma _ { P } ( X )$ depends only on the Witt class of $X$ Furthermore
 
 $$
 \sigma _ { P } ( X \circledast Y ) = \sigma _ { P } ( X ) + \sigma _ { P } ( Y ) ,
@@ -2251,7 +2540,9 @@ $$
 
 Thus the signature $\sigma _ { P }$ gives rise to a well defined homomorphism from the Witt ring $W ( { \boldsymbol { F } } )$ to the ring of integers $\mathbf { Z }$
 
-Proof. If $s$ is a split inner product space, then it follows from Chapter I, $\ S 6 . 3$ that $s$ is isomorphic to an orthogonal sum of copies of $\langle 1 \rangle \oplus \langle - 1 \rangle$ . Hence the signature $\sigma _ { P } ( S )$ is zero. [Or more directly， if （214号 $N { \subset } S$ is self-orthogonal then the argument used to prove (2.5) shows also that ${ \bf r k } ( N ) { \bf \leq } { \bf r k } ( S ^ { + } )$ and $\operatorname { r k } ( N ) { \overset { } { \leq } } \operatorname { r k } ( S ^ { - } ) . { \mathrm { ~ S o ~ } } { \mathrm { i f ~ } } \operatorname { r k } ( N ) { \overset { } { = } } { \frac { 1 } { 2 } } \operatorname { r k } ( S ) ,$ it follows that r $\operatorname { k } ( N ) { = } \operatorname { r k } ( S ^ { + } ) { = } \operatorname { r k } ( S ^ { - } ) .$ and the signature is zero.]
+Proof.
+If $s$ is a split inner product space, then it follows from Chapter I, $\ S 6 . 3$ that $s$ is isomorphic to an orthogonal sum of copies of $\langle 1 \rangle \oplus \langle - 1 \rangle$ . Hence the signature $\sigma _ { P } ( S )$ is zero.
+[Or more directly， if （214 号 $N { \subset } S$ is self-orthogonal then the argument used to prove (2.5) shows also that ${ \bf r k } ( N ) { \bf \leq } { \bf r k } ( S ^ { + } )$ and $\operatorname { r k } ( N ) { \overset { } { \leq } } \operatorname { r k } ( S ^ { - } ) . { \mathrm { ~ S o ~ } } { \mathrm { i f ~ } } \operatorname { r k } ( N ) { \overset { } { = } } { \frac { 1 } { 2 } } \operatorname { r k } ( S ) ,$ it follows that r $\operatorname { k } ( N ) { = } \operatorname { r k } ( S ^ { + } ) { = } \operatorname { r k } ( S ^ { - } ) .$ and the signature is zero.]
 
 Now expressing $X$ and $Y$ as sums of spaces of rank 1, and using the evident identity
 
@@ -2259,19 +2550,27 @@ $$
 \sigma _ { P } ( \langle \alpha _ { 1 } \rangle \oplus \dots \oplus \langle \alpha _ { r } \rangle ) { = } \sigma _ { P } \langle \alpha _ { 1 } \rangle + \dots + \sigma _ { P } \langle \alpha _ { r } \rangle ,
 $$
 
-the rest of the proof is straightforward. 0
+the rest of the proof is straightforward.
+0
 
-(2.7) Corollary. Suppose that $F$ is an ordered feld in which every positive element is a square. Then $\sigma _ { P } \colon W ( F ) \to \mathbf { Z }$ is an isomorphism.
+(2.7) Corollary.
+Suppose that $F$ is an ordered feld in which every positive element is a square.
+Then $\sigma _ { P } \colon W ( F ) \to \mathbf { Z }$ is an isomorphism.
 
 For example the Witt ring of the real numbers $\mathbf { R }$ is isomorphic to Z. The proof is straightforward from (2.5) and (2.6).□
 
-Remark. It is shown in standard algebra texts (Lang or van der Waerden) that there is a one-to-one correspondence between orderings of a field $F$ and isomorphism classes of “real closures ” of $F .$ The real closure $F _ { P }$ associated with any ordering $P$ can be characterized as the maximal compatibly ordered algebraic extension field of $\boldsymbol { \mathsf { \Pi } }$ Every positive element of $F _ { P }$ is a square, hence the Witt ring $W ( F _ { P } )$ is isomorphic to $\mathbf { z }$ It follows easily that the signature homomorphism ${ \pmb { \sigma _ { P } } }$ ： $W ( F ) \to \mathbf { Z }$ can be identified with the natural ring homomorphism $W ( { \boldsymbol { F } } ) \to W ( { \boldsymbol { F } } _ { P } ) .$
+Remark.
+It is shown in standard algebra texts (Lang or van der Waerden) that there is a one-to-one correspondence between orderings of a field $F$ and isomorphism classes of “real closures ” of $F .$ The real closure $F _ { P }$ associated with any ordering $P$ can be characterized as the maximal compatibly ordered algebraic extension field of $\boldsymbol { \mathsf { \Pi } }$ Every positive element of $F _ { P }$ is a square, hence the Witt ring $W ( F _ { P } )$ is isomorphic to $\mathbf { z }$ It follows easily that the signature homomorphism ${ \pmb { \sigma _ { P } } }$ ： $W ( F ) \to \mathbf { Z }$ can be identified with the natural ring homomorphism $W ( { \boldsymbol { F } } ) \to W ( { \boldsymbol { F } } _ { P } ) .$
 
 Now consider the collection $\scriptstyle { \mathcal { Q } } = { \mathcal { Q } } ( F )$ consisting of all possible orderings of a given field $\pmb { F }$ We topologize $\pmb { \Omega }$ as follows.
 
-Definition. For each $\xi \in F ^ { \bullet } \operatorname { l e t } U _ { \xi } \subset \Omega$ be the set of all orderings $P$ for which $\boldsymbol { \xi } \in \mathrm { P }$ Then these sets $U _ { \xi }$ generate the required topology. (In other words a subset of $\pmb { \Omega }$ is defined to be open if and only if it is a union of finite intersections of the $U _ { \xi }$ ）
+Definition.
+For each $\xi \in F ^ { \bullet } \operatorname { l e t } U _ { \xi } \subset \Omega$ be the set of all orderings $P$ for which $\boldsymbol { \xi } \in \mathrm { P }$ Then these sets $U _ { \xi }$ generate the required topology.
+(In other words a subset of $\pmb { \Omega }$ is defined to be open if and only if it is a union of finite intersections of the $U _ { \xi }$ ）
 
-(2.8) Lemma. This topological space $\pmb { \Omega }$ is compact and totally disconnected. For each inner product space $X$ over $F _ { \mathrm { { } } }$ ,the function
+(2.8) Lemma.
+This topological space $\pmb { \Omega }$ is compact and totally disconnected.
+For each inner product space $X$ over $F _ { \mathrm { { } } }$ ,the function
 
 $$
 P \mapsto \sigma _ { P } ( X )
@@ -2279,7 +2578,8 @@ $$
 
 from Ω to Z is continuous.
 
-Definition. This function $P \mapsto \sigma _ { P } ( X )$ will be called the total signature $\sigma ( X )$ of the inner product space $X .$
+Definition.
+This function $P \mapsto \sigma _ { P } ( X )$ will be called the total signature $\sigma ( X )$ of the inner product space $X .$
 
 Proof of (2.8). First consider an inner product space $\langle \xi \rangle$ of rank 1. Then the inverse image of 1 under the total signature function
 
@@ -2289,11 +2589,13 @@ $$
 
 is the open set $U _ { \xi } { \subset } \Omega ,$ ,and the inverse image of -1 is the complementary open set $U _ { - \xi }$ .Thus the total signature function of $\langle \xi \rangle$ is continuous, and it follows easily that the total signature function associated with any iner produet space $X \cong ( \xi _ { 1 } ) \oplus \dots \oplus \langle \xi _ { r } \rangle$ is continuous.
 
-Since $\pmb { \Omega }$ is the union of disjoint open sets $U _ { \xi }$ and $U _ { - \xi }$ for any $\xi \in F ^ { \bullet }$ it is easy to check that $\pmb { \Omega }$ is Hausdorff and totally disconnected. To prove compactness, we introduce the space $2 ^ { F }$ consisting of all subsets of $F$ · This is to be topologized as a cartesian product.That is we identify each subset of $\overline { F }$ with its characteristic function $F \to \{ 0 , 1 \}$ ,and hence identify $2 ^ { F }$ with a cartesian product of copies of $\{ 0 , 1 \}$ , one copy for each element of F.This product is compact by Tychonoffs theorem.
+Since $\pmb { \Omega }$ is the union of disjoint open sets $U _ { \xi }$ and $U _ { - \xi }$ for any $\xi \in F ^ { \bullet }$ it is easy to check that $\pmb { \Omega }$ is Hausdorff and totally disconnected.
+To prove compactness, we introduce the space $2 ^ { F }$ consisting of all subsets of $F$ · This is to be topologized as a cartesian product.That is we identify each subset of $\overline { F }$ with its characteristic function $F \to \{ 0 , 1 \}$ ,and hence identify $2 ^ { F }$ with a cartesian product of copies of $\{ 0 , 1 \}$ , one copy for each element of F.This product is compact by Tychonoffs theorem.
 
 Each ordering of $F$ can be considered as an element of $2 ^ { F }$ so $\pmb { \Omega }$ is embedded as a subset of $2 ^ { F }$ . Evidently the topology which we constructed for $\pmb { \Omega }$ is precisely the relative topology which $\pmb { \Omega }$ acquires as a subset of $2 ^ { F }$ In fact $\pmb { \Omega }$ is a closed subset of $2 ^ { \bar { F } }$ .For if a subset $Q { \subset } F$ is not an ordering, then it is easy to construct a neighborhood of $Q$ in $2 ^ { F }$ which does not contain any orderings.This proves that $\pmb { \Omega }$ is compact, and completes the proof of (2.8).□
 
-(2.9) Definition. The ring consisting of all continuous functions from $\pmb { \Omega }$ to $\mathbf { z }$ will be denoted by ${ \bf Z } ^ { \Omega }$ . Evidently, for any inner product space $\boldsymbol { X }$ over $\overline { F }$ ,the total signature function $\sigma ( X )$ is an element of this ring ${ \bf Z } ^ { \Omega }$ Since $\sigma$ is additive, multiplicative,and since $\sigma ( X )$ depends only on the Witt class of $X _ { i }$ ,we obtain a well defined ring homomorphism
+(2.9) Definition.
+The ring consisting of all continuous functions from $\pmb { \Omega }$ to $\mathbf { z }$ will be denoted by ${ \bf Z } ^ { \Omega }$ . Evidently, for any inner product space $\boldsymbol { X }$ over $\overline { F }$ ,the total signature function $\sigma ( X )$ is an element of this ring ${ \bf Z } ^ { \Omega }$ Since $\sigma$ is additive, multiplicative,and since $\sigma ( X )$ depends only on the Witt class of $X _ { i }$ ,we obtain a well defined ring homomorphism
 
 $$
 \overline { { { \boldsymbol { \sigma } } \colon W ( { \boldsymbol { F } } ) \to \mathbf { Z } ^ { \Omega } } } .
@@ -2301,7 +2603,9 @@ $$
 
 [Of course if the set Ω is vacuous, then $\mathbf { Z } ^ { \mathcal { \Omega } }$ is the zero ring,and this construction is not particularly interesting.]
 
-Remark. If $\pmb { \Omega }$ has more than one element, then this homomorphism $\sigma$ is not surjective. In fact the congruence
+Remark.
+If $\pmb { \Omega }$ has more than one element, then this homomorphism $\sigma$ is not surjective.
+In fact the congruence
 
 $$
 \sigma _ { P } ( X ) { \equiv } \mathbf { r } \mathbf { k } ( X ) { \pmod { 2 } }
@@ -2317,7 +2621,8 @@ must be congruent to either O or 1 modulo the ideal $2 \mathbf { Z } ^ { \Omega 
 
 In order to determine the precise image of $\sigma$ ： $W ( F ) \to \mathbf { Z } ^ { \mathcal { \Omega } }$ ,one needs to know to what extent it is possible to prescribe the signs of a field element at the various orderings of $F$
 
-(2.10) Example. If $F$ is an algebraic extension of the rationals, then given a completely arbitrary open and closed subset $U { \bf { C } } \Omega ,$ there exists $^ { a }$ field element $\alpha$ which satisfies the condition
+(2.10) Example.
+If $F$ is an algebraic extension of the rationals, then given a completely arbitrary open and closed subset $U { \bf { C } } \Omega ,$ there exists $^ { a }$ field element $\alpha$ which satisfies the condition
 
 $$
 \alpha \in P \Leftrightarrow P \in U .
@@ -2367,11 +2672,14 @@ For further information see [Knebusch, Rosenberg, and Ware].
 
 In this section we study the structure of the Wittring $W ( { \boldsymbol { F } } )$ for an arbitrary field F.The results are due to Pfister, but the simplified proofs are due to Lorenz and Leicht.
 
-(3.1) Lemma. The Witt ring W $( F )$ is additively generated by the elements (α>, where α varies over F.
+(3.1) Lemma.
+The Witt ring W $( F )$ is additively generated by the elements (α>, where α varies over F.
 
-Proof. This follows immediately from Chapter I, δ 3.
+Proof.
+This follows immediately from Chapter I, δ 3.
 
-(3.2) Lemma. If $\mathfrak { p }$ is an arbitrary prime ideal in $W ( { \boldsymbol { F } } ) ,$ then for every $\alpha \in F ^ { \bullet }$ either
+(3.2) Lemma.
+If $\mathfrak { p }$ is an arbitrary prime ideal in $W ( { \boldsymbol { F } } ) ,$ then for every $\alpha \in F ^ { \bullet }$ either
 
 $$
 \begin{array} { r } { { \langle \alpha \rangle } \equiv { \langle 1 \rangle } \qquad { \mathrm { m o d } } { \mathfrak { p } } } \end{array}
@@ -2379,23 +2687,27 @@ $$
 
 Hence the quotient ring $W ( F ) / { \mathfrak { p } }$ is isomorphic either to $\mathbf { Z } ,$ or to the field $\mathbf { F } _ { p } = \mathbf { Z } / p \mathbf { Z }$ for some prime number $\pmb { p }$
 
-Proof. Since the element $\langle x ^ { 2 } \rangle$ of $W ( { \boldsymbol { F } } )$ is equal to $\langle 1 \rangle$ , we have
+Proof.
+Since the element $\langle x ^ { 2 } \rangle$ of $W ( { \boldsymbol { F } } )$ is equal to $\langle 1 \rangle$ , we have
 
 $$
 \scriptstyle ( \langle \alpha \rangle - \langle 1 \rangle ) ( \langle \alpha \rangle + \langle 1 \rangle ) = 0
 $$
 
-in $W ( { \boldsymbol { F } } ) .$ . Therefore, modulo any prime ideal $\mathfrak { p }$ , the element $\langle { \alpha } \rangle$ is congruent to either <1> or $- \left. 1 \right.$ . It follows that the unique ring homomorphism
+in $W ( { \boldsymbol { F } } ) .$ . Therefore, modulo any prime ideal $\mathfrak { p }$ , the element $\langle { \alpha } \rangle$ is congruent to either <1> or $- \left.
+1 \right.$ . It follows that the unique ring homomorphism
 
 $$
 \mathbf { Z } \to W ( F ) \to W ( F ) / { \mathfrak { p } }
 $$
 
-is surjective. Since the kernel must be a prime ideal of Z, this completes the proof.□
+is surjective.
+Since the kernel must be a prime ideal of Z, this completes the proof.□
 
 First consider the case $p { = } 2$
 
-(3.3) Lemma. For any field $\pmb { F }$ ,there is one and only one ideal I in $W ( { \boldsymbol { F } } )$ such that $W ( F ) / I { \cong } \mathbf { F } _ { 2 }$ ：
+(3.3) Lemma.
+For any field $\pmb { F }$ ,there is one and only one ideal I in $W ( { \boldsymbol { F } } )$ such that $W ( F ) / I { \cong } \mathbf { F } _ { 2 }$ ：
 
 Thus $\scriptstyle I = I ( F )$ is the kernel of the unique ring homomorphism $W ( F ) \to \mathbf { F } _ { 2 }$ . We will call I the fundamental ideal of the Witt ring.
 
@@ -2421,15 +2733,18 @@ $$
 
 gives rise to a ring homomorphism $W ( F ) \to \mathbf { F } _ { 2 }$ whose kernel is the required fundamental ideal $I$ □
 
-(3.4) Remark. The Wit ring $W ( { \boldsymbol { F } } )$ is isomorphic to $\mathbf { F } _ { 2 }$ if and only if every element of ${ \pmb F } ^ { \bullet }$ is a square.
+(3.4) Remark.
+The Wit ring $W ( { \boldsymbol { F } } )$ is isomorphic to $\mathbf { F } _ { 2 }$ if and only if every element of ${ \pmb F } ^ { \bullet }$ is a square.
 
 Examples are provided by algebraically closed fields, and perfect fields of characteristic 2.
 
-Proof.If $W ( F ) { \cong } \mathbf { F } _ { 2 }$ , then for every $\alpha \in F ^ { \bullet }$ the anisotropic inner product space $\langle { \alpha } \rangle$ belongs to the same Witt class as $\langle 1 \rangle$ ,and therefore is isomorphic to <1>.Hence $\pmb { \alpha }$ is a square. Since the converse is straightforward, this completes the proof.□
+Proof.If $W ( F ) { \cong } \mathbf { F } _ { 2 }$ , then for every $\alpha \in F ^ { \bullet }$ the anisotropic inner product space $\langle { \alpha } \rangle$ belongs to the same Witt class as $\langle 1 \rangle$ ,and therefore is isomorphic to <1>.Hence $\pmb { \alpha }$ is a square.
+Since the converse is straightforward, this completes the proof.□
 
 Now let us look at the remaining prime ideals.
 
-(3.5) Main lemma. 1 $f { \mathfrak { p } } \subset W ( F )$ is any prime ideal with
+(3.5) Main lemma.
+1 $f { \mathfrak { p } } \subset W ( F )$ is any prime ideal with
 
 $$
 W ( F ) / { \mathfrak { p } } \not \equiv \mathbf { F } _ { 2 } ,
@@ -2469,7 +2784,8 @@ $$
 P \cup ( - P ) { = } F ^ { \bullet } .
 $$
 
-So we need only prove that $P$ is closed under addition. If $\alpha , \beta { \in } P$ and $\alpha + \beta = \gamma \neq 0$ ,then evidently
+So we need only prove that $P$ is closed under addition.
+If $\alpha , \beta { \in } P$ and $\alpha + \beta = \gamma \neq 0$ ,then evidently
 
 $$
 \langle \alpha \rangle \oplus \langle \beta \rangle \cong \langle \gamma \rangle \oplus \langle \delta \rangle
@@ -2493,7 +2809,8 @@ $$
 \langle 1 \rangle + \langle 1 \rangle \equiv \langle \alpha \rangle + \langle \beta \rangle = 0
 $$
 
-which contradicts our hypothesis. Thus $P$ is an ordering of $\pmb { F }$ ：
+which contradicts our hypothesis.
+Thus $P$ is an ordering of $\pmb { F }$ ：
 
 Now for any $\pmb { \alpha }$ in $F ^ { \bullet }$ the congruence
 
@@ -2503,29 +2820,43 @@ $$
 
 ![](images/33c2f4fd26b5b0b7affca17ae5eedf3b76c0aa8b6265e050204cbe125549048d.jpg)
 
-In particular,since $\langle 1 \rangle + \langle 1 \rangle \in { \cal I } ,$ it follows that some power $( \langle 1 \rangle + \langle 1 \rangle ) ^ { n } = 2 ^ { n } \langle 1 \rangle$ is zero in $W ( { \boldsymbol { F } } )$ (Here $2 ^ { n } \langle 1 \rangle$ denotes the sum of $2 ^ { n }$ copies of <1>.) Therefore $2 ^ { n } w = 0$ for every w in the Witt ring. This completes the proof.□
+In particular,since $\langle 1 \rangle + \langle 1 \rangle \in { \cal I } ,$ it follows that some power $( \langle 1 \rangle + \langle 1 \rangle ) ^ { n } = 2 ^ { n } \langle 1 \rangle$ is zero in $W ( { \boldsymbol { F } } )$ (Here $2 ^ { n } \langle 1 \rangle$ denotes the sum of $2 ^ { n }$ copies of <1>.) Therefore $2 ^ { n } w = 0$ for every w in the Witt ring.
+This completes the proof.□
 
-Remark. This proof makes rather blatant use of Zorn's lemma. We will give a more constructive argument in $\ S 4 . 6 .$
+Remark.
+This proof makes rather blatant use of Zorn's lemma.
+We will give a more constructive argument in $\ S 4 . 6 .$
 
-Now consider a field in which -1 is not a sum of squares. Let M denote the ideal consisting of all nilpotent elements in the Witt ring.
+Now consider a field in which -1 is not a sum of squares.
+Let M denote the ideal consisting of all nilpotent elements in the Witt ring.
 
-(3.8) Theorem. $I f - 1$ is not $a$ sum of squares in $F$ ,thenthenilradical $\mathfrak { N } \subset W ( F )$ is precisely equal to the kernel of the total signature homomorphism $\boldsymbol { \sigma } \colon W ( F ) \to \mathbf { Z } ^ { \Omega }$
+(3.8) Theorem.
+$I f - 1$ is not $a$ sum of squares in $F$ ,thenthenilradical $\mathfrak { N } \subset W ( F )$ is precisely equal to the kernel of the total signature homomorphism $\boldsymbol { \sigma } \colon W ( F ) \to \mathbf { Z } ^ { \Omega }$
 
 of $\ S 2 . 8$ . An element w in the Witt ring is a unit if and only if its image $\sigma ( w )$ is a unit in the ring $\mathbf { Z } ^ { \mathcal { \Omega } }$
 
-Proof. If $\sigma ( w ) { = } 0$ , then certainly w belongs to the fundamental ideal 1, consisting of Witt classes of even rank. But it follows from (3.5) that w belongs to every other prime ideal also.Therefore $w \in \mathfrak { N }$ .Conversely, if $w \in \mathfrak { N }$ then $\sigma ( w )$ is nilpotent hence $\sigma ( w ) = 0$
+Proof.
+If $\sigma ( w ) { = } 0$ , then certainly w belongs to the fundamental ideal 1, consisting of Witt classes of even rank.
+But it follows from (3.5) that w belongs to every other prime ideal also.Therefore $w \in \mathfrak { N }$ .Conversely, if $w \in \mathfrak { N }$ then $\sigma ( w )$ is nilpotent hence $\sigma ( w ) = 0$
 
-Now suppose that $\sigma ( w )$ is a unit. Then $\sigma ( w ) ^ { 2 } = 1 , { \mathrm { h e n c e ~ } } w ^ { 2 } \equiv 1 { \mathrm { m o d } } \mathfrak { N } ,$ and it follows that w is a unit. This completes the proof.
+Now suppose that $\sigma ( w )$ is a unit.
+Then $\sigma ( w ) ^ { 2 } = 1 , { \mathrm { h e n c e ~ } } w ^ { 2 } \equiv 1 { \mathrm { m o d } } \mathfrak { N } ,$ and it follows that w is a unit.
+This completes the proof.
 
-(3.9) Corollary. The Witt ring W(F) is isomorphic to Z if and only if F is an ordered field in which every positive element is a square.
+(3.9) Corollary.
+The Witt ring W(F) is isomorphic to Z if and only if F is an ordered field in which every positive element is a square.
 
-For if $W ( F ) { \cong } \mathbf { Z } $ ,then $F$ can be ordered,and for every $\alpha > 0$ the anisotropic inner product space $\langle \alpha \rangle$ belongs to the same Witt class as $\langle 1 \rangle$ and hence is isomorphic to $\langle 1 \rangle$ .Therefore $\pmb { \alpha }$ is a square. Together with (2.7), this completes the proof.□
+For if $W ( F ) { \cong } \mathbf { Z } $ ,then $F$ can be ordered,and for every $\alpha > 0$ the anisotropic inner product space $\langle \alpha \rangle$ belongs to the same Witt class as $\langle 1 \rangle$ and hence is isomorphic to $\langle 1 \rangle$ .Therefore $\pmb { \alpha }$ is a square.
+Together with (2.7), this completes the proof.□
 
-(3.10) Theorem. For any field $F$ ，the torsion subgroup of $W ( { \boldsymbol { F } } )$ is precisely the kernel of the total signature homomorphism
+(3.10) Theorem.
+For any field $F$ ，the torsion subgroup of $W ( { \boldsymbol { F } } )$ is precisely the kernel of the total signature homomorphism
 
 The order of every torsion element is a power of 2.
 
-Remark. If $F$ has only one ordering, then this can be proved quite simply as follows. Clearly the kernel of $\sigma { : W ( F ) \to \mathbf { Z } }$ is additively generated by elements of the form $\langle 1 \rangle - \langle \alpha \rangle$ with $\alpha > 0$ .But
+Remark.
+If $F$ has only one ordering, then this can be proved quite simply as follows.
+Clearly the kernel of $\sigma { : W ( F ) \to \mathbf { Z } }$ is additively generated by elements of the form $\langle 1 \rangle - \langle \alpha \rangle$ with $\alpha > 0$ .But
 
 $$
 ( \langle 1 \rangle - \langle \alpha \rangle ) ^ { 2 } = 2 ( \langle 1 \rangle - \langle \alpha \rangle )
@@ -2539,27 +2870,34 @@ $$
 
 Since <1>-<α> is known to be nilpotent, it follows that its order is a power of 2.
 
-The proof in the general case will be based on the following. Let $K$ be any extension field of $F$ .Recall from Chapter I, $\ S 5 . 4$ that any inner product space $X$ of rank $r$ over $F$ gives rise to an inner product space $K \otimes _ { F } X$ of rank $r$ over $K$ . Clearly this correspondence induces a ring
+The proof in the general case will be based on the following.
+Let $K$ be any extension field of $F$ .Recall from Chapter I, $\ S 5 . 4$ that any inner product space $X$ of rank $r$ over $F$ gives rise to an inner product space $K \otimes _ { F } X$ of rank $r$ over $K$ . Clearly this correspondence induces a ring
 
 homomorphism
 
-For a quadratic extension, the kernel of this homomorphism is computed as follows. We assume that $F$ has characteristic $\neq 2$
+For a quadratic extension, the kernel of this homomorphism is computed as follows.
+We assume that $F$ has characteristic $\neq 2$
 
-(3.11) Lemma. For any $\alpha \in F ^ { \bullet }$ ,the kernel of the natural homomorphism $W ( { \dot { F } } ) \to { \overline { { W } } } \big ( F ( \sqrt { \alpha } ) \big )$ is equal to the principal ideal $( \langle 1 \rangle - \langle \alpha \rangle ) W ( F )$ Every element w in the kernel satisfies $w = - \langle { \boldsymbol { \alpha } } \rangle w$
+(3.11) Lemma.
+For any $\alpha \in F ^ { \bullet }$ ,the kernel of the natural homomorphism $W ( { \dot { F } } ) \to { \overline { { W } } } \big ( F ( \sqrt { \alpha } ) \big )$ is equal to the principal ideal $( \langle 1 \rangle - \langle \alpha \rangle ) W ( F )$ Every element w in the kernel satisfies $w = - \langle { \boldsymbol { \alpha } } \rangle w$
 
-Proof. Certainly $\pmb { \alpha }$ maps to a square in $F ( { \sqrt { \alpha } } ) ,$ hence the ideal $( \langle 1 \rangle - \langle \alpha \rangle ) W ( F )$ maps to zero. But if an anisotropic inner product space $X { \neq } 0$ over $F$ represents a Witt class in the kernel, then there certainly exists a vector $\operatorname { \dot { z } } \pm \theta \operatorname { i n } F ( { \sqrt { \alpha } } ) \otimes _ { F } X$ with $z \cdot z = 0$ Setting $z = x + \sqrt { \alpha } y$ with $\overline { { x } }$ and $\overline { { y } }$ in $X$ , the equation ${ \overline { { z \cdot z } } } = 0$ implies that
+Proof.
+Certainly $\pmb { \alpha }$ maps to a square in $F ( { \sqrt { \alpha } } ) ,$ hence the ideal $( \langle 1 \rangle - \langle \alpha \rangle ) W ( F )$ maps to zero.
+But if an anisotropic inner product space $X { \neq } 0$ over $F$ represents a Witt class in the kernel, then there certainly exists a vector $\operatorname { \dot { z } } \pm \theta \operatorname { i n } F ( { \sqrt { \alpha } } ) \otimes _ { F } X$ with $z \cdot z = 0$ Setting $z = x + \sqrt { \alpha } y$ with $\overline { { x } }$ and $\overline { { y } }$ in $X$ , the equation ${ \overline { { z \cdot z } } } = 0$ implies that
 
 $$
 x \cdot x + \alpha y \cdot y = 0 , ~ x \cdot y = 0 .
 $$
 
-Since $X$ is anisotropic, at least one of the field elements $x \cdot x$ and $y \cdot y$ is non-zero, hence both are non-zero. Seting $y \cdot y = \eta _ { 1 }$ and $x \cdot x { = } - \alpha \eta _ { 1 } ;$ we see that X decomposes as an orthogonal sum
+Since $X$ is anisotropic, at least one of the field elements $x \cdot x$ and $y \cdot y$ is non-zero, hence both are non-zero.
+Seting $y \cdot y = \eta _ { 1 }$ and $x \cdot x { = } - \alpha \eta _ { 1 } ;$ we see that X decomposes as an orthogonal sum
 
 $$
 \overline { { \langle \eta _ { 1 } \rangle \oplus \langle - \alpha \eta _ { 1 } \rangle \oplus X ^ { \prime } } } ,
 $$
 
-where $X ^ { \prime }$ is also anisotropic and also represents an element of the kernel. An easy induction now shows that
+where $X ^ { \prime }$ is also anisotropic and also represents an element of the kernel.
+An easy induction now shows that
 
 $$
 X \cong ( \langle 1 \rangle \oplus \langle - \alpha \rangle ) \otimes ( \langle \eta _ { 1 } \rangle \oplus \dots \oplus \langle \eta _ { k } \rangle )
@@ -2573,9 +2911,13 @@ $$
 
 which completes the proof.□
 
-Proof of Theorem (3.10). Suppose that some nilpotent element w of $W ( { \boldsymbol { F } } )$ satisfies $2 ^ { n } w \neq 0$ for all $\pmb { n }$ .Consider algebraic extension fields $K \supset F$ such that the image $w ^ { \prime } = i _ { * } ( w )$ in $W ( K )$ satisfies $2 ^ { n } w ^ { \prime } \ne 0$ for all n. Note that any monotone union of fields having this property will again have this property.Hence, by Zorn's lemma, there exists a maximal extension field $K$ with this property. If $\alpha \in K$ is any non-square, then the field $\kappa ( \sqrt { \alpha } )$ is strictly larger than $K .$ .Therefore the image of $2 ^ { n } w ^ { \prime }$ in $W \big ( K ( \sqrt { \alpha } ) \big )$ is zero for large n, and it follows from (3.11) that
+Proof of Theorem (3.10). Suppose that some nilpotent element w of $W ( { \boldsymbol { F } } )$ satisfies $2 ^ { n } w \neq 0$ for all $\pmb { n }$ .Consider algebraic extension fields $K \supset F$ such that the image $w ^ { \prime } = i _ { * } ( w )$ in $W ( K )$ satisfies $2 ^ { n } w ^ { \prime } \ne 0$ for all n. Note that any monotone union of fields having this property will again have this property.Hence, by Zorn's lemma, there exists a maximal extension field $K$ with this property.
+If $\alpha \in K$ is any non-square, then the field $\kappa ( \sqrt { \alpha } )$ is strictly larger than $K .$ .Therefore the image of $2 ^ { n } w ^ { \prime }$ in $W \big ( K ( \sqrt { \alpha } ) \big )$ is zero for large n, and it follows from (3.11) that
 
-Since $W ( K )$ is not a 2-torsion group, it follows from (3.6) that $K$ can be ordered. Since $W ( K )$ possesses nilpotent elements, it follows from (3.9) that not every positive element of $K$ is a square. Therefore the quotient $K ^ { \bullet } / K ^ { \bullet 2 }$ contains at least four distinct elements. Let $1 , \alpha , \beta ,$ and $\alpha \beta$ in Kbe distinct modulo $K ^ { \bullet 2 }$ .Then
+Since $W ( K )$ is not a 2-torsion group, it follows from (3.6) that $K$ can be ordered.
+Since $W ( K )$ possesses nilpotent elements, it follows from (3.9) that not every positive element of $K$ is a square.
+Therefore the quotient $K ^ { \bullet } / K ^ { \bullet 2 }$ contains at least four distinct elements.
+Let $1 , \alpha , \beta ,$ and $\alpha \beta$ in Kbe distinct modulo $K ^ { \bullet 2 }$ .Then
 
 $$
 \begin{array} { c } { { 2 ^ { n } w ^ { \prime } = \langle - \alpha \rangle 2 ^ { n } w ^ { \prime } = \langle - \alpha \rangle \langle - \beta \rangle 2 ^ { n } w ^ { \prime } } } \\ { { = \langle - \alpha \rangle \langle - \beta \rangle \langle - \alpha \beta \rangle 2 ^ { n } w ^ { \prime } } } \end{array}
@@ -2589,19 +2931,25 @@ is equal to the torsion subgroup of W(F).
 
 The proof is immediate.
 
-To conclude this section, we will outline a different description of the torsion in $W ( { \boldsymbol { F } } ) _ { : }$ due to Scharlau [1969],[1970].Let $\pmb { F }$ be a field of charactersistic 丰2.
+To conclude this section, we will outline a different description of the torsion in $W ( { \boldsymbol { F } } ) _ { : }$ due to Scharlau [1969],[1970].Let $\pmb { F }$ be a field of charactersistic 丰 2.
 
-Definition. The field $\boldsymbol { \mathsf { \Pi } }$ is pythagorean if the subset $F ^ { 2 }$ is closed under addition; or in other words if every sum of squares is a square in $F$
+Definition.
+The field $\boldsymbol { \mathsf { \Pi } }$ is pythagorean if the subset $F ^ { 2 }$ is closed under addition; or in other words if every sum of squares is a square in $F$
 
-Given any field $F$ of characteristic $\neq 2 ,$ ，with algebraic closure ${ \overline { { F } } } _ { z }$ there is a unique smallest extension field $F _ { p y } \subset \overline { { F } }$ which is pythagorean. In fact $F _ { p y }$ is the union of all iterated quadratic extensions of the form
+Given any field $F$ of characteristic $\neq 2 ,$ ，with algebraic closure ${ \overline { { F } } } _ { z }$ there is a unique smallest extension field $F _ { p y } \subset \overline { { F } }$ which is pythagorean.
+In fact $F _ { p y }$ is the union of all iterated quadratic extensions of the form
 
 $$
 F { \subset } \cdots { \subset } K { \subset } K \left( \sqrt { \alpha ^ { 2 } + \beta ^ { 2 } } \right)
 $$
 
-within $\overline { { F } }$ We will call this unique field $F _ { p y }$ the pythagorean closure of $F$ The Witt ring $W ( F _ { p y } )$ of a pythagorean field can be described as follows. If -1 is a sum of squares in $F _ { p y }$ ,then every element of $F _ { p y }$ is a square,and it follows that $W ( F _ { p y } ) { \cong } \bar { \mathbf { Z } } / 2 \mathbf { Z } .$ (Compare (2.3) and (3.4).) On the other hand if-1 is not $a$ sum of squares, then $W ( F _ { p y } )$ is torsion free. In fact,given $w \ne 0$ in $W ( F _ { p y } )$ choose an anisotropic representative $A \cong \langle \alpha _ { 1 } \rangle \oplus \dots \oplus \langle \alpha _ { n } \rangle$ for $w$ .Then for any $k > 0$ the $k$ -fold sum $A \oplus \cdots \oplus A$ is also anisotropic. For if the equation $\sum _ { j \mathop { = } 1 } ^ { k } \sum _ { i \mathop { = } 1 } ^ { n } \alpha _ { i } \zeta _ { i j } ^ { 2 } { = } 0$ had a non-trivial solution then, setting $\sum _ { j } \xi _ { i j } ^ { 2 } = \eta _ { i } ^ { 2 }$ ， it would follow that the equation $\sum \alpha _ { i } \eta _ { i } ^ { 2 } = 0$ also had a non-trivial solution, which is impossible.
+within $\overline { { F } }$ We will call this unique field $F _ { p y }$ the pythagorean closure of $F$ The Witt ring $W ( F _ { p y } )$ of a pythagorean field can be described as follows.
+If -1 is a sum of squares in $F _ { p y }$ ,then every element of $F _ { p y }$ is a square,and it follows that $W ( F _ { p y } ) { \cong } \bar { \mathbf { Z } } / 2 \mathbf { Z } .$ (Compare (2.3) and (3.4).) On the other hand if-1 is not $a$ sum of squares, then $W ( F _ { p y } )$ is torsion free.
+In fact,given $w \ne 0$ in $W ( F _ { p y } )$ choose an anisotropic representative $A \cong \langle \alpha _ { 1 } \rangle \oplus \dots \oplus \langle \alpha _ { n } \rangle$ for $w$ .Then for any $k > 0$ the $k$ -fold sum $A \oplus \cdots \oplus A$ is also anisotropic.
+For if the equation $\sum _ { j \mathop { = } 1 } ^ { k } \sum _ { i \mathop { = } 1 } ^ { n } \alpha _ { i } \zeta _ { i j } ^ { 2 } { = } 0$ had a non-trivial solution then, setting $\sum _ { j } \xi _ { i j } ^ { 2 } = \eta _ { i } ^ { 2 }$ ， it would follow that the equation $\sum \alpha _ { i } \eta _ { i } ^ { 2 } = 0$ also had a non-trivial solution, which is impossible.
 
-(3.13) Assertion. If $F _ { p y }$ is the pythagorean closure of $F$ ，then the
+(3.13) Assertion.
+If $F _ { p y }$ is the pythagorean closure of $F$ ，then the
 
 $$
 0 \to { \mathrm { T o r s ~ } } I W ( F ) \to W ( F ) \to W ( F _ { p y } )
@@ -2609,7 +2957,8 @@ $$
 
 Here Tors $I W ( F )$ denotes the torsion subgroup of the fundamental ideal $I { \subset W ( F ) }$ ,considered as additive group.
 
-Proof. First consider a quadratic extension of the form
+Proof.
+First consider a quadratic extension of the form
 
 $$
 K \subset K ( \sqrt { \alpha ^ { 2 } + \beta ^ { 2 } } ) .
@@ -2633,7 +2982,8 @@ $$
 W ( \boldsymbol { F } ) \to W ( F _ { p y } )
 $$
 
-is a 2-primary torsion group. But $W ( F _ { p \bf { y } } )$ is torsion free,so this kernel must be precisely equal to the torsion subgroup of W(F).□
+is a 2-primary torsion group.
+But $W ( F _ { p \bf { y } } )$ is torsion free,so this kernel must be precisely equal to the torsion subgroup of W(F).□
 
 This argument, incidentally, gives a simpler proof that the Witt ring of a field contains no odd torsion.
 
@@ -2641,11 +2991,13 @@ Note that for any field (even in characteristic 2) the subgroup Tors $I W ( F )$
 
 # $\ S$ 4. Multiplicative Inner Product Spaces
 
-The results in this section are due to Pfister. (Compare [Scharlau, 1969] and [Lorenz].) However for convenience we will modify Pfister's definitions.
+The results in this section are due to Pfister.
+(Compare [Scharlau, 1969] and [Lorenz].) However for convenience we will modify Pfister's definitions.
 
 If $_ x$ belongs to an inner product space $X$ , it will be convenient to call $x \cdot x$ the norm of $x .$ Thus a field element $\pmb { \alpha }$ is a norm from $X$ if ${ \mathfrak { x } } = { \mathfrak { x } } \cdot { \mathfrak { x } }$ for some $_ x$
 
-(4.1) Definition. An inner product space $X$ is multiplicative if
+(4.1) Definition.
+An inner product space $X$ is multiplicative if
 
 $$
 X \cong \langle \alpha \rangle \otimes X
@@ -2655,7 +3007,8 @@ for every field element $\pmb { \alpha }$ ±0 which is a norm from X.
 
 One important property of multiplicative spaces is the following.
 
-(4.2) Lemma. If $X$ is multiplicative, then the set of all field elements $\alpha \neq 0$ which are norms from $X$ forms $^ { a }$ subgroup of $F ^ { \bullet }$
+(4.2) Lemma.
+If $X$ is multiplicative, then the set of all field elements $\alpha \neq 0$ which are norms from $X$ forms $^ { a }$ subgroup of $F ^ { \bullet }$
 
 $$
 f \colon X \to \langle \beta \rangle \otimes X .
@@ -2671,7 +3024,8 @@ Therefore the quotient $\alpha / \beta = z \cdot z$ is also a norm from $X$ ,whi
 
 As an example, the inner product space $\langle 1 \rangle$ is certainly multiplicative, with group of non-zero norms equal to F· 2.
 
-(4.3) Theorem. Any tensor product of the form
+(4.3) Theorem.
+Any tensor product of the form
 
 $$
 ( ( 1 ) \oplus ( \alpha _ { 1 } ) ) \otimes \cdots \otimes ( ( 1 ) \oplus ( \alpha _ { n } ) )
@@ -2679,7 +3033,8 @@ $$
 
 is multiplicative.Furthermore any such tensor product is either anisotropic or split.
 
-Proof. First consider the case $\overline { { n = 1 } }$ .If $\beta { \neq } 0$ is a norm from $\langle 1 \rangle \oplus \langle { \alpha } \rangle$ ， then clearly $\langle 1 \rangle \oplus \langle \alpha \rangle \cong \langle \beta \rangle \oplus \langle \gamma \rangle$
+Proof.
+First consider the case $\overline { { n = 1 } }$ .If $\beta { \neq } 0$ is a norm from $\langle 1 \rangle \oplus \langle { \alpha } \rangle$ ， then clearly $\langle 1 \rangle \oplus \langle \alpha \rangle \cong \langle \beta \rangle \oplus \langle \gamma \rangle$
 
 for some $\gamma$ .Comparing determinants, we see that $\langle \gamma \rangle \cong \langle \beta \alpha \rangle , \ s \scriptscriptstyle 0$
 
@@ -2687,21 +3042,38 @@ $$
 \langle 1 \rangle \oplus \langle \alpha \rangle \cong \langle \beta \rangle \otimes ( \langle 1 \rangle \oplus \langle \alpha \rangle )
 $$
 
-as required. Since very inner product space of rank 2 is either anisotropic or split, this takes care of the case $n = 1$
+as required.
+Since very inner product space of rank 2 is either anisotropic or split, this takes care of the case $n = 1$
 
-The proof now proceeds by induction. Assuming that $X$ is multiplicative, we will show that the space
+The proof now proceeds by induction.
+Assuming that $X$ is multiplicative, we will show that the space
 
 $$
 \left( \left. 1 \right. \oplus \left. \alpha \right. \right) X \cong X \oplus \left. \alpha \right. X
 $$
 
-is multiplicative. Here we are leaving out the tensor product signs, to simplify the notation. Let $\beta { \neq } 0$ be a norm from $X \oplus \langle a \rangle X$ .Then clearly $\beta$ has the form
+is multiplicative.
+Here we are leaving out the tensor product signs, to simplify the notation.
+Let $\beta { \neq } 0$ be a norm from $X \oplus \langle a \rangle X$ .Then clearly $\beta$ has the form
 
 $$
 \beta = x \cdot x + \alpha y \cdot y = \xi + \alpha \eta
 $$
 
-where $\xi$ and $\eta$ are norms from $X$ .If $\xi = 0$ ,then $\eta \neq 0$ so $\langle \eta \rangle X { \cong } X$ and $\left. \alpha \eta \right. ( X \oplus \left. \alpha \right. X ) \cong \left. \alpha \right. X \oplus \left. \alpha \right. ^ { 2 } X \cong X \oplus \left. \alpha \right. X ,$ ，as required. The case $\scriptstyle \eta = 0$ is handled similarly. Suppose then that both $\xi$ and $\eta$ are non-zero. Then $X \cong \langle \xi \rangle X \cong \langle \eta / \xi \rangle X$ so it follows that
+where $\xi$ and $\eta$ are norms from $X$ .If $\xi = 0$ ,then $\eta \neq 0$ so $\langle \eta \rangle X { \cong } X$ and $\left.
+\alpha \eta \right.
+( X \oplus \left.
+\alpha \right.
+X ) \cong \left.
+\alpha \right.
+X \oplus \left.
+\alpha \right.
+^ { 2 } X \cong X \oplus \left.
+\alpha \right.
+X ,$ ，as required.
+The case $\scriptstyle \eta = 0$ is handled similarly.
+Suppose then that both $\xi$ and $\eta$ are non-zero.
+Then $X \cong \langle \xi \rangle X \cong \langle \eta / \xi \rangle X$ so it follows that
 
 $$
 \begin{array} { r } { \underbrace { \left. \xi + \alpha \eta \right. \left( X \oplus \left. \alpha \right. X \right) \cong \left. 1 + \alpha \eta / \xi \right. \left( X \oplus \left. \alpha \eta / \xi \right. X \right) } _ { \cong \left. 1 + \alpha \eta / \xi \right. \left( \left. 1 \right. \oplus \left. \alpha \eta / \xi \right. \right) X } } \end{array}
@@ -2713,27 +3085,34 @@ $$
 \langle 1 \rangle \oplus \langle \alpha \eta / \xi \rangle
 $$
 
-is multiplicative. Since 1+αn/§ is a non-zero norm from this space, we see that the factor $\langle 1 + \alpha \eta / \xi \rangle$ can be cancelled, and we are left with
+is multiplicative.
+Since 1+αn/§ is a non-zero norm from this space, we see that the factor $\langle 1 + \alpha \eta / \xi \rangle$ can be cancelled, and we are left with
 
 $( ( 1 ) \oplus \langle \alpha \eta / \xi \rangle ) X \cong X \oplus \langle \alpha \rangle X ,$ as required.
 
-We must prove also that $X \oplus \langle { \alpha } \rangle X$ is either anistropic or split, assuming inductively that $X$ itself is either anisotropic or split. If $X \oplus \alpha X$ is not anisotropic,then there exist vectors $x$ and $y$ in $X$ ,not both zero, so that
+We must prove also that $X \oplus \langle { \alpha } \rangle X$ is either anistropic or split, assuming inductively that $X$ itself is either anisotropic or split.
+If $X \oplus \alpha X$ is not anisotropic,then there exist vectors $x$ and $y$ in $X$ ,not both zero, so that
 
 $$
 \scriptstyle x \cdot x + \alpha y \cdot y = \xi + \alpha \eta = 0 .
 $$
 
-$\mathrm { H } \ \xi = \eta = 0 ;$ then $X$ must be split, and it certainly follows that $X \oplus \langle a \rangle X$ is split. But otherwise $\xi / \eta = - \alpha$ is a non-zero norm from $X$ ; therefore $X \cong \langle - \alpha \rangle X$ and it follows again that $X \oplus \langle a \rangle X$ is split. This completes the proof.□
+$\mathrm { H } \ \xi = \eta = 0 ;$ then $X$ must be split, and it certainly follows that $X \oplus \langle a \rangle X$ is split.
+But otherwise $\xi / \eta = - \alpha$ is a non-zero norm from $X$ ; therefore $X \cong \langle - \alpha \rangle X$ and it follows again that $X \oplus \langle a \rangle X$ is split.
+This completes the proof.□
 
 A special case of (4.3) which is particularly interesting is the case $\alpha _ { 1 } = \cdots = \alpha _ { n } = 1 \quad$ .The tensor product
 
-is then a $2 ^ { n }$ fold orthogonal sum of copies of $\left. 1 \right.$ .We write this briefly as $2 ^ { n } \langle 1 \rangle$
+is then a $2 ^ { n }$ fold orthogonal sum of copies of $\left.
+1 \right.$ .We write this briefly as $2 ^ { n } \langle 1 \rangle$
 
-(4.4) Corollary. For any field $F$ and any $n { \geq } 0$ the subset consisting of field element $\xi \neq 0$ which can be expressed as the sum of $2 ^ { n }$ squares forms a multiplicative group.
+(4.4) Corollary.
+For any field $F$ and any $n { \geq } 0$ the subset consisting of field element $\xi \neq 0$ which can be expressed as the sum of $2 ^ { n }$ squares forms a multiplicative group.
 
 This follows from (4.2) and (4.3) since a field element is a norm from $2 ^ { n } \langle 1 \rangle$ if and only if it is a sum of $2 ^ { n }$ squares.
 
-As an example, for the field Q of rational numbers, since both $5 = 1 ^ { 2 } + 2 ^ { 2 }$ and $1 3 = 2 ^ { 2 } + 3 ^ { 2 }$ can be expressed as the sum of 2 squares, it follows that $6 5 ( = 4 ^ { 2 } + 7 ^ { 2 } )$ can also.(Compare Chapter II, \$8.) By way of contrast, both $3 = 1 ^ { 2 } + 1 ^ { 2 } + 1 ^ { 2 }$ and $5 = 0 ^ { 2 } + 1 ^ { 2 } + 2 ^ { 2 }$ can be expressed as the sum of 3 squares, yet their product cannot. For if 15 were equal to $\alpha ^ { 2 } + \beta ^ { 2 } + \gamma ^ { 2 }$ ， then clearing denominators and reducing modulo 8 one would obtain
+As an example, for the field Q of rational numbers, since both $5 = 1 ^ { 2 } + 2 ^ { 2 }$ and $1 3 = 2 ^ { 2 } + 3 ^ { 2 }$ can be expressed as the sum of 2 squares, it follows that $6 5 ( = 4 ^ { 2 } + 7 ^ { 2 } )$ can also.(Compare Chapter II, \$8.) By way of contrast, both $3 = 1 ^ { 2 } + 1 ^ { 2 } + 1 ^ { 2 }$ and $5 = 0 ^ { 2 } + 1 ^ { 2 } + 2 ^ { 2 }$ can be expressed as the sum of 3 squares, yet their product cannot.
+For if 15 were equal to $\alpha ^ { 2 } + \beta ^ { 2 } + \gamma ^ { 2 }$ ， then clearing denominators and reducing modulo 8 one would obtain
 
 $$
 - d ^ { 2 } \equiv a ^ { 2 } + b ^ { 2 } + c ^ { 2 } \mod 8
@@ -2743,13 +3122,19 @@ with at least one of the integers $a , b , c , d$ odd, which is easily seen to b
 
 Here is an important application of (4.3).
 
-Definition. If -1 is a sum of squares in $F ,$ then the level (Stufe) of $F$ is the smallest integer $s$ such that $- 1$ is a sum of $s$ squares. If $^ { - 1 }$ is not a sum of squares, we set $s { = } \infty$
+Definition.
+If -1 is a sum of squares in $F ,$ then the level (Stufe) of $F$ is the smallest integer $s$ such that $- 1$ is a sum of $s$ squares.
+If $^ { - 1 }$ is not a sum of squares, we set $s { = } \infty$
 
-(4.5) Theorem. For any field F, the order of the element $\langle 1 \rangle$ in the additive group of $W ( { \boldsymbol { F } } )$ is precisely equal to 2s. The level s is always either infinity or a power of 2.
+(4.5) Theorem.
+For any field F, the order of the element $\langle 1 \rangle$ in the additive group of $W ( { \boldsymbol { F } } )$ is precisely equal to 2s. The level s is always either infinity or a power of 2.
 
-Remark. In the classical case of a number field, the level $s$ is always equal to $\infty , 1 , 2$ ,or 4. Examples are provided by Q, $\mathbf { Q } ( { \sqrt { - 1 } } )$ $\mathbf { Q } ( { \sqrt { - 2 } } )$ and $\mathbf { Q } ( \gamma ^ { - 7 } )$ respectively. Since the order of $\langle 1 \rangle$ is comparitively easy to compute, this theorem provides an excellent method for computing s.
+Remark.
+In the classical case of a number field, the level $s$ is always equal to $\infty , 1 , 2$ ,or 4. Examples are provided by Q, $\mathbf { Q } ( { \sqrt { - 1 } } )$ $\mathbf { Q } ( { \sqrt { - 2 } } )$ and $\mathbf { Q } ( \gamma ^ { - 7 } )$ respectively.
+Since the order of $\langle 1 \rangle$ is comparitively easy to compute, this theorem provides an excellent method for computing s.
 
-Proof of (4.5). If $s { = } \infty$ the assertion is clear, so we may assume that $s < \infty$ .Note first that the $S ^ { \prime }$ -fold orthogonal sum $\langle 1 \rangle \oplus \dots \oplus \big \langle 1 \big \rangle = s \big \langle 1 \big \rangle$ is anisotropic. For if the equation
+Proof of (4.5). If $s { = } \infty$ the assertion is clear, so we may assume that $s < \infty$ .Note first that the $S ^ { \prime }$ -fold orthogonal sum $\langle 1 \rangle \oplus \dots \oplus \big \langle 1 \big \rangle = s \big \langle 1 \big \rangle$ is anisotropic.
+For if the equation
 
 $$
 \xi _ { 1 } ^ { 2 } + \cdots + \xi _ { s } ^ { 2 } = 0
@@ -2763,18 +3148,20 @@ $$
 
 contradicting the definition of s.A similar argument shows that the $( s + 1 )$ fold orthogonal sum $( s + 1 ) \langle 1 \rangle$ is not anisotropic.
 
-Now define an integer $n { \stackrel { \textstyle > 0 } { = } }$ by the inequality $2 ^ { n } \leq s < 2 ^ { n + 1 }$ . It follows   
-a fortiori that the orthogonal sum $2 ^ { n } \langle 1 \rangle$ is anisotropic, but that $2 ^ { n + 1 } \langle 1 \rangle$   
-is not.Let us apply Theorem (4.3). Since $2 ^ { n + 1 } \langle 1 \rangle$ can be expressed as a   
+Now define an integer $n { \stackrel { \textstyle > 0 } { = } }$ by the inequality $2 ^ { n } \leq s < 2 ^ { n + 1 }$ . It follows\
+a fortiori that the orthogonal sum $2 ^ { n } \langle 1 \rangle$ is anisotropic, but that $2 ^ { n + 1 } \langle 1 \rangle$\
+is not.Let us apply Theorem (4.3). Since $2 ^ { n + 1 } \langle 1 \rangle$ can be expressed as a\
 tensor product $( \langle 1 \rangle \oplus \langle 1 \rangle ) \otimes \cdots \otimes ( \langle 1 \rangle \oplus \langle 1 \rangle ) ,$
 
-and is not anisotropic, it follows that $2 ^ { n + 1 } \langle 1 \rangle$ is split. The relations
+and is not anisotropic, it follows that $2 ^ { n + 1 } \langle 1 \rangle$ is split.
+The relations
 
 $$
 2 ^ { n } \langle 1 \rangle \nsim 0 , 2 ^ { n + 1 } \langle 1 \rangle \sim 0
 $$
 
-now clearly imply that the order of the element $\left. 1 \right.$ in the Witt ring is precisely equal to 2n+1.
+now clearly imply that the order of the element $\left.
+1 \right.$ in the Witt ring is precisely equal to 2n+1.
 
 We must prove that ${ \mathfrak { s } } = 2 ^ { n }$ .Adding $2 ^ { n }$ copies of $\langle - 1 \rangle$ to both sides of the relation $2 ^ { n + 1 } \langle 1 \rangle \sim 0$ ,we conclude that
 
@@ -2790,7 +3177,8 @@ $$
 
 Therefore -1 is a sum of 2" squares, hence $s { \leq } 2 ^ { n } ,$ and therefore $s { = } 2 ^ { n }$ This completes the proof.0
 
-(4.6) Remark. We can now give a more constructive proof that every element of the fundamental ideal $I { \subset W ( F ) }$ is nilpotent, whenever $s { = } 2 ^ { n } { < } \infty$ . (Compare $\ S 3 . 6 . )$ In fact for any $w$ in the Witt ring, setting
+(4.6) Remark.
+We can now give a more constructive proof that every element of the fundamental ideal $I { \subset W ( F ) }$ is nilpotent, whenever $s { = } 2 ^ { n } { < } \infty$ . (Compare $\ S 3 . 6 . )$ In fact for any $w$ in the Witt ring, setting
 
 $$
 w = \langle \alpha _ { 1 } \rangle + \cdots + \langle \alpha _ { r } \rangle
@@ -2814,7 +3202,8 @@ $$
 
 Since multiplication by $2 ^ { n + 1 } = 2 s$ annihilates every element of the Witt ring, this proves that $\overline { { w ^ { 2 \left( n + 1 \right) } = 0 } }$
 
-Here is a concluding problem for the reader. An $\pmb { F }$ -linear bijection $f$ ： $X \to X$ is called a similarity transformation if there exists a field element $\lambda \neq 0$ so that
+Here is a concluding problem for the reader.
+An $\pmb { F }$ -linear bijection $f$ ： $X \to X$ is called a similarity transformation if there exists a field element $\lambda \neq 0$ so that
 
 $$
 f ( x ) \cdot f ( y ) = \lambda x \cdot y
@@ -2822,13 +3211,17 @@ $$
 
 for all $_ x$ and $y$
 
-Exercise. Assume that 1 is a norm from X. Prove that the group of similarity transformations of X operates transitively on $X { - } 0$ if and only if $\pmb { X }$ is multiplicative and anisotropic.
+Exercise.
+Assume that 1 is a norm from X. Prove that the group of similarity transformations of X operates transitively on $X { - } 0$ if and only if $\pmb { X }$ is multiplicative and anisotropic.
 
 # § 5.The Powers of the Fundamental Ideal
 
-This section will discuss the chain of ideals $I { \supset } I ^ { 2 } { \supset } I ^ { 3 } { \supset } \cdots$ in the Witt ring $W ( { \boldsymbol { F } } ) _ { : }$ where $I$ is the fundamental ideal consisting of all Witt classes with even rank. A basic theorem concerning these ideals has recently been proved by Arason and Pfister. We state it here without proof.
+This section will discuss the chain of ideals $I { \supset } I ^ { 2 } { \supset } I ^ { 3 } { \supset } \cdots$ in the Witt ring $W ( { \boldsymbol { F } } ) _ { : }$ where $I$ is the fundamental ideal consisting of all Witt classes with even rank.
+A basic theorem concerning these ideals has recently been proved by Arason and Pfister.
+We state it here without proof.
 
-(5.1) Theorem. If w∈I" and w≠0, then |lw≥2n.
+(5.1) Theorem.
+If w∈I" and w≠0, then |lw≥2n.
 
 (Here $\| w \|$ denotes the rank of the anisotropic representative for the Witt class w.） It follows immediately that the intersection of the ideals $I ^ { n }$ is zero.
 
@@ -2840,9 +3233,11 @@ $$
 
 The following observation is due to Pfister.
 
-The proof is based on the determinant operation of Chapter I, $\ S 2$ For any inner product space $X$ ，recall that det $( X )$ is a well defined element of $F ^ { \bullet } / F ^ { \bullet 2 }$ . However we have to be careful since the determinant of a split inner product space is not necessarily trivial. To correct this, we make the following modification.
+The proof is based on the determinant operation of Chapter I, $\ S 2$ For any inner product space $X$ ，recall that det $( X )$ is a well defined element of $F ^ { \bullet } / F ^ { \bullet 2 }$ . However we have to be careful since the determinant of a split inner product space is not necessarily trivial.
+To correct this, we make the following modification.
 
-Definition. For any inner product space $X$ of rank $_ r$ the discriminant
+Definition.
+For any inner product space $X$ of rank $_ r$ the discriminant
 
 $$
 d ( X ) { \in } F ^ { \bullet } / F ^ { \bullet 2 }
@@ -2856,7 +3251,8 @@ $$
 f ( r + s ) = f ( r ) + f ( s ) + r s
 $$
 
-is easily verified. It follows that
+is easily verified.
+It follows that
 
 $$
 d ( X \oplus Y ) { = } ( - 1 ) ^ { r s } d ( X ) d ( Y ) .
@@ -2864,7 +3260,8 @@ $$
 
 In particular, if either $X$ or $Y$ has even rank, then $d ( X \oplus Y ) { = } d ( X ) d ( Y ) .$
 
-(5.3) Lemma. The discriminant $d ( X )$ depends only on the Witt class ofx.
+(5.3) Lemma.
+The discriminant $d ( X )$ depends only on the Witt class ofx.
 
 For if S is split, of rank $2 n$ , then by Chapter $\operatorname { I , \ S 6 . 3 }$ , the inner product matrixof Swithrespecttoasuitablebasis hasthefor $\left( \begin{array} { l l } { 0 } & { I } \\ { I } & { * } \end{array} \right)$ $\operatorname* { d e t } ( S ) = ( - 1 ) ^ { n } F ^ { \bullet 2 } ,$
 
@@ -2882,7 +3279,8 @@ $$
 ( \langle \alpha \rangle + \langle 1 \rangle ) ( \langle \beta \rangle + \langle 1 \rangle ) { = } \langle \alpha \beta \rangle + \langle \alpha \rangle + \langle \beta \rangle + \langle 1 \rangle ,
 $$
 
-each of which has trivial discriminant. Now let $w = \langle \alpha _ { 1 } \rangle + \cdots + \langle \alpha _ { 2 r } \rangle$ be an arbitrary element of $I _ { \ l }$ .Using the congruences
+each of which has trivial discriminant.
+Now let $w = \langle \alpha _ { 1 } \rangle + \cdots + \langle \alpha _ { 2 r } \rangle$ be an arbitrary element of $I _ { \ l }$ .Using the congruences
 
 $$
 \begin{array} { r } { \langle \alpha \rangle + \langle \beta \rangle \equiv \langle - \alpha \beta \rangle + \langle - 1 \rangle \pmod { I ^ { 2 } } } \end{array}
@@ -2898,7 +3296,8 @@ is the identity element of $F ^ { \bullet } / F ^ { \bullet 2 }$ then $\langle \
 
 The next step is naturally to look at the quotient $I ^ { 2 } / I ^ { 3 }$
 
-(5.4) Definition. A symbol on $F$ with values in the group ${ \bf Z ^ { \bullet } } = \{ \pm 1 \}$ is a bimultiplicative function
+(5.4) Definition.
+A symbol on $F$ with values in the group ${ \bf Z ^ { \bullet } } = \{ \pm 1 \}$ is a bimultiplicative function
 
 $$
 \varphi \colon F ^ { \bullet } \times F ^ { \bullet } \to \mathbf { Z } ^ { \bullet }
@@ -2908,11 +3307,17 @@ which satisfies the identity $\varphi ( \alpha , 1 - \alpha ) = 1$ for all $\alp
 
 The word “bimultiplicative” means that $\overline { { \varphi ( \alpha , \beta ) } }$ is multiplicative as a function of $\pmb { \alpha }$ for fixed $\beta$ and multiplicative as a function of $\boldsymbol { \beta }$ for fixed $\pmb { \alpha }$ .In particular $\varphi ( \alpha , 1 ) = 1$ ：
 
-Remarks. The prototype for such an object is the“Hilbert symbol”. If $F$ is a local field of characteristic $\neq 2 ,$ ，Hilbert showed that there is one and only one non-trivial symbol on $\overline { F }$ with values in $\mathbf { Z } ^ { \bullet }$ More recently, symbols with values in an arbitrary commutative group have arisen in R. Steinberg's analysis of central extensions of classical groups. Compare [Milnor,Introduction to Algebraic $\kappa$ Theory].
+Remarks.
+The prototype for such an object is the“Hilbert symbol”.
+If $F$ is a local field of characteristic $\neq 2 ,$ ，Hilbert showed that there is one and only one non-trivial symbol on $\overline { F }$ with values in $\mathbf { Z } ^ { \bullet }$ More recently, symbols with values in an arbitrary commutative group have arisen in R. Steinberg's analysis of central extensions of classical groups.
+Compare [Milnor,Introduction to Algebraic $\kappa$ Theory].
 
-(5.5) Lemma. Given some fixed symbol $\varphi$ on $F$ with values in $\mathbf { Z } ^ { \bullet }$ ,the image $\varphi ( \alpha , \beta )$ depends only on the Witt class of the inner product space $\langle \alpha \rangle \oplus \langle \beta \rangle$
+(5.5) Lemma.
+Given some fixed symbol $\varphi$ on $F$ with values in $\mathbf { Z } ^ { \bullet }$ ,the image $\varphi ( \alpha , \beta )$ depends only on the Witt class of the inner product space $\langle \alpha \rangle \oplus \langle \beta \rangle$
 
-Proof. Since the target group $\mathbf { Z ^ { \bullet } }$ has exponent 2, the image $\varphi ( \alpha , \beta )$ is not changed if we multiply $\pmb { \alpha }$ or $\beta$ by a square. Using the identity
+Proof.
+Since the target group $\mathbf { Z ^ { \bullet } }$ has exponent 2, the image $\varphi ( \alpha , \beta )$ is not changed if we multiply $\pmb { \alpha }$ or $\beta$ by a square.
+Using the identity
 
 $$
 - \alpha = ( 1 - \alpha ) / ( 1 - \alpha ^ { - 1 } ) ,
@@ -2926,13 +3331,15 @@ $$
 
 so that $\varphi ( \alpha , \beta )$ is trivial whenever the inner product space $\langle \alpha \rangle \oplus \langle \beta \rangle$ is split.
 
-Suppose then that the inner product spaces $\langle \alpha \rangle \oplus \langle \beta \rangle \sim \langle \gamma \rangle \oplus \langle \delta \rangle$ are not split. Then these spaces are isomorphic,so the equation
+Suppose then that the inner product spaces $\langle \alpha \rangle \oplus \langle \beta \rangle \sim \langle \gamma \rangle \oplus \langle \delta \rangle$ are not split.
+Then these spaces are isomorphic,so the equation
 
 $$
 \gamma = \alpha \xi ^ { 2 } + \beta \eta ^ { 2 }
 $$
 
-has a solution. Note the relation
+has a solution.
+Note the relation
 
 If $\scriptstyle \eta = 0$ ,then $\alpha \equiv \gamma , \beta \equiv \delta ( \mathrm { m o d } F ^ { \bullet 2 } )$ so certainly $\varphi ( \alpha , \beta ) { = } \varphi ( \gamma , \delta )$ If $\xi = 0$ a similar argument shows that
 
@@ -2966,13 +3373,15 @@ $$
 
 which completes the proof, since $\alpha \beta \gamma \equiv \delta$ modulo $F ^ { \bullet 2 }$ ：□
 
-(5.6) Lemma. Suppose that the two inner product spaces
+(5.6) Lemma.
+Suppose that the two inner product spaces
 
 $$
 \begin{array} { r l } { \langle \alpha _ { 1 } \rangle \oplus \cdots \oplus \langle \alpha _ { n } \rangle } & { { } a n d \quad \langle \beta _ { 1 } \rangle \oplus \cdots \oplus \langle \beta _ { n } \rangle } \end{array}
 $$
 
-have the same rank and Witt class. Then it is possible to pass from the sequence α1,.., αn to the sequence β1,..., βn by changing just two entries at a time, preserving the Witt class at every stage.
+have the same rank and Witt class.
+Then it is possible to pass from the sequence α1,.., αn to the sequence β1,..., βn by changing just two entries at a time, preserving the Witt class at every stage.
 
 The proof of this classical lemma wil be deferred until the end of $\ S 5$ ， Now for any inner product space $X$ which possesses an orthogonal basis,
 
@@ -2982,7 +3391,9 @@ $$
 
 we defined the Hasse invariant $H _ { \varphi } ( X ) \in \mathbf { Z } ^ { \bullet } ~$ o be the product $\prod _ { i < j } \varphi ( \alpha _ { i } , \alpha _ { j } ) .$ If X does not possess an orthogonal basis, then it must be symplectic, with $\boldsymbol { \mathsf { \Sigma } }$ of characteristic 2,and we set $H _ { \varphi } ( X ) = 1$
 
-(5.7) Theorem. The Hasse invariant $H _ { \varphi } ( X )$ does not depend on the choice of orthogonal decomposition. In fact if two spaces $X$ and $X ^ { \prime }$ have the same rank and Witt class,then $H _ { \varphi } ( X ) = H _ { \varphi } ( X ^ { \prime } ) .$ The identity
+(5.7) Theorem.
+The Hasse invariant $H _ { \varphi } ( X )$ does not depend on the choice of orthogonal decomposition.
+In fact if two spaces $X$ and $X ^ { \prime }$ have the same rank and Witt class,then $H _ { \varphi } ( X ) = H _ { \varphi } ( X ^ { \prime } ) .$ The identity
 
 $$
 \begin{array} { r } { { \cal H } _ { \varphi } ( X \oplus Y ) { = } { \cal H } _ { \varphi } ( X ) { \cal H } _ { \varphi } ( Y ) \varphi ( \operatorname* { d e t } X , \operatorname* { d e t } Y ) } \end{array}
@@ -3000,7 +3411,9 @@ $$
 
 This invariant is not always equal to 1； but if $n { = } 2 m { \equiv } 0 \mathrm { m o d } 8$ then certainly $H _ { \varphi } ( S ) = 1$ ，
 
-Definition. For any Witt class w in the fundamental ideal I, the Hasse-Witt invariant $h _ { \varphi } ( w )$ is defined as follows. Choose a representative inner product space $X$ for the Witt class w so that
+Definition.
+For any Witt class w in the fundamental ideal I, the Hasse-Witt invariant $h _ { \varphi } ( w )$ is defined as follows.
+Choose a representative inner product space $X$ for the Witt class w so that
 
 $$
 \operatorname { r a n k } ( X ) { \equiv } 0 { \pmod { 8 } } ,
@@ -3008,11 +3421,12 @@ $$
 
 and set $h _ { \varphi } ( w )$ equal to the Hasse invariant $H _ { \varphi } ( X )$
 
-This function is well defined, since if $X \sim X ^ { \prime }$ with rank $( X ) \equiv \mathbf { r a n k } \left( X ^ { \prime } \right)$   
-$\equiv 0 ( { \ m o d } 8 )$ then $X \oplus S \cong X ^ { \prime } \oplus S ^ { \prime }$ with rank $( S ) \equiv$ rank $( S ^ { \prime } ) { \equiv } 0$ (mod 8), and   
+This function is well defined, since if $X \sim X ^ { \prime }$ with rank $( X ) \equiv \mathbf { r a n k } \left( X ^ { \prime } \right)$\
+$\equiv 0 ( { \ m o d } 8 )$ then $X \oplus S \cong X ^ { \prime } \oplus S ^ { \prime }$ with rank $( S ) \equiv$ rank $( S ^ { \prime } ) { \equiv } 0$ (mod 8), and\
 therefore $H _ { \varphi } ( X ) = H _ { \varphi } ( X \oplus S ) = H _ { \varphi } ( X ^ { \prime } \oplus S ^ { \prime } ) = H _ { \varphi } ( X ^ { \prime } ) .$
 
-(5.8) Theorem. For each symbol $\overline { { \varphi } }$ the restriction of the Hasse-Witt function $h _ { \varphi }$ to the ideal $I ^ { 2 }$ yields $a$ well defined homomorphism
+(5.8) Theorem.
+For each symbol $\overline { { \varphi } }$ the restriction of the Hasse-Witt function $h _ { \varphi }$ to the ideal $I ^ { 2 }$ yields $a$ well defined homomorphism
 
 $$
 h _ { \varphi } \colon I ^ { 2 } \to \mathbf { Z ^ { \bullet } } .
@@ -3070,27 +3484,37 @@ $$
 
 coincides with $g$ on every generator $( \langle { \alpha } \rangle - \langle { 1 } \rangle )$ $( \langle \beta \rangle - \langle 1 \rangle )$ of $I ^ { 2 }$ ,it follows that $h _ { \varphi } = g$ Now if an element $w \in { \cal I } ^ { 2 }$ is annihilated by every $h _ { \varphi }$ ， then it is annihilated by every homomorphism from $I ^ { 2 } / I ^ { 3 }$ to $\mathbf { Z ^ { \bullet } }$ and it follows that $\overline { { w \in I ^ { 3 } } }$ □
 
-(5.9) The classical examples. If $F$ is a finite field, then an elementary argument due to Steinberg shows that every symbol on $\boldsymbol { F }$ is trivial, hence the ideal $I ^ { 2 } { \subset } W ( F )$ is zero. Compare Chapter IV, $\ S 1 . 5$
+(5.9) The classical examples.
+If $F$ is a finite field, then an elementary argument due to Steinberg shows that every symbol on $\boldsymbol { F }$ is trivial, hence the ideal $I ^ { 2 } { \subset } W ( F )$ is zero.
+Compare Chapter IV, $\ S 1 . 5$
 
 If $F$ is a finite extension of the field of $p$ -adic numbers,then there is precisely one non-trivial symbol on $F$ with values in $\mathbf { Z ^ { \bullet } }$ ，hence $I ^ { 2 } / I ^ { 3 }$ is cyclic of order 2.In fact, the rank,determinant, and Hasse invariant form a complete system of invariants for an inner product space over $F .$ (See [O'Meara,p.170].) It follows easily that the ideal $I ^ { 2 }$ is cyclic of order 2,and that $\scriptstyle { \mathbf { } } { \mathbf { } } { \mathbf { } } ^ { 3 } = 0$ ，
 
-Now suppose that $\pmb { F }$ isa finite extension of the field of rational numbers. In this case, a complete invariant for an inner product space over $F$ is provided by the rank, determinant, and total signature, together with the Hasse invariants associated with all of the various local completions of $F$ ([O'Meara,p.189]). For an element w in the ideal $I ^ { 3 } { \subset } W ( F ) .$ it follows easily that the signature $\sigma ( w )$ provides a complete invariant. In fact the homomorphism $\sigma$ maps $I ^ { 3 }$ bijectively to the ideal $8 \mathbf { Z } ^ { \Omega }$ In particular in the totally imaginary case $\Omega = \emptyset$ it follows that $I ^ { 3 } { = } 0$
+Now suppose that $\pmb { F }$ isa finite extension of the field of rational numbers.
+In this case, a complete invariant for an inner product space over $F$ is provided by the rank, determinant, and total signature, together with the Hasse invariants associated with all of the various local completions of $F$ ([O'Meara,p.189]). For an element w in the ideal $I ^ { 3 } { \subset } W ( F ) .$ it follows easily that the signature $\sigma ( w )$ provides a complete invariant.
+In fact the homomorphism $\sigma$ maps $I ^ { 3 }$ bijectively to the ideal $8 \mathbf { Z } ^ { \Omega }$ In particular in the totally imaginary case $\Omega = \emptyset$ it follows that $I ^ { 3 } { = } 0$
 
-Note that the“length”of the chain of ideals $I { \supseteq } I ^ { 2 } { \supseteq } I ^ { 3 } { \supseteq } \cdots$ in the case of a number field is either 2 or o according as-1 is a sum of squares or not. Here is a computation of this “length” in a quite different case.
+Note that the“length”of the chain of ideals $I { \supseteq } I ^ { 2 } { \supseteq } I ^ { 3 } { \supseteq } \cdots$ in the case of a number field is either 2 or o according as-1 is a sum of squares or not.
+Here is a computation of this “length” in a quite different case.
 
-Let $F$ be a field of characteristic 2. Then the homomorphism $\xi \mapsto \xi ^ { 2 }$ maps $F$ isomorphically onto a subfield $F ^ { 2 }$ . The degree of $F$ over $F ^ { 2 }$ isa number of the form $2 ^ { \imath } { : }$ ,where i can take the values O,1, 2.,..., $\infty$ .Note that $F$ is perfect if and only if $\imath = 0$ If $E$ is a finite extension of degree $n$ over $F ,$ then $E ^ { 2 }$ has degree n over $F ^ { 2 }$ ,hence $E$ has degree $2 ^ { \iota }$ over $E ^ { 2 }$ In other words this measure t of imperfection is invariant under finite extensions of F.It is also invariant under arbitrary separable algebraic extensions. However $\imath$ increases by 1 under a simple transcendental extension. (For another characterization of $\imath$ see [Zariski and Samuel, p. 130].)
+Let $F$ be a field of characteristic 2. Then the homomorphism $\xi \mapsto \xi ^ { 2 }$ maps $F$ isomorphically onto a subfield $F ^ { 2 }$ . The degree of $F$ over $F ^ { 2 }$ isa number of the form $2 ^ { \imath } { : }$ ,where i can take the values O,1, 2.,..., $\infty$ .Note that $F$ is perfect if and only if $\imath = 0$ If $E$ is a finite extension of degree $n$ over $F ,$ then $E ^ { 2 }$ has degree n over $F ^ { 2 }$ ,hence $E$ has degree $2 ^ { \iota }$ over $E ^ { 2 }$ In other words this measure t of imperfection is invariant under finite extensions of F.It is also invariant under arbitrary separable algebraic extensions.
+However $\imath$ increases by 1 under a simple transcendental extension.
+(For another characterization of $\imath$ see [Zariski and Samuel, p. 130].)
 
-(5.10) Theorem. If the field $F$ of characteristic 2 has degree $2 ^ { \iota }$ over $F ^ { 2 }$ then the ideal $I ^ { n } { \subset } W ( F )$ is zero for $n > \iota$ and non-zero for $n { \stackrel { < } { = } } \iota$
+(5.10) Theorem.
+If the field $F$ of characteristic 2 has degree $2 ^ { \iota }$ over $F ^ { 2 }$ then the ideal $I ^ { n } { \subset } W ( F )$ is zero for $n > \iota$ and non-zero for $n { \stackrel { < } { = } } \iota$
 
 For example if $F$ is finite then $\imath = 0$ ，so the fundamental ideal $I { = } I ^ { 1 }$ itself is zero.
 
-Proof. The ideal ${ \cal { I } } ^ { n }$ is additively generated by products of the form
+Proof.
+The ideal ${ \cal { I } } ^ { n }$ is additively generated by products of the form
 
 $$
 X = ( \langle 1 \rangle \oplus \langle \alpha _ { 1 } \rangle , \overleftrightarrow { \alpha \cdots \otimes ( \langle 1 \rangle \oplus \langle \alpha _ { n } \rangle ) } .
 $$
 
-By Pfister's theorem (4.3), every such product is either anisotropic or split.But if $n > \iota$ ，then the $2 ^ { n }$ products $\mathfrak { X } _ { j _ { 1 } } \mathfrak { X } _ { j _ { 2 } } . . . \mathfrak { X } _ { j _ { k } }$ ，where $\{ j _ { 1 } , \ldots , j _ { k } \}$ ranges over all subsets of $\{ 1 , \ldots , n \}$ ， cannot be linearly independent over $F ^ { 2 }$ Hence $X$ ,being the orthogonal sum of the $\langle \alpha _ { j _ { 1 } } . . . \alpha _ { j _ { k } } \rangle$ ,cannot be anisotropic. Therefore $X { \sim } 0 .$ ,and it follows that ${ \overline { { I ^ { n } } } } { = } 0$
+By Pfister's theorem (4.3), every such product is either anisotropic or split.But if $n > \iota$ ，then the $2 ^ { n }$ products $\mathfrak { X } _ { j _ { 1 } } \mathfrak { X } _ { j _ { 2 } } . . . \mathfrak { X } _ { j _ { k } }$ ，where $\{ j _ { 1 } , \ldots , j _ { k } \}$ ranges over all subsets of $\{ 1 , \ldots , n \}$ ， cannot be linearly independent over $F ^ { 2 }$ Hence $X$ ,being the orthogonal sum of the $\langle \alpha _ { j _ { 1 } } . . . \alpha _ { j _ { k } } \rangle$ ,cannot be anisotropic.
+Therefore $X { \sim } 0 .$ ,and it follows that ${ \overline { { I ^ { n } } } } { = } 0$
 
 To conclude $\ S 5$ ,we prove the Lemma (5.6). Suppose that
 
@@ -3098,15 +3522,19 @@ $$
 \langle \alpha _ { 1 } \rangle \oplus \cdots \oplus \langle \alpha _ { n } \rangle \sim \langle \beta _ { 1 } \rangle \oplus \cdots \oplus \langle \beta _ { n } \rangle .
 $$
 
-We must prove by induction on $\pmb { n }$ that we can change the $\alpha _ { i }$ two at a time, preserving the Witt class, so as to transform one sequence to the other. Certainly any permutation of the $\alpha _ { i }$ can be obtained as a composition of permutation involving only two elements. To start the induction, the statement is certainly true for $n = 2$
+We must prove by induction on $\pmb { n }$ that we can change the $\alpha _ { i }$ two at a time, preserving the Witt class, so as to transform one sequence to the other.
+Certainly any permutation of the $\alpha _ { i }$ can be obtained as a composition of permutation involving only two elements.
+To start the induction, the statement is certainly true for $n = 2$
 
-First suppose that the two spaces are anisotropic,and hence isomorphic. Then the equation
+First suppose that the two spaces are anisotropic,and hence isomorphic.
+Then the equation
 
 $$
 \beta _ { 1 } = \alpha _ { 1 } \xi _ { 1 } ^ { 2 } + \cdots + \alpha _ { n } \xi _ { n } ^ { 2 }
 $$
 
-has a solution. Let $k$ be the number of indices i for which $\boldsymbol { \xi } _ { i } \neq \boldsymbol { \theta } _ { \mathrm { \ell } }$ The proof will be based on a subsidiary induction on k.
+has a solution.
+Let $k$ be the number of indices i for which $\boldsymbol { \xi } _ { i } \neq \boldsymbol { \theta } _ { \mathrm { \ell } }$ The proof will be based on a subsidiary induction on k.
 
 f $k = 1$ say $\beta _ { 1 } = \mathfrak { a } _ { 1 } \xi _ { 1 } ^ { 2 }$ ，then $\langle { \alpha _ { 1 } } \rangle { \cong } \langle { \beta _ { 1 } } \rangle$ ，hence $\langle \alpha _ { 2 } \rangle \oplus \cdots \oplus \langle \alpha _ { n } \rangle \sim$ $\langle \beta _ { 2 } \rangle \oplus \cdots \oplus \langle \beta _ { n } \rangle$ ,and the conclusion follows by induction on n. If $k \geq 2 .$ then say $\xi _ { 1 } \neq 0$ and $\xi _ { 2 } \neq 0$ ,and we may assume that the field element
 
@@ -3114,15 +3542,18 @@ $$
 \gamma = \alpha _ { 1 } \zeta _ { 1 } ^ { 2 } + \alpha _ { 2 } \zeta _ { 2 } ^ { 2 }
 $$
 
-is non-zero. Hence $\langle \alpha _ { 1 } \rangle \oplus \langle \alpha _ { 2 } \rangle \cong \langle \gamma \rangle \oplus \langle \delta \rangle$ for some $\delta$ Substituting 2 and $\delta$ for ${ \pmb { \alpha } } _ { 1 }$ and $a _ { 2 }$ , the conclusion follows by induction on k.
+is non-zero.
+Hence $\langle \alpha _ { 1 } \rangle \oplus \langle \alpha _ { 2 } \rangle \cong \langle \gamma \rangle \oplus \langle \delta \rangle$ for some $\delta$ Substituting 2 and $\delta$ for ${ \pmb { \alpha } } _ { 1 }$ and $a _ { 2 }$ , the conclusion follows by induction on k.
 
-Suppose then that the two spaces are not anisotropic. Then the
+Suppose then that the two spaces are not anisotropic.
+Then the
 
 ![](images/66d7d33d3e04d065c38c043910732570ad41dd8e8abd1859d006a5cef221c983.jpg)
 
 # Chapter IV. Discrete Valuations and Dedekind Domains
 
-The first section of this chapter defines the two residue class form homomorphisms associated with a discrete valuation of a field. Section 2 uses the second residue class form homomorphisms to compute the Witt ring $W ( \mathbf { Q } )$ of the rational numbers,and to give a new proof that $W ( \mathbf { Z } ) { \cong } \mathbf { Z }$ Section 3 applies a similar construction to an arbitrary Dedekind domain $D$ with quotient field $F ,$ constructing an exact sequence
+The first section of this chapter defines the two residue class form homomorphisms associated with a discrete valuation of a field.
+Section 2 uses the second residue class form homomorphisms to compute the Witt ring $W ( \mathbf { Q } )$ of the rational numbers,and to give a new proof that $W ( \mathbf { Z } ) { \cong } \mathbf { Z }$ Section 3 applies a similar construction to an arbitrary Dedekind domain $D$ with quotient field $F ,$ constructing an exact sequence
 
 $$
 0 \to W ( D ) \to W ( F ) \to \bigoplus W ( D / \mathfrak { p } ) ,
@@ -3138,23 +3569,29 @@ $$
 v ( \alpha + \beta ) \mathop { \geq } \mathrm { M i n } \left( v ( \alpha ) , v ( \beta ) \right)
 $$
 
-for $\pmb { \alpha }$ $\beta _ { : }$ $\alpha + \beta \neq 0$ It is convenient to set $v ( 0 ) = + \infty$ . The associated valuation ring $\mathfrak { D }$ consists of all $\mathbf { \boldsymbol { \alpha } } \in F$ with $v ( x ) { \geq } 0$ .This ring has a unique maximal ideal $\mathfrak { P }$ consisting of all $\pmb { \alpha }$ with $v ( { \boldsymbol { \alpha } } ) > 0$ The quotient $\scriptstyle { \overline { { F } } } = { \overline { { \mathfrak { D } } } } / { \mathfrak { P } }$ is called the residue class field. The image of any $u \in \mathfrak { D } ^ { \bullet }$ will be denoted by $\overrightharpoon { u } \in \overrightharpoon { F } ^ { \bullet }$
+for $\pmb { \alpha }$ $\beta _ { : }$ $\alpha + \beta \neq 0$ It is convenient to set $v ( 0 ) = + \infty$ . The associated valuation ring $\mathfrak { D }$ consists of all $\mathbf { \boldsymbol { \alpha } } \in F$ with $v ( x ) { \geq } 0$ .This ring has a unique maximal ideal $\mathfrak { P }$ consisting of all $\pmb { \alpha }$ with $v ( { \boldsymbol { \alpha } } ) > 0$ The quotient $\scriptstyle { \overline { { F } } } = { \overline { { \mathfrak { D } } } } / { \mathfrak { P } }$ is called the residue class field.
+The image of any $u \in \mathfrak { D } ^ { \bullet }$ will be denoted by $\overrightharpoon { u } \in \overrightharpoon { F } ^ { \bullet }$
 
 We will construct an additive homomorphism $\partial _ { v }$ $W ( { \boldsymbol { F } } ) \to W ( { \boldsymbol { \overline { { F } } } } ) .$ well defined up to multiplication by units of the form $\langle \overline { { u } } \rangle$ in $W ( { \overline { { F } } } )$ In order to define $\partial _ { v }$ , it is convenient to give a presentation of $W ( { \boldsymbol { F } } )$ by generators and relations.
 
-(1.1) Lemma (Wit). The additive group $W ( { \boldsymbol { F } } )$ is generated'by the -elements $\langle x \rangle$ with $\alpha \in F ^ { \bullet } ,$ subject only to the following relations and their consequences
+(1.1) Lemma (Wit).
+The additive group $W ( { \boldsymbol { F } } )$ is generated'by the -elements $\langle x \rangle$ with $\alpha \in F ^ { \bullet } ,$ subject only to the following relations and their consequences
 
 (i $\langle { \alpha } \rangle { = } \langle { \alpha } \xi ^ { 2 } \rangle$ for $\xi \neq 0$ (ii) $\langle { \alpha } \rangle + \langle - { \alpha } \rangle = 0 ;$ (ii) $\langle \alpha \rangle + \langle \beta \rangle = \langle \alpha + \beta \rangle + \langle \alpha \beta ( \alpha + \beta ) \rangle$ for $\alpha + \beta \neq 0 .$
 
-Proof. These three relations are clearly satisfied in $W ( F ) .$ and the fact that every relation follows from these is an easy consequence of Chapter III, $\ S 5 . 6$ □
+Proof.
+These three relations are clearly satisfied in $W ( F ) .$ and the fact that every relation follows from these is an easy consequence of Chapter III, $\ S 5 . 6$ □
 
 Now choose a prime element $\pi \in \mathfrak { S }$ ,that is an element $\pi$ with $v ( \pi ) = 1$ ， so that $\pi { \mathfrak { D } } = { \mathfrak { P } }$ .Then every element of $F ^ { \bullet }$ can be written uniquely as a product $\pi ^ { i } u$ with $u \in \mathfrak { D } ^ { \bullet }$ ：
 
-(1.2) Lemma (Springer, Knebusch). Fixing $\pi$ ， and fixing an integer $k { = } 0 o r 1$ ,there is one and only one additive homomorphism
+(1.2) Lemma (Springer, Knebusch).
+Fixing $\pi$ ， and fixing an integer $k { = } 0 o r 1$ ,there is one and only one additive homomorphism
 
 which maps each generator (πiu> to either <u> or O according as i=k (mod 2) or i±k (mod 2).
 
-Proof. By (1.1) we need only verify that each of the defining relations for $W ( { \boldsymbol { F } } )$ maps to a valid relation in $W ( { \overline { { F } } } ) .$ ，Only the third relation presents any problem. It will be convenient to let the symbol ε, stand for either 1 or O according as $i \equiv k$ ori $k$ (mod 2). If
+Proof.
+By (1.1) we need only verify that each of the defining relations for $W ( { \boldsymbol { F } } )$ maps to a valid relation in $W ( { \overline { { F } } } ) .$ ，Only the third relation presents any problem.
+It will be convenient to let the symbol ε, stand for either 1 or O according as $i \equiv k$ ori $k$ (mod 2). If
 
 $$
 \pi ^ { h } u _ { 1 } + \pi ^ { i } u _ { 2 } = \pi ^ { j } u _ { 3 } ,
@@ -3170,7 +3607,8 @@ in $W ( { \overline { { F } } } ) .$ . After dividing by a suitable power of $\p
 
 Case 1. If $h = i = j = 0 ,$ then ${ \overline { { u } } } _ { 1 } + { \overline { { u } } } _ { 2 } = { \overline { { u } } } _ { 3 } ,$ and the required equation certainly follows.
 
-Case 2. If $h > i = j = 0 .$ then $\bar { u } _ { 2 } = \bar { u } _ { 3 }$ hence $\langle \bar { u } _ { 1 } \rangle = \langle \bar { u } _ { 1 } \bar { u } _ { 2 } \bar { u } _ { 3 } \rangle$ and the equation follows. The case $i > 0$ is completely analogous.
+Case 2. If $h > i = j = 0 .$ then $\bar { u } _ { 2 } = \bar { u } _ { 3 }$ hence $\langle \bar { u } _ { 1 } \rangle = \langle \bar { u } _ { 1 } \bar { u } _ { 2 } \bar { u } _ { 3 } \rangle$ and the equation follows.
+The case $i > 0$ is completely analogous.
 
 Case 3. If $\ 0 = h = i < j$ ,then ${ \bar { u } } _ { 1 } + { \bar { u } } _ { 2 } = 0$ hence
 
@@ -3178,9 +3616,11 @@ $$
 \langle \bar { u } _ { 1 } \rangle + \langle \bar { u } _ { 2 } \rangle = 0 , ~ \langle \bar { u } _ { 3 } \rangle + \langle \bar { u } _ { 1 } \bar { u } _ { 2 } \bar { u } _ { 3 } \rangle = 0 ,
 $$
 
-and again the required equation follows. This completes the proof.Q
+and again the required equation follows.
+This completes the proof.Q
 
-Definition. These homomorphisms $\psi ^ { 0 }$ and 1 from W(F) to W(F) are called the two residue class form homomorphisms associated with the valuation $\boldsymbol { v }$ We will be particularly interested in $\psi ^ { 1 }$ ,and will use the
+Definition.
+These homomorphisms $\psi ^ { 0 }$ and 1 from W(F) to W(F) are called the two residue class form homomorphisms associated with the valuation $\boldsymbol { v }$ We will be particularly interested in $\psi ^ { 1 }$ ,and will use the
 
 alternative notation
 
@@ -3192,7 +3632,8 @@ for $\psi ^ { 1 }$ . Note that $\psi ^ { 0 }$ is well defined,but that $\psi ^ {
 
 Let $\mathfrak { D } \subset F$ be the valuation ring associated with $v ,$ and let $W ( { \mathfrak { S } } ) \to$ W(F) be the natural ring homomorphism.
 
-(1.3) Lemma. The composition $W ( { \mathfrak { D } } ) { \to } W ( F ) \xrightarrow { \psi ^ { 1 } } W ( { \overline { { F } } } )$ is zero.
+(1.3) Lemma.
+The composition $W ( { \mathfrak { D } } ) { \to } W ( F ) \xrightarrow { \psi ^ { 1 } } W ( { \overline { { F } } } )$ is zero.
 
 In fact we will see in $\ S 3$ that the sequence $0 \to W ( { \mathfrak { O } } ) \to W ( F ) \to$ $W ( { \overline { { F } } } ) \to 0$ is exact.
 
@@ -3202,11 +3643,15 @@ $$
 { \binom { \alpha } { 1 } } \quad { \binom { 1 } { \beta } }
 $$
 
-with $\alpha { \equiv } 0 \mathrm { m o d } \ \mathfrak { P }$ . In the first case, the corresponding element $\langle u \rangle$ in $W ( { \boldsymbol { F } } )$ certainly satisfies $\psi ^ { 1 } \langle u \rangle { = } 0$ In the second case, if $\alpha \neq 0$ the corresponding element in $W ( { \boldsymbol { F } } )$ can be written as a sum $( \alpha ) + \langle \alpha ( \alpha \beta - 1 ) \rangle$ with $\alpha \beta - 1 \equiv - 1 \bmod \mathfrak { P }$ Evidently $\psi ^ { 1 }$ annihilates any such sum. Finally, if $\scriptstyle { \alpha = 0 , }$ then the given summand is split and hence corresponds to the zero element_ in the Witt ring. Thus each orthogonal summand maps to zero in $W ( { \overline { { F } } } ) _ { : }$ ,and the conclusion follows.□
+with $\alpha { \equiv } 0 \mathrm { m o d } \ \mathfrak { P }$ . In the first case, the corresponding element $\langle u \rangle$ in $W ( { \boldsymbol { F } } )$ certainly satisfies $\psi ^ { 1 } \langle u \rangle { = } 0$ In the second case, if $\alpha \neq 0$ the corresponding element in $W ( { \boldsymbol { F } } )$ can be written as a sum $( \alpha ) + \langle \alpha ( \alpha \beta - 1 ) \rangle$ with $\alpha \beta - 1 \equiv - 1 \bmod \mathfrak { P }$ Evidently $\psi ^ { 1 }$ annihilates any such sum.
+Finally, if $\scriptstyle { \alpha = 0 , }$ then the given summand is split and hence corresponds to the zero element_ in the Witt ring.
+Thus each orthogonal summand maps to zero in $W ( { \overline { { F } } } ) _ { : }$ ,and the conclusion follows.□
 
-(1.4) Lemma. Each homomorphism $\psi ^ { k }$ ： $W ( { \boldsymbol { F } } ) \to W ( { \overline { { \boldsymbol { F } } } } )$ carries theideal $I ^ { n } ( F )$ onto $I ^ { n - 1 } ( \overline { { F } } )$ for $n { \stackrel { } { = } } 1$ ：
+(1.4) Lemma.
+Each homomorphism $\psi ^ { k }$ ： $W ( { \boldsymbol { F } } ) \to W ( { \overline { { \boldsymbol { F } } } } )$ carries theideal $I ^ { n } ( F )$ onto $I ^ { n - 1 } ( \overline { { F } } )$ for $n { \stackrel { } { = } } 1$ ：
 
-Proof. Inspection shows that the sum ${ \psi } ^ { 0 } + { \psi } ^ { 1 }$ is a ring homomorphism which carries the ideal $I ( F )$ to $I ( \overline { { F } } ) .$ ，and hence carries $I ^ { n } ( F )$ to ${ \cal I } ^ { n } ( \overline { { { \cal F } } } )$ Thus for any $w _ { n } \in I ^ { n } ( F )$ we have
+Proof.
+Inspection shows that the sum ${ \psi } ^ { 0 } + { \psi } ^ { 1 }$ is a ring homomorphism which carries the ideal $I ( F )$ to $I ( \overline { { F } } ) .$ ，and hence carries $I ^ { n } ( F )$ to ${ \cal I } ^ { n } ( \overline { { { \cal F } } } )$ Thus for any $w _ { n } \in I ^ { n } ( F )$ we have
 
 $$
 \begin{array} { r } { \overline { { \psi ^ { 1 } ( w _ { n } ) \equiv - \psi ^ { 0 } ( w _ { n } ) \pmod { I ^ { n } ( \overline { { F } } ) } } } . } \end{array}
@@ -3218,7 +3663,8 @@ $$
 \begin{array} { r } { \psi ^ { 0 } \left( w w _ { n } \right) = \psi ^ { 0 } \left( w \right) \psi ^ { 0 } \left( w _ { n } \right) + \psi ^ { 1 } ( w ) \psi ^ { 1 } \left( w _ { n } \right) } \\ { \equiv \psi ^ { 0 } \left( w \right) \psi ^ { 0 } \left( w _ { n } \right) - \psi ^ { 1 } \left( w \right) \psi ^ { 0 } \left( w _ { n } \right) } \end{array}
 $$
 
-since °(w)-1(w) clearly belongs to $I ( { \overline { { F } } } ) .$ This completes the induction. Since every generator $( < \overline { { 1 } } ) + < \overline { { u } } _ { 1 } > ) . . . ( < \overline { { 1 } } > + < \overline { { u } } _ { n - 1 } > )$ of $I ^ { n - 1 } ( \overline { { F } } )$ isthe
+since °(w)-1(w) clearly belongs to $I ( { \overline { { F } } } ) .$ This completes the induction.
+Since every generator $( < \overline { { 1 } } ) + < \overline { { u } } _ { 1 } > ) . . . ( < \overline { { 1 } } > + < \overline { { u } } _ { n - 1 } > )$ of $I ^ { n - 1 } ( \overline { { F } } )$ isthe
 
 image, under either $\psi ^ { 0 }$ or $\psi ^ { 1 }$ ,of the generator
 
@@ -3228,11 +3674,15 @@ $$
 
 of $I ^ { n } ( F ) _ { : }$ ,this proves the lemma.□
 
-We will be particularly interested in residue class fields $\scriptstyle { \overline { { F } } }$ which are finite. Let $\mathbf { F } _ { q }$ denote the field with $\mathbf { \Delta } \mathbf { q }$ elements.
+We will be particularly interested in residue class fields $\scriptstyle { \overline { { F } } }$ which are finite.
+Let $\mathbf { F } _ { q }$ denote the field with $\mathbf { \Delta } \mathbf { q }$ elements.
 
-(1.5) Lemma. For any finite field $\mathbf { F } _ { q }$ the ideal $I ( \mathbf { F } _ { q } )$ is either zero or cyclic oforder 2 according as q is even or odd. The additive group of $W ( { \mathbf { F } _ { q } } )$ is either cyclic of order 2,cyclic of order 4,or non-cyclic of order 4 according as $q$ is even, $q \equiv 3$ (mod 4), or $q \equiv 1$ (mod 4).
+(1.5) Lemma.
+For any finite field $\mathbf { F } _ { q }$ the ideal $I ( \mathbf { F } _ { q } )$ is either zero or cyclic oforder 2 according as q is even or odd.
+The additive group of $W ( { \mathbf { F } _ { q } } )$ is either cyclic of order 2,cyclic of order 4,or non-cyclic of order 4 according as $q$ is even, $q \equiv 3$ (mod 4), or $q \equiv 1$ (mod 4).
 
-Proof. Given $\pmb { \alpha }$ ${ \boldsymbol { \beta } } { \in } \mathbf { F } _ { q } ^ { \bullet }$ , the equation
+Proof.
+Given $\pmb { \alpha }$ ${ \boldsymbol { \beta } } { \in } \mathbf { F } _ { q } ^ { \bullet }$ , the equation
 
 $$
 \alpha \xi ^ { 2 } + \beta \eta ^ { 2 } = 1
@@ -3252,7 +3702,7 @@ $$
 
 where the group $\underline { { \mathbf { F } _ { q } ^ { \bullet } } }$ is cyclic of order $\overline { { q - 1 } }$ .Hence this ideal $I ( \mathbf { F } _ { q } )$ has order 1 or 2 according as $\boldsymbol { \mathscr { q } }$ -1 is odd or even.
 
-If $q \equiv 3 ( { \bf m o d } 4 )$ ,then-1is not a square in $\mathbf { F } _ { q }$ (compare Chapter II, $\ S 8 . 1 )$ ，hence $\langle - 1 \rangle \ I \yen 1 \rangle$ ，so $\langle 1 \rangle \oplus \langle 1 \rangle \nsim 0$ and it follows easily that $W ( \mathbf { F } _ { q } ) { \cong } \mathbf { Z } / 4 \mathbf { Z }$ .On the other hand if $q$ 丰3 (mod 4), then $\langle - 1 \rangle \cong \langle 1 \rangle$ ， and it follows that $W ( \mathbf { F } _ { q } )$ is an algebra over $\mathbf { Z } / 2 \mathbf { Z }$ ，This completes the proof.□
+If $q \equiv 3 ( { \bf m o d } 4 )$ ,then-1is not a square in $\mathbf { F } _ { q }$ (compare Chapter II, $\ S 8 . 1 )$ ，hence $\langle - 1 \rangle \ I \yen 1 \rangle$ ，so $\langle 1 \rangle \oplus \langle 1 \rangle \nsim 0$ and it follows easily that $W ( \mathbf { F } _ { q } ) { \cong } \mathbf { Z } / 4 \mathbf { Z }$ .On the other hand if $q$ 丰 3 (mod 4), then $\langle - 1 \rangle \cong \langle 1 \rangle$ ， and it follows that $W ( \mathbf { F } _ { q } )$ is an algebra over $\mathbf { Z } / 2 \mathbf { Z }$ ，This completes the proof.□
 
 # § 2. Computation of W(Q)
 
@@ -3266,7 +3716,8 @@ $$
 
 For any fixed w in W(Q),it is clear that $\partial _ { p } ( w ) = 0$ for almost all $p$ Therefore -we can aggregate these homomorphisms $\partial _ { { p } }$ into one homomorphism 0: $W ( \mathbf { Q } ) \to \bigoplus W ( \mathbf { F } _ { p } ) .$ Let i denote the unique ring homomorphism from Z to W(Q).
 
-(2.1) Theorem. The sequence
+(2.1) Theorem.
+The sequence
 
 $$
 0 \to \mathbf { Z } \xrightarrow { \textit { i } } W ( \mathbf { Q } ) \xrightarrow { \textit { 0 } } \oplus W ( \mathbf { F } _ { p } ) \to 0
@@ -3274,7 +3725,8 @@ $$
 
 is split exact.
 
-Here the direct sum extends over all prime numbers $p$ .(Thus in order to describe the most classical of Witt rings $W ( \mathbf { Q } )$ we are led to consider inner product spaces over finite fields, including the field $\mathbf { F } _ { 2 }$ which is excluded in the classical theory.) For the structure of $W ( \mathbf { F } _ { p } )$ ,see (1.5).
+Here the direct sum extends over all prime numbers $p$ .(Thus in order to describe the most classical of Witt rings $W ( \mathbf { Q } )$ we are led to consider inner product spaces over finite fields, including the field $\mathbf { F } _ { 2 }$ which is excluded in the classical theory.)
+For the structure of $W ( \mathbf { F } _ { p } )$ ,see (1.5).
 
 Proof of (2.1). For each integer $k \geq 1$ ,let $L _ { k }$ denote the subring of $W ( \mathbf { Q } )$ generated by the elements $\langle 1 \rangle , \langle 2 \rangle , . . . , \langle k \rangle$ . Then clearly
 
@@ -3286,15 +3738,18 @@ with union equal to $W ( \mathbf { Q } )$ Thering $L _ { 1 }$ is evidently isomo
 
 Henceforth we will ignore the ring structure and think of $L _ { k }$ as an additive group.
 
-(2.2) Lemma. For each prime number $p$ ，the additive homomorphism $\partial _ { p } \colon W ( \mathbf { Q } ) \to W ( \mathbf { F } _ { p } )$ induces an isomorphism
+(2.2) Lemma.
+For each prime number $p$ ，the additive homomorphism $\partial _ { p } \colon W ( \mathbf { Q } ) \to W ( \mathbf { F } _ { p } )$ induces an isomorphism
 
 $$
 L _ { p } / L _ { p - 1 } \to W ( \mathbf { F } _ { p } ) .
 $$
 
-Proof. The homomorphism $\partial _ { { p } }$ clearly annihilates $\scriptstyle L _ { p - 1 }$ and maps $L _ { p }$ onto $W ( \mathbf { F } _ { p } )$ .We will need the following subsidiary lemma.
+Proof.
+The homomorphism $\partial _ { { p } }$ clearly annihilates $\scriptstyle L _ { p - 1 }$ and maps $L _ { p }$ onto $W ( \mathbf { F } _ { p } )$ .We will need the following subsidiary lemma.
 
-(2.3) Lemma. If the numbers $n _ { i }$ and n satisfy $0 < | n _ { i } | < p , 0 < | n | < p , a n d$
+(2.3) Lemma.
+If the numbers $n _ { i }$ and n satisfy $0 < | n _ { i } | < p , 0 < | n | < p , a n d$
 
 $$
 n _ { 1 } \ldots n _ { r } \equiv n { \pmod { p } } ,
@@ -3306,7 +3761,8 @@ $$
 \langle p n _ { 1 } \ldots n _ { r } \rangle \equiv \langle p n \rangle { \pmod { L _ { p - 1 } } } .
 $$
 
-Proof. First consider the case $r = 2$ Then
+Proof.
+First consider the case $r = 2$ Then
 
 $$
 n _ { 1 } n _ { 2 } = n + k p
@@ -3316,7 +3772,8 @@ $$
 | k | \leq ( ( p - 1 ) ^ { 2 } + ( p - 1 ) ) / p < p .
 $$
 
-If $k = 0$ , there is nothing to prove. Otherwise, tensoring the isomorphism
+If $k = 0$ , there is nothing to prove.
+Otherwise, tensoring the isomorphism
 
 $$
 \langle n \rangle \oplus \langle k p \rangle \cong \langle n _ { 1 } n _ { 2 } \rangle \oplus \langle n _ { 1 } n _ { 2 } n k p \rangle
@@ -3358,7 +3815,9 @@ Thus these elements <pn> modulo Lp-1 satisfy all of the defining relations for W
 
 Proof of Theorem (2.1). We will show by induction on $k$ that the homomorphism
 
--is surjective,with kernel equal to L_=Z.Certainly this statement is true for k=1. Suppose then that it is true for k-1. We may assume that k is prime. Given an element in the direct sum, by (2.2) there exists an element w in Lk whose image has the correct k-th coordinate. Subtracting the image of w, surjectivity follows by induction.
+-is surjective,with kernel equal to L_=Z.Certainly this statement is true for k=1. Suppose then that it is true for k-1. We may assume that k is prime.
+Given an element in the direct sum, by (2.2) there exists an element w in Lk whose image has the correct k-th coordinate.
+Subtracting the image of w, surjectivity follows by induction.
 
 Similarly, if $w \in L _ { k }$ maps to zero, then (2.2) implies that $w \in L _ { k - 1 }$ and it follows by induction that $w \in L _ { 1 } \cong \mathbf { Z }$
 
@@ -3368,37 +3827,51 @@ $$
 \begin{array} { r } { \left. \begin{array} { r l r } { \Theta \longrightarrow \mathbf { Z } \longrightarrow W ( \mathbf { Q } ) \longrightarrow \bigoplus W ( \mathbf { F } _ { p } ) \longrightarrow 0 } \end{array} \right. } \end{array}
 $$
 
-is exact. Using the signature homomorphism $W ( \mathbf { Q } ) \to \mathbf { Z }$ , it follows that it is split exact. In fact the spliting is unique, since all of the groups $W ( \mathbf { F } _ { p } )$ are torsion. This completes the proof of (2.1).
+is exact.
+Using the signature homomorphism $W ( \mathbf { Q } ) \to \mathbf { Z }$ , it follows that it is split exact.
+In fact the spliting is unique, since all of the groups $W ( \mathbf { F } _ { p } )$ are torsion.
+This completes the proof of (2.1).
 
 As one corollary of (2.1), we obtain a weak form of the Hasse-Minkowski theorem.
 
-(2.4) Corollary. If an element w in the Witt ring W(Q) maps to zero in the Witt ring W(Qp) of the p-adic numbers for every prime p, and also maps to zero in W(R), then w ${ \bf \Lambda } = { \bf 0 }$
+(2.4) Corollary.
+If an element w in the Witt ring W(Q) maps to zero in the Witt ring W(Qp) of the p-adic numbers for every prime p, and also maps to zero in W(R), then w ${ \bf \Lambda } = { \bf 0 }$
 
-Proof. This follows since the homomorphism $\partial _ { p } \colon W ( \mathbf { Q } ) \to W ( \mathbf { F } _ { p } )$ can be factored through $W ( \mathbf { Q } _ { p } )$ □
+Proof.
+This follows since the homomorphism $\partial _ { p } \colon W ( \mathbf { Q } ) \to W ( \mathbf { F } _ { p } )$ can be factored through $W ( \mathbf { Q } _ { p } )$ □
 
-(2.5) Corollary. If $I$ denotes the fundamental ideal in $W ( \mathbf { Q } ) ,$ then $I ^ { 3 }$ is the free additive group generated by $8 \langle 1 \rangle$
+(2.5) Corollary.
+If $I$ denotes the fundamental ideal in $W ( \mathbf { Q } ) ,$ then $I ^ { 3 }$ is the free additive group generated by $8 \langle 1 \rangle$
 
-P $r o o f . \mathrm { I f } \ w \in I ^ { 3 } ( \mathbf { Q } ) , \mathrm { t h e n } \ \partial _ { p } ( w ) \in I ^ { 2 } ( \mathbf { F } _ { p } ) = 0 ,$ by (1.4) and (1.5). Hence w is a multiple of $\left. 1 \right.$ . In fact w must be a multiple of 8<1> since the signature homomorphism carries $I ^ { n } ( \mathbf { Q } )$ to $2 ^ { n } \mathbf { Z }$ □
+P $r o o f . \mathrm { I f } \ w \in I ^ { 3 } ( \mathbf { Q } ) , \mathrm { t h e n } \ \partial _ { p } ( w ) \in I ^ { 2 } ( \mathbf { F } _ { p } ) = 0 ,$ by (1.4) and (1.5). Hence w is a multiple of $\left.
+1 \right.$ . In fact w must be a multiple of 8<1> since the signature homomorphism carries $I ^ { n } ( \mathbf { Q } )$ to $2 ^ { n } \mathbf { Z }$ □
 
 Now let us give an alternative proof of Lemma (4.1) of Chapter II.
 
-(2.6) Corollary. Let $X$ be any inner product space over Z. Then the induced inner product space $\mathbf { Q } \otimes X$ over $\mathbf { Q }$ is isomorphic to an orthogonal sum of copies of <1> and $\langle - 1 \rangle$ ：
+(2.6) Corollary.
+Let $X$ be any inner product space over Z. Then the induced inner product space $\mathbf { Q } \otimes X$ over $\mathbf { Q }$ is isomorphic to an orthogonal sum of copies of <1> and $\langle - 1 \rangle$ ：
 
-Proof. Let $\mathbf { Z } _ { ( p ) } { \subset } \mathbf { Q }$ denote the valuation ring associated with the $p$ -adic valuation of Q. Since the natural homomorphism $\overline { { W ( \mathbf { Z } ) \to W ( \mathbf { Q } ) } }$ factors through $W ( \mathbf { Z } _ { ( p ) } ) .$ it follows from (1.3) that the composition
+Proof.
+Let $\mathbf { Z } _ { ( p ) } { \subset } \mathbf { Q }$ denote the valuation ring associated with the $p$ -adic valuation of Q. Since the natural homomorphism $\overline { { W ( \mathbf { Z } ) \to W ( \mathbf { Q } ) } }$ factors through $W ( \mathbf { Z } _ { ( p ) } ) .$ it follows from (1.3) that the composition
 
 $$
 W ( \mathbf { Z } ) {  } W ( \mathbf { Q } ) {  } \oplus W ( \mathbf { F } _ { p } )
 $$
 
-is zero. Hence the image of $W ( \mathbf { Z } ) \mathrm { i n } W ( \mathbf { Q } )$ consists precisely of all positive or negative multiples of $\langle 1 \rangle$ .Together with Chapter I $\ S 7 . 4 ,$ this completes the proof.
+is zero.
+Hence the image of $W ( \mathbf { Z } ) \mathrm { i n } W ( \mathbf { Q } )$ consists precisely of all positive or negative multiples of $\langle 1 \rangle$ .Together with Chapter I $\ S 7 . 4 ,$ this completes the proof.
 
 In particular, if $X$ is indefinite, it follows that there exists a non-zero vector $y$ in $\mathbf { Q } \otimes X$ with $y \cdot y = 0$ 、Multiplying by a suitable positive integer m, this yields a non-zero vector $x = m y$ in the lattice $X$ with $x \cdot x { = } 0$ Thus we have reproved Lemma (4.1) of Chapter II.
 
-(2.7) Corollary. The Wit ring $W ( \mathbf { Z } )$ is isomorphic to $\mathbf { Z }$
+(2.7) Corollary.
+The Wit ring $W ( \mathbf { Z } )$ is isomorphic to $\mathbf { Z }$
 
-Proof. If $X$ represents an element in the kernel of the natural homomorphism $W ( { \bf Z } ) \to W ( { \bf Q } ) ;$ ，then certainly X contains a vector $x \neq 0$ with ${ \boldsymbol { x } } \cdot { \boldsymbol { x } } = 0$ Proceeding as in Chapter II, $\ S 2 . 2$ ，we can decompose $X$ as an orthogonal sum $X _ { 0 } \oplus X _ { 0 } ^ { \perp }$ where $X _ { 0 }$ has inner product matrix $\binom { 0 \quad 1 } { 1 \quad * } .$
+Proof.
+If $X$ represents an element in the kernel of the natural homomorphism $W ( { \bf Z } ) \to W ( { \bf Q } ) ;$ ，then certainly X contains a vector $x \neq 0$ with ${ \boldsymbol { x } } \cdot { \boldsymbol { x } } = 0$ Proceeding as in Chapter II, $\ S 2 . 2$ ，we can decompose $X$ as an orthogonal sum $X _ { 0 } \oplus X _ { 0 } ^ { \perp }$ where $X _ { 0 }$ has inner product matrix $\binom { 0 \quad 1 } { 1 \quad * } .$
 
-It follows inductively that $X$ is split. (Compare $\ S 3 . 3$ below.) Hence $W ( \mathbf { Z } )$ maps isomorphically to the ring $\mathbf { Z } \subset W ( \mathbf { Q } )$ □
+It follows inductively that $X$ is split.
+(Compare $\ S 3 . 3$ below.)
+Hence $W ( \mathbf { Z } )$ maps isomorphically to the ring $\mathbf { Z } \subset W ( \mathbf { Q } )$ □
 
 Combining (2.1) and (2.7), we see that the sequence
 
@@ -3406,11 +3879,13 @@ $$
 0 \to W ( \mathbf { Z } ) \to W ( \mathbf { Q } ) \to \oplus W ( \mathbf { Z } / p \mathbf { Z } ) \to 0
 $$
 
-is exact. In this form, the sequence admits a significant generalization, which is discussed in the next section.
+is exact.
+In this form, the sequence admits a significant generalization, which is discussed in the next section.
 
 # \$ 3.Dedekind Domains
 
-Let $D$ be a Dedekind domain: that is a commutative ring without zero divisors in which any non-zero ideal can be expressed uniquely as a product of maximal ideals. The quotient field of $\overline { { D } }$ will be denoted by $F \supset D$ Every maximal ideal ${ \mathfrak { p } } \subset D$ gives rise to a p-adic valuation on $F$ with residue class field ${ \underline { { D / { \mathfrak { p } } } } }$ , and hence to an associated homomorphism
+Let $D$ be a Dedekind domain: that is a commutative ring without zero divisors in which any non-zero ideal can be expressed uniquely as a product of maximal ideals.
+The quotient field of $\overline { { D } }$ will be denoted by $F \supset D$ Every maximal ideal ${ \mathfrak { p } } \subset D$ gives rise to a p-adic valuation on $F$ with residue class field ${ \underline { { D / { \mathfrak { p } } } } }$ , and hence to an associated homomorphism
 
 $$
 \partial _ { \mathfrak { p } } \colon W ( F ) \to W ( D / { \mathfrak { p } } ) .
@@ -3422,13 +3897,16 @@ $$
 k = { \cal { D } } x _ { 1 } + \cdots + { \cal { D } } x _ { k } \in X
 $$
 
-Definition. Any such finitely generated $\mathbfcal { D }$ -submodule, containing a basis for $X$ over $F$ ,is called a lattice (or a $D /$ -lattice) in $X$
+Definition.
+Any such finitely generated $\mathbfcal { D }$ -submodule, containing a basis for $X$ over $F$ ,is called a lattice (or a $D /$ -lattice) in $X$
 
 Given a lattice $L \subset X$ , the dual lattice $L ^ { \# } \subset X$ is defined to be the set of all $x \in X$ such that $x \cdot l \in D$ for all $l \in L$
 
-Note that $L ^ { \# }$ is in fact a $D$ -module, canonically isomorphic to ${ \mathrm { H o m } } _ { D } ( L , D )$ Forevery $D$ -linearmap $L {  } D$ extends uniquely to an $\boldsymbol { F }$ -linear map $X \to F$ which must have the form $x \mapsto x \cdot x _ { 0 }$ for some unique $x _ { 0 } \in L ^ { \# }$ . Using the theorem that every finitely generated torsion free module over $D$ is projective4, we see that $L$ and thus also $L ^ { \# }$ are finitely generated and projective. Clearly $L ^ { \# }$ contains a basis for $X$ over $F$
+Note that $L ^ { \# }$ is in fact a $D$ -module, canonically isomorphic to ${ \mathrm { H o m } } _ { D } ( L , D )$ Forevery $D$ -linearmap $L {  } D$ extends uniquely to an $\boldsymbol { F }$ -linear map $X \to F$ which must have the form $x \mapsto x \cdot x _ { 0 }$ for some unique $x _ { 0 } \in L ^ { \# }$ . Using the theorem that every finitely generated torsion free module over $D$ is projective4, we see that $L$ and thus also $L ^ { \# }$ are finitely generated and projective.
+Clearly $L ^ { \# }$ contains a basis for $X$ over $F$
 
-(3.1) Theorem. An inner product space $X$ over $F$ contains a lattice $L$ which is self-dual, $L = L ^ { \# }$ ,if and only if the Witt class of $X$ belongs to the kernel of the homomorphism
+(3.1) Theorem.
+An inner product space $X$ over $F$ contains a lattice $L$ which is self-dual, $L = L ^ { \# }$ ,if and only if the Witt class of $X$ belongs to the kernel of the homomorphism
 
 for every maximal ideal p of D.
 
@@ -3454,15 +3932,20 @@ $$
 W ( F ) \xrightarrow { \circ } \mathbb { O } W ( D / { \mathfrak { p } } ) {  } \mathcal { C } / \mathcal { C } ^ { 2 } {  } 0
 $$
 
-is exact. (One uses Lemma (4.4) below, together with the discussion preceding (4.4), to show that every element of $\bigoplus I ( D / { \mathfrak { p } } )$ lifts back to $I ^ { 2 } ( F )$ . It is then only necessary to verify that the cokernel of the homomorphism from $I \left( F \right) / I ^ { 2 } \left( F \right) { \cong } F ^ { \bullet } / F ^ { \bullet 2 }$ to $\oplus W ( D / { \mathfrak { p } } ) / I ( D / { \mathfrak { p } } ) { \cong } \oplus { \bf Z } / 2$ induced by $\partial$ is isomorphic to ${ \mathcal { C } } / { \mathcal { C } } ^ { 2 }$ ）
+is exact.
+(One uses Lemma (4.4) below, together with the discussion preceding (4.4), to show that every element of $\bigoplus I ( D / { \mathfrak { p } } )$ lifts back to $I ^ { 2 } ( F )$ . It is then only necessary to verify that the cokernel of the homomorphism from $I \left( F \right) / I ^ { 2 } \left( F \right) { \cong } F ^ { \bullet } / F ^ { \bullet 2 }$ to $\oplus W ( D / { \mathfrak { p } } ) / I ( D / { \mathfrak { p } } ) { \cong } \oplus { \bf Z } / 2$ induced by $\partial$ is isomorphic to ${ \mathcal { C } } / { \mathcal { C } } ^ { 2 }$ ）
 
-(3.5) Example. Let $D$ be the ring $\mathbb { R } [ x , y ] / ( x ^ { 2 } + y ^ { 2 } - 1 )$ consisting of all polynomial functions on the circle. Then each point (cos $\theta _ { \pm }$ sin $\theta$ on the unit circle gives rise to an ideal ${ \mathfrak { p } } _ { \theta }$ consisting of polynomials $f ( x , y )$ which vanish at $( \cos \theta , \sin \theta )$ . Clearly the quotient ${ \cal D } / { \mathfrak { p } } _ { \theta }$ is the field of real numbers, hence $W ( D / { \mathfrak { p } } _ { \theta } ) { \cong } { \mathbf Z }$ . The associated homomorphism
+(3.5) Example.
+Let $D$ be the ring $\mathbb { R } [ x , y ] / ( x ^ { 2 } + y ^ { 2 } - 1 )$ consisting of all polynomial functions on the circle.
+Then each point (cos $\theta _ { \pm }$ sin $\theta$ on the unit circle gives rise to an ideal ${ \mathfrak { p } } _ { \theta }$ consisting of polynomials $f ( x , y )$ which vanish at $( \cos \theta , \sin \theta )$ . Clearly the quotient ${ \cal D } / { \mathfrak { p } } _ { \theta }$ is the field of real numbers, hence $W ( D / { \mathfrak { p } } _ { \theta } ) { \cong } { \mathbf Z }$ . The associated homomorphism
 
 $$
 { \hat { \partial } } _ { \theta } \colon W ( F ) \to W ( D / { \mathfrak { p } } _ { \theta } ) { \cong } \mathbf { Z }
 $$
 
-is well defined up to sign. Clearly $\hat { \partial } _ { \theta _ { 9 } }$ carries each generator $\langle f \rangle$ of $W ( { \boldsymbol { F } } )$ to either ±1 or O according as the function $f ( \cos \theta , \sin \theta )$ changes sign or not as the variable $\theta$ passes through $\theta _ { 0 }$ A choice of sign for $\partial _ { \pmb { \theta } }$ is equivalent to a choice of local orientation for the circle. Choosing orientations coherently, we obtain the relation
+is well defined up to sign.
+Clearly $\hat { \partial } _ { \theta _ { 9 } }$ carries each generator $\langle f \rangle$ of $W ( { \boldsymbol { F } } )$ to either ±1 or O according as the function $f ( \cos \theta , \sin \theta )$ changes sign or not as the variable $\theta$ passes through $\theta _ { 0 }$ A choice of sign for $\partial _ { \pmb { \theta } }$ is equivalent to a choice of local orientation for the circle.
+Choosing orientations coherently, we obtain the relation
 
 $$
 \sum _ { \theta } \partial _ { \theta } \langle f \rangle = 0
@@ -3480,13 +3963,17 @@ is infinite cyclic.
 
 Let $F$ be a finite extension of the rational numbers,and let $D$ be the ring of all algebraic integers in $F$ .(See for example [Lang,p.20].) Since the structure of $W ( { \boldsymbol { F } } )$ is well understood (compare Chapter III, $\ S 5 . 9 )$ ，we can use the exact sequence (3.3) to describe the ring $W ( D )$
 
-First some notation. Let $d$ be the number of dyadic primes in $D$ (that is the number of prime ideals p such that $\underline { { \boldsymbol { D } / \mathfrak { p } } }$ has characteristic 2). Let r be the number of embeddings of $\cal { F }$ in the real numbers and'c the number of pairs of conjugate embeddings of $\boldsymbol { \mathsf { \Pi } }$ as a dense subset of the complex numbers. Thus $r + 2 c$ is the degree of $F$ over $\mathbf { Q }$
+First some notation.
+Let $d$ be the number of dyadic primes in $D$ (that is the number of prime ideals p such that $\underline { { \boldsymbol { D } / \mathfrak { p } } }$ has characteristic 2). Let r be the number of embeddings of $\cal { F }$ in the real numbers and'c the number of pairs of conjugate embeddings of $\boldsymbol { \mathsf { \Pi } }$ as a dense subset of the complex numbers.
+Thus $r + 2 c$ is the degree of $F$ over $\mathbf { Q }$
 
 Two non-zero ideals $\mathfrak { a }$ and $\mathfrak { b }$ in $D$ are called strictly equivalent if ${ \mathfrak { a } } = \tau { \mathfrak { b } }$ for some field element $\tau$ which is totally positive (i.e., positive with respect to every embedding of $F$ in $\mathbf { R }$ .Let $\boldsymbol { \hat { \mathcal { C } } }$ be the group of all strict equivalence classes of non-zero ideals.This is a finite extension of the usual ideal class group, which we denote by $\mathscr { C }$ ，
 
-(4.1) Theorem’. The radical $\Re _ { D }$ , consisting of all nilpotent elements in the Witt ring $W ( D )$ is a finite group with order equal to $2 ^ { c + d - 1 }$ multiplied by the number of elements of order $\leq 2 \mathrm { ~ } i n \mathcal { \hat { C } }$
+(4.1) Theorem’.
+The radical $\Re _ { D }$ , consisting of all nilpotent elements in the Witt ring $W ( D )$ is a finite group with order equal to $2 ^ { c + d - 1 }$ multiplied by the number of elements of order $\leq 2 \mathrm { ~ } i n \mathcal { \hat { C } }$
 
-Clearly an element of $W ( D )$ is nilpotent if and only if its image in $W ( { \boldsymbol { F } } )$ is nilpotent. Comparing Chapter III, $\ S 3 . 6$ and $\ S 3 . 8$ , it follows that there is an exact sequence which takes the form
+Clearly an element of $W ( D )$ is nilpotent if and only if its image in $W ( { \boldsymbol { F } } )$ is nilpotent.
+Comparing Chapter III, $\ S 3 . 6$ and $\ S 3 . 8$ , it follows that there is an exact sequence which takes the form
 
 $$
 0 \to \mathfrak { N } _ { D } \to W ( D ) \to \mathbf { F } _ { 2 } \to 0
@@ -3500,11 +3987,14 @@ $$
 
 otherwise.We will see in (4.5) that the image $\sigma \big ( W ( D ) \big )$ is always a subgroup of finite index in Z².
 
-(4.2) Corollary. If F is totally imaginary, then $W ( D )$ is a finite ring with order equal to $2 ^ { c + d }$ multiplied by the number of elements of order 2 in the ideal class group.
+(4.2) Corollary.
+If F is totally imaginary, then $W ( D )$ is a finite ring with order equal to $2 ^ { c + d }$ multiplied by the number of elements of order 2 in the ideal class group.
 
 Here are some examples.For the imaginary quadratic field $\mathbf { Q } ( { \sqrt { - 2 } } )$ or $\mathbf { Q } ( { \sqrt { - 3 } } ) ;$ we have $W ( D ) \cong \mathbf { Z } / 4 \mathbf { Z }$ ；while for $\overset { \scriptscriptstyle - } { \mathbf { Q } } ( \sqrt { \mathbf { - } 7 } ) .$ the ring $W ( D )$ is isomorphic to $\mathbf { Z } / 8 \mathbf { Z }$ .For $\mathbf { Q } ( { \sqrt { - 1 } } )$ it is non-cyclic of order 4 with basis $\langle 1 \rangle$ and $\langle i \rangle$ .Finally, for $\dot { \bf Q } ( \sqrt { - 5 } )$ ， $W ( D )$ is the sum of the ring $\mathbf { Z } / 4 \mathbf { Z }$ and an element of order 2 corresponding to an inner product space which is not free over $\mathcal { D }$ (Compare the table below.)
 
-(4.3) Corollary. The radical $\mathfrak { N } _ { D }$ is zero if and only ifDis totally real, has only one dyadic prime, has odd class number, and contains units with arbitrarily prescribed sign. If these conditions are satisfied, then $W ( D )$ is $a$ free additive group with basis $\langle 1 \rangle$ ， $\langle u _ { 1 } \rangle , \ldots , \langle u _ { r - 1 } \rangle$ ,where $u _ { j }$ is negative at the $j .$ -th ordering of $F$ and positive at the remaining $r - 1$ orderings.
+(4.3) Corollary.
+The radical $\mathfrak { N } _ { D }$ is zero if and only ifDis totally real, has only one dyadic prime, has odd class number, and contains units with arbitrarily prescribed sign.
+If these conditions are satisfied, then $W ( D )$ is $a$ free additive group with basis $\langle 1 \rangle$ ， $\langle u _ { 1 } \rangle , \ldots , \langle u _ { r - 1 } \rangle$ ,where $u _ { j }$ is negative at the $j .$ -th ordering of $F$ and positive at the remaining $r - 1$ orderings.
 
 For example these conditions are satisfied for the fields Q, $\mathbf { Q } ( { \sqrt { 2 } } ) .$ $\mathbb { Q } ( \sqrt { 5 } )$ and $\hat { \mathbf { Q } } ( \sqrt { 1 3 } )$ .Compare the table below,as well as the tables in [Borevich-Shafarevich].
 
@@ -3518,15 +4008,25 @@ $$
 \langle \bar { u } _ { 1 } \rangle \oplus \cdots \oplus \langle \bar { u } _ { m } \rangle
 $$
 
-over ${ \cal D } / { \mathfrak { p } }$ is split. Hence this inner product space has inner produet matrix of the form $\binom { 0 \quad I } { I \quad * } ,$ with respect to a suitable basis.Lifting to the local ring $D$ , it follows easily that the inner product space $\langle u _ { 1 } \rangle \oplus \cdots \oplus \langle u _ { m } \rangle$ over $D$ has inner product matrix of the form $\binom { A \quad I } { I \quad B }$ with respect to a suitable basis,where each entry of $A$ belongs to the ideal $\mathfrak { p }$ .Hence the same statement applies to the inner product space $\langle u _ { 1 } \rangle \oplus \cdots \oplus \langle u _ { m } \rangle$ over $F$ .Tensoring with $\langle \pi \rangle$ ，it follows that the inner product space $\left. \pi u _ { 1 } \right. \oplus \cdots \oplus \left. \pi u _ { m } \right.$ has inner product matrix
+over ${ \cal D } / { \mathfrak { p } }$ is split.
+Hence this inner product space has inner produet matrix of the form $\binom { 0 \quad I } { I \quad * } ,$ with respect to a suitable basis.Lifting to the local ring $D$ , it follows easily that the inner product space $\langle u _ { 1 } \rangle \oplus \cdots \oplus \langle u _ { m } \rangle$ over $D$ has inner product matrix of the form $\binom { A \quad I } { I \quad B }$ with respect to a suitable basis,where each entry of $A$ belongs to the ideal $\mathfrak { p }$ .Hence the same statement applies to the inner product space $\langle u _ { 1 } \rangle \oplus \cdots \oplus \langle u _ { m } \rangle$ over $F$ .Tensoring with $\langle \pi \rangle$ ，it follows that the inner product space $\left.
+\pi u _ { 1 } \right.
+\oplus \cdots \oplus \left.
+\pi u _ { m } \right.$ has inner product matrix
 
 Dividing each of the first $m / 2$ basis vectors by $\pi$ ，this inner product matrix is replaced by
 
-Evidently this is a matrix with entries in $\overline { { D } }$ whose determinant is a unit of $D$ . Hence this modified basis spans the required self-dual lattice in $\left. \pi u _ { 1 } \right. \oplus \cdots \oplus \left. \pi u _ { m } \right.$ .Forming the direct sum with the obvious self-dual lattice in $\langle u _ { m + 1 } \rangle \oplus \cdots \oplus \langle u _ { n } \rangle$ ,we have the required self-dual lattice in $X$
+Evidently this is a matrix with entries in $\overline { { D } }$ whose determinant is a unit of $D$ . Hence this modified basis spans the required self-dual lattice in $\left.
+\pi u _ { 1 } \right.
+\oplus \cdots \oplus \left.
+\pi u _ { m } \right.$ .Forming the direct sum with the obvious self-dual lattice in $\langle u _ { m + 1 } \rangle \oplus \cdots \oplus \langle u _ { n } \rangle$ ,we have the required self-dual lattice in $X$
 
-There is one special case not covered by this argument. If $F$ has characteristic 2 and $X$ is symplectic, then we cannot find an orthogonal basis for $X$ . But in that case $X$ is an orthogonal sum of hyperbolic planes,and clearly possesses a self-dual lattice.
+There is one special case not covered by this argument.
+If $F$ has characteristic 2 and $X$ is symplectic, then we cannot find an orthogonal basis for $X$ . But in that case $X$ is an orthogonal sum of hyperbolic planes,and clearly possesses a self-dual lattice.
 
-Now suppose that the Dedekind domain $\overline { { D } }$ possesses more than one maximal ideal p. For each p, let $\smash { \frac { D _ { p } \subset F } { p } }$ be the associated valuation ring. Choosing a basis $e _ { 1 } , \ldots , e _ { n }$ for $X$ ，note that each inner product $e _ { i } \cdot e _ { j }$ belongs to $D _ { \mathfrak { p } }$ for all but a finite number of primes $\mathfrak { p }$ .Similarly the determinant det $( e _ { i } \cdot e _ { j } )$ is a unit of $D _ { \mathfrak { p } }$ for all but a finite number of primes. Thus there exists a finite set $s$ of primes so that the $D _ { \mathfrak { p } }$ -lattice
+Now suppose that the Dedekind domain $\overline { { D } }$ possesses more than one maximal ideal p. For each p, let $\smash { \frac { D _ { p } \subset F } { p } }$ be the associated valuation ring.
+Choosing a basis $e _ { 1 } , \ldots , e _ { n }$ for $X$ ，note that each inner product $e _ { i } \cdot e _ { j }$ belongs to $D _ { \mathfrak { p } }$ for all but a finite number of primes $\mathfrak { p }$ .Similarly the determinant det $( e _ { i } \cdot e _ { j } )$ is a unit of $D _ { \mathfrak { p } }$ for all but a finite number of primes.
+Thus there exists a finite set $s$ of primes so that the $D _ { \mathfrak { p } }$ -lattice
 
 $$
 D _ { \mathfrak { p } } e _ { 1 } + \cdots + D _ { \mathfrak { p } } e _ { n }
@@ -3534,9 +4034,11 @@ $$
 
 is self-dual for all ${ \mathfrak { p } } \notin S .$
 
-Now suppose that $\partial _ { \mathfrak { p } } ( X ) { \sim } 0$ for all p.Then for each p∈ S we can choose a $\boldsymbol { D _ { \mathfrak { p } } }$ -lattice which is self-dual by the argument above. We will need the following.
+Now suppose that $\partial _ { \mathfrak { p } } ( X ) { \sim } 0$ for all p.Then for each p∈ S we can choose a $\boldsymbol { D _ { \mathfrak { p } } }$ -lattice which is self-dual by the argument above.
+We will need the following.
 
-(3.2) Lemma. Let $X$ be a vector space over $F$ with basis $e _ { 1 } , \ldots , e _ { n }$ Given a $D _ { \mathfrak { p } }$ -lattice $L _ { \mathfrak { p } }$ in $X$ for each prime $\mathfrak { p }$ ,subject to the restriction that
+(3.2) Lemma.
+Let $X$ be a vector space over $F$ with basis $e _ { 1 } , \ldots , e _ { n }$ Given a $D _ { \mathfrak { p } }$ -lattice $L _ { \mathfrak { p } }$ in $X$ for each prime $\mathfrak { p }$ ,subject to the restriction that
 
 $$
 L _ { \mathfrak { p } } = D _ { \mathfrak { p } } e _ { 1 } + \cdots + D _ { \mathfrak { p } } e _ { n }
@@ -3570,19 +4072,24 @@ $$
 
 is exact, where the direct sum extends over all non-zero prime ideals.
 
-Proof. If an inner product space $L$ over $D$ corresponds to a split inner product space over $F$ ,we must prove that $L$ itself is split.We will think of $L$ as a self-dual lattice in the inner product space $X { = } F \otimes L$ .Let $N \subset X$ $\pmb { D }$ be a subspace of half the dimension with $N \cdot N { = } 0$ so that $N = N ^ { \perp }$ . Then the intersection $N \cap L$ is clearly a self-orthogonal subspace of $L$ This intersection is a direct summand of $L$ since the quotient
+Proof.
+If an inner product space $L$ over $D$ corresponds to a split inner product space over $F$ ,we must prove that $L$ itself is split.We will think of $L$ as a self-dual lattice in the inner product space $X { = } F \otimes L$ .Let $N \subset X$ $\pmb { D }$ be a subspace of half the dimension with $N \cdot N { = } 0$ so that $N = N ^ { \perp }$ . Then the intersection $N \cap L$ is clearly a self-orthogonal subspace of $L$ This intersection is a direct summand of $L$ since the quotient
 
 $$
 L / ( N \cap L ) \subset X / N
 $$
 
-is finitely generated and torsion-free, hence projective. It is equal to $( N \cap L ) ^ { \perp }$ ，since ifan element $x \in L$ is orthogonal to $\mathbf N \cap L$ then it is orthogonal to all of $N$ ,and hence belongs to $N ^ { \bot } \cap L = N \cap L$
+is finitely generated and torsion-free, hence projective.
+It is equal to $( N \cap L ) ^ { \perp }$ ，since ifan element $x \in L$ is orthogonal to $\mathbf N \cap L$ then it is orthogonal to all of $N$ ,and hence belongs to $N ^ { \bot } \cap L = N \cap L$
 
-Thus $L$ is split, and the sequence $0 \to W ( D ) \to W ( F )$ is exact. The rest of the proof is straightforward, using (3.1).
+Thus $L$ is split, and the sequence $0 \to W ( D ) \to W ( F )$ is exact.
+The rest of the proof is straightforward, using (3.1).
 
 Remark.In contrast to the situation in $\ S 2 ,$ ,we do not assert that the homomorphism $\hat { \boldsymbol { o } }$ $W ( { \boldsymbol { F } } ) \to \oplus W ( { \boldsymbol { D } } / { \mathfrak { p } } )$ is necessarily surjective.
 
-(3.4) Example. If F is a finite extension of the rational numbers, then the cokernel of $\hat { \boldsymbol { \sigma } }$ can be computed as follows. Let $\mathcal { C }$ denote the ideal
+(3.4) Example.
+If F is a finite extension of the rational numbers, then the cokernel of $\hat { \boldsymbol { \sigma } }$ can be computed as follows.
+Let $\mathcal { C }$ denote the ideal
 
 Table describing the additive structure of $W ( D )$ for the quadratic field $\mathbf { Q } ( { \sqrt { n } } )$ .The cyclic group of order $m$ is denoted briefly by m.
 
@@ -3590,21 +4097,25 @@ Table describing the additive structure of $W ( D )$ for the quadratic field $\m
 
 Proof of (4.1). We will think of $W ( D )$ as a subring of $W ( { \boldsymbol { F } } )$ Hence we can intersect the radical $\mathfrak { N } _ { D }$ with the ideal $I ^ { 2 } ( F ) .$ 、As a first step in the proof, we will show that this intersection $\mathfrak { N } _ { D } \cap I ^ { 2 } ( F )$ is an elementary 2-group of order $2 ^ { d - 1 }$
 
-Let $F _ { \mathfrak { p } }$ denote the p-adic completion of F. The classical theory,as described for example in [O'Meara], shows that an inner product space over $F _ { \mathfrak { p } }$ isuniquely determined by its rank,determinant, and Hasse invariant.If the rank is $\geq 3$ ，then the determinant in $F _ { \mathfrak { p } } ^ { \bullet } / F _ { \mathfrak { p } } ^ { \bullet 2 }$ and the Hasse invariant in $\mathbf { Z ^ { \bullet } }$ can be prescribed arbitrarily. It follows easily that the ideal $I ^ { 2 } ( F _ { \mathfrak { p } } )$ is cyclic of order 2,and that the Hasse-Witt homomorphism
+Let $F _ { \mathfrak { p } }$ denote the p-adic completion of F. The classical theory,as described for example in [O'Meara], shows that an inner product space over $F _ { \mathfrak { p } }$ isuniquely determined by its rank,determinant, and Hasse invariant.If the rank is $\geq 3$ ，then the determinant in $F _ { \mathfrak { p } } ^ { \bullet } / F _ { \mathfrak { p } } ^ { \bullet 2 }$ and the Hasse invariant in $\mathbf { Z ^ { \bullet } }$ can be prescribed arbitrarily.
+It follows easily that the ideal $I ^ { 2 } ( F _ { \mathfrak { p } } )$ is cyclic of order 2,and that the Hasse-Witt homomorphism
 
 $$
 h _ { \mathfrak { p } } \colon I ^ { 2 } ( F _ { \mathfrak { p } } ) \to \mathbf { Z } ^ { \bullet }
 $$
 
-is bijective. (Compare Chapter II, \$\$ 5.4-5.9.)
+is bijective.
+(Compare Chapter II, \$\$ 5.4-5.9.)
 
-Now recall that the homomorphism $\partial _ { \mathfrak { p } } \colon I ^ { 2 } ( F _ { \mathfrak { p } } ) {  } I ( D / \mathfrak { p } ) \circ \mathfrak { f } \ \ S 1$ is surjective. If the prime p is not dyadic then the target group $I ( D / { \mathfrak { p } } )$ has two elements by (1.5), so it follows that the homomorphism
+Now recall that the homomorphism $\partial _ { \mathfrak { p } } \colon I ^ { 2 } ( F _ { \mathfrak { p } } ) {  } I ( D / \mathfrak { p } ) \circ \mathfrak { f } \ \ S 1$ is surjective.
+If the prime p is not dyadic then the target group $I ( D / { \mathfrak { p } } )$ has two elements by (1.5), so it follows that the homomorphism
 
 $$
 \partial _ { \mathfrak { p } } \colon I ^ { 2 } ( F _ { \mathfrak { p } } ) \to I ( D / \mathfrak { p } )
 $$
 
-is also bijective. Identifying $I ( D / { \mathfrak { p } } )$ with $\mathbf { Z } ^ { \bullet }$ ,this proves that the homomorphism
+is also bijective.
+Identifying $I ( D / { \mathfrak { p } } )$ with $\mathbf { Z } ^ { \bullet }$ ,this proves that the homomorphism
 
 $$
 \partial _ { \mathfrak { p } } \colon I ^ { 2 } ( F ) \to I ( D / \mathfrak { p } ) \cong \mathbf { Z ^ { \bullet } }
@@ -3614,19 +4125,23 @@ can be identified with the p-th Hasse-Witt invariant, for every prime p whichis 
 
 The classical theory yields the following deseription of $I ^ { 2 } ( F )$
 
-(4.4) Lemma. An element w in $I ^ { 2 } ( F )$ is uniquely determined by its   
-Hasse-Witt invariants $h _ { \mathfrak { p } } ( w ) \in \mathbf { Z ^ { \bullet } }$ for the various primes $\mathfrak { p }$ ，and by its   
-signature $\sigma _ { P } ( w ) { \in } 4 \mathbf { Z }$ for the various orderings of $F .$ These are subject only   
-to the restriction that $h _ { \mathfrak { p } } ( w ) = 1$ for almost all $\mathfrak { p }$ ,and that $\prod _ { \mathfrak { p } } h _ { \mathfrak { p } } ( w )$ must be   
+(4.4) Lemma.
+An element w in $I ^ { 2 } ( F )$ is uniquely determined by its\
+Hasse-Witt invariants $h _ { \mathfrak { p } } ( w ) \in \mathbf { Z ^ { \bullet } }$ for the various primes $\mathfrak { p }$ ，and by its\
+signature $\sigma _ { P } ( w ) { \in } 4 \mathbf { Z }$ for the various orderings of $F .$ These are subject only\
+to the restriction that $h _ { \mathfrak { p } } ( w ) = 1$ for almost all $\mathfrak { p }$ ,and that $\prod _ { \mathfrak { p } } h _ { \mathfrak { p } } ( w )$ must be\
 equal to [1(-1)op(w)/4. P
 
 Proof.This follows easily from the classical description of inner product spaces over $F$ (compare [O'Meara, $\ S 7 2 ]$ )，together with the discussion in Chapter III, $\ S 5$ □
 
-Now let us ask which elements w of $I ^ { 2 } ( F )$ belong to the subring $W ( D )$ .A necessary and sufficient condition is that $\partial _ { \mathfrak { p } } ( \boldsymbol { w } )$ must be zero for all p. We have seen that $\partial _ { \mathfrak { p } } ( \boldsymbol { w } )$ can be identified with the $\mathfrak { p }$ -th Hasse-Witt invariant whenever $\mathfrak { p }$ is non-dyadic；but that $\partial _ { \mathfrak { p } } I ^ { 2 } ( F ) = 0$ when $\mathfrak { p }$ is dyadic. Evidently this proves the following.
+Now let us ask which elements w of $I ^ { 2 } ( F )$ belong to the subring $W ( D )$ .A necessary and sufficient condition is that $\partial _ { \mathfrak { p } } ( \boldsymbol { w } )$ must be zero for all p. We have seen that $\partial _ { \mathfrak { p } } ( \boldsymbol { w } )$ can be identified with the $\mathfrak { p }$ -th Hasse-Witt invariant whenever $\mathfrak { p }$ is non-dyadic；but that $\partial _ { \mathfrak { p } } I ^ { 2 } ( F ) = 0$ when $\mathfrak { p }$ is dyadic.
+Evidently this proves the following.
 
-(4.5) Corollary. An element w in the intersection $W ( D ) \cap I ^ { 2 } ( F )$ is uniquely specified by its Hasse-Witt invariants at the d dyadic primes, together with its signatures $\sigma _ { P } ( w ) { \in } 4 \mathbf { Z }$ at the $r$ orderings of $F .$ These are subject only to the relation $\prod _ { p } \dot { h } _ {  p } ( w ) = \prod _ { P } ( - 1 ) ^ { \sigma _ { P } ( w ) / 4 }$
+(4.5) Corollary.
+An element w in the intersection $W ( D ) \cap I ^ { 2 } ( F )$ is uniquely specified by its Hasse-Witt invariants at the d dyadic primes, together with its signatures $\sigma _ { P } ( w ) { \in } 4 \mathbf { Z }$ at the $r$ orderings of $F .$ These are subject only to the relation $\prod _ { p } \dot { h } _ {  p } ( w ) = \prod _ { P } ( - 1 ) ^ { \sigma _ { P } ( w ) / 4 }$
 
-In particular the image $\sigma ( W ( D ) \cap I ^ { 2 } ( F ) )$ is precisely equal to $\mathbf { \vec { 4 } } \mathbf { Z } ^ { \Omega }$ 」， since there always exists at least one dyadic prime. Therefore ${ \underline { { \sigma } } } \left( W ( D ) \right) i s$ a subring of finite index in $\mathbf { Z } ^ { \Omega }$
+In particular the image $\sigma ( W ( D ) \cap I ^ { 2 } ( F ) )$ is precisely equal to $\mathbf { \vec { 4 } } \mathbf { Z } ^ { \Omega }$ 」， since there always exists at least one dyadic prime.
+Therefore ${ \underline { { \sigma } } } \left( W ( D ) \right) i s$ a subring of finite index in $\mathbf { Z } ^ { \Omega }$
 
 It follows that $W ( D ) \cap I ^ { 2 } ( F )$ is the direct sum of a free abelian group of rank $r _ { \ast }$ ,and an elementary 2-group of order $2 ^ { d - 1 }$ . Restricting to the kernel of $\sigma _ { \mathrm { { : } } }$ ,it follows that $\Re _ { D } \cap I ^ { 2 } ( F )$ is an elementary 2-group of order $2 ^ { d - 1 }$ ：
 
@@ -3636,11 +4151,15 @@ $$
 I ( F ) / I ^ { 2 } ( F ) { \cong } F ^ { \bullet } / F ^ { \bullet 2 } ,
 $$
 
-and hence is an elementary 2-group. The precise image in ${ F ^ { \bullet } } / { F ^ { \bullet } } ^ { 2 }$ can be identified as follows. Let $F _ { + } ^ { \bullet } \subset F ^ { \bullet }$ denote the subgroup of index $2 ^ { r }$ consisting of totally positive elements;and let $F _ { \mathbf { e v } } ^ { \bullet }$ denote the subgroup consisting of elements $\pmb { \alpha }$ such that the $\mathfrak { p }$ -adic value of $\pmb { \alpha }$ is even for all $\mathfrak { p }$ In other words $F _ { \mathrm { e v } } ^ { \bullet }$ consists of all $\pmb { \alpha }$ such that the fractional ideal $D \alpha$ is equal to ${ \mathfrak { a } } ^ { 2 }$ for some fractional ideal $\mathfrak { a }$
+and hence is an elementary 2-group.
+The precise image in ${ F ^ { \bullet } } / { F ^ { \bullet } } ^ { 2 }$ can be identified as follows.
+Let $F _ { + } ^ { \bullet } \subset F ^ { \bullet }$ denote the subgroup of index $2 ^ { r }$ consisting of totally positive elements;and let $F _ { \mathbf { e v } } ^ { \bullet }$ denote the subgroup consisting of elements $\pmb { \alpha }$ such that the $\mathfrak { p }$ -adic value of $\pmb { \alpha }$ is even for all $\mathfrak { p }$ In other words $F _ { \mathrm { e v } } ^ { \bullet }$ consists of all $\pmb { \alpha }$ such that the fractional ideal $D \alpha$ is equal to ${ \mathfrak { a } } ^ { 2 }$ for some fractional ideal $\mathfrak { a }$
 
-(4.6) Lemma. The quotient $\mathfrak { N } _ { D } / \mathfrak { N } _ { D } \cap I ^ { 2 } ( F )$ is canonically isomorphic to the quotient $( F _ { + } ^ { \bullet } \cap F _ { \mathrm { e v } } ^ { \bullet } ) / F ^ { \bullet 2 }$ ：
+(4.6) Lemma.
+The quotient $\mathfrak { N } _ { D } / \mathfrak { N } _ { D } \cap I ^ { 2 } ( F )$ is canonically isomorphic to the quotient $( F _ { + } ^ { \bullet } \cap F _ { \mathrm { e v } } ^ { \bullet } ) / F ^ { \bullet 2 }$ ：
 
-Proof. We must decide which elements $\pmb { \alpha }$ of $F ^ { \bullet }$ modulo $F ^ { \bullet 2 }$ can appear as the discriminants of inner product spaces over $D$ with signature zero.If $\pmb { \alpha }$ is totally positive, and
+Proof.
+We must decide which elements $\pmb { \alpha }$ of $F ^ { \bullet }$ modulo $F ^ { \bullet 2 }$ can appear as the discriminants of inner product spaces over $D$ with signature zero.If $\pmb { \alpha }$ is totally positive, and
 
 $$
 \mathbf { \nabla } D \mathfrak { x } = \mathfrak { a } ^ { 2 }
@@ -3656,7 +4175,8 @@ for $x , y \in \mathfrak { a }$ .Evidently a is positive definite at $\mathcal {
 
 over $D$ represents an element of $W ( D ) \subset W ( F )$ with signature zero and discriminant $\alpha F ^ { \bullet 2 }$
 
-Conversely, given an inner product space $X$ of even rank and zero signature over $D$ ,we may assume (adding a hyperbolic plane if necessary) that the rank n is divisible by 4.The exterior power $\wedge ^ { n } X$ has rank 1 and is positive definite at every ordering. It is then easy to verify that $\wedge ^ { n } X$ is isomorphic to an ideal $\mathfrak { a }$ with inner product
+Conversely, given an inner product space $X$ of even rank and zero signature over $D$ ,we may assume (adding a hyperbolic plane if necessary) that the rank n is divisible by 4.The exterior power $\wedge ^ { n } X$ has rank 1 and is positive definite at every ordering.
+It is then easy to verify that $\wedge ^ { n } X$ is isomorphic to an ideal $\mathfrak { a }$ with inner product
 
 $$
 x \cdot y { } = x y / \alpha
@@ -3702,40 +4222,50 @@ $$
 \langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle \nsim 0 ,
 $$
 
-so that $\left. 1 \right.$ has order at least 8. This shows that $W ( D )$ is cyclic of order 8; and completes the proof.0
+so that $\left.
+1 \right.$ has order at least 8. This shows that $W ( D )$ is cyclic of order 8; and completes the proof.0
 
 ![](images/2089f9ecb951db8b5634eff9bec6acaa17a5d678fb6965fbf84cd2cf393b4c60.jpg)
 
-In this concluding chapter we briefly describe some examples of bilinear forms which arise naturally in topology, in differential geometry,and in number theory. The three sections of this chapter are completely independent.
+In this concluding chapter we briefly describe some examples of bilinear forms which arise naturally in topology, in differential geometry,and in number theory.
+The three sections of this chapter are completely independent.
 
 # S1.Homology Theory of Manifolds
 
 It will be convenient to use the old fashioned terminology, and say that a manifold is closed if it is compact without boundary.
 
-Let $M = M ^ { 2 n }$ be a closed manifold of dimension $2 n ,$ and let $\mathbf { F } _ { 2 }$ be   
-the field with two elements. If $_ x$ and $y$ are homology classes in $H _ { n } ( M ; \mathbb { F } _ { 2 } ) ;$   
+Let $M = M ^ { 2 n }$ be a closed manifold of dimension $2 n ,$ and let $\mathbf { F } _ { 2 }$ be\
+the field with two elements.
+If $_ x$ and $y$ are homology classes in $H _ { n } ( M ; \mathbb { F } _ { 2 } ) ;$\
 the intersection number $x \cdot y { = } y \cdot x \in \mathbf { F } _ { 2 }$
 
-is defined. The Poincaré duality theorem, see for example [Spanier], implies that $H _ { n } ( M ; \mathbf { F } _ { 2 } )$ is an inner product space over ${ \bf E } _ { 2 }$ ，using the intersection number as inner product.
+is defined.
+The Poincaré duality theorem, see for example [Spanier], implies that $H _ { n } ( M ; \mathbf { F } _ { 2 } )$ is an inner product space over ${ \bf E } _ { 2 }$ ，using the intersection number as inner product.
 
-Let us look at the special case of a surface; that is let $n = 1$ If $M$ is connected then every homology class $x \in H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$ can be represented by a simple closed curve $\gamma \subset M$ Note that the self intersection number $x \cdot x$ is zero if and only if $^ { a }$ small neighborhood $N$ of $\gamma$ is orientable. For if $N$ is orientable, then a small homotopy will deform $\gamma$ to a curve $\gamma ^ { \prime } { \subset } N$ which is disjoint from y. (Compare Fig. 5.) But if γ does not possess an orientable neighborhood, then it must possess a neighborhood $N$ which is a Moebius band. In this case, deforming γ to a curve $\gamma ^ { \prime }$ which cuts $\gamma$ transversally, the number of intersection points will be odd. This proves the following.
+Let us look at the special case of a surface; that is let $n = 1$ If $M$ is connected then every homology class $x \in H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$ can be represented by a simple closed curve $\gamma \subset M$ Note that the self intersection number $x \cdot x$ is zero if and only if $^ { a }$ small neighborhood $N$ of $\gamma$ is orientable.
+For if $N$ is orientable, then a small homotopy will deform $\gamma$ to a curve $\gamma ^ { \prime } { \subset } N$ which is disjoint from y. (Compare Fig. 5.) But if γ does not possess an orientable neighborhood, then it must possess a neighborhood $N$ which is a Moebius band.
+In this case, deforming γ to a curve $\gamma ^ { \prime }$ which cuts $\gamma$ transversally, the number of intersection points will be odd.
+This proves the following.
 
-![](images/028068a08f914c41bae4202c545e1f104c0c0543590fc02b61b0c1835818c136.jpg)  
+![](images/028068a08f914c41bae4202c545e1f104c0c0543590fc02b61b0c1835818c136.jpg)\
 Fig.5
 
-(1.1) Lemma. The surface M is orientable if and only if $x \cdot x { = } 0$ for every $x \in H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$
+(1.1) Lemma.
+The surface M is orientable if and only if $x \cdot x { = } 0$ for every $x \in H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$
 
 Since a closed connected surface is completely determined by its orientability or non-orientability, together with its middle Betti number, see for example [Massey], this implies:
 
-(1.2) Corollary. Two closed connected surfaces $M$ and $M ^ { \prime }$ are homeomorphic if and only if the inner product spaces $H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$ and $H _ { 1 } ( M ^ { \prime } , \mathbf { F } _ { 2 } )$ are isomorphic.
+(1.2) Corollary.
+Two closed connected surfaces $M$ and $M ^ { \prime }$ are homeomorphic if and only if the inner product spaces $H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$ and $H _ { 1 } ( M ^ { \prime } , \mathbf { F } _ { 2 } )$ are isomorphic.
 
-Here are some examples. For the torus T, the space $H _ { 1 } ( T ; \mathbf { F } _ { 2 } )$ isa 01 hyperbolic plane, with basis $\boldsymbol { e } _ { 1 } , \boldsymbol { e } _ { 2 }$ and inner product matrix 1 A (Compare Fig.6.） For the projective plane $P ,$ there is just one basis vector $e .$ with $e \cdot e = 1$ ,so that
+Here are some examples.
+For the torus T, the space $H _ { 1 } ( T ; \mathbf { F } _ { 2 } )$ isa 01 hyperbolic plane, with basis $\boldsymbol { e } _ { 1 } , \boldsymbol { e } _ { 2 }$ and inner product matrix 1 A (Compare Fig.6.） For the projective plane $P ,$ there is just one basis vector $e .$ with $e \cdot e = 1$ ,so that
 
 $$
 H _ { 1 } ( P ; \mathbf { F } _ { 2 } ) \cong \langle 1 \rangle .
 $$
 
-![](images/9b62c2e5851d0e6b5b1f4f05d2e65e0a90331bf9b72be1e6cf0f93c28fce94bf.jpg)  
+![](images/9b62c2e5851d0e6b5b1f4f05d2e65e0a90331bf9b72be1e6cf0f93c28fce94bf.jpg)\
 Fig. 6.The torus and Klein bottle
 
 As a final example, for the Klein bottle K there is a basis e,e2 with inner product matrix $\binom { 0 } { 1 }$ Or alternatively， using the orthogonal basis $e _ { 1 } + e _ { 2 } , e _ { 2 }$ , we see that
@@ -3750,7 +4280,8 @@ $$
 K \cong P \# P ,
 $$
 
-where # denotes the “connected sum”operation:removing a small hole from each summand and then gluing boundaries together. Similarly the relation $\langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle \cong \langle 1 \rangle \oplus$ (hyperbolic plane) of Chapter I, $\ S 4 ,$
+where # denotes the “connected sum”operation:removing a small hole from each summand and then gluing boundaries together.
+Similarly the relation $\langle 1 \rangle \oplus \langle 1 \rangle \oplus \langle 1 \rangle \cong \langle 1 \rangle \oplus$ (hyperbolic plane) of Chapter I, $\ S 4 ,$
 
 corresponds to the geometric relation.
 
@@ -3758,28 +4289,38 @@ $$
 P \# K \cong P \# T .
 $$
 
-(1.3) Lemma. Every inner product space over $\mathbf { F } _ { 2 }$ is isomorphic to $H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$ for some closed connected surface $\pmb { M }$
+(1.3) Lemma.
+Every inner product space over $\mathbf { F } _ { 2 }$ is isomorphic to $H _ { 1 } ( M ; \mathbf { F } _ { 2 } )$ for some closed connected surface $\pmb { M }$
 
 For by Chapter I,S 3.3 the given inner product space is isomorphic to
 
 ![](images/cabe4f597f08bfe2beaa7146cdb298b34c279ac56bf4ee9b499179bcd577903c.jpg)
 
-Now let $M ^ { 2 n }$ be a closed oriented manifold,and let $F$ be an arbitrary coefficient field. Then $H _ { n } ( M ^ { 2 n } ; F )$ is an inner product space over $F _ { \ast }$ using the intersection number as inner product. This inner product space is either symmetric or skew-symmetric according as $n$ is even or odd. If $M ^ { 2 n }$ bounds an oriented $( 2 n + 1 )$ -manifold, then $H _ { n } ( M ^ { 2 n } ; F )$ is a split inner product space.
+Now let $M ^ { 2 n }$ be a closed oriented manifold,and let $F$ be an arbitrary coefficient field.
+Then $H _ { n } ( M ^ { 2 n } ; F )$ is an inner product space over $F _ { \ast }$ using the intersection number as inner product.
+This inner product space is either symmetric or skew-symmetric according as $n$ is even or odd.
+If $M ^ { 2 n }$ bounds an oriented $( 2 n + 1 )$ -manifold, then $H _ { n } ( M ^ { 2 n } ; F )$ is a split inner product space.
 
-Similarly one can work with integer coefficients. The Z-module $H _ { n } ( M ^ { 2 n } ; \mathbf { Z } ) /$ (torsion subgroup) is an inner product space over $\mathbf { Z }$ The case of a simply-connected 4-manifold is particularly interesting.
+Similarly one can work with integer coefficients.
+The Z-module $H _ { n } ( M ^ { 2 n } ; \mathbf { Z } ) /$ (torsion subgroup) is an inner product space over $\mathbf { Z }$ The case of a simply-connected 4-manifold is particularly interesting.
 
-(1.5) Theorem. Let $M$ and $M ^ { \prime }$ be closed oriented simply-connected 4-dimensional manifolds. There exists an orientation preserving homotopy equivalence $M \to M ^ { \prime }$ if and only if the symmetric inner product space $H _ { 2 } ( M ; \mathbf { Z } )$ is isomorphic to $H _ { 2 } ( M ^ { \prime } ; \mathbf { Z } )$
+(1.5) Theorem.
+Let $M$ and $M ^ { \prime }$ be closed oriented simply-connected 4-dimensional manifolds.
+There exists an orientation preserving homotopy equivalence $M \to M ^ { \prime }$ if and only if the symmetric inner product space $H _ { 2 } ( M ; \mathbf { Z } )$ is isomorphic to $H _ { 2 } ( M ^ { \prime } ; \mathbf { Z } )$
 
-Remark. It is not known whether every inner product space over Z can be realized as $H _ { 2 } ( M ; \mathbf { Z } )$ for a suitable closed simply-connected 4-manifold $M .$ In Chapter I we described a positive definite inner product space $I _ { 8 }$ of rank 8 over $\mathbf { Z }$ satisfying
+Remark.
+It is not known whether every inner product space over Z can be realized as $H _ { 2 } ( M ; \mathbf { Z } )$ for a suitable closed simply-connected 4-manifold $M .$ In Chapter I we described a positive definite inner product space $I _ { 8 }$ of rank 8 over $\mathbf { Z }$ satisfying
 
 $$
 x \cdot x { \equiv } 0 \mod 2
 $$
 
-for every $x \in \Gamma _ { 8 }$ . It would be extremely interesting to know whether $\Gamma _ { 8 } \cong H _ { 2 } ( M ; \mathbf { Z } )$ for some $\overline { { M } }$ .If such a manifold M exists, then by a theorem of Rohlin it cannot be given any piecewise-linear structure. (Compare [Milnor,1958].)
+for every $x \in \Gamma _ { 8 }$ . It would be extremely interesting to know whether $\Gamma _ { 8 } \cong H _ { 2 } ( M ; \mathbf { Z } )$ for some $\overline { { M } }$ .If such a manifold M exists, then by a theorem of Rohlin it cannot be given any piecewise-linear structure.
+(Compare [Milnor,1958].)
 
-Our special examples of surfaces have rather precise analogues   
-among 4-manifolds. For example if $P$ denotes the complex projective   
+Our special examples of surfaces have rather precise analogues\
+among 4-manifolds.
+For example if $P$ denotes the complex projective\
 plane, then $H _ { 2 } ( P ; { \bf Z } ) \cong \langle 1 \rangle .$
 
 If $\bar { P }$ denotes the same manifold with reversed orientation, then
@@ -3796,7 +4337,7 @@ $$
 
 and that
 
-even though the inner product space $H _ { 2 } ( K ; \mathbf { Z } )$ is clearly not isomorphic to $H _ { 2 } ( T ; \mathbf { Z } )$ (Compare Chapter I, $\ S 4 . )$ （4号
+even though the inner product space $H _ { 2 } ( K ; \mathbf { Z } )$ is clearly not isomorphic to $H _ { 2 } ( T ; \mathbf { Z } )$ (Compare Chapter I, $\ S 4 . )$ （4 号
 
 Proof of Theorem (1.5). Let $E$ denote the interior of an embedded 4-disk in $M$ . Using the homology exact sequence of the pair $( M , M - E )$ with coeficients in $\mathbf { Z }$ ,together with Poincaré duality, we see easily that
 
@@ -3824,7 +4365,8 @@ $$
 \pi _ { 2 } ( M - E ) \cong H _ { 2 } ( M - E ) \cong H _ { 2 } ( M )
 $$
 
-by the Hurewicz theorem. Hence there exists a map
+by the Hurewicz theorem.
+Hence there exists a map
 
 $$
 f \colon S ^ { 2 } \vee \cdots \vee S ^ { 2 }  M - E
@@ -3836,9 +4378,11 @@ $$
 H _ { * } ( S ^ { 2 } \lor \cdots \lor S ^ { 2 } )  H _ { * } ( M - E ) .
 $$
 
-Since $M - E$ is an absolute neighborhood retract, it has the homotopy type of a CW-complex.Therefore, by a theorem of J.H.C.Whitehead, f is a homotopy equivalence. (Compare [Spanier, pp. 393-405].)
+Since $M - E$ is an absolute neighborhood retract, it has the homotopy type of a CW-complex.Therefore, by a theorem of J.H.C.Whitehead, f is a homotopy equivalence.
+(Compare [Spanier, pp. 393-405].)
 
-But M is obtained from $M - E$ by attaching a 4-cell. ([Spanier, p.145].) Therefore $M$ has the homotopy type of a space obtained from the $r$ fold bouquet $S ^ { 2 } \vee \cdots \vee S ^ { 2 }$ by attaching a 4-cell, using some attaching map
+But M is obtained from $M - E$ by attaching a 4-cell.
+([Spanier, p.145].) Therefore $M$ has the homotopy type of a space obtained from the $r$ fold bouquet $S ^ { 2 } \vee \cdots \vee S ^ { 2 }$ by attaching a 4-cell, using some attaching map
 
 $$
 g \colon S ^ { 3 } \longrightarrow S ^ { 2 } \vee \cdots \vee S ^ { 2 } .
@@ -3888,15 +4432,27 @@ Given a smooth paracompact manifold $M _ { ☉ }$ let $R ( M )$ be the ring of a
 
 An inner product on $\varGamma ( \xi )$ (taking values in $R ( M ) )$ is just a smooth function which assigns to each point $_ x$ of $M$ a real valued inner product on the fiber of $\xi$ over $x$
 
-First consider the symplectic case. Vector bundles with symplectic inner product occur naturally in the theory of Hamiltonian differential equations. (See for example [MacLane].) Such bundles are classified by mappings of the base space $M$ into a certain universal base space $B S p ( 2 n , \mathbf { R } )$ which has the same homotopy type as $B U ( n )$ . (Compare [Steenrod, $\ S 1 9 . 8$ ,41.15].Here $S p ( 2 n , \mathbf { R } )$ denotes the group of isometries ofa $2 n \cdot$ -dimensional real symplectic inner product space.) Thus there is $^ { a }$ one-to-one correspondence between symplectic inner product spaces of rank 2n over $R ( M )$ and complex n-dimensional vector bundles over $M$ ([Steenrod, \$41j.) A symplectic inner product space possesses a symplectic basis if and only if the corresponding complex vector bundle is trivial.
+First consider the symplectic case.
+Vector bundles with symplectic inner product occur naturally in the theory of Hamiltonian differential equations.
+(See for example [MacLane].) Such bundles are classified by mappings of the base space $M$ into a certain universal base space $B S p ( 2 n , \mathbf { R } )$ which has the same homotopy type as $B U ( n )$ . (Compare [Steenrod, $\ S 1 9 . 8$ ,41.15].Here $S p ( 2 n , \mathbf { R } )$ denotes the group of isometries ofa $2 n \cdot$ -dimensional real symplectic inner product space.)
+Thus there is $^ { a }$ one-to-one correspondence between symplectic inner product spaces of rank 2n over $R ( M )$ and complex n-dimensional vector bundles over $M$ ([Steenrod, \$41j.) A symplectic inner product space possesses a symplectic basis if and only if the corresponding complex vector bundle is trivial.
 
-One example which is particularly easy to understand is that of an oriented 2-dimensional vector bundle.Then $\wedge ^ { 2 } \xi$ is a trivial line bundle, so the module $\varGamma ( \xi )$ possesses a more or less unique symplectic inner product. If $\xi$ is non-trivial (e.g., if $\xi$ is the tangent bundle of the 2-sphere), then $T ( \xi )$ certainly cannot possess a symplectic basis.
+One example which is particularly easy to understand is that of an oriented 2-dimensional vector bundle.Then $\wedge ^ { 2 } \xi$ is a trivial line bundle, so the module $\varGamma ( \xi )$ possesses a more or less unique symplectic inner product.
+If $\xi$ is non-trivial (e.g., if $\xi$ is the tangent bundle of the 2-sphere), then $T ( \xi )$ certainly cannot possess a symplectic basis.
 
-Now consider the symmetric case. Vector bundles with symmetric inner product occur naturally in Riemannian geometry, and in general relativity. The following statement is due to G.Lusztig. (Compare [Steenrod, $\ S 4 0 ]$ as well as [Gelfand,Mishchenko].)
+Now consider the symmetric case.
+Vector bundles with symmetric inner product occur naturally in Riemannian geometry, and in general relativity.
+The following statement is due to G.Lusztig.
+(Compare [Steenrod, $\ S 4 0 ]$ as well as [Gelfand,Mishchenko].)
 
-Theorem. The Witt ring $W \big ( R ( M ) \big ) .$ ，consisting of Witt classes of symmetric inner product spaces over $R ( M ) $ ，is canonically isomorphic to the ring $K O ( M )$ of virtual real vector bundles over $M$
+Theorem.
+The Witt ring $W \big ( R ( M ) \big ) .$ ，consisting of Witt classes of symmetric inner product spaces over $R ( M ) $ ，is canonically isomorphic to the ring $K O ( M )$ of virtual real vector bundles over $M$
 
-The proof can be sketched as follows. Let ζ be a real vector bundle over $\pmb { M }$ with symmetric inner product. We will show first that $\xi$ isisomorphic to an orthogonal sum ζ+④ §- where each fiber of $\xi ^ { + }$ is positive definite and each fiber of - is negative definite. For each fiber $\xi _ { x }$ of $\xi$ let $P ( \xi _ { x } )$ be the set consisting of all positive definite subspaces of maximal rank in $\xi _ { x }$ . Then $P ( \xi _ { x } )$ has a natural topology,and in fact is a topological cell. To prove this, choose a base point $\eta _ { x } ^ { 0 } \in P ( \xi _ { x } )$ It is clear that the real inner product space $\xi _ { x }$ decomposes as
+The proof can be sketched as follows.
+Let ζ be a real vector bundle over $\pmb { M }$ with symmetric inner product.
+We will show first that $\xi$ isisomorphic to an orthogonal sum ζ+④ §- where each fiber of $\xi ^ { + }$ is positive definite and each fiber of - is negative definite.
+For each fiber $\xi _ { x }$ of $\xi$ let $P ( \xi _ { x } )$ be the set consisting of all positive definite subspaces of maximal rank in $\xi _ { x }$ . Then $P ( \xi _ { x } )$ has a natural topology,and in fact is a topological cell.
+To prove this, choose a base point $\eta _ { x } ^ { 0 } \in P ( \xi _ { x } )$ It is clear that the real inner product space $\xi _ { x }$ decomposes as
 
 $$
 \overline { { \xi _ { x } = \eta _ { x } ^ { 0 } \oplus \eta _ { x } ^ { 0 \perp } } } .
@@ -3958,7 +4514,8 @@ $$
 
 it follows that $( \triangle _ { R } ^ { n } R ^ { \prime } , \widehat { \beta } )$ is isomorphic to the free bilinear form space $\langle d _ { 0 } \rangle = \langle d _ { 0 } \rangle _ { R }$ .This ring element $d _ { 0 }$ is well defined up to multiplication
 
-by squares of units. Evidently the discriminant ideal D, generated by the image of ${ \widehat { \beta } } _ { : }$ , is equal to the principal ideal $d _ { 0 } R$
+by squares of units.
+Evidently the discriminant ideal D, generated by the image of ${ \widehat { \beta } } _ { : }$ , is equal to the principal ideal $d _ { 0 } R$
 
 Even if $R ^ { \prime }$ is not free over $R$ ，the field $F ^ { \prime }$ is certainly free over $F .$ Working over $F ,$ the corresponding exterior power $\textstyle \bigwedge _ { F } ^ { n } F ^ { \prime }$ is provided with a corresponding symmetric bilinear form $\widehat { \beta }$ Evidently
 
@@ -3968,7 +4525,8 @@ $$
 
 for some field element $d \neq 0$ ,where $d$ is well defined up to multiplication by $F ^ { \bullet 2 }$ . The following result is due to [Artin,1950] and [Frohlich,1960].
 
-(3.1) Lemma. With d and D as above,there is one and only one fractional ideal $\mathfrak { a }$ in $F$ satisfying the equation
+(3.1) Lemma.
+With d and D as above,there is one and only one fractional ideal $\mathfrak { a }$ in $F$ satisfying the equation
 
 $$
 \mathfrak { d } = d \mathfrak { a } ^ { 2 } .
@@ -3996,9 +4554,14 @@ $$
 
 which completes the proof.□
 
-(3.2) Example. Suppose that $R = \mathbf { Z } [ \sqrt { \mathbf { - 5 } } ]$ is the ring of integers in the field $\textcircled { 2 ( \sqrt { - 5 } ) }$ and that $R ^ { \prime }$ is the ring of integers in the quadratic extension field $\mathbf { Q } ( { \sqrt { - 5 } } , { \sqrt { 2 } } )$ 、Then the discriminant $( \Lambda _ { R } ^ { 2 } R ^ { \prime } , \widehat { \beta } )$ of this extension is isomorphic to $( { \mathfrak { p } } , \beta _ { 2 } )$ where $\mathfrak { p }$ denotes the prime ideal $2 R +$ $( 1 + { \sqrt { - 5 } } ) R$ with ${ \mathfrak { p } } ^ { 2 } = 2 R$ and where $\beta _ { 2 } ( a _ { 1 } , a _ { 2 } ) { = } 2 a _ { 1 } a _ { 2 }$ for $a _ { 1 }$ ， $a _ { 2 } \in \mathfrak { p }$ The ideal $\mathfrak { p }$ is not principal, so the ring $R ^ { \prime }$ is not free over $R$
+(3.2) Example.
+Suppose that $R = \mathbf { Z } [ \sqrt { \mathbf { - 5 } } ]$ is the ring of integers in the field $\textcircled { 2 ( \sqrt { - 5 } ) }$ and that $R ^ { \prime }$ is the ring of integers in the quadratic extension field $\mathbf { Q } ( { \sqrt { - 5 } } , { \sqrt { 2 } } )$ 、Then the discriminant $( \Lambda _ { R } ^ { 2 } R ^ { \prime } , \widehat { \beta } )$ of this extension is isomorphic to $( { \mathfrak { p } } , \beta _ { 2 } )$ where $\mathfrak { p }$ denotes the prime ideal $2 R +$ $( 1 + { \sqrt { - 5 } } ) R$ with ${ \mathfrak { p } } ^ { 2 } = 2 R$ and where $\beta _ { 2 } ( a _ { 1 } , a _ { 2 } ) { = } 2 a _ { 1 } a _ { 2 }$ for $a _ { 1 }$ ， $a _ { 2 } \in \mathfrak { p }$ The ideal $\mathfrak { p }$ is not principal, so the ring $R ^ { \prime }$ is not free over $R$
 
-Proof. $R ^ { \prime }$ can be described more explicitly by noting that the elements $1 , \sqrt { - 5 } , \sqrt { 2 } , \frac { 1 } { 2 } ( \sqrt { 2 } + \sqrt { - 1 0 } )$ forma basis for $R ^ { \prime }$ over Z.This can be established,for example, by embedding $F ^ { \prime } { = } \mathbf { Q } ( \sqrt { - 5 } , \sqrt { 2 } )$ in the cyclotomic field $\mathbf { Q } ( e ^ { 2 \pi i / 4 0 } )$ and using the fact that $\mathcal { R } ^ { \prime }$ is the intersection of $F ^ { \prime }$ with the ring Z[e2πi/4o] of cyclotomic integers. ([Lang, p.75].) Details of the computation will be left to the reader. The ideal $\mathfrak { d } = \mathfrak { d } _ { R ^ { \prime } / R }$ can now be computed directly. Alternatively, one can first compute the two discriminants
+Proof.
+$R ^ { \prime }$ can be described more explicitly by noting that the elements $1 , \sqrt { - 5 } , \sqrt { 2 } , \frac { 1 } { 2 } ( \sqrt { 2 } + \sqrt { - 1 0 } )$ forma basis for $R ^ { \prime }$ over Z.This can be established,for example, by embedding $F ^ { \prime } { = } \mathbf { Q } ( \sqrt { - 5 } , \sqrt { 2 } )$ in the cyclotomic field $\mathbf { Q } ( e ^ { 2 \pi i / 4 0 } )$ and using the fact that $\mathcal { R } ^ { \prime }$ is the intersection of $F ^ { \prime }$ with the ring Z[e2πi/4o] of cyclotomic integers.
+([Lang, p.75].) Details of the computation will be left to the reader.
+The ideal $\mathfrak { d } = \mathfrak { d } _ { R ^ { \prime } / R }$ can now be computed directly.
+Alternatively, one can first compute the two discriminants
 
 $$
 \begin{array} { r } { ( { \small \bigwedge } _ { \bf Z } ^ { 2 } R , \hat { \beta } ) \cong { \big \langle } - 2 0 { \big \rangle } _ { \bf Z } , \qquad ( { \small \bigwedge } _ { \bf Z } ^ { 4 } R ^ { \prime } , \hat { \beta } ) \cong { \big \langle } 6 4 0 0 { \big \rangle } _ { \bf Z } } \end{array}
@@ -4014,11 +4577,13 @@ $$
 
 # Appendix 1. Quadratic Forms
 
-The theory of symmetric bilinear forms is intimately related to the theory of quadratic forms.In fact, over a ring in which 2 is a unit, the two theories are indistinguishable. For this reason,it seems advisable
+The theory of symmetric bilinear forms is intimately related to the theory of quadratic forms.In fact, over a ring in which 2 is a unit, the two theories are indistinguishable.
+For this reason,it seems advisable
 
 ![](images/667507a276a8d3464a4174bd88552eacbe309c9994395e44746a2a4addfde715.jpg)
 
-Definition. Let $( X _ { 1 } , q _ { 1 } ) , \dots , ( X _ { n } , q _ { n } )$ be modules with quadratic forms over any commutative ring $R$ . The orthogonal sum $X _ { 1 } \oplus \cdots \oplus X _ { n }$ is defined to be the direct sum of the modules $X _ { i }$ with quadratic form $q$ defined by the eauation
+Definition.
+Let $( X _ { 1 } , q _ { 1 } ) , \dots , ( X _ { n } , q _ { n } )$ be modules with quadratic forms over any commutative ring $R$ . The orthogonal sum $X _ { 1 } \oplus \cdots \oplus X _ { n }$ is defined to be the direct sum of the modules $X _ { i }$ with quadratic form $q$ defined by the eauation
 
 $$
 \begin{array} { r } { q ( x _ { 1 } \oplus \cdots \oplus x _ { n } ) = \sum q _ { i } ( x _ { i } ) } \end{array}
@@ -4028,7 +4593,8 @@ summed over $1 \leq i \leq n$
 
 The associated bilinear form $( x | y )$ on $X = X _ { 1 } \oplus \cdots \oplus X _ { n }$ is the orthogonal sum of the associated bilinear forms $( x | y ) _ { i }$ on the $\overline { { { X } _ { i } } }$ . Hence $( x | \mathbf { y } )$ （201 is an inner product if and only if each $( x | y ) _ { i }$ is an inner product.
 
-Definition. We will call the pair $( X , q )$ a quadratic inner product space, if $X$ is finitely generated projective, and if the bilinear form $( x | y )$ associated with the quadratic form $q$ is an inner product on $X$ (Chapter I, $\ S 1 . 1 )$
+Definition.
+We will call the pair $( X , q )$ a quadratic inner product space, if $X$ is finitely generated projective, and if the bilinear form $( x | y )$ associated with the quadratic form $q$ is an inner product on $X$ (Chapter I, $\ S 1 . 1 )$
 
 We observed in Chapter I, \$4 that the Witt Cancellation Theorem(4.4) is not true for inner product spaces in characteristic 2.It is interesting to note that the analogue of (4.4) for quadratic inner product spaces is true in any characteristic.That is, if
 
@@ -4038,7 +4604,8 @@ $$
 
 where $( X _ { 1 } , q _ { 1 } ) _ { : }$ $( X _ { 2 } , q _ { 2 } )$ ,and $( X , q )$ are quadratic inner product spaces over a field, then $( X _ { 1 } , q _ { 1 } ) { \cong } ( X _ { 2 } , q _ { 2 } )$ This is proved in [Chevalley, p.16] or [Bourbaki, p. 71].
 
-The following basic remark is due to [Frohlich, 1969] and independently to [Sah]. If $X _ { 1 }$ is a symmetric bilinear form module and $X _ { 2 }$ is a quadratic form module,then the tensor product $X _ { 1 } \otimes X _ { 2 }$ is a quadratic form module. In fact, given a symmetric bilinear form $\beta _ { 1 }$ on $X _ { 1 }$ and a quadratic form $q _ { 2 }$ on $X _ { 2 }$ , there is a unique quadratic form $q$ on $X _ { 1 } \otimes X _ { 2 }$ satisfying the equations,both being necessary for the definition,
+The following basic remark is due to [Frohlich, 1969] and independently to [Sah]. If $X _ { 1 }$ is a symmetric bilinear form module and $X _ { 2 }$ is a quadratic form module,then the tensor product $X _ { 1 } \otimes X _ { 2 }$ is a quadratic form module.
+In fact, given a symmetric bilinear form $\beta _ { 1 }$ on $X _ { 1 }$ and a quadratic form $q _ { 2 }$ on $X _ { 2 }$ , there is a unique quadratic form $q$ on $X _ { 1 } \otimes X _ { 2 }$ satisfying the equations,both being necessary for the definition,
 
 $$
 q \left( x _ { 1 } \otimes x _ { 2 } \right) = \beta _ { 1 } \left( x _ { 1 } , x _ { 1 } \right) q _ { 2 } \left( x _ { 2 } \right)
@@ -4068,9 +4635,11 @@ $$
 ( x _ { 1 } \otimes x _ { 2 } | y _ { 1 } \otimes y _ { 2 } ) = ( x _ { 1 } | y _ { 1 } ) ( x _ { 2 } | y _ { 2 } ) .
 $$
 
-The factor of 2 is surprising but necessary. This factor was incorrectly left out in [Bourbaki, v. 24, p. 137].
+The factor of 2 is surprising but necessary.
+This factor was incorrectly left out in [Bourbaki, v. 24, p. 137].
 
-The Witt algebra $W Q ( R )$ of quadratic inner product spaces over $R$ can now be defined as follows. (Compare [Bass], [Sah].) A quadratic inner product space $( X , q )$ is said to be split if the module $X$ contains a direct summand $N$ with $N = N ^ { \perp }$ and $q ( N ) { = } 0$ 、Two quadratic inner product spaces $( X _ { 1 } , q _ { 1 } )$ and $( X _ { 2 } , q _ { 2 } )$ belong to the same Witt class if
+The Witt algebra $W Q ( R )$ of quadratic inner product spaces over $R$ can now be defined as follows.
+(Compare [Bass], [Sah].) A quadratic inner product space $( X , q )$ is said to be split if the module $X$ contains a direct summand $N$ with $N = N ^ { \perp }$ and $q ( N ) { = } 0$ 、Two quadratic inner product spaces $( X _ { 1 } , q _ { 1 } )$ and $( X _ { 2 } , q _ { 2 } )$ belong to the same Witt class if
 
 $$
 ( X _ { 1 } , q _ { 1 } ) \oplus ( S _ { 1 } , q _ { 1 } ^ { \prime } ) \cong ( X _ { 2 } , q _ { 2 } ) \oplus ( S _ { 2 } , q _ { 2 } ^ { \prime } )
@@ -4084,7 +4653,9 @@ $$
 \varDelta \colon W Q ( F ) \to F / \wp F .
 $$
 
-The kernel of 4 has been computed by H.Sah as follows. Let $\scriptstyle { \cal I } \subset W ( F )$ be the fundamental ideal. Then
+The kernel of 4 has been computed by H.Sah as follows.
+Let $\scriptstyle { \cal I } \subset W ( F )$ be the fundamental ideal.
+Then
 
 $$
 \mathrm { \overline { { \ k e r n e l { ( } } } } \varDelta ) = I \cdot W Q ( F ) .
@@ -4104,7 +4675,8 @@ $$
 
 (Compare Chapter II, $\ S 5 . 2 . )$
 
-Here is a simple example to illustrate the Arf invariant. Let $( X , q )$ be a quadratic inner product space of rank 2. We continue to assume that the field $\overline { F }$ has characteristic 2. To any basis $x , \ y$ with $( x | y ) = 1$ we associate the residue class
+Here is a simple example to illustrate the Arf invariant.
+Let $( X , q )$ be a quadratic inner product space of rank 2. We continue to assume that the field $\overline { F }$ has characteristic 2. To any basis $x , \ y$ with $( x | y ) = 1$ we associate the residue class
 
 $$
 q ( x ) q ( y ) { \pmod { g ( F ) } } .
@@ -4120,7 +4692,8 @@ From this formula we see that the quadratic form q represents O if and only if $
 
 If the field $F$ is perfect, then the residue class $q ( x ) q ( y )$ mod $\wp ( F )$ is always $^ { a }$ complete invariant for the quadratic inner product space.
 
-Proof. We may assume that $q ( x ) \pm 0$ Choosing an arbitrary representative $\varDelta _ { 0 } = q ( x ) q ( y ) + \wp ( \alpha )$ for the Arf invariant, the symplectic basis
+Proof.
+We may assume that $q ( x ) \pm 0$ Choosing an arbitrary representative $\varDelta _ { 0 } = q ( x ) q ( y ) + \wp ( \alpha )$ for the Arf invariant, the symplectic basis
 
 $$
 \begin{array} { r l r } { \overline { { x } } = x / \sqrt { q ( x ) } } & { { } } & { \overline { { y } } = \alpha \overline { { x } } + y \sqrt { q ( x ) } } \end{array}
@@ -4138,7 +4711,8 @@ In particular,if $F$ is $^ { a }$ finite field of characteristic 2 it follows th
 
 # Appendix 2. Hermitian Forms
 
-Let $R$ be an associative ring with 1, not necessarily commutative. By an involution of $R$ (or more precisely an “involutory anti-automorphism") is meant an additive homomorphism $\alpha \mapsto \alpha ^ { J }$ from $R$ to itself satisfying
+Let $R$ be an associative ring with 1, not necessarily commutative.
+By an involution of $R$ (or more precisely an “involutory anti-automorphism") is meant an additive homomorphism $\alpha \mapsto \alpha ^ { J }$ from $R$ to itself satisfying
 
 $$
 ( \alpha \beta ) ^ { J } = \beta ^ { J } \alpha ^ { J }
@@ -4152,11 +4726,14 @@ $$
 
 for all α and β. Note that $\overline { { 1 ^ { J } = 1 } }$
 
-Examples. If R is commutative, then the identity map of $\mathbf { \nabla } \mathcal { R }$ is an involution. For any multiplicative group $\pi$ ,the integral group ring $\mathbf { Z } \pi$ possesses a canonical involution which maps each group element $\sigma$ to $\pmb { \sigma } ^ { - 1 }$ .(Compare [Wall, δ5] as well as [Gel'fand-Mishchenko].） The ring of n $\times n$ matrices over a commutative ring has a canonical involution which maps each matrix to its transpose.
+Examples.
+If R is commutative, then the identity map of $\mathbf { \nabla } \mathcal { R }$ is an involution.
+For any multiplicative group $\pi$ ,the integral group ring $\mathbf { Z } \pi$ possesses a canonical involution which maps each group element $\sigma$ to $\pmb { \sigma } ^ { - 1 }$ .(Compare [Wall, δ5] as well as [Gel'fand-Mishchenko].） The ring of n $\times n$ matrices over a commutative ring has a canonical involution which maps each matrix to its transpose.
 
 Let R be any fixed ring with involution,and let $X$ be a left $\pmb R$ module.
 
-Definition. A hermitian form on $X$ is a function
+Definition.
+A hermitian form on $X$ is a function
 
 $$
 \varphi \colon X \times X \to R ,
@@ -4182,7 +4759,10 @@ $$
 
 from $X$ to ${ \mathrm { H o m } } _ { R } ( X , R )$ is bijective, then $\varphi$ is called a hermitian inner product, and the pair $( X , \varphi )$ is called a hermitian inner product module.
 
-Just as for symmetric inner product spaces and quadratic inner product spaces, one can define the concept of a split hermitian inner product space. Working modulo these split spaces,we obtain a Witt group of hermitian inner product spaces over $R .$ The notation $W ( R , J )$ will be used. In the commutative case, $W ( R , J )$ has a natural ring structure. If $J$ is the identity involution, then this coincides with the ordinary Witt ring $W ( R )$
+Just as for symmetric inner product spaces and quadratic inner product spaces, one can define the concept of a split hermitian inner product space.
+Working modulo these split spaces,we obtain a Witt group of hermitian inner product spaces over $R .$ The notation $W ( R , J )$ will be used.
+In the commutative case, $W ( R , J )$ has a natural ring structure.
+If $J$ is the identity involution, then this coincides with the ordinary Witt ring $W ( R )$
 
 If $X$ is a free $R$ -module with basis $e _ { 1 } , \ldots , e _ { n }$ ， then evidently any hermitian form $\varphi$ on $X$ is completely characterized by the matrix $[ \varphi ( e _ { i } , e _ { k } ) ]$ , which is subject only to the requirement that
 
@@ -4192,7 +4772,8 @@ $$
 
 The form $\varphi$ is actually a hermitian inner product if and only if this matrix $[ \varphi ( e _ { i } , e _ { k } ) ]$ is invertible.
 
-Now suppose that the ring $R$ is commutative. Then the set
+Now suppose that the ring $R$ is commutative.
+Then the set
 
 $$
 R _ { 0 } = \{ \alpha \in \mathbf { R } | \alpha ^ { J } = \alpha \}
@@ -4204,7 +4785,9 @@ $$
 \overline { { \mathrm { n o r m } } } \colon R ^ { \bullet } \to R _ { 0 } ^ { \bullet }
 $$
 
-defined by $\mathrm { n o r m } ( \alpha ) = \alpha \alpha ^ { J }$ .Definition. The (multiplicative) residue class of det $[ \varphi ( e _ { i } , e _ { j } ) ]$ modulo $\operatorname { n o r m } ( R ^ { \bullet } )$ is called the determinant of the hermitian space $X$ . This determinant is a surprisingly powerful invariant. Compare Examples 2 and 4 below.
+defined by $\mathrm { n o r m } ( \alpha ) = \alpha \alpha ^ { J }$ .Definition.
+The (multiplicative) residue class of det $[ \varphi ( e _ { i } , e _ { j } ) ]$ modulo $\operatorname { n o r m } ( R ^ { \bullet } )$ is called the determinant of the hermitian space $X$ . This determinant is a surprisingly powerful invariant.
+Compare Examples 2 and 4 below.
 
 In the commutative case, every hermitian form over $\mathcal { R }$ gives rise to a
 
@@ -4220,13 +4803,16 @@ $$
 
 is bilinear over $R _ { 0 }$
 
-Suppose now that $F$ is a field with non-trivial involution. It follows from Galois theory that $E$ is a quadratic Galois extension of the fixed field $F _ { 0 }$ ：
+Suppose now that $F$ is a field with non-trivial involution.
+It follows from Galois theory that $E$ is a quadratic Galois extension of the fixed field $F _ { 0 }$ ：
 
-Jacobson theorem. Two hermitian inner product spaces over $F$ are isomorphic if and only if their underlying quadratic spaces are isomorphic over $F _ { 0 }$ ：
+Jacobson theorem.
+Two hermitian inner product spaces over $F$ are isomorphic if and only if their underlying quadratic spaces are isomorphic over $F _ { 0 }$ ：
 
 In other words $X$ is isomorphic to $Y$ as hermitian space over $F$ whenever there is an $F _ { 0 }$ -linear mapping from $X$ onto Y preserving the -quadratic function $Q ( x ) { = } \varphi ( x , x )$ ，Thus the classification of hermitian -inner product spaces over $\boldsymbol { \mathsf { \Pi } }$ is reduced to the classification of quadratic -inner product spaces over $F _ { 0 }$
 
-Proof $b y$ induction on the rank. First note that the field $F$ contains an element $\alpha _ { 0 }$ with $\alpha _ { 0 } + \alpha _ { 0 } ^ { J } \neq 0$ In the characteristic 2 case, $\alpha _ { 0 }$ can be any element in the complement of $F _ { 0 }$ ; while in the characteristic $\neq 2$ case we can take $\alpha _ { 0 } = 1$ ：
+Proof $b y$ induction on the rank.
+First note that the field $F$ contains an element $\alpha _ { 0 }$ with $\alpha _ { 0 } + \alpha _ { 0 } ^ { J } \neq 0$ In the characteristic 2 case, $\alpha _ { 0 }$ can be any element in the complement of $F _ { 0 }$ ; while in the characteristic $\neq 2$ case we can take $\alpha _ { 0 } = 1$ ：
 
 ![](images/71e0c3f10d711f7f14feb8f1b791e8faacf14f9c188662a101745730d6ae2f17.jpg)
 
@@ -4240,13 +4826,16 @@ $$
 ( x | x ^ { \prime } ) = \alpha _ { 0 } + \alpha _ { 0 } ^ { J } \neq 0 .
 $$
 
-Suppose now that the hermitian inner product spaces $X$ and $Y$ are isomorphic as $F _ { 0 }$ -quadratic spaces. Since the associated bilinear form $( x | x ^ { \prime } )$ is not identically zero,we can certainly choose a vector $x \in X$ and a corresponding vector y∈ Y with $Q ( x ) = Q ( y ) \neq 0 .$
+Suppose now that the hermitian inner product spaces $X$ and $Y$ are isomorphic as $F _ { 0 }$ -quadratic spaces.
+Since the associated bilinear form $( x | x ^ { \prime } )$ is not identically zero,we can certainly choose a vector $x \in X$ and a corresponding vector y∈ Y with $Q ( x ) = Q ( y ) \neq 0 .$
 
 Since $\varphi ( x , x ) \neq 0$ it follows, just as in Chapter $\mathbf { I } , \ S 3 .$ ,that the hermitian space $X$ is isomorphic to an orthogonal sum $( F x ) \oplus ( F x ) ^ { \perp }$ . Similarly $Y$ is isomorphic to $( F y ) \oplus ( F y ) ^ { \perp }$ . But evidently $( F x ) \cong ( F y )$
 
-Now let us pass to the underlying quadratic spaces over $\overline { { F _ { 0 } } }$ ，and apply the Witt cancellation theorem. (Compare Chapter I, $\ S 4$ and Appendix 1.) It follows that $( F x ) ^ { \perp }$ is isomorphic as quadratic space to $( F y ) ^ { \perp }$ .Using the induction hypothesis,it follows that $( F x ) ^ { \perp } \cong ( \bar { F } y ) ^ { \perp }$ as hermitian space, and therefore $X \cong Y .$ □
+Now let us pass to the underlying quadratic spaces over $\overline { { F _ { 0 } } }$ ，and apply the Witt cancellation theorem.
+(Compare Chapter I, $\ S 4$ and Appendix 1.) It follows that $( F x ) ^ { \perp }$ is isomorphic as quadratic space to $( F y ) ^ { \perp }$ .Using the induction hypothesis,it follows that $( F x ) ^ { \perp } \cong ( \bar { F } y ) ^ { \perp }$ as hermitian space, and therefore $X \cong Y .$ □
 
-Corollary. With $F { \supset } F _ { 0 }$ as above,there is an exact sequence
+Corollary.
+With $F { \supset } F _ { 0 }$ as above,there is an exact sequence
 
 $$
 0 \to W ( F , J ) \to W Q ( F _ { 0 } ) \to W Q ( F )
@@ -4254,7 +4843,8 @@ $$
 
 of $W ( F _ { 0 } )$ -modules.
 
-Proof. Given a non-zero element of $W ( F , J )$ ,we can clearly choose a representative hermitian inner product space $X$ which is anisotropic:
+Proof.
+Given a non-zero element of $W ( F , J )$ ,we can clearly choose a representative hermitian inner product space $X$ which is anisotropic:
 
 $$
 \varphi ( x , x ) \mp 0 \mathrm { f o r } x \neq 0 .
@@ -4276,9 +4866,11 @@ $$
 \begin{array} { c } { { \mathcal { Q } \left( \alpha \otimes e _ { 1 } - 1 \otimes e _ { 2 } \right) = \alpha ^ { 2 } \mathcal { Q } \left( e _ { 1 } \right) + \mathcal { Q } \left( e _ { 2 } \right) - \alpha \left( e _ { 1 } | e _ { 2 } \right) } } \\ { { { } } } \\ { { = \left( \alpha ^ { 2 } + \alpha \ : \alpha ^ { J } - \alpha \left( \alpha + \alpha ^ { J } \right) \right) \mathcal { Q } \left( e _ { 1 } \right) = 0 . } } \end{array}
 $$
 
-Therefore this induced quadratic space is split. Since any hermitian inner product space over $F$ is clearly an orthogonal sum of 1-dimensional spaces,this proves that the composition $W ( F , J ) \to W Q ( F _ { 0 } ) \to W Q ( F )$ is zero.
+Therefore this induced quadratic space is split.
+Since any hermitian inner product space over $F$ is clearly an orthogonal sum of 1-dimensional spaces,this proves that the composition $W ( F , J ) \to W Q ( F _ { 0 } ) \to W Q ( F )$ is zero.
 
-Conversely let $Y$ be a quadratic space over $F _ { 0 }$ which maps to zero in $W Q ( F )$ . After eliminating any split orthogonal summand, we may assume that Y is anisotropic. Since $\frac { F \otimes Y } { F _ { 0 } }$ is split, it certainly contains a vector $y$ 丰 $\mathbf { 0 }$ with $Q \left( y \right) = 0$ Setting
+Conversely let $Y$ be a quadratic space over $F _ { 0 }$ which maps to zero in $W Q ( F )$ . After eliminating any split orthogonal summand, we may assume that Y is anisotropic.
+Since $\frac { F \otimes Y } { F _ { 0 } }$ is split, it certainly contains a vector $y$ 丰 $\mathbf { 0 }$ with $Q \left( y \right) = 0$ Setting
 
 $$
 y = \alpha \otimes y _ { 1 } - 1 \otimes y _ { 2 }
@@ -4302,19 +4894,26 @@ $$
 \begin{array} { c } { { ( y _ { 1 } | y _ { 2 } ) = ( \alpha + \alpha ^ { J } ) ~ Q ( y _ { 1 } ) } } \\ { { { } } } \\ { { Q ( y _ { 2 } ) = \alpha \alpha ^ { J } ~ Q ( y _ { 1 } ) , } } \end{array}
 $$
 
-where $Q ( y _ { 1 } ) \pm 0$ since $Y$ is anisotropic. This proves that the subspace of $Y$ spanned by $\mathcal { V } _ { 1 }$ and $y _ { 2 }$ is isomorphic to the underlying quadratic space of a hermitian space over $F$ spanned by a vector $\mathcal { Y } _ { 1 }$ with $\varphi ( y _ { 1 } , y _ { 1 } ) =$ $\mathbb { Q } ( y _ { 1 } ) .$ where $\pmb { \alpha } y _ { 1 }$ corresponds to the vector $\overline { { y _ { 2 } } }$ ：
+where $Q ( y _ { 1 } ) \pm 0$ since $Y$ is anisotropic.
+This proves that the subspace of $Y$ spanned by $\mathcal { V } _ { 1 }$ and $y _ { 2 }$ is isomorphic to the underlying quadratic space of a hermitian space over $F$ spanned by a vector $\mathcal { Y } _ { 1 }$ with $\varphi ( y _ { 1 } , y _ { 1 } ) =$ $\mathbb { Q } ( y _ { 1 } ) .$ where $\pmb { \alpha } y _ { 1 }$ corresponds to the vector $\overline { { y _ { 2 } } }$ ：
 
-Now express Y as an orthogonal sum $( F _ { 0 } y _ { 1 } @ F _ { 0 } y _ { 2 } ) \oplus ( F _ { 0 } y _ { 1 } @ F _ { 0 } y _ { 2 } ) ^ { \pm }$ The second summand has smaller rank, is also anisotropic,and also represents an element of the kernel. A straightforward induction now completes the proof.□
+Now express Y as an orthogonal sum $( F _ { 0 } y _ { 1 } @ F _ { 0 } y _ { 2 } ) \oplus ( F _ { 0 } y _ { 1 } @ F _ { 0 } y _ { 2 } ) ^ { \pm }$ The second summand has smaller rank, is also anisotropic,and also represents an element of the kernel.
+A straightforward induction now completes the proof.□
 
-Here are some examples worked out in more detail. (Compare [Milnor, 1969].) In each case we assume that the involution $J$ is not the identity.
+Here are some examples worked out in more detail.
+(Compare [Milnor, 1969].) In each case we assume that the involution $J$ is not the identity.
 
 Example 1.If F is a finite field, then a hermitian inner product space splits if and only if it has even rank.The rank is a complete invariant; and $W ( F , J ) \cong \mathbf { Z } / 2$
 
 Note that the description is exactly the same whether the characteristic is 2 or $\neq 2$ .The proof will be left to the reader.
 
-Example 2. If $F$ is a local field,or a function field in one variable over a finite field, then the rank and determinant of a hermitian inner product space form a complete system of invariants. The kernel of the rank homomorphism $W ( F , J ) \to \mathbf { Z } / 2$ is an ideal, additively isomorphic to $F _ { 0 } ^ { \bullet } / \mathbf { n o r m } F ^ { \bullet }$ , and with square equal to 0.
+Example 2. If $F$ is a local field,or a function field in one variable over a finite field, then the rank and determinant of a hermitian inner product space form a complete system of invariants.
+The kernel of the rank homomorphism $W ( F , J ) \to \mathbf { Z } / 2$ is an ideal, additively isomorphic to $F _ { 0 } ^ { \bullet } / \mathbf { n o r m } F ^ { \bullet }$ , and with square equal to 0.
 
-Again the characteristic 2 case is not distinguished in any way. The proof can be sketched as follows. It suffices to note that any space $X$ of rank $\geq 2$ over $F$ has rank $\geq 4$ over $F _ { 0 }$ ， hence the quadratic equation $Q ( e _ { 1 } ) = 1$ has a solution. (Using the Hasse-Minkowski theorem in the global case; compare Chapter II, $\ S 3$ .For the characteristic 2 case, see [Arf,pp.164-167].） Hence $X$ is isomorphic to an orthogonal sum $( F e _ { 1 } ) \oplus ( F e _ { 1 } ) ^ { \perp }$ . Continuing inductively, we find an orthogonal basis $e _ { 1 } , \ldots , e _ { n }$ with $\varphi ( e _ { i } , e _ { i } ) { = } Q ( e _ { i } ) { = } 1$ for $i < n$ ，Hence the determinant' $\varphi ( e _ { n } , e _ { n } )$ determines the structure of $\pmb { X }$ completely.
+Again the characteristic 2 case is not distinguished in any way.
+The proof can be sketched as follows.
+It suffices to note that any space $X$ of rank $\geq 2$ over $F$ has rank $\geq 4$ over $F _ { 0 }$ ， hence the quadratic equation $Q ( e _ { 1 } ) = 1$ has a solution.
+(Using the Hasse-Minkowski theorem in the global case; compare Chapter II, $\ S 3$ .For the characteristic 2 case, see [Arf,pp.164-167].） Hence $X$ is isomorphic to an orthogonal sum $( F e _ { 1 } ) \oplus ( F e _ { 1 } ) ^ { \perp }$ . Continuing inductively, we find an orthogonal basis $e _ { 1 } , \ldots , e _ { n }$ with $\varphi ( e _ { i } , e _ { i } ) { = } Q ( e _ { i } ) { = } 1$ for $i < n$ ，Hence the determinant' $\varphi ( e _ { n } , e _ { n } )$ determines the structure of $\pmb { X }$ completely.
 
 Example 3. If $F$ is the field $\mathbf { C }$ of complex numbers, with complex conjugation as involution, then clearly the rank and signature of the underlying quadratic space form a complete system of invariants.Hence $W ( { \bf C } , { \mathrm { c o n j u g a t i o n } } ) { \cong } { \bf Z } .$
 
@@ -4326,7 +4925,8 @@ $$
 
 The rank, determinant,and these various signatures form a complete system of invariants for a hermitian inner product space over $F .$ For details, the reader is referred to [Landherr].
 
-To conclude this section, we remark that Jacobson's theorem applies also in certain non-commutative situations. For the statement to make sense however, we must assume that the fixed point set $R _ { 0 }$ of the involution $J$ is a subring, contained in the center of R.This is notably the case if $R$ is a quaternion algebra with basis $1 , i , j ,$ and $i j = - j i$ over $R _ { 0 }$ ， where $i ^ { 2 }$ and $j ^ { 2 }$ belong to $R _ { 0 } ^ { \bullet }$ .Here $R _ { 0 }$ should be a field of characteristic $\neq 2$ .The involution is defined by $i ^ { J } = - i$ $j ^ { J } = - j$ 、Note that the norm $\xi \xi ^ { J }$ of an element $\xi = \alpha + \beta i + \gamma j + \delta i j$ is equal to
+To conclude this section, we remark that Jacobson's theorem applies also in certain non-commutative situations.
+For the statement to make sense however, we must assume that the fixed point set $R _ { 0 }$ of the involution $J$ is a subring, contained in the center of R.This is notably the case if $R$ is a quaternion algebra with basis $1 , i , j ,$ and $i j = - j i$ over $R _ { 0 }$ ， where $i ^ { 2 }$ and $j ^ { 2 }$ belong to $R _ { 0 } ^ { \bullet }$ .Here $R _ { 0 }$ should be a field of characteristic $\neq 2$ .The involution is defined by $i ^ { J } = - i$ $j ^ { J } = - j$ 、Note that the norm $\xi \xi ^ { J }$ of an element $\xi = \alpha + \beta i + \gamma j + \delta i j$ is equal to
 
 $$
 \alpha ^ { 2 } - \beta ^ { 2 } i ^ { 2 } - \gamma ^ { 2 } j ^ { 2 } + \delta ^ { 2 } i ^ { 2 } j ^ { 2 } .
@@ -4338,7 +4938,8 @@ $$
 \langle 1 \rangle \oplus \langle - i ^ { 2 } \rangle \oplus \langle - j ^ { 2 } \rangle \oplus \langle i ^ { 2 } j ^ { 2 } \rangle
 $$
 
-over Ro is anisotropic, then clearly R is a division algebra(=skew field). In this case，Jacobson's argument applies just as before.There is a canonical embedding
+over Ro is anisotropic, then clearly R is a division algebra(=skew field).
+In this case，Jacobson's argument applies just as before.There is a canonical embedding
 
 $$
 0 \to W ( R , J ) \to W Q ( R _ { 0 } ) ,
@@ -4350,7 +4951,9 @@ Jacobson remarks also that the“determinant” of a hermitian space can still b
 
 # Appendix 3. The Hasse-Minkowski Theorem
 
-The Hasse-Minkowski theorem is one of the most beautiful results in algebraic number theory. The proof which follows assumes some knowledge of Class Field Theory,as described in [Lang] or [CasselsFrohlich].In the case of the rational field, it is possible to give a more elementary proof. (See [Serre] or [Borevich-Shafarevich].） For a complete and self-contained proof in the general case, see [O'Meara]. First some definitions.Let X be an inner product space over a field F. Then X is said to represent a field element $\pmb { \alpha }$ if there exists a non-zero vector $\mathbf { \boldsymbol { x } } \in X$ with $x \cdot x { } = \alpha$
+The Hasse-Minkowski theorem is one of the most beautiful results in algebraic number theory.
+The proof which follows assumes some knowledge of Class Field Theory,as described in [Lang] or [CasselsFrohlich].In the case of the rational field, it is possible to give a more elementary proof.
+(See [Serre] or [Borevich-Shafarevich].） For a complete and self-contained proof in the general case, see [O'Meara]. First some definitions.Let X be an inner product space over a field F. Then X is said to represent a field element $\pmb { \alpha }$ if there exists a non-zero vector $\mathbf { \boldsymbol { x } } \in X$ with $x \cdot x { } = \alpha$
 
 Henceforth we assume that $F$ has characteristic $\neq 2$
 
@@ -4358,15 +4961,18 @@ Lemma 1. If a space $X$ over $F$ represents O, then it represents every element 
 
 Forif X represents O then X admits a hyperbolic plane as direct summand (Chapter I, S 6), and a hyperbolic plane clearly represents all field elements.□
 
-Corollary. $A$ space $X$ represents the element $\alpha \neq 0$ if and only if the orthogonal sum $X \oplus \langle - \alpha \rangle$ represents 0.
+Corollary.
+$A$ space $X$ represents the element $\alpha \neq 0$ if and only if the orthogonal sum $X \oplus \langle - \alpha \rangle$ represents 0.
 
 (In other words an inhomogeneous equation in n variables can be expressed as a homogeneous equation in $n + 1$ variables.） The proof is immediate.□
 
-Now suppose that $E$ isaglobal field.Thatis,Fis either finite over the rational numbers, or finitely generated of transcendence degre 1 over a finite field. We continue to assume that $\boldsymbol { F }$ has characteristic =2.
+Now suppose that $E$ isaglobal field.Thatis,Fis either finite over the rational numbers, or finitely generated of transcendence degre 1 over a finite field.
+We continue to assume that $\boldsymbol { F }$ has characteristic =2.
 
 For every (non-trivial) valuation $\boldsymbol { v }$ of $F _ { i }$ let $F _ { v }$ denote the completion, and let $X _ { v }$ denote the induced inner product space $F _ { v } \otimes X$ over $F _ { v }$ . Let $\pmb { \alpha }$ be some fixed element of $F .$
 
-Hasse-Minkowski theorem. The inner product space $X$ represents $\pmb { \alpha }$ if and only if $X _ { v }$ represents $\pmb { \alpha }$ for every (non-trivial） valuation v of $F .$ ：
+Hasse-Minkowski theorem.
+The inner product space $X$ represents $\pmb { \alpha }$ if and only if $X _ { v }$ represents $\pmb { \alpha }$ for every (non-trivial） valuation v of $F .$ ：
 
 Both archimedian and non-archimedian valuations $\pmb { v }$ must be ineluded.
 
@@ -4410,13 +5016,15 @@ If $K \neq F$ this is clear, since $\mathfrak { n o r m } ( \xi + \eta \sqrt { u
 
 Now recall the following:
 
-Hasse norm theorem. Let $K$ be a cyclic Galois extension of the global field $F$ .Then an element $\pmb { \alpha }$ of $F ^ { \bullet }$ belongs to the image of the homomorphism $\scriptstyle { \mathrm { n o r m } } = { \mathrm { n o r m } } _ { K / F } ;$ $K ^ { \bullet }  F ^ { \bullet }$ if and only if $\pmb { \alpha }$ belongs to the image of
+Hasse norm theorem.
+Let $K$ be a cyclic Galois extension of the global field $F$ .Then an element $\pmb { \alpha }$ of $F ^ { \bullet }$ belongs to the image of the homomorphism $\scriptstyle { \mathrm { n o r m } } = { \mathrm { n o r m } } _ { K / F } ;$ $K ^ { \bullet }  F ^ { \bullet }$ if and only if $\pmb { \alpha }$ belongs to the image of
 
 for every valuation w of K.
 
 This is proved in [Lang, p. 195] or [Cassels-Frohlich, p. 185].
 
-If the Eq.(1) has a solution in $F _ { v }$ for every $v$ ，then $\beta$ is a norm from $K _ { w } ^ { \bullet }$ for every $w _ { \mathrm { { ; } } }$ hence $\beta$ is a norm from $K$ by the Hasse norm theorem. This completes the proof of Assertion $A _ { 2 }$
+If the Eq.(1) has a solution in $F _ { v }$ for every $v$ ，then $\beta$ is a norm from $K _ { w } ^ { \bullet }$ for every $w _ { \mathrm { { ; } } }$ hence $\beta$ is a norm from $K$ by the Hasse norm theorem.
+This completes the proof of Assertion $A _ { 2 }$
 
 ![](images/b747f078c9b703b17c311e5ed2c37caa58ae411c52f1a92b77864b9f3df697d2.jpg)
 
@@ -4440,13 +5048,15 @@ For if our first choice of $y _ { v }$ and $z _ { v }$ yields $y _ { v } \cdot y
 
 We will also make use of the following.
 
-Weak approximation theorem. Given finitely many inequivalent valuations $v _ { 1 } , \ldots , v _ { t }$ on $^ { a }$ field $F ,$ the image of the diagonal embedding
+Weak approximation theorem.
+Given finitely many inequivalent valuations $v _ { 1 } , \ldots , v _ { t }$ on $^ { a }$ field $F ,$ the image of the diagonal embedding
 
 is everywhere dense.
 
 This is proved for example in Lang, Algebra, Addison-Wesley 1965, p.285.
 
-Now consider the $( n - 2 )$ -dimensional vector space $Y$ over $F ,$ and the set $T = \{ v _ { 1 } , \ldots , v _ { t } \}$ . Applying this approximation theorem to each of the $n - 2$ coordinates,we see that the image of the diagonal embedding $Y {  Y _ { v _ { 1 } } \times \cdots \times Y _ { v _ { t } } }$ is dense. In particular, we can choose an element $y \in Y$ which is so close to $y _ { v }$ for each $v \in T$ that the ratio $( y \cdot y ) / ( y _ { v } \cdot y _ { v } )$ is a square in $F _ { v } ^ { \bullet }$ ：
+Now consider the $( n - 2 )$ -dimensional vector space $Y$ over $F ,$ and the set $T = \{ v _ { 1 } , \ldots , v _ { t } \}$ . Applying this approximation theorem to each of the $n - 2$ coordinates,we see that the image of the diagonal embedding $Y {  Y _ { v _ { 1 } } \times \cdots \times Y _ { v _ { t } } }$ is dense.
+In particular, we can choose an element $y \in Y$ which is so close to $y _ { v }$ for each $v \in T$ that the ratio $( y \cdot y ) / ( y _ { v } \cdot y _ { v } )$ is a square in $F _ { v } ^ { \bullet }$ ：
 
 Let us apply Assertion $\overline { { A _ { 3 } } }$ to the space Z. For each $\boldsymbol { v } \in T$ the completion $\overline { { Z _ { v } } }$ represents $- y _ { v } \cdot y _ { v }$ and therefore represents $\underline { { - y \cdot y } }$ But for each v $T$ the completion represents 0,and therefore represents -y · y. Applying $A _ { 3 }$ , it follows that $Z$ itself represents $- y \cdot y$ ，and therefore $X = Y \oplus Z$ represents 0. This completes the proof of $A _ { n }$ and $A _ { n } ^ { \prime }$ for $n \geq 2$
 
@@ -4458,21 +5068,28 @@ $$
 
 Setting $\alpha / u = \beta ,$ this can be written as $\begin{array} { r } { \xi ^ { 2 } = \beta . } \end{array}$ Thus we must prove the following.
 
-Square theorem. $I f$ the field element $\beta \in F ^ { \bullet }$ is a square in the completion $F _ { v }$ for every $v$ then $\beta$ is $^ { a }$ square in $F .$
+Square theorem.
+$I f$ the field element $\beta \in F ^ { \bullet }$ is a square in the completion $F _ { v }$ for every $v$ then $\beta$ is $^ { a }$ square in $F .$
 
-This theorem follows easily from the basic inequalities of global class field theory.Recall that the idele group $A _ { F } ^ { \bullet }$ is the group of units in the ring $A _ { F } { \LARGE \subset } \prod F _ { v }$ consisting of all elements $( a _ { v } )$ in the cartesian product which satisfy the condition $\textstyle | a _ { v } | _ { v } \leq 1$ for almost all $v$ (In forming this cartesian product, one of course chooses just one valuation $v$ in each non-trivial equivalence class of valuations.) The quotient $\ A _ { F } ^ { \bullet } / F ^ { \bullet }$ is called the idele class group $C _ { F }$ . For any finite extension $K { \supset } F ,$ the local norm homomorphisms $K _ { w } ^ { \bullet } \to F _ { w | F } ^ { \bullet }$ combine to yield the global norm homorphisms $A _ { K } ^ { \bullet } \substack { \longrightarrow } A _ { F } ^ { \bullet }$ ，and $\dot { C } _ { K } \to C _ { F }$ . If $K$ is cyclic of degree m over $F ,$ then the inequalities of class field theory state that the index of the subgroup norm $_ { \mathbf { \tilde { \mathbf { \mathbf { K } } } } / \mathbf { F } } C _ { \kappa } { \subset } C _ { F }$ is equal to m. See [Lang, p.192] or [CasselsFrohlich, p.179].
+This theorem follows easily from the basic inequalities of global class field theory.Recall that the idele group $A _ { F } ^ { \bullet }$ is the group of units in the ring $A _ { F } { \LARGE \subset } \prod F _ { v }$ consisting of all elements $( a _ { v } )$ in the cartesian product which satisfy the condition $\textstyle | a _ { v } | _ { v } \leq 1$ for almost all $v$ (In forming this cartesian product, one of course chooses just one valuation $v$ in each non-trivial equivalence class of valuations.)
+The quotient $\ A _ { F } ^ { \bullet } / F ^ { \bullet }$ is called the idele class group $C _ { F }$ . For any finite extension $K { \supset } F ,$ the local norm homomorphisms $K _ { w } ^ { \bullet } \to F _ { w | F } ^ { \bullet }$ combine to yield the global norm homorphisms $A _ { K } ^ { \bullet } \substack { \longrightarrow } A _ { F } ^ { \bullet }$ ，and $\dot { C } _ { K } \to C _ { F }$ . If $K$ is cyclic of degree m over $F ,$ then the inequalities of class field theory state that the index of the subgroup norm $_ { \mathbf { \tilde { \mathbf { \mathbf { K } } } } / \mathbf { F } } C _ { \kappa } { \subset } C _ { F }$ is equal to m. See [Lang, p.192] or [CasselsFrohlich, p.179].
 
-Proof of the square theorem. Given $\beta \in F ^ { \bullet }$ ,let $\scriptstyle K = F ( { \sqrt { \beta } } )$ If $\overline { { \beta } }$ isa square in $F _ { v }$ for every $v$ ,then $K _ { w } = F _ { w | F }$ for every valuation w of $K$ ,so the norm homomorphism $A _ { K } ^ { \bullet } \substack { \longrightarrow } A _ { F } ^ { \bullet }$ is surjective. Therefore the norm homomorphism $C _ { \kappa } {  } C _ { { \scriptscriptstyle F } }$ is surjective, and the degree m must be 1. Thus ${ \sqrt { \beta } } \in F ,$ which completes the proof of the square theorem and the HasseMinkowski theorem.0
+Proof of the square theorem.
+Given $\beta \in F ^ { \bullet }$ ,let $\scriptstyle K = F ( { \sqrt { \beta } } )$ If $\overline { { \beta } }$ isa square in $F _ { v }$ for every $v$ ,then $K _ { w } = F _ { w | F }$ for every valuation w of $K$ ,so the norm homomorphism $A _ { K } ^ { \bullet } \substack { \longrightarrow } A _ { F } ^ { \bullet }$ is surjective.
+Therefore the norm homomorphism $C _ { \kappa } {  } C _ { { \scriptscriptstyle F } }$ is surjective, and the degree m must be 1. Thus ${ \sqrt { \beta } } \in F ,$ which completes the proof of the square theorem and the HasseMinkowski theorem.0
 
-Now consider a more general situation. Let X and Y be two inner product spaces over a field F with rank(X)≥rank(Y).
+Now consider a more general situation.
+Let X and Y be two inner product spaces over a field F with rank(X)≥rank(Y).
 
-Definition. The space $X$ is said to represent $Y$ if $X \cong Y \oplus Z$ for some $Z$
+Definition.
+The space $X$ is said to represent $Y$ if $X \cong Y \oplus Z$ for some $Z$
 
 If Y has rank 1, say $Y \cong \langle u \rangle$ , then clearly $X$ represents $Y$ if and only if $X$ represents u.
 
 Corollary 1. Suppose again that $F$ is a global field.If the completion $\textstyle \sum _ { v }$ represents $\underline { { Y } } _ { v }$ for every valuation $v$ ,then $X$ represents Y.
 
-Proof. This is certainly true if Y has rank 1. If the rank of Y is greater than 1, then, setting $Y = Y ^ { \prime } \oplus \langle u \rangle$ ， we may assume inductively that $X$ represents $Y ^ { \prime }$ say
+Proof.
+This is certainly true if Y has rank 1. If the rank of Y is greater than 1, then, setting $Y = Y ^ { \prime } \oplus \langle u \rangle$ ， we may assume inductively that $X$ represents $Y ^ { \prime }$ say
 
 $$
 X \cong Y ^ { \prime } \oplus Z ^ { \prime } .
@@ -4500,19 +5117,22 @@ Together with (2),this completes the proof.
 
 Corollary 2. Two spaces X and Y over $\overline { F }$ are isomorphic if and only if $X _ { v }$ is isomorphic to $Y _ { v }$ for every v. In particular $X$ splits if and only if $X _ { v }$ splits for every $v$
 
-Proof. This is just the special case rank $( X ) { = } \operatorname { r a n k } ( Y )$ of Corollary 1, using Chapter I. $\ S 6 . 3$
+Proof.
+This is just the special case rank $( X ) { = } \operatorname { r a n k } ( Y )$ of Corollary 1, using Chapter I. $\ S 6 . 3$
 
 Here is still another formulation of the Hasse-Minkowski theorem.
 
 Corollary 3. Consider a quadratic equation $\begin{array} { r } { \sum \alpha _ { i j } \xi _ { i } \xi _ { j } + \sum \beta _ { k } \xi _ { k } + \gamma = 0 , } \end{array}$ in nvariables,with coefcientsinthe global fieldF.If this equation has $^ { a }$ solution in $F _ { v }$ for every $\pmb { \vartheta }$ then it has $^ { a }$ solution in F.
 
-Note that the corresponding statement for equations of higher degree, or for systems of quadratic equations,would be false.Here is a trivial example. The 6-th degree equation
+Note that the corresponding statement for equations of higher degree, or for systems of quadratic equations,would be false.Here is a trivial example.
+The 6-th degree equation
 
 $$
 ( \zeta ^ { 2 } + 1 ) ( \zeta ^ { 2 } + 1 7 ) ( \zeta ^ { 2 } - 1 7 ) = 0
 $$
 
-has a solution in $\mathbf { Q } _ { v }$ for every $v$ ,but has no rational solution. Similarly, consider the simultaneous quadratic equations
+has a solution in $\mathbf { Q } _ { v }$ for every $v$ ,but has no rational solution.
+Similarly, consider the simultaneous quadratic equations
 
 $$
 \begin{array} { c } { { \xi ^ { 2 } + \eta = 0 , } } \\ { { \qquad \quad } } \\ { { ( \eta - \zeta ) ( \eta - \zeta + 1 6 ) = 0 , } } \\ { { \qquad \quad } } \\ { { \zeta ^ { 2 } = 1 7 ^ { 2 } . } } \end{array}
@@ -4540,7 +5160,7 @@ $$
 0 + \beta ( x ) + \gamma = 0 .
 $$
 
-Suppose then that $\beta$ maps to zero in ${ \mathrm { H o m } } ( N , F )$ Then $\beta$ lifts to an   
+Suppose then that $\beta$ maps to zero in ${ \mathrm { H o m } } ( N , F )$ Then $\beta$ lifts to an\
 element of $X$ ,say $\beta ( x ) = 2 \alpha ( x _ { 0 } , x )$
 
 for every $x \in X$ . The substitution $\scriptstyle x = y - x _ { 0 }$ now reduces Eq.(3) to the form
@@ -4553,13 +5173,15 @@ $$
 
 # Appendix 4. Gauss Sums, the Signature mod 8, and Quadratic Reciprocity
 
-Let $L$ be a free $\mathbf { z }$ -module of rank $n _ { : }$ ，provided with a $\mathbf { z }$ -valued symmetric bilinear form $x \cdot y$ with non-zero determinant. We denote the signature of this form by $\sigma$ ，and the absolute value of the determinant by $d .$ 、An expression for $\exp ( 2 \pi i \sigma / 8 )$ as a finite exponential sum was given by H.Braun in 1940.(Explicitly,she showed that
+Let $L$ be a free $\mathbf { z }$ -module of rank $n _ { : }$ ，provided with a $\mathbf { z }$ -valued symmetric bilinear form $x \cdot y$ with non-zero determinant.
+We denote the signature of this form by $\sigma$ ，and the absolute value of the determinant by $d .$ 、An expression for $\exp ( 2 \pi i \sigma / 8 )$ as a finite exponential sum was given by H.Braun in 1940.(Explicitly,she showed that
 
 $$
 \frac { ( 2 a ) ^ { n / 2 } { \sqrt { d } } \exp ( 2 \pi i \sigma / 8 ) { = } \sum _ { x \in L / a L } \exp ( 2 \pi i x \cdot x / a ) } { x \in L / a L }
 $$
 
-where $a = 8 d ^ { 3 }$ It follows that σ mod8 is determined by the $a ^ { n }$ numbers $x \cdot x$ modulo $^ { a }$ ） We will describe a closely related formula which has recently been obtained by J.Milgram. (Compare the discussion in Chapter I1, $\ S 5 .$ ）
+where $a = 8 d ^ { 3 }$ It follows that σ mod8 is determined by the $a ^ { n }$ numbers $x \cdot x$ modulo $^ { a }$ ） We will describe a closely related formula which has recently been obtained by J.Milgram.
+(Compare the discussion in Chapter I1, $\ S 5 .$ ）
 
 As in Chapter I,we will say that $L$ is of type IIif the congruence is satisfied for every $\overline { { x } } \in E$ Let $L ^ { \# }$ denote the dual lattice, consisting of all $u \in \mathbf { Q } \otimes L$ satisfying the condition $u \cdot L \subset \mathbf { Z }$ ：Then the quotient $L ^ { \# } / L$ is a finite abelian group of order $d .$ If $L$ is of type II, then setting
 
@@ -4569,15 +5191,19 @@ $$
 
 we obtain a well defined quadratic function $\varphi$ ： $L ^ { \# } / L \to \mathbf { Q } / \mathbf { Z }$
 
-Theorem (Milgram). If Lis of type II, then the Gauss sum is defined and is equal to ${ \overline { { \sqrt { d } } } } \exp ( 2 \pi i \sigma / 8 ) .$
+Theorem (Milgram).
+If Lis of type II, then the Gauss sum is defined and is equal to ${ \overline { { \sqrt { d } } } } \exp ( 2 \pi i \sigma / 8 ) .$
 
-The original proof of this formula was a rather delicate argument involving the Poisson summation formula. The following proof,suggested by Knebusch, is quite a bit easier.
+The original proof of this formula was a rather delicate argument involving the Poisson summation formula.
+The following proof,suggested by Knebusch, is quite a bit easier.
 
-Consider lattices $L$ of type II in a fixed rational inner product space. We will denote the $d$ foldsum ∑exp(2πiφ(u))=∑exp(πiu·u) briefly by the symbol $G ( L )$ LL LL
+Consider lattices $L$ of type II in a fixed rational inner product space.
+We will denote the $d$ foldsum ∑exp(2πiφ(u))=∑exp(πiu·u) briefly by the symbol $G ( L )$ LL LL
 
 Lemma 1. If $L _ { 1 } { \subset } L$ is $^ { a }$ sub-lattice of index $k _ { \ast }$ then $G ( L _ { 1 } ) = k G ( L ) .$
 
-Proof.Evidently $L _ { 1 } { \subset } L { \subset } L ^ { \# } { \subset } L _ { 1 } ^ { \# }$ where the index of each lattice in the next is equal to $k _ { : }$ or $d ( L ) ,$ or $k$ respectively. Let $x _ { 1 } , \dots , x _ { k d ( L ) }$ be a complete set of coset representatives for $L _ { 1 } ^ { \# }$ modulo $L _ { ☉ }$ Then the Gauss -sum $G ( L _ { 1 } )$ can be written as
+Proof.Evidently $L _ { 1 } { \subset } L { \subset } L ^ { \# } { \subset } L _ { 1 } ^ { \# }$ where the index of each lattice in the next is equal to $k _ { : }$ or $d ( L ) ,$ or $k$ respectively.
+Let $x _ { 1 } , \dots , x _ { k d ( L ) }$ be a complete set of coset representatives for $L _ { 1 } ^ { \# }$ modulo $L _ { ☉ }$ Then the Gauss -sum $G ( L _ { 1 } )$ can be written as
 
 $$
 G ( L _ { 1 } ) = \sum _ { { \bf \Phi } _ { ^ { \lambda } , J } } \sum _ { u \in L / L _ { 1 } } \exp \bigl ( 2 \pi i \varphi ( x _ { j } + u ) \bigr ) .
@@ -4597,13 +5223,15 @@ $$
 
 But for each fixed $\underline { { x } } _ { j }$ the $k$ -fold sum
 
-can be evaluated as follows. If $x _ { j }$ happens to belong to $L ^ { \# }$ , this sum is evidently equal to $1 + \cdots + 1 = k .$ f $x _ { j } \notin { L } ^ { \# }$ then the correspondence
+can be evaluated as follows.
+If $x _ { j }$ happens to belong to $L ^ { \# }$ , this sum is evidently equal to $1 + \cdots + 1 = k .$ f $x _ { j } \notin { L } ^ { \# }$ then the correspondence
 
 $$
 \begin{array} { r } { u \mapsto \exp \bigl ( 2 \pi i ( x _ { j } \cdot u ) \bigr ) } \end{array}
 $$
 
-defines a non-trivial homomorphism from $L / L _ { 1 }$ to C, so a standard argument [Lang, p.82] shows that the sum (2) is zero. Therefore $G ( L _ { 1 } )$ is equal to
+defines a non-trivial homomorphism from $L / L _ { 1 }$ to C, so a standard argument [Lang, p.82] shows that the sum (2) is zero.
+Therefore $G ( L _ { 1 } )$ is equal to
 
 $$
 \sum _ { x _ { j } \in L ^ { \# } / L } \exp \bigl ( 2 \pi i \varphi ( x _ { k } ) \bigr ) k { = } k G ( L )
@@ -4617,9 +5245,11 @@ $$
 G ( L ) / \sqrt { d ( L ) } { = } G ( L _ { 1 } ) / \sqrt { d ( L _ { 1 } ) } .
 $$
 
-In fact the complex number $G ( L ) / \sqrt { d ( L ) }$ is completely independent of the lattice $L ,$ and depends only on the ambient rational inner product space. This is clear, since any two lattices $\scriptstyle { \pmb { L } }$ and $\scriptstyle { \mathcal { L } }$ spanning the same rational space must contain a common sub-lattice $L \cap E$ which has finite index in each of them.
+In fact the complex number $G ( L ) / \sqrt { d ( L ) }$ is completely independent of the lattice $L ,$ and depends only on the ambient rational inner product space.
+This is clear, since any two lattices $\scriptstyle { \pmb { L } }$ and $\scriptstyle { \mathcal { L } }$ spanning the same rational space must contain a common sub-lattice $L \cap E$ which has finite index in each of them.
 
-To evaluate this invariant $G ( L ) / \sqrt { d ( L ) }$ of the inner product space $\mathbf { Q } \otimes L$ ，we recall that every rational inner product space is isomorphic to an orthogonal sum of 1-dimensional spaces, and hence contains a lattice of type I which splits as an orthogonal sum of 1-dimensional lattices.Note that the invariant $G ( L ) / \sqrt { d ( L ) }$ is multiplicative with respect -to orthogonal sums. For the identity
+To evaluate this invariant $G ( L ) / \sqrt { d ( L ) }$ of the inner product space $\mathbf { Q } \otimes L$ ，we recall that every rational inner product space is isomorphic to an orthogonal sum of 1-dimensional spaces, and hence contains a lattice of type I which splits as an orthogonal sum of 1-dimensional lattices.Note that the invariant $G ( L ) / \sqrt { d ( L ) }$ is multiplicative with respect -to orthogonal sums.
+For the identity
 
 is easily verified,and the identity
 
@@ -4627,13 +5257,16 @@ $$
 d ( L _ { 1 } \oplus L _ { 2 } ) = d ( L _ { 1 } ) d ( L _ { 2 } )
 $$
 
-is familiar. Thus to compute this invariant $G ( L ) / \sqrt { d ( L ) }$ for any rational inner product space, it suffices to compute it for a 1-dimensional inner product space.
+is familiar.
+Thus to compute this invariant $G ( L ) / \sqrt { d ( L ) }$ for any rational inner product space, it suffices to compute it for a 1-dimensional inner product space.
 
 The following elementary observation will be needed for the computation in the 1-dimensional case.
 
 Lemma 2. For any constant $c > 0$ ，the integral $\int \limits _ { 0 } ^ { A } \exp ( c \pi i s ^ { 2 } ) d s$ tendsto a well defined finite limit as $A \to \infty$ ：
 
-To prove that the imaginary part of this integral converges, substitute $\stackrel { - } { u } = c s ^ { 2 }$ and integrate between successive integer values of $u ,$ noting that the terms of the resulting series alternate in sign, with absolute values tending monotonely to zero. Convergence of the real part is proved similarly, using half-integer values. 0
+To prove that the imaginary part of this integral converges, substitute $\stackrel { - } { u } = c s ^ { 2 }$ and integrate between successive integer values of $u ,$ noting that the terms of the resulting series alternate in sign, with absolute values tending monotonely to zero.
+Convergence of the real part is proved similarly, using half-integer values.
+0
 
 Consider now a 1-dimensional lattice of type H, say $L \cong \langle 2 m \rangle$ ： Suppose, to fix our ideas, that $m > 0$ Evidently $L ^ { \# } / L$ is cyclic of order 2m, and $G ( L )$ is equal to the $2 m \cdot$ -fold sum
 
@@ -4645,7 +5278,8 @@ $$
 
 for $0 \leq t \leq 1$ Thus $f ( 0 ) { = } f ( 1 )$ is equal to the Gauss sum $G ( L ) .$ (Compare [Lang, p. 88].)
 
-Since f is continuous and piecewise smooth, its Fourier series expansion converges to $f$ everywhere. (See, for example, Titchmarsh, Theory of Functions; or Courant and Hilbert, Volume 1.) We will write this Fourier series in the form
+Since f is continuous and piecewise smooth, its Fourier series expansion converges to $f$ everywhere.
+(See, for example, Titchmarsh, Theory of Functions; or Courant and Hilbert, Volume 1.) We will write this Fourier series in the form
 
 where
 
@@ -4695,11 +5329,14 @@ $$
 G ( \langle 2 m \rangle ) / \sqrt { 2 m } = ( 1 + i ) / \sqrt { 2 } = \exp ( 2 \pi i / 8 ) .
 $$
 
-Similarly $G ( \langle - 2 m \rangle ) / \sqrt { 2 m }$ is equal to the complex conjugate $\exp ( - 2 \pi i / 8 )$ .Thus we have shown that the invariant $G ( L ) / \sqrt { d ( L ) }$ is equal to $\exp ( 2 \pi i \sigma / 8 )$ for every 1-dimensional lattice $L$ The corresponding formula for an orthogonal sum of 1-dimensional lattices, and hence for an arbitrary lattice, now follows immediately. This completes the proof of Milgram's theorem.0
+Similarly $G ( \langle - 2 m \rangle ) / \sqrt { 2 m }$ is equal to the complex conjugate $\exp ( - 2 \pi i / 8 )$ .Thus we have shown that the invariant $G ( L ) / \sqrt { d ( L ) }$ is equal to $\exp ( 2 \pi i \sigma / 8 )$ for every 1-dimensional lattice $L$ The corresponding formula for an orthogonal sum of 1-dimensional lattices, and hence for an arbitrary lattice, now follows immediately.
+This completes the proof of Milgram's theorem.0
 
-The formula of Braun can be recovered from that of Milgram as follows. Let $L$ be any lattice in a rational inner product space, subject only to the hypothesis that $x \cdot y \in \mathbf { Z }$ for $x , y \in L .$ As before we set $d =$ |determinant $\dagger { > } 0$ and $\scriptstyle n = r k ( L )$
+The formula of Braun can be recovered from that of Milgram as follows.
+Let $L$ be any lattice in a rational inner product space, subject only to the hypothesis that $x \cdot y \in \mathbf { Z }$ for $x , y \in L .$ As before we set $d =$ |determinant $\dagger { > } 0$ and $\scriptstyle n = r k ( L )$
 
-Corollary. If $q$ is $^ { a }$ multiple of $2 d ,$ then
+Corollary.
+If $q$ is $^ { a }$ multiple of $2 d ,$ then
 
 $$
 \sum _ { x \in L / q L } \exp ( \pi i x \cdot x / q ) { = } q ^ { n / 2 } { \sqrt { d } } \exp ( 2 \pi i \sigma / 8 ) .
@@ -4707,7 +5344,8 @@ $$
 
 Evidently the formula quoted at the beginning of this Appendix is an immediate consequence, taking $q = a / 2$
 
-Proof of the corollary. Consider the new inner product qx · y on the lattice $L ^ { \# }$ . Note that $L ^ { \# }$ , with this new inner product, is of type II,and has dual lattice equal to $q ^ { - 1 } L$ .Applying Milgram's theorem we obtain
+Proof of the corollary.
+Consider the new inner product qx · y on the lattice $L ^ { \# }$ . Note that $L ^ { \# }$ , with this new inner product, is of type II,and has dual lattice equal to $q ^ { - 1 } L$ .Applying Milgram's theorem we obtain
 
 $$
 \sum _ { \boldsymbol { u } \in \boldsymbol { q } ^ { - 1 } L / L ^ { \sharp } } \exp ( \pi i \boldsymbol { q } \boldsymbol { u } \cdot \boldsymbol { u } ) = \sqrt { \boldsymbol { q } ^ { n } / d } \exp ( 2 \pi i \sigma / 8 ) .
@@ -4725,17 +5363,24 @@ Knebusch points out that Milgram's formula is closely related to a version of th
 
 Lemma 3. The ratio $\gamma _ { p } ( L ) { = } G \left( ( L ^ { \# } / L ) _ { p } \right) / \sqrt { d _ { p } }$ depends only on the $p$ -adic completion $\mathbf { Q } _ { p } \otimes L$ of the inner product space $\mathbf { Q } \otimes L$ ，The correspondence $\mathbf { Q } _ { p } \otimes L \mapsto \boldsymbol { \gamma } _ { p } ( L )$ gives rise to $^ { a }$ homomorphism from the finite additive group $W ( \mathbf { Q } _ { p } )$ to the multiplicative group of roots of unity in C.
 
-Briefly we say that $\gamma _ { p }$ is a character of the Witt group $W ( \mathbf { Q } _ { p } )$ The proof of the first statement is completely analogous to the proof of Lemma 1. One simply uses the $p$ -adic integers $\mathbf { Z } _ { p }$ and the $p$ -adic field $\mathbf { Q } _ { p }$ in place of $\mathbf { Z }$ and Q. To prove the second statement, suppose that the completion $\mathbf { Q } _ { p } \otimes L$ is a split inner product space. Then this completion has innerproduct matrix $\binom { 0 } { I } \binom { I } { 0 }$ with respect to a suitable basis, and this basis spans a $\underline { { \boldsymbol { Z } } } _ { p }$ -lattice which is self-dual. But the existence of such a self-duai lattice implies that $\gamma _ { p } ( L ) = 1$ Since the function $\gamma _ { p }$ is clearly multiplicative with respect to orthogonal sums, this proves the lemma.0
+Briefly we say that $\gamma _ { p }$ is a character of the Witt group $W ( \mathbf { Q } _ { p } )$ The proof of the first statement is completely analogous to the proof of Lemma 1. One simply uses the $p$ -adic integers $\mathbf { Z } _ { p }$ and the $p$ -adic field $\mathbf { Q } _ { p }$ in place of $\mathbf { Z }$ and Q. To prove the second statement, suppose that the completion $\mathbf { Q } _ { p } \otimes L$ is a split inner product space.
+Then this completion has innerproduct matrix $\binom { 0 } { I } \binom { I } { 0 }$ with respect to a suitable basis, and this basis spans a $\underline { { \boldsymbol { Z } } } _ { p }$ -lattice which is self-dual.
+But the existence of such a self-duai lattice implies that $\gamma _ { p } ( L ) = 1$ Since the function $\gamma _ { p }$ is clearly multiplicative with respect to orthogonal sums, this proves the lemma.0
 
 Let us define $\gamma _ { \infty } ( L )$ to be the root of unity exp $( - 2 \pi i \sigma / 8 )$ . Evidently this depends only on the real completion $\mathbf { R } \otimes L$ of the inner product space $\mathbf { Q } \otimes L$
 
-Weil reciprocity theorem. For any lattice $L$ ,the product $\prod _ { p \leq \infty } \gamma _ { p } ( \mathbf { Q } \otimes L )$ is equal to 1. 1
+Weil reciprocity theorem.
+For any lattice $L$ ,the product $\prod _ { p \leq \infty } \gamma _ { p } ( \mathbf { Q } \otimes L )$ is equal to 1. 1
 
 Proof.This follows immediately from Milgram's theorem.0
 
-Let us see what this reciprocity formula means in the rank 1 case. Suppose then that the lattice $L$ is spanned by a single vector $l _ { 1 }$ . Suppose also, to fix our ideas, that $l _ { 1 } \cdot l _ { 1 } = 4 m$ with m odd. We will write briefly $L = \left. 4 m \right.$ ：
+Let us see what this reciprocity formula means in the rank 1 case.
+Suppose then that the lattice $L$ is spanned by a single vector $l _ { 1 }$ . Suppose also, to fix our ideas, that $l _ { 1 } \cdot l _ { 1 } = 4 m$ with m odd.
+We will write briefly $L = \left.
+4 m \right.$ ：
 
-Lemma 4. The character $\gamma _ { 2 } \left. 4 m \right.$ is equal to exp(2π i m/8).
+Lemma 4. The character $\gamma _ { 2 } \left.
+4 m \right.$ is equal to exp(2π i m/8).
 
 In fact $L ^ { \# } / L$ is cyclic of order |4ml, generated by $l _ { 1 } / 4 m$ Hence the 2-primary component $\left( L ^ { \# } / L \right) _ { 2 }$ is cyclic of order 4, generated by $l _ { 1 } / 4 ,$ with $\varphi ( l _ { 1 } / 4 ) \equiv m / 8 ( \mathrm { m o d } \mathrm { \bf Z } )$ . It follows easily that
 
@@ -4747,7 +5392,8 @@ Next suppose that m is an odd prime p.
 
 Lemma 5. The character vp<4p>is equal to exp(2π i(1-p)/8).
 
-Proof. This follows from Lemma 4， by solving the reciprocity equation
+Proof.
+This follows from Lemma 4， by solving the reciprocity equation
 
 $$
 \gamma _ { 2 } \langle 4 p \rangle \gamma _ { p } \langle 4 p \rangle \gamma _ { \infty } \langle 4 p \rangle = 1 . \quad \mathbb { I }
@@ -4761,13 +5407,16 @@ $$
 
 Here the Legendre symbol (u/p) is defined to be either +1 or -1 according as u is or is not a quadratic residue modulo $p$
 
-Proof. Proceeding as above, the $p$ -primary component $( L ^ { \# } / L ) _ { p }$ is spanned by a vector l/p with φ(l/p)=2u/p(mod Z). Hence
+Proof.
+Proceeding as above, the $p$ -primary component $( L ^ { \# } / L ) _ { p }$ is spanned by a vector l/p with φ(l/p)=2u/p(mod Z). Hence
 
 $$
 \gamma _ { p } \langle 4 p u \rangle { = } \sum _ { j = 1 } ^ { p } \exp \bigl ( 2 \pi i ( 2 u j ^ { 2 } / p ) \bigr ) .
 $$
 
-If (u/p)= +1,then evidently the expression uj² varies over all quadratic residues modulo p, taking each non-zero value twice, and taking the value zero modulo $p$ just once. On the other hand if $( u / p ) = - 1$ then $u j ^ { 2 }$ takes each non-residue value twice, again taking the zero value once. Since the sum of $\exp \bigl ( 2 \pi i ( 2 k / p ) \bigr )$ over all residue classes $k$ modulo $p$ is zero, the conclusion follows easily.(Compare [Lang, p.85].）□
+If (u/p)= +1,then evidently the expression uj² varies over all quadratic residues modulo p, taking each non-zero value twice, and taking the value zero modulo $p$ just once.
+On the other hand if $( u / p ) = - 1$ then $u j ^ { 2 }$ takes each non-residue value twice, again taking the zero value once.
+Since the sum of $\exp \bigl ( 2 \pi i ( 2 k / p ) \bigr )$ over all residue classes $k$ modulo $p$ is zero, the conclusion follows easily.(Compare [Lang, p.85].）□
 
 Now let p and $q$ be distinct odd primes.Applying the reciprocity formula $\gamma _ { 2 } ( L ) \gamma _ { p } ( L ) \gamma _ { q } ( L ) \gamma _ { \infty } ( L )$
 
@@ -4779,7 +5428,9 @@ $$
 
 This is just the classical quadratic reciprocity law.
 
-Concluding remark. There is an analogous Weil reciprocity formula over an arbitrary number field, which can be derived from the rational reciprocity formula. (Compare [Scharlau, 1972] and [KnebuschScharlau,1971].) It takes the form
+Concluding remark.
+There is an analogous Weil reciprocity formula over an arbitrary number field, which can be derived from the rational reciprocity formula.
+(Compare [Scharlau, 1972] and [KnebuschScharlau,1971].) It takes the form
 
 $$
 \prod _ { v } \gamma _ { v } ( X ) = 1 ,
@@ -4819,7 +5470,8 @@ $$
 \begin{array} { r } { X = ( \langle \alpha \rangle \oplus \langle - 1 \rangle ) \otimes ( \langle \beta \rangle \oplus \langle - 1 \rangle ) , } \end{array}
 $$
 
-representing an element in the ideal $I ^ { 2 } ( F )$ in the Witt ring. Then it is easily verified that $\overline { { \gamma _ { v } ( X ) = \pm 1 } }$ If $F _ { v } \notin \mathbf { C } ,$ then both Weil and Scharlau show that $\gamma _ { v } ( X ) = - 1$ for suitably chosen $\pmb { \alpha }$ and $\beta$ The correspondence
+representing an element in the ideal $I ^ { 2 } ( F )$ in the Witt ring.
+Then it is easily verified that $\overline { { \gamma _ { v } ( X ) = \pm 1 } }$ If $F _ { v } \notin \mathbf { C } ,$ then both Weil and Scharlau show that $\gamma _ { v } ( X ) = - 1$ for suitably chosen $\pmb { \alpha }$ and $\beta$ The correspondence
 
 ![](images/b3306b9a6a7cb78aba570ebbbfc48a684d5683576f44c8e46fdacad743251a2e.jpg)
 
@@ -4827,17 +5479,23 @@ representing an element in the ideal $I ^ { 2 } ( F )$ in the Witt ring. Then it
 
 We will construct a self-dual unimodular lattice $L { \bf { \subset } } { \bf { R } } ^ { 2 4 }$ with the property that $x \cdot x \geq 4$ for every $x \neq 0$ in $L$ (Compare Chapter II, \$\$ 6, 7.)
 
-The construction begins with the following combinatorial statement. Let $\mathbf { F } _ { 2 } ^ { 2 4 }$ denote the vector space over $\mathbf { F } _ { 2 }$ consisting of all 24-tuples of integers modulo 2.
+The construction begins with the following combinatorial statement.
+Let $\mathbf { F } _ { 2 } ^ { 2 4 }$ denote the vector space over $\mathbf { F } _ { 2 }$ consisting of all 24-tuples of integers modulo 2.
 
-Lemma. There exists a 12-dimensional subspace $\overline { { S } } { \subset } { \bf { F } } _ { 2 } ^ { 2 4 }$ with the following property. For every non-zero vector $\boldsymbol { s } = ( s _ { 1 } , \ldots , s _ { 2 4 } )$ in S,the number of components s: which are equal to one is at least 8,and is divisible by 4.Furthermore S contains the vector $( 1 , \ldots , 1 )$ consisting of 24 ones.
+Lemma.
+There exists a 12-dimensional subspace $\overline { { S } } { \subset } { \bf { F } } _ { 2 } ^ { 2 4 }$ with the following property.
+For every non-zero vector $\boldsymbol { s } = ( s _ { 1 } , \ldots , s _ { 2 4 } )$ in S,the number of components s: which are equal to one is at least 8,and is divisible by 4.Furthermore S contains the vector $( 1 , \ldots , 1 )$ consisting of 24 ones.
 
 Proof.Following Leech,we will display $s$ as the row space of an explicit $1 2 \times 2 4$ matrix.Let A denote the symmetric 11×11 matrix over $\mathbf { F } _ { 2 }$ whose first row is
 
-and whose remaining rows are obtained by permuting these entries cyclically to the left. Thus each row of $A$ contains 6 ones. Patient inspection shows that
+and whose remaining rows are obtained by permuting these entries cyclically to the left.
+Thus each row of $A$ contains 6 ones.
+Patient inspection shows that
 
 (i) each pair of distinct rows of $A$ has precisely 3 ones in common (i.e., in the same column).
 
-Let $B$ denote the symmetric $1 2 \times 1 2$ matrix which is formed from $A$ byadjoining the first row011111111111 and a corresponding first column. Using (i) we easily verify the following.
+Let $B$ denote the symmetric $1 2 \times 1 2$ matrix which is formed from $A$ byadjoining the first row011111111111 and a corresponding first column.
+Using (i) we easily verify the following.
 
 ![](images/dc7dd4f2e3ce038a86cdadf255121d2000a5d45df52f97ce0ae8534ee68dec15.jpg)
 
@@ -4853,19 +5511,29 @@ It will be convenient to use the notation $\| s \|$ for the number of ones in a 
 
 (iv) If s is a linear combination of the rows of C,then |/sll=0 (mod 4).
 
-This is proved by induction on the number of rows involved. If $\overline { s } ^ { \prime }$ is obtained from $\overline { s }$ by adding a row $r _ { \mathrm { { ; } } }$ ,then evidently
+This is proved by induction on the number of rows involved.
+If $\overline { s } ^ { \prime }$ is obtained from $\overline { s }$ by adding a row $r _ { \mathrm { { ; } } }$ ,then evidently
 
 $$
 \left\| s ^ { \prime } \right\| = \left\| s \right\| + \left\| r \right\| - 2 n
 $$
 
-where n denotes the number of ones which $\pmb { S }$ and $r$ have in common. But s and r are orthogonal by (ii), so n is even. Assuming inductively that |/sl is divisible by 4, it follows that $\| s ^ { \prime } \|$ is divisible by 4 also. (v) If s is a non-zero linear combination of the rows of C,then |/sll ≥8.
+where n denotes the number of ones which $\pmb { S }$ and $r$ have in common.
+But s and r are orthogonal by (ii), so n is even.
+Assuming inductively that |/sl is divisible by 4, it follows that $\| s ^ { \prime } \|$ is divisible by 4 also.
+(v) If s is a non-zero linear combination of the rows of C,then |/sll ≥8.
 
-Proof. By (iv), it suffices to prove that $\| s \| \geq 5$ .Suppose that $s$ is the sum of $k$ distinct rows of $C$ The case $k = 1$ is covered by (ii). If $k = 2$ then it follows easily from (i) that $\| s \| = 8$ .If $k = 3$ and if $s$ is the sum of the first row of $C$ and two other rows, then again it follows from (i) that $\| s \| = 8$ If $s$ is the sum of three rows of $C$ not including the first row, then evidently the first thirteen entries of s include precisely 4 ones.If the remaining eleven entries were all zero, this would mean that the sum of the three corresponding rows of A was zero. Hence the sum of the remaining eight rows of A would also be zero; and the sum of the corresponding eight rows of $\overline { B }$ would be zero, contradicting (ii). Therefore $\left\| s \right\| \geq 5$ ，
+Proof.
+By (iv), it suffices to prove that $\| s \| \geq 5$ .Suppose that $s$ is the sum of $k$ distinct rows of $C$ The case $k = 1$ is covered by (ii).
+If $k = 2$ then it follows easily from (i) that $\| s \| = 8$ .If $k = 3$ and if $s$ is the sum of the first row of $C$ and two other rows, then again it follows from (i) that $\| s \| = 8$ If $s$ is the sum of three rows of $C$ not including the first row, then evidently the first thirteen entries of s include precisely 4 ones.If the remaining eleven entries were all zero, this would mean that the sum of the three corresponding rows of A was zero.
+Hence the sum of the remaining eight rows of A would also be zero; and the sum of the corresponding eight rows of $\overline { B }$ would be zero, contradicting (ii).
+Therefore $\left\| s \right\| \geq 5$ ，
 
 Finally, if $k \geq 4$ ，then the first twelve entries of s contain at least 4 ones,and the remaining entries contain at least 1 one by (i), so again it follows that $\| s \| \geq 5$ .This proves (v),and completes the proof of the Lemma.□
 
-Remark 1. The matrix C was constructed in a rather ad hoc manner. The following description of its row space S may seem a little more motivated.Consider the field $\mathbf { F } _ { 2 0 4 8 }$ with $2 ^ { 1 1 }$ elements. We claim that S can be identified with the collection of all “relations”between the $2 3 ^ { \mathrm { r d } }$ roots of unity in $\mathbf { F } _ { 2 0 4 8 }$ .Let $\omega$ denote a $2 3 ^ { \mathrm { r d } }$ root of unity satisfying the irreducible equation
+Remark 1. The matrix C was constructed in a rather ad hoc manner.
+The following description of its row space S may seem a little more motivated.Consider the field $\mathbf { F } _ { 2 0 4 8 }$ with $2 ^ { 1 1 }$ elements.
+We claim that S can be identified with the collection of all “relations”between the $2 3 ^ { \mathrm { r d } }$ roots of unity in $\mathbf { F } _ { 2 0 4 8 }$ .Let $\omega$ denote a $2 3 ^ { \mathrm { r d } }$ root of unity satisfying the irreducible equation
 
 $$
 1 + \omega + \omega ^ { 5 } + \omega ^ { 6 } + \omega ^ { 7 } + \omega ^ { 9 } + \omega ^ { 1 1 } = 0
@@ -4887,7 +5555,8 @@ $$
 \begin{array} { r l } { \alpha _ { 1 } + \alpha _ { 3 } + \alpha _ { 5 } + \alpha _ { 7 } = 2 4 \equiv 0 } & { { } { \pmod { 8 } } , } \\ { \alpha _ { 1 } + 3 \alpha _ { 3 } + 5 \alpha _ { 5 } + 7 \alpha _ { 7 } \equiv 4 } & { { } { \pmod { 8 } } , } \\ { \alpha _ { 1 } } & { { } { \pmod { 4 } } , } \end{array}
 $$
 
-where the last two follow from (vii) and the lemma. Adding the first two congruences and subtracting twice the third, we obtain
+where the last two follow from (vii) and the lemma.
+Adding the first two congruences and subtracting twice the third, we obtain
 
 $$
 4 \alpha _ { 3 } + 4 \alpha _ { 5 } \equiv 4 { \pmod { 8 } } .
@@ -4903,35 +5572,42 @@ $$
 
 Thus the lattice $L$ is self-dual.
 
-Note that no element $\overline { { x \in L } }$ can satisfy ${ \overline { { x \cdot x } } } = 2$ For if $t _ { 1 } ^ { 2 } + \cdots + t _ { 2 4 } ^ { 2 } = 1 6$ then the $\overline { { t _ { i } } }$ certainly cannot all be odd. But the only expressions for 16 as a sum of even squares are
+Note that no element $\overline { { x \in L } }$ can satisfy ${ \overline { { x \cdot x } } } = 2$ For if $t _ { 1 } ^ { 2 } + \cdots + t _ { 2 4 } ^ { 2 } = 1 6$ then the $\overline { { t _ { i } } }$ certainly cannot all be odd.
+But the only expressions for 16 as a sum of even squares are
 
 $$
 1 6 { = } 4 ^ { 2 } { = } 2 ^ { 2 } + 2 ^ { 2 } + 2 ^ { 2 } + 2 ^ { 2 } ,
 $$
 
-and both possibilities are excluded by (vi) and the lemma. Therefore $x \cdot x \geq 4$ for every $x \neq 0$
+and both possibilities are excluded by (vi) and the lemma.
+Therefore $x \cdot x \geq 4$ for every $x \neq 0$
 
 For further information about the Leech lattice,the reader is referred to [Conway].
 
-Concluding remark. A complete classification of unimodular lattices of type II in $\mathbf { R } ^ { 2 4 }$ has been given by [Niemeier].He shows that there are precisely 24 such lattices L up to isomorphism; and that a complete invariant for Lis provided by the finite subset ${ \cal R } ( L )$ consisting of all vectors $x \in L$ with norm $x \cdot x$ equal to 2.Evidently,for any $x _ { 0 } { \in } R ( L )$ the reflection
+Concluding remark.
+A complete classification of unimodular lattices of type II in $\mathbf { R } ^ { 2 4 }$ has been given by [Niemeier].He shows that there are precisely 24 such lattices L up to isomorphism; and that a complete invariant for Lis provided by the finite subset ${ \cal R } ( L )$ consisting of all vectors $x \in L$ with norm $x \cdot x$ equal to 2.Evidently,for any $x _ { 0 } { \in } R ( L )$ the reflection
 
 $$
 y \mapsto y - ( x _ { 0 } \cdot y ) x _ { 0 }
 $$
 
-in the hyperplane perpendicular to $x _ { 0 }$ maps $L$ to itself, and hence maps $R ( L )$ to itself.Therefore $R ( L )$ is a“root system”,as described in [Bourbaki, v.34, pp.142-197], in some euclidean space. Note that the angle between any two vectors in $R ( L )$ is either 0°,60°,90°,120°,0r 180° Using the classification theorem for root systems,we see that $R ( L )$ is a disjoint union of mutually perpendicular root systems, each of which can be described by a“Dynkin diagram”of one of the following three types.In each case, each vertex of the Dynkin diagram represents a basis vector of norm $x \cdot x { } = 2$ in an m-dimensional lattice, and two such basis vectors have inner product either -1 or O according as they are joined by a line segment or not. The associated root system consists of all vectors of norm 2 in the lattice $\bar { L }$ spanned by these basis vectors.
+in the hyperplane perpendicular to $x _ { 0 }$ maps $L$ to itself, and hence maps $R ( L )$ to itself.Therefore $R ( L )$ is a“root system”,as described in [Bourbaki, v.34, pp.142-197], in some euclidean space.
+Note that the angle between any two vectors in $R ( L )$ is either 0°,60°,90°,120°,0r 180° Using the classification theorem for root systems,we see that $R ( L )$ is a disjoint union of mutually perpendicular root systems, each of which can be described by a“Dynkin diagram”of one of the following three types.In each case, each vertex of the Dynkin diagram represents a basis vector of norm $x \cdot x { } = 2$ in an m-dimensional lattice, and two such basis vectors have inner product either -1 or O according as they are joined by a line segment or not.
+The associated root system consists of all vectors of norm 2 in the lattice $\bar { L }$ spanned by these basis vectors.
 
 Type $A _ { m } ( m \geq 1 )$ . In this case the Dynkin diagram consists of m vertices joined by $m - 1$ line segments as follows.
 
 ![](images/06057b1b6a9afe470d8923b32f62bb5574dea6cff4ba83550586427dd77a3fe6.jpg)
 
-In terms of auxilliary orthonormal vectors $e _ { 1 } , \ldots , e _ { m + 1 }$ ,the $i$ -th vertex in this diagram can be identified with the diference vector $e _ { i } - e _ { i + 1 }$ ： Thus the lattice $\bar { L }$ can be identified with the lattice consisting of all $( m + 1 )$ -tuples of integers with sum zero. The determinant of $\bar { L }$ is equal $_ { \textrm t o m + 1 }$
+In terms of auxilliary orthonormal vectors $e _ { 1 } , \ldots , e _ { m + 1 }$ ,the $i$ -th vertex in this diagram can be identified with the diference vector $e _ { i } - e _ { i + 1 }$ ： Thus the lattice $\bar { L }$ can be identified with the lattice consisting of all $( m + 1 )$ -tuples of integers with sum zero.
+The determinant of $\bar { L }$ is equal $_ { \textrm t o m + 1 }$
 
-（2014号 $\overline { { { T y p e } ~ { D _ { m } ( m \geq 4 ) } } }$ . In this case the m vertices are connected as follows.
+（2014 号 $\overline { { { T y p e } ~ { D _ { m } ( m \geq 4 ) } } }$ . In this case the m vertices are connected as follows.
 
 ![](images/4b2836326ec357e7f3adb6c3cec128332cce22428024d2aab94862cefaba9685.jpg)
 
-In terms of orthonormal vectors $e _ { 1 } , \ldots , e _ { m }$ ， the m vertices can be identified with the vectors $e _ { i } - e _ { i + 1 }$ and $e _ { m - 1 } + e _ { m }$ The lattice $\bar { L }$ can be identified with the lattice consisting of all m-tuples of integers with even sum. Its determinant is equal to 4.
+In terms of orthonormal vectors $e _ { 1 } , \ldots , e _ { m }$ ， the m vertices can be identified with the vectors $e _ { i } - e _ { i + 1 }$ and $e _ { m - 1 } + e _ { m }$ The lattice $\bar { L }$ can be identified with the lattice consisting of all m-tuples of integers with even sum.
+Its determinant is equal to 4.
 
 Type $E _ { m } ( m = 6 , 7 , 8 )$ . In these three exceptional cases the m vertices are connected as follows; and the determinant of $\bar { L }$ is equal to $9 - m$
 
@@ -4939,7 +5615,8 @@ Type $E _ { m } ( m = 6 , 7 , 8 )$ . In these three exceptional cases the m vert
 
 Compare the discussion in Chapter I1, \$ 7.
 
-Niemeier gives an explicit list of the 24 distinct root systems which arise from unimodular lattices of type $\mathrm { I I }$ in $\mathbf { R } ^ { 2 4 }$ . In general the root system $R ( L )$ spansa sub-lattice $\bar { L }$ which has finite index in $L$ .The Leech lattice, with $\bar { L } { = } 0$ ,is the only exception to this. In general the lattice $\bar { L }$ has determinant greater than 1,and hence is a proper sub-lattice of $L .$ Again there is just one exception, namely the lattice $\scriptstyle { \bar { L } } = L = { \Gamma _ { 8 } } \oplus { \Gamma _ { 8 } } \oplus { \Gamma _ { 8 } }$ with root system $R ( L )$ equal to $E _ { 8 } \cup E _ { 8 } \cup E _ { 8 }$ .Note that $\bar { L }$ may be (and usually is) decomposable, even when the unimodular lattice $L$ isindecomposable.
+Niemeier gives an explicit list of the 24 distinct root systems which arise from unimodular lattices of type $\mathrm { I I }$ in $\mathbf { R } ^ { 2 4 }$ . In general the root system $R ( L )$ spansa sub-lattice $\bar { L }$ which has finite index in $L$ .The Leech lattice, with $\bar { L } { = } 0$ ,is the only exception to this.
+In general the lattice $\bar { L }$ has determinant greater than 1,and hence is a proper sub-lattice of $L .$ Again there is just one exception, namely the lattice $\scriptstyle { \bar { L } } = L = { \Gamma _ { 8 } } \oplus { \Gamma _ { 8 } } \oplus { \Gamma _ { 8 } }$ with root system $R ( L )$ equal to $E _ { 8 } \cup E _ { 8 } \cup E _ { 8 }$ .Note that $\bar { L }$ may be (and usually is) decomposable, even when the unimodular lattice $L$ isindecomposable.
 
 # Chronological Table
 
@@ -4947,9 +5624,42 @@ Niemeier gives an explicit list of the 24 distinct root systems which arise from
 
 ![](images/a60321cc597f9c3f76a39c625a498c42245f1227e1778b964162653c4e1a1859.jpg)
 
-Arason,J.K., Pfister,A.:Beweis_desKrullschen Durchschnitsatzes fur den Witring. Invent.Math.12,173-176 (1971). Arf,C.:Untersuchungen über quadratische Formen in Korpern der Characteristic 2. J.ReineAngew.Math.183,148-167(1941).(Compareibid.193,121-125 (1954).) Artin,E.: Geometric algebra. Interscience 1957. Bass,H.:Lectures on topics in algebraic $\pmb { K }$ -theory.Bombay:Tata Institute 1967. Birkhoff, G.,MacLane,S.:A survey of modern algebra.MacMillan 1941.   
-Blichfeldt, H.F.: The minimum values of quadratic forms in six,seven, and eight variables. Math. Z.39,1-15 (1935).   
-VBlij,F.van der: An invariant of quadratic forms mod 8.Indag. Math.21,291-293 (1959). Borevich,Z.I.,Shafarevich,I.R.: Number theory.Academic Press 1966. Bourbaki, N.:Eléments 24 (Algebre 9), Formes sesquilineaires et formes quadratiques. Hermann 1959. Bourbaki, N.: Eléments 34, Groupes et algebres de Lie 4-6.Hermann 1968. Braun,H.: Geschlechter quadratischer Formen. J. Reine Angew. Math. 182, 32-49 (1940). Cartan,H., Eilenberg, S.: Homological algebra. Princeton University Press 1956. Chevally, C.: The algebraic theory of Spinors. Columbia University Press 1954. Conway,J.H.:A group of order 8,315,553,613,086,720,000. Bull.Lond.Math.Soc.1, 79-88 (1969). Conway, J.H.: A characterization of Leech's lattice. Invent. Math.7,137-142 (1969). Conway,J.H.:Groups, lattces,and quadratic forms, pp.135-139 of “Computers in Algebra and Number Theory", SIAM-AMS Proceedings 4,AMS 1971. Dickson,L.E.: History of the Theory of Numbers,2and 3,New York: G.E.Stechart & Co 1934. Dyson,F.J.: Quaternion determinants. Helv.Phys.Acta 45,289-302 (1972). Frohlich,A.: Discriminants of algebraic number fields.Math. Z. 74, 18-28 (1960). (See also: Ideals in an extension field .., p. 29-38.) Frohlich,A.: Hermitian and quadratic forms over rings with involution. Quart. J. Math. Oxford 20,297-317 (1969). Frohlich,A.: On the K-theory of unimodular forms over rings of algebraic integers. Quart. J. Math. Oxford, to appear. Frohlich, A., McEvett: Forms over rings with involution. J. Algebra 12, $7 9 { \scriptstyle - 1 0 4 }$ (1969). Gelfand, 1.M., Mischchenko,A.S.: Quadratic forms over commutative group rings and the $\kappa$ -theory.Functional Analysis and its Applications 3,277-281 (1969). Geyer,W.-D.,Harder, G., Knebusch, M., Scharlau, W.: Ein Residuensatz fur symmetrische Bilinearformen.Invent.Math.11,319-328 (1970). Hilbert,D., Cohn-Vossen,S.: Geometry and the imagination. Chelsea 1952. Hirzebruch,F.: Topological methods in algebraic geometry. Springer 1966. Jacobson,N.: A note on hermitian forms. Bull Amer. Math. Soc.46,264-268 (1940). Knebusch, M.: Grothendieck und Wittringe von nichtausgearteten symmetrischen Bilinearformen,Sitzungsber. Heidelb. Akad. Wiss. Math.-naturw.Kl. 1969/70,3.Abh.
+Arason,J.K., Pfister,A.:Beweis_desKrullschen Durchschnitsatzes fur den Witring.
+Invent.Math.12,173-176 (1971). Arf,C.:Untersuchungen über quadratische Formen in Korpern der Characteristic 2. J.ReineAngew.Math.183,148-167(1941).(Compareibid.193,121-125 (1954).) Artin,E.: Geometric algebra.
+Interscience 1957. Bass,H.:Lectures on topics in algebraic $\pmb { K }$ -theory.Bombay:Tata Institute 1967. Birkhoff, G.,MacLane,S.:A survey of modern algebra.MacMillan 1941.\
+Blichfeldt, H.F.: The minimum values of quadratic forms in six,seven, and eight variables.
+Math.
+Z.39,1-15 (1935).\
+VBlij,F.van der: An invariant of quadratic forms mod 8.Indag.
+Math.21,291-293 (1959). Borevich,Z.I.,Shafarevich,I.R.: Number theory.Academic Press 1966. Bourbaki, N.:Eléments 24 (Algebre 9), Formes sesquilineaires et formes quadratiques.
+Hermann 1959. Bourbaki, N.: Eléments 34, Groupes et algebres de Lie 4-6.Hermann 1968. Braun,H.: Geschlechter quadratischer Formen.
+J. Reine Angew.
+Math.
+182, 32-49 (1940). Cartan,H., Eilenberg, S.: Homological algebra.
+Princeton University Press 1956. Chevally, C.: The algebraic theory of Spinors.
+Columbia University Press 1954. Conway,J.H.:A group of order 8,315,553,613,086,720,000. Bull.Lond.Math.Soc.1, 79-88 (1969). Conway, J.H.: A characterization of Leech's lattice.
+Invent.
+Math.7,137-142 (1969). Conway,J.H.:Groups, lattces,and quadratic forms, pp.135-139 of “Computers in Algebra and Number Theory", SIAM-AMS Proceedings 4,AMS 1971. Dickson,L.E.: History of the Theory of Numbers,2and 3,New York: G.E.Stechart & Co 1934. Dyson,F.J.: Quaternion determinants.
+Helv.Phys.Acta 45,289-302 (1972). Frohlich,A.: Discriminants of algebraic number fields.Math.
+Z. 74, 18-28 (1960). (See also: Ideals in an extension field .., p. 29-38.) Frohlich,A.: Hermitian and quadratic forms over rings with involution.
+Quart.
+J. Math.
+Oxford 20,297-317 (1969). Frohlich,A.: On the K-theory of unimodular forms over rings of algebraic integers.
+Quart.
+J. Math.
+Oxford, to appear.
+Frohlich, A., McEvett: Forms over rings with involution.
+J. Algebra 12, $7 9 { \scriptstyle - 1 0 4 }$ (1969). Gelfand, 1.M., Mischchenko,A.S.: Quadratic forms over commutative group rings and the $\kappa$ -theory.Functional Analysis and its Applications 3,277-281 (1969). Geyer,W.-D.,Harder, G., Knebusch, M., Scharlau, W.: Ein Residuensatz fur symmetrische Bilinearformen.Invent.Math.11,319-328 (1970). Hilbert,D., Cohn-Vossen,S.: Geometry and the imagination.
+Chelsea 1952. Hirzebruch,F.: Topological methods in algebraic geometry.
+Springer 1966. Jacobson,N.: A note on hermitian forms.
+Bull Amer.
+Math.
+Soc.46,264-268 (1940). Knebusch, M.: Grothendieck und Wittringe von nichtausgearteten symmetrischen Bilinearformen,Sitzungsber.
+Heidelb.
+Akad.
+Wiss.
+Math.-naturw.Kl.
+1969/70,3.Abh.
 
 ![](images/bf00febbf131dacb63b9e704bb5231d3b12ab98352ae726d324c3ba5b7386c4a.jpg)
 
@@ -4973,49 +5683,76 @@ VBlij,F.van der: An invariant of quadratic forms mod 8.Indag. Math.21,291-293 (1
 
 # Ergebnisse der Mathematik und ihrer Grenzgebiete
 
-1. Bachmann: Transfinite Zahlen. DM 48,-; US \$15.30   
-2. Miranda: Partial Differential Equations of Eliptic Type. DM 58,-; US \$18.40   
-4.Samuel: Methodes d'Algebre Abstraiteen Geometrie Algebrique.DM 34,-;US \$10.80   
-5.Dieudonne:La Geometrie des Groupes Classiques.DM42 ;US \$13.40   
-7. Ostmann: Additive Zahlentheorie. i.Teil: Allgemeine Untersuchungen. DM 42,一; US \$13.40   
-8. Wittich: Neuere Untersuchungen über eindeutige analytische Funktionen. DM 36,一; US \$13.40   
-11. Ostmann: Additive Zahlentheorie. 2.Teil: Spezielle Zahlenmengen. DM 34,一; US \$10.80   
-13.Segre: Some Properties of Diffrentiable Varieties and Transformations. DM 46,-; US \$14.60   
-14. Coxeter/Moser: Generators and Relations for Discrete Groups. DM 42,-; US \$13.40   
-15.Zeller/Beckmann: Theorie der Limitierungsverfahren. DM 64,-; US \$20.30   
-16. Cesari: Asymptotic Behavior and Stability Problems in Ordinary Differential Equations.DM $s 4 , -$ ;US \$17.20   
-17. Severi:Iltheoremadi Riemann-Roch percurve - superficieevarieta questionicollegate. DM 30,-;US \$9.60   
-18. Jenkins: Univalent Functions and Conformal Mapping. DM 37,-; US \$11.80   
-19.Boas/Buck: Polynomial Expansions of Analytic Functions. DM 24,-;US \$7.70   
-20.Bruck: A Survey of Binary Systems.DM 46,-; US \$14.60   
-21. Day: Normed Linear Spaces. In preparation   
-23.Bergmann: Integral Operators in the Theory of Linear Partial Differential Equations. DM 40 $\bar { \bullet }$ ;US \$12.70   
-25. Sikorski: Boolean Algebras. DM 42. ; US \$13.40   
-26. Kinzi: Quasikonforme Abbildungen.DM 43,-;US \$13.70   
-27. Schatten: Norm Ideals of Completely Continuous Operators.DM 30,-;US \$9.60   
-28.Noshiro:Cluster Sets.DM40 ;US \$12.70   
-30.Beckenbach/Bellman: Inequalities.DM38,-; US \$12.10   
-31. Wolfowitz: Coding Theorems of Information Theory.DM 30,-; US \$9.60   
-32. Constantinescu/Cornea: Ideale Ränder Riemannscher Flachen.DM 75,-; US \$23.80   
-33. Conner/Floyd: Diffrentiable Periodic Maps. DM34,-; US \$10.80   
-34.Mumford: Geometric Invariant Theory.DM 24,-; US \$7.70   
-35.Gabriel/Zisman: Calculus of Fractions and Homotopy Theory.DM42,-; US \$13.40   
-36.Putnam: Commutation Properties of Hilbert Space Operators and Related Topics. DM 31,-; US \$9.90   
-37. Neumann: Varieties of Groups. DM 51,-; US \$16.20   
-38.Boas: Integrability Theorems for Trigonometric Transforms. DM 20,-;US \$6.20   
-39.Sz.-Nagy: Spektraldarstellung linearer Transformationen des Hilbertschen Raumes. DM 24,-;US \$7.70   
-40.Seligman: Modular Lie Algebras.DM43,-; US \$13.70   
-41.Deuring: Algebren.DM30,-;US \$9.60   
-42.Schute:Volstandige Systeme modaler und intuitionistischer Logik.DM30-; US \$9.60   
-43.Smullyan: First-Order Logic. DM36,-; US \$11.50   
-44.Dembowski: Finite Geometries.DM 68,-; US \$21.60   
-45.Linnik: Ergodic Properties of Algebraic Fields.DM 44,-; US \$14.00   
-46. Krull: Idealtheorie. DM34,-; US \$10.80   
-47. Nachbin: Topology on Spaces of Holomorphic Mappings. DM 18,-; US \$5.80   
-48.A.Ionescu Tulcea/C.Ionescu Tulcea: Topics in the Theory of Lifting. DM 36,一; US \$11.50   
-49.Hayes/Pauc: Derivation and Martingales.DM 48,-;US \$15.30   
-50.Kahane: Series de Fourier absolument convergentes. DM 44,-; US \$14.00   
-51.Behnke/Thullen: Theorie der Funktionen mehrerer komplexer Veränderlichen. DM 48,-; US \$15.30   
-52.Wilf: Finite Sections of Some Classical Inequalities.DM 28,-;US \$8.90
+1. Bachmann: Transfinite Zahlen.
+   DM 48,-; US \$15.30
+2. Miranda: Partial Differential Equations of Eliptic Type.
+   DM 58,-; US \$18.40\
+   4.Samuel: Methodes d'Algebre Abstraiteen Geometrie Algebrique.DM 34,-;US \$10.80\
+   5.Dieudonne:La Geometrie des Groupes Classiques.DM42 ;US \$13.40
+3. Ostmann: Additive Zahlentheorie.
+   i.Teil: Allgemeine Untersuchungen.
+   DM 42,一; US \$13.40
+4. Wittich: Neuere Untersuchungen über eindeutige analytische Funktionen.
+   DM 36,一; US \$13.40
+5. Ostmann: Additive Zahlentheorie.
+   2.Teil: Spezielle Zahlenmengen.
+   DM 34,一; US \$10.80\
+   13.Segre: Some Properties of Diffrentiable Varieties and Transformations.
+   DM 46,-; US \$14.60
+6. Coxeter/Moser: Generators and Relations for Discrete Groups.
+   DM 42,-; US \$13.40\
+   15.Zeller/Beckmann: Theorie der Limitierungsverfahren.
+   DM 64,-; US \$20.30
+7. Cesari: Asymptotic Behavior and Stability Problems in Ordinary Differential Equations.DM $s 4 , -$ ;US \$17.20
+8. Severi:Iltheoremadi Riemann-Roch percurve - superficieevarieta questionicollegate.
+   DM 30,-;US \$9.60
+9. Jenkins: Univalent Functions and Conformal Mapping.
+   DM 37,-; US \$11.80\
+   19.Boas/Buck: Polynomial Expansions of Analytic Functions.
+   DM 24,-;US \$7.70\
+   20.Bruck: A Survey of Binary Systems.DM 46,-; US \$14.60
+10. Day: Normed Linear Spaces.
+    In preparation\
+    23.Bergmann: Integral Operators in the Theory of Linear Partial Differential Equations.
+    DM 40 $\bar { \bullet }$ ;US \$12.70
+11. Sikorski: Boolean Algebras.
+    DM 42. ; US \$13.40
+12. Kinzi: Quasikonforme Abbildungen.DM 43,-;US \$13.70
+13. Schatten: Norm Ideals of Completely Continuous Operators.DM 30,-;US \$9.60\
+    28.Noshiro:Cluster Sets.DM40 ;US \$12.70\
+    30.Beckenbach/Bellman: Inequalities.DM38,-; US \$12.10
+14. Wolfowitz: Coding Theorems of Information Theory.DM 30,-; US \$9.60
+15. Constantinescu/Cornea: Ideale Ränder Riemannscher Flachen.DM 75,-; US \$23.80
+16. Conner/Floyd: Diffrentiable Periodic Maps.
+    DM34,-; US \$10.80\
+    34.Mumford: Geometric Invariant Theory.DM 24,-; US \$7.70\
+    35.Gabriel/Zisman: Calculus of Fractions and Homotopy Theory.DM42,-; US \$13.40\
+    36.Putnam: Commutation Properties of Hilbert Space Operators and Related Topics.
+    DM 31,-; US \$9.90
+17. Neumann: Varieties of Groups.
+    DM 51,-; US \$16.20\
+    38.Boas: Integrability Theorems for Trigonometric Transforms.
+    DM 20,-;US \$6.20\
+    39.Sz.-Nagy: Spektraldarstellung linearer Transformationen des Hilbertschen Raumes.
+    DM 24,-;US \$7.70\
+    40.Seligman: Modular Lie Algebras.DM43,-; US \$13.70\
+    41.Deuring: Algebren.DM30,-;US \$9.60\
+    42.Schute:Volstandige Systeme modaler und intuitionistischer Logik.DM30-; US \$9.60\
+    43.Smullyan: First-Order Logic.
+    DM36,-; US \$11.50\
+    44.Dembowski: Finite Geometries.DM 68,-; US \$21.60\
+    45.Linnik: Ergodic Properties of Algebraic Fields.DM 44,-; US \$14.00
+18. Krull: Idealtheorie.
+    DM34,-; US \$10.80
+19. Nachbin: Topology on Spaces of Holomorphic Mappings.
+    DM 18,-; US \$5.80\
+    48.A.Ionescu Tulcea/C.Ionescu Tulcea: Topics in the Theory of Lifting.
+    DM 36,一; US \$11.50\
+    49.Hayes/Pauc: Derivation and Martingales.DM 48,-;US \$15.30\
+    50.Kahane: Series de Fourier absolument convergentes.
+    DM 44,-; US \$14.00\
+    51.Behnke/Thullen: Theorie der Funktionen mehrerer komplexer Veränderlichen.
+    DM 48,-; US \$15.30\
+    52.Wilf: Finite Sections of Some Classical Inequalities.DM 28,-;US \$8.90
 
 ![](images/5ca937bb359c457998c43302f89efb24ea4846afefb741b21976d757395354d0.jpg)

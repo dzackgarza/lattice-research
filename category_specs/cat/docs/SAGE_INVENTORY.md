@@ -1,8 +1,7 @@
 # Cat Sage Inventory
 
-This inventory grounds the `cat/` subtree in Sage's installed category, functor,
-homset, and functorial-construction machinery. It surveys low-level framework
-classes, not the full list of mathematical categories.
+This inventory grounds the `cat/` subtree in Sage's installed category, functor, homset, and functorial-construction machinery.
+It surveys low-level framework classes, not the full list of mathematical categories.
 
 Installed Sage source root:
 
@@ -36,18 +35,15 @@ Relevant surface:
 
 Source: `category.py`, line 2717.
 
-Relevant methods: `_make_named_class`, `_make_named_class_key`, `_cmp_key`,
-`_subcategory_hook_`.
+Relevant methods: `_make_named_class`, `_make_named_class_key`, `_cmp_key`, `_subcategory_hook_`.
 
-Use: base for parameterized category classes whose generated classes depend on
-parameters such as base rings.
+Use: base for parameterized category classes whose generated classes depend on parameters such as base rings.
 
 ### `sage.categories.category.JoinCategory`
 
 Source: `category.py`, line 3004.
 
-Relevant methods: `super_categories`, `additional_structure`, `_subcategory_hook_`,
-`is_subcategory`, `_with_axiom`, `_without_axiom`, `_repr_object_names`, `_repr_`.
+Relevant methods: `super_categories`, `additional_structure`, `_subcategory_hook_`, `is_subcategory`, `_with_axiom`, `_without_axiom`, `_repr_object_names`, `_repr_`.
 
 Use: Sage's category lattice join object.
 
@@ -86,10 +82,7 @@ Use: base-object and base-ring category families.
 
 ## Category-Object Runtime Facts
 
-Installed Sage category instances such as `Sets()`, `Rings()`, and `Modules(ZZ)`
-report `category() == Objects()`. Sage gives category-object navigation such as
-`Homsets()` and `Endsets()` through generated category classes, not by making
-category objects ordinary parents of a separate `Cat` category.
+Installed Sage category instances such as `Sets()`, `Rings()`, and `Modules(ZZ)` report `category() == Objects()`. Sage gives category-object navigation such as `Homsets()` and `Endsets()` through generated category classes, not by making category objects ordinary parents of a separate `Cat` category.
 
 ## Functors
 
@@ -122,19 +115,15 @@ Installed subclasses and constructors:
 
 Source: `pushout.py`, line 45.
 
-Relevant methods: `__mul__`, `pushout`, `__eq__`, `__hash__`, `_repr_`, `merge`,
-`commutes`, `expand`, `common_base`, `_raise_common_base_exception_`, and the
-`coercion_reversed` flag.
+Relevant methods: `__mul__`, `pushout`, `__eq__`, `__hash__`, `_repr_`, `merge`, `commutes`, `expand`, `common_base`, `_raise_common_base_exception_`, and the `coercion_reversed` flag.
 
-Runtime fact: `ConstructionFunctor` subclasses Sage `Functor`. It is a functor-like
-morphism object with domain/codomain/action semantics.
+Runtime fact: `ConstructionFunctor` subclasses Sage `Functor`. It is a functor-like morphism object with domain/codomain/action semantics.
 
 ### `sage.categories.pushout.CompositeConstructionFunctor`
 
 Source: `pushout.py`, line 419.
 
-Relevant methods: `_apply_functor_to_morphism`, `_apply_functor`, `__eq__`,
-`__hash__`, `__mul__`, `_repr_`, and `expand`.
+Relevant methods: `_apply_functor_to_morphism`, `_apply_functor`, `__eq__`, `__hash__`, `__mul__`, `_repr_`, and `expand`.
 
 ## Functorial Construction Categories
 
@@ -142,16 +131,13 @@ Relevant methods: `_apply_functor_to_morphism`, `_apply_functor`, `__eq__`,
 
 Source: `covariant_functorial_construction.py`, line 231.
 
-Relevant methods: `_base_category_class`, `__classcall__`, `__classget__`,
-`category_of`, `base_category`, `extra_super_categories`, `super_categories`,
-`_repr_object_names`, and `_latex_`.
+Relevant methods: `_base_category_class`, `__classcall__`, `__classget__`, `category_of`, `base_category`, `extra_super_categories`, `super_categories`, `_repr_object_names`, and `_latex_`.
 
 ### `CovariantConstructionCategory`
 
 Source: `covariant_functorial_construction.py`, line 516.
 
-Relevant methods: `default_super_categories`, `is_construction_defined_by_base`,
-and `additional_structure`.
+Relevant methods: `default_super_categories`, `is_construction_defined_by_base`, and `additional_structure`.
 
 ### `RegressiveCovariantConstructionCategory`
 
@@ -189,8 +175,7 @@ Source: `homsets.py`, line 175.
 
 Relevant methods: `_repr_object_names`, `super_categories`.
 
-Use: Sage's fallback category for homsets of a category that does not define its own
-homset category.
+Use: Sage's fallback category for homsets of a category that does not define its own homset category.
 
 ### `sage.categories.homsets.Homsets`
 
@@ -201,8 +186,7 @@ Relevant surface:
 - `super_categories()` returns `[Sets()]`.
 - `SubcategoryMethods.Endset()` returns the `Endset` axiom.
 - nested `Endset` begins at line 299 and adds monoid structure.
-- `Homsets.ParentMethods.is_endomorphism_set()` tests whether a homset has equal
-  domain and codomain.
+- `Homsets.ParentMethods.is_endomorphism_set()` tests whether a homset has equal domain and codomain.
 
 ### `sage.categories.homset`
 
@@ -217,14 +201,9 @@ Relevant surface:
 
 ## Autsets
 
-- Searched: installed `sage/categories/homsets.py`, installed
-  `sage/categories/homset.py`, official Sage documentation pages for category and
-  homset machinery, and local `category_specs/homsets/__init__.py`.
-- Found: Sage provides `HomsetsCategory`, `HomsetsOf`, `Homsets`, `Homsets.Endset`,
-  `Hom(...)`, `End(...)`, and `Homset`. I found no installed generic Sage `Autset`
-  category class.
-- Conclusion: inference -- the searched Sage installation has generic homset and
-  endset categories, but no generic `Autset` category class.
+- Searched: installed `sage/categories/homsets.py`, installed `sage/categories/homset.py`, official Sage documentation pages for category and homset machinery, and local `category_specs/homsets/__init__.py`.
+- Found: Sage provides `HomsetsCategory`, `HomsetsOf`, `Homsets`, `Homsets.Endset`, `Hom(...)`, `End(...)`, and `Homset`. I found no installed generic Sage `Autset` category class.
+- Conclusion: inference -- the searched Sage installation has generic homset and endset categories, but no generic `Autset` category class.
 - Confidence: High.
 - Gaps: I did not search Sage's full git history or third-party Sage extensions.
 

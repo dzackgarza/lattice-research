@@ -1,17 +1,16 @@
 # SAGE_INVENTORY.md — Lattices Subtree
 
-Indexes every Sage class and method relevant to the lattices hierarchy, with on-disk
-paths and line numbers. Consult this before searching Sage source directly.
+Indexes every Sage class and method relevant to the lattices hierarchy, with on-disk paths and line numbers.
+Consult this before searching Sage source directly.
 
-`SAGE_LIB` below expands to:
-`/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage`
+`SAGE_LIB` below expands to: `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage`
 
----
+* * *
 
 ## Top-level Sage constructor and construction functions
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/modules/free_quadratic_module.py` | 86 | `FreeQuadraticModule` | `(base_ring, rank, inner_product_matrix, sparse=False, inner_product_ring=None)` | free quadratic module factory over a commutative ring; coerces `rank` to `int`, canonicalizes `inner_product_matrix` as an immutable `rank x rank` matrix over `base_ring`, caches by `(base_ring, rank, matrix, sparse)`, and selects field, PID, integral-domain, or generic ambient backend from base-ring category; the form matrix need not be symmetric or definite; `inner_product_ring` is a source stub that raises `NotImplementedError` |
 | `SAGE_LIB/modules/free_quadratic_module.py` | 190 | `QuadraticSpace` | `(K, dimension, inner_product_matrix, sparse=False)` | field-only wrapper around `FreeQuadraticModule`; `K` must be a field and `sparse` must be a boolean |
 | `SAGE_LIB/modules/free_quadratic_module.py` | 223 | `InnerProductSpace` | alias of `QuadraticSpace` | Sage-compatible alias |
@@ -24,7 +23,7 @@ paths and line numbers. Consult this before searching Sage source directly.
 ### Package-level public import surfaces
 
 | File | Line | Surface | Notes |
-|------|------|---------|-------|
+| --- | --- | --- | --- |
 | `SAGE_LIB/modules/all.py` | 16 | `FreeModule`, `VectorSpace`, `span` | public module import route; `FreeModule(..., inner_product_matrix=...)` can dispatch to `FreeQuadraticModule` |
 | `SAGE_LIB/modules/all.py` | 18 | `FreeQuadraticModule`, `QuadraticSpace`, `InnerProductSpace` | public import route for free quadratic module constructors |
 | `SAGE_LIB/modules/all.py` | 24 | `vector`, `free_module_element`, `zero_vector`, `random_vector` | public module-element helper import route |
@@ -34,18 +33,19 @@ paths and line numbers. Consult this before searching Sage source directly.
 | `SAGE_LIB/geometry/all.py` | 14 | `ToricLattice` | public geometry lazy-import route for toric character lattices |
 | `SAGE_LIB/geometry/all.py` | 1-20 | `PolyhedralComplex`, `Cone`, `random_cone`, `cones`, `Fan`, `FaceFan`, `NormalFan`, `Fan2d`, `FanMorphism`, `LatticePolytope`, `NefPartition`, `ReflexivePolytope`, `ReflexivePolytopes`, `lattice_polytope`, `toric_plotter`, `VoronoiDiagram`, `RibbonGraph`, `HyperplaneArrangements`, `OrderedHyperplaneArrangements`, `hyperplane_arrangements`, and wildcard imports from `polyhedron.all` and `hyperbolic_space.all` | public geometry import routes that touch toric/discrete geometry vocabulary but are not algebraic formed-lattice constructors; route as geometry/polyhedral/interop context unless a later geometry spec admits a specific object |
 
----
+* * *
 
 ## Tier 0 — Generic modules with inner product (free, over commutative ring)
 
 ### `FreeQuadraticModule_generic`
-**File:** `SAGE_LIB/modules/free_quadratic_module.py:258`  
-**Inherits:** `free_module.FreeModule_generic`  
+
+**File:** `SAGE_LIB/modules/free_quadratic_module.py:258`\
+**Inherits:** `free_module.FreeModule_generic`\
 **Role:** Base class for all free quadratic modules; carries an inner product matrix.
 
 | Line | Method | Signature | Notes |
-|------|--------|-----------|-------|
-| 310 | `__init__` | `(base_ring, rank, degree, inner_product_matrix, sparse=False)` | |
+| --- | --- | --- | --- |
+| 310 | `__init__` | `(base_ring, rank, degree, inner_product_matrix, sparse=False)` |  |
 | 369 | `ambient_module` | `(self)` | ambient quadratic module |
 | 390 | `determinant` | `(self)` | det of Gram matrix |
 | 408 | `discriminant` | `(self)` | `(-1)^r * det(gram_matrix)`, where `r = rank // 2` in Sage's convention |
@@ -57,33 +57,33 @@ paths and line numbers. Consult this before searching Sage source directly.
 | 550 | `_inner_product_is_diagonal` | `(self)` | internal optimization predicate comparing the inner-product matrix to the diagonal matrix with the same diagonal |
 
 ### `FreeQuadraticModule_generic_pid`
-**File:** `SAGE_LIB/modules/free_quadratic_module.py:588`  
+
+**File:** `SAGE_LIB/modules/free_quadratic_module.py:588`\
 **Inherits:** `FreeModule_generic_pid`, `FreeQuadraticModule_generic`
 
 | Line | Method | Signature | Notes |
-|------|--------|-----------|-------|
+| --- | --- | --- | --- |
 | 610 | `span` | `(self, gens, check=True, already_echelonized=False)` | R-span, need not be submodule |
 | 637 | `span_of_basis` | `(self, basis, check=True, already_echelonized=False)` | free R-module on basis |
 | 680 | `zero_submodule` | `(self)` | zero submodule |
 
 ### `FreeQuadraticModule_generic_field`
-**File:** `SAGE_LIB/modules/free_quadratic_module.py:696`  
+
+**File:** `SAGE_LIB/modules/free_quadratic_module.py:696`\
 **Inherits:** `FreeModule_generic_field`, `FreeQuadraticModule_generic_pid`
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 731 | `span` | K-span |
 | 771 | `span_of_basis` | K-basis |
 
 ### Ambient/submodule variants
 
-These classes are Sage presentation strata for ambient objects, submodules, selected
-bases, PID/field specializations, and display/storage behavior.  Most rows are backend
-or display surfaces; `ambient_vector_space()` and `change_ring(R)` are mathematical
-construction surfaces that still belong above the lattice endpoint.
+These classes are Sage presentation strata for ambient objects, submodules, selected bases, PID/field specializations, and display/storage behavior.
+Most rows are backend or display surfaces; `ambient_vector_space()` and `change_ring(R)` are mathematical construction surfaces that still belong above the lattice endpoint.
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 827 | `FreeQuadraticModule_ambient.__init__` | `(self, base_ring, rank, inner_product_matrix, sparse=False)` | ambient free quadratic module constructor |
 | 846 | `FreeQuadraticModule_ambient._repr_` | `(self)` | display surface for degree, rank, and inner-product matrix |
 | 880 | `FreeQuadraticModule_ambient._latex_` | `(self)` | LaTeX display of the ambient module |
@@ -107,20 +107,16 @@ construction surfaces that still belong above the lattice endpoint.
 | 1641 | `FreeQuadraticModule_submodule_field.__init__` | `(self, ambient, gens, inner_product_matrix, check=True, already_echelonized=False)` | field subspace constructor from generators |
 | 1660 | `FreeQuadraticModule_submodule_field._repr_` | `(self)` | display surface for field subspaces |
 
-Exact class-qualified backend aliases:
-`FreeQuadraticModule_generic._dense_module`,
-`FreeQuadraticModule_generic._sparse_module`,
-`FreeQuadraticModule_generic._inner_product_is_dot_product`,
-`FreeQuadraticModule_generic._inner_product_is_diagonal`.
+Exact class-qualified backend aliases: `FreeQuadraticModule_generic._dense_module`, `FreeQuadraticModule_generic._sparse_module`, `FreeQuadraticModule_generic._inner_product_is_dot_product`, `FreeQuadraticModule_generic._inner_product_is_diagonal`.
 
----
+* * *
 
 ## Toric character-lattice boundary (Sage geometry)
 
 ### Top-level factory and deprecated predicates
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/geometry/toric_lattice.py` | 166 | `is_ToricLattice` | `(x)` | deprecated predicate; Sage docs direct callers to `isinstance(..., ToricLattice_generic)` |
 | `SAGE_LIB/geometry/toric_lattice.py` | 199 | `is_ToricLatticeQuotient` | `(x)` | deprecated predicate; Sage docs direct callers to `isinstance(..., ToricLattice_quotient)` |
 | `SAGE_LIB/geometry/toric_lattice.py` | 238 | `ToricLatticeFactory` | `UniqueFactory` subclass | factory for named rank-`n` toric free `ZZ` lattices |
@@ -131,13 +127,10 @@ Exact class-qualified backend aliases:
 
 ### `ToricLattice_generic`
 
-**File:** `SAGE_LIB/geometry/toric_lattice.py:389`
-**Inherits:** `FreeModule_generic_pid`
-**Role:** Free `ZZ`-module parent with toric parent identity, notation, conversion
-barriers, and toric subobject/quotient parent preservation.
+**File:** `SAGE_LIB/geometry/toric_lattice.py:389` **Inherits:** `FreeModule_generic_pid` **Role:** Free `ZZ`-module parent with toric parent identity, notation, conversion barriers, and toric subobject/quotient parent preservation.
 
 | Line | Method | Signature | Notes |
-|------|--------|-----------|-------|
+| --- | --- | --- | --- |
 | 401 | `__call__` | `(self, *args, **kwds)` | element constructor/coercion; variadic coordinate shortcut and quotient-element lift path |
 | 466 | `_coerce_map_from_` | `(self, other)` | coercion barrier for toric lattices with different ambient modules; returns `None` so element conversion is rejected by `__call__` rather than silently depending only on rank |
 | 486 | `__contains__` | `(self, point)` | parent membership via attempted coercion |
@@ -152,7 +145,7 @@ barriers, and toric subobject/quotient parent preservation.
 ### Toric ambient, sublattice, quotient, and element surfaces
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/geometry/toric_lattice.py` | 862 | `ToricLattice_ambient` | `(rank, name, dual_name, latex_name, latex_dual_name)` | ambient toric lattice parent; direct class construction is discouraged by docs |
 | `SAGE_LIB/geometry/toric_lattice.py` | 900 | `ToricLattice_ambient._sage_input_` | `(self, sib, coerced)` | reproducible Sage input display |
 | `SAGE_LIB/geometry/toric_lattice.py` | 923 | `ToricLattice_ambient.__richcmp__` | `(self, right, op)` | compares rank and associated names |
@@ -193,16 +186,15 @@ barriers, and toric subobject/quotient parent preservation.
 | `SAGE_LIB/geometry/toric_lattice_element.pyx` | 373 | `ToricLatticeElement.plot` | `(self, **options)` | plotting/display interop |
 | `SAGE_LIB/geometry/toric_lattice_element.pyx` | 397 | `unpickle_v1` | `(parent, entries, degree, is_mutable)` | pickle compatibility helper |
 
----
+* * *
 
 ## Name-collision boundary — Sage lattice posets (not algebraic lattices)
 
-Sage also uses "lattice" for order-theoretic lattice posets. These category providers
-touch the subtree by name only: their objects are partially ordered sets with binary
-meet/join, not finite-rank modules with bilinear forms.
+Sage also uses "lattice" for order-theoretic lattice posets.
+These category providers touch the subtree by name only: their objects are partially ordered sets with binary meet/join, not finite-rank modules with bilinear forms.
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/categories/lattice_posets.py` | 19 | `LatticePosets` | category class | order-theoretic category of posets with unique binary join and meet |
 | `SAGE_LIB/categories/lattice_posets.py` | 43 | `LatticePosets.super_categories` | `(self)` | returns `[Posets()]` |
 | `SAGE_LIB/categories/lattice_posets.py` | 55 | `LatticePosets.Finite` | `LazyImport('sage.categories.finite_lattice_posets', 'FiniteLatticePosets')` | finite order-lattice axiom route |
@@ -216,19 +208,16 @@ meet/join, not finite-rank modules with bilinear forms.
 | `SAGE_LIB/categories/finite_lattice_posets.py` | 129 | `ParentMethods.irreducibles_poset` | `(self)` | poset on the union of join- and meet-irreducibles, with a one-element special case |
 | `SAGE_LIB/categories/finite_lattice_posets.py` | 172 | `ParentMethods.is_lattice_morphism` | `(self, f, codomain)` | order-lattice morphism check: iterates two-element subsets and requires `f(join(x,y)) = join(f(x),f(y))` and `f(meet(x,y)) = meet(f(x),f(y))` |
 
-Exact category-qualified aliases:
-`FiniteLatticePosets.ParentMethods.join_irreducibles_poset`,
-`FiniteLatticePosets.ParentMethods.meet_irreducibles_poset`,
-`FiniteLatticePosets.ParentMethods.irreducibles_poset`.
+Exact category-qualified aliases: `FiniteLatticePosets.ParentMethods.join_irreducibles_poset`, `FiniteLatticePosets.ParentMethods.meet_irreducibles_poset`, `FiniteLatticePosets.ParentMethods.irreducibles_poset`.
 
----
+* * *
 
 ## Tier 1 — Finitely generated modules over PID (V/W presentation, possibly torsion)
 
 Top-level functions:
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/modules/fg_pid/fgp_module.py` | 233 | `FGP_Module` | `(V, W, check=True)` | public cached factory for quotient `V/W` from free modules over a PID; constructs `FGP_Module_class(V, W, check=check)` keyed by cover and relation basis matrices |
 | `SAGE_LIB/modules/fg_pid/fgp_module.py` | 269 | `is_FGP_Module` | `(x)` | deprecated predicate for FGP quotient modules; Sage docs direct callers to `isinstance(..., FGP_Module_class)` |
 | `SAGE_LIB/modules/fg_pid/fgp_module.py` | 1977 | `random_fgp_module` | `(n, R=ZZ, finite=False)` | test/sample helper: chooses a random-rank submodule `A` of `(Frac(R))^n`, then random submodule `B <= A`, returns `A/B`, and if `finite=True` loops until `Q.is_finite()`; source signature default is `finite=False` although the docstring text says default `True` |
@@ -236,13 +225,13 @@ Top-level functions:
 | `SAGE_LIB/modules/fg_pid/fgp_module.py` | 2065 | `_test_morphism_0` / `test_morphism_0` | `(*args, **kwds)` | internal/deprecated test helper: samples `random_fgp_morphism_0`, asserts kernel invariant divisibility, image submodule containment, and lift correctness for the first Smith-form image generator |
 
 ### `FGP_Module_class`
-**File:** `SAGE_LIB/modules/fg_pid/fgp_module.py:293`  
-**Inherits:** `Module`  
-**Role:** Quotient `V/W` for `V`, `W` free modules over a PID. Represents the full
-finitely-generated-module-over-PID stratum, including torsion.
+
+**File:** `SAGE_LIB/modules/fg_pid/fgp_module.py:293`\
+**Inherits:** `Module`\
+**Role:** Quotient `V/W` for `V`, `W` free modules over a PID. Represents the full finitely-generated-module-over-PID stratum, including torsion.
 
 | Line | Method | Signature | Notes |
-|------|--------|-----------|-------|
+| --- | --- | --- | --- |
 | 339 | `__init__` | `(self, V, W, check=True)` | quotient-parent initialization from free PID-module cover `V` and relation submodule `W <= V`; with `check=True`, Sage verifies free-module types, submodule containment, and common base ring |
 | 380 | `_module_constructor` | `(self, V, W, check=True)` | derived-class hook for constructing another quotient `V/W`; base implementation calls the cached `FGP_Module(V, W, check)` factory |
 | 407 | `_coerce_map_from_` | `(self, S)` | coercion protocol: FGP sources use `S.has_canonical_map_to(self)`, while other sources defer to the cover module coercion map into `V` |
@@ -292,22 +281,15 @@ finitely-generated-module-over-PID stratum, including torsion.
 | 1944 | `__hash__` | `(self)` | runtime hash of the exact cover and relation submodules |
 | 1957 | `quotient_map` | `(self)` | natural map V → V/W |
 
-Exact class-qualified backend aliases:
-`FGP_Module_class._module_constructor`, `FGP_Module_class._coerce_map_from_`,
-`FGP_Module_class._mul_`, `FGP_Module_class._repr_`,
-`FGP_Module_class.__truediv__`, `FGP_Module_class.__eq__`,
-`FGP_Module_class.__ne__`, `FGP_Module_class.__lt__`,
-`FGP_Module_class.__gt__`, `FGP_Module_class.__ge__`,
-`FGP_Module_class._element_constructor_`, `FGP_Module_class._relative_matrix`,
-`FGP_Module_class.__hash__`, `FGP_Module_class._hom_general`,
-`FGP_Module_class._hom_from_smith`.
+Exact class-qualified backend aliases: `FGP_Module_class._module_constructor`, `FGP_Module_class._coerce_map_from_`, `FGP_Module_class._mul_`, `FGP_Module_class._repr_`, `FGP_Module_class.__truediv__`, `FGP_Module_class.__eq__`, `FGP_Module_class.__ne__`, `FGP_Module_class.__lt__`, `FGP_Module_class.__gt__`, `FGP_Module_class.__ge__`, `FGP_Module_class._element_constructor_`, `FGP_Module_class._relative_matrix`, `FGP_Module_class.__hash__`, `FGP_Module_class._hom_general`, `FGP_Module_class._hom_from_smith`.
 
 ### `FGP_Element`
-**File:** `SAGE_LIB/modules/fg_pid/fgp_element.py:58`  
+
+**File:** `SAGE_LIB/modules/fg_pid/fgp_element.py:58`\
 **Inherits:** `ModuleElement`
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 58 | `FGP_Element.__init__` | backend quotient-element constructor from parent `M` and lift `x in M.V()`; `check=True` asserts membership in the cover module |
 | 85 | `lift` | returns the stored lift in the quotient cover module `V` |
 | 125 | `__neg__` | additive inverse represented by negating the stored cover lift |
@@ -325,37 +307,29 @@ Exact class-qualified backend aliases:
 
 Source semantics:
 
-- `lift()` returns the stored representative `_x` in the cover module `V`; it is not a
-  canonical dual/rational-lattice lift unless the parent quotient has already been
-  identified as the relevant discriminant or quotient presentation.
-- `__neg__`, `_add_`, `_sub_`, `_rmul_`, and `_lmul_` construct new parent elements by
-  applying the corresponding operation to the stored cover lift and then reducing
-  through the parent element class.
-- `vector()` caches the reduced coordinate vector
-  `self.parent().coordinate_vector(self, reduce=True)` and makes that cached vector
-  immutable. `_repr_`, `__getitem__`, `__hash__`, `_vector_`, and `_richcmp_` are
-  derived from this reduced coordinate vector.
-- `additive_order()` zips the reduced coordinate vector with the parent Smith
-  invariants. A nonzero coordinate in a zero-invariant slot has infinite additive
-  order; otherwise the order is the lcm of the modular additive orders of the
-  coordinates modulo their invariant factors.
+- `lift()` returns the stored representative `_x` in the cover module `V`; it is not a canonical dual/rational-lattice lift unless the parent quotient has already been identified as the relevant discriminant or quotient presentation.
+- `__neg__`, `_add_`, `_sub_`, `_rmul_`, and `_lmul_` construct new parent elements by applying the corresponding operation to the stored cover lift and then reducing through the parent element class.
+- `vector()` caches the reduced coordinate vector `self.parent().coordinate_vector(self, reduce=True)` and makes that cached vector immutable.
+  `_repr_`, `__getitem__`, `__hash__`, `_vector_`, and `_richcmp_` are derived from this reduced coordinate vector.
+- `additive_order()` zips the reduced coordinate vector with the parent Smith invariants.
+  A nonzero coordinate in a zero-invariant slot has infinite additive order; otherwise the order is the lcm of the modular additive orders of the coordinates modulo their invariant factors.
 
-Exact class-qualified backend aliases:
-`FGP_Element._rmul_`, `FGP_Element._lmul_`, `FGP_Element._richcmp_`.
+Exact class-qualified backend aliases: `FGP_Element._rmul_`, `FGP_Element._lmul_`, `FGP_Element._richcmp_`.
 
 ### `FGP_Morphism`
-**File:** `SAGE_LIB/modules/fg_pid/fgp_morphism.py:73`  
+
+**File:** `SAGE_LIB/modules/fg_pid/fgp_morphism.py:73`\
 **Inherits:** `Morphism`
 
 Top-level Homset factory:
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 462 | `FGP_Homset` | `(X, Y)` | backend Hom parent factory for FGP modules |
 | 485 | `FGP_Homset_class` | `(X, Y, category=None)` | backend Hom parent class for FGP modules |
 
 | Line | Surface | Signature or input shape | Return / notes |
-|------|---------|--------------------------|----------------|
+| --- | --- | --- | --- |
 | 73 | `FGP_Morphism.__init__` | `(parent, phi, check=True)`, where `phi` maps the optimized cover of the domain to the optimized cover of the codomain and sends relations into relations | Backend Hom-element constructor; public route is Hom-parent construction |
 | 122 | `FGP_Morphism._repr_` | `(self)` | display surface from domain/codomain invariant factors and generator images |
 | 137 | `im_gens` | `(self)` | Tuple `(f(g_i))` in the codomain for the current domain generators |
@@ -373,10 +347,8 @@ Top-level Homset factory:
 | 517 | `FGP_Homset_class._coerce_map_from_` | `(self, S)` | Hom-parent coercion protocol for equal FGP Hom parents and scalar endomorphism coercion |
 | 537 | `FGP_Homset_class.__call__` | `(self, x)` | Hom-parent element coercion; delegates to `FGP_Morphism(self, x)` |
 
-No Sage `FGP_Morphism.cokernel()` surface is present in the written reference page or
-installed source. The project cokernel obligation is therefore not inherited from Sage
-FGP morphisms; it is the category-spec quotient `codomain(f) / image(f)` with
-projection, refined by formed-module descent hypotheses when form data are present.
+No Sage `FGP_Morphism.cokernel()` surface is present in the written reference page or installed source.
+The project cokernel obligation is therefore not inherited from Sage FGP morphisms; it is the category-spec quotient `codomain(f) / image(f)` with projection, refined by formed-module descent hypotheses when form data are present.
 
 Exact class-qualified backend alias: `FGP_Morphism._richcmp_`.
 
@@ -385,7 +357,7 @@ Exact class-qualified backend alias: `FGP_Morphism._richcmp_`.
 `SAGE_LIB/modules/free_module_homspace.py`:
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 85 | `is_FreeModuleHomspace` | `(x)` | deprecated predicate; Sage docs direct callers to `isinstance(..., FreeModuleHomspace)` |
 | 132 | `FreeModuleHomspace` | `HomsetWithBase` subclass | backend Hom parent for free modules |
 | 133 | `FreeModuleHomspace.__call__` | `(self, A, **kwds)` with `side='left'` or `'right'` | Hom-element construction from matrix data, generator-image data, or a callable evaluated on domain generators |
@@ -396,25 +368,17 @@ Exact class-qualified backend alias: `FGP_Morphism._richcmp_`.
 
 Source semantics:
 
-- `FreeModuleHomspace.__call__(A, **kwds)` has three finite input shapes: a matrix;
-  a list/tuple of codomain images of the domain generators; or a callable evaluated on
-  each domain generator. For generator images or callables, Sage converts each image to
-  the codomain and builds the coordinate matrix, transposing exactly when
-  `side == 'right'`. Nonzero maps require a coercion map from the domain base ring to
-  the codomain base ring; when no such coercion exists, only the zero morphism is
-  accepted.
-- `_matrix_space(side)` is the backend orientation witness: for `side='left'` it is
-  `MatrixSpace(R, rank(domain), rank(codomain))`, while for `side='right'` it is
-  `MatrixSpace(R, rank(codomain), rank(domain))`; other side values raise.
+- `FreeModuleHomspace.__call__(A, **kwds)` has three finite input shapes: a matrix; a list/tuple of codomain images of the domain generators; or a callable evaluated on each domain generator.
+  For generator images or callables, Sage converts each image to the codomain and builds the coordinate matrix, transposing exactly when `side == 'right'`. Nonzero maps require a coercion map from the domain base ring to the codomain base ring; when no such coercion exists, only the zero morphism is accepted.
+- `_matrix_space(side)` is the backend orientation witness: for `side='left'` it is `MatrixSpace(R, rank(domain), rank(codomain))`, while for `side='right'` it is `MatrixSpace(R, rank(codomain), rank(domain))`; other side values raise.
 - `zero(side)` constructs the zero Hom element through the constant-zero callable.
-  `basis(side)` lifts the underlying oriented matrix-space basis through the Hom
-  parent. `identity(side)` is defined only on endomorphism Hom parents and otherwise
-  raises a typed failure recommending `natural_map()`.
+  `basis(side)` lifts the underlying oriented matrix-space basis through the Hom parent.
+  `identity(side)` is defined only on endomorphism Hom parents and otherwise raises a typed failure recommending `natural_map()`.
 
 `SAGE_LIB/modules/free_module_morphism.py`:
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 51 | `is_FreeModuleMorphism` | `(x)` | deprecated predicate; Sage docs direct callers to `isinstance(..., FreeModuleMorphism)` or categories |
 | 74 | `FreeModuleMorphism` | `MatrixMorphism` subclass | backend Hom element for free modules represented by an oriented matrix |
 | 76 | `FreeModuleMorphism.__init__` | `(self, parent, A, side='left')` | requires a `FreeModuleHomspace`, coerces `A` through the parent oriented matrix space, then initializes `MatrixMorphism` |
@@ -435,7 +399,7 @@ Source semantics:
 `SAGE_LIB/modules/matrix_morphism.py` inherited by `FreeModuleMorphism`:
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 59 | `is_MatrixMorphism` | `(x)` | deprecated predicate; Sage docs direct callers to `isinstance(..., MatrixMorphism_abstract)` or categories |
 | 84 | `MatrixMorphism_abstract` | `Morphism` subclass | abstract base for matrix-backed Hom elements; copies characteristic polynomial, determinant, factorization of characteristic polynomial, and trace from finite-dimensional-module-with-basis Hom endomorphism methods |
 | 96 | `MatrixMorphism_abstract.__init__` | `(self, parent, side='left')` | backend Hom-element initialization; requires a Hom parent and stores side as either `left` or `right` |
@@ -469,54 +433,32 @@ Source semantics:
 
 Source semantics:
 
-- The table above is the Sage-discovered method set for this source block. After the
-  Sage method set is known, each method is classified by the weakest mathematical
-  structure where it is defined, not by the Sage class that happens to implement it.
-- Any category with morphisms owns domain, codomain, evaluation/application of a
-  morphism, and composition. Sage's `MatrixMorphism._call_` and multiplication methods
-  are only the matrix-backed implementation of those category-level operations for free
-  modules.
-- An additive category owns zero morphisms and addition/negation/subtraction of
-  morphisms. Scalar multiplication requires the corresponding linear or enriched Hom
-  structure. Sage's free-module matrix methods `__rmul__`, `__mul__` on scalars, and
-  matrix addition/subtraction are implementation evidence for that structure, not the
-  mathematical owner.
-- An abelian category owns kernel, cokernel, image, coimage, monomorphism and
-  epimorphism tests, and the usual exactness-shaped preimage/image constructions where
-  the category supplies them. Sage realizes these for free modules with row/column
-  spaces, matrix kernels, submodule images, and Hermite/linear-solve backends.
-- Endomorphism and automorphism refinements own identity and invertibility/isomorphism
-  predicates, and inverse maps when the morphism is an isomorphism. These are not
-  free-module-local notions.
-- The finite free module presentation owns only presentation data and algorithms:
-  `MatrixMorphism.__init__`, `matrix(side)`, `side`, `side_switch`, rank/nullity of
-  the representative matrix, basis or submodule restriction algorithms, submodule
-  pushforward, preimage representatives, and `change_ring(R)` on the displayed
-  module/matrix presentation.
-  `side` is representation data, not a mathematical option bag: Sage stores one matrix
-  orientation and recovers the opposite orientation by transposition.
-- `is_MatrixMorphism`, rich comparison, `_repr_`, and `_call_with_args` are
-  compatibility, display, comparison, and call-protocol interop surfaces. The forwarded
-  optional arguments in `_call_with_args` are codomain element-constructor data after
-  the morphism has already been evaluated; they are not public Hom options.
-- `lift`/`preimage_representative` returns one representative of a preimage coset when
-  one exists, not a canonical inverse map.
-- `change_ring(R)` is not a lattice scalar-extension theorem unless the formed or
-  lattice structure supplies the corresponding base-change semantics.
-- `eigenvalues`, `eigenvectors`, `eigenspaces`, matrix `decomposition`, determinant,
-  trace, characteristic polynomial, and related delegated matrix invariants are
-  vector-space endomorphism or finite-dimensional-with-basis backend surfaces.
-  Public project exposure must name the field, endomorphism hypothesis, side convention,
-  extension-field convention, eigenspace subobject, and witness data.
-- `BaseIsomorphism1D_to_FM` and `BaseIsomorphism1D_from_FM` are ring-to-rank-one-free
-  module isomorphism witnesses produced by Sage's ring `free_module` route. The
-  optional basis element is required by Sage examples to be a unit so that the maps are
-  true isomorphisms; these are not lattice constructors.
+- The table above is the Sage-discovered method set for this source block.
+  After the Sage method set is known, each method is classified by the weakest mathematical structure where it is defined, not by the Sage class that happens to implement it.
+- Any category with morphisms owns domain, codomain, evaluation/application of a morphism, and composition.
+  Sage's `MatrixMorphism._call_` and multiplication methods are only the matrix-backed implementation of those category-level operations for free modules.
+- An additive category owns zero morphisms and addition/negation/subtraction of morphisms.
+  Scalar multiplication requires the corresponding linear or enriched Hom structure.
+  Sage's free-module matrix methods `__rmul__`, `__mul__` on scalars, and matrix addition/subtraction are implementation evidence for that structure, not the mathematical owner.
+- An abelian category owns kernel, cokernel, image, coimage, monomorphism and epimorphism tests, and the usual exactness-shaped preimage/image constructions where the category supplies them.
+  Sage realizes these for free modules with row/column spaces, matrix kernels, submodule images, and Hermite/linear-solve backends.
+- Endomorphism and automorphism refinements own identity and invertibility/isomorphism predicates, and inverse maps when the morphism is an isomorphism.
+  These are not free-module-local notions.
+- The finite free module presentation owns only presentation data and algorithms: `MatrixMorphism.__init__`, `matrix(side)`, `side`, `side_switch`, rank/nullity of the representative matrix, basis or submodule restriction algorithms, submodule pushforward, preimage representatives, and `change_ring(R)` on the displayed module/matrix presentation.
+  `side` is representation data, not a mathematical option bag: Sage stores one matrix orientation and recovers the opposite orientation by transposition.
+- `is_MatrixMorphism`, rich comparison, `_repr_`, and `_call_with_args` are compatibility, display, comparison, and call-protocol interop surfaces.
+  The forwarded optional arguments in `_call_with_args` are codomain element-constructor data after the morphism has already been evaluated; they are not public Hom options.
+- `lift`/`preimage_representative` returns one representative of a preimage coset when one exists, not a canonical inverse map.
+- `change_ring(R)` is not a lattice scalar-extension theorem unless the formed or lattice structure supplies the corresponding base-change semantics.
+- `eigenvalues`, `eigenvectors`, `eigenspaces`, matrix `decomposition`, determinant, trace, characteristic polynomial, and related delegated matrix invariants are vector-space endomorphism or finite-dimensional-with-basis backend surfaces.
+  Public project exposure must name the field, endomorphism hypothesis, side convention, extension-field convention, eigenspace subobject, and witness data.
+- `BaseIsomorphism1D_to_FM` and `BaseIsomorphism1D_from_FM` are ring-to-rank-one-free module isomorphism witnesses produced by Sage's ring `free_module` route.
+  The optional basis element is required by Sage examples to be a unit so that the maps are true isomorphisms; these are not lattice constructors.
 
 `SAGE_LIB/categories/homset.py`:
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 87 | `Hom` | `(X, Y, category=None, check=True)` | cached Hom-parent constructor for morphisms from `X` to `Y` in a category |
 | 498 | `End` | `(X, category=None)` | cached End-parent constructor `Hom(X, X, category)` |
 | 562 | `end` | `(X, f)` | convenience constructor returning `End(X)(f)` for endomorphism data `f` |
@@ -537,7 +479,7 @@ Source semantics:
 `SAGE_LIB/categories/homsets.py`:
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 19 | `HomsetsCategory` | `FunctorialConstructionCategory` subclass | generic category machinery for `C.Homsets()` functorial constructions |
 | 24 | `HomsetsCategory.default_super_categories` | `(cls, category)` | computes default supercategories for a category's Homsets category from full supercategories, nested Homsets classes, or stub HomsetsOf construction |
 | 123 | `HomsetsCategory._test_homsets_category` | `(self, **options)` | generic category test hook |
@@ -548,24 +490,24 @@ Source semantics:
 | 285 | `Homsets.SubcategoryMethods.Endset` | `(self)` | endomorphism-set axiom refinement on Homsets |
 | 345 | `Homsets.ParentMethods.is_endomorphism_set` | `(self)` | runtime predicate checking whether a Hom parent has identical domain and codomain |
 
----
+* * *
 
 ## Tier 2 — Torsion bilinear/quadratic modules (discriminant group level)
 
 Top-level constructor:
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 35 | `TorsionQuadraticForm` | `(q)` | torsion quadratic module from rational Gram matrix with values in `QQ/ZZ` or `QQ/2ZZ` |
 
 ### `TorsionQuadraticModule`
-**File:** `SAGE_LIB/modules/torsion_quadratic_module.py`  
-**Inherits:** `FGP_Module_class`, `CachedRepresentation`  
-**Role:** `V/W` with a `Q/Z`-valued quadratic form (or `Q/2Z` for even); the canonical
-model for discriminant groups of lattices.
+
+**File:** `SAGE_LIB/modules/torsion_quadratic_module.py`\
+**Inherits:** `FGP_Module_class`, `CachedRepresentation`\
+**Role:** `V/W` with a `Q/Z`-valued quadratic form (or `Q/2Z` for even); the canonical model for discriminant groups of lattices.
 
 | Line | Method | Signature | Notes |
-|------|--------|-----------|-------|
+| --- | --- | --- | --- |
 | 230 | `__classcall__` | `(cls, V, W, gens=None, modulus=None, modulus_qf=None, check=True)` | cached-representation normalization and validation |
 | 279 | `__init__` | `(self, V, W, gens, modulus, modulus_qf)` | backend parent initialization from cover, relations, optional user generators, and value moduli |
 | 300 | `_repr_` | `(self)` | display surface for base ring, inherited invariant factors, and quadratic Gram matrix |
@@ -587,30 +529,30 @@ model for discriminant groups of lattices.
 | 1271 | `value_module_qf` | `(self)` | `Q/nZ` (quadratic form values) |
 
 ### `TorsionQuadraticModuleElement`
-**File:** `SAGE_LIB/modules/torsion_quadratic_module.py`  
+
+**File:** `SAGE_LIB/modules/torsion_quadratic_module.py`\
 **Inherits:** `FGP_Element`
 
 | Line | Method | Alias | Notes |
-|------|--------|-------|-------|
+| --- | --- | --- | --- |
 | 90 | `TorsionQuadraticModuleElement` | class | element type for torsion quadratic modules |
 | 121 | `_mul_` / `inner_product` / `b` | lines 151–152 | bilinear form evaluation |
 | 154 | `quadratic_product` / `q` | line 185 | quadratic form evaluation |
 
-Exact class-qualified constructor alias: `TorsionQuadraticModule.__classcall__`.
-Exact Brown-invariant backend helper: `_brown_indecomposable(q, p)` at line 1292.
+Exact class-qualified constructor alias: `TorsionQuadraticModule.__classcall__`. Exact Brown-invariant backend helper: `_brown_indecomposable(q, p)` at line 1292.
 
----
+* * *
 
 ## Tier 3 — Integral lattices over ZZ (free, symmetric, nondegenerate, integral)
 
 ### `FreeQuadraticModule_integer_symmetric`
-**File:** `SAGE_LIB/modules/free_quadratic_module_integer_symmetric.py:625`  
-**Inherits:** `FreeQuadraticModule_submodule_with_basis_pid`  
-**Role:** The canonical "integral lattice" in Sage: `ZZ`-free, finite rank, symmetric
-nondegenerate bilinear form with integer values.
+
+**File:** `SAGE_LIB/modules/free_quadratic_module_integer_symmetric.py:625`\
+**Inherits:** `FreeQuadraticModule_submodule_with_basis_pid`\
+**Role:** The canonical "integral lattice" in Sage: `ZZ`-free, finite rank, symmetric nondegenerate bilinear form with integer values.
 
 | Line | Method | Signature | Notes |
-|------|--------|-----------|-------|
+| --- | --- | --- | --- |
 | 646 | `__init__` | `(self, ambient, basis, inner_product_matrix, check=True, already_echelonized=False)` | backend class constructor; validates nondegeneracy and integrality after the Sage submodule-with-basis initialization |
 | 671 | `_mul_` | `(self, other, switch_sides=False)` | Sage operator surface multiplying the basis matrix by a scalar or matrix; returns `sublattice(...)` for integral data and `span(...)` otherwise |
 | 704 | `_repr_` | `(self)` | display surface for degree, rank, basis matrix, and inner-product matrix |
@@ -634,24 +576,21 @@ nondegenerate bilinear form with integer values.
 | 1435 | `maximum` | `(self)` | max `{β(x,x) : x ∈ L\{0}}` |
 | 1460 | `min`, `max` | (aliases) | compatibility aliases for `minimum` and `maximum` |
 | 1463 | `LLL` | `(self)` | LLL-reduced basis |
-| 1498 | `lll` | (alias) | |
+| 1498 | `lll` | (alias) |  |
 | 1500 | `short_vectors` | `(self, n, **kwargs)` | vectors of length < n |
 | 1541 | `_fplll_enumerate` | `(self, target=None)` | private backend helper: LLL-reduces self, optionally translates a target into coordinates, and invokes `fplll` enumeration for short/close vector iterators |
 | 1596 | `enumerate_short_vectors` | `(self)` | iterator, shortest first |
 | 1631 | `enumerate_close_vectors` | `(self, target)` | iterator near target |
 | 1653 | `twist` | `(self, s, discard_basis=False)` | scale inner product by s |
 
-Exact class-qualified backend alias:
-`FreeQuadraticModule_integer_symmetric._fplll_enumerate`.
+Exact class-qualified backend alias: `FreeQuadraticModule_integer_symmetric._fplll_enumerate`.
 
 ### Matrix-group isometry backend
 
-**File:** `SAGE_LIB/groups/matrix_gps/isometries.py`
-**Role:** GAP-backed matrix group used by Sage lattice orthogonal-group surfaces; records
-the invariant bilinear form and optional invariant submodule or quotient actions.
+**File:** `SAGE_LIB/groups/matrix_gps/isometries.py` **Role:** GAP-backed matrix group used by Sage lattice orthogonal-group surfaces; records the invariant bilinear form and optional invariant submodule or quotient actions.
 
 | Line | Surface | Signature | Notes |
-|------|---------|-----------|-------|
+| --- | --- | --- | --- |
 | 45 | `GroupOfIsometries` | `(degree, base_ring, gens, invariant_bilinear_form, category=None, check=True, invariant_submodule=None, invariant_quotient_module=None)` | matrix group generated by isometries of a bilinear form |
 | 91 | `GroupOfIsometries.__init__` | same as class signature | stores immutable invariant form; when `check=True`, checks each generator preserves the form, preserves the optional invariant submodule, and preserves both `V` and `W` of the optional quotient module |
 | 134 | `GroupOfIsometries._repr_` | `(self)` | display surface |
@@ -666,20 +605,21 @@ the invariant bilinear form and optional invariant submodule or quotient actions
 | 378 | `GroupActionOnQuotientModule.__init__` | `(self, MatrixGroup, quotient_module, is_left=False)` | backend action constructor for an invariant quotient module |
 | 397 | `GroupActionOnQuotientModule._act_` | `(self, g, a)` | applies matrix-group element to a quotient-element lift, respecting left/right action orientation, and coerces back |
 
----
+* * *
 
 ## Tier 4 — Quadratic forms (separate Sage type; closely related)
 
 ### `QuadraticForm`
-**File:** `SAGE_LIB/quadratic_forms/quadratic_form.py:185`  
-**Inherits:** `SageObject`  
+
+**File:** `SAGE_LIB/quadratic_forms/quadratic_form.py:185`\
+**Inherits:** `SageObject`\
 **Role:** Symmetric bilinear form encoded via upper-triangular coefficient matrix.
 Distinct from `FreeQuadraticModule_integer_symmetric` but closely related for ZZ.
 
 Top-level functions:
 
 | Line | Surface | Notes |
-|------|---------|-------|
+| --- | --- | --- |
 | 49 | `is_QuadraticForm` | deprecated type predicate |
 | 72 | `quadratic_form_from_invariants` | rational quadratic form from rank, determinant, Hasse-prime set, and signature count |
 | 1750 | `DiagonalQuadraticForm` | diagonal quadratic-form factory from diagonal coefficients |
@@ -687,7 +627,7 @@ Top-level functions:
 Package-level exports (`quadratic_forms/all.py`):
 
 | File | Line | Surface | Notes |
-|------|------|---------|-------|
+| --- | --- | --- | --- |
 | `SAGE_LIB/quadratic_forms/all.py` | 1 | `BinaryQF`, `BinaryQF_reduced_representatives` | integer binary quadratic-form class and discriminant-bounded representatives |
 | `SAGE_LIB/quadratic_forms/all.py` | 3 | `BQFClassGroup` | form class group parent for binary quadratic forms by discriminant |
 | `SAGE_LIB/quadratic_forms/all.py` | 5 | `TernaryQF`, `find_all_ternary_qf_by_level_disc`, `find_a_ternary_qf_by_level_disc` | integer ternary quadratic-form class and search helpers |
@@ -700,7 +640,7 @@ Package-level exports (`quadratic_forms/all.py`):
 Construction and helper modules exported by `quadratic_forms/all.py`:
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/quadratic_forms/constructions.py` | 14 | `BezoutianQuadraticForm` | `(f, g)` | constructs a quadratic form over the common polynomial coefficient ring from the Bezoutian of `f` and `g` |
 | `SAGE_LIB/quadratic_forms/constructions.py` | 69 | `HyperbolicPlane_quadratic_form` | `(R, r=1)` | constructs the orthogonal sum of `r` copies of the hyperbolic plane form `xy` over `R` |
 | `SAGE_LIB/quadratic_forms/random_quadraticform.py` | 16 | `random_quadraticform` | `(R, n, rand_arg_list=None)` | random upper-triangular coefficient quadratic form over a ring `R` |
@@ -724,7 +664,7 @@ Construction and helper modules exported by `quadratic_forms/all.py`:
 Specialized binary quadratic-form surfaces:
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/quadratic_forms/binary_qf.py` | 100 | `BinaryQF.__init__` | `(self, a, b=None, c=None)` | creates `ax^2 + bxy + cy^2` from coefficients, tuple/list, zero, polynomial, or PARI object |
 | `SAGE_LIB/quadratic_forms/binary_qf.py` | 158 | `BinaryQF._pari_init_` | `(self)` | PARI conversion hook |
 | `SAGE_LIB/quadratic_forms/binary_qf.py` | 182 | `BinaryQF.principal` | `(D)` | principal binary quadratic form of discriminant `D` |
@@ -740,23 +680,12 @@ Specialized binary quadratic-form surfaces:
 | `SAGE_LIB/quadratic_forms/binary_qf.py` | 1296, 1503, 1526, 1549 | `is_equivalent`, `complex_point`, `matrix_action_left`, `matrix_action_right` | `(self, other, proper=True)`, `(self)`, `(self, M)`, `(self, M)` | equivalence, upper-half-plane point, and matrix actions |
 | `SAGE_LIB/quadratic_forms/binary_qf.py` | 1572, 1608, 1808, 1826 | `small_prime_value`, `solve_integer`, `form_class`, `BinaryQF_reduced_representatives` | `(self, Bmax=1000)`, `(self, n, *, algorithm='general', _flag=2)`, `(self)`, `(D, primitive_only=False, proper=True)` | represented-prime search, integer-solution search, class-group element conversion, and reduced representative enumeration |
 
-Exact class-qualified aliases:
-`BinaryQF.from_polynomial`, `BinaryQF.polynomial`, `BinaryQF.content`,
-`BinaryQF.discriminant`, `BinaryQF.determinant`, `BinaryQF.det`,
-`BinaryQF.is_primitive`, `BinaryQF.is_positive_definite`,
-`BinaryQF.is_posdef`, `BinaryQF.is_negative_definite`,
-`BinaryQF.is_negdef`, `BinaryQF.is_indefinite`, `BinaryQF.is_indef`,
-`BinaryQF.is_weakly_reduced`, `BinaryQF.is_reducible`,
-`BinaryQF.reduced_form`, `BinaryQF.cycle`, `BinaryQF.is_equivalent`,
-`BinaryQF.is_reduced`, `BinaryQF.complex_point`,
-`BinaryQF.matrix_action_left`, `BinaryQF.matrix_action_right`,
-`BinaryQF.small_prime_value`, `BinaryQF.solve_integer`,
-`BinaryQF.form_class`.
+Exact class-qualified aliases: `BinaryQF.from_polynomial`, `BinaryQF.polynomial`, `BinaryQF.content`, `BinaryQF.discriminant`, `BinaryQF.determinant`, `BinaryQF.det`, `BinaryQF.is_primitive`, `BinaryQF.is_positive_definite`, `BinaryQF.is_posdef`, `BinaryQF.is_negative_definite`, `BinaryQF.is_negdef`, `BinaryQF.is_indefinite`, `BinaryQF.is_indef`, `BinaryQF.is_weakly_reduced`, `BinaryQF.is_reducible`, `BinaryQF.reduced_form`, `BinaryQF.cycle`, `BinaryQF.is_equivalent`, `BinaryQF.is_reduced`, `BinaryQF.complex_point`, `BinaryQF.matrix_action_left`, `BinaryQF.matrix_action_right`, `BinaryQF.small_prime_value`, `BinaryQF.solve_integer`, `BinaryQF.form_class`.
 
 Binary quadratic-form class-group surfaces:
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/quadratic_forms/bqf_class_group.py` | 99, 125 | `BQFClassGroup`, `BQFClassGroup.__init__` | `(D, *, check=True)` | unique parent for supported `D < 0` with `D mod 4 in {0,1}`; zero and positive discriminants rejected |
 | `SAGE_LIB/quadratic_forms/bqf_class_group.py` | 147, 170, 187 | `_element_constructor_`, `zero`, `random_element` | `(F, *, check=True)`, `(self)`, `(self)` | class construction from `0`, `BinaryQF`, or same-parent element; principal class and random prime-based sample element |
 | `SAGE_LIB/quadratic_forms/bqf_class_group.py` | 223, 234, 245, 257, 287, 290, 319, 339 | `__hash__`, `_repr_`, `discriminant`, `order`, `cardinality`, `abelian_group`, `gens`, `_coerce_map_from_` | parent methods | display/runtime, class number alias, abelian-group wrapper from PARI `quadclassunit`, generators, and discriminant-quotient projection maps |
@@ -768,7 +697,7 @@ Binary quadratic-form class-group surfaces:
 Specialized ternary quadratic-form surfaces:
 
 | File | Line | Surface | Signature | Notes |
-|------|------|---------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | `SAGE_LIB/quadratic_forms/ternary_qf.py` | 78, 101, 129, 150, 246, 265 | `TernaryQF.__init__`, `coefficients`, `coefficient`, `polynomial`, `quadratic_form`, `matrix` | presentation methods | six `ZZ` coefficients `(a,b,c,r,s,t)` for `a*x^2+b*y^2+c*z^2+r*yz+s*xz+t*xy`, coefficient access, polynomial conversion, generic `QuadraticForm` conversion, and Hessian matrix `[[2a,t,s],[t,2b,r],[s,r,2c]]` |
 | `SAGE_LIB/quadratic_forms/ternary_qf.py` | 116, 168, 566 | `__hash__`, `_repr_`, `__eq__` | protocol methods | runtime hashing, display, and equality |
 | `SAGE_LIB/quadratic_forms/ternary_qf.py` | 189, 397, 464 | `__call__`, `__neg__`, `scale_by_factor` | `(self, v)`, `(self)`, `(self, k)` | vector evaluation; matrix substitution returning `TernaryQF` for `3 x 3` matrices or generic `QuadraticForm` for other `3 x n` matrices; sign change; and value scaling that may leave the ternary integer surface |
@@ -778,12 +707,12 @@ Specialized ternary quadratic-form surfaces:
 | `SAGE_LIB/quadratic_forms/ternary_qf.py` | 783, 820, 847, 898, 925 | `pseudorandom_primitive_zero_mod_p`, `find_zeros_mod_p`, `find_p_neighbor_from_vec`, `find_p_neighbors`, `basic_lemma` | prime/local methods | modular zeros for odd primes not dividing the discriminant and the `p=2` branch, p-neighbors from nonsingular conic zeros with optional transformation matrix, and represented-value search coprime to a prime |
 | `SAGE_LIB/quadratic_forms/ternary_qf.py` | 989, 1025, 1065, 1255, 1635, 1674, 1740, 1917 | `symmetry`, `automorphism_symmetries`, `automorphism_spin_norm`, `_automorphisms_reduced_fast`, `_automorphisms_reduced_slow`, `automorphisms`, `_number_of_automorphisms_reduced`, `number_of_automorphisms` | automorphism methods | rational symmetry matrices, decomposition into symmetries, spin norm, border-table and slow finite-order automorphism enumeration, and automorphism count for definite forms |
 | `SAGE_LIB/quadratic_forms/ternary_qf.py` | 1086, 1196 | `_border`, `_borders` | private helper methods | sixteen Eisenstein boundary conditions used by reduced-form automorphism helper tables |
-| `SAGE_LIB/quadratic_forms/ternary_qf.py` | 1956, 1993 | `find_all_ternary_qf_by_level_disc`, `find_a_ternary_qf_by_level_disc` | `(N, d)` | search for reduced ternary forms by level `N` and discriminant `d`, with source condition `N | 4d` and `d | N^2` |
+| `SAGE_LIB/quadratic_forms/ternary_qf.py` | 1956, 1993 | `find_all_ternary_qf_by_level_disc`, `find_a_ternary_qf_by_level_disc` | `(N, d)` | search for reduced ternary forms by level `N` and discriminant `d`, with source condition `N |
 
 Ternary Cython backend helpers:
 
 | File | Line | Surface | Notes |
-|------|------|---------|-------|
+| --- | --- | --- | --- |
 | `SAGE_LIB/quadratic_forms/ternary.pyx` | 22, 47, 311 | `red_mfact`, `_reduced_ternary_form_eisenstein_with_matrix`, `_reduced_ternary_form_eisenstein_without_matrix` | Eisenstein reduction helpers |
 | `SAGE_LIB/quadratic_forms/ternary.pyx` | 470, 491, 508, 542, 575, 644 | `primitivize`, `evaluate`, `_find_zeros_mod_p_2`, `pseudorandom_primitive_zero_mod_p`, `_find_zeros_mod_p_odd`, `_find_zeros_mod_p` | vector evaluation and modular-zero helpers |
 | `SAGE_LIB/quadratic_forms/ternary.pyx` | 675, 806, 933, 984, 1089, 1124 | `_find_all_ternary_qf_by_level_disc`, `_find_a_ternary_qf_by_level_disc`, `extend`, `_find_p_neighbor_from_vec`, `_basic_lemma_vec`, `_basic_lemma` | level/discriminant search, matrix extension, p-neighbor, and basic-lemma helpers |
@@ -791,7 +720,7 @@ Ternary Cython backend helpers:
 Key methods relevant to our hierarchy:
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 516 | `__init__` | constructor from `(R, n, entries)`, homogeneous degree-two polynomial, `(R, symmetric even-diagonal matrix)`, or symmetric even-diagonal matrix alone; `unsafe_initialization` can externally set cached automorphism-count/determinant fields |
 | 676 | `list_external_initializations` | audit list of fields set by unsafe external initialization |
 | 712, 724 | `__pari__`, `_pari_init_` | PARI Hessian-matrix conversion hooks |
@@ -813,7 +742,7 @@ Key methods relevant to our hierarchy:
 | 1393 | `is_primitive` | form not a scalar multiple of another |
 | 1434 | `adjoint_primitive` | primitive adjoint form from the classical adjoint of the Hessian |
 | 1451 | `dim` | number of variables |
-| 1470 | `base_ring` | |
+| 1470 | `base_ring` |  |
 | 1482 | `coefficients` | upper-triangular coefficients |
 | 1495 | `det` | det of Hessian |
 | 1523 | `Gram_det` | det of Gram matrix |
@@ -822,11 +751,10 @@ Key methods relevant to our hierarchy:
 | 1656 | `level_ideal` | level as an ideal over the base ring |
 | 1689 | `bilinear_map` | `B(v,w)` associated bilinear map |
 
-Lazy-imported local-field and signature surfaces
-(`quadratic_form__local_field_invariants.py`):
+Lazy-imported local-field and signature surfaces (`quadratic_form__local_field_invariants.py`):
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 33 | `rational_diagonal_form(return_matrix=False)` | diagonal equivalent form over the fraction field; optionally returns transformation matrix |
 | 192 | `_rational_diagonal_form_and_transformation()` | cached diagonalization backend returning `(D, T)` |
 | 298 | `signature_vector()` | `(n_+, n_-, n_0)` for the associated symmetric matrix |
@@ -847,16 +775,15 @@ Lazy-imported local-field and signature surfaces
 Lazy-imported genus-symbol surfaces (`quadratic_form__genus.py`):
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 16 | `global_genus_symbol()` | `Genus(self.Hessian_matrix())`; only for quadratic forms over `ZZ` |
 | 54 | `local_genus_symbol(p)` | Conway-Sloane local genus symbol of `2Q` at a positive prime `p` |
 | 118 | `CS_genus_symbol_list(force_recomputation=False)` | cached local genus-symbol list for primes dividing `2*det(Q)` |
 
-Lazy-imported automorphism and short-vector surfaces
-(`quadratic_form__automorphisms.py`):
+Lazy-imported automorphism and short-vector surfaces (`quadratic_form__automorphisms.py`):
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 21 | `basis_of_short_vectors(show_lengths=False)` | PARI `qfminim` basis of short vectors; optional lengths |
 | 97 | `short_vector_list_up_to_length(len_bound, up_to_sign_flag=False)` | positive-definite `ZZ` short-vector enumeration by length |
 | 221 | `short_primitive_vector_list_up_to_length(len_bound, up_to_sign_flag=False)` | primitive sublist of short-vector enumeration |
@@ -866,11 +793,10 @@ Lazy-imported automorphism and short-vector surfaces
 | 373 | `number_of_automorphisms()` | cached automorphism count |
 | 401 | `set_number_of_automorphisms(num_autos)` | unsafe external-initialization setter for automorphism count |
 
-Lazy-imported variable-substitution and presentation-transformation surfaces
-(`quadratic_form__variable_substitutions.py`):
+Lazy-imported variable-substitution and presentation-transformation surfaces (`quadratic_form__variable_substitutions.py`):
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 20 | `swap_variables(r, s, in_place=False)` | swap two variables; returns a new form unless mutating in place |
 | 75 | `multiply_variable(c, i, in_place=False)` | substitute `x_i -> c*x_i` over the base ring |
 | 117 | `divide_variable(c, i, in_place=False)` | substitute `x_i -> x_i/c` when division is defined in the base ring |
@@ -882,7 +808,7 @@ Lazy-imported variable-substitution and presentation-transformation surfaces
 Lazy-imported local-normal-form surfaces (`quadratic_form__local_normal_form.py`):
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 27 | `find_entry_with_minimal_scale_at_prime(p)` | matrix-entry valuation selector at a prime |
 | 82 | `local_normal_form(p)` | local integral Jordan form over `ZZ_p`; current source supports forms over `ZZ` |
 | 233 | `jordan_blocks_by_scale_and_unimodular(p, safe_flag=True)` | cached list of local Jordan blocks by scale |
@@ -891,7 +817,7 @@ Lazy-imported local-normal-form surfaces (`quadratic_form__local_normal_form.py`
 Imported congruence-counting and local-density surfaces:
 
 | File | Line | Method | Notes |
-|------|------|--------|-------|
+| --- | --- | --- | --- |
 | `quadratic_form__count_local_2.py` | 15 | `count_congruence_solutions_as_vector(p, k, m, zvec, nzvec)` | solution counts by vector type modulo powers of `p` |
 | `quadratic_form__count_local_2.py` | 73 | `count_congruence_solutions(p, k, m, zvec, nzvec)` | aggregate congruence solution count |
 | `quadratic_form__count_local_2.py` | 98 | `count_congruence_solutions__good_type(p, k, m, zvec, nzvec)` | good-type solution count |
@@ -918,7 +844,7 @@ Imported congruence-counting and local-density surfaces:
 Imported theta-series, p-neighbor, and reduction-theory surfaces:
 
 | File | Line | Method | Notes |
-|------|------|--------|-------|
+| --- | --- | --- | --- |
 | `quadratic_form__theta.py` | 18 | `theta_series(Max=10, var_str='q', safe_flag=True)` | PARI-backed theta series to precision `O(q^Max)` |
 | `quadratic_form__theta.py` | 72 | `theta_by_pari(Max, var_str='q', safe_flag=True)` | cached PARI representation-count vector or power series |
 | `quadratic_form__theta.py` | 136 | `theta_by_cholesky(q_prec)` | explicit Cholesky enumeration backend |
@@ -939,7 +865,7 @@ Imported theta-series, p-neighbor, and reduction-theory surfaces:
 Imported ternary, mass, representability, split-covering, and solve surfaces:
 
 | File | Line | Method | Notes |
-|------|------|--------|-------|
+| --- | --- | --- | --- |
 | `quadratic_form__ternary_Tornaria.py` | 35 | `disc()` | ternary discriminant invariant |
 | `quadratic_form__ternary_Tornaria.py` | 63 | `content()` | ternary coefficient content |
 | `quadratic_form__ternary_Tornaria.py` | 110 | `adjoint()` | ternary adjoint form |
@@ -1011,7 +937,7 @@ Imported ternary, mass, representability, split-covering, and solve surfaces:
 Imported equivalence-testing surfaces (`quadratic_form__equivalence_testing.py`):
 
 | Line | Method | Notes |
-|------|--------|-------|
+| --- | --- | --- |
 | 25 | `is_globally_equivalent_to(other, return_matrix=False)` | positive-definite integral equivalence test; optionally returns transformation matrix |
 | 119 | `is_locally_equivalent_to(other, check_primes_only=False, force_jordan_equivalence_test=False)` | local equivalence over the real place and all p-adic integral places |
 | 178 | `has_equivalent_Jordan_decomposition_at_prime(other, p)` | p-adic Jordan-decomposition equivalence test at one prime |
@@ -1022,7 +948,7 @@ Imported equivalence-testing surfaces (`quadratic_form__equivalence_testing.py`)
 Imported genus-package surfaces (`sage/quadratic_forms/genera`):
 
 | File | Line | Surface | Notes |
-|------|------|---------|-------|
+| --- | --- | --- | --- |
 | `genera/genus.py` | 41 | `genera(sig_pair, determinant, max_scale=None, even=False)` | enumerates non-empty global genera with fixed signature and determinant data |
 | `genera/genus.py` | 127 | `_local_genera(p, rank, det_val, max_scale, even)` | helper enumerating local p-adic genus symbols used by `genera` |
 | `genera/genus.py` | 226 | `_blocks(b, even_only=False)` | helper enumerating viable 2-adic Jordan-block symbol completions for `_local_genera` |
@@ -1096,51 +1022,33 @@ Imported genus-package surfaces (`sage/quadratic_forms/genera`):
 | `genera/spinor_genus.py` | 144 | `SpinorOperators.to_square_class(x, p)` | local unit square-class embedding |
 | `genera/spinor_genus.py` | 191 | `SpinorOperators.delta(r, prime=None)` | Conway-Sloane diagonal embedding of rational square classes |
 
----
+* * *
 
 ## Reference: retired project-local `src/lattices/categories/` method surfaces
 
 The `src/lattices/categories/...` paths below are not active files in this checkout.
-They are retired project-local provenance for method names mined from the lattice
-redesign, not installed Sage providers and not current implementation owners.
-The active owner surfaces are split across `category_specs/forms` for generic
-formed-module and bilinear/quadratic form structure,
-`category_specs/modules/subcategories/finitely_presented_over_pid.py` for
-PID-module invariant-factor and torsion structure, and `category_specs/lattices` for
-the `Lattices(R)` endpoint, constructor collector, Hom/End/Aut refinements, and
-lattice-specific construction categories.
+They are retired project-local provenance for method names mined from the lattice redesign, not installed Sage providers and not current implementation owners.
+The active owner surfaces are split across `category_specs/forms` for generic formed-module and bilinear/quadratic form structure, `category_specs/modules/subcategories/finitely_presented_over_pid.py` for PID-module invariant-factor and torsion structure, and `category_specs/lattices` for the `Lattices(R)` endpoint, constructor collector, Hom/End/Aut refinements, and lattice-specific construction categories.
 
 ### `BilinearModules` (src/lattices/categories/bilinear_modules.py)
 
-**ParentMethods** (abstract unless noted):
-`bilinear_form`, `gens`, `zero`, `base_ring`, `free_part`, `torsion_part`, `Hom`,
-`dual`, `twist`, `span`, `cardinality`
+**ParentMethods** (abstract unless noted): `bilinear_form`, `gens`, `zero`, `base_ring`, `free_part`, `torsion_part`, `Hom`, `dual`, `twist`, `span`, `cardinality`
 
-**ParentMethods** (derived — one-liners):
-`b(v,w)` (delegates to `bilinear_form().evaluate(v,w)`),
-`gram_matrix()` (fills matrix with `b(e_i, e_j)` — **note**: this is placed here in
-src/, but correct placement is `Free + Bilinear`; see MAPPING.md),
-`End()`, `symbolic_form()`, `direct_sum(other)`, `__add__`, `__pow__`, `__mul__`
+**ParentMethods** (derived — one-liners): `b(v,w)` (delegates to `bilinear_form().evaluate(v,w)`), `gram_matrix()` (fills matrix with `b(e_i, e_j)` — **note**: this is placed here in src/, but correct placement is `Free + Bilinear`; see MAPPING.md), `End()`, `symbolic_form()`, `direct_sum(other)`, `__add__`, `__pow__`, `__mul__`
 
-**ElementMethods** (abstract): `parent`, `__add__`, `__neg__`, `__rmul__`, `__eq__`,
-`__hash__`, `to_vector`
+**ElementMethods** (abstract): `parent`, `__add__`, `__neg__`, `__rmul__`, `__eq__`, `__hash__`, `to_vector`
 
-**ElementMethods** (derived): `__mul__` (= b(self, other)), `self_product` (= b(v,v)),
-`is_isotropic`, `span`, `__sub__`
+**ElementMethods** (derived): `__mul__` (= b(self, other)), `self_product` (= b(v,v)), `is_isotropic`, `span`, `__sub__`
 
-**MorphismMethods** (abstract): `domain`, `codomain`, `__call__`, `to_matrix`,
-`kernel`, `image`, `cokernel`, `is_isometry`
+**MorphismMethods** (abstract): `domain`, `codomain`, `__call__`, `to_matrix`, `kernel`, `image`, `cokernel`, `is_isometry`
 
-**MorphismMethods** (derived): `is_injective`, `is_surjective`, `is_bijective`,
-`is_isomorphism`, `__mul__` (composition), `direct_sum`
+**MorphismMethods** (derived): `is_injective`, `is_surjective`, `is_bijective`, `is_isomorphism`, `__mul__` (composition), `direct_sum`
 
 ### `FreeBilinearModules` (src/lattices/categories/free_bilinear_modules.py)
 
-**ParentMethods** (abstract): `rank`, `is_nondegenerate`, `is_positive_definite`,
-`is_negative_definite`
+**ParentMethods** (abstract): `rank`, `is_nondegenerate`, `is_positive_definite`, `is_negative_definite`
 
-**ParentMethods** (derived — overrides): `free_part` (= self), `torsion_part` (= 0),
-`cardinality` (= ∞ if rank > 0)
+**ParentMethods** (derived — overrides): `free_part` (= self), `torsion_part` (= 0), `cardinality` (= ∞ if rank > 0)
 
 **ParentMethods** (derived): `is_definite`, `is_indefinite`
 
@@ -1152,23 +1060,16 @@ src/, but correct placement is `Free + Bilinear`; see MAPPING.md),
 
 ### `Lattices` (src/lattices/categories/lattices.py)
 
-**ParentMethods** (abstract): `signature_pair`, `determinant`, `is_even`,
-`nikulin_invariants`, `dual`, `inclusion_morphism`, `discriminant_group`,
-`is_isometric_to`, `is_rationally_isometric_to`, `is_locally_isometric_to`,
-`rational_span`, `to_quadratic_module`
+**ParentMethods** (abstract): `signature_pair`, `determinant`, `is_even`, `nikulin_invariants`, `dual`, `inclusion_morphism`, `discriminant_group`, `is_isometric_to`, `is_rationally_isometric_to`, `is_locally_isometric_to`, `rational_span`, `to_quadratic_module`
 
-**ParentMethods** (derived): `signature`, `discriminant`, `is_odd`, `is_unimodular`,
-`genus`, `O()` / `orthogonal_group()`
+**ParentMethods** (derived): `signature`, `discriminant`, `is_odd`, `is_unimodular`, `genus`, `O()` / `orthogonal_group()`
 
 **ElementMethods** (abstract): `norm`, `is_root`
 
 **ElementMethods** (derived): `is_isotropic`, `reflection`, `perp`
 
-`reflection` is not an installed Sage `FreeQuadraticModule` method in the audited
-source; it is recovered from the preserved lattice spec backup and the reflective
-lattice theory note.  The formula is defined in scalar extension for non-isotropic
-vectors, and its membership in the original lattice orthogonal group is the separate
-root/lattice-preservation condition `2 b(v,x) / b(v,v) in R` for all `x in L`.
+`reflection` is not an installed Sage `FreeQuadraticModule` method in the audited source; it is recovered from the preserved lattice spec backup and the reflective lattice theory note.
+The formula is defined in scalar extension for non-isotropic vectors, and its membership in the original lattice orthogonal group is the separate root/lattice-preservation condition `2 b(v,x) / b(v,v) in R` for all `x in L`.
 
 **SubcategoryMethods**: `Even()`, `Unimodular()`
 
@@ -1184,13 +1085,9 @@ root/lattice-preservation condition `2 b(v,x) / b(v,v) in R` for all `x in L`.
 
 ### `TorsionBilinearModules` (src/lattices/categories/torsion_bilinear_modules.py)
 
-**ParentMethods** (abstract): `is_p_elementary`, `p_part`, `jordan_decomposition`.
-Invariant-factor surfaces such as `invariants()` are inherited from finitely
-presented modules over a PID, not owned by torsion bilinear or discriminant
-categories.
+**ParentMethods** (abstract): `is_p_elementary`, `p_part`, `jordan_decomposition`. Invariant-factor surfaces such as `invariants()` are inherited from finitely presented modules over a PID, not owned by torsion bilinear or discriminant categories.
 
-**ParentMethods** (derived overrides): `free_part` (= 0), `torsion_part` (= self),
-`cardinality` (= product of invariants)
+**ParentMethods** (derived overrides): `free_part` (= 0), `torsion_part` (= self), `cardinality` (= product of invariants)
 
 **ElementMethods** (abstract): `additive_order`, `lift`
 

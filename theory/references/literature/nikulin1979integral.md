@@ -1,12 +1,12 @@
 # Math-Net.Ru All Russian mathematical portal
 
-V. V. Nikulin, Integral symmetric bilinear forms and some of their applications,   
+V. V. Nikulin, Integral symmetric bilinear forms and some of their applications,\
 Mathematics of the USsR-Izvestiya, 1980, Volume 14, Issue 1, 103-167
 
 https://www.mathnet.ru/eng/im1677
 
-Use of the all-Russian mathematical portal Math-Net.Ru implies that you have read and   
-agreed to these terms of use   
+Use of the all-Russian mathematical portal Math-Net.Ru implies that you have read and\
+agreed to these terms of use\
 https://www.mathnet .ru/eng/agreement
 
 # INTEGRAL SYMMETRIC BILINEAR FORMS AND SOME OF THEIR APPLICATIONS
@@ -21,15 +21,17 @@ Bibliography:57 titles.
 
 $1 ^ { \circ }$ . This paper is divided into two parts; an arithmetical part (S1),concerned with integral symmetric bilinear forms,and a geometric part ( $\ S \ S 2$ and 3),relating to Milnor's quadratic forms associated with singularities,and also to real algebraic manifolds.Although the results in the first part have a purely arithmetical character,and are of interest in their own right,they were obtained with geometric applications in mind-for example,the problems arising in the papers [12],[13]and [31],as wellas those in the present paper.(Of course, this does not preclude the possibility of other applications to geometry.)
 
-We give an exposition of these results in subsections 2,3 and 4 of this Introduction. For the convenience of the reader,the exposition in each of these subsections will be selfcontained.
+We give an exposition of these results in subsections 2,3 and 4 of this Introduction.
+For the convenience of the reader,the exposition in each of these subsections will be selfcontained.
 
-$2 ^ { \circ }$ . Lattices and the discriminant-form technique. In the theory of nondegenerate integral symmetric bilinear forms (which we shall refer to as lattices in the sequel),the following problems are classical:
+$2 ^ { \circ }$ . Lattices and the discriminant-form technique.
+In the theory of nondegenerate integral symmetric bilinear forms (which we shall refer to as lattices in the sequel),the following problems are classical:
 
 1） the classfication of lattices;
 
-2) the existence of an embedding of one lattice into another (or of the representation of one form by another);
+2. the existence of an embedding of one lattice into another (or of the representation of one form by another);
 
-3) the uniqueness of such embeddings.
+3. the uniqueness of such embeddings.
 
 The classcal theory of quadratic forms and lattices over algebraic number fields solves these problems by means of the Hasse-Minkowski theorem (see,for example,[2], [6] and [11]),which gives a classification of quadratic forms over number fields,and,consequently, gives necessary and sufficient conditions for a set of local lattices $\{ S _ { \mathfrak { P } } \}$ (i.e.an adelic lattice)
 
@@ -55,29 +57,35 @@ The technique of discriminant-forms,whose construction is associated with the ma
 
 The concept of a discriminant-form constitutes the basis for this technique.It is well known that every lattice $s$ (over Z) induces a finite nondegenerate symmetric bilinear form $b _ { \pmb { S } }$ on the finite abelian group $A _ { S } = S ^ { * } / S$ (where $S \hookrightarrow S ^ { * } = \operatorname { H o m } ( S , { \pmb z } )$ is the embedding defining $s$ as a bilinear form),the values of $b _ { S }$ being in $\mathbf { Q } / \mathbf { Z }$ , and that, if $s$ is even, then there is a nondegenerate quadratic form $q _ { S }$ ,with values in $\mathbf { Q } / 2 \mathbf { Z }$ ,whose associated bilinear form is $b _ { s }$ (see $\ S 1 . 2 ^ { \circ } )$ ．We shall call such forms discriminant-forms.
 
-Finite symmetric bilinear forms and quadratic forms have been adequately investigated (see Durfee [5],and the references given there). It is known that all nondegenerate finite symmetric bilinear forms and quadratic forms are discriminant-forms (see Wall [16]). Kneser [10],Durfee [5] and Wall [17] have shown that discriminant-forms describe the stable classes of lattices,i.e.lattices which are equal to within orthogonal direct sums with unimodular lattices (see Theorem 1.3.1).In recent times it has become clear that these facts are also valid,when suitably formulated,in the more general context of lattices over Dedekind rings,and this establishes their essentially algebraic nature (see [5],and the references given there).
+Finite symmetric bilinear forms and quadratic forms have been adequately investigated (see Durfee [5],and the references given there).
+It is known that all nondegenerate finite symmetric bilinear forms and quadratic forms are discriminant-forms (see Wall [16]). Kneser [10],Durfee [5] and Wall [17] have shown that discriminant-forms describe the stable classes of lattices,i.e.lattices which are equal to within orthogonal direct sums with unimodular lattices (see Theorem 1.3.1).In recent times it has become clear that these facts are also valid,when suitably formulated,in the more general context of lattices over Dedekind rings,and this establishes their essentially algebraic nature (see [5],and the references given there).
 
 We shall show that discriminant-forms can be applied to some very subtle arithmetical problems; namely,the classification of genera of lattices (Theorems 1.9.4,1.1O.1,1.16.3 and 1.16.5)and consequently,under certain restrictions,the classification of isomorphism classes of indefinite lattices $( \ S 1 . 1 3 ^ { \circ } )$ ; problems on the existence of embeddings of one lattice into another ( $\mathfrak { s } \mathfrak { l }$ ， subsections $4 { - } 6 ^ { \circ }$ ， $1 2 ^ { \circ }$ and $1 5 ^ { \circ } - 1 7 ^ { \circ }$ ; in particular,Theorems 1.12.2 and 1.12.4); analogs of Wit's theorem for lattices,i.e. problems of uniqueness of embeddings of one lattice in another (Theorems 1.14.2,1.14.4,and 1.16.10; $\ S 1$ ,subsections $5 ^ { \circ }$ $6 ^ { \circ }$ $9 ^ { \circ }$ and $1 4 ^ { \circ } - 1 7 ^ { \circ }$ ）， and also relations between the applications of bilinear discriminant-forms and quadratic forms in the case of even lattices (Theorem 1.11.3). Discriminant-forms are also useful in the classification of definite forms (see Proposition 1.13.6,Corollaries 1.14.6 and 1.14.7,and Theorem 1.14.9).
 
-These results constitute the technique of discriminant-forms. In proving them we make use of the results of Minkowski,Hasse,Eichler and Kneser cited above.
+These results constitute the technique of discriminant-forms.
+In proving them we make use of the results of Minkowski,Hasse,Eichler and Kneser cited above.
 
 $3 ^ { \circ }$ . Milnor's quadratic forms for singular points of functions.As is well known (see [33] and [27]),to each isolated singular point of a holomorphic function there corresponds a certain integral quadratic form,called Milnor's quadratic form for the singular point.
 
 We now list the complete system of invariants for Milnor's quadratic form; if $K$ is this form and $\widetilde { K } = K / { \ker K , A _ { K } } = \widetilde { K } ^ { * } / \widetilde { K }$ ,then the quadratic form $\widetilde { K }$ induces a certain finite quadratic form $q _ { K }$ on the finite abelian group $A _ { K } , q _ { K }$ taking values in $\mathbf { Q } / 2 \mathbf { Z }$ ,and the symmetric bilinear form $b _ { K }$ associated with $q _ { K }$ taking values in $\mathbf { Q } / \mathbf { Z }$ .The forms $q _ { K }$ and $b _ { K }$ will be called the discriminant-forms of $K$ .We shall prove,using our arithmetical results,that the discriminant-form (either $q _ { K }$ or $b _ { K }$ ,indierently),ogethrwitheealaiats $t _ { ( 0 ) } , t _ { ( + ) }$ and $t _ { ( - ) }$ (which are,respectively,the number of zero,positive and negative squares in the diagonal form of $\pmb { K }$ ） constitute a full system of invariants of Milnor's quadratic form.
 
-Steenbrink [35] calculated the invariants $t _ { ( 0 ) } , t _ { ( + ) }$ and $t _ { ( - ) }$ for the case of a quasihomogeneous singularity．Using results of Dolgacev [29] and Pinkham [34],we shall show that,for the case of two-dimensional quasihomogeneous singularities,the bilinear discriminantform can also be calculated,with the aid of resolution of singularities. As a result we obtain an effective method for the calculation of Milnor's quadratic form for a two-dimensional quasihomogeneous singularity.
+Steenbrink [35] calculated the invariants $t _ { ( 0 ) } , t _ { ( + ) }$ and $t _ { ( - ) }$ for the case of a quasihomogeneous singularity．Using results of Dolgacev [29] and Pinkham [34],we shall show that,for the case of two-dimensional quasihomogeneous singularities,the bilinear discriminantform can also be calculated,with the aid of resolution of singularities.
+As a result we obtain an effective method for the calculation of Milnor's quadratic form for a two-dimensional quasihomogeneous singularity.
 
-$4 ^ { \circ }$ . Polarized integral involutions and real algebraic geometry. Surfaces of type K3 over R. By a polarized integral involution we mean a triple $( L , \varphi , h )$ ,where $L$ is a unimodular integral symmetric bilinear form, $\varphi$ is an involution of $L$ and $^ h$ is an element of $L$ for which $\varphi ( h ) = \pm h$ ：
+$4 ^ { \circ }$ . Polarized integral involutions and real algebraic geometry.
+Surfaces of type K3 over R. By a polarized integral involution we mean a triple $( L , \varphi , h )$ ,where $L$ is a unimodular integral symmetric bilinear form, $\varphi$ is an involution of $L$ and $^ h$ is an element of $L$ for which $\varphi ( h ) = \pm h$ ：
 
 The classification of polarized integral involutions is important in questions in real algebraic geometry; $L$ plays the role of the homology group (modulo torsion) of middle dimension (with intersection-index as the appropriate form) of the complexification of an even-dimension algebraic variety defined over $\mathbf { R }$ , while $\varphi$ is the operation of complex conjugation and $h = l ^ { k }$ is a suitable power of the homology class $\iota$ of a hyperplane section ( $\mathbf { \dot { \boldsymbol { k } } }$ is one-half of the dimension of the underlying real variety).
 
-We shall find a complete system of genus-invariants,and (under certain restrictions) of isomorphism classes for polarized integral involutions,and also all the relations between these invariants, if $h ^ { 2 } = h \cdot h \neq 0$ and $( h ) _ { L } ^ { \perp }$ is even (i.e. $h \cdot x = 0 \Rightarrow x ^ { 2 } \equiv 0$ (mod 2)). This is treated in Theorems 3.3.1 and 3.4.1-3．We remark that the latter conditions above are always satisfied by the polarized integral involutions associated with complete intersections. (Let us recall that a nonsingular projective variety $A \subset \mathbf { P } ^ { N }$ is a complete intersection if it is defined by $N - r$ homogeneous equations, $r$ being the dimension of $\pmb { A }$ .）Further,we cover the case of complete intersections which are ramified in subvarieties and are defined by homogeneous forms in $\mathbf { P } ^ { N }$ . These cases are of the greatest interest and have been most intensively studied．Furthermore,in these cases, it so happens that it is known (thanks mainly to the work of Arnol'd,Rohlin and Harlamov) how to interpret geometrically the invariants which we obtain,and the classfication of polarized integral involutions finds direct geometric applications.
+We shall find a complete system of genus-invariants,and (under certain restrictions) of isomorphism classes for polarized integral involutions,and also all the relations between these invariants, if $h ^ { 2 } = h \cdot h \neq 0$ and $( h ) _ { L } ^ { \perp }$ is even (i.e. $h \cdot x = 0 \Rightarrow x ^ { 2 } \equiv 0$ (mod 2)). This is treated in Theorems 3.3.1 and 3.4.1-3．We remark that the latter conditions above are always satisfied by the polarized integral involutions associated with complete intersections.
+(Let us recall that a nonsingular projective variety $A \subset \mathbf { P } ^ { N }$ is a complete intersection if it is defined by $N - r$ homogeneous equations, $r$ being the dimension of $\pmb { A }$ .）Further,we cover the case of complete intersections which are ramified in subvarieties and are defined by homogeneous forms in $\mathbf { P } ^ { N }$ . These cases are of the greatest interest and have been most intensively studied．Furthermore,in these cases, it so happens that it is known (thanks mainly to the work of Arnol'd,Rohlin and Harlamov) how to interpret geometrically the invariants which we obtain,and the classfication of polarized integral involutions finds direct geometric applications.
 
 We shall also apply the classification of polarized integral involutions to the classification of real projective K3 surfaces.This classification is of interest on at least three counts: firstly,K3 surfaces have been intensively investigated；secondly,real K3 surfaces have only been partially studied in the case of double coverings of the projective plane,ramified only in a nonsingular sextic surve (it being known that the topological classification is equivalent to the classification of the location of the ovals of a plane sextic curve in the projective plane, obtained by Gudkov [42]),and in the case of quartic surfaces in projective 3-space (the known topological classification being due to Harlamov [56], who recently obtained the complete isotopic classification); thirdly,as we shal see below,our method,applied to K3 surfaces,succeeds in obtaining a very much more precise clasification than that provided by isotopy.
 
 Apart from the usual classfications,i.e.the topological and isotopic ones,there is another type of clasification,the coarse projective classification (our term); that is,the description of the connected components of the parameter space parametrizing the family of real varieties under consideration,to within a projective transformation of the components (the latter being of little consequence,since $\mathtt { P G L } ( N + 1 , \mathbb { R } )$ has only one or two connected components, depending on the parity of $N$ ). It is easily seen that coarse projective equivalence is finer than isotopic equivalence.
 
-Our basic result in this context is that,on associating with a projective K3 surface its polarized integral involution,we find a bijective correspondence between equivalence classes (under coarse projective equivalence) and isomorphism classes of polarized integral involutions $( L , \varphi , h )$ satisfying the following conditions: $L$ is even,of signature given by (3.19); $\Gamma ^ { \varphi } =$ $\{ x \in L | \varphi ( x ) = x \}$ has exactly one positive square; $\varphi ( h ) = - h$ and $h ^ { 2 } > 0$ (it being assumed that the K3 surfaces are embedded in the projective space of complete linear series). This theorem is a consequence of the global Toreli theorem [22] and the surjectivity of the period mapping [19] for K3 surfaces (see Theorem 3.10.1).Hence the coarse projective classification of real K3 surfaces reduces to the classification of polarized integral involutions.
+Our basic result in this context is that,on associating with a projective K3 surface its polarized integral involution,we find a bijective correspondence between equivalence classes (under coarse projective equivalence) and isomorphism classes of polarized integral involutions $( L , \varphi , h )$ satisfying the following conditions: $L$ is even,of signature given by (3.19); $\Gamma ^ { \varphi } =$ $\{ x \in L | \varphi ( x ) = x \}$ has exactly one positive square; $\varphi ( h ) = - h$ and $h ^ { 2 } > 0$ (it being assumed that the K3 surfaces are embedded in the projective space of complete linear series).
+This theorem is a consequence of the global Toreli theorem [22] and the surjectivity of the period mapping [19] for K3 surfaces (see Theorem 3.10.1).Hence the coarse projective classification of real K3 surfaces reduces to the classification of polarized integral involutions.
 
 We restrict ourselves in this Introduction to the following geometric consequences of these results.
 
@@ -99,13 +107,16 @@ We remark that the coarse projective classfication is settled for even fewer cas
 
 $5 ^ { \circ }$ . The results of $3 ^ { \circ }$ and $4 ^ { \circ }$ are conceptually related,in view of the connection between the real forms of singularities and real algebraic geometry (see Arnol'd [38] and Looijenga [32]).
 
-In conclusion the author wishes to express his gratitude to I. R. Safarevic for encourag. ing the writing of this paper,and for his valuable suggestions.(²)
+In conclusion the author wishes to express his gratitude to I. R. Safarevic for encourag.
+ing the writing of this paper,and for his valuable suggestions.(²)
 
 # $\ S 1$ . Latices and the technique of discriminant-forms
 
-In the present section we expound the technique of discriminant-forms, which represent rather more subtle invariants of integral symmetric bilinear forms than the discriminant. The application of discriminant-forms alows us to transfer many results on unimodular forms to the nonunimodular case,and,in our view,is very convenient for calculations.
+In the present section we expound the technique of discriminant-forms, which represent rather more subtle invariants of integral symmetric bilinear forms than the discriminant.
+The application of discriminant-forms alows us to transfer many results on unimodular forms to the nonunimodular case,and,in our view,is very convenient for calculations.
 
-$1 ^ { \circ }$ . Lattices. In order to avoid constant repetition of the phrase “nondegenerate integral.symmetric bilinear forms”,we shall simply refer to them as “lattices".
+$1 ^ { \circ }$ . Lattices.
+In order to avoid constant repetition of the phrase “nondegenerate integral.symmetric bilinear forms”,we shall simply refer to them as “lattices".
 
 Everywhere in the sequel,by a lattice we mean a free $\mathbf { z }$ module of finite rank, with a nondegenerate symmetric bilinear form with values in the ring $\mathbf { z }$ of rational integers.
 
@@ -133,7 +144,8 @@ THEOREM $1 . 1 . 2 ^ { * }$ Let $s$ be an even lattice of signature $( t _ { ( +
 
 Theorem 1.1.1,to the best of the author's knowledge,is due to Milnor (for a proof see [14]), while Theorem 1.1.2 is due to James [7] (see also [22], $\ S 6 ,$ ！
 
-$2 ^ { \circ }$ . Finite symmetric bilinear forms and quadratic forms. By a finite symmetric bilinear form we mean a symmetric bilinear form $\pmb { b } \colon \pmb { A } \times \pmb { A } \longrightarrow \pmb { 0 } / \mathbf { Z }$ defined ona finite abelian group $\pmb { A }$ ：
+$2 ^ { \circ }$ . Finite symmetric bilinear forms and quadratic forms.
+By a finite symmetric bilinear form we mean a symmetric bilinear form $\pmb { b } \colon \pmb { A } \times \pmb { A } \longrightarrow \pmb { 0 } / \mathbf { Z }$ defined ona finite abelian group $\pmb { A }$ ：
 
 By a finite quadratic form we mean a map $q \colon A \to \mathbf { Q } / 2  { \mathbf { Z } }$ satisfying the following conditions:
 
@@ -173,7 +185,8 @@ $$
 
 where $m _ { 2 } \colon { \bf Q } ^ { ( p ) } / { \bf Z } \longrightarrow 2 { \bf Q } ^ { ( p ) } / 2 { \bf Z }$ is the isomorphism induced by multiplication by 2 in Q (α being a member of $A _ { p }$ ). In particular,the quadratic form $q _ { p }$ is determined by its bilinear form $b _ { p }$ when $p \neq 2$ ：
 
-$3 ^ { \circ }$ .The discriminant form of a lattice. The bilinear form of a lattice $s$ determines a canonical embedding $S \hookrightarrow S ^ { * } = \operatorname { H o m } ( S , \mathbf { Z } )$ The factor group $A = S ^ { * } / S$ is finite abelian, and its order divides ldiscr $s |$ . We extend the bilinear form on $s$ to one on $s ^ { * }$ , taking values in Q, by putting
+$3 ^ { \circ }$ .The discriminant form of a lattice.
+The bilinear form of a lattice $s$ determines a canonical embedding $S \hookrightarrow S ^ { * } = \operatorname { H o m } ( S , \mathbf { Z } )$ The factor group $A = S ^ { * } / S$ is finite abelian, and its order divides ldiscr $s |$ . We extend the bilinear form on $s$ to one on $s ^ { * }$ , taking values in Q, by putting
 
 $$
 \begin{array} { r l } & { b s ( t _ { 1 } + S , t _ { 2 } + S ) = t _ { 1 } \cdot t _ { 2 } + \mathsf { Z } , \mathrm { ~ w h e r e ~ } t _ { 1 } , t _ { 2 } \in S ^ { \ast } , } \\ & { q _ { S } \left( t + S \right) = t ^ { 2 } + \mathrm { 2 } \mathsf { Z } , \mathrm { ~ i f ~ } S \mathrm { ~ i s ~ e v e n } , \mathrm { w h e r e ~ } t \in S ^ { \ast } . } \end{array}
@@ -189,7 +202,9 @@ THEOREM $1 . 3 . 1 ^ { * }$ . Two lattices $s _ { \scriptscriptstyle 1 }$ and $s
 
 We remark that recently Wall[17] and Kneser have found a purely algebraic proof of this theorem,applicable to lattices over Dedekind domains,thus demonstrating the algebraic character of the theorem (see [5l). (We reduce the proof of this theorem to the even case in ${ \boldsymbol { 6 } } ^ { \circ }$ ）
 
-We shall say that two lattices (even lattices) are stably equivalent if there exist unimodular latices (even unimodular lattices) $L _ { 1 }$ and $L _ { 2 }$ such that $L _ { 1 } \oplus S _ { 1 } \cong L _ { 2 } \oplus S _ { 2 }$ We denote by St. $\bf Q u ( Z )$ (St. ${ { { \sf Q } } { \bf u } ^ { + } } ( { \bf Z } ) )$ the semigroups of classes of stably equivalent lattices (even lattices).From Theorem 1.3.1 it follows that,on associating with a lattice its discriminant-forms,there are induced embeddings b: St. $\operatorname { Q u } ( \mathbf { Z } ) \longrightarrow \operatorname { b i l } ( \mathbf { Z } )$ and $q$ : St. ${ { \sf Q } { \bf u } } ^ { + } ( { \bf Z } ) \longrightarrow$ ${ \bf q u } ( { \bf Z } )$ . As is shown in [16], these maps are surjective. As a result we have the (naturally, known)
+We shall say that two lattices (even lattices) are stably equivalent if there exist unimodular latices (even unimodular lattices) $L _ { 1 }$ and $L _ { 2 }$ such that $L _ { 1 } \oplus S _ { 1 } \cong L _ { 2 } \oplus S _ { 2 }$ We denote by St. $\bf Q u ( Z )$ (St.
+${ { { \sf Q } } { \bf u } ^ { + } } ( { \bf Z } ) )$ the semigroups of classes of stably equivalent lattices (even lattices).From Theorem 1.3.1 it follows that,on associating with a lattice its discriminant-forms,there are induced embeddings b: St. $\operatorname { Q u } ( \mathbf { Z } ) \longrightarrow \operatorname { b i l } ( \mathbf { Z } )$ and $q$ : St. ${ { \sf Q } { \bf u } } ^ { + } ( { \bf Z } ) \longrightarrow$ ${ \bf q u } ( { \bf Z } )$ . As is shown in [16], these maps are surjective.
+As a result we have the (naturally, known)
 
 THEOREM $1 . 3 . 2 ^ { * }$ . The assignment of discriminant-forms to lattices induces semigroup isomorphisms
 
@@ -207,7 +222,8 @@ $$
 t _ { ( + ) } - t _ { ( - ) } \equiv \operatorname { s i g n } \operatorname { s t } { ( S ) } { \mathrm { ~ } } ( \operatorname { m o d } 8 ) \equiv \operatorname { s i g n } q _ { S } ( \operatorname { m o d } 8 ) .
 $$
 
-$4 ^ { \circ }$ . Overlattices. In $4 ^ { \circ } , 5 ^ { \circ }$ and $6 ^ { \circ }$ we consider only the even case; the odd cases of all our results can be obtained by replacing $q _ { S }$ by $b _ { s }$
+$4 ^ { \circ }$ . Overlattices.
+In $4 ^ { \circ } , 5 ^ { \circ }$ and $6 ^ { \circ }$ we consider only the even case; the odd cases of all our results can be obtained by replacing $q _ { S }$ by $b _ { s }$
 
 Let $s$ be an even lattice．A given embedding $s { \hookrightarrow s ^ { \prime } }$ of even lattices,for which $s ^ { \prime } / s$ is a finite abelian group,will be called an even overlattice of $s$
 
@@ -221,7 +237,8 @@ $$
 
 We shall call two overlattices $s \subset \joinrel \to s ^ { \prime }$ and $s \hookrightarrow s ^ { \prime \prime }$ isomorphic if there exists an automorphism of $s$ extending to an isomorphism of $s ^ { \prime }$ with $s "$
 
-In order to formulate the next result,we observe that an isomorphism $\varphi : S _ { 1 } \stackrel { \sim } { \to } S _ { 2 }$ of lattices extends to a $\mathbf { z }$ -module isomorphism ${ \cal S } _ { 1 } ^ { * } \longrightarrow { \cal S } _ { 2 } ^ { * }$ (denoted by $\varphi ^ { * }$ ）and determines an isomorphism $\overline { { \varphi } }$ $q _ { S _ { 1 } } \simeq _ { q _ { S _ { 2 } } }$ of their discriminant-forms. In particular,there is an induced homomorphism $O ( S ) \longrightarrow O ( q _ { S } )$ between the automorphism groups of $s$ and $\boldsymbol { q } _ { s }$
+In order to formulate the next result,we observe that an isomorphism $\varphi : S _ { 1 } \stackrel { \sim } { \to } S _ { 2 }$ of lattices extends to a $\mathbf { z }$ -module isomorphism ${ \cal S } _ { 1 } ^ { * } \longrightarrow { \cal S } _ { 2 } ^ { * }$ (denoted by $\varphi ^ { * }$ ）and determines an isomorphism $\overline { { \varphi } }$ $q _ { S _ { 1 } } \simeq _ { q _ { S _ { 2 } } }$ of their discriminant-forms.
+In particular,there is an induced homomorphism $O ( S ) \longrightarrow O ( q _ { S } )$ between the automorphism groups of $s$ and $\boldsymbol { q } _ { s }$
 
 PROPOSITION 1.4.2． Two even overlattices $s { \subset } \to s ^ { \prime }$ and $s { \subset } \to s ^ { \prime \prime }$ are isomorphic if and only if the isotropy subgroups $H _ { S ^ { \prime } } \subset A _ { S }$ and $H _ { S ^ { \prime \prime } } \subset A _ { S }$ are conjugate under some automorphism of S.
 
@@ -243,7 +260,8 @@ $$
 q _ { M } = ( q _ { S } \oplus q _ { K } | ( H _ { M } ) ^ { \perp } ) / H _ { M } .
 $$
 
-The primitivity of the embeddings $s \subset \mathcal { M }$ and $K \hookrightarrow M$ is easily seen to be equivalent to the condition that the projections $p _ { S } \colon H _ { M } \to A _ { S }$ and $p _ { K } \colon H _ { M } \longrightarrow A _ { K }$ be embeddings. Let $H _ { M , S } = p _ { S } ( H _ { M } )$ and $H _ { M , K } = p _ { K } ( H _ { M } )$ Then $H _ { M }$ is a pushout for the isomorphism $\gamma _ { S , K } ^ { M } = p _ { K } \circ p _ { S } ^ { - 1 } \colon H _ { M , S } \simeq H _ { K , S }$ , while the isotropy of $H _ { M }$ shows that $q _ { K } \circ \gamma _ { S , K } ^ { M } = - q _ { S }$ ， The converse argument yields
+The primitivity of the embeddings $s \subset \mathcal { M }$ and $K \hookrightarrow M$ is easily seen to be equivalent to the condition that the projections $p _ { S } \colon H _ { M } \to A _ { S }$ and $p _ { K } \colon H _ { M } \longrightarrow A _ { K }$ be embeddings.
+Let $H _ { M , S } = p _ { S } ( H _ { M } )$ and $H _ { M , K } = p _ { K } ( H _ { M } )$ Then $H _ { M }$ is a pushout for the isomorphism $\gamma _ { S , K } ^ { M } = p _ { K } \circ p _ { S } ^ { - 1 } \colon H _ { M , S } \simeq H _ { K , S }$ , while the isotropy of $H _ { M }$ shows that $q _ { K } \circ \gamma _ { S , K } ^ { M } = - q _ { S }$ ， The converse argument yields
 
 PROPOsITioN 1.5.1． A primitive embedding of an even lattice $s$ into another even lattice,with discrimination-form q and orthogonal complement isomorphic to $K$ ,is determined by a pair $( H , \gamma )$ ，where $H \subset A _ { S }$ is a subgroup and $\gamma \colon H \longrightarrow A _ { K }$ is a group monomorphism, while $q _ { K } \circ \gamma = - q _ { S } | H$ and
 
@@ -255,11 +273,13 @@ where $\Gamma _ { \gamma }$ is the pushout of $\gamma$ in $A _ { S } \oplus A _ 
 
 Two such pairs $( H , \gamma )$ and $( H ^ { \prime } , \gamma ^ { \prime } )$ determine isomorphic primitive embeddings if and only if $H = H ^ { \prime }$ ,and the injections $\gamma$ and $\gamma ^ { \prime }$ are conjugate via some automorphism of $K$ ，and they determine primitive sublattices when there exist $\varphi \in O ( S )$ and $\psi \in O ( K )$ such that $\gamma \circ \overline { { \varphi } } = \overline { { \psi } } \circ \gamma ^ { \prime }$ ：
 
-COROLLARY 1.5.2. Let $s _ { \mathbf { 1 } } \subset M$ and $s _ { 2 } \subset M$ be two primitive sublatices,and let $\varphi$ $S _ { 1 } \simeq S$ be an isomorphism of lattices. $\varphi$ extends to an automorphism of M if and only if there exists an isomorphism $\psi \colon K _ { 1 } \simeq K$ between the orthogonal complements,such that $\overline { { { \psi } } } \circ \gamma _ { S _ { 1 } , K _ { 1 } } ^ { M } = \gamma _ { S _ { 2 } , K _ { 2 } } ^ { M } \circ \overline { { { \varphi } } } .$
+COROLLARY 1.5.2. Let $s _ { \mathbf { 1 } } \subset M$ and $s _ { 2 } \subset M$ be two primitive sublatices,and let $\varphi$ $S _ { 1 } \simeq S$ be an isomorphism of lattices.
+$\varphi$ extends to an automorphism of M if and only if there exists an isomorphism $\psi \colon K _ { 1 } \simeq K$ between the orthogonal complements,such that $\overline { { { \psi } } } \circ \gamma _ { S _ { 1 } , K _ { 1 } } ^ { M } = \gamma _ { S _ { 2 } , K _ { 2 } } ^ { M } \circ \overline { { { \varphi } } } .$
 
 The proof will be left to the reader.
 
-${ \pmb 6 } ^ { \circ }$ .Primitive embeddings into unimodular lattces.Orthogonality on lattices. From roposition 1.5.l we immediately obtain,for primitive embeddings into unimodular lattices,
+${ \pmb 6 } ^ { \circ }$ .Primitive embeddings into unimodular lattces.Orthogonality on lattices.
+From roposition 1.5.l we immediately obtain,for primitive embeddings into unimodular lattices,
 
 PROPOsITioN1.6.1． A primitive embedding ofan even lattice $s$ into an even unimodular lattice,in which the orthogonal complement of $s$ is isomorphic to $\pmb { K }$ ,is determined by an
 
@@ -291,7 +311,9 @@ $$
 \mathrm { s i g n } s ^ { \perp } \equiv - \mathrm { s i g n } s ( \mathrm { m o d } 8 ) , \quad \mathrm { s i g n } ( - q ) \equiv - \mathrm { s i g n } q ( \mathrm { m o d } 8 ) .
 $$
 
-$\eta ^ { \circ }$ . Localization. The preceding definitions and results obviously carry over unchanged if we replace $\mathbf { z }$ by $\mathbf { Z } _ { p }$ ,the ring of $p$ -adic integers, Q by $\mathbf { Q } _ { p }$ ,and finite abelian groups by finite abelian $p$ groups, provided we regard the latter as $\mathbf { Z } _ { p }$ -modules (with analogous modifications when working over Dedekind domains). Here we now have ${ \sf Q u ^ { + } ( { \sf Z } _ { p } ) } \equiv { \sf Q u ( { \sf Z } _ { p } ) }$ and bil $( \pmb { Z } _ { p } )$ and ${ \mathfrak { q u } } ( \mathbf { Z } _ { p } )$ coincide when $p \neq 2$ ：
+$\eta ^ { \circ }$ . Localization.
+The preceding definitions and results obviously carry over unchanged if we replace $\mathbf { z }$ by $\mathbf { Z } _ { p }$ ,the ring of $p$ -adic integers, Q by $\mathbf { Q } _ { p }$ ,and finite abelian groups by finite abelian $p$ groups, provided we regard the latter as $\mathbf { Z } _ { p }$ -modules (with analogous modifications when working over Dedekind domains).
+Here we now have ${ \sf Q u ^ { + } ( { \sf Z } _ { p } ) } \equiv { \sf Q u ( { \sf Z } _ { p } ) }$ and bil $( \pmb { Z } _ { p } )$ and ${ \mathfrak { q u } } ( \mathbf { Z } _ { p } )$ coincide when $p \neq 2$ ：
 
 The embedding $\mathbf { Q } \subset \mathbf { Q } _ { p }$ (of fields) induces acanonical isomorphism $\mathbf { Q } / \mathbf { Z } \cong \bigoplus _ { p } \mathbf { Q } _ { p } / \mathbf { Z } _ { p } )$ while $\mathbf { Q } ^ { ( p ) } / \mathbf { Z } \cong \mathbf { Q } _ { p } / \mathbf { Z } _ { p }$ Analogously,
 
@@ -333,18 +355,21 @@ A trivial calculation yields
 
 PROPOSITION 1.8.2． In $\mathrm { Q u } ( \mathbf { Z } _ { p } )$ ， ${ \mathfrak { q u } } ( { \mathbf { Z } } )$ and bil(Z),we have the relations
 
-a) $K _ { \oplus } ^ { ( p ) } ( p ^ { k } ) ^ { 2 } \simeq K _ { \oplus ^ { \prime } } ^ { ( p ) } ( p ^ { k } ) ^ { 2 }$ ，i $p \neq 2$   
-b） ${ \cal U } ^ { ( 2 ) } \left( 2 ^ { k } \right) ^ { 2 } \simeq { \cal V } ^ { ( 2 ) } \left( 2 ^ { k } \right) ^ { 2 }$ ：  
-c） d $\begin{array} { r l } & { K _ { 6 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \simeq K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k } ) ; } \\ & { K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) ^ { 2 } \oplus K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \simeq \{ V ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { - 6 9 } ^ { ( 2 ) } , \quad ( 2 ^ { k } ) , \quad i f \quad 0 ^ { \prime } \equiv 6 ( \bmod 4 ) ,  } \\ & {  V ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq U ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { - 9 } ^ { ( 2 ) } ( 2 ^ { k } ) , \quad i f \quad 0 ^ { \prime } \equiv - 8 ( \bmod 4 ) ;  } \\ & { K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus V ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq U ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 9 9 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ & { K _ { 8 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus V ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus U ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ & {  K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq K _ { 9 6 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 0 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ & {  K _ { 8 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq K _ { 9 6 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ &   K _ { 9 } ^  ( 2 ) \end{array}$ e）  
-f  
-g）  
-h)  
-i $q _ { \Theta } ^ { ( 2 ) } ( 2 ) \simeq q _ { 5 \theta } ^ { ( 2 ) }$ (2)；  
+a) $K _ { \oplus } ^ { ( p ) } ( p ^ { k } ) ^ { 2 } \simeq K _ { \oplus ^ { \prime } } ^ { ( p ) } ( p ^ { k } ) ^ { 2 }$ ，i $p \neq 2$\
+b） ${ \cal U } ^ { ( 2 ) } \left( 2 ^ { k } \right) ^ { 2 } \simeq { \cal V } ^ { ( 2 ) } \left( 2 ^ { k } \right) ^ { 2 }$ ：\
+c） d $\begin{array} { r l } & { K _ { 6 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \simeq K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k } ) ; } \\ & { K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) ^ { 2 } \oplus K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \simeq \{ V ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { - 6 9 } ^ { ( 2 ) } , \quad ( 2 ^ { k } ) , \quad i f \quad 0 ^ { \prime } \equiv 6 ( \bmod 4 ) ,  } \\ & {  V ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq U ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { - 9 } ^ { ( 2 ) } ( 2 ^ { k } ) , \quad i f \quad 0 ^ { \prime } \equiv - 8 ( \bmod 4 ) ;  } \\ & { K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus V ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq U ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 9 9 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ & { K _ { 8 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus V ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus U ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ & {  K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq K _ { 9 6 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 0 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ & {  K _ { 8 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 9 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) \simeq K _ { 9 6 } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus K _ { 6 9 } ^ { ( 2 ) } ( 2 ^ { k + 1 } ) ; } \\ &   K _ { 9 } ^  ( 2 ) \end{array}$ e）\
+f\
+g）\
+h)\
+i $q _ { \Theta } ^ { ( 2 ) } ( 2 ) \simeq q _ { 5 \theta } ^ { ( 2 ) }$ (2)；\
 j) $b _ { \Theta } ^ { ( 2 ) } ( 2 ) \simeq b _ { \Theta ^ { \prime } } ^ { ( 2 ) }$ (2），, $u _ { - } ^ { ( 2 ) } \left( 2 \right) \simeq v _ { - } ^ { ( 2 ) } \left( 2 \right) , \ b _ { 0 } ^ { ( 2 ) } \left( 4 \right) \simeq b _ { 5 8 } ^ { ( 2 ) } \ ( 4 ) ;$
 
 k) also the relations between the quadratic and bilinear forms which arise from a)-h) (when the forms are regarded as discriminant-forms).
 
-$9 ^ { \circ }$ . The strong approximation theorem in the even case. In the sequel $A _ { q } \ ( A _ { b } )$ will denote the finite abelian group on which the quadratic form $q$ (bilinear form $^ { b }$ ） is defined. Let $l ( A )$ denote the minimum number of generators of the finite abelian group $\pmb { A }$ ,and let $\left. A \right.$ be the order of $\pmb { A }$ ：
+$9 ^ { \circ }$ . The strong approximation theorem in the even case.
+In the sequel $A _ { q } \ ( A _ { b } )$ will denote the finite abelian group on which the quadratic form $q$ (bilinear form $^ { b }$ ） is defined.
+Let $l ( A )$ denote the minimum number of generators of the finite abelian group $\pmb { A }$ ,and let $\left.
+A \right.$ be the order of $\pmb { A }$ ：
 
 THEOREM 1.9.1. Let $q _ { p } \in \mathfrak { q u } ( \mathbf { Z } ) _ { p }$ . There exists a unique $p$ -adic lattice $K ( q _ { p } )$ of rank $\iota ( A _ { q _ { p } } )$ whose discriminant-form is isomorphic to $q _ { p }$ ,except in the case when $p = 2$ and $q _ { 2 }$ is $q _ { \theta } ^ { ( 2 ) } ( 2 ) \oplus q _ { 2 } ^ { \prime }$ (for some $\theta$ ）
 
@@ -356,7 +381,8 @@ $$
 
 where $\alpha _ { 1 } , \alpha _ { 2 } \in Z _ { 2 } ^ { * } / ( Z _ { 2 } ^ { * } ) ^ { 2 }$ and $\alpha _ { 1 } \circ \alpha _ { 2 } = 5 ( \mathbf { Z } _ { 2 } ^ { * } ) ^ { 2 }$
 
-PROOF. We proceed by induction on $l ( A _ { q _ { p } } )$ , the result being obvious if $l ( A _ { q _ { p } } ) = 0$ The existence of a $p$ -adic lattice of rank $l ( A _ { q _ { p } } )$ with discriminant-form $q _ { p }$ follows from Proposition 1.8.1. It remains to prove uniqueness. Let
+PROOF. We proceed by induction on $l ( A _ { q _ { p } } )$ , the result being obvious if $l ( A _ { q _ { p } } ) = 0$ The existence of a $p$ -adic lattice of rank $l ( A _ { q _ { p } } )$ with discriminant-form $q _ { p }$ follows from Proposition 1.8.1. It remains to prove uniqueness.
+Let
 
 $$
 A _ { q _ { p } } \simeq \left( { \bf Z } / p ^ { k } { \bf Z } \right) ^ { \alpha _ { k } } \oplus \big ( \bigtriangledown _ { i > k } \left( { \bf Z } / p ^ { i } { \bf Z } \right) ^ { \alpha _ { i } } \big ) ,
@@ -368,7 +394,7 @@ $$
 \begin{array} { r l } & { p \neq 2 , \ q _ { p } = q _ { \theta } ^ { ( p ) } \ ( p ^ { k } ) \oplus q _ { p } ^ { ' } ; } \\ & { p = 2 , \ k \geqslant 2 , \ q _ { 2 } = q _ { \theta } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus q _ { 2 } ^ { ' } ; } \\ & { p = 2 , \ k \geqslant 1 , \ q _ { 2 } = u _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus q _ { 2 } ^ { ' } ; } \\ & { p = 2 , \ k \geqslant 1 , \ q _ { 2 } = v _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) \oplus q _ { 2 } ^ { ' } ; } \end{array}
 $$
 
-5) $p = 2$ $k = 1$ ,and $q _ { 2 }$ is not of the form 3) or 4).
+5. $p = 2$ $k = 1$ ,and $q _ { 2 }$ is not of the form 3) or 4).
 
 Let $K _ { p }$ be a $p$ -adic lattice of rank $l ( A _ { q _ { p } } )$ and discriminant-form $q _ { p }$
 
@@ -376,7 +402,7 @@ Case 1.Obviously $K _ { p } \subset p ^ { k } K _ { p } ^ { * }$ ,and there exis
 
 Case 2 goes analogously.
 
-Case 3. Clearly $K _ { 2 } \subset 2 ^ { k } K _ { 2 } ^ { * }$ , and there exist $e _ { 1 } ^ { * } , e _ { 2 } ^ { * } \in K _ { 2 } ^ { * }$ such that $e _ { 1 } ^ { * } \cdot e _ { 1 } ^ { * } \in 2 \mathbf { Z } _ { 2 }$ ， $\bullet e _ { 2 } ^ { * } \in \mathbf { Z } _ { 2 } , e _ { 1 } ^ { * } \cdot e _ { 2 } ^ { * } \in 2 ^ { - k } + \mathbf { Z } _ { 2 } , e _ { 1 } = 2 ^ { k } e _ { 1 } ^ { * } \in K _ { 2 }$ and $e _ { 2 } = 2 ^ { k } e _ { 2 } ^ { * } \in K _ { 2 }$ . Since $K _ { 2 } \subset$ 14号 $2 ^ { k } K _ { 2 } ^ { * }$ ,we have $2 ^ { - k } K _ { 2 } \cdot K _ { 2 } \subset \mathbf { Z } _ { 2 }$ and
+Case 3. Clearly $K _ { 2 } \subset 2 ^ { k } K _ { 2 } ^ { * }$ , and there exist $e _ { 1 } ^ { * } , e _ { 2 } ^ { * } \in K _ { 2 } ^ { * }$ such that $e _ { 1 } ^ { * } \cdot e _ { 1 } ^ { * } \in 2 \mathbf { Z } _ { 2 }$ ， $\bullet e _ { 2 } ^ { * } \in \mathbf { Z } _ { 2 } , e _ { 1 } ^ { * } \cdot e _ { 2 } ^ { * } \in 2 ^ { - k } + \mathbf { Z } _ { 2 } , e _ { 1 } = 2 ^ { k } e _ { 1 } ^ { * } \in K _ { 2 }$ and $e _ { 2 } = 2 ^ { k } e _ { 2 } ^ { * } \in K _ { 2 }$ . Since $K _ { 2 } \subset$ 14 号 $2 ^ { k } K _ { 2 } ^ { * }$ ,we have $2 ^ { - k } K _ { 2 } \cdot K _ { 2 } \subset \mathbf { Z } _ { 2 }$ and
 
 $$
 \frac { 1 } { 2 ^ { k } } \left( \begin{array} { c c } { { e _ { 1 } ^ { 2 } } } & { { e _ { 1 } \cdot e _ { 2 } } } \\ { { e _ { 1 } \cdot e _ { 2 } } } & { { e _ { 2 } ^ { 2 } } } \end{array} \right) = \left( \begin{array} { c c } { { 2 ^ { k + 1 } \varepsilon _ { 1 } } } & { { \eta } } \\ { { \eta } } & { { 2 ^ { k + 1 } \varepsilon _ { 2 } } } \end{array} \right) ,
@@ -400,7 +426,7 @@ Case 4 goes analogously.
 
 Case 5．By relations (c),(d),(i) and $( \mathbf { k } )$ of Proposition 1.8.2 it follows that the following two cases can occur:
 
-5a) $q _ { 2 } = q _ { \vartheta } ^ { \left( 2 \right) } \left( 2 \right) \displaystyle \oplus q _ { 2 } ^ { ' }$   
+5a) $q _ { 2 } = q _ { \vartheta } ^ { \left( 2 \right) } \left( 2 \right) \displaystyle \oplus q _ { 2 } ^ { ' }$\
 5b) $q _ { 2 } = q _ { \theta _ { 1 } } ^ { ( 2 ) } ( 2 ) \oplus q _ { \theta _ { 2 } } ^ { ( 2 ) } ( 2 ) \oplus q _ { 2 } ^ { ' } ,$
 
 re $q$ is covered by one of the cases 2,3 or 4 already considered,and $k \geqslant 2$ ：
@@ -441,7 +467,8 @@ COROLLARY 1.9.2. $q _ { 2 } \in \mathfrak { q u } ( \mathbf { Z } ) _ { 2 }$ can
 
 PROOF. In fact, let $K _ { 2 } ^ { \prime }$ be some 2-adic lattice of rank $l ( A _ { q _ { 2 } ^ { \prime } } )$ with discriminant-form $q _ { 2 } ^ { \prime }$ . Then the lattices $K _ { \theta } ^ { ( 2 ) } ( 2 ) \oplus K _ { 2 } ^ { \prime }$ and $K _ { 5 \theta } ^ { ( 2 ) } ( 2 ) \oplus K _ { 2 } ^ { \prime }$ are distinct and both have discriminant-form $q _ { 2 }$ .(We remark that both these lattices become odd on dividing their forms by 2.)
 
-On the other hand,if $q _ { 2 }$ is represented as an orthogonal sum of forms of the types $q _ { \theta ^ { ' } } ^ { ( 2 ) } ( 2 ^ { k } ) , u _ { + } ^ { ( 2 ) } ( 2 ^ { k } )$ and $v _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) ( k \geqslant 1 )$ in which $q _ { \theta ^ { \prime } } ^ { ( 2 ) } ( 2 )$ does not appear, then the corresponding orthogonal direct sum of the 2-adic lattices $K ( q _ { \theta ^ { ' } } ^ { ( 2 ) } ( 2 ^ { k } ) )$ ， $K ( u _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) )$ and $K ( v _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) )$ gives a lattice $K _ { 2 }$ with discriminant-form $q _ { 2 }$ .Here,on dividing the form of $K _ { 2 }$ by 2,we clearly obtain an even lattice. This proves the corollary.
+On the other hand,if $q _ { 2 }$ is represented as an orthogonal sum of forms of the types $q _ { \theta ^ { ' } } ^ { ( 2 ) } ( 2 ^ { k } ) , u _ { + } ^ { ( 2 ) } ( 2 ^ { k } )$ and $v _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) ( k \geqslant 1 )$ in which $q _ { \theta ^ { \prime } } ^ { ( 2 ) } ( 2 )$ does not appear, then the corresponding orthogonal direct sum of the 2-adic lattices $K ( q _ { \theta ^ { ' } } ^ { ( 2 ) } ( 2 ^ { k } ) )$ ， $K ( u _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) )$ and $K ( v _ { + } ^ { ( 2 ) } ( 2 ^ { k } ) )$ gives a lattice $K _ { 2 }$ with discriminant-form $q _ { 2 }$ .Here,on dividing the form of $K _ { 2 }$ by 2,we clearly obtain an even lattice.
+This proves the corollary.
 
 COROLLARY 1.9.3. Let $K _ { p }$ be a $p$ -adic lattice (an even one when $p = 2$ having discriminant-form $q _ { p } \in \mathfrak { q u } ( \mathbf { Z } ) _ { p }$ .Then $K _ { p }$ has a unique representation of the type
 
@@ -471,13 +498,15 @@ COROLLARY 1.9.4. The invariants $t _ { ( + ) } , t _ { ( - ) }$ and $q$ ，where
 
 The proof follows from Corollary 1.9.3.
 
-THEOREM 1.9.5. Let $K _ { p }$ and $K _ { p } ^ { \prime }$ be isomorphic $p$ -adic lattices (even,when $p = 2$ .Let $q _ { K _ { p } } \stackrel { \underbrace { \vphantom { \sum _ { p } } } } { \longrightarrow } q _ { K _ { p } ^ { \prime } }$ be an isomorphism of their discriminant-forms. Then there exists an isomorphism ( $\varepsilon \colon K _ { p } \to K _ { p } ^ { \prime }$ of lattices, inducing $\overset { - } { \alpha }$
+THEOREM 1.9.5. Let $K _ { p }$ and $K _ { p } ^ { \prime }$ be isomorphic $p$ -adic lattices (even,when $p = 2$ .Let $q _ { K _ { p } } \stackrel { \underbrace { \vphantom { \sum _ { p } } } } { \longrightarrow } q _ { K _ { p } ^ { \prime } }$ be an isomorphism of their discriminant-forms.
+Then there exists an isomorphism ( $\varepsilon \colon K _ { p } \to K _ { p } ^ { \prime }$ of lattices, inducing $\overset { - } { \alpha }$
 
 The proof imitates that of Theorem 1.9.1.
 
 COROLLARY 1.9.6. The canonical homomorphism $O ( K _ { p } ) \longrightarrow O ( q _ { K _ { p } } )$ is surjective.
 
-COROLLARY 1.9.7. Let $K _ { p } \subset L _ { p }$ and $K _ { p } ^ { \prime } \subset L _ { p }$ be two primitive sublattices of a unimodular $p$ -adic lattice $L _ { p }$ (even, when $p = 2 \AA$ ,and let $\gamma \colon K _ { p } \ \xrightarrow [ ] { \sim } K _ { p } ^ { \prime }$ be a lattice isomorphism. Then $\pmb { \gamma }$ extends to an automorphism of $L _ { p }$
+COROLLARY 1.9.7. Let $K _ { p } \subset L _ { p }$ and $K _ { p } ^ { \prime } \subset L _ { p }$ be two primitive sublattices of a unimodular $p$ -adic lattice $L _ { p }$ (even, when $p = 2 \AA$ ,and let $\gamma \colon K _ { p } \ \xrightarrow [ ] { \sim } K _ { p } ^ { \prime }$ be a lattice isomorphism.
+Then $\pmb { \gamma }$ extends to an automorphism of $L _ { p }$
 
 The proof of Corollary 1.9.7 is via Corollaries 1.9.6,1.9.3 and the $p$ -adic analog of Proposition 1.6.1.
 
@@ -487,7 +516,8 @@ Corollary 1.9.7 is well known (see [9]).
 
 We remark that,working in the opposite direction,1.9.4,1.9.5 and 1.9.6 can be deduced from Corollary 1.9.7 and the $p$ -adic analogs of the results of $6 ^ { \circ }$
 
-$1 0 ^ { \circ }$ . The existence of an even latice with the invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$ Suppose we are given a triple $( t _ { ( + ) } , t _ { ( - ) } , q )$ ,where $t _ { ( + ) }$ and $t _ { ( - ) }$ are integers and $q \in { \mathfrak { q u } } ( \mathbf { Z } )$ The following theorem gives a necessary and sufficient condition for the existence of an even lattice with these invariants, where $t _ { ( + ) }$ is the number of positive squares, $t _ { ( - ) }$ the number of negative squares,and $q$ is its discriminant-form．The importance of this theorem lies in the fact that its formulation avoids mentioning the Hasse invariants (which are difficult to calculate), and also in the fact that,by Corollary 1.9.4,these invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$ represent a complete set of invariants for a genus. (We remark that the Hasse invariants nonetheless appear in the proof of the theorem.)
+$1 0 ^ { \circ }$ . The existence of an even latice with the invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$ Suppose we are given a triple $( t _ { ( + ) } , t _ { ( - ) } , q )$ ,where $t _ { ( + ) }$ and $t _ { ( - ) }$ are integers and $q \in { \mathfrak { q u } } ( \mathbf { Z } )$ The following theorem gives a necessary and sufficient condition for the existence of an even lattice with these invariants, where $t _ { ( + ) }$ is the number of positive squares, $t _ { ( - ) }$ the number of negative squares,and $q$ is its discriminant-form．The importance of this theorem lies in the fact that its formulation avoids mentioning the Hasse invariants (which are difficult to calculate), and also in the fact that,by Corollary 1.9.4,these invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$ represent a complete set of invariants for a genus.
+(We remark that the Hasse invariants nonetheless appear in the proof of the theorem.)
 
 THEOREM 1.10.1. An even latice with invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$ exists if and only if thefollowing conditions are simultaneously satisfied:
 
@@ -497,10 +527,12 @@ We note an important corollry of this theorem,arisingfrom the fact that $\iota (
 
 COROLLARY 1.10.2. An even latice with invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$ ，where $t _ { ( + ) } , t _ { ( - ) } \in$ Z and $q \in { \mathfrak { q u } } ( \mathbf { Z } )$ ,exists if the following conditions are simultaneously satisfied:
 
-1） $t _ { ( + ) } { \longrightarrow } t _ { ( - ) } { \equiv } { \sin } q$ (mod 8);  
+1） $t _ { ( + ) } { \longrightarrow } t _ { ( - ) } { \equiv } { \sin } q$ (mod 8);\
 2） $t _ { \scriptscriptstyle ( + ) } \geqslant 0 , t _ { \scriptscriptstyle ( - ) } \geqslant 0 , t _ { \scriptscriptstyle ( + ) } + t _ { \scriptscriptstyle ( - ) } > l \left( A _ { q } \right) .$
 
-PROOF OF THEOREM 1.10.1. Necessity. The necessity of condition 1) follows from Theorem 1.3.3.The inequalities $t _ { ( + ) } , t _ { ( - ) } \geqslant 0$ follow from the very definitions of $t _ { ( + ) }$ and $t _ { ( - ) }$ . The inequality $t _ { ( + ) } + t _ { ( - ) } \geqslant l ( A _ { q } )$ follows from the fact that,for lattices $s$ with $q _ { S } \cong q$ ,the groups $A _ { q }$ and $s ^ { * } / s$ are isomorphic. Consequently $l ( A _ { q } ) = l ( S ^ { * } / S ) \leqslant \arg S$ Conditions 3)and 4) derive from Proposition 1.7.1 and Theorem 1.9.1,if we observe that discr ${ \cal S } = ( - 1 ) ^ { t } ( - ) | A _ { q } |$ for any latice $s$ with the invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$
+PROOF OF THEOREM 1.10.1. Necessity.
+The necessity of condition 1) follows from Theorem 1.3.3.The inequalities $t _ { ( + ) } , t _ { ( - ) } \geqslant 0$ follow from the very definitions of $t _ { ( + ) }$ and $t _ { ( - ) }$ . The inequality $t _ { ( + ) } + t _ { ( - ) } \geqslant l ( A _ { q } )$ follows from the fact that,for lattices $s$ with $q _ { S } \cong q$ ,the groups $A _ { q }$ and $s ^ { * } / s$ are isomorphic.
+Consequently $l ( A _ { q } ) = l ( S ^ { * } / S ) \leqslant \arg S$ Conditions 3)and 4) derive from Proposition 1.7.1 and Theorem 1.9.1,if we observe that discr ${ \cal S } = ( - 1 ) ^ { t } ( - ) | A _ { q } |$ for any latice $s$ with the invariants $( t _ { ( + ) } , t _ { ( - ) } , q )$
 
 This proves the necessity of the stated conditions.
 
@@ -556,11 +588,11 @@ THEOREM $1 . 1 0 . 3 ^ { * }$ . Suppose that for all primes $q$ there is given a
 
 In order that there exist a latice $s$ over $\mathbf { Z }$ of signature $( t _ { ( + ) } , t _ { ( - ) } )$ , having $S _ { q } \cong S \otimes$ $\mathbf { Z } _ { q }$ for all $q$ ,it is necessary and sufficient that the following conditions be satisfied:
 
-1) $S _ { q }$ is unimodular for almost all $q$ ，   
-2) $\begin{array} { l } { { \displaystyle ( - 1 ) ^ { t _ { ( - ) } } \prod _ { q } \vert S _ { q } ^ { * } / S _ { q } \vert \equiv { \operatorname { d i s c r } S _ { q } } ( \mathrm { m o d } ( { \bf Z } _ { q } ^ { * } ) ^ { 2 } ) . } } \\ { { \displaystyle ( - 1 ) ^ { t _ { ( - ) } ( t _ { ( - ) } - 1 ) / 2 } \prod _ { q } \varepsilon _ { q } ( S _ { q } ) = 1 . } } \end{array}$   
-3)
+1. $S _ { q }$ is unimodular for almost all $q$ ，
+2. $\begin{array} { l } { { \displaystyle ( - 1 ) ^ { t _ { ( - ) } } \prod _ { q } \vert S _ { q } ^ { * } / S _ { q } \vert \equiv { \operatorname { d i s c r } S _ { q } } ( \mathrm { m o d } ( { \bf Z } _ { q } ^ { * } ) ^ { 2 } ) . } } \\ { { \displaystyle ( - 1 ) ^ { t _ { ( - ) } ( t _ { ( - ) } - 1 ) / 2 } \prod _ { q } \varepsilon _ { q } ( S _ { q } ) = 1 . } } \end{array}$
 
-PROOF OF THEOREM 1.10.1. Sufficiency. In view of Theorem 1.3.2 there exists an even lattice $S ^ { \prime \prime }$ with discriminant-form $q$ . Consider $S ^ { \prime } = S ^ { \prime \prime } \oplus U ^ { \star }$ ,where $U$ is the hyperbolic, unimodular even latice of signature (1,1), $k \geqslant 0$ ,and where,using the fact that $t _ { ( + ) } -$ $t _ { ( - ) } \equiv \sin \mathrm { ~ } q$ (mod 8),we can arrange that the invariants $( t _ { ( + ) } ^ { \prime } , t _ { ( - ) } ^ { \prime } , q )$ of $s$ satisfy the conditions
+PROOF OF THEOREM 1.10.1. Sufficiency.
+In view of Theorem 1.3.2 there exists an even lattice $S ^ { \prime \prime }$ with discriminant-form $q$ . Consider $S ^ { \prime } = S ^ { \prime \prime } \oplus U ^ { \star }$ ,where $U$ is the hyperbolic, unimodular even latice of signature (1,1), $k \geqslant 0$ ,and where,using the fact that $t _ { ( + ) } -$ $t _ { ( - ) } \equiv \sin \mathrm { ~ } q$ (mod 8),we can arrange that the invariants $( t _ { ( + ) } ^ { \prime } , t _ { ( - ) } ^ { \prime } , q )$ of $s$ satisfy the conditions
 
 $$
 t _ { ( + ) } ^ { ' } \equiv t _ { ( + ) } ( \mathrm { m o d } 8 ) , \quad t _ { ( - ) } ^ { ' } \equiv t _ { ( - ) } ( \mathrm { m o d } 8 ) , \quad t _ { ( + ) } ^ { ' } + t _ { ( - ) } ^ { ' } \geqslant t _ { ( + ) } + t _ { ( - ) } .
@@ -572,13 +604,14 @@ $$
 \begin{array} { c } { { S ^ { \prime } \otimes { \bf Z } _ { p } \simeq K _ { 1 } ^ { \left( p \right) } \left( 1 \right) ^ { t _ { p } ^ { ' } - v _ { p } } \oplus K _ { \oplus _ { p } } ^ { \left( p \right) } \left( 1 \right) ^ { v _ { p } } \oplus K \left( q _ { p } \right) , \mathrm { ~ i f ~ } p \ne 2 ; } } \\ { { S ^ { \prime } \otimes { \bf Z } _ { 2 } \simeq U ^ { \left( 2 \right) } \left( 1 \right) ^ { t _ { 2 } ^ { ' } - v _ { 2 } } \oplus V ^ { \left( 2 \right) } \left( 1 \right) ^ { v _ { 2 } } \oplus K \left( q _ { 2 } \right) , \mathrm { ~ i f ~ } p = 2 , q _ { 2 } \ne q _ { 0 } ^ { \left( 2 \right) } \left( 2 \right) \oplus q _ { 2 } ^ { ' } ; } } \\ { { S ^ { \prime } \otimes { \bf Z } _ { 2 } \simeq U ^ { \left( 2 \right) } \left( 1 \right) ^ { t _ { 2 } ^ { ' } } \oplus K _ { \propto } \left( q _ { 2 } \right) , \mathrm { ~ i f ~ } p = 2 , q _ { 2 } = q _ { 0 } ^ { \left( 2 \right) } \left( 2 \right) \oplus q _ { 2 } ^ { ' } , } } \end{array}
 $$
 
-where $0 \leqslant v _ { p } \leqslant 1$ for all $p , \left( { \frac { \theta _ { p } } { p } } \right) = - 1$ for $p \neq 2$ $t _ { p } ^ { \prime } = t _ { ( + ) } ^ { \prime } + t _ { ( - ) } ^ { \prime } - l ( A _ { q _ { } } )$ 旻证i $p \neq 2$ and $t _ { 2 } ^ { \prime } = \iota _ { 2 } ( t _ { ( + ) } ^ { \prime } + t _ { ( - ) } ^ { \prime } - l ( A _ { q _ { 2 } } ) )$ pi $p = 2$ Let us put $t _ { p } = t _ { ( + ) } + t _ { ( - ) } - l ( A _ { q _ { p } } ^ { \quad \bullet } )$ $p \neq 2$ ,and $t _ { 2 } = \lambda / _ { 2 } ( t _ { ( + ) } + t _ { ( - ) } - l ( A _ { q _ { 2 } } ) )$ In view of the congruences
+where $0 \leqslant v _ { p } \leqslant 1$ for all $p , \left( { \frac { \theta _ { p } } { p } } \right) = - 1$ for $p \neq 2$ $t _ { p } ^ { \prime } = t _ { ( + ) } ^ { \prime } + t _ { ( - ) } ^ { \prime } - l ( A _ { q _ { } } )$ 旻证 i $p \neq 2$ and $t _ { 2 } ^ { \prime } = \iota _ { 2 } ( t _ { ( + ) } ^ { \prime } + t _ { ( - ) } ^ { \prime } - l ( A _ { q _ { 2 } } ) )$ pi $p = 2$ Let us put $t _ { p } = t _ { ( + ) } + t _ { ( - ) } - l ( A _ { q _ { p } } ^ { \quad \bullet } )$ $p \neq 2$ ,and $t _ { 2 } = \lambda / _ { 2 } ( t _ { ( + ) } + t _ { ( - ) } - l ( A _ { q _ { 2 } } ) )$ In view of the congruences
 
 $$
 t _ { ( + ) } - t _ { ( - ) } \equiv t _ { ( + ) } ^ { \prime } - t _ { ( - ) } ^ { \prime } \equiv \mathrm { s i g n } q ( \mathrm { m o d } \ 8 ) ,
 $$
 
-the number $t _ { 2 }$ is an integer. It follows from condition 2) that $t _ { p } \geqslant 0$ for all $p$ ：
+the number $t _ { 2 }$ is an integer.
+It follows from condition 2) that $t _ { p } \geqslant 0$ for all $p$ ：
 
 We shall prove that more is true; namely, that $t _ { p } \geqslant v _ { p }$ for all $p$ (and we can assume that $v _ { 2 } = 0$ if $p = 2$ and $q _ { 2 } = q _ { \theta } ^ { ( 2 ) } ( 2 ) \oplus q _ { 2 } ^ { \prime } )$
 
@@ -646,7 +679,8 @@ $$
 \begin{array} { c } { n _ { p } \equiv \mathrm { \ l } \mathrm { e } ( { \mid A _ { q _ { p } } \mid } ) ( \mathrm { m o d \mathrm { \ l } 2 } ) , 2 n _ { p } \equiv \mathrm { s i g n } q _ { p } ( \mathrm { m o d \ l } \mathrm { \& } f o r p \mathrm { \ l } p \mathrm { \ l } + \mathrm { \mathrm { 2 } } , } \\ { n _ { \mathrm { \equiv } } \mathrm { \ l } \mathrm { e } ( \mathrm { d i s } \mathrm { \ r } \mathrm { x } K _ { \mathrm { \ l } 2 } \cdot { \mid A _ { q _ { 2 } } \ r } ^ { - 1 } ) , 2 n _ { \mathrm { \equiv } } \equiv \mathrm { s i g n } q _ { \mathrm { \ l } 2 } - l ( A _ { q _ { 2 } } ) ( \mathrm { m o d \mathrm { \ l } 8 } ) f o r p \mathrm { \ l } p \mathrm { \ l } = \mathrm { 2 } } \\ { \ l \mathrm { e } ( z ) \equiv \frac { z - 1 } { 2 } ( \mathrm { m o d \mathrm { \ l } 2 } ) \Big ) . } \end{array}
 $$
 
-PROOF. We need to study an even latice with signature $( t _ { ( + ) } , 0 , q _ { p } )$ , which certainly exists if $t _ { ( + ) }$ is suficiently large. Further, we must make use of Theorems 1.10.3 and 1.9.1, Corollary 1.9.3 and the properties of Hasse and Hilbert symbols encountered in ${ 1 0 } ^ { \circ }$ .The details can be left to the reader.
+PROOF. We need to study an even latice with signature $( t _ { ( + ) } , 0 , q _ { p } )$ , which certainly exists if $t _ { ( + ) }$ is suficiently large.
+Further, we must make use of Theorems 1.10.3 and 1.9.1, Corollary 1.9.3 and the properties of Hasse and Hilbert symbols encountered in ${ 1 0 } ^ { \circ }$ .The details can be left to the reader.
 
 One can immediately calculate the whole of the left-hand side,and also the Hilbert symbol on the right-hand side of the formula of Proposition 1.11.1． We thus obtain the values of the signatures of the elementary finite quadratic forms $q _ { \theta } ^ { ( p ) } ( p ^ { k } )$ ， $u _ { + } ^ { ( 2 ) } ( 2 ^ { k } )$ and $v _ { + } ^ { ( 2 ) } ( 2 ^ { k } )$ ; these values were first calculated in [16].
 
@@ -672,7 +706,8 @@ It now only remains to use the induction hypothesis．An analogous treatment dis
 
 By Proposition 1.8.2 we have $u _ { - } ^ { ( 2 ) } ( 2 ) \cong v _ { - } ^ { ( 2 ) } ( 2 )$ and $u _ { + } ^ { ( 2 ) } ( 2 ) ^ { 2 } \cong v _ { - } ^ { ( 2 ) } ( 2 ) ^ { 2 }$ ：
 
-If $b = u _ { - } ^ { ( 2 ) } ( 2 ) ^ { 2 } \oplus b ^ { \prime }$ ,then either $q \cong u _ { + } ^ { ( 2 ) } ( 2 ) ^ { 2 } \oplus q ^ { \prime }$ or $q \cong u _ { + } ^ { ( 2 ) } ( 2 ) \oplus v _ { + } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime }$ ， where $q ^ { \prime }$ has $b ^ { \prime }$ as its bilinear form． It only remains now to apply the induction hypothesis. Analogously we can deal with the cases $b = b _ { \theta _ { 1 } } ^ { ( 2 ) } ( 4 ) \oplus b _ { \theta _ { 2 } } ^ { ( 2 ) } ( 4 ) \oplus b ^ { \prime }$ and $b _ { \theta } ^ { ( 2 ) } ( 4 ) \oplus u _ { - } ^ { ( 2 ) } ( 2 )$ $\oplus \boldsymbol { b ^ { \prime } }$ ,by means of Proposition 1.8.2.
+If $b = u _ { - } ^ { ( 2 ) } ( 2 ) ^ { 2 } \oplus b ^ { \prime }$ ,then either $q \cong u _ { + } ^ { ( 2 ) } ( 2 ) ^ { 2 } \oplus q ^ { \prime }$ or $q \cong u _ { + } ^ { ( 2 ) } ( 2 ) \oplus v _ { + } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime }$ ， where $q ^ { \prime }$ has $b ^ { \prime }$ as its bilinear form． It only remains now to apply the induction hypothesis.
+Analogously we can deal with the cases $b = b _ { \theta _ { 1 } } ^ { ( 2 ) } ( 4 ) \oplus b _ { \theta _ { 2 } } ^ { ( 2 ) } ( 4 ) \oplus b ^ { \prime }$ and $b _ { \theta } ^ { ( 2 ) } ( 4 ) \oplus u _ { - } ^ { ( 2 ) } ( 2 )$ $\oplus \boldsymbol { b ^ { \prime } }$ ,by means of Proposition 1.8.2.
 
 By Proposition 1.8.2 we have
 
@@ -692,19 +727,21 @@ $$
 \begin{array} { r } { q _ { - 1 } ^ { ( \mathfrak { a } ) } ( 2 ) ^ { 2 } \bigoplus q _ { 6 } ^ { ( \mathfrak { a } ) } ( 4 ) \simeq q _ { 1 } ^ { ( \mathfrak { a } ) } ( 2 ) ^ { 2 } \bigoplus q _ { 6 6 } ^ { ( \mathfrak { a } ) } ( 4 ) , } \\ { q _ { - 1 } ^ { ( \mathfrak { a } ) } ( 2 ) ^ { 2 } \bigoplus q _ { 5 6 } ^ { ( \mathfrak { a } ) } ( 4 ) \simeq q _ { 1 } ^ { ( \mathfrak { a } ) } ( 2 ) ^ { 2 } \bigoplus q _ { 6 } ^ { ( \mathfrak { a } ) } ( 4 ) . } \end{array}
 $$
 
-Consequently, $q \cong q _ { \bf 1 } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime \prime \prime }$ ,where $q ^ { \prime \prime \prime }$ has bilinear form $b _ { \textbf { 1 } } ^ { ( 2 ) } ( 2 ) \oplus b _ { \theta } ^ { ( 2 ) } ( 4 ) \oplus b ^ { \prime }$ It thus only remains to use the induction hypothesis. An analogous argument,involving Proposition 1.8.2,disposes of the case $b = b _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { 4 } \oplus b ^ { \prime }$ .The case $b = b _ { \textbf { 1 } } ^ { ( 2 ) } ( 2 ) ^ { 2 } \oplus$ $u _ { - } ^ { ( 2 ) } ( 2 ) \oplus b ^ { \prime }$ reduces to the preceding one,since by Proposition 1.8.2 we have $b _ { 1 } ^ { ( 2 ) } ( 2 ) \oplus$ $u _ { ( - ) } ^ { ( 2 ) } ( 2 ) \cong b _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { 3 }$
+Consequently, $q \cong q _ { \bf 1 } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime \prime \prime }$ ,where $q ^ { \prime \prime \prime }$ has bilinear form $b _ { \textbf { 1 } } ^ { ( 2 ) } ( 2 ) \oplus b _ { \theta } ^ { ( 2 ) } ( 4 ) \oplus b ^ { \prime }$ It thus only remains to use the induction hypothesis.
+An analogous argument,involving Proposition 1.8.2,disposes of the case $b = b _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { 4 } \oplus b ^ { \prime }$ .The case $b = b _ { \textbf { 1 } } ^ { ( 2 ) } ( 2 ) ^ { 2 } \oplus$ $u _ { - } ^ { ( 2 ) } ( 2 ) \oplus b ^ { \prime }$ reduces to the preceding one,since by Proposition 1.8.2 we have $b _ { 1 } ^ { ( 2 ) } ( 2 ) \oplus$ $u _ { ( - ) } ^ { ( 2 ) } ( 2 ) \cong b _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { 3 }$
 
 By Proposition 1.8.2 again,we now need only deal with the cases
 
-1 $b = \ b _ { 1 } ^ { ( 2 ) } ( 2 ) \oplus b _ { \theta } ^ { ( 2 ) }$ (4)，  
-2) $b = b _ { \mathbf 1 } ^ { \scriptscriptstyle ( \mathbf 2 ) } ( 2 ) ^ { 3 } \simeq b _ { \mathbf 1 } ^ { \scriptscriptstyle ( \mathbf 2 ) } ( 2 ) \oplus u _ { \scriptscriptstyle - } ^ { \scriptscriptstyle ( \mathbf 2 ) } ( 2 )$ 2)，  
-3） $b = b _ { \mathbf 1 } ^ { ( \mathfrak { s } ) } ( 2 ) ^ { \mathbf 2 }$ ，  
-4 $b = b _ { \mathbf 1 } ^ { ( \mathbf { 2 } ) }$ (2),  
-5 $b = b _ { \boldsymbol { \Theta } } ^ { ( \mathbf { 2 } ) }$ (4),  
-6 $b = u _ { - } ^ { ( 2 ) }$ (2),  
+1 $b = \ b _ { 1 } ^ { ( 2 ) } ( 2 ) \oplus b _ { \theta } ^ { ( 2 ) }$ (4)，\
+2) $b = b _ { \mathbf 1 } ^ { \scriptscriptstyle ( \mathbf 2 ) } ( 2 ) ^ { 3 } \simeq b _ { \mathbf 1 } ^ { \scriptscriptstyle ( \mathbf 2 ) } ( 2 ) \oplus u _ { \scriptscriptstyle - } ^ { \scriptscriptstyle ( \mathbf 2 ) } ( 2 )$ 2)，\
+3） $b = b _ { \mathbf 1 } ^ { ( \mathfrak { s } ) } ( 2 ) ^ { \mathbf 2 }$ ，\
+4 $b = b _ { \mathbf 1 } ^ { ( \mathbf { 2 } ) }$ (2),\
+5 $b = b _ { \boldsymbol { \Theta } } ^ { ( \mathbf { 2 } ) }$ (4),\
+6 $b = u _ { - } ^ { ( 2 ) }$ (2),\
 7） $b { = } 0$ ，
 
-We examine,by way of an example,case 1) (analogous arguments go through in the remaining cases). Obviously $q$ is one of the following: ${ q _ { \pm 1 } ^ { ( 2 ) } ( 2 ) \oplus q _ { \theta } ^ { ( 2 ) } ( 4 ) }$ or $q _ { \pm 1 } ^ { ( 2 ) } ( 2 ) \oplus$ $q _ { 5 \theta } ^ { ( 2 ) } ( 4 )$ .By Proposition 1.11.2,these four forms have distinct signatures (mod 8).
+We examine,by way of an example,case 1) (analogous arguments go through in the remaining cases).
+Obviously $q$ is one of the following: ${ q _ { \pm 1 } ^ { ( 2 ) } ( 2 ) \oplus q _ { \theta } ^ { ( 2 ) } ( 4 ) }$ or $q _ { \pm 1 } ^ { ( 2 ) } ( 2 ) \oplus$ $q _ { 5 \theta } ^ { ( 2 ) } ( 4 )$ .By Proposition 1.11.2,these four forms have distinct signatures (mod 8).
 
 We remark that in cases 1)and 2) the bilinear form $^ { b }$ has four nonisomorphic quadratic forms,while in case 3) it has three,in cases 4),5) and 6) it has two,and in case 7), only one．This completes the proof of Theorem 1.11.3.
 
@@ -716,7 +753,8 @@ PROPOSITION 1.11.4.
 
 in particular, sign $^ b$ has no more than 4 elements.
 
-$1 2 ^ { \circ }$ . Primitive embeddings into even unimodular lattices. The following assertion is obvious:
+$1 2 ^ { \circ }$ . Primitive embeddings into even unimodular lattices.
+The following assertion is obvious:
 
 PROPOSITION 1.12.1. An even lattice with invariants $( t _ { ( + ) } , t _ { ( - ) } , - q )$ exists if and only if there exists an even latice with invariants $( t _ { ( - ) } , t _ { ( + ) } , q )$ ，
 
@@ -732,10 +770,11 @@ c)There exists an even latice with invariants $( l _ { ( - ) } - t _ { ( - ) } ,
 
 d) The following conditions are simultaneously satisfied
 
-1) $l _ { ( + ) } { - } l _ { ( - ) } { \equiv } 0 ( \mathrm { m o d } \ 8 )$   
-2) $l _ { ( - ) } - t _ { ( - ) } \geqslant 0 , \ l _ { ( + ) } - t _ { ( + ) } \geqslant 0 , \ l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } \geqslant l ( A _ { q } ) .$
+1. $l _ { ( + ) } { - } l _ { ( - ) } { \equiv } 0 ( \mathrm { m o d } \ 8 )$
 
-3) $( - 1 ) ^ { l _ { ( + ) } - t _ { ( + ) } } | A _ { q } | \equiv \mathrm { d i s c r } K ( q _ { p } ) ( \mathrm { m o d } ( { \bf Z } _ { p } ^ { \bullet } ) ^ { 2 } )$
+2. $l _ { ( - ) } - t _ { ( - ) } \geqslant 0 , \ l _ { ( + ) } - t _ { ( + ) } \geqslant 0 , \ l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } \geqslant l ( A _ { q } ) .$
+
+3. $( - 1 ) ^ { l _ { ( + ) } - t _ { ( + ) } } | A _ { q } | \equiv \mathrm { d i s c r } K ( q _ { p } ) ( \mathrm { m o d } ( { \bf Z } _ { p } ^ { \bullet } ) ^ { 2 } )$
 
 for all odd primes $p$ for which $l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } = l ( A _ { q _ { p } } ) .$
 
@@ -747,7 +786,7 @@ From this theorem and Corollary 1.10.2 we deduce
 
 COROLLARY 1.12.3. There exists a primitive embedding of the even lattice $s$ (of invariants $( t _ { ( + ) } , t _ { ( - ) } , q ) )$ into some even unimodular lattice with invariants $( l _ { ( + ) } , l _ { ( - ) } )$ if the following conditions are simultaneously satisfied:
 
-1） $\iota _ { ( + ) } - l _ { ( - ) } { \equiv } 0$ (mod 8).   
+1） $\iota _ { ( + ) } - l _ { ( - ) } { \equiv } 0$ (mod 8).\
 2) $l _ { ( - ) } ^ { \because \prime } - t _ { ( - ) } \geqslant 0 , l _ { ( + ) } - t _ { ( + ) } ^ { ' } \geqslant 0 , l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } > l ( A _ { q } ) .$
 
 The following theorem guarantees the existence of a primitive embedding in terms only of $( t _ { ( + ) } , t _ { ( - ) } )$ ,and is a considerable strengthening of Theorem 1.1.2 (a) of James [7].
@@ -798,11 +837,12 @@ It remains merely to apply Theorems 1.10.1 and 1.12.2,since the former provides 
 
 This concludes the proof of the theorem.
 
-$1 3 ^ { \circ }$ . Uniqueness and stability. In [8], Kneser obtained sufficient conditions for there to be just one class in a genus of indefinite lattices.We use this result in the case of lattices over $\mathbf { Z }$ (Kneser considered the general case of lattices over algebraic number fields).
+$1 3 ^ { \circ }$ . Uniqueness and stability.
+In [8], Kneser obtained sufficient conditions for there to be just one class in a genus of indefinite lattices.We use this result in the case of lattices over $\mathbf { Z }$ (Kneser considered the general case of lattices over algebraic number fields).
 
 THEOREM $1 . 1 3 . 1 ^ { * }$ . There is just one class in the genus of indefinite lattices containing S if, simultaneously,
 
-1）rg $s \geqslant 3$   
+1）rg $s \geqslant 3$\
 2) for all $p \neq 2$ ，
 
 $$
@@ -819,7 +859,7 @@ $$
 t _ { ( + ) } \geq 1 , \ t _ { ( - ) } \geq 1 , \ t _ { ( + ) } + t _ { ( - ) } \geq 3 ;
 $$
 
-2) for each $p \neq 2$ ,either 1 $\textrm { g } S \geqslant 2 + l ( A _ { q _ { p } } )$ or
+2. for each $p \neq 2$ ,either 1 $\textrm { g } S \geqslant 2 + l ( A _ { q _ { p } } )$ or
 
 $$
 q _ { p } \simeq q _ { \theta _ { 1 } } ^ { ( p ) } ( p ^ { k } ) \oplus q _ { \theta _ { 2 } } ^ { ( p ) } ( p ^ { k } ) \oplus q _ { p } ^ { ' } ;
@@ -857,7 +897,8 @@ By Corollary 1.1O.2,there exists an even,definite lattice $K ^ { \prime }$ of ra
 
 Remark 1.13.7. It is clear that the constant 16 in Proposition 1.13.6 can be reduced.
 
-$1 4 ^ { \circ }$ . An analog of Witt's theorem in the unimodular case. We shall say that the analog of Witt's theorem (in its strong form) holds for a lattice $s$ and an even unimodular lattice $L$ ， if all primitive embeddings of $s$ into $L$ are isomorphic (see subsection $5 ^ { \circ }$ ).
+$1 4 ^ { \circ }$ . An analog of Witt's theorem in the unimodular case.
+We shall say that the analog of Witt's theorem (in its strong form) holds for a lattice $s$ and an even unimodular lattice $L$ ， if all primitive embeddings of $s$ into $L$ are isomorphic (see subsection $5 ^ { \circ }$ ).
 
 We shall say that the analog of Witt's theorem (in its weak form) holds for a lattice $s$ and an even unimodular lattice $L$ if all primitive sublattices of $L$ isomorphic to $s$ are conjugate by some automorphism of $L$
 
@@ -865,7 +906,8 @@ From Proposition 1.6.1 and Theorem 1.1.1 we deduce
 
 PROPOSITION 1.14.1. For an even latice $s$ of signature $( t _ { ( + ) } , t _ { ( - ) } )$ and an even unimodular lattice $L$ of signature $\{ l _ { ( + ) } , l _ { ( - ) } \}$ ,the analog of Witts theorem (in its weak form) holds if conditions 1) and2) below are satisfied,while the analog of Witt's theorem (in its strong form) holds if 1) and 3) are satisfied:
 
-1)The lattice with the invariants $( l _ { ( + ) } - t _ { ( + ) } , l _ { ( - ) } - t _ { ( - ) } , - q _ { S } )$ is unique. 2)1f $K$ is the latice with the invariants $( l _ { ( + ) } - t _ { ( + ) } , l _ { ( - ) } - t _ { ( - ) } , - q _ { S } )$ , then the group $O ( S ) \times O ( K )$ acts transitively on the set
+1)The lattice with the invariants $( l _ { ( + ) } - t _ { ( + ) } , l _ { ( - ) } - t _ { ( - ) } , - q _ { S } )$ is unique.
+2)1f $K$ is the latice with the invariants $( l _ { ( + ) } - t _ { ( + ) } , l _ { ( - ) } - t _ { ( - ) } , - q _ { S } )$ , then the group $O ( S ) \times O ( K )$ acts transitively on the set
 
 $$
 { \mathsf { l s o m } } ^ { \scriptscriptstyle ( - ) } ( q _ { S } , q _ { K } ) = \{ { \mathsf { a } } : A _ { S } \simeq A _ { K } | q _ { K } \circ { \mathsf { a } } = - q _ { S } \} .
@@ -905,17 +947,19 @@ This shows that the existence theorem of $1 0 ^ { \circ }$ allows us to strength
 
 From Proposition 1.14.1 and Theorem 1.14.2 we now deduce
 
-THEOREM 1.14.4 (Analog of Witts theorem). Let $M$ be an even lattice of signature $( t _ { ( + ) } , t _ { ( - ) } )$ , and let $L$ be an even unimodular lattice of signature $( l _ { ( + ) } , l _ { ( - ) } )$ . There exists $^ { a }$ unique primitive embedding of $M$ into $L$ ,provided the following conditions hold:
+THEOREM 1.14.4 (Analog of Witts theorem).
+Let $M$ be an even lattice of signature $( t _ { ( + ) } , t _ { ( - ) } )$ , and let $L$ be an even unimodular lattice of signature $( l _ { ( + ) } , l _ { ( - ) } )$ . There exists $^ { a }$ unique primitive embedding of $M$ into $L$ ,provided the following conditions hold:
 
-1) $l _ { ( + ) } - t _ { ( + ) } > 0$ and $l _ { ( - ) } - t _ { ( - ) } > 0$   
-2) $l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } \geqslant 2 + l ( A _ { M _ { n } } )$ for all $p \neq 2$   
-3)1f $l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } = l ( A _ { M _ { 2 } } )$ ,then $q _ { M } \cong u _ { + } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime } o r q _ { M } \cong v _ { + } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime } .$
+1. $l _ { ( + ) } - t _ { ( + ) } > 0$ and $l _ { ( - ) } - t _ { ( - ) } > 0$
+2. $l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } \geqslant 2 + l ( A _ { M _ { n } } )$ for all $p \neq 2$\
+   3)1f $l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } = l ( A _ { M _ { 2 } } )$ ,then $q _ { M } \cong u _ { + } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime } o r q _ { M } \cong v _ { + } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime } .$
 
 RRMARK 1.14.5． If ${ \cal A } _ { M } \cong ( { \bf Z } / 2 { \bf Z } ) ^ { 3 } \oplus { \cal A } ^ { \prime }$ , then 3) is automatically satisfied,as a result of the relations in Proposition 1.8.2.
 
 The analog of Witt's theorem,with 3) replaced by a much stronger condition,was obtained in [13].
 
-REMARk 1.14.6. Certain definite even lattices also have the properties (i) that $K$ has one class in its genus,and (ii) that $O ( K ) \longrightarrow O ( q _ { K } )$ is surjective．For example,let $M$ be a negative definite lattice generated by elements of square $( - 2 )$ and admitting a primitive embedding into $E _ { 8 }$ . Then the lattice $K \cong ( M ) _ { E _ { 8 } } ^ { \perp }$ has one class in its genus,and the homomorphism $O ( K ) \longrightarrow O ( q _ { K } )$ is surjective. For a proof one needs to apply Proposition 1.14.1 and properties of the root-system of type $E _ { 8 }$ ,which appears as the set of all elements of square $( - 2 )$ in $E _ { 8 }$ ,from which it follows that the primitive embedding $M \hookrightarrow E _ { 8 }$ is unique up to isomorphism.
+REMARk 1.14.6. Certain definite even lattices also have the properties (i) that $K$ has one class in its genus,and (ii) that $O ( K ) \longrightarrow O ( q _ { K } )$ is surjective．For example,let $M$ be a negative definite lattice generated by elements of square $( - 2 )$ and admitting a primitive embedding into $E _ { 8 }$ . Then the lattice $K \cong ( M ) _ { E _ { 8 } } ^ { \perp }$ has one class in its genus,and the homomorphism $O ( K ) \longrightarrow O ( q _ { K } )$ is surjective.
+For a proof one needs to apply Proposition 1.14.1 and properties of the root-system of type $E _ { 8 }$ ,which appears as the set of all elements of square $( - 2 )$ in $E _ { 8 }$ ,from which it follows that the primitive embedding $M \hookrightarrow E _ { 8 }$ is unique up to isomorphism.
 
 Thus,taking $M$ equal to $\left\{ 0 \right\} , A _ { 1 } , A _ { 2 } , A _ { 3 }$ 0r $A _ { 4 }$ , we obtain respectively $K = E _ { 8 } , E _ { 7 }$ ，$E _ { 6 } , D _ { 5 }$ and $A _ { 4 }$ ：
 
@@ -923,7 +967,8 @@ REMARK 1.14.7. In the general case,Proposition 1.14.1 shows the importance of st
 
 We shall prove that,if an even lattice $K$ is definite (we assume it negative definite), then the presence of a kernel for $O ( K ) \longrightarrow O ( q _ { K } )$ is connected with the question of whether $K$ contains,as primitive sublattices,certain “exceptional lattices."
 
-Let $H ( K )$ be the kernel of the homomorphism $O ( K ) \longrightarrow O ( q _ { K } )$ . It is easy to see that $H ( K )$ contains the Weyl subgroup $W ( K )$ generated by all the reflections corresponding to elements with square $( - 2 )$ in $K$ .Also,the lattice $\langle - 2 \rangle$ is the nontrivial even lattice of least rank for which $H ( K )$ is itself nontrivial. Let $p \colon \Delta ( K ) = \Delta ^ { + } ( K ) \cup ( - \Delta ^ { + } ( K ) )$ be a partitioning of the elements of $\pmb { K }$ with square $( - 2 )$ ,with the property that,if $\delta _ { 1 } , \delta _ { 2 } \in \Delta ^ { + } ( K )$ and $\delta _ { 1 } +$ $\delta _ { 2 } \in \Delta ( K )$ ,then $\delta _ { 1 } + \delta _ { 2 } \in \Delta ^ { + } ( K )$
+Let $H ( K )$ be the kernel of the homomorphism $O ( K ) \longrightarrow O ( q _ { K } )$ . It is easy to see that $H ( K )$ contains the Weyl subgroup $W ( K )$ generated by all the reflections corresponding to elements with square $( - 2 )$ in $K$ .Also,the lattice $\langle - 2 \rangle$ is the nontrivial even lattice of least rank for which $H ( K )$ is itself nontrivial.
+Let $p \colon \Delta ( K ) = \Delta ^ { + } ( K ) \cup ( - \Delta ^ { + } ( K ) )$ be a partitioning of the elements of $\pmb { K }$ with square $( - 2 )$ ,with the property that,if $\delta _ { 1 } , \delta _ { 2 } \in \Delta ^ { + } ( K )$ and $\delta _ { 1 } +$ $\delta _ { 2 } \in \Delta ( K )$ ,then $\delta _ { 1 } + \delta _ { 2 } \in \Delta ^ { + } ( K )$
 
 Then,as is well known, $W ( K )$ acts as a simply transitive group on the set of such partitions,and $H ( K ) = A ( K ) \cdot W ( K )$ is a decomposition of $H ( K )$ into semisimple factors,where $A ( K )$ is the subgroup of all those elements of $H ( K )$ which fix the partition $P$
 
@@ -951,7 +996,9 @@ $$
 
 Conversely, if $\gamma \in A ( { \mathcal { L } } ( K ) )$ ,then $\gamma$ extends to an automorphism of $L$ , trivial on $( \mathcal { L } ( K ) ) _ { L } ^ { \perp }$ ： Clearly $\gamma ( K ) = K$ and $\gamma | K \in H ( K )$ . It remains to prove that $\gamma | K \in A ( K )$ . Since the elements of $\Delta ( K )$ do not lie in $\mathcal { L } ( K )$ ,by the properties of the root-system there exists an element $c \in ( \mathcal { L } ( K ) ) _ { K } ^ { \perp } \otimes \mathbb { R }$ for which $c \cdot \delta > 0$ for all $\delta \in \Delta ^ { + } ( K )$ Since $\gamma$ is trivial on $( \mathcal { L } ( K ) ) _ { K } ^ { \perp }$ ， we have that $\gamma ( c ) = c$ and $\gamma ( \Delta ^ { + } ( K ) ) = \Delta ^ { + } ( K )$ .The proposition is proved.
 
-If $\mathcal { L } ( K ) = K$ ,we call $K$ a simple Leech-type lattice. From the preceding proof it is clear that, if $L$ is an even,definite unimodular lattice and $H \subset A ( L )$ is a subgroup,then $( L ^ { H } ) _ { L } ^ { \downarrow }$ is a Leech-type lattice. Conversely,each Leech-type lattice $\mathcal { L }$ can be obtained in this way from the even,definite unimodular lattice in which it is primitively embedded.
+If $\mathcal { L } ( K ) = K$ ,we call $K$ a simple Leech-type lattice.
+From the preceding proof it is clear that, if $L$ is an even,definite unimodular lattice and $H \subset A ( L )$ is a subgroup,then $( L ^ { H } ) _ { L } ^ { \downarrow }$ is a Leech-type lattice.
+Conversely,each Leech-type lattice $\mathcal { L }$ can be obtained in this way from the even,definite unimodular lattice in which it is primitively embedded.
 
 In view of Theorem 1.12.4,all negative definite lattices of rank not exceeding 8 admit primitive embeddings into a negative definite even unimodular lattice of rank 16. Such lattices are known to be either ${ E _ { 8 } \oplus E _ { 8 } }$ 0r $\Gamma _ { 1 6 } ( - 1 )$ Clearly $A ( E _ { 8 } \oplus E _ { 8 } ) \cong \mathbf { Z } / 2 \mathbf { Z }$ and $A ( \Gamma _ { 1 6 } ( - 1 ) ) = \{ 1 \}$ .Hence {0} and $\mathcal { L } ( E _ { 8 } \oplus E _ { 8 } ) = E _ { 8 } ( 2 )$ are the only Leech-type lattices of rank $\leqslant 8$ ：
 
@@ -977,7 +1024,9 @@ $$
 A \left( \Gamma _ { 1 2 } \left( \cdots \operatorname { 2 } \right) \right) \simeq { \bf Z } / 2 { \bf Z } , \quad A \left( S _ { ( \mathfrak { a } ) } \right) \simeq { \bf Z } / 3 { \bf Z } , \quad A \left( S _ { ( \mathfrak { a } , \mathfrak { a } ) } \right) \simeq ( { \bf Z } / 2 { \bf Z } ) ^ { 2 } .
 $$
 
-$1 5 ^ { \circ }$ . Primitive embeddings and the analog of Witt's theorem in the nonunimodular case. Let $s$ be an even lattice with the invariants $( t _ { ( + ) } , t _ { ( - ) } , s )$ ,and let $( m _ { ( + ) } , m _ { ( - ) } , q )$ be the invariants of a genus of even forms. We reduce the question of the existence of a primitive embedding of $s$ into an even latice with invariants $( m _ { ( + ) } , m _ { ( - ) } , q )$ ,and the question of its uniqueness,to Theorem 1.10.1 and a result analogous to Proposition 1.14.1． Such a reduction is given by Proposition 1.5.1,but the following is more convenient for calculations.
+$1 5 ^ { \circ }$ . Primitive embeddings and the analog of Witt's theorem in the nonunimodular case.
+Let $s$ be an even lattice with the invariants $( t _ { ( + ) } , t _ { ( - ) } , s )$ ,and let $( m _ { ( + ) } , m _ { ( - ) } , q )$ be the invariants of a genus of even forms.
+We reduce the question of the existence of a primitive embedding of $s$ into an even latice with invariants $( m _ { ( + ) } , m _ { ( - ) } , q )$ ,and the question of its uniqueness,to Theorem 1.10.1 and a result analogous to Proposition 1.14.1． Such a reduction is given by Proposition 1.5.1,but the following is more convenient for calculations.
 
 PROPOSITioN 1.15.1． The primitive embeddings of $s$ into an even latice with invariants $( m _ { ( + ) } , m _ { ( - ) } , q )$ are determined by the sets $( H _ { S } , H _ { q } , \gamma ; K , \gamma _ { K } )$ ,where $H _ { S } \subset A _ { S }$ and $H _ { q } \subseteq A _ { S }$ are subgroups, $\gamma \colon q _ { S } | H _ { S } \longrightarrow q | H$ is an isomorphism of the subgroups,preserving the restrictions of the forms to these subgroups, $K$ is an even lattice with the invariants $( m _ { ( + ) } - t _ { ( + ) } , m _ { ( - ) } - t _ { ( - ) } , - \delta )$ ,where $\delta \cong ( q _ { S } \oplus ( - q ) ! \Gamma _ { \gamma } ^ { \perp } ) / \Gamma _ { \gamma }$ ， $\Gamma _ { \gamma }$ being the pushout of $\gamma$ in $A _ { s } \oplus A _ { q }$ (clearly an isotropic subgroup for $q _ { S } \oplus ( - q ) )$ , and, finally, $\gamma _ { K } \colon q _ { K } \stackrel { \sim } { \to } ( - \delta )$ is an isomorphism of forms.
 
@@ -989,7 +1038,8 @@ PROOF.Let $T$ be any even lattice which is the unique one in its genus,while the
 
 Hence the lattices of genus $( m _ { ( + ) } , m _ { ( - ) } , q )$ are described by the isomorphism classes of the primitive sublattices of $L$ which are isomorphic to $T$
 
-Let $T \subset L$ be such a primitive sublattice. Clearly a primitive embedding $S \subset M = T ^ { \bot }$ is equivalent to having a primitive embedding of $s \oplus T$ into $L$ ,in which $s$ and $T$ are primitive in $L$ ． Here two such embeddings $i , i ^ { \prime } \colon S \oplus T \hookrightarrow L$ are regarded as equivalent if there exists a $\varphi \in O ( L )$ such that $i ^ { \prime } \vert S = \varphi \circ i \vert S$ and $\varphi ( i ( T ) ) = i ^ { \prime } ( T )$
+Let $T \subset L$ be such a primitive sublattice.
+Clearly a primitive embedding $S \subset M = T ^ { \bot }$ is equivalent to having a primitive embedding of $s \oplus T$ into $L$ ,in which $s$ and $T$ are primitive in $L$ ． Here two such embeddings $i , i ^ { \prime } \colon S \oplus T \hookrightarrow L$ are regarded as equivalent if there exists a $\varphi \in O ( L )$ such that $i ^ { \prime } \vert S = \varphi \circ i \vert S$ and $\varphi ( i ( T ) ) = i ^ { \prime } ( T )$
 
 We may describe such embeddings in two stages.1) We describe all overlattices $V \supset$ $s \oplus T$ for which $s$ and $T$ are primitive in $V$ ,up to automorphisms of $T$ .2)We describe the primitive embeddings $V \hookrightarrow L$ ,up to automorphisms of $T$ and $L$ ：
 
@@ -1005,9 +1055,11 @@ In $\ S 3$ we shall need an improved version of Corollary 1.15.2.
 
 We consider the pair $( M , \gamma )$ ,where $M$ is an even lattice of signature $( m _ { ( + ) } , m _ { ( - ) } )$ ,and $\gamma \colon q _ { M } \simeq q$ is an isomorphism of forms, $q$ being a fixed finite quadratic form.
 
-We shall call such a pair a lattice with a distinguished discriminant-form. In the obvious way we introduce the notion of isomorphism between even lattices with a distinguished discriminant-form.
+We shall call such a pair a lattice with a distinguished discriminant-form.
+In the obvious way we introduce the notion of isomorphism between even lattices with a distinguished discriminant-form.
 
-Let $\mathcal { A } \subset O ( q )$ be a subgroup. Primitive embeddings $i \colon S \subset M$ and $i ^ { \prime } \colon S \hookrightarrow M ^ { \prime }$ where $( M , \gamma )$ and $( M ^ { \prime } , \gamma ^ { \prime } )$ are lattices with distinguished discriminant-forms,will be called equivalent up to automorphisms $( i n \ \delta \mathcal { U } )$ of discriminant-forms if there exists an isomorphism $\theta \colon M \longrightarrow M ^ { \prime }$ ，taking $i$ to $i ^ { \prime }$ ，such that $\gamma ^ { \prime } \circ \overline { { \theta } } \circ \gamma ^ { - 1 } \in \mathcal { A }$
+Let $\mathcal { A } \subset O ( q )$ be a subgroup.
+Primitive embeddings $i \colon S \subset M$ and $i ^ { \prime } \colon S \hookrightarrow M ^ { \prime }$ where $( M , \gamma )$ and $( M ^ { \prime } , \gamma ^ { \prime } )$ are lattices with distinguished discriminant-forms,will be called equivalent up to automorphisms $( i n \ \delta \mathcal { U } )$ of discriminant-forms if there exists an isomorphism $\theta \colon M \longrightarrow M ^ { \prime }$ ，taking $i$ to $i ^ { \prime }$ ，such that $\gamma ^ { \prime } \circ \overline { { \theta } } \circ \gamma ^ { - 1 } \in \mathcal { A }$
 
 Analogously,we introduce the concept of isomorphism of primitive sublatices in lattices with distinguished discriminant-forms up to automorphisms of $\mathcal { H }$
 
@@ -1019,9 +1071,11 @@ The proof is analogous to the proof of Proposition 1.15.1.
 
 REMARK 1.15.4. By analogy with Corollary 1.15.2 the set $( H _ { S } , H _ { q } , \gamma )$ (modulo the action of $\mathcal { H }$ (respectively $O ( q ) \times \mathcal { H } ) )$ is equivalent to the prescription of the genus of a primitive embedding of $s$ (primitive sublattice of $s$ ）intoanevenlaticeofsignature $( m _ { ( + ) }$ $m _ { ( - ) } )$ with distinguished discriminant-form $q$ ,up to an automorphism of $\mathcal { H }$ ，
 
-REMARK 1.15.5.In the notation of Proposition 1.15.3,let there exist a unique lattice $M$ with the invariants $( m _ { ( + ) } , m _ { ( - ) } , q )$ , i.e. let the genus of $M$ have only one class. Let $\mathcal { H } \subset$ $O ( q )$ be such that $\mathcal { H }$ lies in the image of the homomorphism ${ \cal O } ( M ) \longrightarrow { \cal O } ( q )$ ,and suppose that $\tilde { \mathcal { A } }$ is the preimage of $\mathcal { H }$ under this homomorphism． Then Proposition 1.15.3 describes the primitive embeddings (respectively,the sublattices) of $s$ into $M$ ,up to automorphisms of $M$ lying in $\mathcal { H }$
+REMARK 1.15.5.In the notation of Proposition 1.15.3,let there exist a unique lattice $M$ with the invariants $( m _ { ( + ) } , m _ { ( - ) } , q )$ , i.e. let the genus of $M$ have only one class.
+Let $\mathcal { H } \subset$ $O ( q )$ be such that $\mathcal { H }$ lies in the image of the homomorphism ${ \cal O } ( M ) \longrightarrow { \cal O } ( q )$ ,and suppose that $\tilde { \mathcal { A } }$ is the preimage of $\mathcal { H }$ under this homomorphism． Then Proposition 1.15.3 describes the primitive embeddings (respectively,the sublattices) of $s$ into $M$ ,up to automorphisms of $M$ lying in $\mathcal { H }$
 
-$1 6 ^ { \circ }$ . Odd lattices. Since we do not need the odd case in our applications, we only formulate the analogs of the main results in the even case.
+$1 6 ^ { \circ }$ . Odd lattices.
+Since we do not need the odd case in our applications, we only formulate the analogs of the main results in the even case.
 
 From Theorems 1.11.3 and 1.9.1 we deduce
 
@@ -1037,7 +1091,8 @@ COROLLARY 1.16.3. The genus of a lattice over $\mathbf { Z }$ is determined by i
 
 By analogy with Theorem 1.9.5 we have
 
-THEOREM 1.16.4. Let $K _ { p }$ and $K _ { p } ^ { \prime }$ be two isomorphic $p$ -adic lattices (odd when $p = 2$ ) and let $\stackrel {  } { \alpha }$ $b _ { K _ { p } } \cong b _ { K _ { p } ^ { \prime } }$ be an isomorphism of their discriminant-bilinear forms. Then there exists an isomorphism α: $K _ { p } \stackrel { \sim } { \to } K _ { p } ^ { \prime }$ inducing $\overline { { \alpha } }$
+THEOREM 1.16.4. Let $K _ { p }$ and $K _ { p } ^ { \prime }$ be two isomorphic $p$ -adic lattices (odd when $p = 2$ ) and let $\stackrel {  } { \alpha }$ $b _ { K _ { p } } \cong b _ { K _ { p } ^ { \prime } }$ be an isomorphism of their discriminant-bilinear forms.
+Then there exists an isomorphism α: $K _ { p } \stackrel { \sim } { \to } K _ { p } ^ { \prime }$ inducing $\overline { { \alpha } }$
 
 We observe that, if $s$ is an odd lattice, then $S ( 2 )$ is even, while rg $S ( 2 ) = l ( ( A _ { S ( 2 ) } ) _ { 2 } )$ and $q _ { S ( 2 ) _ { 2 } } \cong q _ { \theta } ^ { ( 2 ) } ( 2 ) \oplus q ^ { \prime }$
 
@@ -1055,7 +1110,7 @@ Applying these observations,the fact that for all $p \neq 2$ the finite quadrati
 
 THEOREM 1.16.5.An odd latice with invariants $( t _ { ( + ) } , t _ { ( - ) } , b )$ ,where $t _ { ( + ) } , t _ { ( - ) } \in \mathbf { Z }$ and $b \in \operatorname { b i l } ( \mathbf { Z } )$ ,exists if and only if the following conditions are satisfied:
 
-1) $t _ { ( + ) } \geqslant 0$ $t _ { ( - ) } \geqslant 0$ $t _ { ( + ) } + t _ { ( - ) } \geqslant l ( A _ { b } )$ and $t _ { ( + ) } + t _ { ( - ) } \geqslant 1 + l ( A _ { b _ { 2 } } )$ 2) $( - 1 ) ^ { t _ { ( - ) } } | A _ { b } | \equiv$ discr $K ( b _ { p } )$ $( \mathrm { m o d } ( \pmb { Z } _ { p } ^ { * } ) ^ { 2 } )$ for each prime $p > 2$ for which $t _ { ( + ) } +$ $t _ { ( - ) } \equiv l ( A _ { b _ { p } } )$ 3)If $t _ { ( + ) } + t _ { ( - ) } = 1 + l ( A _ { b _ { 2 } } )$ and $b \neq b _ { \theta } ^ { ( 2 ) } ( 2 ) \oplus b ^ { \prime }$ ，then $t _ { ( \cdot ) } - t _ { \iota - \cdot ) } ( \mathrm { m o d ~ } 8 ) \in \mathrm { s i g n ~ } q ( b ) + 4 \omega \mathrm { ~ } ( \mathrm { d i s c r ~ } K ( q _ { 2 } ( b ) ) \cdot \left| A _ { b } \right| ^ { - 1 } ) + \{ \pm 1 \} \mathrm { ~ ( m o d ~ } 8 ) \mathrm { ~ . ~ }$
+1. $t _ { ( + ) } \geqslant 0$ $t _ { ( - ) } \geqslant 0$ $t _ { ( + ) } + t _ { ( - ) } \geqslant l ( A _ { b } )$ and $t _ { ( + ) } + t _ { ( - ) } \geqslant 1 + l ( A _ { b _ { 2 } } )$ 2) $( - 1 ) ^ { t _ { ( - ) } } | A _ { b } | \equiv$ discr $K ( b _ { p } )$ $( \mathrm { m o d } ( \pmb { Z } _ { p } ^ { * } ) ^ { 2 } )$ for each prime $p > 2$ for which $t _ { ( + ) } +$ $t _ { ( - ) } \equiv l ( A _ { b _ { p } } )$ 3)If $t _ { ( + ) } + t _ { ( - ) } = 1 + l ( A _ { b _ { 2 } } )$ and $b \neq b _ { \theta } ^ { ( 2 ) } ( 2 ) \oplus b ^ { \prime }$ ，then $t _ { ( \cdot ) } - t _ { \iota - \cdot ) } ( \mathrm { m o d ~ } 8 ) \in \mathrm { s i g n ~ } q ( b ) + 4 \omega \mathrm { ~ } ( \mathrm { d i s c r ~ } K ( q _ { 2 } ( b ) ) \cdot \left| A _ { b } \right| ^ { - 1 } ) + \{ \pm 1 \} \mathrm { ~ ( m o d ~ } 8 ) \mathrm { ~ . ~ }$
 
 $$
 \begin{array} { r l } & { t _ { ( + ) } - t _ { ( - ) } \ ( \mathrm { m o d } \ 8 ) \in \mathrm { s i g n } \ q ( b ) + 4 \ \mathrm { \omega } ( \mathrm { d i s c r } \ K ( q _ { 2 } ( b ) ) \cdot | A _ { b } | ^ { - 1 } ) } \\ & { \qquad + \ \{ 0 , \pm 2 \} \ ( \mathrm { m o d } \ 8 ) . } \end{array}
@@ -1075,8 +1130,8 @@ Theorem 1.1O.1 can now be reformulated as
 
 THEOREM 1.16.7. An even latice with invariants $( t _ { ( + ) } , t _ { ( - ) } , b ) ( w h e r e t _ { ( + ) } , t _ { ( - ) } \in { \bf Z }$ and $b \in \operatorname { b i l } ( \mathbf { Z } ) .$ existsifand only if the following conditionsare satisfied:
 
-1) $t _ { \scriptscriptstyle ( + ) } { - } t _ { \scriptscriptstyle ( - ) } ( \mathrm { m o d } \ 8 ) \in \mathrm { s i g n } \ b .$   
-2) $t _ { \tiny ( + ) } \geq 0$ ， $t _ { ( - ) } \geqslant 0$ ， $t _ { \scriptscriptstyle ( + ) } + t _ { \scriptscriptstyle ( - ) } \geq l ( A _ { b } ) .$
+1. $t _ { \scriptscriptstyle ( + ) } { - } t _ { \scriptscriptstyle ( - ) } ( \mathrm { m o d } \ 8 ) \in \mathrm { s i g n } \ b .$
+2. $t _ { \tiny ( + ) } \geq 0$ ， $t _ { ( - ) } \geqslant 0$ ， $t _ { \scriptscriptstyle ( + ) } + t _ { \scriptscriptstyle ( - ) } \geq l ( A _ { b } ) .$
 
 3)(-1)(-)Al=discr K(b)(mod(Z)²）for every primep≠2havingt(+）+t(-)= $l ( A _ { b _ { p } } )$
 
@@ -1096,7 +1151,8 @@ If sign $q _ { S } + \mathrm { s i g n } \ q _ { S ^ { \perp } } \not \equiv 0$ 
 
 THEOREM 1.16.8. The following statements are equivalent:
 
-1)There exists a primitive embedding of theeven latice $s$ (with invariants $( t _ { ( + ) } ,$ $t _ { ( - ) } , b ) )$ into some odd unimodular lattice of signature $( l _ { ( + ) } , l _ { ( - ) } )$ , such that $S ^ { \perp }$ is even. 2)Thereexistsaneven latice with the invariants $( l _ { ( + ) } - t _ { ( + ) } , l _ { ( - ) } - t _ { ( - ) } , - b )$ ,while $O ( - q _ { S } )$ does not coincide with $O ( - b ) \mathrm { ~ } i f l _ { ( + ) } - l _ { ( - ) } \equiv 0$ (mod 8). 3)Thereexistsaneven latice with the invariants $( l _ { ( - ) } - t _ { ( - ) } , l _ { ( + ) } - t _ { ( + ) } , b )$ ,while $O ( q _ { S } )$ does not coincide with $O ( b )$ if $l _ { ( + ) } - l _ { ( - ) } \equiv 0$ (mod 8).
+1)There exists a primitive embedding of theeven latice $s$ (with invariants $( t _ { ( + ) } ,$ $t _ { ( - ) } , b ) )$ into some odd unimodular lattice of signature $( l _ { ( + ) } , l _ { ( - ) } )$ , such that $S ^ { \perp }$ is even.
+2)Thereexistsaneven latice with the invariants $( l _ { ( + ) } - t _ { ( + ) } , l _ { ( - ) } - t _ { ( - ) } , - b )$ ,while $O ( - q _ { S } )$ does not coincide with $O ( - b ) \mathrm { ~ } i f l _ { ( + ) } - l _ { ( - ) } \equiv 0$ (mod 8). 3)Thereexistsaneven latice with the invariants $( l _ { ( - ) } - t _ { ( - ) } , l _ { ( + ) } - t _ { ( + ) } , b )$ ,while $O ( q _ { S } )$ does not coincide with $O ( b )$ if $l _ { ( + ) } - l _ { ( - ) } \equiv 0$ (mod 8).
 
 Obviously, if $q$ is a quadratic form with bilinear form $^ { b }$ ,then $O ( b ) \not \equiv O ( q )$ if and only if $O ( q _ { 2 } ) \not \equiv O ( b _ { 2 } )$ .It is easy to prove the following proposition,which makes Theorem 1.15.8 effective.
 
@@ -1120,7 +1176,8 @@ THEOREM 1.16.10． Let $T$ be an odd,indefinite lattice,satisfyinga) rg $T \geqs
 
 The analogs of the theorems of $4 ^ { \circ }$ ， $5 ^ { \circ }$ ， $6 ^ { \circ }$ and $1 5 ^ { \circ }$ (for bilinear forms),together with Theorens 1.14.2 and 1.16.10,reduce problems on uniqueness of primitive embeddings to calculations involving discriminant-forms.
 
-$1 7 ^ { \circ }$ . Degenerate latices. By a degenerate latice $s ^ { \prime }$ we mean a free $\mathbf { z }$ -module equipped with a degenerate symmetric bilinear form,i.e.the kernel Ker $s ^ { \prime }$ of the canonical homomorphism $\boldsymbol { S } ^ { \prime } \to ( \boldsymbol { S } ^ { \prime } ) ^ { * }$ is nonzero.
+$1 7 ^ { \circ }$ . Degenerate latices.
+By a degenerate latice $s ^ { \prime }$ we mean a free $\mathbf { z }$ -module equipped with a degenerate symmetric bilinear form,i.e.the kernel Ker $s ^ { \prime }$ of the canonical homomorphism $\boldsymbol { S } ^ { \prime } \to ( \boldsymbol { S } ^ { \prime } ) ^ { * }$ is nonzero.
 
 The quotient $S = S ^ { \prime } / { \sf K e r } S ^ { \prime }$ is a lattice, while ${ \cal S } ^ { \prime } \cong \kappa \mathrm { e r } \ : { \cal S } ^ { \prime } \oplus { \cal S }$ By definition, the parity, the signature $( t _ { ( + ) } , t _ { ( - ) } )$ ,and the discriminant-form of $s ^ { \prime }$ are determined by the lattice $s$ We put $t _ { ( 0 ) } = \arg ( \operatorname { K e r } S ^ { \prime } )$ ，
 
@@ -1136,13 +1193,16 @@ $$
 
 where $L ^ { \prime }$ is an even $( o d d )$ unimodularlattce of signature $( l _ { ( + ) } - t _ { ( 0 ) } , l _ { ( - ) } - t _ { ( 0 ) } )$
 
-We leave the proof to the reader. We merely point out that if $i \colon S \subset L ^ { \prime }$ is a primitive embedding,then there corresponds to it a primitive embedding $i ^ { \prime } = i \oplus \gamma$ ,where $\gamma$ Ker $s ^ { \prime } \hookrightarrow L ^ { \prime \prime }$ is a primitive embedding of Ker $s$ into a unimodular lattice $L ^ { \prime \prime }$ of signature $( t _ { ( 0 ) } , t _ { ( 0 ) } )$ , which is even if $L$ is even or if $( \mathsf { K e r } \ S ^ { \prime } ) _ { L } ^ { \perp }$ is odd,and is odd otherwise.
+We leave the proof to the reader.
+We merely point out that if $i \colon S \subset L ^ { \prime }$ is a primitive embedding,then there corresponds to it a primitive embedding $i ^ { \prime } = i \oplus \gamma$ ,where $\gamma$ Ker $s ^ { \prime } \hookrightarrow L ^ { \prime \prime }$ is a primitive embedding of Ker $s$ into a unimodular lattice $L ^ { \prime \prime }$ of signature $( t _ { ( 0 ) } , t _ { ( 0 ) } )$ , which is even if $L$ is even or if $( \mathsf { K e r } \ S ^ { \prime } ) _ { L } ^ { \perp }$ is odd,and is odd otherwise.
 
 # $\ S 2$ . On Milnor's quadratic forms for singular points of functions
 
 $1 ^ { \circ }$ . We recallthe definition of Milnor's quadratic form (see [33]). Let $f \colon \mathbf { C } ^ { n } \longrightarrow \mathbf { C }$ be a holomorphic function-germ at O,having there an isolated critical value $\left( f ( \mathbf { 0 } ) = 0 \right)$
 
-Let $\mathcal { D }$ be a small open ball in $\mathbf { C } ^ { n }$ ,centered on O,and let $V = f ^ { - 1 } ( \epsilon ) \cap \mathcal { D }$ ,where $\epsilon \neq 0$ is sufficiently small. Milnor showed that $V$ (of real dimension $2 n - 2 )$ has the homotopy type of a bouquet of $\mu$ spheres $S ^ { n - 1 }$ ,so that $H _ { n - 1 } ( V , \mathbf { Z } ) \cong \mathbf { Z } ^ { \mu } , \mu$ being the Milnor number. The intersection index for cycles on $V$ determines in $H _ { n - 1 } ( V , { \bf Z } )$ an integral bilinear form,which is symmetric if $n$ is odd and antisymmetric if $n$ is even．This form is called Milnor's bilinear form for the singular point of $f$ (at O).
+Let $\mathcal { D }$ be a small open ball in $\mathbf { C } ^ { n }$ ,centered on O,and let $V = f ^ { - 1 } ( \epsilon ) \cap \mathcal { D }$ ,where $\epsilon \neq 0$ is sufficiently small.
+Milnor showed that $V$ (of real dimension $2 n - 2 )$ has the homotopy type of a bouquet of $\mu$ spheres $S ^ { n - 1 }$ ,so that $H _ { n - 1 } ( V , \mathbf { Z } ) \cong \mathbf { Z } ^ { \mu } , \mu$ being the Milnor number.
+The intersection index for cycles on $V$ determines in $H _ { n - 1 } ( V , { \bf Z } )$ an integral bilinear form,which is symmetric if $n$ is odd and antisymmetric if $n$ is even．This form is called Milnor's bilinear form for the singular point of $f$ (at O).
 
 The addition of $\boldsymbol { l }$ squares to the function $f$ does not change $\mu$ ,and also leaves Milnor's bilinear form unchanged,if $l \equiv 0$ (mod 4).
 
@@ -1150,9 +1210,10 @@ $2 ^ { \circ }$ . By Milnor's quadratic form for $f$ we mean Milnor's bilinear f
 
 The statement of the following theorem is well known and is a consequence of results of Lefschetz,Morse,Tjurina,Arnol'd and Gabrielov.
 
-THEOREM $2 . 2 . 1 ^ { * }$ . Let M be Milnor's quadratic form for the singular point of a function. Then the following assertions are true:
+THEOREM $2 . 2 . 1 ^ { * }$ . Let M be Milnor's quadratic form for the singular point of a function.
+Then the following assertions are true:
 
-1) $M$ is generated by elements of square $( - 2 )$ ,and,in particular,is even.
+1. $M$ is generated by elements of square $( - 2 )$ ,and,in particular,is even.
 
 2)1f $M$ is definite, then M is isomorphic to one of the standard quadratic forms $A _ { k }$ $D _ { k }$ or $E _ { k }$
 
@@ -1164,9 +1225,15 @@ $$
 
 where O>is the degenerate 1-dimensional form.
 
-4)If M is indefinite, M contains the sublattice $\left. 0 \right. \oplus E _ { 6 }$
+4)If M is indefinite, M contains the sublattice $\left.
+0 \right.
+\oplus E _ { 6 }$
 
-The first assertion is a consequence of the “Morse-ification’of functions,and Lefschetz's formula. The second is a consequence of results in [37], where there is a complete list of all singularities with definite Milnor form. The third results from the explicit calculation,in [28],of the Milnor quadratic forms found to be semidefinite in [27]. The fourth follows from the partial clasification of singular points of holomorphic functions in [27], from which,in particular,one finds that all singularities with indefinite Milnor forms are associated with parabolic singularities having $\langle 0 \rangle \oplus E _ { 6 }$ as their Milnor form.(A singularity is parabolic if its Milnor form is semidefinite.）From this it follows that the Milnor forms $M$ of such singularities contain $\left. 0 \right. \oplus E _ { 6 }$
+The first assertion is a consequence of the “Morse-ification’of functions,and Lefschetz's formula.
+The second is a consequence of results in [37], where there is a complete list of all singularities with definite Milnor form.
+The third results from the explicit calculation,in [28],of the Milnor quadratic forms found to be semidefinite in [27]. The fourth follows from the partial clasification of singular points of holomorphic functions in [27], from which,in particular,one finds that all singularities with indefinite Milnor forms are associated with parabolic singularities having $\langle 0 \rangle \oplus E _ { 6 }$ as their Milnor form.(A singularity is parabolic if its Milnor form is semidefinite.）From this it follows that the Milnor forms $M$ of such singularities contain $\left.
+0 \right.
+\oplus E _ { 6 }$
 
 We shall prove that Theorem 2.2.1 implies
 
@@ -1176,7 +1243,9 @@ If M is not definite,then $t _ { ( + ) } + t _ { ( - ) } \geqslant 5 + l ( A _ {
 
 PROOF．Since ldiscr $\boldsymbol { A } _ { K } | = \boldsymbol { k } + \boldsymbol { 1 }$ , ldiscr $D _ { k } | = 4$ and Idiscr $E _ { k } | = 9 - k$ ,and the number of classes in the genera of $E _ { 6 } , E _ { 7 }$ or $E _ { 8 }$ is equal to 1,when $M$ is definite or semidefinite the theorem follows from Theorem 2.2.1.
 
-Let $M$ be indefinite. Then $M \cong \langle 0 \rangle ^ { t } { ( 0 ) } \oplus \widetilde { M } ,$ where $\widetilde { M } = M / { \mathrm { K e r ~ } } M$ is nondegenerate, even and indefinite,and has $( t _ { ( + ) } , t _ { ( - ) } , q )$ as its invariants. By Theorem 2.2.1, $\widetilde { M }$ contains $E _ { 6 }$ . Since discr $E _ { 6 } = 3$ ,it follows that $\arg \widetilde { M } \geqslant 6 + l ( A _ { \widetilde { M } _ { p } } )$ for $p \neq 3$ ,and 1 $g \widetilde { M } \geqslant 5 +$ $l ( A _ { \widetilde { M } _ { 3 } } )$ for $p = 3$ ：
+Let $M$ be indefinite.
+Then $M \cong \langle 0 \rangle ^ { t } { ( 0 ) } \oplus \widetilde { M } ,$ where $\widetilde { M } = M / { \mathrm { K e r ~ } } M$ is nondegenerate, even and indefinite,and has $( t _ { ( + ) } , t _ { ( - ) } , q )$ as its invariants.
+By Theorem 2.2.1, $\widetilde { M }$ contains $E _ { 6 }$ . Since discr $E _ { 6 } = 3$ ,it follows that $\arg \widetilde { M } \geqslant 6 + l ( A _ { \widetilde { M } _ { p } } )$ for $p \neq 3$ ,and 1 $g \widetilde { M } \geqslant 5 +$ $l ( A _ { \widetilde { M } _ { 3 } } )$ for $p = 3$ ：
 
 "It only remains to apply Theorems 1.9.3,1.13.1 (or 1.13.2),and 1.14.2.
 
@@ -1214,7 +1283,8 @@ Since the polynomial $f$ is quasihomogeneous,Milnor's quadratic form is the inte
 
 The following construction is due to I.V.Dolgacev and H. C.Pinkham.
 
-We consider the weighted projective space $\mathbf { p } = \mathbf { P } ( q _ { 0 } , q _ { 1 } , q _ { 2 } , 1 )$ ,defined by homogeneous coordinates $( X _ { 0 } ; X _ { 1 } ; X _ { 2 } ; X _ { 3 } )$ ，with weights $( q _ { 0 } , q _ { 1 } , q _ { 2 } , 1 )$ respectively. Let $X \subset \mathbf { P }$ be the hypersurface with equation $f ( X _ { 0 } , X _ { 1 } , X _ { 2 } ) - X _ { 3 } ^ { N } = 0$ .Then the divisor $D _ { \infty }$ ,determined by $X _ { 3 } = 0$ , is the projective cone of $f ( X _ { 0 } , X _ { 1 } , X _ { 2 } ) = 0$ in $\mathbf { C } ^ { 3 }$ ,and $X \backslash D _ { \infty } = V ( f )$ Let o $\because { \widetilde { X } } \longrightarrow X$ be a minimal resolution of the singular points of $X$ ,and let $\widetilde D _ { \infty } = \sigma ^ { - 1 } ( D _ { \infty } )$ Since $V ( f )$ is nonsingular, $\widetilde { X } \widetilde { \cal D } _ { \infty } = { \cal V } ( f )$ . In this connection,the graph $\widetilde \Gamma$ of components of the divisor Dis dual to the graph of the resolution,i.e.it has star-type
+We consider the weighted projective space $\mathbf { p } = \mathbf { P } ( q _ { 0 } , q _ { 1 } , q _ { 2 } , 1 )$ ,defined by homogeneous coordinates $( X _ { 0 } ; X _ { 1 } ; X _ { 2 } ; X _ { 3 } )$ ，with weights $( q _ { 0 } , q _ { 1 } , q _ { 2 } , 1 )$ respectively.
+Let $X \subset \mathbf { P }$ be the hypersurface with equation $f ( X _ { 0 } , X _ { 1 } , X _ { 2 } ) - X _ { 3 } ^ { N } = 0$ .Then the divisor $D _ { \infty }$ ,determined by $X _ { 3 } = 0$ , is the projective cone of $f ( X _ { 0 } , X _ { 1 } , X _ { 2 } ) = 0$ in $\mathbf { C } ^ { 3 }$ ,and $X \backslash D _ { \infty } = V ( f )$ Let o $\because { \widetilde { X } } \longrightarrow X$ be a minimal resolution of the singular points of $X$ ,and let $\widetilde D _ { \infty } = \sigma ^ { - 1 } ( D _ { \infty } )$ Since $V ( f )$ is nonsingular, $\widetilde { X } \widetilde { \cal D } _ { \infty } = { \cal V } ( f )$ . In this connection,the graph $\widetilde \Gamma$ of components of the divisor Dis dual to the graph of the resolution,i.e.it has star-type
 
 $$
 ( r - b , g ; n _ { 1 } , n _ { 1 } { \longrightarrow } q _ { 1 } ; . . . ; n _ { r } , n _ { r } { \longrightarrow } q _ { r } ) .
@@ -1222,13 +1292,15 @@ $$
 
 (The proof relies on the canonical nature of the compactification of $V ( f )$ ）
 
-Let $s$ be the lattice defined by the graph $\widetilde { \Gamma }$ ,i.e. the vertices of $\widetilde \Gamma$ correspond to a basis of $s$ (if $e _ { i }$ and $e _ { j }$ are unequal, but are connected by an edge in $\widetilde { \Gamma }$ ,we have $e _ { i } \cdot e _ { j } = 1$ ；if $e _ { i } = e _ { j }$ ，then $e _ { i } \cdot e _ { j } = - b _ { i }$ where $b _ { i }$ is the weight at the vertex $e _ { i } \ ( = e _ { j } )$ ; finally, $e _ { i } \cdot e _ { j } = 0$ in all remaining cases). There are certain homomorphisms
+Let $s$ be the lattice defined by the graph $\widetilde { \Gamma }$ ,i.e. the vertices of $\widetilde \Gamma$ correspond to a basis of $s$ (if $e _ { i }$ and $e _ { j }$ are unequal, but are connected by an edge in $\widetilde { \Gamma }$ ,we have $e _ { i } \cdot e _ { j } = 1$ ；if $e _ { i } = e _ { j }$ ，then $e _ { i } \cdot e _ { j } = - b _ { i }$ where $b _ { i }$ is the weight at the vertex $e _ { i } \ ( = e _ { j } )$ ; finally, $e _ { i } \cdot e _ { j } = 0$ in all remaining cases).
+There are certain homomorphisms
 
 $$
 \alpha : S  H _ { 2 } ( \widetilde { X } , { \bf Z } ) , \quad \beta : M ( f )  H _ { 2 } ( \widetilde { X } , { \bf Z } ) ,
 $$
 
-which preseive the form $( \beta = u ^ { * }$ ， where $u \colon V ( f ) \hookrightarrow { \widetilde { X } }$ is the inclusion map). From $\pi _ { 1 } ( V ( f ) ) = 0$ we deduce that $H _ { 2 } ( \widetilde { X } , \pmb { \mathbb { Z } } )$ is torsion-free,and that $\pmb { \alpha }$ is an isomorphism of $s$ ontoaprimitive sublatce of $H _ { 2 } ( \widetilde { X } , \pmb { \mathbb { Z } } )$ while $\beta ( M ( f ) ) = ( \alpha ( S ) ) _ { H _ { 2 } ( \tilde { X } , \mathbf { Z } ) } ^ { \perp }$ .Sincethe enel of $\beta$ is in the kernel of $M ( f )$ ,we obtain (see $\ S \ S 1 . 6 ^ { \circ }$ and $1 . 1 7 ^ { \circ }$ ）
+which preseive the form $( \beta = u ^ { * }$ ， where $u \colon V ( f ) \hookrightarrow { \widetilde { X } }$ is the inclusion map).
+From $\pi _ { 1 } ( V ( f ) ) = 0$ we deduce that $H _ { 2 } ( \widetilde { X } , \pmb { \mathbb { Z } } )$ is torsion-free,and that $\pmb { \alpha }$ is an isomorphism of $s$ ontoaprimitive sublatce of $H _ { 2 } ( \widetilde { X } , \pmb { \mathbb { Z } } )$ while $\beta ( M ( f ) ) = ( \alpha ( S ) ) _ { H _ { 2 } ( \tilde { X } , \mathbf { Z } ) } ^ { \perp }$ .Sincethe enel of $\beta$ is in the kernel of $M ( f )$ ,we obtain (see $\ S \ S 1 . 6 ^ { \circ }$ and $1 . 1 7 ^ { \circ }$ ）
 
 THEOREM 2.3.1． Let $M ( f )$ be Milnor's quadratic form for a 2-dimensional isolated quasihomogeneous singularity $f = 0$ . Then $b _ { M ( f ) } \cong - b _ { S }$ where $s$ is the lattice canonically constructed from the graph ofa minimal resolution of the singularity $f = 0$ ,and $b _ { M ( f ) }$ and $b _ { S }$ are the discriminant-bilinear forms.
 
@@ -1248,7 +1320,8 @@ ExAMPLE 3.1.2． Let $A \hookrightarrow \mathbb { P } _ { \mathbb { R } } ^ { N 
 
 $2 ^ { \circ }$ . The purpose of this section is the determination of the genus invariants,and the description of the isomorphism classes of a polarized integral involution,in the case where $h ^ { 2 } \neq 0$ (in the preceding example $h ^ { 2 } > 0$ ）and the lattice $( h ) _ { L } ^ { \perp }$ is even.
 
-ExAMPLE 3.2.1. If, in Example 3.1.2, $A$ is a complete intersection (or a covering of a copletee $\mathbf { p } ^ { N }$ ,then $( h ) _ { H _ { k } ( A ( \mathbf { C } ) ) } ^ { \perp }$ is even. (In the case of a covering,the role of $^ { h }$ is played by the preimage of the hyperplane section.)
+ExAMPLE 3.2.1. If, in Example 3.1.2, $A$ is a complete intersection (or a covering of a copletee $\mathbf { p } ^ { N }$ ,then $( h ) _ { H _ { k } ( A ( \mathbf { C } ) ) } ^ { \perp }$ is even.
+(In the case of a covering,the role of $^ { h }$ is played by the preimage of the hyperplane section.)
 
 ExAMPLE 3.2.2. If, in Example 3.1.2, $A ( \mathbb { C } )$ is actually a spinor variety (i.e. $H _ { k } ( A ( \mathbf { C } ) )$ is even),then $( h ) _ { H _ { k } ( A ( \mathbf { C } ) ) } ^ { \perp }$ is clearly even.
 
@@ -1418,7 +1491,7 @@ $$
 \begin{array} { l } { { ( a , \ S _ { h } ) . \qquad a { = } 0 { \Rightarrow } \delta _ { h } { = } 1 . } } \\ { { ( n , \ a , \ \delta _ { h } ) . \qquad ( a { = } 1 , \ n { = } 0 \ ( \bmod 4 ) ) { \Rightarrow } \delta _ { h } { = } 1 . } } \\ { { ( n , \ t , \ a , \ \delta _ { h } ) . } } \end{array}
 $$
 
-$( a = 1 , \ \ S _ { h } = 0 , \ n \equiv \pm \ 2 \left( \bmod \ S \right) ) \Longrightarrow t _ { ( + ) } - t _ { ( - ) } \equiv \pm \ 1 \ ( \bmod \ S ) ;$   
+$( a = 1 , \ \ S _ { h } = 0 , \ n \equiv \pm \ 2 \left( \bmod \ S \right) ) \Longrightarrow t _ { ( + ) } - t _ { ( - ) } \equiv \pm \ 1 \ ( \bmod \ S ) ;$\
 (a=2，δ=0，n=±2(mod 8))→→t(+)-t(-)=0，±2(mod 8); $( a = 2 , \ \delta _ { h } = 0 , \ n \equiv 0 \ ( { \mathrm { n o d } } \ 8 ) ) \Rightarrow t _ { ( + ) } - t _ { ( - ) } \equiv 0 \ ( { \mathrm { m o d } } \ 8 ) ;$ $( a = 3 , \ \delta _ { h } = 0 , \ n \equiv 0 \ ( \bmod 8 ) ) \Rightarrow t _ { ( + ) } - t _ { ( - ) } \equiv \pm \ 1 \ ( \bmod 8 ) ;$
 
 (a,δ,n）.a=0=→δ,=0.$\begin{array} { r l } & { \left( t , a , \delta _ { \mathfrak { e } , h } \right) . \qquad ( a { = } 2 , t _ { ( + ) } { - } t _ { ( - ) } { \equiv } 4 \ ( \mathrm { m o d } \ 8 ) ) { \Rightarrow } \delta _ { \mathfrak { e } , h } { = } 0 . } \\ & { \left( n , t , a , \delta _ { h } , \delta _ { \mathfrak { e } , h } \right) . \qquad ( a { = } 2 , \delta _ { h } { = } 0 , n { = } 4 \ ( \mathrm { m o d } \ 8 ) , } \end{array}$
@@ -1451,9 +1524,9 @@ $$
 ( a = 4 , \delta _ { h } = 0 , n \equiv 0 \ ( \mathrm { m o d } \ 8 ) , t _ { ( + ) } = t _ { ( - ) } \equiv 4 \ ( \mathrm { m o d } \ 8 ) , \delta _ { \alpha , h } = 1 ) \Rightarrow \delta _ { \alpha } = 0 .
 $$
 
-VII. Relations near the boundaries a = Oand a = l(+) + l(-)- t(+)- t(-):   
-$\begin{array} { l } { { ( l , n , t ) . \qquad ( t _ { ( + ) } = l _ { ( + ) } - 1 , t _ { ( - ) } = l _ { ( - ) } ) { \Rightarrow } n { = } 2 . } } \\ { { ( l , n , t , a ) . \qquad ( a { = } 0 , t _ { ( + ) } = l _ { ( + ) } { - } 2 , t _ { ( - ) } = l _ { ( - ) } ) { \Rightarrow } } } \end{array}$ $( n = 2 p _ { 1 } ^ { \alpha _ { 1 } } \cdot \cdot \cdot p _ { m } ^ { \alpha _ { m } } , \ \partial \partial e \ p _ { i } \ a \ p r i m e , \ p _ { i } \equiv 1 ( \mathrm { m o d } \ 4 )$   
-$( a = 2 , \ t _ { ( + ) } = l _ { ( + ) } - 2 , \ t _ { ( - ) } = l _ { ( - ) } ) \Rightarrow ( n = 2 ^ { \varepsilon } p _ { 1 } ^ { \alpha _ { 1 } } \cdot . . . p _ { m } ^ { \alpha _ { m } } ,$ where $1 \ \leqslant \mathtt { e } \ \leqslant 2$ ，   
+VII. Relations near the boundaries a = Oand a = l(+) + l(-)- t(+)- t(-):\
+$\begin{array} { l } { { ( l , n , t ) . \qquad ( t _ { ( + ) } = l _ { ( + ) } - 1 , t _ { ( - ) } = l _ { ( - ) } ) { \Rightarrow } n { = } 2 . } } \\ { { ( l , n , t , a ) . \qquad ( a { = } 0 , t _ { ( + ) } = l _ { ( + ) } { - } 2 , t _ { ( - ) } = l _ { ( - ) } ) { \Rightarrow } } } \end{array}$ $( n = 2 p _ { 1 } ^ { \alpha _ { 1 } } \cdot \cdot \cdot p _ { m } ^ { \alpha _ { m } } , \ \partial \partial e \ p _ { i } \ a \ p r i m e , \ p _ { i } \equiv 1 ( \mathrm { m o d } \ 4 )$\
+$( a = 2 , \ t _ { ( + ) } = l _ { ( + ) } - 2 , \ t _ { ( - ) } = l _ { ( - ) } ) \Rightarrow ( n = 2 ^ { \varepsilon } p _ { 1 } ^ { \alpha _ { 1 } } \cdot . . . p _ { m } ^ { \alpha _ { m } } ,$ where $1 \ \leqslant \mathtt { e } \ \leqslant 2$ ，\
 ${ \pmb { p _ { i } } }$ a prime, $p _ { i } { \equiv } 1 \ ( \mathrm { m o d } \ 4 ) )$
 
 THEOREm 3.4.3．A polarized integral involution satisfying(1),with the invrints
@@ -1492,16 +1565,16 @@ $$
 
 VI. Relations near the boundary ${ \textbf { \textit { a } } } = 0$
 
-(t,a).a≤1=→t(+)-t(-)=±a(mod 8).  
-(a,δn).a=0=→δ=1.  
-(n,a,δn).(a=1,n=0(mod 4))=δ=1.  
+(t,a).a≤1=→t(+)-t(-)=±a(mod 8).\
+(a,δn).a=0=→δ=1.\
+(n,a,δn).(a=1,n=0(mod 4))=δ=1.\
 (n,t,a,δn).
 
 $$
 \begin{array} { r l } & { \quad ( a = 1 , \delta _ { b } = 0 , ~ n \equiv \pm 2 \left( \operatorname { r a d } { \bf 8 } \right) ) \to \ell _ { a + 1 } - \ell _ { c + 1 } \geq \tau _ { 1 } \left( \operatorname { r a d } { \bf 8 } \right) , } \\ & { \quad ( a = 2 , \delta _ { b } = 0 , ~ n \equiv \pm 2 \left( \operatorname { r a d } { \bf 8 } \right) ) \to \ell _ { a + 1 } - \ell _ { c + 1 } \geq 0 , ~ \forall + 2 \left( \operatorname { r a d } { \bf 8 } \right) ; } \\ & { \quad ( a = \pi ^ { 2 } , ~ \delta _ { b } = 0 , ~ n \equiv 0 , ~ n \equiv 0 , ~ \operatorname { r a d } \otimes ( \operatorname { r a d } { \bf 8 } ) ) \to \ell _ { a + 1 } - \ell _ { c + 1 } \geq 0 , ~ ( \mathrm { r a d } { \bf 8 } ) ; } \\ & { \quad ( a = 3 , ~ \delta _ { b } = 0 , ~ n = 0 , ~ n = 0 , ~ \operatorname { r a d } \otimes ( \operatorname { r a d } { \bf 8 } ) ) - \ell _ { c + 1 } - \ell _ { c + 1 } \geq \tau _ { 1 } \otimes \tau _ { 1 } \left( \operatorname { r a d } { \bf 8 } \right) ; } \\ & { \quad ( a = 3 , ~ \delta _ { b } = 0 , ~ n = 0 , ~ \operatorname { r a d } \otimes ( \operatorname { r a d } { \bf 8 } ) ) - \ell _ { c + 1 } \otimes \tau _ { 1 } \left( \operatorname { r a d } { \bf 8 } \right) ; } \\ & { \quad ( a , \delta _ { b } ) , ~ n = 0 \to \infty , ~ \operatorname { r a d } \otimes ( \operatorname { r a d } { \bf 8 } ) ; } \\ & { \quad ( a = \pi ^ { 2 } , ~ \delta _ { b } = 0 , ~ n = 0 , ~ n = 4 \mathrm { ( ~ a n d ~ \delta _ { b } ) } ) \to \delta _ { c } - 0 . } \\ & { \quad ( a = \pi ^ { 2 } , ~ \delta _ { b } = 0 , ~ n = 0 , ~ \operatorname { r a d } \otimes ( \operatorname { r a d } { \bf 8 } ) ) } \\ & { \quad ( a = \delta _ { b } , ~ \delta _ { b } , ~ \operatorname* { r a d } \otimes ( \operatorname { r a d } { \bf 8 } ) ) , } \\ & { \quad ( a = 1 , ~ \delta _ { b } = 0 , ~ \operatorname { r a d } \otimes ( \operatorname { r a d } { \bf 8 } ) ) \to \delta _ { c } - \ell _ { c + 1 } \otimes \tau _ { 1 } , } \\ &  \quad ( a = 2 , ~ \ \end{array}
 $$
 
-VII. Relations near the boundaries a = O and a = l(+) + l(-) - t(+)- t(-):   
+VII. Relations near the boundaries a = O and a = l(+) + l(-) - t(+)- t(-):\
 $( l , n , t )$ ： $( t _ { { \scriptscriptstyle ( + ) } } = l _ { { \scriptscriptstyle ( + ) } } - 1 , \ : l _ { { \scriptscriptstyle ( - ) } } = l _ { { \scriptscriptstyle ( - ) } } ) \Longrightarrow n = 2 ;$ $( t _ { ( + ) } = l _ { ( + ) } - 2 , \ t _ { ( - ) } = l _ { ( - ) } ) \Rightarrow ( n = 2 ^ { \varepsilon } p _ { 1 } ^ { \alpha _ { 1 } } \dots p _ { m } ^ { \alpha _ { m } } , w h e r e \ \epsilon$ $\epsilon \leqslant 2$ ， pi a prime,pi=1(mod 4)).
 
 $\pmb { 5 } ^ { \circ }$ . Relations between $\delta _ { L } , l _ { ( + ) } , l _ { ( - ) }$ and $_ n$ . We consider the pair $( L , h )$ ， where $L$ is a unimodular lattice and $^ h$ is a primitive element of $L$ ,with $( h ) _ { L } ^ { \perp }$ even and $n = h ^ { 2 } > 0$
@@ -1512,10 +1585,10 @@ PROPOSITION 3.5.1. The invariants $( \delta _ { L } , l _ { ( + ) } , l _ { ( - 
 
 A pair $( L , h )$ with the invariants $( \delta _ { L } , l _ { ( + ) } , l _ { ( - ) } , n )$ exists if and only ifall of the following hold:
 
-1） $l _ { ( + ) } \geqslant 1$   
-2） $l _ { ( + ) } + l _ { ( - ) } \geq 2 ,$ if $n { > } 1$ ·，  
-3） $l _ { ( + ) } { - } l _ { ( - ) } { \equiv } 0 ( \mathrm { m o d } 8 )$ ， $n { \equiv } 0 ( { \mathrm { m o d } } 2 )$ ，if $\delta _ { L } = 0$ ：，  
-4） $l _ { ( + ) } { - } l _ { ( - ) } { \equiv } n ( \bmod 8 )$ ，if $\ S _ { L } = 1$ ：  
+1） $l _ { ( + ) } \geqslant 1$\
+2） $l _ { ( + ) } + l _ { ( - ) } \geq 2 ,$ if $n { > } 1$ ·，\
+3） $l _ { ( + ) } { - } l _ { ( - ) } { \equiv } 0 ( \mathrm { m o d } 8 )$ ， $n { \equiv } 0 ( { \mathrm { m o d } } 2 )$ ，if $\delta _ { L } = 0$ ：，\
+4） $l _ { ( + ) } { - } l _ { ( - ) } { \equiv } n ( \bmod 8 )$ ，if $\ S _ { L } = 1$ ：\
 5） $n = 2 p _ { 1 } ^ { \alpha _ { 1 } } , , . . . , p _ { n } ^ { \alpha _ { n } } ,$ where $p _ { i } \equiv 1$ (mod 4), if $\dot { } \delta _ { L } = 1 , l _ { ( + ) } = 2$ and $\iota _ { ( - ) } = 0$
 
 Here $M = ( h ) _ { L } ^ { \perp }$ has the invariants $( l _ { ( + ) } - 1 , l _ { ( - ) } , q )$ ,where
@@ -1562,7 +1635,8 @@ COROLLARY 3.5.2. The isomorphism classes of pairs $( L , h )$ with the invariant
 
 We remark that the parity relations of $L$ (of Theorems 3.4.1-3) arise from Proposition 3.5.1.In addition,these relations are suficient for the construction of the discriminantform $q$ from the invariants $( \delta _ { L } , l _ { ( + ) } , l _ { ( - ) } , n )$
 
-${ \pmb 6 } ^ { \circ }$ .2-elementary even lattices. We consider a polarized integral involution $( L , \varphi , h )$ satisfying (1) of subsection $3 ^ { \circ }$ Then $L ^ { \varphi }$ is even, and $( L ^ { \varphi } ) ^ { * } / L ^ { \varphi } \cong ( \mathbf { Z } / 2 \mathbf { Z } ) ^ { \alpha }$ On this assumption,we make
+${ \pmb 6 } ^ { \circ }$ .2-elementary even lattices.
+We consider a polarized integral involution $( L , \varphi , h )$ satisfying (1) of subsection $3 ^ { \circ }$ Then $L ^ { \varphi }$ is even, and $( L ^ { \varphi } ) ^ { * } / L ^ { \varphi } \cong ( \mathbf { Z } / 2 \mathbf { Z } ) ^ { \alpha }$ On this assumption,we make
 
 DEFINITION 3.6.1. A lattice $s$ is 2-elementary if $A _ { S } = S ^ { * } / S \cong ( \mathbf { Z } / 2 \mathbf { Z } ) ^ { \alpha }$ (thus |discr $S | = 2 ^ { \alpha } ,$ ）
 
@@ -1578,12 +1652,12 @@ THEOREM 3.6.2. The genus of an even 2-elementary lattice $s$ is determined by th
 
 An even 2-elementary lattice $s$ with invariants $( \delta _ { S } ; t _ { ( + ) } , t _ { ( - ) } , a )$ exists if and only if all the following conditions are satisfied (it being assumed that δs = O or 1,and that a, $t _ { ( + ) } , t _ { ( - ) } \geqslant 0 )$ ：
 
-1） $a \leqslant t _ { ( + ) } + t _ { ( - ) }$   
-2) $t _ { ( + ) } + t _ { ( - ) } + a { \equiv } 0 ( \mathrm { m o d } \ 2 )$   
-3） $t _ { ( + ) } - t _ { ( - ) } { \equiv } 0 \left( { \mathrm { m o d ~ } } 4 \right) , \quad i f \quad \delta _ { s } = 0 ;$   
-4） $\delta _ { s } = 0 , t _ { ( + ) } - t _ { ( - ) } \equiv 0 ( \mathrm { m o d } 8 ) , i f a = 0 ;$   
-5） $t _ { ( + ) } { - } t _ { ( - ) } { \equiv } { \pm } 1 \left( \mathrm { m o d } \ : 8 \right) , i f a { = } 1 ;$   
-6） $\delta _ { s } { = } 0 , i f a { = } 2 , t _ { ( + ) } { - } t _ { ( - ) } { \equiv } 4 ( \mathrm { m o d } \ 8 ) ;$   
+1） $a \leqslant t _ { ( + ) } + t _ { ( - ) }$\
+2) $t _ { ( + ) } + t _ { ( - ) } + a { \equiv } 0 ( \mathrm { m o d } \ 2 )$\
+3） $t _ { ( + ) } - t _ { ( - ) } { \equiv } 0 \left( { \mathrm { m o d ~ } } 4 \right) , \quad i f \quad \delta _ { s } = 0 ;$\
+4） $\delta _ { s } = 0 , t _ { ( + ) } - t _ { ( - ) } \equiv 0 ( \mathrm { m o d } 8 ) , i f a = 0 ;$\
+5） $t _ { ( + ) } { - } t _ { ( - ) } { \equiv } { \pm } 1 \left( \mathrm { m o d } \ : 8 \right) , i f a { = } 1 ;$\
+6） $\delta _ { s } { = } 0 , i f a { = } 2 , t _ { ( + ) } { - } t _ { ( - ) } { \equiv } 4 ( \mathrm { m o d } \ 8 ) ;$\
 7） $t _ { ( + ) } - t _ { ( - ) } \equiv 0 ( \mathrm { m o d } 8 ) , \quad i f \quad \delta _ { s } = 0 \quad a n d a = t _ { ( + ) } + t _ { ( - ) } .$
 
 PROOF.We prove uniqueness.First of all, from the invariants $( \delta _ { S } , a )$ we can recover the discriminant-bilinear form of S. If $\delta _ { S } = 0$ the discriminant-bilinear form is $u _ { - } ^ { ( 2 ) } ( 2 ) ^ { a / 2 }$ ， and if $\delta _ { S } = 1$ it is $b _ { \textbf { i } } ^ { ( 2 ) } ( 2 )$ . By Theorem 1.11.3, $t _ { ( + ) } - t _ { ( - ) }$ (mod 8) and $b _ { S }$ determine $\boldsymbol { q } _ { s }$ But then the set $( t _ { ( + ) } , t _ { ( - ) } , q _ { S } )$ determines the genus.
@@ -1592,9 +1666,14 @@ If $a < t _ { ( + ) } + t _ { ( - ) }$ and $s$ is indefinite,then the uniqueness
 
 We now prove the relations 1)-7). The choice of $( \delta _ { S } ; t _ { ( + ) } , t _ { ( - ) } , a )$ yields that of $( \delta _ { S } ; \sigma ( \mathrm { m o d } \ 8 ) , a )$ ，where $\sigma \left( \mathrm { m o d } \ 8 \right) = t _ { ( + ) } - t _ { ( - ) }$ (mod 8). Clearly the choice of $( \delta _ { S } ; \sigma$ $( { \bf m o d } 8 ) , a )$ is equivalent (in view of the foregoing) to the prescription of a unique discriminant-quadratic form $q _ { s }$ (with $A _ { q _ { S } } \cong ( { \bf Z } / 2 { \bf Z } ) ^ { \alpha } )$ of parity $\delta _ { s }$ and signature o (mod 8). From Proposition 1.11.2 we deduce that 2)-6) are equivalent to the existence of a $\pmb { q } _ { S }$ with the invariants $( \delta _ { S } ; \sigma ( \mathrm { \ m o d ~ } 8 ) , a )$ ．Also,1) and 7) are simple consequences of Theorem 1.10.1, and are equivalent to the existence of an even lattice $s$ with the invariants $( t _ { ( + ) } , t _ { ( - ) } , q _ { S } )$ The theorem is proved.
 
-THEOREM 3.6.3． Let $s$ be aneven,indefinite 2-elementary lattice. Then the homomorphism $O ( S ) \longrightarrow O ( q _ { S } )$ is surjective.
+THEOREM 3.6.3． Let $s$ be aneven,indefinite 2-elementary lattice.
+Then the homomorphism $O ( S ) \longrightarrow O ( q _ { S } )$ is surjective.
 
-PROOF. If $a < t _ { ( + ) } + t _ { ( - ) }$ or if $\delta _ { S } = 0$ ,the result follows from Theorem 1.14.2.Let $a = t _ { ( + ) } + t _ { ( - ) }$ and $\delta _ { S } = 1$ .If $a = t _ { ( + ) } + t _ { ( - ) } > 2$ ,then $q _ { S }$ ,as is easily seen, has an orthogonal summand $u _ { + } ^ { ( 2 ) } ( 2 )$ or $\upsilon _ { + } ^ { ( 2 ) } ( 2 )$ ,and so,once more, we obtain the required result from Theorem 1.14.2. If we have $a = t _ { ( + ) } + t _ { ( - ) } = 2$ ,then $S \cong \left. { 2 } \right. \oplus \left. { - 2 } \right.$ and $O ( q _ { S } )$ is trivial. This proves the theorem.
+PROOF. If $a < t _ { ( + ) } + t _ { ( - ) }$ or if $\delta _ { S } = 0$ ,the result follows from Theorem 1.14.2.Let $a = t _ { ( + ) } + t _ { ( - ) }$ and $\delta _ { S } = 1$ .If $a = t _ { ( + ) } + t _ { ( - ) } > 2$ ,then $q _ { S }$ ,as is easily seen, has an orthogonal summand $u _ { + } ^ { ( 2 ) } ( 2 )$ or $\upsilon _ { + } ^ { ( 2 ) } ( 2 )$ ,and so,once more, we obtain the required result from Theorem 1.14.2. If we have $a = t _ { ( + ) } + t _ { ( - ) } = 2$ ,then $S \cong \left.
+{ 2 } \right.
+\oplus \left.
+{ - 2 } \right.$ and $O ( q _ { S } )$ is trivial.
+This proves the theorem.
 
 PROPOSITION 3.6.4． Let $( L , \varphi , h )$ be a polarized integral involution satisfying (1) of $3 ^ { \circ }$ ，with the invariants
 
@@ -1626,7 +1705,8 @@ REMARk 3.7.2． Moreover,the description of the involutions of lattices which ac
 
 Let $( \delta _ { L } ; l _ { ( + ) } , l _ { ( - ) } , n )$ satisfy the parity relations for $L$ of Theorems 3.4.1-3,and let (t(+),t(-),α; δs) satisfy the relations of Theorem 3.6.2 (or those of Theorems 3.4.1-3, which are equivalent to them).
 
-Let $q$ be the discriminant-form calculated in Proposition 3.5.1 (corresponding to $( \delta _ { L }$ ， $l _ { ( + ) } , l _ { ( - ) } , n ) )$ , and let $s$ be some even 2-elementary latice with the invariants $( t _ { ( + ) } , t _ { ( - ) }$ $a ; \delta _ { S } )$ (such $s$ exist). We recall that $q _ { S }$ is calculated in terms of $( \delta _ { S } ; t _ { ( + ) } - t _ { ( - ) }$ (mod 8), $a _ { . }$ ).
+Let $q$ be the discriminant-form calculated in Proposition 3.5.1 (corresponding to $( \delta _ { L }$ ， $l _ { ( + ) } , l _ { ( - ) } , n ) )$ , and let $s$ be some even 2-elementary latice with the invariants $( t _ { ( + ) } , t _ { ( - ) }$ $a ; \delta _ { S } )$ (such $s$ exist).
+We recall that $q _ { S }$ is calculated in terms of $( \delta _ { S } ; t _ { ( + ) } - t _ { ( - ) }$ (mod 8), $a _ { . }$ ).
 
 By Proposition 1.15.3 the invariants of the genus of a primitive sublattice of $s$ are described by sets $( H _ { S } , H _ { q } , \gamma )$ , where $H _ { S } \subset A _ { S }$ and $H _ { q } \subset A _ { q }$ are subgroups, and $\gamma \colon q _ { S } | H _ { S } \stackrel { \sim } { \to }$ $q | H _ { q }$ is an isomorphism.
 
@@ -1714,7 +1794,8 @@ $$
 l ( A _ { ( - q _ { S } ) \oplus q } ) > 1 , \quad l _ { ( + ) } - t _ { ( + ) } - 1 + l _ { ( - ) } - t _ { ( - ) } = l ( A _ { ( - q _ { S } ) \oplus q } ) .
 $$
 
-Then $l _ { ( + ) } - t _ { ( + ) } - 1 + l _ { ( - ) } - t _ { ( - ) } = a > 1$ ,and condition3)of Theorem 1.10.1 is satisfied. If $\delta _ { \varphi , h } = \delta _ { S } = 1$ , we also have 4). If $\delta _ { \varphi , h } = \delta _ { S } = 0$ ,then 4) gives the con
+Then $l _ { ( + ) } - t _ { ( + ) } - 1 + l _ { ( - ) } - t _ { ( - ) } = a > 1$ ,and condition3)of Theorem 1.10.1 is satisfied.
+If $\delta _ { \varphi , h } = \delta _ { S } = 1$ , we also have 4). If $\delta _ { \varphi , h } = \delta _ { S } = 0$ ,then 4) gives the con
 
 gruence $2 ^ { a } n \equiv \pm$ discr $K ( - \boldsymbol { q } _ { S _ { 2 } } ) ( \mathrm { m o d } ( \mathbf { Z } _ { 2 } ^ { * } ) ^ { 2 } )$ .But
 
@@ -1754,7 +1835,8 @@ $$
 ( a = l _ { ( + ) } + l _ { ( - ) } - l _ { ( + ) } \ - \ t _ { ( - ) } \Rightarrow \ S _ { h } = 0 ) ,
 $$
 
-since the equation $a = l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } - 1$ is impossible,in view of the congruences $a + t _ { ( + ) } + t _ { ( - ) } \equiv 0$ (mod 2) and $l _ { ( + ) } - l _ { ( - ) } \equiv n \equiv 0$ (mod 2). If the inequality $a \leqslant l _ { ( + ) } +$ $l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } - 2$ is strict, $\pmb { K }$ exists. Suppose we have $a = l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } - 2$ Condition 4) of Theorem 1.10.1 is obviously satisfied if either $\delta _ { S } = 1$ or $n \equiv 2$ (mod 4).
+since the equation $a = l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } - 1$ is impossible,in view of the congruences $a + t _ { ( + ) } + t _ { ( - ) } \equiv 0$ (mod 2) and $l _ { ( + ) } - l _ { ( - ) } \equiv n \equiv 0$ (mod 2). If the inequality $a \leqslant l _ { ( + ) } +$ $l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } - 2$ is strict, $\pmb { K }$ exists.
+Suppose we have $a = l _ { ( + ) } + l _ { ( - ) } - t _ { ( + ) } - t _ { ( - ) } - 2$ Condition 4) of Theorem 1.10.1 is obviously satisfied if either $\delta _ { S } = 1$ or $n \equiv 2$ (mod 4).
 
 Thus let $\delta _ { S } = 0$ and $\scriptstyle n \equiv 0$ (mod 4). Then condition 4) of Theorem 1.10.1 is equivalent to the congruence
 
@@ -1800,7 +1882,8 @@ $$
 
 Since ${ \pmb a } = 0$ $\delta _ { h } = 1$ ； further,this relation still holds if $n = 2 ^ { k }$ . This completes the proofs of Theorems 3.4.1-3 for $\delta _ { h } = 1$ ：
 
-$9 ^ { \circ }$ . The case $\delta _ { h } = 0$ . We return to stage $7 ^ { \circ }$ of the proof. It is clear that the case $\delta _ { h } = 0$ can only occur if $a \geqslant 1$ ,and this gives the relation $( a = 0 \Rightarrow \delta _ { h } = 1 )$ of Theorems 3.4.2 and 3.4.3. Let $\overset { \_ } { h }$ be the generator of $H _ { s }$ . It is clear that $\gamma ( \overline { { h } } ) = \overline { { h } } ^ { \prime }$ is the unique element of order 2 in $A _ { q }$ . Thus $\gamma$ is determined by $\overline { { h } }$ ,while
+$9 ^ { \circ }$ . The case $\delta _ { h } = 0$ . We return to stage $7 ^ { \circ }$ of the proof.
+It is clear that the case $\delta _ { h } = 0$ can only occur if $a \geqslant 1$ ,and this gives the relation $( a = 0 \Rightarrow \delta _ { h } = 1 )$ of Theorems 3.4.2 and 3.4.3. Let $\overset { \_ } { h }$ be the generator of $H _ { s }$ . It is clear that $\gamma ( \overline { { h } } ) = \overline { { h } } ^ { \prime }$ is the unique element of order 2 in $A _ { q }$ . Thus $\gamma$ is determined by $\overline { { h } }$ ,while
 
 $$
 q _ { S } ( \overline { { h } } ) = q ( \overline { { h ^ { \prime } } } ) = \left\{ \begin{array} { r l l } { { - \frac { n } { 4 } + 2 Z _ { 2 } , } } & { { \mathrm { i f } } } & { { \delta _ { L } = 0 , } } \\ { { } } & { { } } \\ { { \frac { n } { 4 } + 2 Z _ { 2 } , } } & { { \mathrm { i f } } } & { { \delta _ { L } = 1 . } } \end{array} \right.
@@ -1828,13 +1911,17 @@ It is clear that characteristic and noncharacteristic elements of $A _ { s }$ ca
 
 LEMMA 3.9.1. Let s be a 2-elementary finite nondegenerate quadratic form, and let $\alpha , \alpha ^ { \prime } \in A _ { s }$ be nonzero elements with $s ( \alpha ) = s ( \alpha ^ { \prime } )$ . Then $\pmb { \alpha }$ and $\alpha ^ { \prime }$ are conjugate via some element of $O ( s )$ if and only if they are both either characteristic or noncharacteristic.
 
-PROOF. If s is even, i.e.s: $A _ { s } \longrightarrow \mathbf Z _ { 2 } / 2 \mathbf Z _ { 2 }$ ,then $\mathbf { Z } _ { 2 } / 2 \mathbf { Z } _ { 2 }$ is the group of order 2,and s is readily seen to be equivalent to some quadratic form over the field $\mathbf { F } _ { 2 }$ of two elements. In this case the required results derive from Witt's theorem [3].
+PROOF. If s is even, i.e.s: $A _ { s } \longrightarrow \mathbf Z _ { 2 } / 2 \mathbf Z _ { 2 }$ ,then $\mathbf { Z } _ { 2 } / 2 \mathbf { Z } _ { 2 }$ is the group of order 2,and s is readily seen to be equivalent to some quadratic form over the field $\mathbf { F } _ { 2 }$ of two elements.
+In this case the required results derive from Witt's theorem [3].
 
 If $\pmb { s }$ is odd and $\pmb { \alpha }$ and $\acute { \alpha }$ are both characteristic,the result is obvious.
 
-Let $\pmb { s }$ be odd and let $\pmb { \alpha }$ and $\alpha ^ { \prime }$ both be noncharacteristic.If $s ( \alpha ) = s ( \alpha ^ { \prime } ) \notin { \bf Z } _ { 2 }$ ,then $\boldsymbol { s } = [ \alpha ] \oplus \boldsymbol { s } _ { 1 } = [ \alpha ^ { \prime } ] \oplus \boldsymbol { s } _ { 1 } ^ { \prime }$ Since $\pmb { \alpha }$ and $\alpha ^ { \prime }$ are noncharacteristic, $s _ { 1 }$ and $s _ { 1 } ^ { \prime }$ are odd and have the same signature (mod 8). Consequently $s _ { 1 } \cong s _ { 1 } ^ { \prime }$ Let $s ( \alpha ) = s ( \alpha ^ { \prime } ) = 1 + 2  { \mathbf { Z } } _ { 2 }$ . Then the forms $s _ { 1 } = ( \alpha ) ^ { \perp }$ and $s _ { 1 } ^ { \prime } = ( \alpha ^ { \prime } ) ^ { \perp }$ are degenerate,have (respectively) the kernels $[ \alpha ]$ and $[ \alpha ^ { \prime } ]$ and satisfy $s _ { 1 } = [ \alpha ] \oplus s _ { 2 }$ and $\boldsymbol { s } _ { 1 } ^ { \prime } = [ \alpha ^ { \prime } ] \oplus \ \boldsymbol { s } _ { 2 } ^ { \prime }$ , where $s _ { 2 }$ and $s _ { 2 } ^ { \prime }$ are nondegenerate and even. We remark that $[ \alpha ] \oplus q _ { - 1 } ^ { ( 2 ) } ( 2 ) = [ \alpha ] \oplus q _ { 1 } ^ { ( 2 ) } ( 2 )$ since $s ( \alpha ) = 1 + 2 \mathbf { Z } _ { 2 }$ . Hence we may assume that $s _ { 2 } \cong s _ { 2 } ^ { \prime } \cong q _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { t }$
+Let $\pmb { s }$ be odd and let $\pmb { \alpha }$ and $\alpha ^ { \prime }$ both be noncharacteristic.If $s ( \alpha ) = s ( \alpha ^ { \prime } ) \notin { \bf Z } _ { 2 }$ ,then $\boldsymbol { s } = [ \alpha ] \oplus \boldsymbol { s } _ { 1 } = [ \alpha ^ { \prime } ] \oplus \boldsymbol { s } _ { 1 } ^ { \prime }$ Since $\pmb { \alpha }$ and $\alpha ^ { \prime }$ are noncharacteristic, $s _ { 1 }$ and $s _ { 1 } ^ { \prime }$ are odd and have the same signature (mod 8). Consequently $s _ { 1 } \cong s _ { 1 } ^ { \prime }$ Let $s ( \alpha ) = s ( \alpha ^ { \prime } ) = 1 + 2  { \mathbf { Z } } _ { 2 }$ . Then the forms $s _ { 1 } = ( \alpha ) ^ { \perp }$ and $s _ { 1 } ^ { \prime } = ( \alpha ^ { \prime } ) ^ { \perp }$ are degenerate,have (respectively) the kernels $[ \alpha ]$ and $[ \alpha ^ { \prime } ]$ and satisfy $s _ { 1 } = [ \alpha ] \oplus s _ { 2 }$ and $\boldsymbol { s } _ { 1 } ^ { \prime } = [ \alpha ^ { \prime } ] \oplus \ \boldsymbol { s } _ { 2 } ^ { \prime }$ , where $s _ { 2 }$ and $s _ { 2 } ^ { \prime }$ are nondegenerate and even.
+We remark that $[ \alpha ] \oplus q _ { - 1 } ^ { ( 2 ) } ( 2 ) = [ \alpha ] \oplus q _ { 1 } ^ { ( 2 ) } ( 2 )$ since $s ( \alpha ) = 1 + 2 \mathbf { Z } _ { 2 }$ . Hence we may assume that $s _ { 2 } \cong s _ { 2 } ^ { \prime } \cong q _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { t }$
 
-We consider the orthogonal complements of $s _ { 2 }$ and $\boldsymbol { s } _ { 2 } ^ { \prime }$ in $A _ { s }$ ,and denote the corresponding forms by $\pmb { u }$ and $\boldsymbol { u ^ { \prime } }$ .It is clear that $A _ { u } \cong A _ { u ^ { \prime } } \cong ( { \bf Z } / 2 { \bf Z } ) ^ { 2 }$ ,while $\pmb { u }$ and $u ^ { \prime }$ can be of the following types: $q _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , q _ { - 1 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , v _ { + } ^ { ( 2 ) } ( 2 )$ 0r $u _ { + } ^ { ( 2 ) } ( 2 )$ .But the form $q _ { 1 } ^ { ( 2 ) } ( 2 ) \oplus q _ { - 1 } ^ { ( 2 ) } ( 2 )$ does not take the value $1 + 2 \pmb { \mathrm { Z } } _ { 2 }$ .Also the forms $q _ { 1 } ^ { ( \dot { 2 } ) } ( 2 ) ^ { 2 } , q _ { - 1 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , \upsilon _ { + } ^ { ( 2 ) } ( \dot { 2 ) }$ and $u _ { + } ^ { ( 2 ) } ( 2 )$ have distinct signatures (mod 8). Hence $u \cong u ^ { \prime }$ ,since $s _ { 2 } \cong s _ { 2 } ^ { \prime }$ .It remains to verify that,for the forms $q _ { \pm } ^ { ( 2 ) } ( 2 ) ^ { 2 }$ ， $\upsilon _ { + } ^ { ( 2 ) } ( 2 )$ and $u _ { + } ^ { ( 2 ) } ( 2 )$ ,two elements at which a given form takes the value $1 + 2 \mathbf { Z } _ { 2 }$ are necessarily conjugate via some automorphism of the form. This follows, however,from the fact that for the form $q _ { \pm } ^ { ( 2 ) } ( 2 ) ^ { 2 }$ there is only one such element,while the form: $v _ { + } ^ { ( 2 ) } ( 2 )$ and $u _ { + } ^ { ( 2 ) } ( 2 )$ are even. Let $s ( \alpha ) = s ( \alpha ^ { \prime } ) = 2 \mathbf { Z } _ { 2 }$ As above, let
+We consider the orthogonal complements of $s _ { 2 }$ and $\boldsymbol { s } _ { 2 } ^ { \prime }$ in $A _ { s }$ ,and denote the corresponding forms by $\pmb { u }$ and $\boldsymbol { u ^ { \prime } }$ .It is clear that $A _ { u } \cong A _ { u ^ { \prime } } \cong ( { \bf Z } / 2 { \bf Z } ) ^ { 2 }$ ,while $\pmb { u }$ and $u ^ { \prime }$ can be of the following types: $q _ { 1 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , q _ { - 1 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , v _ { + } ^ { ( 2 ) } ( 2 )$ 0r $u _ { + } ^ { ( 2 ) } ( 2 )$ .But the form $q _ { 1 } ^ { ( 2 ) } ( 2 ) \oplus q _ { - 1 } ^ { ( 2 ) } ( 2 )$ does not take the value $1 + 2 \pmb { \mathrm { Z } } _ { 2 }$ .Also the forms $q _ { 1 } ^ { ( \dot { 2 } ) } ( 2 ) ^ { 2 } , q _ { - 1 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , \upsilon _ { + } ^ { ( 2 ) } ( \dot { 2 ) }$ and $u _ { + } ^ { ( 2 ) } ( 2 )$ have distinct signatures (mod 8). Hence $u \cong u ^ { \prime }$ ,since $s _ { 2 } \cong s _ { 2 } ^ { \prime }$ .It remains to verify that,for the forms $q _ { \pm } ^ { ( 2 ) } ( 2 ) ^ { 2 }$ ， $\upsilon _ { + } ^ { ( 2 ) } ( 2 )$ and $u _ { + } ^ { ( 2 ) } ( 2 )$ ,two elements at which a given form takes the value $1 + 2 \mathbf { Z } _ { 2 }$ are necessarily conjugate via some automorphism of the form.
+This follows, however,from the fact that for the form $q _ { \pm } ^ { ( 2 ) } ( 2 ) ^ { 2 }$ there is only one such element,while the form: $v _ { + } ^ { ( 2 ) } ( 2 )$ and $u _ { + } ^ { ( 2 ) } ( 2 )$ are even.
+Let $s ( \alpha ) = s ( \alpha ^ { \prime } ) = 2 \mathbf { Z } _ { 2 }$ As above, let
 
 $$
 \begin{array} { r } { ( \alpha ) ^ { \perp } = [ \alpha ] \oplus s _ { 2 } , \quad ( \alpha ^ { \prime } ) ^ { \perp } = [ \alpha ^ { \prime } ] \oplus s _ { 2 } ^ { \prime } , } \end{array}
@@ -1914,13 +2001,14 @@ The following proposition allows us to characterize those odd $s$ for which one 
 
 PROPOsITiON 3.9.4. In precisely the following cases of odd 2-elementary finite nondegenerate forms,s is the characteristic value taken only at the characteristic vector $\alpha _ { s }$
 
-1) s =(2). $s \left( \alpha _ { s } \right) = \frac { \theta } { 2 } + 2 { \bf Z _ { 2 } } ;$   
-2) $S = q _ { 6 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , s ( \alpha _ { s } ) = 1 + 2 \mathbf { Z _ { 2 } } ;$   
-3) $\begin{array} { r l } & { s = q _ { 1 } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) \oplus q _ { - 1 } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) , s \left( \alpha _ { s } \right) = 2 \mathbf { Z } _ { \mathfrak { z } } ; } \\ & { s = q _ { \theta } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) ^ { \mathfrak { z } } , s \left( \mathfrak { a } _ { s } \right) = - \frac { \theta } { 2 } + 2 \mathbf { Z } _ { \mathfrak { z } } ; } \\ & { s = q _ { 1 } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) ^ { \mathfrak { z } } , s \left( \alpha _ { s } \right) = 2 \mathbf { Z } _ { \mathfrak { z } } . } \end{array}$   
-4)  
+1. s =(2). $s \left( \alpha _ { s } \right) = \frac { \theta } { 2 } + 2 { \bf Z _ { 2 } } ;$
+2. $S = q _ { 6 } ^ { ( 2 ) } ( 2 ) ^ { 2 } , s ( \alpha _ { s } ) = 1 + 2 \mathbf { Z _ { 2 } } ;$
+3. $\begin{array} { r l } & { s = q _ { 1 } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) \oplus q _ { - 1 } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) , s \left( \alpha _ { s } \right) = 2 \mathbf { Z } _ { \mathfrak { z } } ; } \\ & { s = q _ { \theta } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) ^ { \mathfrak { z } } , s \left( \mathfrak { a } _ { s } \right) = - \frac { \theta } { 2 } + 2 \mathbf { Z } _ { \mathfrak { z } } ; } \\ & { s = q _ { 1 } ^ { \left( \mathfrak { z } \right) } \left( 2 \right) ^ { \mathfrak { z } } , s \left( \alpha _ { s } \right) = 2 \mathbf { Z } _ { \mathfrak { z } } . } \end{array}$
 5）
 
-PROOF.Let $s ( \alpha _ { s } ) \not \in \mathbf { Z } _ { 2 }$ . Then $s = [ \alpha _ { s } ] \oplus s ^ { \prime }$ ,where $s ^ { \prime }$ is even. Since $u _ { + } ^ { ( 2 ) } ( 2 )$ represents O, either $s ^ { \prime } = 0$ or $s ^ { \prime } = v _ { + } ^ { ( 2 ) } ( 2 )$ . It is easy to see that these forms satisfy the condition of the proposition and give the forms 1) and 4). If $s ( \alpha _ { s } ) \in \mathbf { Z } _ { 2 }$ , then any element $\pmb { \alpha }$ such that $s ( \alpha ) = s ( \alpha _ { s } )$ lies in $( \alpha _ { s } ) ^ { \perp }$ ,and $( \alpha _ { s } ) ^ { \perp } = [ \alpha _ { s } ] \oplus s ^ { \prime }$ , where $s ^ { \prime }$ is a nondegenerate even form. Again, either $s ^ { \prime } = 0$ 0r $s ^ { \prime } = v _ { + } ^ { ( 2 ) } ( 2 )$ .In the latter case $s ( \alpha _ { s } ) = 2 \mathbf { Z } _ { 2 }$ ,since $\upsilon _ { + } ^ { ( 2 ) } ( 2 )$ represents $1 + 2 \mathbf { Z } _ { 2 }$ ． This gives the cases 2),3) and 5) of the proposition,and so completes the proof.
+PROOF.Let $s ( \alpha _ { s } ) \not \in \mathbf { Z } _ { 2 }$ . Then $s = [ \alpha _ { s } ] \oplus s ^ { \prime }$ ,where $s ^ { \prime }$ is even.
+Since $u _ { + } ^ { ( 2 ) } ( 2 )$ represents O, either $s ^ { \prime } = 0$ or $s ^ { \prime } = v _ { + } ^ { ( 2 ) } ( 2 )$ . It is easy to see that these forms satisfy the condition of the proposition and give the forms 1) and 4). If $s ( \alpha _ { s } ) \in \mathbf { Z } _ { 2 }$ , then any element $\pmb { \alpha }$ such that $s ( \alpha ) = s ( \alpha _ { s } )$ lies in $( \alpha _ { s } ) ^ { \perp }$ ,and $( \alpha _ { s } ) ^ { \perp } = [ \alpha _ { s } ] \oplus s ^ { \prime }$ , where $s ^ { \prime }$ is a nondegenerate even form.
+Again, either $s ^ { \prime } = 0$ 0r $s ^ { \prime } = v _ { + } ^ { ( 2 ) } ( 2 )$ .In the latter case $s ( \alpha _ { s } ) = 2 \mathbf { Z } _ { 2 }$ ,since $\upsilon _ { + } ^ { ( 2 ) } ( 2 )$ represents $1 + 2 \mathbf { Z } _ { 2 }$ ． This gives the cases 2),3) and 5) of the proposition,and so completes the proof.
 
 From these propositions we deduce the relations
 
@@ -1954,9 +2042,11 @@ $$
 
 of Theorems 3.4.2 and 3.4.3. (In the last relation we should remark that $a = 1$ and $\delta _ { h } = 0$ ， as aconsequenceof theotherrelations.）Fromthis,ifthe inequality $a \leqslant l _ { ( + ) } + l _ { ( - ) } -$ $t _ { ( + ) } - t _ { ( - ) }$ is strict,it follows that these conditions suffice for the existence of $K ^ { \prime }$ Suppose thata=l(+)+l(-)-t(+)-t(-):
 
-If $a = 1$ ,then $n = 2 , \delta = 0$ and $K$ obviously exists. Hence we may assume that $a \geqslant 2$
+If $a = 1$ ,then $n = 2 , \delta = 0$ and $K$ obviously exists.
+Hence we may assume that $a \geqslant 2$
 
-We consider condition 4) of Theorem 1.10.1.If $\delta _ { S } = 1$ and $\delta _ { S , \overline { { { h } } } } = 1$ , then $\delta _ { 2 } \cong$ $q _ { \theta ^ { ' } } ^ { ( 2 ) } ( 2 ) \oplus \delta _ { 2 } ^ { \prime }$ and 4) holds. Let $\delta _ { S } = 0$ Then $q _ { 2 } \cong q _ { \theta } ^ { ( 2 ) } ( 2 ^ { k } )$ ,where $k \geqslant 2$ .It is readily seen that,in this case,
+We consider condition 4) of Theorem 1.10.1.If $\delta _ { S } = 1$ and $\delta _ { S , \overline { { { h } } } } = 1$ , then $\delta _ { 2 } \cong$ $q _ { \theta ^ { ' } } ^ { ( 2 ) } ( 2 ) \oplus \delta _ { 2 } ^ { \prime }$ and 4) holds.
+Let $\delta _ { S } = 0$ Then $q _ { 2 } \cong q _ { \theta } ^ { ( 2 ) } ( 2 ^ { k } )$ ,where $k \geqslant 2$ .It is readily seen that,in this case,
 
 $$
 \delta _ { 2 } \simeq \left\{ \begin{array} { l } { { u _ { + } ^ { ( 2 ) } \left( 2 \right) ^ { \frac { a } { 2 } - 1 } \oplus q _ { 6 } ^ { ( 2 ) } ( 2 ^ { k } ) , \quad \mathrm { i f } \quad t _ { ( + ) } - t _ { ( - ) } \equiv 0 \ ( \mathrm { m o d } \ 8 ) , } } \\ { { v _ { + } ^ { ( 2 ) } \left( 2 \right) \oplus u _ { + } ^ { ( 2 ) } \left( 2 \right) ^ { \frac { a } { 2 } - 2 } \oplus q _ { 6 } ^ { ( 2 ) } ( 2 ^ { k } ) , \quad \mathrm { i f } \quad t _ { ( + ) } - t _ { ( - ) } \equiv 4 \ ( \mathrm { m o d } \ 8 ) , \ a \geqslant 4 , } } \\ { { q _ { 5 9 } ^ { ( 2 ) } \left( 4 \right) , \quad \mathrm { i f } \quad t _ { ( + ) } - t _ { ( - ) } \equiv 4 \ ( \mathrm { m o d } \ 8 ) , \ a = 2 . } } \end{array} \right.
@@ -2044,9 +2134,12 @@ of Theorems 3.4.2 and 3.4.3. (The condition $\delta _ { h } = 0$ derives from th
 
 $1 0 ^ { \circ }$ ．Application to real projective surfaces of type K3． In Example 3.1.2,let $_ { A \subset }$ PR = pN be a nonsingular projective surface of type K3 over R (see [18]),embedded in a complete linear system, with $( H _ { 2 } ( A ( \mathbf { C } ) ) , h , \mathrm { c o n j } _ { * } )$ its associated polarized integral involution.
 
-Then,as one can deduce from the results of [23], the Zariski-connected component $\mathcal { A } _ { 0 }$ (containing $\pmb { A }$ ）of the open Zariski subset of the Hilbert scheme,containing the nonsingular K3 surfaces,consists, in particular, of polarized surfaces $(  { \boldsymbol { X } } ,  { \boldsymbol { l } } )$ of type K3 whose isomorphism classes of pairs $( H _ { 2 } ( X ) , \hat { \iota } )$ are the same as those of the pairs $( H _ { 2 } ( A ( \mathbf { C } ) ) , h )$ ， while the linear system $| l |$ is very ample. Since $H _ { 2 } ( X ) = H _ { 2 } ( X , { \bf Z } )$ is an even unimodular lattice of signature (3, 19), $\mathcal { A } _ { \mathfrak { o } }$ is determined by the invariants $_ n$ and $\pmb { k }$ , where $k$ and $_ n$ are natural numbers (with $\pmb { n }$ even), while $k ^ { - 1 } \cdot h \in H _ { 2 } ( A ( \mathbf { C } ) )$ is a primitive element of $H _ { 2 } ( A ( \mathbf { C } ) )$ and $n = ( k ^ { - 1 } \cdot h ) ^ { 2 }$ . Thus we may denote $\mathcal { A } _ { 0 }$ by $\mathcal { \& } _ { n , k }$ (here we note that $N = 1 ~ { + }$ $n k ^ { 2 } / 2 )$ .For example,as is well known [24], the cases $n = 2$ ,4,6 or 8 and $k = 1$ give,respectively,a double covering of $\mathsf { P } _ { \mathsf { C } } ^ { 2 }$ ramified at some sextic curve,a nonsingular quartic in $\mathbf { P } _ { \mathbf { C } } ^ { 3 }$ , a nonsingular intersection of quadrics and cubics in $\mathbf { P _ { C } ^ { 4 } }$ ,and a nonsingular intersection of three quadrics in $\mathbf { P } _ { \mathbf { C } } ^ { 5 }$ ：
+Then,as one can deduce from the results of [23], the Zariski-connected component $\mathcal { A } _ { 0 }$ (containing $\pmb { A }$ ）of the open Zariski subset of the Hilbert scheme,containing the nonsingular K3 surfaces,consists, in particular, of polarized surfaces $(  { \boldsymbol { X } } ,  { \boldsymbol { l } } )$ of type K3 whose isomorphism classes of pairs $( H _ { 2 } ( X ) , \hat { \iota } )$ are the same as those of the pairs $( H _ { 2 } ( A ( \mathbf { C } ) ) , h )$ ， while the linear system $| l |$ is very ample.
+Since $H _ { 2 } ( X ) = H _ { 2 } ( X , { \bf Z } )$ is an even unimodular lattice of signature (3, 19), $\mathcal { A } _ { \mathfrak { o } }$ is determined by the invariants $_ n$ and $\pmb { k }$ , where $k$ and $_ n$ are natural numbers (with $\pmb { n }$ even), while $k ^ { - 1 } \cdot h \in H _ { 2 } ( A ( \mathbf { C } ) )$ is a primitive element of $H _ { 2 } ( A ( \mathbf { C } ) )$ and $n = ( k ^ { - 1 } \cdot h ) ^ { 2 }$ . Thus we may denote $\mathcal { A } _ { 0 }$ by $\mathcal { \& } _ { n , k }$ (here we note that $N = 1 ~ { + }$ $n k ^ { 2 } / 2 )$ .For example,as is well known [24], the cases $n = 2$ ,4,6 or 8 and $k = 1$ give,respectively,a double covering of $\mathsf { P } _ { \mathsf { C } } ^ { 2 }$ ramified at some sextic curve,a nonsingular quartic in $\mathbf { P } _ { \mathbf { C } } ^ { 3 }$ , a nonsingular intersection of quadrics and cubics in $\mathbf { P _ { C } ^ { 4 } }$ ,and a nonsingular intersection of three quadrics in $\mathbf { P } _ { \mathbf { C } } ^ { 5 }$ ：
 
-Here,since $\smash { \oiint _ { n , k } }$ is connected (in the Zariski topology), $\widetilde { \mathcal { \alpha } } _ { n , k } ( \mathbf { C } )$ ,which parametrize the nonsingular complex projective K3 surfaces,is a connected complex manifold (see [26], Chapter 7,and [23]). On the other hand, ${ \mathcal { \widetilde { A } } } _ { n , { \boldsymbol { k } } } ( { \bf R } )$ ,which parametrizes nonsingular real K3 surfaces, may be disconnected (regarded as a real analytic manifold). The group $\mathsf { P G L } ( N + 1 , \mathbb { R } )$ of automorphisms of $\mathbb { P } _ { \mathbb { R } } ^ { N }$ acts on $\mathcal { \delta } { \mathbb { K } } _ { n , k } ( { \mathbb { R } } )$ possibly permuting its connected components. If $N$ is even, $\mathtt { P G L } ( N + 1 , \mathbb { R } )$ is connected,which cannot happen;and if $N$ is odd, $\mathtt { P G L } ( N + 1 , \mathbb { R } )$ has two connected components,and so possibly permutes two components of ${ \mathcal { K } } _ { n , k } ( \mathbb { R } )$ . Any pair of components of $\mathcal { \widetilde { A } } _ { n , \kappa } ( \mathbb { R } )$ related in this way will be caled projectively equivalent; the surfaces determined by points in projectively equivalent components will be called coarsely projectively equivalent,and the corresponding classification of real projective K3 surfaces will be called the coarse projective classification.
+Here,since $\smash { \oiint _ { n , k } }$ is connected (in the Zariski topology), $\widetilde { \mathcal { \alpha } } _ { n , k } ( \mathbf { C } )$ ,which parametrize the nonsingular complex projective K3 surfaces,is a connected complex manifold (see [26], Chapter 7,and [23]). On the other hand, ${ \mathcal { \widetilde { A } } } _ { n , { \boldsymbol { k } } } ( { \bf R } )$ ,which parametrizes nonsingular real K3 surfaces, may be disconnected (regarded as a real analytic manifold).
+The group $\mathsf { P G L } ( N + 1 , \mathbb { R } )$ of automorphisms of $\mathbb { P } _ { \mathbb { R } } ^ { N }$ acts on $\mathcal { \delta } { \mathbb { K } } _ { n , k } ( { \mathbb { R } } )$ possibly permuting its connected components.
+If $N$ is even, $\mathtt { P G L } ( N + 1 , \mathbb { R } )$ is connected,which cannot happen;and if $N$ is odd, $\mathtt { P G L } ( N + 1 , \mathbb { R } )$ has two connected components,and so possibly permutes two components of ${ \mathcal { K } } _ { n , k } ( \mathbb { R } )$ . Any pair of components of $\mathcal { \widetilde { A } } _ { n , \kappa } ( \mathbb { R } )$ related in this way will be caled projectively equivalent; the surfaces determined by points in projectively equivalent components will be called coarsely projectively equivalent,and the corresponding classification of real projective K3 surfaces will be called the coarse projective classification.
 
 Since we have as a quotient space
 
@@ -2064,7 +2157,8 @@ As a corollary of the global Torelli theorem for K3 surfaces (see Pjateckii-Sapi
 
 THEOREM 3.10.1. The projective equivalence classes of components of $\mathcal { \widetilde { A } } _ { n , k } ( \mathbb { R } )$ (or, equivalently, the connected components of ${ \mathcal { M } } _ { n , k } ( { \mathbb { R } } ) )$ are in bijective correspondence with theisomorphism classes of polarized integral involutions satisfying (1)and with the invariants $\delta _ { L } = 0 , l _ { ( + ) } = 3 , l _ { ( - ) } = 1 9$ and $t _ { ( + ) } = 1$ ：
 
-PROOF.First of all, we remark that if $\pmb { A }$ is a surface over $\mathbf { R }$ , and conj is complex conjugation, then conj\*: $H ^ { 2 , 0 } ( A ( \mathbf { C } ) ) \longrightarrow H ^ { 0 , 2 } ( A ( \mathbf { C } ) )$ is linear and commutes with complex conjugation of forms. Hence conj\*: $H ^ { 2 , 0 } ( A ( { \bf C } ) ) \longrightarrow H ^ { 0 , 2 } ( A ( { \bf C } ) )$ is antilinear,of order 2.
+PROOF.First of all, we remark that if $\pmb { A }$ is a surface over $\mathbf { R }$ , and conj is complex conjugation, then conj\*: $H ^ { 2 , 0 } ( A ( \mathbf { C } ) ) \longrightarrow H ^ { 0 , 2 } ( A ( \mathbf { C } ) )$ is linear and commutes with complex conjugation of forms.
+Hence conj\*: $H ^ { 2 , 0 } ( A ( { \bf C } ) ) \longrightarrow H ^ { 0 , 2 } ( A ( { \bf C } ) )$ is antilinear,of order 2.
 
 Let $H ^ { 2 , 0 } ( A ( \mathbf { C } ) ) ^ { \mathbb { R } }$ be the real subspace of $H ^ { 2 , 0 } ( A ( \mathbf { C } ) )$ consisting of the fixed points of conj\*. Now $\omega ^ { \tt R } \in H ^ { 2 , 0 } ( A ( { \bf C } ) ) ^ { \tt R }$ if and only if conj ${ } ^ { * } ( \omega ^ { \tt R } ) = \overline { { \omega } } ^ { \tt R }$ . Clearly
 
@@ -2092,7 +2186,7 @@ $$
 
 Since $L _ { \varphi }$ and $\boldsymbol { L } _ { \varphi , h }$ have the respective signatures $( 1 , t _ { ( - ) } )$ and $( 1 , 1 9 - t _ { ( - ) } ) , \bar { \Omega } _ { \varphi , h } ^ { \tt R }$ has two connected components.
 
-（ $( - \varphi ) \colon \widetilde { \Omega } _ { \varphi , h } ^ { \mathbf { R } } \longrightarrow \widetilde { \Omega } _ { \varphi , h } ^ { \mathbf { R } }$ We remark that →n is an involution or $( - \varphi ) ( h ) = h$ ， $( - \varphi )$ commutes with $\widetilde { \Omega } _ { \varphi , h } ^ { \tt R }$ pd ,and $( - \varphi ) ( \omega ) = - \omega _ { + } + i \omega _ { - }$ . Thus tecomed.compoetso $\widetilde { \Omega } _ { \varphi , h } ^ { \tt R }$   
+（ $( - \varphi ) \colon \widetilde { \Omega } _ { \varphi , h } ^ { \mathbf { R } } \longrightarrow \widetilde { \Omega } _ { \varphi , h } ^ { \mathbf { R } }$ We remark that →n is an involution or $( - \varphi ) ( h ) = h$ ， $( - \varphi )$ commutes with $\widetilde { \Omega } _ { \varphi , h } ^ { \tt R }$ pd ,and $( - \varphi ) ( \omega ) = - \omega _ { + } + i \omega _ { - }$ . Thus tecomed.compoetso $\widetilde { \Omega } _ { \varphi , h } ^ { \tt R }$\
 components of $\widetilde { \Omega } _ { \varphi , h } ^ { \tt R }$ 01 $\widetilde { \Omega } _ { \varphi , h } ^ { \tt R } / \{ 1 , - \varphi \}$ $\{ \omega \} \longrightarrow$ $( [ \omega _ { + } ] , [ \omega _ { - } ] )$ is clearly
 
 $$
@@ -2109,22 +2203,26 @@ $$
 \begin{array} { r l } & { [ \omega _ { + } ] \in \mathcal { L } _ { \Psi } ^ { + } \setminus \big ( \bigcup _ { \delta + \in \Delta ( L ^ { \emptyset } ) } \mathcal { H } _ { \delta _ { + } } \big ) , } \\ & { [ \omega _ { - } ] \in \mathcal { L } _ { \Psi , h } ^ { - } \setminus \big ( \bigcup _ { \delta _ { - } \in \Delta ( L _ { \Psi , h } ) } \mathcal { H } _ { \delta _ { - } } \big ) , } \end{array}
 $$
 
-where $\smash { \delta \mathcal { U } _ { \delta _ { + } } }$ is the hypersurface determined by $\delta _ { \pm }$ in its Lobachesky space. But every $\delta \in L$   
-with $\delta ^ { 2 } = { \overset { \underset { + } { \cdot } } { - 2 } }$ determines a reflection $s _ { \delta } \colon L \longrightarrow L$ ,whereby $x \mapsto x + ( x \cdot \delta ) \delta$ Here,if $\delta \in$   
-$\Delta ( L ^ { \varphi } ) \cup \Delta ( L _ { \varphi , h } )$ ,then $s _ { \delta }$ commutes with $\varphi , s _ { \delta } ( h ) = h$ and $s _ { \delta }$ acts as reflection in $\mathcal { A } _ { \delta }$ in   
-the corresponding Lobachevsky space,and acts trivially on the other. Hence the action of   
-$\mathcal { W } ( L ^ { \varphi } ) \times W ( L _ { \varphi , h } )$ (where $W ( L ^ { \varphi } ) \left( W ( L _ { \varphi , h } ) \right)$ is the group generated by reflections in $\Delta ( L ^ { \varphi } )$ $\Delta ( L _ { \varphi , h } ) ) )$ $\mathcal { L } _ { \varphi } ^ { + } \times \mathcal { L } _ { \varphi , h } ^ { - }$ $\Omega _ { \varphi } ^ { + }$ $\Omega _ { \varphi , h } ^ { - }$ $W ( L ^ { \varphi } )$   
-$\mathcal { L } _ { \varphi } ^ { \mathrm { { \scriptscriptstyle \dag } } } ( \cup _ { \delta _ { + } \in \Delta ^ { + } ( L ^ { \varphi } ) } \mathbb { \breve { X } } _ { + } )$ and of $W ( L _ { \varphi , h } )$ on $\mathcal { L } _ { \varphi , h } ^ { - } \backslash ( \bigcup _ { \delta _ { - } \in \Delta ( L _ { \varphi , h } ) } \mathcal { A } _ { \delta _ { - } } )$ respectively.   
-Also, we may assume that the period-space lies in $\Omega _ { \varphi } ^ { + } \times \Omega _ { \varphi , h } ^ { - }$ ,a product of open polyhedra   
+where $\smash { \delta \mathcal { U } _ { \delta _ { + } } }$ is the hypersurface determined by $\delta _ { \pm }$ in its Lobachesky space.
+But every $\delta \in L$\
+with $\delta ^ { 2 } = { \overset { \underset { + } { \cdot } } { - 2 } }$ determines a reflection $s _ { \delta } \colon L \longrightarrow L$ ,whereby $x \mapsto x + ( x \cdot \delta ) \delta$ Here,if $\delta \in$\
+$\Delta ( L ^ { \varphi } ) \cup \Delta ( L _ { \varphi , h } )$ ,then $s _ { \delta }$ commutes with $\varphi , s _ { \delta } ( h ) = h$ and $s _ { \delta }$ acts as reflection in $\mathcal { A } _ { \delta }$ in\
+the corresponding Lobachevsky space,and acts trivially on the other.
+Hence the action of\
+$\mathcal { W } ( L ^ { \varphi } ) \times W ( L _ { \varphi , h } )$ (where $W ( L ^ { \varphi } ) \left( W ( L _ { \varphi , h } ) \right)$ is the group generated by reflections in $\Delta ( L ^ { \varphi } )$ $\Delta ( L _ { \varphi , h } ) ) )$ $\mathcal { L } _ { \varphi } ^ { + } \times \mathcal { L } _ { \varphi , h } ^ { - }$ $\Omega _ { \varphi } ^ { + }$ $\Omega _ { \varphi , h } ^ { - }$ $W ( L ^ { \varphi } )$\
+$\mathcal { L } _ { \varphi } ^ { \mathrm { { \scriptscriptstyle \dag } } } ( \cup _ { \delta _ { + } \in \Delta ^ { + } ( L ^ { \varphi } ) } \mathbb { \breve { X } } _ { + } )$ and of $W ( L _ { \varphi , h } )$ on $\mathcal { L } _ { \varphi , h } ^ { - } \backslash ( \bigcup _ { \delta _ { - } \in \Delta ( L _ { \varphi , h } ) } \mathcal { A } _ { \delta _ { - } } )$ respectively.\
+Also, we may assume that the period-space lies in $\Omega _ { \varphi } ^ { + } \times \Omega _ { \varphi , h } ^ { - }$ ,a product of open polyhedra\
 in the Lobachevsky spaces.
 
-Let $n > 2$ .The linear system $| k h |$ fails to yield an embedding into $\mathbf { p } ^ { N }$ if there exists a $c \in L$ such that $\omega ( c ) = 0$ ， $c ^ { 2 } = 0$ and $c \cdot ( k h ) = 1$ or 2．Indeed,by the Riemann-Roch theorem, $| c |$ is nonempty.If $C \in \left| c \right|$ ,then the image of $C$ in $| k h |$ represents,in the first case,a line,and in the second case,a plane conic,possibly decomposing as a pair of lines, provided that $| k h |$ yields an embedding in $\mathsf { P } ^ { N }$ . From this it follows that either $C$ is nonsingular and rational,or $C = C _ { 1 } + C _ { 2 }$ ,where $C _ { 1 }$ and $C _ { 2 }$ are nonsingular and rational,with $C _ { 1 } \cdot C _ { 2 } = 1$ . But then $c ^ { 2 } = - 2$ ,and we have a contradiction. We remark that $c \cdot ( k h ) = 1$ only if $k = 1$ ,and $c \cdot ( k h ) = 2$ only if $k = 1$ or 2.We consider such elements $c$ which lie in $\boldsymbol { L } _ { \varphi , h }$ . We note that the lattice defined by the matrix
+Let $n > 2$ .The linear system $| k h |$ fails to yield an embedding into $\mathbf { p } ^ { N }$ if there exists a $c \in L$ such that $\omega ( c ) = 0$ ， $c ^ { 2 } = 0$ and $c \cdot ( k h ) = 1$ or 2．Indeed,by the Riemann-Roch theorem, $| c |$ is nonempty.If $C \in \left| c \right|$ ,then the image of $C$ in $| k h |$ represents,in the first case,a line,and in the second case,a plane conic,possibly decomposing as a pair of lines, provided that $| k h |$ yields an embedding in $\mathsf { P } ^ { N }$ . From this it follows that either $C$ is nonsingular and rational,or $C = C _ { 1 } + C _ { 2 }$ ,where $C _ { 1 }$ and $C _ { 2 }$ are nonsingular and rational,with $C _ { 1 } \cdot C _ { 2 } = 1$ . But then $c ^ { 2 } = - 2$ ,and we have a contradiction.
+We remark that $c \cdot ( k h ) = 1$ only if $k = 1$ ,and $c \cdot ( k h ) = 2$ only if $k = 1$ or 2.We consider such elements $c$ which lie in $\boldsymbol { L } _ { \varphi , h }$ . We note that the lattice defined by the matrix
 
 $$
 \left( \begin{array} { c c } { { c ^ { 2 } } } & { { c \cdot ( k h ) } } \\ { { c \cdot ( k h ) } } & { { ( k h ) ^ { 2 } } } \end{array} \right) = \left( \begin{array} { c c c c } { { } } & { { 0 } } & { { 1 } } & { { \mathrm { o r } } } & { { 2 } } \\ { { 1 } } & { { \mathrm { o r } } } & { { 2 } } & { { ( k h ) ^ { 2 } } } \end{array} \right) ,
 $$
 
-is 2-elementary,so that the primitive sublattice $[ h , c ]$ of $L _ { \varphi }$ , spanned by the elements $h$ and $c$ ,is also 2-elementary. Hence there exists an involution $s _ { [ h , c ] } ^ { \prime }$ , acting identically on $\{ h , c \}$ and as an inversion on the orthogonal complement of $[ h , c ]$ in $L$ Let $s _ { [ h , c ] } = - \varphi \circ s _ { [ h , c ] } ^ { \prime }$ Clearly $s _ { [ h , c ] }$ is an involution,commuting with $\varphi$ fixing $h$ , and acting identically on $L ^ { \varphi }$ Let $\pm \delta ( c )$ be an element generating the orthogonal complement of $h$ in $[ h , c ]$ It is clear that $\delta ( c ) ^ { 2 } < 0$ , and the action of $^ { { s } } [ h , c ]$ on $\mathcal { L } _ { \varphi , h } ^ { - }$ represents reflection in the hyprplane
+is 2-elementary,so that the primitive sublattice $[ h , c ]$ of $L _ { \varphi }$ , spanned by the elements $h$ and $c$ ,is also 2-elementary.
+Hence there exists an involution $s _ { [ h , c ] } ^ { \prime }$ , acting identically on $\{ h , c \}$ and as an inversion on the orthogonal complement of $[ h , c ]$ in $L$ Let $s _ { [ h , c ] } = - \varphi \circ s _ { [ h , c ] } ^ { \prime }$ Clearly $s _ { [ h , c ] }$ is an involution,commuting with $\varphi$ fixing $h$ , and acting identically on $L ^ { \varphi }$ Let $\pm \delta ( c )$ be an element generating the orthogonal complement of $h$ in $[ h , c ]$ It is clear that $\delta ( c ) ^ { 2 } < 0$ , and the action of $^ { { s } } [ h , c ]$ on $\mathcal { L } _ { \varphi , h } ^ { - }$ represents reflection in the hyprplane
 
 $$
 \mathcal { H } _ { \mathfrak { d } ( c ) } = \{ [ \mathfrak { o } _ { - } ] \in \mathcal { L } _ { \mathfrak { g } , h } ^ { - } | \mathfrak { o } _ { - } \cdot \mathfrak { d } ( c ) = 0 \} ,
@@ -2138,7 +2236,8 @@ We note that $\Omega _ { \varphi , h , 1 } ^ { - } \subset \Omega _ { \varphi , 
 
 We now also consider those $c$ in the primitive sublattice $[ L ^ { \varphi } , h ]$ of $L$ spanned by $L ^ { \varphi }$ and $^ h$ ，
 
-Let $c = c _ { + } + \alpha h$ ,where $c _ { + } \in ( L ^ { \varphi } ) ^ { * }$ and ${ \pmb { \alpha } } \in { \bf Q }$ Since $L ^ { \varphi }$ is 2-elementary,it follows that $2 c _ { + } \in L ^ { \varphi }$ ， $2 \alpha \in \mathbf { Z }$ and $\alpha = t / 2$ ,where $t$ is an integer. Since $c \cdot ( k h ) = 1$ or 2,we have $t n k / 2 = 1$ or 2.Hence $t = 1 , n = 4 , k = 1$ and $c = c _ { + } + \% h$ ， $c \cdot h = 2$ ：
+Let $c = c _ { + } + \alpha h$ ,where $c _ { + } \in ( L ^ { \varphi } ) ^ { * }$ and ${ \pmb { \alpha } } \in { \bf Q }$ Since $L ^ { \varphi }$ is 2-elementary,it follows that $2 c _ { + } \in L ^ { \varphi }$ ， $2 \alpha \in \mathbf { Z }$ and $\alpha = t / 2$ ,where $t$ is an integer.
+Since $c \cdot ( k h ) = 1$ or 2,we have $t n k / 2 = 1$ or 2.Hence $t = 1 , n = 4 , k = 1$ and $c = c _ { + } + \% h$ ， $c \cdot h = 2$ ：
 
 So this case can only happen if $n = 4$ and $k = 1$ (one may readily see that,additionally, $\delta _ { h } = 0 \dot { }$ .Let $\delta ( c ) = 2 c _ { + } \in L ^ { \varphi }$ Obviously $\delta ( c ) ^ { 2 } = - 4$
 
@@ -2150,7 +2249,8 @@ $$
 
 Obviously $^ { S } [ c , h ]$ commutes with $\varphi$ fixes $h$ ,and acts as an inversion on $\boldsymbol { L } _ { \varphi , h }$ and as reflection with respect to $\delta ( c )$ in $L ^ { \varphi }$
 
-Consequently $^ { s } [ c , h ]$ acts identically on $\mathcal { L } _ { \boldsymbol { \varphi } , \hbar } ^ { - }$ and represents reflection in the hyper. plane
+Consequently $^ { s } [ c , h ]$ acts identically on $\mathcal { L } _ { \boldsymbol { \varphi } , \hbar } ^ { - }$ and represents reflection in the hyper.
+plane
 
 $$
 \mathcal { H } _ { \delta ( c ) } = \{ [ \omega _ { + } ] \in \mathcal { L } _ { \mathfrak { p } } ^ { + } | \omega _ { + } \cdot \delta ( c ) = 0 \} ;
@@ -2166,9 +2266,10 @@ In the case n =2 we make theconvention that ,,k =and ,k =h
 
 DEFINITION 3.10.2. $\Omega _ { \varphi , h , k }$ is the subset of $\Omega _ { \varphi , h , k } ^ { + } \times \Omega _ { \varphi , h , k } ^ { - }$ consisting of those elements $[ \omega ] = ( \{ \omega _ { + } \} , [ \omega _ { - } ] )$ which satisfy the following conditions:
 
-1) If $\upsilon \in L$ ， $\omega ( v ) = 0$ and $\upsilon \cdot h = 0$ ,then $\upsilon ^ { 2 } < - 2$ ： 2) If $n > 2$ ， $c \in L$ $c ^ { 2 } = 0$ and $\omega ( c ) = 0$ ,then $c \cdot ( k h ) \neq 1$ 0r2. By virtue of the above,the required period-space lies in ,h,k·
+1. If $\upsilon \in L$ ， $\omega ( v ) = 0$ and $\upsilon \cdot h = 0$ ,then $\upsilon ^ { 2 } < - 2$ ： 2) If $n > 2$ ， $c \in L$ $c ^ { 2 } = 0$ and $\omega ( c ) = 0$ ,then $c \cdot ( k h ) \neq 1$ 0r2. By virtue of the above,the required period-space lies in ,h,k·
 
-LEMMA 3.10.3. $( \Omega _ { \varphi , h , k } ^ { + } \times \Omega _ { \varphi , h , k } ^ { - } ) \backslash { \Omega _ { \varphi , h , k } }$ is a closed subset of $\Omega _ { \varphi , h , k } ^ { + } \ \times \ \Omega _ { \varphi , h , k } ^ { - } ,$ of codimension at least two. In particular, $\Omega _ { \varphi , h , k }$ is connected.
+LEMMA 3.10.3. $( \Omega _ { \varphi , h , k } ^ { + } \times \Omega _ { \varphi , h , k } ^ { - } ) \backslash { \Omega _ { \varphi , h , k } }$ is a closed subset of $\Omega _ { \varphi , h , k } ^ { + } \ \times \ \Omega _ { \varphi , h , k } ^ { - } ,$ of codimension at least two.
+In particular, $\Omega _ { \varphi , h , k }$ is connected.
 
 PROOF. Let $\widetilde { \Omega } _ { h }$ be the period-space for all complex K3 surfaces with algebraic $h$ ,and let $\Omega _ { h , k } \subset \widetilde { \Omega } _ { h }$ be the period-subspace for all complex K3 surfaces satisfying 1) and 2). Then $\Omega _ { \varphi , h , k }$ is the intersection of $\Omega _ { \varphi , h , k } ^ { + } \ \times \ \Omega _ { \varphi , h , k } ^ { - }$ with $\Omega _ { h , k }$ . Hence it suffices to show that $\Omega _ { h , k }$ is open in $\widetilde { \Omega } _ { h }$ ,and this is well known to be true.
 
@@ -2176,7 +2277,8 @@ Let $[ \omega ] \in \Omega _ { \varphi , h , k } ^ { + } \times \Omega _ { \varp
 
 If condition 2) is not satisfied by $[ \omega ]$ ,then there exists a $c \in L$ having $c ^ { 2 } = 0 , c \cdot$ $( k h ) = 1$ or 2,and $\omega ( c ) = 0$ From the definition of $\Omega _ { \varphi , h , k } ^ { + } \times \Omega _ { \varphi , h , k } ^ { - }$ we have $c = c _ { + } +$ $c _ { h } + c _ { - }$ , where $0 \neq c _ { + } \in L ^ { \varphi } \otimes \mathbf { Q } , 0 \neq c _ { - } \in L _ { \varphi , h } \otimes \mathbf { Q } , c _ { h } \in h \otimes \mathbf { Q } .$ and $\omega ( c ) = \omega _ { + } ( c _ { + } ) +$ $i \omega _ { - } ( c _ { - } ) = 0$ .The remaining arguments are analogous to those above,and the lemma is proved.
 
-Let us now complete the proof of the theorem (cf. Harlamov [56], [57]).
+Let us now complete the proof of the theorem (cf.
+Harlamov [56], [57]).
 
 Let $[ \omega ] \in \Omega _ { \varphi , h , k }$ Since $[ \omega ]$ satisfies condition 1) of the definition of $\Omega _ { \varphi , h , k }$ , in view of the surjectivity of the period mapping there exists a distinguished K3 surface $\boldsymbol { \chi }$ ,with ample invertible sheaf $\mathcal { L }$ (having homology class $\boldsymbol { l } )$ ,corresponding to $h$
 
@@ -2210,7 +2312,8 @@ Hence $A = \operatorname { P r o j } ( \bigoplus _ { r } \Gamma ( X , { \mathcal
 
 Since $^ h$ satisfies condition 2) of Definition 3.10.2,and $L$ is ample,it follows from work of Saint-Donat [24] that $\Gamma ( X , { \mathcal { L } } ^ { \otimes k } )$ determines the required embedding of $A$ into $\mathbf { P } ^ { \nu }$ (In the case $n = 2$ ， $k = 1$ or 2,a double covering ramified in some appropriate nonsingular curve.） Applying yet again the global Torelli theorem,this time to the periods $[ \omega ]$ ,we obtain as a result that each element $[ \omega ] \in \Omega _ { \varphi , h , k }$ determines a unique projective equivalence class of K3 surfaces (over $\mathbf { R }$ in $\mathbb { P } _ { \mathbb { R } } ^ { N }$
 
-We consider all the mutually projectively inequivalent connected components of ${ \mathfrak { X } } _ { n , k } ( \mathbb { R } )$ with polarized integral involution equivalent to $( L , \varphi , h )$ . Introducing the distinguished structure on the K3 surfaces in these components,and considering the period-mapping,we obtain an open covering of $\Omega _ { \varphi , h , k }$ by the images of these components. It only remains to apply the connectedness of $\Omega _ { \varphi , h , k }$ . The theorem is proved.
+We consider all the mutually projectively inequivalent connected components of ${ \mathfrak { X } } _ { n , k } ( \mathbb { R } )$ with polarized integral involution equivalent to $( L , \varphi , h )$ . Introducing the distinguished structure on the K3 surfaces in these components,and considering the period-mapping,we obtain an open covering of $\Omega _ { \varphi , h , k }$ by the images of these components.
+It only remains to apply the connectedness of $\Omega _ { \varphi , h , k }$ . The theorem is proved.
 
 We remark that from the proof of Theorem 3.10.1 we can obtain the explicit form of the component of $\mathcal { M } _ { n , k } ( \mathbb { R } ) _ { \varphi , h }$ corresponding to the isomorphism class of $( L , \varphi , h )$
 
@@ -2256,11 +2359,15 @@ The invariant $\delta _ { \varphi }$ is O if and only if $[ { \cal A } ( { \bf R
 
 The invariant $\delta _ { \varphi , h }$ is Oif and only if $[ A ( \mathbf { R } ) ] \sim h ( \mathrm { m o d } ~ 2 )$ in $H _ { 2 } ( A ( \mathbf { C } ) , \mathbf { F } _ { 2 } )$
 
-The proofs of most of these assertions are either obvious after the above formulation, or derive from the work of Rohlin and Harlamov. The proofs of the remaining statements require an analysis of the proofs of certain parts of theorems in their papers,and will be omitted.We shall, however, make an exception for the proof that $A ( \mathbb { R } ) = \emptyset$ if $t _ { ( - ) } = 9$ ， $a = 1 0$ and $\delta _ { \varphi } = 0$ . The author is only aware of one method of proving this,based on an analog of Theorem 3.10.1 for the case of algebraic (but not necessrily projective) deformations of real K3 surfaces,and the classification of involutions of unimodular lattices (with even $L ^ { \varphi }$ ）arising from Theorems 3.4.1-3 and 3.3.1．From this it follows that if two real K3 surfaces have the same invariants $t _ { ( - ) } , a$ and $\delta _ { \varphi }$ ,then there exists a connected algebraic deformation from one surface to the other. In view of this it is enough to show that there exists at least one real K3 surface having $A ( \mathbf { R } ) = \varnothing$ ．(It is clear that the polarized integral involution corresponding to $\pmb { A }$ must have $t _ { ( - ) } = 9$ $a = 1 0$ and $\delta _ { \varphi } = 0$ ）To do this we consider the $A$ given by the equation $t _ { 0 } ^ { 4 } + t _ { 1 } ^ { 4 } + t _ { 2 } ^ { 4 } + t _ { 3 } ^ { 4 } = 0$ 证 $\boldsymbol { \mathsf { P } } _ { \mathbb { R } } ^ { 3 }$ ：
+The proofs of most of these assertions are either obvious after the above formulation, or derive from the work of Rohlin and Harlamov.
+The proofs of the remaining statements require an analysis of the proofs of certain parts of theorems in their papers,and will be omitted.We shall, however, make an exception for the proof that $A ( \mathbb { R } ) = \emptyset$ if $t _ { ( - ) } = 9$ ， $a = 1 0$ and $\delta _ { \varphi } = 0$ . The author is only aware of one method of proving this,based on an analog of Theorem 3.10.1 for the case of algebraic (but not necessrily projective) deformations of real K3 surfaces,and the classification of involutions of unimodular lattices (with even $L ^ { \varphi }$ ）arising from Theorems 3.4.1-3 and 3.3.1．From this it follows that if two real K3 surfaces have the same invariants $t _ { ( - ) } , a$ and $\delta _ { \varphi }$ ,then there exists a connected algebraic deformation from one surface to the other.
+In view of this it is enough to show that there exists at least one real K3 surface having $A ( \mathbf { R } ) = \varnothing$ ．(It is clear that the polarized integral involution corresponding to $\pmb { A }$ must have $t _ { ( - ) } = 9$ $a = 1 0$ and $\delta _ { \varphi } = 0$ ）To do this we consider the $A$ given by the equation $t _ { 0 } ^ { 4 } + t _ { 1 } ^ { 4 } + t _ { 2 } ^ { 4 } + t _ { 3 } ^ { 4 } = 0$ 证 $\boldsymbol { \mathsf { P } } _ { \mathbb { R } } ^ { 3 }$ ：
 
-From the following theorem and Theorems 3.10.1 and 3.4.3 we can obtain the topological classification of real K3 surfaces. (We denote by $S _ { g }$ an orientable surface of genus $g$ ,and by ${ ( S _ { g } ) } ^ { k }$ the disjoint union of $k$ copies of $S _ { g }$ ）
+From the following theorem and Theorems 3.10.1 and 3.4.3 we can obtain the topological classification of real K3 surfaces.
+(We denote by $S _ { g }$ an orientable surface of genus $g$ ,and by ${ ( S _ { g } ) } ^ { k }$ the disjoint union of $k$ copies of $S _ { g }$ ）
 
-THEOREM 3.10.6.IfA is a real K3 surface,then $A ( \mathbb { R } )$ is a 2-dimensional orientable manifold. In the notation of Theorem 3.10.5,
+THEOREM 3.10.6.IfA is a real K3 surface,then $A ( \mathbb { R } )$ is a 2-dimensional orientable manifold.
+In the notation of Theorem 3.10.5,
 
 $$
 A \left( \mathbf { R } \right) _ { \mathrm { T o p } } = \left\{ \begin{array} { l l } { \bigtriangleup , \quad i f \quad t _ { ( - ) } = 9 , a = 1 0 , \ \delta _ { \emptyset } = 0 ; } \\ { S _ { 1 } \mathbf { I } \mathbf { I } S _ { 1 } , \quad i f \quad t _ { ( - ) } = 9 , a = 8 , \ \delta _ { \emptyset } = 0 ; } \\ { S _ { g } \mathbf { I } \mathbf { I } \left( S _ { 0 } \right) ^ { k } \ i n \ t h e \ r e m a i n i n g \ c a s e s , w h e r e } \\ { g = ( 2 1 - t _ { ( - ) } - a ) / 2 , k = ( 1 + t _ { ( - ) } - a ) / 2 . } \end{array} \right.
@@ -2318,7 +2425,8 @@ THEOREM 3.10.8.There exists no surface $A$ of degree 4in $\boldsymbol { \mathsf 
 
 PROOF．We consider real quartic surfaces $A$ over $\mathbf { R }$ ,composed of two tori and such that the homomorphism $H _ { 1 } ( A ( \mathbf { R } ) , \mathbf { F } _ { 2 } ) \longrightarrow H _ { 1 } ( \mathbf { P } ^ { 3 } ( \mathbf { R } ) , \mathbf { F } _ { 2 } )$ is nonzero.
 
-Consider the polarized integral involution corresponding to $A$ . Then $t _ { ( - ) } = 9 , a = 8$ $\delta _ { h } = 1$ and $\delta _ { \varphi } = 0 , \mathfrak { s o } \delta _ { \varphi , h } = 1$ .By Theorems 3.3.1 and 3.10.1 there exists precisely one coarse projective equivalence class of $A$ over $\mathbf { R }$ . Consequently there is also only one isotopic equivalence class. Starting from quadric surfaces,it is easy to construct an example of such a surface,consisting of two tori, $T _ { \downarrow }$ $T _ { 2 }$ ,while both the homomorphisms
+Consider the polarized integral involution corresponding to $A$ . Then $t _ { ( - ) } = 9 , a = 8$ $\delta _ { h } = 1$ and $\delta _ { \varphi } = 0 , \mathfrak { s o } \delta _ { \varphi , h } = 1$ .By Theorems 3.3.1 and 3.10.1 there exists precisely one coarse projective equivalence class of $A$ over $\mathbf { R }$ . Consequently there is also only one isotopic equivalence class.
+Starting from quadric surfaces,it is easy to construct an example of such a surface,consisting of two tori, $T _ { \downarrow }$ $T _ { 2 }$ ,while both the homomorphisms
 
 $$
 H _ { 1 } ( T _ { 1 } , \mathrm { F } _ { 2 } )  H _ { 1 } ( \mathrm { { \bf P } ^ { 3 } ( R ) , ~ \mathrm { F } _ { 2 } } ) , ~ H _ { 1 } ( T _ { 2 } , \mathrm { F } _ { 2 } )  H _ { 1 } ( \mathrm { { \bf P } ^ { 3 } ( R ) , ~ \mathrm { F } _ { 2 } } )
@@ -2332,7 +2440,10 @@ Since $t _ { ( + ) } = 1$ ,Theorem 3.3.1 applies without the restriction $t _ { 
 
 As a result of Theorem 3.4.3 we obtain the coarse projective classification in the cases when $k = 1$ and $n = 2$ ,4,6,8 (respectively): double coverings of $\mathbf { P _ { R } ^ { 2 } }$ ramified in a nonsingular sexticcure,onsingulaarticsin $\mathbf { P _ { R } ^ { 3 } }$ , nosinglariesectiosofqadricsdsin $\mathbf { P _ { R } ^ { 4 } }$ ， and nonsingular intersections of three quadrics in $\mathsf { P } _ { \mathsf { R } } ^ { \mathsf { S } }$ . In the remaining cases it is possible to calculate the number of isomorphism classes of a polarized integral involution with given invariants $t _ { ( - ) } , a , \delta _ { h } , \delta _ { \varphi }$ and $\delta _ { \varphi , h }$ determining its genus.
 
-REMARK 3.10.10. We consider separately thecase $n = 2$ . Since a double covering of $\mathsf { P } _ { \mathbb { R } } ^ { 2 }$ ramified in some curve of even degree 2m,is determined by an equation of the type f2m$X _ { 3 } ^ { 2 } = 0$ 0r $\widetilde { f } _ { 2 m } - X _ { 3 } ^ { 2 } = 0$ , where $\widetilde { f } _ { 2 m } = - f _ { 2 m }$ ,itfollowthateachcureofevedegece sponds to two double coverings. It is clear that the polarized integral involutions corresponding to these equations differ by an automorphism of $L$ which fixes $^ h$ and which acts as inversion on $( h ) _ { L } ^ { \perp }$ . (This automorphism corresponds to an algebraic automorphism of the double covering.) Hence it follows easily that these polarized integral involutions have distinct invariants $\delta _ { h }$ .We consider the one of these which has $\delta _ { h } = 1$ . It is clear that the equation $f _ { 2 m } - X _ { 3 } ^ { 2 } = 0$ ,corresponding to this involution,is distinguished by the property that $B _ { + } \subset \mathbb { P } ^ { 2 } ( { \mathbb R } )$ ,defined by the inequality $f _ { 2 m } \geqslant 0$ , is nonorientable. If $t _ { ( + ) } , t _ { ( - ) } , a , \delta _ { h } = 1 , \delta _ { \varphi }$ and $\delta _ { \varphi , h }$ are the invariants of this involution, and $t _ { ( + ) } ^ { \prime } , t _ { ( - ) } ^ { \prime } , a ^ { \prime } , \delta _ { h } ^ { \prime } = 0 , \delta _ { \psi } ^ { \prime }$ ,and $\delta _ { \varphi , h } ^ { \prime }$ are the invariants of theother, then $t _ { ( + ) } ^ { \prime } = t _ { ( + ) } , t _ { ( - ) } ^ { \prime } = l _ { ( - ) } - t _ { ( - ) } , a ^ { \prime } = a + 1 , \delta _ { \varphi } ^ { \prime } = \delta _ { \varphi , h }$ and $\delta _ { \varphi , h } ^ { \prime } = \delta _ { \varphi }$ . (We note that $\delta _ { L } \equiv$ $m + 1 ( { \mathrm { m o d } } 2 ) . \quad$
+REMARK 3.10.10. We consider separately thecase $n = 2$ . Since a double covering of $\mathsf { P } _ { \mathbb { R } } ^ { 2 }$ ramified in some curve of even degree 2m,is determined by an equation of the type f2m$X _ { 3 } ^ { 2 } = 0$ 0r $\widetilde { f } _ { 2 m } - X _ { 3 } ^ { 2 } = 0$ , where $\widetilde { f } _ { 2 m } = - f _ { 2 m }$ ,itfollowthateachcureofevedegece sponds to two double coverings.
+It is clear that the polarized integral involutions corresponding to these equations differ by an automorphism of $L$ which fixes $^ h$ and which acts as inversion on $( h ) _ { L } ^ { \perp }$ . (This automorphism corresponds to an algebraic automorphism of the double covering.)
+Hence it follows easily that these polarized integral involutions have distinct invariants $\delta _ { h }$ .We consider the one of these which has $\delta _ { h } = 1$ . It is clear that the equation $f _ { 2 m } - X _ { 3 } ^ { 2 } = 0$ ,corresponding to this involution,is distinguished by the property that $B _ { + } \subset \mathbb { P } ^ { 2 } ( { \mathbb R } )$ ,defined by the inequality $f _ { 2 m } \geqslant 0$ , is nonorientable.
+If $t _ { ( + ) } , t _ { ( - ) } , a , \delta _ { h } = 1 , \delta _ { \varphi }$ and $\delta _ { \varphi , h }$ are the invariants of this involution, and $t _ { ( + ) } ^ { \prime } , t _ { ( - ) } ^ { \prime } , a ^ { \prime } , \delta _ { h } ^ { \prime } = 0 , \delta _ { \psi } ^ { \prime }$ ,and $\delta _ { \varphi , h } ^ { \prime }$ are the invariants of theother, then $t _ { ( + ) } ^ { \prime } = t _ { ( + ) } , t _ { ( - ) } ^ { \prime } = l _ { ( - ) } - t _ { ( - ) } , a ^ { \prime } = a + 1 , \delta _ { \varphi } ^ { \prime } = \delta _ { \varphi , h }$ and $\delta _ { \varphi , h } ^ { \prime } = \delta _ { \varphi }$ . (We note that $\delta _ { L } \equiv$ $m + 1 ( { \mathrm { m o d } } 2 ) . \quad$
 
 As a result, Theorem 3.4.3 gives,for $n = 2$ and $\delta _ { h } = 1 ( \operatorname { o r } \delta _ { h } = 0 )$ ,the coarse projective classification of nonsingular curves of degree 6 in the plane.By Theorem 3.4.3,in this case $\delta _ { \varphi , h } = 1$ ,and the difference between the coarse projective and isotopic classifications (obtained by Gudkov [42]) consists in the presence of the invariant $\delta _ { \varphi }$ . The latter has the following geometric meaning: if $C _ { 2 m } \subset \mathbb { P } _ { \mathbb { R } } ^ { 2 }$ is a nonsingular curve of even degree $_ { 2 m }$ , where $m \equiv 1$ (mod 2), then $C _ { 2 m } ( \mathbf { R } ) \subset C _ { 2 m } ( \mathbf { C } )$ divides $C _ { 2 m } ( \mathbf { C } )$ into two components if and only if $\delta _ { \varphi } = 0$ (If $m \equiv 0$ (mod 2),then the role of $\delta _ { \varphi }$ is played by $\delta _ { \varphi , h }$ ）
 
@@ -2344,15 +2455,19 @@ In certain cases,for example if $n = 2$ (see the above remark on double covering
 
 The proof of these statements is outside the scope of the present paper and will be omitted: the author proposes to publish a separate paper containing these proofs.
 
-REMARk 3.1O.12.We remark that,in the case of curves of degree $\leqslant 4$ and surfaces of degree $\leqslant 3$ ,the coarse projective classfication is known and coincides with the isotopic. (The case of surfaces of degree 3 is examined in [25]; see also [21].)
+REMARk 3.1O.12.We remark that,in the case of curves of degree $\leqslant 4$ and surfaces of degree $\leqslant 3$ ,the coarse projective classfication is known and coincides with the isotopic.
+(The case of surfaces of degree 3 is examined in [25]; see also [21].)
 
-The coarse projective classification of nonsingular quintic curves is unknown. It will be seen that this classification can also be reduced to that of certain K3 surfaces, namely those obtained as double coverings of $\mathbf { P } ^ { 2 }$ ,ramified in sextic curves $C _ { 6 }$ whose components are nonsingular quintics $C _ { 5 }$ and lines $C _ { 1 }$ ,with a consequent resolvable singularity. The resulting moduli varieties of K3 surfaces will,in the given case,be moduli varieties of K3 surfaces “with a condition on the group of algebraic cycles”(see [13], \$2).
+The coarse projective classification of nonsingular quintic curves is unknown.
+It will be seen that this classification can also be reduced to that of certain K3 surfaces, namely those obtained as double coverings of $\mathbf { P } ^ { 2 }$ ,ramified in sextic curves $C _ { 6 }$ whose components are nonsingular quintics $C _ { 5 }$ and lines $C _ { 1 }$ ,with a consequent resolvable singularity.
+The resulting moduli varieties of K3 surfaces will,in the given case,be moduli varieties of K3 surfaces “with a condition on the group of algebraic cycles”(see [13], \$2).
 
 We also note that the coarse projective classification of nonsingular curves over R,embedded in a complete linear system (a multiple of the canonical one),can be deduced (cf.Theorem 3.10.7) from the work of Natanzon [45].
 
 REMARK 3.1O.13. The classification of polarized integral involutions corresponding to a double covering of $\mathsf { P } _ { \mathbb { R } } ^ { 2 }$ ,ramified in a nonsingular quadratic curve,and to nonsingular quadric surfaces in $\mathbf { P _ { R } ^ { 3 } }$ ,obviously give precisely two isomorphism classs of polarized integral (in this case $L \cong U$ and $h ^ { 2 } = n = 2 \gamma$ involutions,and a classification weaker than the isotopic.The reason for this is connected with the existence of nontrivial holomorphic automorphisms of a complex quadric inducing theidentityonhomology.Inthecaseofadoublecoveringof $\mathbf { P _ { R } ^ { 2 } }$ ramified in a nonsingular quartic curve,and of a cubic surface in $\mathsf { P } _ { \mathbb { R } } ^ { 3 }$ ,the classification of the corresponding polarized integral involutions coincides with the isotopic,and is easily seen to be described by the genus invariants (see Remark 1.14.6).
 
-Even for curves of degree 8 and sextic surfaces,examples show that the classification of polarized integral involutions does not yield the coarse projective classification. For example,there clearly exist four isotopy-types of nonsingular sextic surfaces in $\mathsf { P } _ { \mathbb { R } } ^ { 3 }$ , composed of three spheres.On the other hand,Theorems 3.3.1 and 3.3.4 show that there exist no more than two isomorphism classs of polarized integral involutions (with distinct $\delta _ { \varphi , h } )$ which correspond to these cases.
+Even for curves of degree 8 and sextic surfaces,examples show that the classification of polarized integral involutions does not yield the coarse projective classification.
+For example,there clearly exist four isotopy-types of nonsingular sextic surfaces in $\mathsf { P } _ { \mathbb { R } } ^ { 3 }$ , composed of three spheres.On the other hand,Theorems 3.3.1 and 3.3.4 show that there exist no more than two isomorphism classs of polarized integral involutions (with distinct $\delta _ { \varphi , h } )$ which correspond to these cases.
 
 Analogous examples in the case of nonsingular quintic surfaces are not known to the author.
 
@@ -2360,24 +2475,84 @@ Analogous examples in the case of nonsingular quintic surfaces are not known to 
 
 # BIBLIOGRAPHY
 
-1.J.W.S.Cassels and A.Frohlich,editors,Algebraic number theory(Proc.Instructional Conf.,   
-Brighton,1965),Academic Press,London；Thompson,Washington,D.C.,1967. 2．Z.I.Borevic and I.R.Safarevic,Number theory,2nd rev.ed.,"Nauka",Moscow,1972;English   
-transl.of 1st ed.,Academic Press,New York,1966. 3.N.Bourbaki,Algebre,Chap.9,Actualites Sci.Indust.,no.1272,Hermann,Paris,1959. 4. E. B. Vinberg, Geometric representations of Coxeter groups,Uspehi Mat. Nauk 25 (1970), no.   
-2 (152),267-268.(Russian) 5．Alan H.Durfee,Bilinear and quadratic forms on torsion modules,Advances in Math.25 (1977),   
-133-164. 6．Martin Eichler,Quadratische Formen und orthogonale Gruppen,Springer-Verlag,Berlin,1952. 7.D.G.James,On Witts theorem for unimodular quadratic forms,Pacific J. Math.26 (1968),   
-303-316. 8.Martin Kneser,Klassenzahlen indefiniter quadratischer Formen in drei oder mehr Veranderlichen   
-Arch.Math.(Basel) 7(1956)，323-332. 9.1 一,Witts Satz fir quadratische Formen über lokalen Ringen,Nachr.Akad.Wiss.   
-Gottingen Math.-Phys.Kl. II 1972,195-203. 10．Martin Kneser and Dieter Puppe,Quadratische Formen und Verschlingungsinvarianten von   
-Knoten,Math.Z.58(1953),376-384. 11.O.T. O'Meara,Introduction to quadratic forms,Springer-Verlag,Berlin; Academic Press,New   
-York,1963. 12. V. V. Nikulin, Finite groups of automorphisms of Kähler surfaces of type K3, Uspehi Mat.   
-Nauk 31 (1976),no.2 (188),223-224.(Russian) 13. -----,Finite groups of automorphisms of Kahler surfaces of type K3, Trudy Moskov. Mat.   
-Obs.38 (1979) 73--137; English transl.in Trans. Moscow Math. Soc.1980,no.2 (38). 14．Jean-Pierre Serre,Cours d'arithmetique,Presses Univ.France,Paris,1970. 15. Carl Ludwig Siegel, Uber die analytische Theorie der quadratischen Formen.I,II,II,Ann.of   
-Math. (2) 36 (1935),527-606;(2) 37 (1936),230-263;(2) 38 (1937),212-291. 16.C.T.C.Wall,Quadratic forms on finite groups,and related topics,Topology 2(1963),281-   
-298. 17.1 ,Quadratic forms on finite groups. II,Bull. London Math. Soc.4 (1972),156-160. 18.I.R. Safarevic et al.,Algebraic surfaces, Trudy Mat. Inst. Steklov.75 (1965); English transl.   
-Proc.Steklov Inst.Math.75 (1965). 19.V.S. Kulikov,Epimorphicity of the period map for K3 surfaces, Uspehi Mat. Nauk 32 (1977),   
-no.4(196),257-258.(Russian) 20. 一,Degenerate elliptic curves and resolution ofunimodal and bimodal singularities,   
-Funkcional. Anal.i Prilozen.9 (1975),no.1,72-73；English transl.in Functional Anal.Appl.9(1975).
+1.J.W.S.Cassels and A.Frohlich,editors,Algebraic number theory(Proc.Instructional Conf.,\
+Brighton,1965),Academic Press,London；Thompson,Washington,D.C.,1967. 2．Z.I.Borevic and I.R.Safarevic,Number theory,2nd rev.ed.,"Nauka",Moscow,1972;English\
+transl.of 1st ed.,Academic Press,New York,1966. 3.N.Bourbaki,Algebre,Chap.9,Actualites Sci.Indust.,no.1272,Hermann,Paris,1959. 4. E. B. Vinberg, Geometric representations of Coxeter groups,Uspehi Mat.
+Nauk 25 (1970), no.\
+2 (152),267-268.(Russian) 5．Alan H.Durfee,Bilinear and quadratic forms on torsion modules,Advances in Math.25 (1977),\
+133-164. 6．Martin Eichler,Quadratische Formen und orthogonale Gruppen,Springer-Verlag,Berlin,1952. 7.D.G.James,On Witts theorem for unimodular quadratic forms,Pacific J. Math.26 (1968),\
+303-316. 8.Martin Kneser,Klassenzahlen indefiniter quadratischer Formen in drei oder mehr Veranderlichen\
+Arch.Math.(Basel) 7(1956)，323-332. 9.1 一,Witts Satz fir quadratische Formen über lokalen Ringen,Nachr.Akad.Wiss.\
+Gottingen Math.-Phys.Kl.
+II 1972,195-203. 10．Martin Kneser and Dieter Puppe,Quadratische Formen und Verschlingungsinvarianten von\
+Knoten,Math.Z.58(1953),376-384. 11.O.T. O'Meara,Introduction to quadratic forms,Springer-Verlag,Berlin; Academic Press,New\
+York,1963. 12. V. V. Nikulin, Finite groups of automorphisms of Kähler surfaces of type K3, Uspehi Mat.\
+Nauk 31 (1976),no.2 (188),223-224.(Russian) 13. -----,Finite groups of automorphisms of Kahler surfaces of type K3, Trudy Moskov.
+Mat.\
+Obs.38 (1979) 73--137; English transl.in Trans.
+Moscow Math.
+Soc.1980,no.2 (38). 14．Jean-Pierre Serre,Cours d'arithmetique,Presses Univ.France,Paris,1970. 15. Carl Ludwig Siegel, Uber die analytische Theorie der quadratischen Formen.I,II,II,Ann.of\
+Math.
+(2) 36 (1935),527-606;(2) 37 (1936),230-263;(2) 38 (1937),212-291. 16.C.T.C.Wall,Quadratic forms on finite groups,and related topics,Topology 2(1963),281-\
+298. 17.1 ,Quadratic forms on finite groups.
+II,Bull.
+London Math.
+Soc.4 (1972),156-160. 18.I.R. Safarevic et al.,Algebraic surfaces, Trudy Mat.
+Inst.
+Steklov.75 (1965); English transl.\
+Proc.Steklov Inst.Math.75 (1965). 19.V.S. Kulikov,Epimorphicity of the period map for K3 surfaces, Uspehi Mat.
+Nauk 32 (1977),\
+no.4(196),257-258.(Russian) 20. 一,Degenerate elliptic curves and resolution ofunimodal and bimodal singularities,\
+Funkcional.
+Anal.i Prilozen.9 (1975),no.1,72-73；English transl.in Functional Anal.Appl.9(1975).
 
-21. Ju.1. Manin,Cubic forms: Algebra, geometry,arithmetic,"Nauka", Moscow,1972; nglish transl.,North-Holland,Amsterdam,1973;Amer.Elsevier,New York,1974. 22. I.1. Pjatecki-Sapiro and I. R. Safarevic, A Torelli theorem for algebraic surfaces of type K3, Izv.Akad. Nauk SSSR Ser. Mat. 35 (1971),530-572；English transl.in Math. USSR Izv.5 (1971). 23. ,The arithmetic of K3 surfaces, Trudy Mat.Inst. Steklov.132 (1973),44-45; English transl.in Proc.Steklov Inst.Math.132 (1973). 24. B. Saint-Donat, Projective models of K-3 surfaces, Amer. J. Math. 96 (1974), 602-639. 25. B. Segre, The non-singular cubic surfaces,Oxford Univ. Press, Oxford, 1942. 26. I.R. Safarevic,Basic algebraic geometry,"Nauka", Moscow,1972; English transl., SpringerVerlag,Berlin and New York,1974. 27. V.I. Arnol'd,Critical points of smooth functions and their normal forms, Uspehi Mat. Nauk 3( (1975),no.5 (185),3-65;English transl.in Russian Math.Surveys 30 (1975). 28．A.M.Gabrielov,Intersection matrices for certain singularities,Funkcional.Anal.i Prilozen.7 (1973),no.3,18-32;English transl.in Functional Anal.Appl.7 (1973). 29．1.V.Dolgacev,Quotient-conical singularities on complex surfaces,Funkcional.Anal.i Prilozen. 8 (1974), no. 2,75-76; English transl. in Functional Anal. Appl.8 (1974). 30.1 ,Automorphic forms and quasihomogeneous singularities,Funkcional. Anal.i Prilozen. 9 (1975),no.2,67-68;English transl.in Functional Anal. Appl.9 (1975). 31.1.V. Dolgacev and V.V. Nikulin,The exceptional singularities of V.I. Armol'd,and K3 surfaces,Seventh All-Union Topology Conf. (Minsk,1977),Abstracts of Lectures and Communications, Inst.Mat.Akad.Nauk BSSR,Minsk,1977.(Russian) 32. Eduard Looijenga, The discriminant of a real simple singularity, Compositio Math. 37 (1978), 51-62. 33. John Milnor, Singular points of complex hypersurfaces, Princeton Univ. Press, Princeton,N.J.; Univ.of Tokyo Press，Tokyo,1968. 34.H.C.Pinkham,Singularites exceptionnelles,la dualité étrange d'Amold et les surfaces K-3, C. R. Acad. Sci. Paris Sér. A-B 284 (1977), A615-A618. 35.J.H.M.Steenbrink,Intersection form for quasi-homogeneous singularities,Report 75-09, Univ.of Amsterdam,1975.\* 36.- 一,Mixed Hodge structure on the vanishing cohomology,Report 76-06, University of Amsterdam,1976.\* 37.G.N.Tjurina,The topological properties of isolated singularities ofcomplex spaces of codimension one,Izv.Akad. Nauk SSR Ser. Mat.32 (1968),605-620;English transl.in Math.USSR Izv. 2 (1968). 38.V.I.Arnol'd,The index ofa singular point ofa vector field,the Petrovski-Oleinik inequalities, and mixed Hodge structures,Funkcional.Anal.i Prilozen.12 (1978),no.1,1-14;English transl.in Functional Anai. Appl.12 (1978). 39. 一,Distribution of ovals of real plane algebraic curves,the involutions of four-dimensional smooth manifolds,and the arithmetic of integer-valued quadratic forms,Funkcional. Anal.i Prilozen. 5 (1971),no.3,1-19;English transl.in Functional Anal.Appl.5(1971). 40. Axel Harnack, Ueber die Vieltheiligkeit der ebenen algebraischen Curven,Math.Ann.10 (1876) 189-198. 41． D.A. Gudkov,The topology of real projective algebraic varieties, Uspehi Mat. Nauk 29 (1974), no.4(178),3-79;English transl.in Russian Math.Surveys 29(1974). 42.D.A. Gudkov and G.A. Utkin,The topology of sixth-order curves and fourth-order surfaces, Gor'kov.Gos.Univ.Ucen. Zap.Vyp.87(1969); English transl.,Nine paperson Hibert's 16th problem, Amer.Math.Soc.Transl.(2) 112 (1978). 43.D.A.Gudkov andA.D.Krahnov,Periodicity of the Euler characteristic of real algebraic $( m - 1 )$ -manifolds，Funkcional.Anal.i Prilozen.7(1973),no.15-19;English transl.in Functional Anal. Appl.7 (1973). 44．Felix Klein,Eine neue Relation zwischen den Singularitäten einer algebraischen Curve,Math. Ann.10 (1876),199-209. 45. S. M. Natanzon,Moduli of real algebraic curves, Uspehi Mat. Nauk 30 (1975),no.1 (181), 251-252. (Russian)
+21. Ju.1. Manin,Cubic forms: Algebra, geometry,arithmetic,"Nauka", Moscow,1972; nglish transl.,North-Holland,Amsterdam,1973;Amer.Elsevier,New York,1974. 22. I.1. Pjatecki-Sapiro and I. R. Safarevic, A Torelli theorem for algebraic surfaces of type K3, Izv.Akad.
+    Nauk SSSR Ser.
+    Mat.
+    35 (1971),530-572；English transl.in Math.
+    USSR Izv.5 (1971). 23. ,The arithmetic of K3 surfaces, Trudy Mat.Inst.
+    Steklov.132 (1973),44-45; English transl.in Proc.Steklov Inst.Math.132 (1973). 24. B. Saint-Donat, Projective models of K-3 surfaces, Amer.
+    J. Math.
+    96 (1974), 602-639. 25. B. Segre, The non-singular cubic surfaces,Oxford Univ. Press, Oxford, 1942. 26. I.R. Safarevic,Basic algebraic geometry,"Nauka", Moscow,1972; English transl., SpringerVerlag,Berlin and New York,1974. 27. V.I. Arnol'd,Critical points of smooth functions and their normal forms, Uspehi Mat.
+    Nauk 3( (1975),no.5 (185),3-65;English transl.in Russian Math.Surveys 30 (1975). 28．A.M.Gabrielov,Intersection matrices for certain singularities,Funkcional.Anal.i Prilozen.7 (1973),no.3,18-32;English transl.in Functional Anal.Appl.7 (1973). 29．1.V.Dolgacev,Quotient-conical singularities on complex surfaces,Funkcional.Anal.i Prilozen.
+    8 (1974), no. 2,75-76; English transl.
+    in Functional Anal.
+    Appl.8 (1974). 30.1 ,Automorphic forms and quasihomogeneous singularities,Funkcional.
+    Anal.i Prilozen.
+    9 (1975),no.2,67-68;English transl.in Functional Anal.
+    Appl.9 (1975). 31.1.V. Dolgacev and V.V. Nikulin,The exceptional singularities of V.I. Armol'd,and K3 surfaces,Seventh All-Union Topology Conf.
+    (Minsk,1977),Abstracts of Lectures and Communications, Inst.Mat.Akad.Nauk BSSR,Minsk,1977.(Russian) 32. Eduard Looijenga, The discriminant of a real simple singularity, Compositio Math.
+    37 (1978), 51-62. 33. John Milnor, Singular points of complex hypersurfaces, Princeton Univ. Press, Princeton,N.J.; Univ.of Tokyo Press，Tokyo,1968. 34.H.C.Pinkham,Singularites exceptionnelles,la dualité étrange d'Amold et les surfaces K-3, C. R. Acad.
+    Sci.
+    Paris Sér.
+    A-B 284 (1977), A615-A618. 35.J.H.M.Steenbrink,Intersection form for quasi-homogeneous singularities,Report 75-09, Univ.of Amsterdam,1975.\* 36.- 一,Mixed Hodge structure on the vanishing cohomology,Report 76-06, University of Amsterdam,1976.\* 37.G.N.Tjurina,The topological properties of isolated singularities ofcomplex spaces of codimension one,Izv.Akad.
+    Nauk SSR Ser.
+    Mat.32 (1968),605-620;English transl.in Math.USSR Izv.
+    2 (1968). 38.V.I.Arnol'd,The index ofa singular point ofa vector field,the Petrovski-Oleinik inequalities, and mixed Hodge structures,Funkcional.Anal.i Prilozen.12 (1978),no.1,1-14;English transl.in Functional Anai.
+    Appl.12 (1978). 39. 一,Distribution of ovals of real plane algebraic curves,the involutions of four-dimensional smooth manifolds,and the arithmetic of integer-valued quadratic forms,Funkcional.
+    Anal.i Prilozen.
+    5 (1971),no.3,1-19;English transl.in Functional Anal.Appl.5(1971). 40. Axel Harnack, Ueber die Vieltheiligkeit der ebenen algebraischen Curven,Math.Ann.10 (1876) 189-198. 41． D.A. Gudkov,The topology of real projective algebraic varieties, Uspehi Mat.
+    Nauk 29 (1974), no.4(178),3-79;English transl.in Russian Math.Surveys 29(1974). 42.D.A. Gudkov and G.A. Utkin,The topology of sixth-order curves and fourth-order surfaces, Gor'kov.Gos.Univ.Ucen.
+    Zap.Vyp.87(1969); English transl.,Nine paperson Hibert's 16th problem, Amer.Math.Soc.Transl.(2) 112 (1978). 43.D.A.Gudkov andA.D.Krahnov,Periodicity of the Euler characteristic of real algebraic $( m - 1 )$ -manifolds，Funkcional.Anal.i Prilozen.7(1973),no.15-19;English transl.in Functional Anal.
+    Appl.7 (1973). 44．Felix Klein,Eine neue Relation zwischen den Singularitäten einer algebraischen Curve,Math.
+    Ann.10 (1876),199-209. 45. S. M. Natanzon,Moduli of real algebraic curves, Uspehi Mat.
+    Nauk 30 (1975),no.1 (181), 251-252. (Russian)
 
-46、I. G.Petrovskiiand O.A. Oleinik,On the topology of real algebraic surfaces,Izv.Akad.Nauk SSSR Ser.Mat.13(1949),389-402; English transl. in Amer.Math.Soc.Transl.(1) 7 (1962). 47.I.Petrowsky {I.G.Petrovskii],On the topology of real plane algebraic curves,Ann.of Math. (2)39 (1938),189-209. 48.Rene Thom,Sur l'homologie des varietes algebriques reelles,Differential and Combinatorial Topology (A Symposium in Honor of Marston Morse),Princeton Univ. Press, Princeton,N.J.,1965,pp. 255-265. 49.V.A. Rohlin,Two-dimensional submanifolds of four-dimensional manifolds,Funkcional Anal. i Prilozen.5 (1971),no.1,48-60; English transl. in Functional Anal.Appl. 5 (1971). 50.1 ,Congruences modulo 16 in Hilbert's sixteenth problem.I,II,Funkcional.Anal.i Prilozen.6 (1972),no.4,58-64;7 (1973),no.2,91-92;English transl.in Functional Anal.Appl.6 (1972) ; 7 (1973). 51.1 ,Complex orientations of real algebraic curves,Funkcional.Anal.i Prilozen.8 (1974), no.4,71-75; English transl. in Functional Anal. Appl.8 (1974). 52. V. M. Harlamov, The maximal number of components of a fourth degree surface in $\scriptstyle \mathbf { R } P ^ { 3 }$ Funkcional. Anal.i Prilozen.6 (1972),no.4,101; English transl.in Functional Anal. Appl. 6 (1972). 53. ,Newrelations for the Euler characteristic ofreal algebraic varieties,Funkcional.Anal. i PriloZen.7 (1973),no.2,74-78;English transl.in Functional Anal.Appl.7 (1973). 54.1 一,A generalized Petrovski inequality.I,II,Funkcional. Anal.i Prilozen.8 (1974),no.2 50-58;9 (1975),no.3,93-94; English transl.in Functional Anal.Appl.8 (1974);9 (1975). 55. -,Additional congruences for the Euler characteristic of real algebraic varieties, Funkcional. Anal.i Prilozen.9 (1975),no.2,51-60; English transl.in Functional.Anal.Appl.9(1975). 56. ,Topological types of nonsingular surfaces of degree 4in $\pmb { R P 3 }$ ,Funkcional. Anal. i Prilozen.10 (1976),no.4,55-68; English transl.in Functional.Anal.Appl,10 (1976). 57. ----,Isotopy types of nonsingular surfaces of degree 4 in $\scriptstyle \mathbf { R } P ^ { 3 }$ ,Funkcional.Anal.i Prilozen 12 (1978),no.1,86-87; English transl.in Functional Anal. Appl.12 (1978).
+46、I. G.Petrovskiiand O.A. Oleinik,On the topology of real algebraic surfaces,Izv.Akad.Nauk SSSR Ser.Mat.13(1949),389-402; English transl.
+in Amer.Math.Soc.Transl.(1) 7 (1962). 47.I.Petrowsky {I.G.Petrovskii],On the topology of real plane algebraic curves,Ann.of Math.
+(2)39 (1938),189-209. 48.Rene Thom,Sur l'homologie des varietes algebriques reelles,Differential and Combinatorial Topology (A Symposium in Honor of Marston Morse),Princeton Univ. Press, Princeton,N.J.,1965,pp.
+255-265. 49.V.A. Rohlin,Two-dimensional submanifolds of four-dimensional manifolds,Funkcional Anal.
+i Prilozen.5 (1971),no.1,48-60; English transl.
+in Functional Anal.Appl.
+5 (1971). 50.1 ,Congruences modulo 16 in Hilbert's sixteenth problem.I,II,Funkcional.Anal.i Prilozen.6 (1972),no.4,58-64;7 (1973),no.2,91-92;English transl.in Functional Anal.Appl.6 (1972) ; 7 (1973). 51.1 ,Complex orientations of real algebraic curves,Funkcional.Anal.i Prilozen.8 (1974), no.4,71-75; English transl.
+in Functional Anal.
+Appl.8 (1974). 52. V. M. Harlamov, The maximal number of components of a fourth degree surface in $\scriptstyle \mathbf { R } P ^ { 3 }$ Funkcional.
+Anal.i Prilozen.6 (1972),no.4,101; English transl.in Functional Anal.
+Appl.
+6 (1972). 53. ,Newrelations for the Euler characteristic ofreal algebraic varieties,Funkcional.Anal.
+i PriloZen.7 (1973),no.2,74-78;English transl.in Functional Anal.Appl.7 (1973). 54.1 一,A generalized Petrovski inequality.I,II,Funkcional.
+Anal.i Prilozen.8 (1974),no.2 50-58;9 (1975),no.3,93-94; English transl.in Functional Anal.Appl.8 (1974);9 (1975). 55. -,Additional congruences for the Euler characteristic of real algebraic varieties, Funkcional.
+Anal.i Prilozen.9 (1975),no.2,51-60; English transl.in Functional.Anal.Appl.9(1975). 56. ,Topological types of nonsingular surfaces of degree 4in $\pmb { R P 3 }$ ,Funkcional.
+Anal.
+i Prilozen.10 (1976),no.4,55-68; English transl.in Functional.Anal.Appl,10 (1976). 57. ----,Isotopy types of nonsingular surfaces of degree 4 in $\scriptstyle \mathbf { R } P ^ { 3 }$ ,Funkcional.Anal.i Prilozen 12 (1978),no.1,86-87; English transl.in Functional Anal.
+Appl.12 (1978).

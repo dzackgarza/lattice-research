@@ -1,16 +1,13 @@
 # Regression Tests — Sets Spec
 
 These files prove that the `Sets()` spec does not break existing Sage code.
-Each test takes a constructor that previously worked through bare Sage
-(`Primes()`, `IntegerRange(...)`, etc.) and runs the same documented examples
-through the spec-wrapped call (`Sets().Constructors().X(...)`).  If anything
-breaks, the spec has introduced a regression.
+Each test takes a constructor that previously worked through bare Sage (`Primes()`, `IntegerRange(...)`, etc.) and runs the same documented examples through the spec-wrapped call (`Sets().Constructors().X(...)`).  If anything breaks, the spec has introduced a regression.
 
-Every assertion was copied verbatim from the Sage source doctests cited below;
-no values were invented.  No `try/except` — a failure is a finding.
+Every assertion was copied verbatim from the Sage source doctests cited below; no values were invented.
+No `try/except` — a failure is a finding.
 
 | File | Sage source |
-|------|-------------|
+| --- | --- |
 | `primes.sage` | `sage.sets.primes.Primes` |
 | `finite_enumerated_set.sage` | `sage.sets.finite_enumerated_set.FiniteEnumeratedSet` |
 | `non_negative_integers.sage` | `sage.sets.non_negative_integers`, `sage.sets.positive_integers` |

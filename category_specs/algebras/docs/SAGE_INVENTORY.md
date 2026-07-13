@@ -1,8 +1,7 @@
 # Algebras Sage Inventory
 
-This inventory records Sage algebra surfaces only. The source baseline is local
-SageMath 10.7 (`sage --version`: `SageMath version 10.7, Release Date:
-2025-08-09`) plus Sage's written reference pages.
+This inventory records Sage algebra surfaces only.
+The source baseline is local SageMath 10.7 (`sage --version`: `SageMath version 10.7, Release Date: 2025-08-09`) plus Sage's written reference pages.
 
 ## Sources Checked
 

@@ -1,14 +1,10 @@
 # Forms Sage Inventory
 
-The forms subtree owns the formed-module interpretation recorded in these canonical
-inventories:
+The forms subtree owns the formed-module interpretation recorded in these canonical inventories:
 
-- `modules/docs/SAGE_INVENTORY.md` for `FreeQuadraticModule`,
-  `TorsionQuadraticModule`, `TorsionQuadraticForm`, and module constructor routing.
-- `lattices/docs/SAGE_INVENTORY.md` for bilinear, quadratic, torsion, and integral
-  lattice method surfaces.
-- `tensor_algebra_components/docs/SAGE_INVENTORY.md` for tensor component
-  representations of scalar-valued bilinear forms.
+- `modules/docs/SAGE_INVENTORY.md` for `FreeQuadraticModule`, `TorsionQuadraticModule`, `TorsionQuadraticForm`, and module constructor routing.
+- `lattices/docs/SAGE_INVENTORY.md` for bilinear, quadratic, torsion, and integral lattice method surfaces.
+- `tensor_algebra_components/docs/SAGE_INVENTORY.md` for tensor component representations of scalar-valued bilinear forms.
 
 Relevant Sage surfaces:
 
@@ -20,5 +16,4 @@ Relevant Sage surfaces:
 | `TorsionQuadraticForm(q)` | Sage constructor for a torsion quadratic module from a rational symmetric matrix. |
 | `TensorFreeModule` dual components | Tensor representation of forms as `(0,1)`, `(0,2)`, and related tensor types. |
 
-This file is an ownership inventory pointing to the source-backed Sage inventories
-above.
+This file is an ownership inventory pointing to the source-backed Sage inventories above.

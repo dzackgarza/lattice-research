@@ -1,17 +1,14 @@
 # Category Specs Sage Stub External Blockers
 
-This report is the classified `sage-stubs`-owned external subset for the
-current `category_specs` QC frontier. It is not an unclassified
-discovery queue, not a request for `sage-stubs` to analyze
-the research ledger, and not a claim about local wrappers.
+This report is the classified `sage-stubs`-owned external subset for the current `category_specs` QC frontier.
+It is not an unclassified discovery queue, not a request for `sage-stubs` to analyze the research ledger, and not a claim about local wrappers.
 
 - source_ledger: `reports/workstreams/category-specs-mypy-ledger/latest.json`
 - ordinary_error_count: 1717
 - sage_stubs_owned_row_count: 370
 - non_sage_stubs_row_count: 1347
 - external_issue: `dzackgarza/sage-stubs#5`
-- local_and_math_records: existing QC task cards under
-  `.agents/plans/features/FEATURE-QC-WARNINGS-ZERO/`
+- local_and_math_records: existing QC task cards under `.agents/plans/features/FEATURE-QC-WARNINGS-ZERO/`
 
 ## Toolchain
 
@@ -186,7 +183,7 @@ the research ledger, and not a claim about local wrappers.
 ### STUB-REALSET-PARENT-AN-ELEMENT
 
 - rows: 1
-- surface: RealSet._an_element_
+- surface: RealSet.*an_element*
 - selector: Exact selector is recorded in the stub task card.
 - evidence: Source/runtime evidence is recorded in the task card.
 - acceptance: Covered rows disappear after the stub surface is fixed.
@@ -195,7 +192,7 @@ the research ledger, and not a claim about local wrappers.
 ### STUB-IMAGESUBOBJECT-PARENT-AN-ELEMENT
 
 - rows: 1
-- surface: ImageSubobject._an_element_
+- surface: ImageSubobject.*an_element*
 - selector: Exact selector is recorded in the stub task card.
 - evidence: Source/runtime evidence is recorded in the task card.
 - acceptance: Covered rows disappear after the stub surface is fixed.

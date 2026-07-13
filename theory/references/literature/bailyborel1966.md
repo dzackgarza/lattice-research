@@ -22,22 +22,23 @@ $\textup { \textsf { f } } 0$ .Notation and conventions.
 
 THE COMPACTIFICATION $V ^ { * }$ ASA TOPOLOGICAL SPACE
 
-$\ S \textsuperscript { 1 }$ .The natural compactification and Cayley transforms of a bounded symmetric domain.   
-$\ Y \_ 2 .$ ， Relative root systems.   
-$\textup { \textsf { \textsf { g } } } 3$ ，Rational boundary components.   
+$\ S \textsuperscript { 1 }$ .The natural compactification and Cayley transforms of a bounded symmetric domain.\
+$\ Y \_ 2 .$ ， Relative root systems.\
+$\textup { \textsf { \textsf { g } } } 3$ ，Rational boundary components.\
 $8 4 .$ ，Fundamental sets and compactification.
 
 PART II. AUTOMORPHIC FORMS
 
-$\$ 5$ Poincaré series.   
-$\textup { \$ 6}$ Poincaré-Eisenstein series.   
-$\$ 7$ ，Poincaré-Eisenstein series on bounded symmetric domains.   
+$\$ 5$ Poincaré series.\
+$\textup { \$ 6}$ Poincaré-Eisenstein series.\
+$\$ 7$ ，Poincaré-Eisenstein series on bounded symmetric domains.\
 $\ S 8$ The $\Phi$ onerator.
 
 PART III. THE COMPACTIFICATION AS AN ANALYTIC SPACE
 
-$\ S \ p$ .An analyticity criterion.   
-$\ S 1 0$ ：Analytic structure and projective embedding of the compactification. Appendix   
+$\ S \ p$ .An analyticity criterion.\
+$\ S 1 0$ ：Analytic structure and projective embedding of the compactification.
+Appendix\
 $\ S 1 1$ .Connected components of automorphism groups.
 
 # Introduction
@@ -52,7 +53,8 @@ II. Study of certain automorphic forms,and of their behavior under a $\Phi$ -ope
 
 III. Analytic structure on $V ^ { * }$ , projective embedding.
 
-Part I is covered in $\ S \ S 1 { - } 4$ . The frst paragraph deals with the natural compactification of $X$ ; i.e., the closure $\bar { D }$ of the Harish-Chandra realization of $X$ as a bounded domain $D$ [22].We recall that $\bar { D } - D$ is the union of locally closed analytic subsets of the ambient vector space，which are themselves (equivalent to) bounded symmetric domains in a smaller number of dimensions, called the boundary components of $\bar { D }$ . The normalizer $N ( F ) { = } \{ g \in G _ { \mathrm { R } } ^ { \circ } | F { \cdot } g { = } F \}$ of the boundary component $\pmb { F }$ is a maximal parabolic subgroup of the topological identity component $G _ { \mathbf { R } } ^ { 0 }$ of $G _ { \mathbf { R } }$ ,and conversely. It contains as a normal subgroup the centralizer $Z ( F ) = \{ g \in G _ { \mathbf { R } } ^ { 0 } | x \cdot g = x ( x \in F ) \}$ of $\pmb { F }$ To $\pmb { F }$ there is associated a(n essentially) canonical unbounded realization $S _ { F }$ of $X$ ,and a complex analytic mapping $\sigma _ { F }$ of $X$ onto $\pmb { F }$ ,whose fibres are affine subspaces of the ambient vector space,and are the orbits of $Z ( F ) ^ { \scriptscriptstyle 0 }$ . These results, due to Pyateckii-Shapiro for the classical domains [30],were extended to the general case by Korányi-Wolf [27]. In $\ S 1$ we review those facts which are needed later,establish some properties of functional determinants,and some technical lemmas for later use.
+Part I is covered in $\ S \ S 1 { - } 4$ . The frst paragraph deals with the natural compactification of $X$ ; i.e., the closure $\bar { D }$ of the Harish-Chandra realization of $X$ as a bounded domain $D$ [22].We recall that $\bar { D } - D$ is the union of locally closed analytic subsets of the ambient vector space，which are themselves (equivalent to) bounded symmetric domains in a smaller number of dimensions, called the boundary components of $\bar { D }$ . The normalizer $N ( F ) { = } \{ g \in G _ { \mathrm { R } } ^ { \circ } | F { \cdot } g { = } F \}$ of the boundary component $\pmb { F }$ is a maximal parabolic subgroup of the topological identity component $G _ { \mathbf { R } } ^ { 0 }$ of $G _ { \mathbf { R } }$ ,and conversely.
+It contains as a normal subgroup the centralizer $Z ( F ) = \{ g \in G _ { \mathbf { R } } ^ { 0 } | x \cdot g = x ( x \in F ) \}$ of $\pmb { F }$ To $\pmb { F }$ there is associated a(n essentially) canonical unbounded realization $S _ { F }$ of $X$ ,and a complex analytic mapping $\sigma _ { F }$ of $X$ onto $\pmb { F }$ ,whose fibres are affine subspaces of the ambient vector space,and are the orbits of $Z ( F ) ^ { \scriptscriptstyle 0 }$ . These results, due to Pyateckii-Shapiro for the classical domains [30],were extended to the general case by Korányi-Wolf [27]. In $\ S 1$ we review those facts which are needed later,establish some properties of functional determinants,and some technical lemmas for later use.
 
 Our case of interest is when $X / \Gamma$ is not compact.This implies that $G$ has a non-trivial maximal $\mathbf { Q }$ -split torus,and a non-trivial system ${ \bf q } ^ { \Phi }$ of $\mathbf { Q }$ -roots (see 2.1). Section 2 is mainly devoted to the study of the natural restriction map from $\mathbf { R }$ -roots to $\mathbf { Q }$ -roots.This will show notably that ${ \bf q } ^ { \Phi }$ is of one of the two types occurring for the systems of $\mathbf { R }$ -roots of irreducible bounded symmetric domains (2.9).
 
@@ -60,37 +62,48 @@ Section 3 introduces the notion of rational boundary component $\pmb { F }$ by m
 
 （i） $U ( F ) / ( U ( F ) \cap \mathbf { r } )$ is compact, if $U ( F )$ is the unipotent radical of $N ( F )$ ， (ii) $\Gamma ( F ) = ( N ( F ) \cap \Gamma ) / ( Z ( F ) \cap \Gamma )$ is discontinuous on $F$
 
-The condition (i) is equivalent to $N ( F ) _ { \mathrm { c } }$ being defined over $\mathbf { Q }$ . The main result of $\ S 3$ shows that,in our case,this in fact implies (ii),or rather more precisely implies that $\Gamma ( F )$ is of arithmetic type. The map ${ \cal F } { \longmapsto } N ( { \cal F } ) _ { \mathrm { c } }$ induces then a bijection of the set of rational boundary components onto the set of proper maximal parabolic $\mathbf { Q }$ -groups (3.7). If $X$ is not the unit disc,then $\dim _ { \operatorname { C } } F \leq \dim _ { \operatorname { C } } X - 2$ ，(3.15).
+The condition (i) is equivalent to $N ( F ) _ { \mathrm { c } }$ being defined over $\mathbf { Q }$ . The main result of $\ S 3$ shows that,in our case,this in fact implies (ii),or rather more precisely implies that $\Gamma ( F )$ is of arithmetic type.
+The map ${ \cal F } { \longmapsto } N ( { \cal F } ) _ { \mathrm { c } }$ induces then a bijection of the set of rational boundary components onto the set of proper maximal parabolic $\mathbf { Q }$ -groups (3.7). If $X$ is not the unit disc,then $\dim _ { \operatorname { C } } F \leq \dim _ { \operatorname { C } } X - 2$ ，(3.15).
 
 Section 4 is devoted to the construction of $V ^ { * }$ ， following the pattern of
 
-Satake's paper [33]: the union $X ^ { * }$ of $X$ and its rational boundary components is endowed with a topology，defined by means of a suitable fundamental set in $X$ ,such that each $g \in G _ { \mathbf { Q } } \cap G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ operates continuously on $X ^ { * }$ and such that $X ^ { * } / \Gamma$ ， supplied with the quotient topology,is a compact Hausdorff space. This is the sought-for compactification $V ^ { * }$ of $V$ ，It is the union of $V$ and of the quotients $F _ { i } / \Gamma ( F _ { i } ) = V _ { i }$ ，where $\boldsymbol { F } _ { i }$ runs through a set of representatives of the different $\mathbf { \Gamma } ^ { \Gamma }$ -orbits of rational boundary components (4.9, 4.11). It is shown that every $x \in V ^ { * }$ has a basis of open neighborhoods $\{ U _ { \alpha } \}$ such that each $U _ { \alpha } \cap V$ is connected (4.15).
+Satake's paper [33]: the union $X ^ { * }$ of $X$ and its rational boundary components is endowed with a topology，defined by means of a suitable fundamental set in $X$ ,such that each $g \in G _ { \mathbf { Q } } \cap G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ operates continuously on $X ^ { * }$ and such that $X ^ { * } / \Gamma$ ， supplied with the quotient topology,is a compact Hausdorff space.
+This is the sought-for compactification $V ^ { * }$ of $V$ ，It is the union of $V$ and of the quotients $F _ { i } / \Gamma ( F _ { i } ) = V _ { i }$ ，where $\boldsymbol { F } _ { i }$ runs through a set of representatives of the different $\mathbf { \Gamma } ^ { \Gamma }$ -orbits of rational boundary components (4.9, 4.11). It is shown that every $x \in V ^ { * }$ has a basis of open neighborhoods $\{ U _ { \alpha } \}$ such that each $U _ { \alpha } \cap V$ is connected (4.15).
 
-Sections 5-8 are devoted to automorphic forms,and in particular to those which are called here Poincaré-Eisenstein series (P-E series for short); they generalize simultaneously Poincaré series and Eisenstein series. They are first introduced in $\ S 6$ in a general setting, suggested by results of Harish-Chandra and Godement on Poincaré series and Eisenstein series,proved or stated in $\ S \ S 5 , 6$ .In $\ S 7$ we turn to the more special P-E series which play a central role in our paper. (On the generalized upper half-plane,they are different from, although related to, the series introduced by Maass [28],under the name of Poincaré series.） They are defined as follows: let $F$ be a rational boundary component and $\sigma _ { \ / F }$ be the canonical projection of $X$ onto $\pmb { F }$ (see supra).A P-E series adapted to $\boldsymbol { F }$ ,of weight $\textmu m$ , is a series of the form
+Sections 5-8 are devoted to automorphic forms,and in particular to those which are called here Poincaré-Eisenstein series (P-E series for short); they generalize simultaneously Poincaré series and Eisenstein series.
+They are first introduced in $\ S 6$ in a general setting, suggested by results of Harish-Chandra and Godement on Poincaré series and Eisenstein series,proved or stated in $\ S \ S 5 , 6$ .In $\ S 7$ we turn to the more special P-E series which play a central role in our paper.
+(On the generalized upper half-plane,they are different from, although related to, the series introduced by Maass [28],under the name of Poincaré series.） They are defined as follows: let $F$ be a rational boundary component and $\sigma _ { \ / F }$ be the canonical projection of $X$ onto $\pmb { F }$ (see supra).A P-E series adapted to $\boldsymbol { F }$ ,of weight $\textmu m$ , is a series of the form
 
 $$
 \begin{array} { r } { E ( x ) = \sum _ { \Gamma / \Gamma _ { 0 } } \varphi \big ( \sigma _ { F } ( x \cdot \gamma ) \big ) \cdot J ( x , \gamma ) ^ { m } \ , } \end{array}
 $$
 
-where $\varphi$ is a polynomial on $\pmb { F }$ ，(in the coordinates of the canonical bounded realization of $F$ )）， $J$ the functional determinant in the unbounded realization of $X$ associated to $\pmb { F }$ ，and $\Gamma _ { 0 }$ a suitable subgroup of $\mathbf { \Gamma } ^ { \Gamma }$ . The convergence of these series follows from the results of $\ S 6$ . Their behavior at rational boundary components is studied in $\ S \ S 7 , 8$ ，where an operator similar to the $\Phi$ -operator of Maass is developed,at least for P-E series. The main idea is to prove the existence of normal (absolute) majorants of the above series in certain sufficiently big sets,which are parts of Siegel domains,so that it becomes possible to deal with such series termwise in such sets. This majorant is constructed by means of a suitable rational representation of $G$ ,and to discuss the behavior of an individual term,we use mainly the Bruhat decomposition of $G _ { \mathrm { { Q } } }$ and some properties of weights of representations (7.6,7.8). Our main result is that a P-E series (adapted to $F$ )has,in a suitable sense,a holomorphic limit $\Phi _ { F ^ { \prime } } E$ as we approach any rational boundary component $F ^ { \prime }$ ; the image of $E$ under $\Phi$ is by definition the collection of the limits $\Phi _ { F } , E$ ；if dim $F ^ { \prime } \leq \dim F$ and $F ^ { \prime } \not \subset F ^ { \prime } { \cdot } \Gamma$ then $\Phi _ { F } , E = 0$ ； moreover, the image of $\Phi _ { F }$ contains the module of all Poincaré series of $\pmb { F }$ with respect to $\Gamma ( F )$ for infinitely many weights (8.5).
+where $\varphi$ is a polynomial on $\pmb { F }$ ，(in the coordinates of the canonical bounded realization of $F$ )）， $J$ the functional determinant in the unbounded realization of $X$ associated to $\pmb { F }$ ，and $\Gamma _ { 0 }$ a suitable subgroup of $\mathbf { \Gamma } ^ { \Gamma }$ . The convergence of these series follows from the results of $\ S 6$ . Their behavior at rational boundary components is studied in $\ S \ S 7 , 8$ ，where an operator similar to the $\Phi$ -operator of Maass is developed,at least for P-E series.
+The main idea is to prove the existence of normal (absolute) majorants of the above series in certain sufficiently big sets,which are parts of Siegel domains,so that it becomes possible to deal with such series termwise in such sets.
+This majorant is constructed by means of a suitable rational representation of $G$ ,and to discuss the behavior of an individual term,we use mainly the Bruhat decomposition of $G _ { \mathrm { { Q } } }$ and some properties of weights of representations (7.6,7.8). Our main result is that a P-E series (adapted to $F$ )has,in a suitable sense,a holomorphic limit $\Phi _ { F ^ { \prime } } E$ as we approach any rational boundary component $F ^ { \prime }$ ; the image of $E$ under $\Phi$ is by definition the collection of the limits $\Phi _ { F } , E$ ；if dim $F ^ { \prime } \leq \dim F$ and $F ^ { \prime } \not \subset F ^ { \prime } { \cdot } \Gamma$ then $\Phi _ { F } , E = 0$ ； moreover, the image of $\Phi _ { F }$ contains the module of all Poincaré series of $\pmb { F }$ with respect to $\Gamma ( F )$ for infinitely many weights (8.5).
 
-Part III consists of S§9,10. In the latter,we endow $V ^ { * }$ with the sheaf $\mathcal { \vec { \mathrm { u } } }$ of germs of continuous functions whose restrictions to the $V _ { i } ^ { \phantom { \dagger } }$ s are analytic. Section 9 proves a prolongation theorem of analytic structure,similar in spirit to those of [2,18,35],which,combined with the results of $\ S 8$ on $\mathbf { P - E }$ series,and known facts on Poincaré series [19],allows us to prove that $( V ^ { * } , \mathbb { \hat { \alpha } } )$ is an irreducible normal analytic space (10.4). The existence of a projective embedding of $V ^ { * }$ by means of automorphic forms, whose image is projectively normal, follows then in the usual manner (10.11).
+Part III consists of S§9,10. In the latter,we endow $V ^ { * }$ with the sheaf $\mathcal { \vec { \mathrm { u } } }$ of germs of continuous functions whose restrictions to the $V _ { i } ^ { \phantom { \dagger } }$ s are analytic.
+Section 9 proves a prolongation theorem of analytic structure,similar in spirit to those of [2,18,35],which,combined with the results of $\ S 8$ on $\mathbf { P - E }$ series,and known facts on Poincaré series [19],allows us to prove that $( V ^ { * } , \mathbb { \hat { \alpha } } )$ is an irreducible normal analytic space (10.4). The existence of a projective embedding of $V ^ { * }$ by means of automorphic forms, whose image is projectively normal, follows then in the usual manner (10.11).
 
 Let dim $G > 3$ . Then we have $\mathrm { d i m } _ { \mathrm { c } } \left( V ^ { * } - V \right) \leq \mathrm { d i m } _ { \mathrm { c } } V - 2$ . Standard facts about normal spaces imply therefore that every $\mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma }$ -automorphic function, i.e.,every meromorphic function on $V$ ,extends to a meromorphic function on $V ^ { * }$ ; hence the field of $\mathbf { \Gamma } ^ { \Gamma }$ -automorphic functions is an algebraic function field, each element of which is the quotient of two automorphic forms of the same weight (10.12). Also,an extension theorem of Serre [36] shows then that every automorphic form of the classical type extends to a holomorphic cross section of an algebraic coherent sheaf on $V ^ { * }$ (10.14)； this generalizes Koecher's principle.
 
 Finally,an appendix (§11) contains some remarks on the full groups of isometries and of automorphisms of $X$
 
-The main results of this paper were announced in [7],and are also described in [5].Similar theorems have been stated independently，with sketches of some proofs,by Pyateckii-Shapiro [31]. Earlier special cases may be found notably in [2,3,30,35]. These are mostly connected with families of abelian varieties,and the construction of the compactification gives a concrete realization,in many cases,of the variety of moduli of such varieties. In this paper, we leave untouched the question of the minimal field of definition for a projective model of $V ^ { * }$ ，and of the possible connection of $V ^ { * }$ with moduli of algebraic structures. For the known results in that direction,we refer to [37] where other references to related work are also given.
+The main results of this paper were announced in [7],and are also described in [5].Similar theorems have been stated independently，with sketches of some proofs,by Pyateckii-Shapiro [31]. Earlier special cases may be found notably in [2,3,30,35]. These are mostly connected with families of abelian varieties,and the construction of the compactification gives a concrete realization,in many cases,of the variety of moduli of such varieties.
+In this paper, we leave untouched the question of the minimal field of definition for a projective model of $V ^ { * }$ ，and of the possible connection of $V ^ { * }$ with moduli of algebraic structures.
+For the known results in that direction,we refer to [37] where other references to related work are also given.
 
 # 0. Notation and conventions
 
 In this paragraph,we collect some notation to be used frequently in this paper without further reference.
 
-0.1. As is usual, Z,Q,R,and C denote respectively the ring of integers, and the fields of rational, real, and complex numbers. If $A$ is a commutative ring,GL $( n , A )$ or $\mathrm { { G L } } _ { n , A }$ is the group of $n \times n$ matrices with coefficients in $A$ whose determinant is a unit of $A$ ,and SL $( n , A )$ or $\mathbf { S L } _ { n , A }$ ,the group of elements of determinant one in $\mathbf { G L } _ { n , A }$ . The group of units of a ring $B$ is denoted by $B ^ { * }$ ：
+0.1. As is usual, Z,Q,R,and C denote respectively the ring of integers, and the fields of rational, real, and complex numbers.
+If $A$ is a commutative ring,GL $( n , A )$ or $\mathrm { { G L } } _ { n , A }$ is the group of $n \times n$ matrices with coefficients in $A$ whose determinant is a unit of $A$ ,and SL $( n , A )$ or $\mathbf { S L } _ { n , A }$ ,the group of elements of determinant one in $\mathbf { G L } _ { n , A }$ . The group of units of a ring $B$ is denoted by $B ^ { * }$ ：
 
 0.2. If $G$ is a group, and $M$ a non-empty subset of $G$ ,then $N ( M )$ or $N _ { G } ( M )$
 
-(resp. Z(M) or Z&(M)) is the normalizer (resp.centralizer) of Min G. Thus
+(resp.
+Z(M) or Z&(M)) is the normalizer (resp.centralizer) of Min G. Thus
 
 $$
 \begin{array} { r l } & { N ( M ) = \{ g \in G \mid g \cdot M \cdot g ^ { - 1 } = M \} \ , } \\ & { Z ( M ) = \{ g \in G \mid g \cdot m \cdot g ^ { - 1 } = m ( m \in M ) \} = \bigcap _ { m \in M } N ( m ) \ . } \end{array}
@@ -98,25 +111,41 @@ $$
 
 The inner automorphism $h \mapsto g \cdot h \cdot g ^ { - 1 } ( h \in G )$ is denoted Int $g$ . Often,we write $^ { g } M$ for Int $g ( M )$ ,and $M ^ { \mathfrak { g } }$ for Int $g ^ { - 1 } ( M )$ ：
 
-0.3.As regards algebraic groups,we follow in general the notation of [14]. However,our universal feld is C,and so, in this paper algebraic group stands for complex linear algebraic group. An algebraic group here may always be (and will tacitly be whenever convenient) identified with an algebraic subgroup of GL(n,C). Algebraic group defined over k and k-group will be used synonymously. For a subring A of C,we put G4 = G  GL(n, A). The algebraic group $G$ will be identified with $G _ { \mathrm { { C } } }$
+0.3.As regards algebraic groups,we follow in general the notation of [14]. However,our universal feld is C,and so, in this paper algebraic group stands for complex linear algebraic group.
+An algebraic group here may always be (and will tacitly be whenever convenient) identified with an algebraic subgroup of GL(n,C). Algebraic group defined over k and k-group will be used synonymously.
+For a subring A of C,we put G4 = G  GL(n, A). The algebraic group $G$ will be identified with $G _ { \mathrm { { C } } }$
 
-The Lie algebra of an algebraic group, or of a Lie group, $G , H , \cdots$ will usually be denoted by the corresponding lower case German letter. If $G$ is algebraic,defined over k, then g= gk  C,where gk is a uniquely determined Lie algebra over $k$ If $k ^ { \prime }$ is an overfield of $k$ ，then ${ \mathfrak { g } } _ { k ^ { \prime } } = { \mathfrak { g } } _ { k } \otimes _ { k } k ^ { \prime }$
+The Lie algebra of an algebraic group, or of a Lie group, $G , H , \cdots$ will usually be denoted by the corresponding lower case German letter.
+If $G$ is algebraic,defined over k, then g= gk  C,where gk is a uniquely determined Lie algebra over $k$ If $k ^ { \prime }$ is an overfield of $k$ ，then ${ \mathfrak { g } } _ { k ^ { \prime } } = { \mathfrak { g } } _ { k } \otimes _ { k } k ^ { \prime }$
 
 In both the algebraic and Lie group cases,Ad denotes the adjoint representation of G into g,where Ad g(g∈G) is the differential of Intg at e. The restriction of Ad $g$ to a subspace b is denoted $\operatorname { A d } _ { \mathfrak { v } } g$
 
-0.4.Let $G$ bea $k$ -group. Unless otherwise said,a character of $G$ isa rational character,i.e.,a morphism of algebraic groups of $G$ into $\mathbf { G L } ( \mathbf { 1 } , \mathbf { C } )$ The characters of $G$ form a finitely generated commutative group,denoted $X ( G )$ ，which is free if $G$ is connected. The subgroup of elements of $X ( G )$ which are defined over $k$ is denoted by $X ( G ) _ { k }$ ·
+0.4.Let $G$ bea $k$ -group.
+Unless otherwise said,a character of $G$ isa rational character,i.e.,a morphism of algebraic groups of $G$ into $\mathbf { G L } ( \mathbf { 1 } , \mathbf { C } )$ The characters of $G$ form a finitely generated commutative group,denoted $X ( G )$ ，which is free if $G$ is connected.
+The subgroup of elements of $X ( G )$ which are defined over $k$ is denoted by $X ( G ) _ { k }$ ·
 
 The value of $a \in X ( G )$ on $g \in G$ will be written $a ( g )$ ,or more often $g ^ { a }$ .In the latter case,it is implied that the group operation in X(G) is written additively,and that usually no notational distinction is made between $^ { a }$ and its differential,which is a linear form on $\mathfrak { g }$ . In particular,we have,by convention, $g ^ { a } = \exp { a ( X ) } ( X \in \mathfrak { g } , g = \exp { X } )$ ：
 
 0.5. An algebraic group $G$ is a torus if it is isomorphic to a product of groups C\*;a torus splits over k, or is k-trivial, if it is moreover defined over k and isomorphic over $k$ to a product of groups $\mathbf { C } ^ { * }$
 
-Let $G$ bea $k$ group. Its radical $R ( G )$ (resp. unipotent radical $ { { \cal R } } _ { u } ( G )$ ， resp.split radical） is the greatest connected normal solvable subgroup of $G$ (resp.normal unipotent subgroup of G,resp. the normal subgroup generated by $ { \boldsymbol { R } } _ { u } ( G )$ and the $k$ -split tori of $R ( G ) )$ . $G$ is reductive (resp. semi-simple) if ${ \cal R } _ { u } ( G ) = \{ e \}$ (resp. $R ( G ) = \{ e \} ,$ . $G$ is simple over $k$ (resp.  almost simple over $k$ )if it has no (resp.connected) proper normal $k$ -subgroup. $G$ is an almost direct product of normal subgroups $G _ { i }$ if it is the quotient by a finite group of the product of the $G _ { i } \mathbf { \dot { s } } .$
+Let $G$ bea $k$ group.
+Its radical $R ( G )$ (resp.
+unipotent radical $ { { \cal R } } _ { u } ( G )$ ， resp.split radical） is the greatest connected normal solvable subgroup of $G$ (resp.normal unipotent subgroup of G,resp.
+the normal subgroup generated by $ { \boldsymbol { R } } _ { u } ( G )$ and the $k$ -split tori of $R ( G ) )$ . $G$ is reductive (resp.
+semi-simple) if ${ \cal R } _ { u } ( G ) = \{ e \}$ (resp.
+$R ( G ) = \{ e \} ,$ . $G$ is simple over $k$ (resp.
+almost simple over $k$ )if it has no (resp.connected) proper normal $k$ -subgroup.
+$G$ is an almost direct product of normal subgroups $G _ { i }$ if it is the quotient by a finite group of the product of the $G _ { i } \mathbf { \dot { s } } .$
 
-0.6.The identity component of a topological group $H$ is denoted by $H ^ { 0 }$ We recall that if $G$ is algebraic, then $G _ { \mathrm { c } }$ is connected as a topological group if and only if it is connected as an algebraic group(i.e.the underlying algebraic variety is irreducible). However, if $G$ is connected, defined over $\mathbf { R }$ , the group $G _ { \mathbf { R } }$ ， viewed as a real Lie group may have more than one connected component, but will always have only finitely many connected components.
+0.6.The identity component of a topological group $H$ is denoted by $H ^ { 0 }$ We recall that if $G$ is algebraic, then $G _ { \mathrm { c } }$ is connected as a topological group if and only if it is connected as an algebraic group(i.e.the underlying algebraic variety is irreducible).
+However, if $G$ is connected, defined over $\mathbf { R }$ , the group $G _ { \mathbf { R } }$ ， viewed as a real Lie group may have more than one connected component, but will always have only finitely many connected components.
 
-0.7. Let $A$ be a set. A function on $A$ , with values in a locally compact space,is bounded if its range is relatively compact. A function with values in the space $\mathbf { R } ^ { + }$ of strictly positive real numbers is multiplicatively bounded if there are strictly positive constants $c , c ^ { \prime }$ such that $c \leq f ( a ) \leq c ^ { \prime } ( a \in A )$
+0.7. Let $A$ be a set.
+A function on $A$ , with values in a locally compact space,is bounded if its range is relatively compact.
+A function with values in the space $\mathbf { R } ^ { + }$ of strictly positive real numbers is multiplicatively bounded if there are strictly positive constants $c , c ^ { \prime }$ such that $c \leq f ( a ) \leq c ^ { \prime } ( a \in A )$
 
-Let $u , v$ be functions on $A$ with values in the set of positive real numbers. We write $u \prec v$ if there exists a strictly positive constant $\pmb { \mathscr { c } }$ such that
+Let $u , v$ be functions on $A$ with values in the set of positive real numbers.
+We write $u \prec v$ if there exists a strictly positive constant $\pmb { \mathscr { c } }$ such that
 
 $$
 u ( a ) \leq c \cdot v ( a ) \ ,
@@ -126,7 +155,9 @@ $$
 ( a \in A )
 $$
 
-and $u \succ v$ (resp. $u \asymp v$ if $v \prec u$ (resp. $u \prec v$ and $v \prec u$ ）
+and $u \succ v$ (resp.
+$u \asymp v$ if $v \prec u$ (resp.
+$u \prec v$ and $v \prec u$ ）
 
 I．THE COMPACTIFICATION $V ^ { * }$ AS A TOPOLOGICAL SPACE
 
@@ -136,7 +167,8 @@ I．THE COMPACTIFICATION $V ^ { * }$ AS A TOPOLOGICAL SPACE
 
 $G$ is a connected reductive algebraic group defined over $\mathbf { R }$ which has no non-trivial character defined over $\mathbf { R }$ . Thus $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ is a connected Lie group with reductive Lie algebra and compact center.1 We denote by $\mathfrak { g }$ the Lie algebra of $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$
 
-$\kappa$ is a maximal compact subgroup of ${ \bf G _ { R } ^ { 0 } }$ . The symmetric space $X = K \backslash G _ { \mathrm { R } } ^ { 0 }$ is assumed to carry an invariant complex structure. It is then equivalent to a bounded symmetric domain [22,24],and is hermitian symmetric.
+$\kappa$ is a maximal compact subgroup of ${ \bf G _ { R } ^ { 0 } }$ . The symmetric space $X = K \backslash G _ { \mathrm { R } } ^ { 0 }$ is assumed to carry an invariant complex structure.
+It is then equivalent to a bounded symmetric domain [22,24],and is hermitian symmetric.
 
 $\mathfrak { p }$ is the orthogonal complement of the Lie algebra f of $\kappa$ in $\mathfrak { g }$ with respect to the Killing form,hence ${ \mathfrak { g } } = { \mathfrak { k } } + { \mathfrak { p } }$ is a Cartan decomposition of $\mathfrak { g }$ Since $X$ is hermitian symmetric,we have the direct sum decomposition
 
@@ -168,9 +200,12 @@ $$
 
 form a basis (over $\mathbf { R }$ of ${ \mathfrak { P } }$
 
-Two independent roots $\mu , \nu$ are said to be strongly orthogonal if neither $\mu + \nu$ nor $\mu - \nu$ are roots. We fix once for all a maximal set $( \mu _ { 1 } , \cdots , \mu _ { t } )$ of strongly orthogonal roots in $\pi ^ { + }$ ,as in [24],and write $H _ { i } , E _ { i } , E _ { - i } , X _ { i } , Y _ { i }$ for $H _ { \mu _ { i } } , E _ { \mu _ { i } } , E _ { - \mu _ { i } } , X _ { \mu _ { i } } , Y _ { \mu _ { i } } .$
+Two independent roots $\mu , \nu$ are said to be strongly orthogonal if neither $\mu + \nu$ nor $\mu - \nu$ are roots.
+We fix once for all a maximal set $( \mu _ { 1 } , \cdots , \mu _ { t } )$ of strongly orthogonal roots in $\pi ^ { + }$ ,as in [24],and write $H _ { i } , E _ { i } , E _ { - i } , X _ { i } , Y _ { i }$ for $H _ { \mu _ { i } } , E _ { \mu _ { i } } , E _ { - \mu _ { i } } , X _ { \mu _ { i } } , Y _ { \mu _ { i } } .$
 
-1.2. The system of R-roots. We let $\mathfrak { a }$ be the subalgebra of $\mathfrak { p }$ spanned by $X _ { 1 } , \cdots , X _ { t }$ ，and ${ \bf \delta } _ { \bf R } \Phi = { \bf \delta } _ { \bf R } \Phi ( \mathfrak { a } , \mathfrak { g } )$ ，the set of roots of $\mathfrak { g }$ with respect to $\mathfrak { a }$ ,tobe called the $\mathbf { R }$ -roots of $\mathfrak { g }$ .The algebra $\mathfrak { a }$ is a maximal commutative subalgebra of $\mathfrak { p }$ , and is maximal among the subalgebras of $\mathfrak { g }$ which can be diagonalized in the adjoint representation. $\mathfrak { g }$ is the direct sum of the centralizer ${ \mathfrak { z } } ( { \mathfrak { a } } )$ of $\mathfrak { a }$ and of the root spaces
+1.2. The system of R-roots.
+We let $\mathfrak { a }$ be the subalgebra of $\mathfrak { p }$ spanned by $X _ { 1 } , \cdots , X _ { t }$ ，and ${ \bf \delta } _ { \bf R } \Phi = { \bf \delta } _ { \bf R } \Phi ( \mathfrak { a } , \mathfrak { g } )$ ，the set of roots of $\mathfrak { g }$ with respect to $\mathfrak { a }$ ,tobe called the $\mathbf { R }$ -roots of $\mathfrak { g }$ .The algebra $\mathfrak { a }$ is a maximal commutative subalgebra of $\mathfrak { p }$ , and is maximal among the subalgebras of $\mathfrak { g }$ which can be diagonalized in the adjoint representation.
+$\mathfrak { g }$ is the direct sum of the centralizer ${ \mathfrak { z } } ( { \mathfrak { a } } )$ of $\mathfrak { a }$ and of the root spaces
 
 $$
 { \mathfrak { g } } _ { \alpha } = \{ X \in { \mathfrak { g } } \mid [ a , x ] = \alpha ( a ) \cdot x , a \in { \mathfrak { a } } \}
@@ -186,21 +221,27 @@ $$
 ( 1 \leq i < t )
 $$
 
-and of $\boldsymbol { \alpha } _ { t } = \boldsymbol { \gamma } _ { t }$ (resp. $\alpha _ { t } = \gamma _ { t } / 2 )$ if ${ \bf { r } } ^ { \Phi }$ is of type $C _ { t }$ (resp. $B C _ { t }$ ）
+and of $\boldsymbol { \alpha } _ { t } = \boldsymbol { \gamma } _ { t }$ (resp.
+$\alpha _ { t } = \gamma _ { t } / 2 )$ if ${ \bf { r } } ^ { \Phi }$ is of type $C _ { t }$ (resp.
+$B C _ { t }$ ）
 
 The numbering of the simple $\mathbf { R }$ -roots thus defined will be referred to as the canonical numbering.
 
-1.3. Maximal parabolic subgroups. A parabolic subgroup of $G _ { \mathbf { R } } ^ { 0 }$ is the intersection of $G _ { \mathbf { R } } ^ { 0 }$ with an algebraic subgroup $P$ of $G$ which is parabolic, (i.e., such that $G / P$ is a projective variety) and defined over R. The description of the parabolic subgroups of an algebraic group is recalled, in a more general setting, in 2.2. Here we introduce the minimal ones and the maximal ones, which will play a fundamental role in this paper.
+1.3. Maximal parabolic subgroups.
+A parabolic subgroup of $G _ { \mathbf { R } } ^ { 0 }$ is the intersection of $G _ { \mathbf { R } } ^ { 0 }$ with an algebraic subgroup $P$ of $G$ which is parabolic, (i.e., such that $G / P$ is a projective variety) and defined over R. The description of the parabolic subgroups of an algebraic group is recalled, in a more general setting, in 2.2. Here we introduce the minimal ones and the maximal ones, which will play a fundamental role in this paper.
 
 Let nt be the sum of the ${ \mathfrak { g } } _ { \alpha }$ $( \alpha > 0 )$ ，and $A = \exp { \mathfrak { a } }$ ， $N = \exp { \mathfrak { n } }$ .These are closed subgroups,with $N$ unipotent,normalized by $A$ ,and $A \cdot N$ is maximal among the connected subgroups of $G _ { \mathbf { R } } ^ { 0 }$ which can be put in triangular form over $\mathbf { R }$ .The normalizer $P$ of $N$ is equal to the semi-direct product $P =$ $Z ( A ) \cdot N$ and $Z ( A ) = M \times A$ with $M = Z ( A ) \cap K$ . The group $P$ is generated by $P ^ { 0 }$ and a commutative subgroup of type $( 2 , 2 , \cdots , 2 )$ of $M$ ，which can be described as $K \cap { \mathrm { e x p } } i \cdot { \mathrm { a } }$ ,as follows from [14,14.4]. Every minimal parabolic subgroup of $G _ { \mathbf { R } } ^ { 0 }$ is conjugate to $P$
 
-Assume,for convenience, $X$ to be irreducible.We let ${ \mathfrak { a } } _ { b }$ $\left( 1 \leq b \leq t \right)$ be the one-dimensional subspace on which all simple $\mathbf { R }$ -roots but $\alpha _ { b }$ are zero,and $A _ { b } = \exp { \alpha _ { b } }$ . The space ${ \mathfrak { q } } _ { b }$ is spanned by $X _ { 1 } + \cdots + X _ { b }$ .We let $P _ { b }$ be the subgroup generated by $Z ( A _ { b } )$ and $N$ ，and $V _ { b }$ be its unipotent radical. The group $P _ { b }$ is the semi-direct product of $V _ { b }$ by $Z ( A _ { b } )$ . The Lie algebra $\mathfrak { d } _ { b }$ is the sum of the root spaces ${ \mathfrak { g } } _ { \alpha }$ where $\alpha$ is ${ > } 0$ and not zero on ${ \mathfrak { a } } _ { b }$ . Therefore, $_ \alpha$ runs through the roots
+Assume,for convenience, $X$ to be irreducible.We let ${ \mathfrak { a } } _ { b }$ $\left( 1 \leq b \leq t \right)$ be the one-dimensional subspace on which all simple $\mathbf { R }$ -roots but $\alpha _ { b }$ are zero,and $A _ { b } = \exp { \alpha _ { b } }$ . The space ${ \mathfrak { q } } _ { b }$ is spanned by $X _ { 1 } + \cdots + X _ { b }$ .We let $P _ { b }$ be the subgroup generated by $Z ( A _ { b } )$ and $N$ ，and $V _ { b }$ be its unipotent radical.
+The group $P _ { b }$ is the semi-direct product of $V _ { b }$ by $Z ( A _ { b } )$ . The Lie algebra $\mathfrak { d } _ { b }$ is the sum of the root spaces ${ \mathfrak { g } } _ { \alpha }$ where $\alpha$ is ${ > } 0$ and not zero on ${ \mathfrak { a } } _ { b }$ . Therefore, $_ \alpha$ runs through the roots
 
 $$
 ( \gamma _ { i } \pm \gamma _ { j } ) / 2 , ( 1 \equiv i \equiv b < j \equiv t ) , ( \gamma _ { i } + \gamma _ { j } ) / 2 , ( 1 \equiv i \equiv j \equiv b )
 $$
 
-and the roots $\gamma _ { i } / 2$ $\langle 1 \leq i \leqeq b \rangle$ in the case $B C _ { t }$ . Let $\Upsilon _ { b }$ (resp. $\Upsilon _ { b . } ^ { \prime }$ ）be the sum of the subspaces ${ \mathfrak { g } } _ { \alpha } + [ { \mathfrak { g } } _ { \alpha } , { \mathfrak { g } } _ { - \alpha } ]$ ,where $\alpha$ runs through the $\mathbf { R }$ -roots which are linear combinations of $\alpha _ { b + 1 } , \cdots , \alpha _ { t }$ (resp. $\alpha _ { 1 } , \cdots , \alpha _ { b - 1 } )$ . These are two simple ideals of $\mathfrak { z } ( \mathfrak { a } _ { b } )$ ,clearly normalized by the Lie algebra m of $M$ and $\pmb { \hat { \mathstrut } } ( \alpha _ { b } )$ is the direct sum of $\mathrm { I } _ { b } , \mathrm { I } _ { b } ^ { \prime } , { \alpha } _ { b }$ and of an ideal ${ \mathfrak { m } } _ { b }$ of m. The group $Z ( A _ { b } )$ is generated by the analytic groups $L _ { b } , L _ { b } ^ { \prime } , A _ { b }$ ，with Lie algebras $\vec { \mathrm { I } } _ { b } , \vec { \mathrm { I } } _ { b } ^ { \prime } , \vec { \mathrm { \alpha } } _ { b }$ ，and by $M .$ Let $\mathfrak { z } _ { b } =$ $\mathfrak { m } _ { b } \oplus \mathfrak { a } _ { b } \oplus \mathfrak { l } _ { b } ^ { \prime } \oplus \mathfrak { v } _ { b }$ . It is an ideal of ${ \mathfrak { p } } _ { b }$ such that ${ \mathfrak { p } } _ { b } = { \mathfrak { l } } _ { b } + { \mathfrak { z } } _ { b }$ . Denote by $\boldsymbol { Z } _ { b } ^ { 0 }$ the analytic subgroup of $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ with Lie algebra $\hat { \boldsymbol { \delta } } \boldsymbol { b }$ .We let $Z _ { b }$ be the inverse image in $P _ { b }$ of the centralizer of $( P _ { b } / Z _ { b } ^ { 0 } ) ^ { 0 }$ in $P _ { b } / Z _ { b } ^ { 0 }$ . It is a closed normal subgroup of $P _ { b }$ ，with Lie algebra $\hat { \delta } \boldsymbol { b }$ ，whose intersection with $L _ { b }$ is the center of $L _ { b }$ .It contains every normal subgroup of $P _ { b }$ with Lie algebra $\pmb { \hat { \delta } } _ { b }$ : in fact, the image in ${ P _ { b } } / { Z _ { b } ^ { 0 } }$ of such a subgroup is a finite normal subgroup,and therefore centralizes $( P _ { b } / Z _ { b } ^ { 0 } ) ^ { 0 }$ In particular, $\boldsymbol { Z } _ { b }$ contains $( Z _ { b } ^ { 0 } ) _ { \mathbf { C } } \cap G _ { \mathbf { R } } ^ { _ { 0 } }$ ，whence
+and the roots $\gamma _ { i } / 2$ $\langle 1 \leq i \leqeq b \rangle$ in the case $B C _ { t }$ . Let $\Upsilon _ { b }$ (resp.
+$\Upsilon _ { b . } ^ { \prime }$ ）be the sum of the subspaces ${ \mathfrak { g } } _ { \alpha } + [ { \mathfrak { g } } _ { \alpha } , { \mathfrak { g } } _ { - \alpha } ]$ ,where $\alpha$ runs through the $\mathbf { R }$ -roots which are linear combinations of $\alpha _ { b + 1 } , \cdots , \alpha _ { t }$ (resp.
+$\alpha _ { 1 } , \cdots , \alpha _ { b - 1 } )$ . These are two simple ideals of $\mathfrak { z } ( \mathfrak { a } _ { b } )$ ,clearly normalized by the Lie algebra m of $M$ and $\pmb { \hat { \mathstrut } } ( \alpha _ { b } )$ is the direct sum of $\mathrm { I } _ { b } , \mathrm { I } _ { b } ^ { \prime } , { \alpha } _ { b }$ and of an ideal ${ \mathfrak { m } } _ { b }$ of m. The group $Z ( A _ { b } )$ is generated by the analytic groups $L _ { b } , L _ { b } ^ { \prime } , A _ { b }$ ，with Lie algebras $\vec { \mathrm { I } } _ { b } , \vec { \mathrm { I } } _ { b } ^ { \prime } , \vec { \mathrm { \alpha } } _ { b }$ ，and by $M .$ Let $\mathfrak { z } _ { b } =$ $\mathfrak { m } _ { b } \oplus \mathfrak { a } _ { b } \oplus \mathfrak { l } _ { b } ^ { \prime } \oplus \mathfrak { v } _ { b }$ . It is an ideal of ${ \mathfrak { p } } _ { b }$ such that ${ \mathfrak { p } } _ { b } = { \mathfrak { l } } _ { b } + { \mathfrak { z } } _ { b }$ . Denote by $\boldsymbol { Z } _ { b } ^ { 0 }$ the analytic subgroup of $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ with Lie algebra $\hat { \boldsymbol { \delta } } \boldsymbol { b }$ .We let $Z _ { b }$ be the inverse image in $P _ { b }$ of the centralizer of $( P _ { b } / Z _ { b } ^ { 0 } ) ^ { 0 }$ in $P _ { b } / Z _ { b } ^ { 0 }$ . It is a closed normal subgroup of $P _ { b }$ ，with Lie algebra $\hat { \delta } \boldsymbol { b }$ ，whose intersection with $L _ { b }$ is the center of $L _ { b }$ .It contains every normal subgroup of $P _ { b }$ with Lie algebra $\pmb { \hat { \delta } } _ { b }$ : in fact, the image in ${ P _ { b } } / { Z _ { b } ^ { 0 } }$ of such a subgroup is a finite normal subgroup,and therefore centralizes $( P _ { b } / Z _ { b } ^ { 0 } ) ^ { 0 }$ In particular, $\boldsymbol { Z } _ { b }$ contains $( Z _ { b } ^ { 0 } ) _ { \mathbf { C } } \cap G _ { \mathbf { R } } ^ { _ { 0 } }$ ，whence
 
 $$
 Z _ { b } = ( Z _ { b } ) _ { \mathrm { C } } \cap G _ { \mathrm { R } } ^ { 0 } \ ,
@@ -210,7 +251,8 @@ where $( Z _ { b } ) _ { \mathbf { C } }$ and $( Z _ { b } ^ { 0 } ) _ { \mathbf
 
 By the general conjugacy theorems on parabolic groups (2.2 below),every maximal proper parabolic subgroup of $G _ { \mathbf { R } } ^ { 0 }$ is conjugate to one and only one of the groups $P _ { b }$ . It will sometimes be convenient to extend the definition of $P _ { b }$ to $b = 0$ ,by putting $P _ { 0 } = L _ { 0 } = G _ { \mathrm { { R } } } ^ { 0 }$ $\dot { \mathrm { l } } _ { 0 } ^ { \prime } = 0$ ; then $\mathfrak { z } _ { 0 } = \mathfrak { v } _ { 0 } = 0$ and $Z _ { 0 }$ is the center of $G _ { \mathbf { R } } ^ { 0 }$
 
-1.4. The natural compactification. Let $P ^ { \pm } = \exp { \mathfrak { p } } ^ { \pm }$ and $K _ { \mathrm { c } }$ be the analytic subgroup of $G _ { \mathrm { c } }$ with Lie algebra $\mathfrak { k } _ { \mathbf { C } }$ . These are closed subgroups,and the semi-direct product $K _ { \mathrm { C } } { \cdot } P ^ { \pm }$ is a parabolic subgroup of $G _ { \mathrm { c } }$ . The map $( x , k , y ) \mapsto$ $e ^ { x } \cdot k \cdot e ^ { y }$ is a biregular map of $\mathfrak { p } ^ { - } \times K _ { \mathrm { c } } \times \mathfrak { p } ^ { + }$ onto a Zariski-open subset $\Omega =$ $P ^ { - } { \cdot } K _ { \mathrm { c } } { \cdot } P ^ { + }$ of $G _ { \mathrm { c } }$ ，which contains $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ [24]．An element $g \in \Omega$ will often be written
+1.4. The natural compactification.
+Let $P ^ { \pm } = \exp { \mathfrak { p } } ^ { \pm }$ and $K _ { \mathrm { c } }$ be the analytic subgroup of $G _ { \mathrm { c } }$ with Lie algebra $\mathfrak { k } _ { \mathbf { C } }$ . These are closed subgroups,and the semi-direct product $K _ { \mathrm { C } } { \cdot } P ^ { \pm }$ is a parabolic subgroup of $G _ { \mathrm { c } }$ . The map $( x , k , y ) \mapsto$ $e ^ { x } \cdot k \cdot e ^ { y }$ is a biregular map of $\mathfrak { p } ^ { - } \times K _ { \mathrm { c } } \times \mathfrak { p } ^ { + }$ onto a Zariski-open subset $\Omega =$ $P ^ { - } { \cdot } K _ { \mathrm { c } } { \cdot } P ^ { + }$ of $G _ { \mathrm { c } }$ ，which contains $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ [24]．An element $g \in \Omega$ will often be written
 
 $$
 g = g _ { - } \cdot g _ { \scriptscriptstyle 0 } \cdot g _ { \scriptscriptstyle + }
@@ -232,7 +274,8 @@ $$
 
 and is known to extend to a continuous action on $\bar { D }$ . Then (1) is true with $p \in \bar { D }$
 
-1.5.Boundary components (see [27], [29],[30]). (i) Assume first $X$ to be irreducible. We use the notation of 1.3. We have the direct sum decomposition
+1.5.Boundary components (see [27], [29],[30]). (i) Assume first $X$ to be irreducible.
+We use the notation of 1.3. We have the direct sum decomposition
 
 $$
 \mathrm { I } _ { b , \mathbf { C } } = \mathfrak { t } _ { b , \mathbf { C } } \oplus \mathfrak { p } _ { b } ^ { + } \oplus \mathfrak { p } _ { b } ^ { - } \qquad ( \mathfrak { p } _ { b } ^ { \pm } = \mathrm { I } _ { b , \mathbf { C } } \cap \mathfrak { p } ^ { \pm } ) \ : ,
@@ -248,7 +291,8 @@ $$
 
 Moreover,if $g \in L _ { b }$ ，then $o _ { b } \cdot g = o _ { b } + \zeta ( g )$ . Therefore,the orbit $\boldsymbol { F } _ { b }$ of $O _ { b }$ under $L _ { b }$ is just $o _ { b } + D _ { b }$ ,and is contained in an affine subspace of ${ \mathfrak { p } } ^ { + }$ . The transforms of the $\boldsymbol { F } _ { b }$ 's by elements of $G$ are the boundary components of $\bar { D }$ .We allow here $b$ to be equal to zero,and view $D$ itself as a boundary component (sometimes called the improper boundary component of $\bar { D }$ ).
 
-If $X$ is not irreducible, then it is a product of irreducible hermitian symmetric spaces $X _ { i }$ corresponding to the different semi-simple,simple,noncompact ideals of ${ \mathfrak { g } } , D$ is the product of the Harish-Chandra realizations $D _ { i }$ of the $X _ { i }$ ，and $\bar { D }$ the product of the $\textstyle { \overleftrightarrow { D } } _ { i }$ .A boundary component is a product of boundary components of the different factors. The $F _ { b } " { \bf s } \mathrm { ~ o r ~ }$ ，if $X$ is not irreducible,the products of components $\boldsymbol { F } _ { b }$ 's corresponding to the different irreducible factors of $X$ ，are the standard boundary components.
+If $X$ is not irreducible, then it is a product of irreducible hermitian symmetric spaces $X _ { i }$ corresponding to the different semi-simple,simple,noncompact ideals of ${ \mathfrak { g } } , D$ is the product of the Harish-Chandra realizations $D _ { i }$ of the $X _ { i }$ ，and $\bar { D }$ the product of the $\textstyle { \overleftrightarrow { D } } _ { i }$ .A boundary component is a product of boundary components of the different factors.
+The $F _ { b } " { \bf s } \mathrm { ~ o r ~ }$ ，if $X$ is not irreducible,the products of components $\boldsymbol { F } _ { b }$ 's corresponding to the different irreducible factors of $X$ ，are the standard boundary components.
 
 The above construction is hereditary: if $\pmb { F }$ is a boundary component then its closure $\bar { F }$ in $\bar { D }$ may be identified with the natural compactification of $\pmb { F }$ ,and its boundary components are also boundary components of $X$ More specifically, if $X$ is irreducible and $\boldsymbol { F } = \boldsymbol { F } _ { b }$ ，then $\bar { F } _ { b } = \bar { D } _ { b } + o _ { b }$ and the standard boundary components of $\textstyle { \overbrace { D } } _ { b }$ may be identified with the ${ \cal F } _ { c } ^ { \prime } { \tt s } \left( b \leq c \leq t \right)$ ; in fact $F _ { c }$ would have $c - b$ as index in the canonical numbering for $X _ { b }$ . The groups $L _ { c }$ and $P _ { c } \cap L _ { b }$ are in the same relationship to $L _ { b }$ as $L _ { b }$ and $P _ { b }$ are to $G _ { \mathbf { R } } ^ { 0 }$ . This is clear from the construction.
 
@@ -276,7 +320,10 @@ In fact, $Z ( F _ { b } )$ is a normal subgroup of $P _ { b }$ with Lie algebra 
 
 Returning to the general case,we see,by applying 1.3 (1) and 1.5 (2) to each irreducible factor of $X$ ，that $Z ( F )$ is the intersection of $G _ { \mathbf { R } } ^ { 0 }$ with an Rsubgroup of $G$ ，Furthermore,by 11.2,each element of $N ( F )$ induces a complex analytic homeomorphism of $\pmb { F }$ ，hence (11.6), $G ( F )$ is connected,with center reduced to $\{ e \}$ ； equivalently，if $X$ is irreducible，we have $N ( F _ { b } ) =$ $\mathbf { } _ { L _ { b } } . \mathbf { } Z _ { b }$ ：
 
-(ii）If $\pmb { F }$ and $F ^ { \prime }$ are two boundary components such that $F ^ { \prime } \subset { \bar { F } }$ ，then there exists $g \in G _ { \mathbf { R } } ^ { _ { 0 } }$ such that $F \cdot g$ and $F ^ { \prime } { \boldsymbol { \cdot } } g$ are both standard boundary components. To see this,we may assume $X$ to be irreducible.Let then $b , c$ be the indices such that $F \subset F _ { b } \cdot G _ { \mathrm { { R } } } ^ { \scriptscriptstyle 0 }$ ， $F ^ { \prime } \subset F _ { c } { \cdot } G _ { \mathrm { { R } } } ^ { 0 }$ ，and let $u \in G _ { \mathbf { R } } ^ { 0 }$ be such that $F \cdot u = F _ { b }$ . Then $F ^ { \prime } { \boldsymbol { \cdot } } u$ and $\boldsymbol { F } _ { c }$ are both boundary components of $\boldsymbol { F } _ { b }$ ,of the same dimension. Consequently，there exists $v \in L ( F _ { b } )$ such that $F ^ { \prime } { \boldsymbol { \cdot } } u \cdot v$ is standard. $F ^ { \prime \prime } { \cdot } u { \cdot } v$ is then equal to $\boldsymbol { F } _ { c }$ ; hence, $g = u \cdot v$ verifies our condition.
+(ii）If $\pmb { F }$ and $F ^ { \prime }$ are two boundary components such that $F ^ { \prime } \subset { \bar { F } }$ ，then there exists $g \in G _ { \mathbf { R } } ^ { _ { 0 } }$ such that $F \cdot g$ and $F ^ { \prime } { \boldsymbol { \cdot } } g$ are both standard boundary components.
+To see this,we may assume $X$ to be irreducible.Let then $b , c$ be the indices such that $F \subset F _ { b } \cdot G _ { \mathrm { { R } } } ^ { \scriptscriptstyle 0 }$ ， $F ^ { \prime } \subset F _ { c } { \cdot } G _ { \mathrm { { R } } } ^ { 0 }$ ，and let $u \in G _ { \mathbf { R } } ^ { 0 }$ be such that $F \cdot u = F _ { b }$ . Then $F ^ { \prime } { \boldsymbol { \cdot } } u$ and $\boldsymbol { F } _ { c }$ are both boundary components of $\boldsymbol { F } _ { b }$ ,of the same dimension.
+Consequently，there exists $v \in L ( F _ { b } )$ such that $F ^ { \prime } { \boldsymbol { \cdot } } u \cdot v$ is standard.
+$F ^ { \prime \prime } { \cdot } u { \cdot } v$ is then equal to $\boldsymbol { F } _ { c }$ ; hence, $g = u \cdot v$ verifies our condition.
 
 (iii) If X is irreducible, and $\operatorname { d i m } _ { \mathbf { C } } X \geq 2$ ,then $\mathrm { d i m } _ { \mathrm { c } } X \geq \mathrm { d i m } _ { \mathrm { c } } F + 2$ for every proper boundary component $F$ of $X$
 
@@ -288,7 +335,8 @@ $$
 
 On the other hand $\dim _ { \mathbb { R } } X = \dim { \mathfrak { a } } + \dim { \mathfrak { n } } , \dim _ { \mathbb { R } } F _ { \mathfrak { b } } = \dim \left( { \mathfrak { a } } \cap \mathbb { I } _ { \mathfrak { b } } \right) + \dim \left( \mathbb { I } _ { \mathfrak { b } } \cap \pi \right) ,$ and dima- dim $( { \mathfrak { a } } \cap { \mathfrak { l } } _ { b } ) \geq 1$ ， whence our assertion.
 
-1.6. The Cayley transforms of $X$ . The space $X$ also admits certain unbounded realizations,introduced by Pyateckii-Shapiro [40] in the classical cases under the name of Siegel domains of type I,II or III,and discussed in general by Korányi and Wolf [27]. In this and the next section,we summarize only the results which are used in the sequel. We assume again $X$ to be irreducible.
+1.6. The Cayley transforms of $X$ . The space $X$ also admits certain unbounded realizations,introduced by Pyateckii-Shapiro [40] in the classical cases under the name of Siegel domains of type I,II or III,and discussed in general by Korányi and Wolf [27]. In this and the next section,we summarize only the results which are used in the sequel.
+We assume again $X$ to be irreducible.
 
 The Cayley transform $c _ { b }$ is,by definition,
 
@@ -322,11 +370,14 @@ $$
 \begin{array} { r } { s \cdot g = \zeta ( e ^ { s } \cdot c _ { b } ^ { - 1 } \cdot g \cdot c _ { b } ) \ . } \end{array}
 $$
 
-The map $g \mapsto g \cdot c _ { b }$ induces then an isomorphism $\nu _ { b }$ of $X$ onto $S _ { b }$ ； by definition $S _ { 0 } = D$ ，and $S _ { \mathfrak { d } }$ is just the bounded realization. Often，we shall denote also by o the fixed point of $\kappa$ in $S _ { b }$
+The map $g \mapsto g \cdot c _ { b }$ induces then an isomorphism $\nu _ { b }$ of $X$ onto $S _ { b }$ ； by definition $S _ { 0 } = D$ ，and $S _ { \mathfrak { d } }$ is just the bounded realization.
+Often，we shall denote also by o the fixed point of $\kappa$ in $S _ { b }$
 
 In the next proposition,we denote by ${ \mathfrak { q } } _ { b }$ the subspace of ${ \mathfrak { p } } ^ { + }$ spanned by the vectors $E _ { \mu } ( \mu \in \pi ^ { + }$ ， $\mu ( H _ { i } ) \neq 0$ for at least one $i \leq b$ ). Thus ${ \mathfrak { p } } ^ { + } = { \mathfrak { p } } _ { b } ^ { + } \oplus { \mathfrak { q } } _ { b }$
 
-1.7. PRoPosITioN. We keep the preceding notation. We have $c _ { b } ^ { - 1 } \cdot Z _ { b } \cdot c _ { b } \subset$ $K _ { \mathrm { C } } { \cdot } P ^ { + }$ , and the action of $\boldsymbol { Z } _ { b }$ $( r e s p . \ V _ { b } )$ om $S _ { b }$ extends to an action of $\boldsymbol { Z } _ { b }$ om ${ \mathfrak { p } } ^ { + }$ by means of afine transformations (resp. affine transformations with unipotent linear homogeneous parts) which leave ${ \mathfrak { q } } _ { b }$ stable and induce the identity on ${ \mathfrak { p } } ^ { + } / { \mathfrak { q } } _ { b }$ . The projection $\sigma _ { b }$ of ${ \mathfrak { p } } ^ { + }$ onto ${ \mathfrak { p } } _ { b } ^ { + }$ with kernel ${ \mathfrak { q } } _ { b }$ maps $S _ { b }$ onto $D _ { b }$ , and its fbres in $S _ { b }$ are the orbits of $\boldsymbol { Z _ { b } ^ { 0 } }$ 0 $0 \leq b \leq t )$ . Its restriction to $S _ { b }$ commutes with $N ( F _ { b } )$ ：
+1.7. PRoPosITioN. We keep the preceding notation.
+We have $c _ { b } ^ { - 1 } \cdot Z _ { b } \cdot c _ { b } \subset$ $K _ { \mathrm { C } } { \cdot } P ^ { + }$ , and the action of $\boldsymbol { Z } _ { b }$ $( r e s p . \ V _ { b } )$ om $S _ { b }$ extends to an action of $\boldsymbol { Z } _ { b }$ om ${ \mathfrak { p } } ^ { + }$ by means of afine transformations (resp.
+affine transformations with unipotent linear homogeneous parts) which leave ${ \mathfrak { q } } _ { b }$ stable and induce the identity on ${ \mathfrak { p } } ^ { + } / { \mathfrak { q } } _ { b }$ . The projection $\sigma _ { b }$ of ${ \mathfrak { p } } ^ { + }$ onto ${ \mathfrak { p } } _ { b } ^ { + }$ with kernel ${ \mathfrak { q } } _ { b }$ maps $S _ { b }$ onto $D _ { b }$ , and its fbres in $S _ { b }$ are the orbits of $\boldsymbol { Z _ { b } ^ { 0 } }$ 0 $0 \leq b \leq t )$ . Its restriction to $S _ { b }$ commutes with $N ( F _ { b } )$ ：
 
 This is contained in the more precise results of [27, &7]. Let $\boldsymbol { z } \in \boldsymbol { Z } _ { b }$ .We have then $z ^ { \prime } = c _ { b } ^ { - 1 } { \bullet \cdot } c _ { b } = z _ { 0 } ^ { \prime } { \bullet z _ { + } ^ { \prime } } \left( z _ { 0 } ^ { \prime } \in K _ { \mathrm { C } } , z _ { + } ^ { \prime } \in P ^ { + } \right)$ . The action of $\pmb { z }$ on $S _ { b }$ or ${ \mathfrak { p } } ^ { + }$ is therefore given by
 
@@ -374,7 +425,9 @@ where $\sigma _ { \ / F ^ { \prime } \ / F }$ is the canonical projection of $\p
 
 The remark extends obviously to non-irreducible bounded symmetric domains.
 
-1.8. Automorphy factors, functional determinants. Let $M$ be a complex manifold, $H$ a group of automorphisms of $M$ ,and $Q$ a complex Lie group. We recall that a (holomorphic) automorphy factor for $H$ on $M$ ，with values in $\boldsymbol { \mathbf { \mathit { Q } } }$ ，is a map $\mu \colon M \times H \longrightarrow Q$ which,for fixed $h \in H$ ，is holomorphic in $x \in M$ and which verifies the identity
+1.8. Automorphy factors, functional determinants.
+Let $M$ be a complex manifold, $H$ a group of automorphisms of $M$ ,and $Q$ a complex Lie group.
+We recall that a (holomorphic) automorphy factor for $H$ on $M$ ，with values in $\boldsymbol { \mathbf { \mathit { Q } } }$ ，is a map $\mu \colon M \times H \longrightarrow Q$ which,for fixed $h \in H$ ，is holomorphic in $x \in M$ and which verifies the identity
 
 $$
 \mu ( x , h \cdot h ^ { \prime } ) = \mu ( x , h ) \cdot \mu ( x \cdot h , h ^ { \prime } )
@@ -402,7 +455,8 @@ Let $M = X$ be an irreducible bounded symmetric domain.We shall denote by $\math
 
 It is immediate that $\mu _ { b } ( x , g ) = ( e ^ { x } { \cdot } c _ { b } { \cdot } g { \cdot } c _ { b } ^ { - 1 } ) _ { 0 } ( x \in S _ { b } , g \in G _ { \mathrm { R } } ^ { 0 } )$ is a holomorphic automorphy factor,with values in $K _ { \mathrm { C } }$ . It is called the canonical automorphy factor for the unbounded realization $S _ { b }$ . The automorphy factors usually considered in the theory of holomorphic automorphic forms are of the form $\rho ( \mu _ { b } ( x , g ) )$ where $\rho \colon K _ { \mathbf { C } } \longmapsto \mathbf { G L } ( m , \mathbf { C } )$ is a holomorphic representation.The following lemma asserts that $\mathbf { J a c } _ { b }$ is of this type.It is well-known for the bounded realization; the proof is essentially the same in the general case,and is included for the sake of completeness.
 
-1.9. LEMMA. We keep the notation of 1.8, and identify the tangent space to a point ${ \mathfrak { x } } \in { \mathfrak { p } } ^ { + }$ with ${ \mathfrak { p } } ^ { + }$ by translation. Then
+1.9. LEMMA. We keep the notation of 1.8, and identify the tangent space to a point ${ \mathfrak { x } } \in { \mathfrak { p } } ^ { + }$ with ${ \mathfrak { p } } ^ { + }$ by translation.
+Then
 
 $$
 \mathrm { J a c } _ { b } \left( x , g \right) = \mathrm { A d } _ { \mathfrak { p } ^ { + } } h _ { 0 } ^ { - 1 } \qquad \left( x \in S _ { b } , g \in G _ { \mathrm { R } } ^ { 0 } ; h = ( e ^ { x } \cdot c _ { b } \cdot g \cdot c _ { b } ^ { - 1 } ) \right)
@@ -464,7 +518,8 @@ Let $\mathfrak { h } _ { t } = \mathbf { A } \mathrm { d } \mathfrak { c } _ { t
 
 The elements of $\pi ^ { + }$ are positive, the restrictions to $\mathfrak { h } _ { t }$ of the elements of $\pi ^ { + }$ are the linear forms $( \gamma _ { i } + \gamma _ { j } ) / 2$ 0 $1 \leq i \leq j \leq t ,$ ,and also the forms $\gamma _ { i } / 2$ in the case $B C _ { t }$ ； the positive roots of $\mathfrak { k } _ { \mathbf { C } }$ restrict to the differences $( \gamma _ { i } - \gamma _ { j } ) / 2$ $( 1 \leq i < j \leq t )$ ,and also to $\gamma _ { i } / 2$ in the case $B C _ { t }$ ：
 
-This is always possible [22, $\ S 6 ]$ . Let $\Delta = \{ \pmb { \nu } _ { 1 } , \cdots , \pmb { \nu } _ { l } \}$ be the corresponding set of simple roots. It is known that we may assume $\boldsymbol \theta = \{ \boldsymbol \nu _ { 1 } , \cdots , \boldsymbol \nu _ { l - 1 } \}$ to be the set of simple roots of $\mathfrak { k } _ { \mathbf { C } }$ ,and that the elements of $\pi ^ { + }$ are the roots which are congruent to $\nu _ { l }$ modulo a linear combination of elements in $\theta$ ,[22]. Moreover,since $\sharp _ { \mathrm { C } }$ normalizes ${ \mathfrak { p } } ^ { + }$ , its Weyl group permutes the elements of $\pi ^ { + }$ and leaves $\beta _ { \mathfrak { o } }$ invariant.In particular, $\beta _ { \mathfrak { o } }$ is left fixed by the fundamental reflections $r _ { \nu }$ $( \nu \in \theta )$ ，whence
+This is always possible [22, $\ S 6 ]$ . Let $\Delta = \{ \pmb { \nu } _ { 1 } , \cdots , \pmb { \nu } _ { l } \}$ be the corresponding set of simple roots.
+It is known that we may assume $\boldsymbol \theta = \{ \boldsymbol \nu _ { 1 } , \cdots , \boldsymbol \nu _ { l - 1 } \}$ to be the set of simple roots of $\mathfrak { k } _ { \mathbf { C } }$ ,and that the elements of $\pi ^ { + }$ are the roots which are congruent to $\nu _ { l }$ modulo a linear combination of elements in $\theta$ ,[22]. Moreover,since $\sharp _ { \mathrm { C } }$ normalizes ${ \mathfrak { p } } ^ { + }$ , its Weyl group permutes the elements of $\pi ^ { + }$ and leaves $\beta _ { \mathfrak { o } }$ invariant.In particular, $\beta _ { \mathfrak { o } }$ is left fixed by the fundamental reflections $r _ { \nu }$ $( \nu \in \theta )$ ，whence
 
 $$
 ( \beta _ { 0 } , \nu _ { i } ) = 0
@@ -502,15 +557,19 @@ $$
 
 The relative Weyl group of $\mathrm { A d } \mathfrak { c } _ { t } ^ { - 1 } ( \mathfrak { g } )$ with respect to Ad $c _ { t } ^ { - 1 } ( \mathfrak { a } )$ contains the permutations of the $\gamma _ { i }$ . But every such transformation is induced by an element of the Weyl group of $\mathfrak { g } _ { \mathrm { c } }$ with respect to $\mathfrak { h } _ { \mathrm { C } }$ (see e.g.[14, 5.5]). It follows then that $( \gamma _ { i } , \gamma _ { i } )$ is independent of $\textit { i }$ ，whence our first assertion.
 
-The difference $m _ { 0 } \mathrm { ~ - ~ } m _ { c }$ $( c \geq 1 )$ is the sum of the numbers $\mu ( H _ { t } )$ where $\mu$ runs through the elements of $\pi ^ { + }$ such that $E _ { \mu } \notin \mathfrak { p } _ { c } ^ { + }$ ; these numbers are all $\geq 0$ by the above. But.there is at least one such $\pmb { \mu }$ ,for instance one which restricts to $( \gamma _ { 1 } + \gamma _ { t } ) / 2$ ,for which $\mu ( H _ { t } ) \neq 0$ ，which ends the proof.
+The difference $m _ { 0 } \mathrm { ~ - ~ } m _ { c }$ $( c \geq 1 )$ is the sum of the numbers $\mu ( H _ { t } )$ where $\mu$ runs through the elements of $\pi ^ { + }$ such that $E _ { \mu } \notin \mathfrak { p } _ { c } ^ { + }$ ; these numbers are all $\geq 0$ by the above.
+But.there is at least one such $\pmb { \mu }$ ,for instance one which restricts to $( \gamma _ { 1 } + \gamma _ { t } ) / 2$ ,for which $\mu ( H _ { t } ) \neq 0$ ，which ends the proof.
 
-1.11．PROPOSITION．Let $X$ be irreducible. Let $J _ { b }$ be the functional determinant function for $G _ { \mathbf { R } } ^ { 0 }$ acting on $S _ { b }$ ，and $j _ { b }$ the functional determinant function for $L _ { b }$ acting on $D _ { b }$ . Then
+1.11．PROPOSITION．Let $X$ be irreducible.
+Let $J _ { b }$ be the functional determinant function for $G _ { \mathbf { R } } ^ { 0 }$ acting on $S _ { b }$ ，and $j _ { b }$ the functional determinant function for $L _ { b }$ acting on $D _ { b }$ . Then
 
 (i) The function $J _ { b } ( x , g )$ is constant along the fbres of the projection $\sigma _ { b } \colon S _ { b } \to D _ { b }$ of 1.7 if $g \in P _ { b }$ , is independent of x if $g \in Z _ { b }$ , and is equal to one if $g$ is $^ { a }$ unipotent element of $\boldsymbol { Z } _ { b }$ . The restriction $\eta _ { b }$ of $\scriptstyle J _ { b } \ t o \ Z _ { b }$ is a rational character.
 
 (ii)If $g \in L _ { b }$ , we have $J _ { b } ( x , g ) ^ { m _ { b } } = j _ { b } ( \sigma _ { b } ( x ) , g ) ^ { m _ { 0 } }$ ,with $m _ { 0 } , m _ { b }$ as in 1.10.
 
-PROOF OF (i)．If $g \in Z _ { b }$ (resp. $g \in Z _ { b }$ and is unipotent), then $g$ acts on $S _ { b }$ by means of an affine transformation (resp.with unipotent linear part) in ${ \mathfrak { p } } ^ { + }$ therefore, $J _ { b } ( x , g ) = \eta _ { b } ( g )$ is independent of $x$ (resp. is equal to one)； then $\eta _ { b }$ is a rational character by 1.7 $( 1 ^ { \prime } )$ ：
+PROOF OF (i)．If $g \in Z _ { b }$ (resp.
+$g \in Z _ { b }$ and is unipotent), then $g$ acts on $S _ { b }$ by means of an affine transformation (resp.with unipotent linear part) in ${ \mathfrak { p } } ^ { + }$ therefore, $J _ { b } ( x , g ) = \eta _ { b } ( g )$ is independent of $x$ (resp.
+is equal to one)； then $\eta _ { b }$ is a rational character by 1.7 $( 1 ^ { \prime } )$ ：
 
 Write $g = l { \cdot } u \ ( l \in L _ { b } , u \in Z _ { b } )$ ,and let $\boldsymbol { z } \in \boldsymbol { Z } _ { b } ^ { 0 }$ . Using the cocycle formula, we have
 
@@ -526,7 +585,8 @@ $$
 
 Since the fibres of $\sigma _ { b }$ are the orbits of $\boldsymbol { Z _ { b } ^ { 0 } }$ ,this ends the proof of (i).
 
-PROOF OF (ii). For every element $g \in K _ { b , \mathbf { C } }$ ,let us put
+PROOF OF (ii).
+For every element $g \in K _ { b , \mathbf { C } }$ ,let us put
 
 $$
 \Psi ( g ) = \operatorname * { d e t } \left( \mathrm { A d } _ { \mathfrak { p } ^ { + } } g ^ { - 1 } \right) , \qquad \Psi ( g ) = \operatorname * { d e t } \left( \mathrm { A d } _ { \mathfrak { p } _ { b } ^ { + } } g ^ { - 1 } \right) .
@@ -542,13 +602,18 @@ $$
 ( g \in K _ { b , \mathbf { C } } ) \ .
 $$
 
-Assume frst that $g = \exp { ( \lambda _ { b + 1 } H _ { b + 1 } + \dots + \lambda _ { t } H _ { t } ) }$ . In this case, $\Psi ( g )$ (resp. $\psi ( g ) )$ is the product of the numbers exp $\mu ( - \log g )$ where $\mu$ runs through the roots $\pmb { \mu }$ such that $E _ { \mu } \subset { \mathfrak { p } } ^ { + }$ (resp. $E _ { \mu } \subset \mathfrak { p } _ { b } ^ { + } .$ ).Using 1.10, we get
+Assume frst that $g = \exp { ( \lambda _ { b + 1 } H _ { b + 1 } + \dots + \lambda _ { t } H _ { t } ) }$ . In this case, $\Psi ( g )$ (resp.
+$\psi ( g ) )$ is the product of the numbers exp $\mu ( - \log g )$ where $\mu$ runs through the roots $\pmb { \mu }$ such that $E _ { \mu } \subset { \mathfrak { p } } ^ { + }$ (resp.
+$E _ { \mu } \subset \mathfrak { p } _ { b } ^ { + } .$ ).Using 1.10, we get
 
 $$
 \Psi ( g ) = \prod _ { b < i \leq t } \exp - \lambda _ { i } \bullet m _ { 0 } , \qquad \psi ( g ) = \prod _ { b < i \leq t } \exp - \lambda _ { i } \bullet m _ { b } ,
 $$
 
-which proves our contention in this case. It is also clear from (5) that $\Psi$ and $\psi$ are not identically equal to one on the subgroup just considered. The group $K _ { b , \mathbf { C } }$ is generated by its derived group,on which both $\Psi$ and $\psi$ are equal to one,and by its one-dimensional center. It is therefore also generated by its derived group and the group of elements considered in (5),which proves (4).
+which proves our contention in this case.
+It is also clear from (5) that $\Psi$ and $\psi$ are not identically equal to one on the subgroup just considered.
+The group $K _ { b , \mathbf { C } }$ is generated by its derived group,on which both $\Psi$ and $\psi$ are equal to one,and by its one-dimensional center.
+It is therefore also generated by its derived group and the group of elements considered in (5),which proves (4).
 
 Any element $g \in L _ { b }$ commutes with the Cayley transform $\pmb { c } _ { b }$ ; therefore, we have by 1.9, applied to $L _ { b }$ operating on $S _ { b }$ and on $D _ { b }$ ：
 
@@ -610,7 +675,8 @@ $$
 
 whence our assertion.
 
-1.14. Remark on the Bergman kernel function. Let $K _ { b } ( z , w )$ be the Bergman kernel function in $S _ { b }$ . We have therefore
+1.14. Remark on the Bergman kernel function.
+Let $K _ { b } ( z , w )$ be the Bergman kernel function in $S _ { b }$ . We have therefore
 
 $$
 \begin{array} { r l r l } & { K _ { b } ( z { \cdot } g , w { \cdot } g ) = K _ { b } ( z , w ) { \cdot } \mid J _ { b } ( z , g ) \mid \cdot \mid J _ { b } ( w , g ) \mid , } & & { \quad ( z , w \in S _ { b } ; g \in G _ { \mathrm { R } } ^ { 0 } ) . } \\ & { K _ { b } ( z { \cdot } k , w { \cdot } k ) = K _ { b } ( z , w ) } & & { \quad ( z , w \in S _ { b } ; k \in K ) . } \end{array}
@@ -624,15 +690,18 @@ $$
 
 We may then insert the expression of $\boldsymbol { J } _ { b } ( o , a )$ given by 1.12; the formula thus obtained in the two extreme cases $b = 0$ ， $S _ { b } = D$ ,and $b = t$ have been given, in a slightly different form,and with the value of the constant $K _ { b } ( o , o )$ ,by Bott-Koranyi [27,5.7] and Koranyi [27,5.5] respectively.
 
-Our next aim is to relate $J _ { b } ( x , g )$ to the determinant of $\operatorname { A d } g$ in $\mathfrak { d } _ { b }$ (cf. 1.3) when $g \in Z _ { b }$ . For this,we need the following lemma:
+Our next aim is to relate $J _ { b } ( x , g )$ to the determinant of $\operatorname { A d } g$ in $\mathfrak { d } _ { b }$ (cf.
+1.3) when $g \in Z _ { b }$ . For this,we need the following lemma:
 
-1.15.LEMMA. Let $X$ be irreducible. Let u $( r e s p . ~ v )$ be the multiplicity of the R-roots $( \gamma _ { i } \pm \gamma _ { j } ) / 2 ( i \not = j ) ( r e s p . \gamma _ { i } / 2$ in the case $B C _ { t }$ .Let $\nu _ { b }$ be the restriction of $\alpha _ { b } \textit { \textbf { t o } } \mathfrak { a } _ { b }$ $( 1 \leq b \leq t )$ ). Then the weights of ${ \mathfrak { a } } _ { b }$ in $\mathfrak { g }$ ，for the adjoint representation are 0, $\pm \nu _ { b }$ ，and possibly $\pm 2 \cdot \nu _ { b }$ .Let $p _ { b }$ $( r e s p . \ q _ { b } )$ be the multiplicity of $\nu _ { b }$ $( r e s p . \ 2 \cdot \mathcal { V } _ { b } )$ ：
+1.15.LEMMA. Let $X$ be irreducible.
+Let u $( r e s p . ~ v )$ be the multiplicity of the R-roots $( \gamma _ { i } \pm \gamma _ { j } ) / 2 ( i \not = j ) ( r e s p . \gamma _ { i } / 2$ in the case $B C _ { t }$ .Let $\nu _ { b }$ be the restriction of $\alpha _ { b } \textit { \textbf { t o } } \mathfrak { a } _ { b }$ $( 1 \leq b \leq t )$ ). Then the weights of ${ \mathfrak { a } } _ { b }$ in $\mathfrak { g }$ ，for the adjoint representation are 0, $\pm \nu _ { b }$ ，and possibly $\pm 2 \cdot \nu _ { b }$ .Let $p _ { b }$ $( r e s p . \ q _ { b } )$ be the multiplicity of $\nu _ { b }$ $( r e s p . \ 2 \cdot \mathcal { V } _ { b } )$ ：
 
 （i） $i f _ { \mathbf { \delta R } } \Phi$ is oftype $C _ { t }$ and $b = t$ ,then $p _ { b } = t + u \cdot { \binom { t } { 2 } } ,$ $q _ { b } = 0$ $i f _ { \mathbf { \delta R } } \Phi$ is oftype $C _ { t }$ and $b \neq t$ ,then $\begin{array} { r } { p _ { b } = 2 \cdot u \cdot b \cdot ( t - \ ' b ) , q _ { b } = b + u \cdot \binom { 0 } { 2 } . } \end{array}$ $i f _ { \mathbf { \delta R } } \Phi$ is oftype $B C _ { t }$ ,then $p _ { b } = v \cdot b + 2 \cdot u \cdot b \cdot ( t - b ) , q _ { b } = b + u { \binom { b } { 2 } }$ ，
 
 The $\mathbf { R }$ -roots are linear combinations of the simple ones with coefficients $0 , \pm 1 , \pm 2$ Since ${ \mathfrak { a } } _ { b }$ annihilates all the simple $\mathbf { R }$ -roots except $\alpha _ { b }$ ， this proves the first assertion.
 
-We have $\mathfrak { L } _ { b } = \gamma _ { t }$ in the case (i), and $\pmb { \nu } _ { b } = \gamma _ { b } / 2$ in the other cases. In the case (i), $p _ { b }$ is the sum of the multiplicities of the $\mathbf { R }$ -roots $\gamma _ { i }$ $\mathbf { \rho } _ { i } \left( i \leq t \right)$ ，which are all equal to one,and of the $\mathbf { R }$ -roots $( \gamma _ { i } + \gamma _ { j } ) / 2$ $( 1 \leq i < j \leq t )$ ，while $q _ { b } = 0$ ： In cases (ii) and (iii), ${ { q } _ { b } }$ is the sum of the multiplicities of the $\mathbf { R }$ -roots $\gamma _ { i } \left( i \leqq b \right)$ and $( \gamma _ { i } + \gamma _ { j } ) / 2$ $1  { i } < { j }  {  { b } }$ . In case (ii), $p _ { b }$ is the sum of the multiplicities of the roots $( \gamma _ { i } \pm \gamma _ { j } ) / 2$ $1 \leq i \leq b < j \leq t )$ ,and in case (iii),we have to add also the multiplicities of the roots $\gamma _ { i } / 2$ $( 1 \leq i \leq b )$ ，whence the lemma.
+We have $\mathfrak { L } _ { b } = \gamma _ { t }$ in the case (i), and $\pmb { \nu } _ { b } = \gamma _ { b } / 2$ in the other cases.
+In the case (i), $p _ { b }$ is the sum of the multiplicities of the $\mathbf { R }$ -roots $\gamma _ { i }$ $\mathbf { \rho } _ { i } \left( i \leq t \right)$ ，which are all equal to one,and of the $\mathbf { R }$ -roots $( \gamma _ { i } + \gamma _ { j } ) / 2$ $( 1 \leq i < j \leq t )$ ，while $q _ { b } = 0$ ： In cases (ii) and (iii), ${ { q } _ { b } }$ is the sum of the multiplicities of the $\mathbf { R }$ -roots $\gamma _ { i } \left( i \leqq b \right)$ and $( \gamma _ { i } + \gamma _ { j } ) / 2$ $1  { i } < { j }  {  { b } }$ . In case (ii), $p _ { b }$ is the sum of the multiplicities of the roots $( \gamma _ { i } \pm \gamma _ { j } ) / 2$ $1 \leq i \leq b < j \leq t )$ ,and in case (iii),we have to add also the multiplicities of the roots $\gamma _ { i } / 2$ $( 1 \leq i \leq b )$ ，whence the lemma.
 
 In the next proposition,the important point is not the explicit value of $\boldsymbol { n } _ { b }$ ，but rather the fact that it is $> 0$ and completely determined by $p _ { b }$ and $q _ { b }$ .This will play an important role in our discussion of Eisenstein series.
 
@@ -644,7 +713,8 @@ $$
 \begin{array} { l } { { J _ { b } ( x , g ) = \eta _ { b } ( g ) \nonumber } } \\ { { \qquad = \operatorname* { d e t } \left( \mathrm { A d } _ { \mathfrak { p } ^ { + } } c _ { b } ^ { - 1 } \cdot g ^ { - 1 } \cdot c _ { b } \right) = \Psi _ { b } ( c _ { b } ^ { - 1 } \cdot g \cdot c _ { b } ) } } \end{array}
 $$
 
-Both $\chi _ { b }$ and $\eta _ { b }$ are rational characters of $\boldsymbol { Z } _ { b }$ . They are therefore equal to one on $V _ { b }$ and on the derived group of $\boldsymbol { Z } _ { b }$ .On the compact subgroup $K \cap Z _ { b }$ they are both of modulus one. Since $\boldsymbol { Z } _ { b }$ is generated by its intersection with $\kappa$ ,a semi-simple subgroup $L _ { b } ^ { \prime }$ ,its unipotent radical $V _ { b }$ ，and $A _ { b }$ (see 1.3)， it remains to check 1.16 on $A _ { b }$
+Both $\chi _ { b }$ and $\eta _ { b }$ are rational characters of $\boldsymbol { Z } _ { b }$ . They are therefore equal to one on $V _ { b }$ and on the derived group of $\boldsymbol { Z } _ { b }$ .On the compact subgroup $K \cap Z _ { b }$ they are both of modulus one.
+Since $\boldsymbol { Z } _ { b }$ is generated by its intersection with $\kappa$ ,a semi-simple subgroup $L _ { b } ^ { \prime }$ ,its unipotent radical $V _ { b }$ ，and $A _ { b }$ (see 1.3)， it remains to check 1.16 on $A _ { b }$
 
 The group $A _ { b }$ belongs to the center of the maximal reductive subgroup $Z ( A _ { b } )$ of the parabolic subgroup $P _ { b }$ ； hence, the weights of $A _ { b }$ in $\mathfrak { d } _ { b }$ are the restrictions of the positive $\mathbf { R }$ -roots which are not equal to one on $A _ { b }$ and therefore
 
@@ -710,11 +780,15 @@ $$
 
 therefore,(ii) follows from (i) and from the transitivity of $Z ( F _ { b } ) ^ { 0 }$ on the fibres of $\sigma _ { b }$ ， (1.7).
 
-We end this section with a result which will be used in discussing rational boundary components. The following lemma will be needed.
+We end this section with a result which will be used in discussing rational boundary components.
+The following lemma will be needed.
 
-1.19.LEMMA．Let $X$ be irreducible. Then (i) $[ { \mathfrak { x } } , { \mathfrak { g } } _ { ( \gamma _ { i } \mp \gamma _ { j } ) / { \mathfrak { z } } } ] \neq \{ 0 \} \left( { \mathfrak { x } } \in { \mathfrak { g } } _ { ( \gamma _ { i } \pm \gamma _ { j } ) / { \mathfrak { z } } } - \{ 0 \} ; 1 \equiv i < j \leq t \right)$ (ii）if ${ \bf { R } } ^ { \Phi }$ is of type $B C _ { t }$ $[ x , { \mathfrak { g } } _ { { \mathfrak { r } } _ { i } / 2 } ] \neq \{ 0 \} ( x \in { \mathfrak { g } } _ { { \mathfrak { r } } _ { i } / 2 } - \{ 0 \} ; 1 \leq i \leq t ) .$
+1.19.LEMMA．Let $X$ be irreducible.
+Then (i) $[ { \mathfrak { x } } , { \mathfrak { g } } _ { ( \gamma _ { i } \mp \gamma _ { j } ) / { \mathfrak { z } } } ] \neq \{ 0 \} \left( { \mathfrak { x } } \in { \mathfrak { g } } _ { ( \gamma _ { i } \pm \gamma _ { j } ) / { \mathfrak { z } } } - \{ 0 \} ; 1 \equiv i < j \leq t \right)$ (ii）if ${ \bf { R } } ^ { \Phi }$ is of type $B C _ { t }$ $[ x , { \mathfrak { g } } _ { { \mathfrak { r } } _ { i } / 2 } ] \neq \{ 0 \} ( x \in { \mathfrak { g } } _ { { \mathfrak { r } } _ { i } / 2 } - \{ 0 \} ; 1 \leq i \leq t ) .$
 
-PROOF OF (i). By Lemmas 13,15 of [22], the roots $\pmb { \mu } \in \Phi$ restricting on $\mathfrak { h } _ { t }$ to $( - \gamma _ { i } + \gamma _ { j } ) / 2 \ ( i \ne j )$ are compact, those restricting to $( \gamma _ { i } + \gamma _ { j } ) / 2$ are in $\pi ^ { + }$ ， and $\mu \mapsto \mu + \gamma _ { i }$ is a bijective map of the first set $C _ { i j }$ onto the second one $P _ { i j }$ Let ${ \mathfrak { c } } _ { i j }$ (resp. ${ \mathfrak { p } } _ { i j } ^ { \phantom { } } ,$ be the C-subspace of ${ \mathfrak { g } } _ { \mathbf { C } }$ spanned by the vectors $E _ { \mu }$ ， $( \mu \in C _ { i j }$ resp. $\mu \in P _ { i j , \ l }$ .With $c _ { t }$ being as in 1.6, we have
+PROOF OF (i). By Lemmas 13,15 of [22], the roots $\pmb { \mu } \in \Phi$ restricting on $\mathfrak { h } _ { t }$ to $( - \gamma _ { i } + \gamma _ { j } ) / 2 \ ( i \ne j )$ are compact, those restricting to $( \gamma _ { i } + \gamma _ { j } ) / 2$ are in $\pi ^ { + }$ ， and $\mu \mapsto \mu + \gamma _ { i }$ is a bijective map of the first set $C _ { i j }$ onto the second one $P _ { i j }$ Let ${ \mathfrak { c } } _ { i j }$ (resp.
+${ \mathfrak { p } } _ { i j } ^ { \phantom { } } ,$ be the C-subspace of ${ \mathfrak { g } } _ { \mathbf { C } }$ spanned by the vectors $E _ { \mu }$ ， $( \mu \in C _ { i j }$ resp.
+$\mu \in P _ { i j , \ l }$ .With $c _ { t }$ being as in 1.6, we have
 
 $$
 \begin{array} { r } { \mathrm { A d } c _ { t } ( \mathfrak { c } _ { i j } ) \cap \mathfrak { g } = \mathfrak { g } _ { ( \gamma _ { j } - \gamma _ { i } ) / 2 } , \qquad \mathrm { A d } c _ { t } ( \mathfrak { p } _ { i j } ) \cap \mathfrak { g } = \mathfrak { g } _ { ( \gamma _ { i } + \gamma _ { j } ) / 2 } . } \end{array}
@@ -744,7 +818,10 @@ $$
 
 Since $[ z , u ] = 0$ ，because $3 \gamma _ { i } / 2 \pm \gamma _ { j } / 2$ is not an $\mathbf { R }$ -root，the Jacobi identity shows that $[ x , z ] = [ [ y , u ] , z ] \neq 0$ , which proves (i).
 
-PROOF OF (ii).Let $C _ { i } ^ { \prime }$ (resp. $P _ { i }$ ） be the set of compact (resp.non-compact) roots which restrict on $\mathfrak { h } _ { t }$ to $\gamma _ { i } / 2$ and ${ \mathfrak { c } } _ { i } ^ { \prime }$ (resp. ${ \mathfrak { p } } _ { i }$ ） the space spanned by the vectors $E _ { \mu }$ $( \mu \in C _ { i } ^ { \prime }$ ，resp. $\mu \in \mathcal Ḋ P Ḍ _ { i } ^ { \setminus }$ . We have
+PROOF OF (ii).Let $C _ { i } ^ { \prime }$ (resp.
+$P _ { i }$ ） be the set of compact (resp.non-compact) roots which restrict on $\mathfrak { h } _ { t }$ to $\gamma _ { i } / 2$ and ${ \mathfrak { c } } _ { i } ^ { \prime }$ (resp.
+${ \mathfrak { p } } _ { i }$ ） the space spanned by the vectors $E _ { \mu }$ $( \mu \in C _ { i } ^ { \prime }$ ，resp.
+$\mu \in \mathcal Ḋ P Ḍ _ { i } ^ { \setminus }$ . We have
 
 $$
 \mathrm { A d } c _ { t } ( \mathfrak { c } _ { i } ^ { \prime } + \mathfrak { p } _ { i } ) \cap \mathfrak { g } = \mathfrak { g } _ { \gamma _ { i } / 2 } ,
@@ -756,9 +833,12 @@ $$
 \mathfrak { z } ( \mathfrak { c } _ { i } ^ { \prime } + \mathfrak { p } _ { i } ) \cap ( \mathfrak { c } _ { i } ^ { \prime } + \mathfrak { p } _ { i } ) = \{ 0 \} .
 $$
 
-By Lemma 14 of [22], the map $\alpha \mapsto \alpha + \gamma _ { i }$ is a bijection of $C _ { i } = - C _ { i } ^ { \prime }$ onto $P _ { i }$ . Hence, given $\pmb { \mu } \in C _ { i } ^ { \prime }$ (resp. $\mu \in P _ { i }$ ), there exists $\boldsymbol { \nu } \in P _ { i }$ (resp. $\pmb { \nu } \in C _ { i } ^ { \prime }$ ）such that $\mu + \nu = \gamma _ { i }$ .Then $[ E _ { \mu } , E _ { \nu } ] \ne 0$ . Since the left hand side of (3),being stable under $\mathfrak { h } _ { \mathrm { C } }$ ,is spanned by root vectors, this proves (3).
+By Lemma 14 of [22], the map $\alpha \mapsto \alpha + \gamma _ { i }$ is a bijection of $C _ { i } = - C _ { i } ^ { \prime }$ onto $P _ { i }$ . Hence, given $\pmb { \mu } \in C _ { i } ^ { \prime }$ (resp.
+$\mu \in P _ { i }$ ), there exists $\boldsymbol { \nu } \in P _ { i }$ (resp.
+$\pmb { \nu } \in C _ { i } ^ { \prime }$ ）such that $\mu + \nu = \gamma _ { i }$ .Then $[ E _ { \mu } , E _ { \nu } ] \ne 0$ . Since the left hand side of (3),being stable under $\mathfrak { h } _ { \mathrm { C } }$ ,is spanned by root vectors, this proves (3).
 
-1.20．PROPOSITION． Let $X$ be irreducible. Let $\boldsymbol { W } _ { b }$ be the center of $V _ { b }$ $( 1 \leq b \leq t )$ ，and $C$ be the connected centralizer of $\boldsymbol { W } _ { b }$ in $P _ { b }$ . Then c is the direct sum of ${ \boldsymbol { l } } _ { b } + { \boldsymbol { \mathtt { p } } } _ { b }$ ,which is an ideal of c,and of its intersection with $\mathfrak { m } =$ $\mathfrak { z } ( \mathfrak { a } ) \cap \mathfrak { t }$ . In particular, $C / ( L _ { b } \cdot V _ { b } )$ is compact.
+1.20．PROPOSITION． Let $X$ be irreducible.
+Let $\boldsymbol { W } _ { b }$ be the center of $V _ { b }$ $( 1 \leq b \leq t )$ ，and $C$ be the connected centralizer of $\boldsymbol { W } _ { b }$ in $P _ { b }$ . Then c is the direct sum of ${ \boldsymbol { l } } _ { b } + { \boldsymbol { \mathtt { p } } } _ { b }$ ,which is an ideal of c,and of its intersection with $\mathfrak { m } =$ $\mathfrak { z } ( \mathfrak { a } ) \cap \mathfrak { t }$ . In particular, $C / ( L _ { b } \cdot V _ { b } )$ is compact.
 
 The ideal $\mathfrak { d } _ { b }$ is the sum of the root spaces ${ \mathfrak { g } } _ { \alpha }$ where $_ { \alpha }$ runs through the R. roots of the form
 
@@ -776,7 +856,8 @@ $$
 ( 1 \leq i \leq j \leq b ) .
 $$
 
-The relation $[ { \mathfrak { g } } _ { \alpha } , { \mathfrak { g } } _ { \beta } ] \subset { \mathfrak { g } } _ { \alpha + \beta }$ ,and the structure of ${ \bf { R } } ^ { \Phi }$ , show that ${ \mathfrak { w } } _ { b }$ contains the root spaces just listed. Of course ${ \mathfrak { w } } _ { b }$ is stable under $\mathfrak { a }$ ,hence is the sum of its intersections with the ${ \mathfrak { g } } _ { \alpha }$ . In order to prove our assertion,it is therefore enough to show that
+The relation $[ { \mathfrak { g } } _ { \alpha } , { \mathfrak { g } } _ { \beta } ] \subset { \mathfrak { g } } _ { \alpha + \beta }$ ,and the structure of ${ \bf { R } } ^ { \Phi }$ , show that ${ \mathfrak { w } } _ { b }$ contains the root spaces just listed.
+Of course ${ \mathfrak { w } } _ { b }$ is stable under $\mathfrak { a }$ ,hence is the sum of its intersections with the ${ \mathfrak { g } } _ { \alpha }$ . In order to prove our assertion,it is therefore enough to show that
 
 $$
 \mathfrak { m } _ { b } \cap \mathfrak { g } _ { ( \gamma _ { i } \pm \gamma _ { j } ) / 2 } = 0
@@ -806,7 +887,9 @@ REMARK. Proposition 1.20 was suggested by a statement in [31, $\ S 3 . 3 ]$ whic
 
 For most of the facts recalled below,we refer to [14]. As was already pointed out in O.3,the ground fields may be assumed to be contained in C, which is then our universal field,although the results of 2.1, 2.2 are valid in greater generality.
 
-2.1. Relative roots. Let $G$ be a connected reductive $k$ group. Its maximal $k$ -split tori are conjugate over $k$ and their common dimension is the $k$ -rank $\mathbf { r } \mathbf { k } _ { k } \left( G \right)$ of $G$ Let $\boldsymbol { s }$ be a maximal $k$ -split torus of $G$ The $k$ -roots, or roots relative to $k$ ,or restricted roots are the non-trivial characters of $\boldsymbol { S }$ in the adjoint representation of $G$ ,and the relative Weyl group $\mathbf { \Omega } _ { k } W = \mathbf { \Omega } _ { k } W ( G )$ is the quotient $N ( S ) / Z ( S )$ . We denote by $\mathbf { \Lambda } _ { k } \Phi$ or ${ } _ { k } \Phi ( G )$ the set $\Phi ( S , G )$ of $k$ -roots.It is a root system in $X ^ { * } ( T ) \otimes \mathbf { R } = V$ ，This means in particular that,with respect to a scalar product（，）on $V$ invariant under $_ k \ W$ ,the group ${ } _ { k } W$ is generated by the reflections in the hyperplanes orthogonal to the $k$ -roots, leaves $\mathbf { \Lambda } _ { k } \Phi$ stable,and that $2 ( \alpha , \beta ) \cdot ( \beta , \beta ) ^ { - 1 } \in { \bf Z }$ for all $\alpha , \beta \in { \mathfrak { \Gamma } } _ { k } \Phi$ For every $\alpha \in { \mathbf { \Gamma } } _ { k } \Phi$ we put
+2.1. Relative roots.
+Let $G$ be a connected reductive $k$ group.
+Its maximal $k$ -split tori are conjugate over $k$ and their common dimension is the $k$ -rank $\mathbf { r } \mathbf { k } _ { k } \left( G \right)$ of $G$ Let $\boldsymbol { s }$ be a maximal $k$ -split torus of $G$ The $k$ -roots, or roots relative to $k$ ,or restricted roots are the non-trivial characters of $\boldsymbol { S }$ in the adjoint representation of $G$ ,and the relative Weyl group $\mathbf { \Omega } _ { k } W = \mathbf { \Omega } _ { k } W ( G )$ is the quotient $N ( S ) / Z ( S )$ . We denote by $\mathbf { \Lambda } _ { k } \Phi$ or ${ } _ { k } \Phi ( G )$ the set $\Phi ( S , G )$ of $k$ -roots.It is a root system in $X ^ { * } ( T ) \otimes \mathbf { R } = V$ ，This means in particular that,with respect to a scalar product（，）on $V$ invariant under $_ k \ W$ ,the group ${ } _ { k } W$ is generated by the reflections in the hyperplanes orthogonal to the $k$ -roots, leaves $\mathbf { \Lambda } _ { k } \Phi$ stable,and that $2 ( \alpha , \beta ) \cdot ( \beta , \beta ) ^ { - 1 } \in { \bf Z }$ for all $\alpha , \beta \in { \mathfrak { \Gamma } } _ { k } \Phi$ For every $\alpha \in { \mathbf { \Gamma } } _ { k } \Phi$ we put
 
 $$
 { \mathfrak { g } } _ { \alpha } = \{ x \in { \mathfrak { g } } \mid { \mathrm { A d } } s ( x ) = s ^ { \alpha } \cdot x ( s \in S ) \} .
@@ -814,13 +897,18 @@ $$
 
 Then $\mathfrak { g }$ is the direct sum of the ${ \mathfrak { g } } _ { \alpha }$ $( \alpha \in { \mathbf { \Gamma } } _ { k } \Phi )$ and of the Lie algebra ${ \mathfrak { z } } ( S )$ of the centralizer of $\boldsymbol { \mathsf { S } }$ ·
 
-Given an ordering in $X ^ { * } ( S )$ ， we denote by $_ k \Delta$ the set of simple $k$ -roots. A subset of $_ k \Delta$ is connected if it is not the union of two non-empty disjoint subsets which are mutually orthogonal.
+Given an ordering in $X ^ { * } ( S )$ ， we denote by $_ k \Delta$ the set of simple $k$ -roots.
+A subset of $_ k \Delta$ is connected if it is not the union of two non-empty disjoint subsets which are mutually orthogonal.
 
-2.2. Parabolic $k$ -subgroups. An algebraic subgroup $P$ of $G$ is parabolic if the quotient space $G / P$ is a projective variety. $P$ is then connected,equal to its normalizer,and is the normalizer of its unipotent radical.
+2.2. Parabolic $k$ -subgroups.
+An algebraic subgroup $P$ of $G$ is parabolic if the quotient space $G / P$ is a projective variety.
+$P$ is then connected,equal to its normalizer,and is the normalizer of its unipotent radical.
 
-Let $U$ be the subgroup normalized by $\boldsymbol { s }$ whose Lie algebra u is the sum of the ${ \mathfrak { g } } _ { \alpha }$ ，where $_ \alpha$ runs through the positive $k$ -roots (for some fixed ordering). Then $U$ is a unipotent $k$ -subgroup,normalized by $Z ( S )$
+Let $U$ be the subgroup normalized by $\boldsymbol { s }$ whose Lie algebra u is the sum of the ${ \mathfrak { g } } _ { \alpha }$ ，where $_ \alpha$ runs through the positive $k$ -roots (for some fixed ordering).
+Then $U$ is a unipotent $k$ -subgroup,normalized by $Z ( S )$
 
-For every subset $\theta$ of $_ k \Delta$ ,let $S _ { \theta } = ( \cap _ { \alpha \in \theta } \ker \alpha ) ^ { \circ }$ . We let ${ } _ { k } P _ { \theta }$ be the subgroup generated by $\boldsymbol { Z } ( \boldsymbol { S } _ { \theta } )$ and $U$ ； it is the semi-direct product of $\boldsymbol { Z } ( \boldsymbol { S } _ { \theta } )$ and of its unipotent radical $U _ { \theta } \subset U$ ， The split radical (0.5) of ${ } _ { k } P _ { \theta }$ is the semi-direct product $S _ { \theta } \cdot U _ { \theta }$ . Every parabolic $k$ -subgroup of $G$ is conjugate over $k$ to one and only one ${ } _ { k } P _ { \theta }$ . Moreover， two parabolic $k$ -subgroups are conjugate in $G$ if and only if they are conjugate over $k$ . The groups ${ } _ { k } P _ { \theta }$ are the standard parabolic $k$ -subgroups (for a given choice of $\boldsymbol { s }$ and $\boldsymbol { U }$ ). If $\theta = \emptyset$ ，then ${ } _ { k } P _ { \theta } =$ ${ \bf \nabla } _ { \boldsymbol { \kappa } } P = Z ( S ) \cdot U$ is the minimal standard parabolic $k$ -subgroup. We can write uniquely
+For every subset $\theta$ of $_ k \Delta$ ,let $S _ { \theta } = ( \cap _ { \alpha \in \theta } \ker \alpha ) ^ { \circ }$ . We let ${ } _ { k } P _ { \theta }$ be the subgroup generated by $\boldsymbol { Z } ( \boldsymbol { S } _ { \theta } )$ and $U$ ； it is the semi-direct product of $\boldsymbol { Z } ( \boldsymbol { S } _ { \theta } )$ and of its unipotent radical $U _ { \theta } \subset U$ ， The split radical (0.5) of ${ } _ { k } P _ { \theta }$ is the semi-direct product $S _ { \theta } \cdot U _ { \theta }$ . Every parabolic $k$ -subgroup of $G$ is conjugate over $k$ to one and only one ${ } _ { k } P _ { \theta }$ . Moreover， two parabolic $k$ -subgroups are conjugate in $G$ if and only if they are conjugate over $k$ . The groups ${ } _ { k } P _ { \theta }$ are the standard parabolic $k$ -subgroups (for a given choice of $\boldsymbol { s }$ and $\boldsymbol { U }$ ). If $\theta = \emptyset$ ，then ${ } _ { k } P _ { \theta } =$ ${ \bf \nabla } _ { \boldsymbol { \kappa } } P = Z ( S ) \cdot U$ is the minimal standard parabolic $k$ -subgroup.
+We can write uniquely
 
 $$
 Z ( S ) = M \cdot S
@@ -846,9 +934,12 @@ $$
 P _ { k } \cdot n _ { w } \cdot P _ { k } = U _ { k } \cdot n _ { w } \cdot Z ( S ) _ { k } \cdot U _ { k } \ .
 $$
 
-If $G$ is connected,but not reductive,it is the semi-direct product of its unipotent radical $\textstyle R _ { u } ( G )$ by a reductive $k$ -subgroup (we are in characteristic zero), and $ { \boldsymbol { R } } _ { u } ( G )$ is contained in every parabolic subgroup. Since ${ \cal N } ( S ) \cap { \cal R } _ { u } ( G ) =$ $Z ( S ) \cap R _ { u } ( G )$ ,it follows that the above decomposition is still valid,with $P$ a minimal parabolic $k$ -subgroup,and $N ( S )$ being the normalizer of $\boldsymbol { S }$ either in $G$ or in a maximal reductive $k$ -subgroup containing $\boldsymbol { S }$ ·
+If $G$ is connected,but not reductive,it is the semi-direct product of its unipotent radical $\textstyle R _ { u } ( G )$ by a reductive $k$ -subgroup (we are in characteristic zero), and $ { \boldsymbol { R } } _ { u } ( G )$ is contained in every parabolic subgroup.
+Since ${ \cal N } ( S ) \cap { \cal R } _ { u } ( G ) =$ $Z ( S ) \cap R _ { u } ( G )$ ,it follows that the above decomposition is still valid,with $P$ a minimal parabolic $k$ -subgroup,and $N ( S )$ being the normalizer of $\boldsymbol { S }$ either in $G$ or in a maximal reductive $k$ -subgroup containing $\boldsymbol { S }$ ·
 
-2.3. Fundamental highest weights relative to $k$ .There is a basis of $X ( S ) \otimes \mathbf { Q }$ over $\mathbf { Q }$ consisting of elements $d _ { \alpha } \in X ( P ) ( \alpha \in \mathfrak { \Gamma } _ { k } \Delta )$ such that $( d _ { \alpha } , \beta ) =$ $c _ { \alpha } \delta _ { \alpha \beta } ( \alpha , \beta \in \mathfrak { \Gamma } _ { k } \Delta )$ where $c _ { \alpha }$ are positive integers. The restriction to $S _ { \theta }$ of the elements $d _ { \alpha } ( \alpha \in \theta ^ { \prime } = { \bf q } \Delta - \theta )$ form a basis of $X ( S _ { \theta } ) \otimes \mathbf { Q }$ .Let $d \in X ( S )$ be a linear combination of elements $d _ { \alpha } ( \alpha \in \theta ^ { \prime } )$ with strictly positive integral coefficients. Then there exists an absolutely irreducible representation $\rho \colon G $ $\mathbf { G L } ( V )$ defined over $k$ ,and a unique one-dimensional subspace $V ^ { \prime } \subset V$ stable under $P _ { \theta }$ and on which $g \in { \mathcal { P } } _ { \theta }$ acts via multiplication by $d ( g )$ [14,12.2, 12,13]. The characters $d _ { \alpha } ( \alpha \in \theta ^ { \prime } )$ will be called fundamental highest weights for $P _ { \theta }$ Let
+2.3. Fundamental highest weights relative to $k$ .There is a basis of $X ( S ) \otimes \mathbf { Q }$ over $\mathbf { Q }$ consisting of elements $d _ { \alpha } \in X ( P ) ( \alpha \in \mathfrak { \Gamma } _ { k } \Delta )$ such that $( d _ { \alpha } , \beta ) =$ $c _ { \alpha } \delta _ { \alpha \beta } ( \alpha , \beta \in \mathfrak { \Gamma } _ { k } \Delta )$ where $c _ { \alpha }$ are positive integers.
+The restriction to $S _ { \theta }$ of the elements $d _ { \alpha } ( \alpha \in \theta ^ { \prime } = { \bf q } \Delta - \theta )$ form a basis of $X ( S _ { \theta } ) \otimes \mathbf { Q }$ .Let $d \in X ( S )$ be a linear combination of elements $d _ { \alpha } ( \alpha \in \theta ^ { \prime } )$ with strictly positive integral coefficients.
+Then there exists an absolutely irreducible representation $\rho \colon G $ $\mathbf { G L } ( V )$ defined over $k$ ,and a unique one-dimensional subspace $V ^ { \prime } \subset V$ stable under $P _ { \theta }$ and on which $g \in { \mathcal { P } } _ { \theta }$ acts via multiplication by $d ( g )$ [14,12.2, 12,13]. The characters $d _ { \alpha } ( \alpha \in \theta ^ { \prime } )$ will be called fundamental highest weights for $P _ { \theta }$ Let
 
 $$
 \chi _ { \mathfrak { o } } ( \mathfrak { p } ) = \operatorname* { d e t } \left( \operatorname { A d } _ { \mathfrak { u } _ { \theta } } \mathfrak { p } \right)
@@ -868,15 +959,20 @@ $$
 \left( e _ { \alpha } \in { \bf Q } ; e _ { \alpha } > 0 \right) .
 $$
 
-In fact,by definition, $\mathbb { \chi } _ { 0 }$ is the sum of the weights of $\pmb { S }$ in ${ \mathfrak { u } } _ { \theta }$ . These are the positive roots which involve at least one of the elements of $\theta ^ { \prime }$ ,each root being of course counted with its multiplicity. $\mathbb { \chi } _ { 0 }$ is stable under $N ( S ) \cap P _ { \theta }$ hence under the fundamental symmetries $s _ { \beta } ( \beta \in \theta )$ ; therefore it is orthogonal to $\theta$ ,and is a linear combination of the elements $d _ { \alpha } ( \alpha \in \theta ^ { \prime } )$ ．The coeffcient $\scriptstyle { e _ { \alpha } }$ of $d _ { \alpha }$ is equal to $( \mathbb { \chi } _ { 0 } , \alpha ) \cdot c _ { \alpha } ^ { - 1 }$ .Let $\mathbb { \chi } _ { 1 }$ be the sum of the positive elements in $[ \theta ]$ counted with their multiplicities,and ${ \chi = \chi _ { \scriptscriptstyle 0 } + \chi _ { \scriptscriptstyle 1 } }$ . Then $( \mathbb { \chi } _ { 1 } , \alpha ) \leq 0$ for $\alpha \in \theta ^ { \prime }$ and,by a standard argument $( \chi , \alpha ) > 0$ ,(in fact it is equal to $( c + 2 d ) \cdot ( \alpha , \alpha )$ where $\mathscr { c }$ and $\scriptstyle { d }$ are the multiplicities of $_ { \alpha }$ and ${ \bf 2 } \alpha$ ),hence $( \chi _ { \scriptscriptstyle 0 } , \alpha ) > 0$ and $e _ { \alpha } > 0$
+In fact,by definition, $\mathbb { \chi } _ { 0 }$ is the sum of the weights of $\pmb { S }$ in ${ \mathfrak { u } } _ { \theta }$ . These are the positive roots which involve at least one of the elements of $\theta ^ { \prime }$ ,each root being of course counted with its multiplicity.
+$\mathbb { \chi } _ { 0 }$ is stable under $N ( S ) \cap P _ { \theta }$ hence under the fundamental symmetries $s _ { \beta } ( \beta \in \theta )$ ; therefore it is orthogonal to $\theta$ ,and is a linear combination of the elements $d _ { \alpha } ( \alpha \in \theta ^ { \prime } )$ ．The coeffcient $\scriptstyle { e _ { \alpha } }$ of $d _ { \alpha }$ is equal to $( \mathbb { \chi } _ { 0 } , \alpha ) \cdot c _ { \alpha } ^ { - 1 }$ .Let $\mathbb { \chi } _ { 1 }$ be the sum of the positive elements in $[ \theta ]$ counted with their multiplicities,and ${ \chi = \chi _ { \scriptscriptstyle 0 } + \chi _ { \scriptscriptstyle 1 } }$ . Then $( \mathbb { \chi } _ { 1 } , \alpha ) \leq 0$ for $\alpha \in \theta ^ { \prime }$ and,by a standard argument $( \chi , \alpha ) > 0$ ,(in fact it is equal to $( c + 2 d ) \cdot ( \alpha , \alpha )$ where $\mathscr { c }$ and $\scriptstyle { d }$ are the multiplicities of $_ { \alpha }$ and ${ \bf 2 } \alpha$ ),hence $( \chi _ { \scriptscriptstyle 0 } , \alpha ) > 0$ and $e _ { \alpha } > 0$
 
-2.4. Restriction of relative roots. Let $\kappa$ be an overfield of $k$ ， $_ T$ a maximal $\kappa$ -split torus of $G$ containing $\boldsymbol { S }$ and $r \colon X ( T ) \longrightarrow X ( S )$ the restriction homomorphism. Two orderings of $X ( T )$ and $X ( S )$ are compatible if $\alpha > 0$ ， $r ( \alpha ) \neq 0$ imply $r ( \alpha ) > 0$ $( \alpha \in X ( T ) )$
+2.4. Restriction of relative roots.
+Let $\kappa$ be an overfield of $k$ ， $_ T$ a maximal $\kappa$ -split torus of $G$ containing $\boldsymbol { S }$ and $r \colon X ( T ) \longrightarrow X ( S )$ the restriction homomorphism.
+Two orderings of $X ( T )$ and $X ( S )$ are compatible if $\alpha > 0$ ， $r ( \alpha ) \neq 0$ imply $r ( \alpha ) > 0$ $( \alpha \in X ( T ) )$
 
 The existence of an ordering on $X ( T )$ compatible with a given ordering on $X ( S )$ is immediate [14,3.1]. Let $\kappa \Delta$ and $_ k \Delta$ be the sets of simple roots for
 
-compatible orderings. Then we have（i） $\mathbf { \Sigma } _ { k } \Delta \subset r ( \mathbf { \Sigma } _ { \kappa } \Delta ) \subset \mathbf { \Sigma } _ { k } \Delta \cup \{ 0 \}$
+compatible orderings.
+Then we have（i） $\mathbf { \Sigma } _ { k } \Delta \subset r ( \mathbf { \Sigma } _ { \kappa } \Delta ) \subset \mathbf { \Sigma } _ { k } \Delta \cup \{ 0 \}$
 
-(ii）Let $\theta \subset { } _ { k } \Delta$ ， $\psi \subset { _ { \kappa } \Delta }$ and $\alpha \in { } _ { \kappa } \Delta \cap r ^ { - 1 } ( \theta )$ . If  is connected， then $r ( \psi ) \cap _ { k } \Delta$ is connected. If $\theta$ is connected,there exists a connected subset $\theta ^ { \prime }$ of $_ { \kappa } \Delta$ containing $_ { \alpha }$ such that
+(ii）Let $\theta \subset { } _ { k } \Delta$ ， $\psi \subset { _ { \kappa } \Delta }$ and $\alpha \in { } _ { \kappa } \Delta \cap r ^ { - 1 } ( \theta )$ . If  is connected， then $r ( \psi ) \cap _ { k } \Delta$ is connected.
+If $\theta$ is connected,there exists a connected subset $\theta ^ { \prime }$ of $_ { \kappa } \Delta$ containing $_ { \alpha }$ such that
 
 $$
 \theta \subset r ( \theta ^ { \prime } ) \subset \theta \cup \{ 0 \} \ .
@@ -886,9 +982,11 @@ For the proofs, see [14,6.8,6.15,6.16]. A simple $\kappa$ -root will be said to 
 
 (iii) Let θ be a connected subset of $_ k \Delta$ , and assume there exists a unique greatest connected subset \$ of $\kappa \Delta$ such that $r ( \psi ) \cap _ { k } \Delta = \theta$ Then ${ } _ { k } L _ { \theta } = { } _ { \kappa } L _ { \psi }$ In particular, $\mathbf { \Sigma } _ { \kappa } L \mathbf { \Sigma } _ { \psi }$ is defined over $k$
 
-PROOF.Let $\beta \in { \bf \Gamma } _ { k } \Phi$ . Then the space $\mathfrak { g } _ { \beta }$ is the direct sum of the eigenspaces ${ \mathfrak { g } } _ { \alpha }$ of $_ T$ ，where $_ \alpha$ runs through the $\kappa$ -roots whose restriction to $\boldsymbol { S }$ is equal to $\beta$ . It is a standard fact about root systems that,if a root $\alpha$ is expressed as linear combination of simple roots, then the set of simple roots which occur in $\alpha$ with a non-zero coefficient is connected. Therefore if $\beta \in [ \theta ]$ and $\alpha \in { \bf \Gamma } _ { \kappa } \Phi$ restricts to $\beta$ ，then $\alpha \in [ \psi ]$ .This implies that ${ } _ { k } L _ { \theta } \subset { } _ { \kappa } L _ { \psi }$ . Moreover, $Z ( S )$ normalizes $\scriptstyle _ { k } L _ { \theta }$ ,and it is clear from the definitions that $\mathbf { \Omega } _ { \kappa } L _ { \psi } \subset Z ( S ) \cdot \mathbf { \Omega } _ { \kappa } L _ { \theta }$ . Consequently, $\scriptstyle _ { k } L _ { \theta }$ is a normal subgroup of $\scriptstyle _ { \kappa } L _ { \psi }$ . However the latter is almost $\kappa$ -simple (2.2)，whence our assertion.
+PROOF.Let $\beta \in { \bf \Gamma } _ { k } \Phi$ . Then the space $\mathfrak { g } _ { \beta }$ is the direct sum of the eigenspaces ${ \mathfrak { g } } _ { \alpha }$ of $_ T$ ，where $_ \alpha$ runs through the $\kappa$ -roots whose restriction to $\boldsymbol { S }$ is equal to $\beta$ . It is a standard fact about root systems that,if a root $\alpha$ is expressed as linear combination of simple roots, then the set of simple roots which occur in $\alpha$ with a non-zero coefficient is connected.
+Therefore if $\beta \in [ \theta ]$ and $\alpha \in { \bf \Gamma } _ { \kappa } \Phi$ restricts to $\beta$ ，then $\alpha \in [ \psi ]$ .This implies that ${ } _ { k } L _ { \theta } \subset { } _ { \kappa } L _ { \psi }$ . Moreover, $Z ( S )$ normalizes $\scriptstyle _ { k } L _ { \theta }$ ,and it is clear from the definitions that $\mathbf { \Omega } _ { \kappa } L _ { \psi } \subset Z ( S ) \cdot \mathbf { \Omega } _ { \kappa } L _ { \theta }$ . Consequently, $\scriptstyle _ { k } L _ { \theta }$ is a normal subgroup of $\scriptstyle _ { \kappa } L _ { \psi }$ . However the latter is almost $\kappa$ -simple (2.2)，whence our assertion.
 
-2.5.PROPOSITION. Let $k$ be an algebraic number field, $k _ { v }$ its completion with respect to an archimedean valuation $v$ ，and $G$ a connected reductive $k$ group. Then every maximal torus defned over $k _ { v }$ of $G$ is conjugate over $k _ { v }$ to a maximal torus defined over $k$
+2.5.PROPOSITION. Let $k$ be an algebraic number field, $k _ { v }$ its completion with respect to an archimedean valuation $v$ ，and $G$ a connected reductive $k$ group.
+Then every maximal torus defned over $k _ { v }$ of $G$ is conjugate over $k _ { v }$ to a maximal torus defined over $k$
 
 (i）We show first that,if $L$ is a connected $k$ -group, then $L _ { k }$ is dense in $( L _ { k _ { v } } ) ^ { 0 }$ in the usual topology.By [32,p.41],there exists a generically surjective rational map of an affine space into $L$ which is defined over $k$ .In other words,we may find a Zariski $k$ -open subset $U$ of an affine space,and a $k$ -morphism $f \colon U \to L$ whose image contains a non-empty Zariski $k$ -open subset $V$ of $L$ . Since we are in characteristic zero, $f$ is separable,and there exists a non-empty Zariski $k$ -open subset $U ^ { \prime }$ of $U$ such that $f \colon U _ { k _ { v } } ^ { \prime } \longrightarrow L _ { k _ { v } }$ is open.Of course $f ( U _ { k } ^ { \prime } ) \subset L _ { k }$ and $U _ { k } ^ { \prime }$ is dense in $U _ { k _ { v } } ^ { \prime }$ . Thus, $L _ { k }$ is dense in a non-empty open subset of $L _ { k _ { v } }$ ,hence in $( L _ { k _ { v } } ) ^ { 0 }$
 
@@ -896,27 +994,35 @@ PROOF.Let $\beta \in { \bf \Gamma } _ { k } \Phi$ . Then the space $\mathfrak { 
 
 2.6. CoROLLARY. Let k be a subfleld of R. Then $G$ has a maximal torus defined over k which contains a maximal R-split torus of $G$
 
-2.7.REMARks. (1) Proposition 2.5 is also valid for an arbitrary connected $k$ -group $G$ .In fact,let $U$ be the unipotent radical of $G$ and $\pi \colon G \longrightarrow G ^ { \prime } =$ $G / U$ the canonical projection. Let $T$ be a maximal torus defined over $k _ { v }$ of $G$ Then $\pi ( T )$ is a maximal torus of $G ^ { \prime } [ 9 , \ S 2 2 ]$ ,obviously defined over $k _ { v }$ . By 2.5, it is conjugate over $k _ { v }$ to a maximal torus $T ^ { \prime }$ defined over $k$ of $G ^ { \prime }$ . Since $U$ is unipotent,and $k$ is perfect, the map $G _ { k _ { v } } \longrightarrow G _ { k _ { v } } ^ { \prime }$ is surjective by Rosenlicht's crosssection theorem,whence the existence of $\boldsymbol { x } \in G _ { k _ { v } }$ such that ${ } ^ { x } T \subset \pi ^ { - 1 } ( T ^ { \prime } ) = Q$ . The group $Q$ is a connected solvable $k$ -group,hence its maximal tori defined over $k _ { v }$ are conjugate over $k _ { v }$ and one of them is defined over $k$ (see e.g.[14,11.4]; or, in characteristic zero,Borel-Mostow,Annals of Math.61 (1955),389-405).
+2.7.REMARks.
+(1) Proposition 2.5 is also valid for an arbitrary connected $k$ -group $G$ .In fact,let $U$ be the unipotent radical of $G$ and $\pi \colon G \longrightarrow G ^ { \prime } =$ $G / U$ the canonical projection.
+Let $T$ be a maximal torus defined over $k _ { v }$ of $G$ Then $\pi ( T )$ is a maximal torus of $G ^ { \prime } [ 9 , \ S 2 2 ]$ ,obviously defined over $k _ { v }$ . By 2.5, it is conjugate over $k _ { v }$ to a maximal torus $T ^ { \prime }$ defined over $k$ of $G ^ { \prime }$ . Since $U$ is unipotent,and $k$ is perfect, the map $G _ { k _ { v } } \longrightarrow G _ { k _ { v } } ^ { \prime }$ is surjective by Rosenlicht's crosssection theorem,whence the existence of $\boldsymbol { x } \in G _ { k _ { v } }$ such that ${ } ^ { x } T \subset \pi ^ { - 1 } ( T ^ { \prime } ) = Q$ . The group $Q$ is a connected solvable $k$ -group,hence its maximal tori defined over $k _ { v }$ are conjugate over $k _ { v }$ and one of them is defined over $k$ (see e.g.[14,11.4]; or, in characteristic zero,Borel-Mostow,Annals of Math.61 (1955),389-405).
 
 Proposition 2.5 is then of course also true if maximal tori are replaced by Cartan subgroups, since the latter are the centralizers of the former.
 
-(2）Although this will not be needed in this paper,we point out that, if $G$ is a connected $k$ group, $G _ { k }$ is dense in $G _ { k _ { v } }$ ,not only in $( G _ { k _ { v } } ) ^ { 0 }$ , as was shown in (i).If $k _ { v } = \mathbf { C }$ ,then $G _ { k _ { v } }$ is connected, and there is nothing new to prove. If $k _ { v } = \mathbf { R }$ ,there remains to show that $G _ { k }$ meets every connected component of $G _ { \mathbf { R } }$ . By 2.6,applied to a maximal connected reductive $k$ -subgroup of $G$ ，(or by remark (1) above), there exists a maximal torus $T$ of $G$ defined over $k$ and containing a maximal $\mathbf { R }$ -split torus of $G$ . By [14,14.4],each connected component of $G _ { \mathbf { R } }$ contains one of $T _ { \mathbf { R } }$ ，so that we are reduced to the case of a torus,where our assertion follows from a result of Serre quoted in [25, 5.1].
+(2）Although this will not be needed in this paper,we point out that, if $G$ is a connected $k$ group, $G _ { k }$ is dense in $G _ { k _ { v } }$ ,not only in $( G _ { k _ { v } } ) ^ { 0 }$ , as was shown in (i).If $k _ { v } = \mathbf { C }$ ,then $G _ { k _ { v } }$ is connected, and there is nothing new to prove.
+If $k _ { v } = \mathbf { R }$ ,there remains to show that $G _ { k }$ meets every connected component of $G _ { \mathbf { R } }$ . By 2.6,applied to a maximal connected reductive $k$ -subgroup of $G$ ，(or by remark (1) above), there exists a maximal torus $T$ of $G$ defined over $k$ and containing a maximal $\mathbf { R }$ -split torus of $G$ . By [14,14.4],each connected component of $G _ { \mathbf { R } }$ contains one of $T _ { \mathbf { R } }$ ，so that we are reduced to the case of a torus,where our assertion follows from a result of Serre quoted in [25, 5.1].
 
-In the terminology of [25], this means essentially that $G$ has the weak approximation property for archimedean valuations. As a matter of fact,it has been checked here only for one such valuation,but the case of several is easily reduced to that of one by considering the group $R _ { k / \mathbb { Q } } G$
+In the terminology of [25], this means essentially that $G$ has the weak approximation property for archimedean valuations.
+As a matter of fact,it has been checked here only for one such valuation,but the case of several is easily reduced to that of one by considering the group $R _ { k / \mathbb { Q } } G$
 
-2.8. Let $k$ be a subfield of $\mathbf { R }$ and $G$ a connected semi-simple and absolutely simple $k$ -group. Let ${ \bf \Pi } _ { \bf R } T$ be a maximal $\mathbf { R }$ -split torus of $G$ containing a maximal $k$ -split torus $_ k T$ We let $r \colon X ( \mathbf { \mathbb { R } } T ) \to X ( \mathbf { \Sigma } _ { k } T )$ be the restriction map,endow $X ( \mathbf { \Phi } _ { \mathbf { R } } T )$ and $X ( \ l _ { k } T )$ with compatible orderings,and denote by ${ \bf \Lambda } _ { k } \Delta , { \bf \Lambda } _ { \mathrm { R } } \Delta$ the corresponding sets of simple relative roots.
+2.8. Let $k$ be a subfield of $\mathbf { R }$ and $G$ a connected semi-simple and absolutely simple $k$ -group.
+Let ${ \bf \Pi } _ { \bf R } T$ be a maximal $\mathbf { R }$ -split torus of $G$ containing a maximal $k$ -split torus $_ k T$ We let $r \colon X ( \mathbf { \mathbb { R } } T ) \to X ( \mathbf { \Sigma } _ { k } T )$ be the restriction map,endow $X ( \mathbf { \Phi } _ { \mathbf { R } } T )$ and $X ( \ l _ { k } T )$ with compatible orderings,and denote by ${ \bf \Lambda } _ { k } \Delta , { \bf \Lambda } _ { \mathrm { R } } \Delta$ the corresponding sets of simple relative roots.
 
 We assume further that the riemannian symmetric space $K \backslash G _ { \mathbf { R } }$ ，where $\kappa$ is a maximal compact subgroup of $G _ { \mathbf { R } }$ ,is a bounded symmetric domain, necessarily irreducible since $G _ { \mathbf { R } }$ is simple.Then ${ \bf { \tau } } _ { \bf { R } } \Phi$ is either of type $C _ { t }$ or of type $B C _ { t }$ (1.2). In fact,the following proposition，and its proof are valid under that last assumption.On $\mathbf { \alpha } _ { \mathrm { R } } \Phi = \{ \alpha _ { 1 } , \cdots , \alpha _ { t } \}$ ，we use the canonical numbering of 1.2. For each $\beta \in { \bf \Gamma } _ { k } \Delta$ ,let $m ( \beta )$ be the greatest value of the index $\mathbf { \chi } _ { i } ^ { \bullet }$ such that $r ( \alpha _ { i } ) = \beta$ .We number the elements $\beta _ { 1 } , \cdots , \beta _ { s }$ of $_ k \Delta$ in such a way that $i < j$ if and only if $m ( \beta _ { i } ) < m ( \beta _ { i } )$ ,and then write $m ( j )$ for $m ( \beta _ { j } )$ ：
 
 2.9. PRoPosITioN. We keep the notation and assumptions of 2.8. $W e$ assume that dim $\mathbf { \nabla } _ { k } T > 0$ . Then
 
-(a） $\mathbf { \Lambda } _ { k } \Phi$ is of type $B C _ { s }$ if either ${ \bf \pi } _ { \bf R } \Phi$ is of type $B C _ { t }$ or ${ \bf { R } } ^ { \Phi }$ is of type $C _ { t }$ and $r ( \alpha _ { t } ) = 0$ ,and is of type $C _ { s }$ otherwise. The numbering of $_ { k } \Delta$ defned in 2.8 is the canonical one.
+(a） $\mathbf { \Lambda } _ { k } \Phi$ is of type $B C _ { s }$ if either ${ \bf \pi } _ { \bf R } \Phi$ is of type $B C _ { t }$ or ${ \bf { R } } ^ { \Phi }$ is of type $C _ { t }$ and $r ( \alpha _ { t } ) = 0$ ,and is of type $C _ { s }$ otherwise.
+The numbering of $_ { k } \Delta$ defned in 2.8 is the canonical one.
 
 （b）Each $\beta \in { \bf \Gamma } _ { k } \Delta$ is the restriction of one and only one simple R-root.
 
 By our choice of the numberings,any final segment $( \beta _ { i } , \cdots , \beta _ { s } )$ in $_ k \Delta$ (possibly with zero added),is the restriction of a final segment of $\mathbf { \delta R } ^ { \Delta }$ ，hence is connected (2.4).Conversely,any connected subset $\theta$ of $_ k \Delta$ containing $\beta _ { a } , \beta _ { b }$ $( a < b )$ contains $\beta _ { i }$ for every $i$ between $^ { a }$ and $b$ . In fact,there exists by 2.4 (ii) a connected subset $\theta ^ { \prime }$ of $\mathbf { \delta } _ { \mathbf { R } } \Delta$ containing $\alpha _ { m ( b ) }$ such that $\theta \subset r ( \theta ^ { \prime } ) \subset \theta \cup \{ 0 \}$ · The set $\theta ^ { \prime }$ contains then at least one simple $\mathbf { R }$ -root $\alpha _ { c }$ with $c \leq m ( a )$ . In view of the structure of $\mathbf { \delta R } ^ { \Delta }$ ,the set $\theta ^ { \prime }$ must then contain all simple $\mathbf { R }$ -roots with index $i$ between $c$ and $m ( b )$ ,hence in particular all $\mathbf { R }$ -roots $\alpha _ { m ( j ) }$ $( a \leq j \leq b )$ ）， whence our contention.
 
-This shows that the graph of $_ k \Delta$ is a chain (no branch point). $_ k \Delta$ is therefore of one of the types $A _ { s } , B _ { s } , C _ { s } , G _ { 2 } , F _ { 4 } , B C _ { s }$ ，where the first five symbols refer to the standard Cartan-Killing classification. We now distinguish some cases.
+This shows that the graph of $_ k \Delta$ is a chain (no branch point).
+$_ k \Delta$ is therefore of one of the types $A _ { s } , B _ { s } , C _ { s } , G _ { 2 } , F _ { 4 } , B C _ { s }$ ，where the first five symbols refer to the standard Cartan-Killing classification.
+We now distinguish some cases.
 
 (i） $\mathbf { \pi } _ { \mathbf { R } } \Phi$ is of type $B C _ { t }$ . In this case, the set of $\alpha \in { \bf \Gamma } _ { \bf R } \Delta$ whose double is a root spans $X ( \mathbf { \sigma } _ { \mathrm { R } } T ) \otimes \mathbf { R }$ ，hence contains at least one element $\gamma$ whose restriction is not zero.Thus $r ( \gamma )$ and $2 \cdot r ( \gamma )$ are $k$ -roots,and $_ k \Delta$ is of type $B C _ { s }$ Moreover,the highest root in $\mathbf { \delta R } ^ { \Delta }$ is $\gamma _ { 1 } = 2 ( \alpha _ { 1 } + \cdots + \alpha _ { t } )$ ; therefore,if $\beta \in { \bf \Gamma } _ { k } \Delta$ is the restriction of at least two simple $\mathbf { R }$ -roots, then $\beta$ has a coefficient $\geq 4$ in the highest $k$ -root,which is impossible in type $B C _ { s }$ .Also, $\alpha _ { m ( s ) } + \ldots + \alpha _ { t } =$ $\gamma _ { m \left( s \right) } / 2$ and its double are roots,hence $\beta _ { s }$ and $2 \beta _ { s }$ are $k$ -roots;and，by the above, the connected subsets of $_ k \Delta$ containing $\beta _ { s }$ are the final segments.This shows that our numbering is the canonical one,and ends the proof of the proposition in this case.
 
@@ -934,7 +1040,8 @@ $$
 \hat { \ d e } = 2 c _ { 1 } { \cdot \beta } _ { 1 } + \dots + 2 { \cdot } c _ { s - 1 } { \cdot \beta } _ { s - 1 } + ( 2 ( c _ { s } - 1 ) + 1 ) { \beta } _ { s } .
 $$
 
-If $c _ { i } \geq 2$ for some $i < s$ ,then there is a coefficient $\geq 4$ in $\delta$ ,and $\mathbf { \Lambda } _ { k } \Phi$ isof type $\boldsymbol { F } _ { 4 }$ .There is in this case in $\delta$ a coeffcient 3,which must then be the coefficient of $\beta _ { s }$ .However，in ${ \boldsymbol { F } } _ { 4 }$ the simple root with coefficient 3 in the highest root is not an end point of the graph. Therefore $c _ { i } = 1$ for $i < s$
+If $c _ { i } \geq 2$ for some $i < s$ ,then there is a coefficient $\geq 4$ in $\delta$ ,and $\mathbf { \Lambda } _ { k } \Phi$ isof type $\boldsymbol { F } _ { 4 }$ .There is in this case in $\delta$ a coeffcient 3,which must then be the coefficient of $\beta _ { s }$ .However，in ${ \boldsymbol { F } } _ { 4 }$ the simple root with coefficient 3 in the highest root is not an end point of the graph.
+Therefore $c _ { i } = 1$ for $i < s$
 
 Assume now that $\beta _ { s } = r ( \alpha _ { t } ) = r ( \alpha _ { j } )$ for some $j < t$ .(There is at most one such $j$ since no simple root has a coefficient $\geq 5$ in $\delta$ in the systems under consideration here).Then $\beta _ { s }$ has a coefficient $\geq 3$ and all other simple $k$ -roots have coefficient 2. This occurs only in $G _ { 2 }$ .If $m ( 1 ) < j$ ,then
 
@@ -948,7 +1055,8 @@ $$
 r \Big ( \frac { 1 } { 2 } ( \gamma _ { m ( l ) } + \gamma _ { j } ) \Big ) = 2 ( \beta _ { 1 } + \beta _ { 2 } )
 $$
 
-is a $k$ -root,which is absurd because $\beta _ { 1 } + \beta _ { 2 }$ isa $k$ -root,and $G _ { 2 }$ has no root whose double is a root. This proves that $c _ { i } = 1$ $\left( 1 \leq i \leq s \right)$ ，hence that
+is a $k$ -root,which is absurd because $\beta _ { 1 } + \beta _ { 2 }$ isa $k$ -root,and $G _ { 2 }$ has no root whose double is a root.
+This proves that $c _ { i } = 1$ $\left( 1 \leq i \leq s \right)$ ，hence that
 
 $$
 \delta = 2 ( \beta _ { 1 } + \cdots + \beta _ { s - 1 } ) + \beta _ { s } .
@@ -962,7 +1070,8 @@ $$
 \delta = 2 { \cdot } c _ { 1 } { \cdot } \beta _ { 1 } + \cdots + 2 { \cdot } c _ { s } { \cdot } \beta _ { s } .
 $$
 
-By the classification of root systems,this implies that $\mathbf { \Lambda } _ { k } \Phi$ is of type $B C _ { s }$ and that $c _ { i } = 1$ $\mathbf { \lambda } ^ { \prime } \mathbf { 1 } \triangleq i \leqq s ,$ . Furthermore, $2 \beta _ { s } = r ( \gamma _ { m ( s ) } )$ is a $k$ -root,so that again the numbering is the canonical one. This completes the proof of the proposition.
+By the classification of root systems,this implies that $\mathbf { \Lambda } _ { k } \Phi$ is of type $B C _ { s }$ and that $c _ { i } = 1$ $\mathbf { \lambda } ^ { \prime } \mathbf { 1 } \triangleq i \leqq s ,$ . Furthermore, $2 \beta _ { s } = r ( \gamma _ { m ( s ) } )$ is a $k$ -root,so that again the numbering is the canonical one.
+This completes the proof of the proposition.
 
 2.10. CoRoLLARY. (a） The proper maximal parabolic $k$ -subgroups of $G$ are also proper maximal among parabolic $\mathbf { R }$ -subgroups.
 
@@ -976,11 +1085,15 @@ PROOF OF (b). By 2.9, $\theta$ is an initial or final segment of $_ k \Delta$ ,a
 
 3.1. Let $G$ be an algebraic group defined over $\mathbf { Q }$ . A subgroup $\mathbf { \Gamma } ^ { \Gamma }$ of $G _ { \mathbf { Q } }$ is arithmetic if for one (and hence for every [13, 6.3]) faithful $\mathbf { Q }$ -morphism $\rho \colon G \longrightarrow \mathbf { G L } _ { m }$ , the group $\rho ( \Gamma )$ is commensurable with $\rho ( G ) _ { \mathbf { Z } }$
 
-We recall that, if $f \colon G \to G ^ { \prime }$ is a surjective $\mathbf { Q }$ -morphism of $G$ onto a $\mathbf { Q } \mathrm { . }$ group $G ^ { \prime }$ ，and $\mathbf { \Gamma } \Gamma$ is an arithmetic subgroup of $G$ ,then $f ( \Gamma )$ is also arithmetic. (See [13,6.11] for isogenies,[11, Th.6] for the generalization to surjective morphisms.） Since we are interested in automorphism groups of symmetric spaces,we may，without restricting generality，limit ourselves to centerless groups whenever convenient. Moreover,it follows from [13,6.11] that,if $G$ is an almost direct (or a semi-direct) product of two $\mathbf { Q }$ -subgroups $G _ { 1 } , G _ { 2 }$ and $\mathbf { \Gamma } \Gamma$ is an arithmetic subgroup of $G$ ，then $( \Gamma \cap G _ { i } )$ is an arithmetic subgroup of $G _ { i }$ $( i = 1 , 2 )$ and $( \Gamma \cap G _ { \scriptscriptstyle 1 } ) { \cdot } ( \Gamma \cap G _ { \scriptscriptstyle 2 } )$ is commensurable with $\Gamma$
+We recall that, if $f \colon G \to G ^ { \prime }$ is a surjective $\mathbf { Q }$ -morphism of $G$ onto a $\mathbf { Q } \mathrm { . }$ group $G ^ { \prime }$ ，and $\mathbf { \Gamma } \Gamma$ is an arithmetic subgroup of $G$ ,then $f ( \Gamma )$ is also arithmetic.
+(See [13,6.11] for isogenies,[11, Th.6] for the generalization to surjective morphisms.） Since we are interested in automorphism groups of symmetric spaces,we may，without restricting generality，limit ourselves to centerless groups whenever convenient.
+Moreover,it follows from [13,6.11] that,if $G$ is an almost direct (or a semi-direct) product of two $\mathbf { Q }$ -subgroups $G _ { 1 } , G _ { 2 }$ and $\mathbf { \Gamma } \Gamma$ is an arithmetic subgroup of $G$ ，then $( \Gamma \cap G _ { i } )$ is an arithmetic subgroup of $G _ { i }$ $( i = 1 , 2 )$ and $( \Gamma \cap G _ { \scriptscriptstyle 1 } ) { \cdot } ( \Gamma \cap G _ { \scriptscriptstyle 2 } )$ is commensurable with $\Gamma$
 
 Let $G$ be simple over $\mathbf { Q }$ . Then there exists an algebraic number field $k$ and an absolutely simple $k$ group $G ^ { \prime }$ such that $G = R _ { k / \mathrm { Q } } G ^ { \prime }$ [14, 6.21 (ii)], where $R _ { k / \mathbf { Q } }$ is the functor of restriction of the ground field [38, Ch.I],from $k$ to $\mathbf { Q }$
 
-3.2.LEMMA． Let $k$ be an algebraic number field. $G ^ { \prime }$ a connected semisimple and absolutely simple $k$ group, and $G = R _ { k / \mathbb { Q } } G ^ { \prime }$ . Let $\kappa$ be a maximal compact subgroup of $G _ { \mathbf { R } }$ ， $X = K \backslash G _ { \mathbb { R } }$ ，and $\Gamma$ be an arithmetic subgroup of $G$ · (a）If $\kappa$ has the same rank as $G$ , in particular if $X$ is $\pmb { a }$ bounded domain, then $k$ is totally real. （b）If $X / \Gamma$ is not compact, then $G _ { \mathbf { R } } ^ { 0 }$ has no compact factor $\neq \{ e \}$ ，and $\mathbf { r } \mathbf { k } _ { k } \left( G ^ { \prime } \right) \neq 0$
+3.2.LEMMA． Let $k$ be an algebraic number field.
+$G ^ { \prime }$ a connected semisimple and absolutely simple $k$ group, and $G = R _ { k / \mathbb { Q } } G ^ { \prime }$ . Let $\kappa$ be a maximal compact subgroup of $G _ { \mathbf { R } }$ ， $X = K \backslash G _ { \mathbb { R } }$ ，and $\Gamma$ be an arithmetic subgroup of $G$ · (a）If $\kappa$ has the same rank as $G$ , in particular if $X$ is $\pmb { a }$ bounded domain, then $k$ is totally real.
+（b）If $X / \Gamma$ is not compact, then $G _ { \mathbf { R } } ^ { 0 }$ has no compact factor $\neq \{ e \}$ ，and $\mathbf { r } \mathbf { k } _ { k } \left( G ^ { \prime } \right) \neq 0$
 
 Let $V$ be the set of normalized archimedean valuations of $k$ ,and $k _ { v }$ the completion of $k$ with respect to $v \in V$ .Then
 
@@ -1002,13 +1115,18 @@ and $K _ { \left( v \right) } = K \cap G _ { k _ { v } } ^ { \prime }$ is a maxi
 
 The groups $G _ { k _ { v } } ^ { \prime }$ are the simple factors of $G _ { \mathbf { R } }$ . If one of them is compact, then $G _ { k } ^ { \prime } \cong G _ { \mathrm { Q } }$ consists of semi-simple elements,hence $G _ { \mathbf { R } } / \Gamma$ is compact [13, 11.6],which proves (b), and $G$ has no proper $\mathbf { Q }$ -parabolic subgroup.
 
-3.3.(i） Let $X$ be a bounded symmetric domain, $H ( X )$ its group of holomorphic automorphisms and Is $( X )$ its group of isometries with respect to the underlying riemannian structure.Let $\mathfrak { h }$ be the Lie algebra of $H ( X )$ .It is known that $\operatorname { A d } \ Y = H ( X ) ^ { \circ } \subset \operatorname { I s } X = \operatorname { A u t } \ Y$ . Thus $H ( X )$ is identified with a group of finite index in the group of real points of an algebraic $\mathbf { R }$ -group, namely Aut $\mathfrak { h } _ { \mathrm { C } }$ . Assume that we have put on Aut $\mathfrak { h } _ { \mathrm { c } }$ a structure of $\mathbf { Q }$ group subordinated to its natural $\mathbf { R }$ -structure. This is equivalent to putting a $\mathbf { Q }$ structure on $\mathfrak { h }$ ; i.e.,fixing a Lie subalgebra $\mathfrak { h } _ { \mathbf { Q } }$ over $\mathbf { Q }$ of $\mathfrak { h }$ such that ${ \mathfrak { h } } =$ $\mathfrak { h } _ { \mathbf { Q } } \otimes \mathbf { q } ^ { \mathbf { R } }$ . An arithmetic subgroup $\mathbf { \Gamma } ^ { \Gamma }$ of $H ( X )$ is then an arithmetic subgroup of Aut $\mathfrak { h } _ { \mathrm { C } }$ ，viewed as a $\mathbf { Q }$ -group. More correctly，one should say that $\mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma }$ is arithmetically definable,since this definition presupposes the determination of a $\mathbf { Q }$ -structure,for which there is usually a wide choice. However,we shall just say arithmetic for the sake of brevity.It is then understood that $\operatorname { A d } { \mathfrak { h } } _ { \mathrm { C } }$ has been identified with a semi-simple $\mathbf { Q }$ group $G$ which has no center;i.e.,with $\operatorname { A d } { \mathfrak { g } } _ { \mathrm { c } }$ ,and $H ( X )$ with a subgroup of Aut ${ \mathfrak { g } } _ { \mathbf { R } }$ . The space $X$ is then the quotient of Aut ${ \mathfrak { g } } _ { \mathbf { R } }$ ,or $H ( X )$ ，or $\operatorname { A d } { \mathfrak { g } } _ { \mathbf { R } }$ , by a maximal compact subgroup.
+3.3.(i） Let $X$ be a bounded symmetric domain, $H ( X )$ its group of holomorphic automorphisms and Is $( X )$ its group of isometries with respect to the underlying riemannian structure.Let $\mathfrak { h }$ be the Lie algebra of $H ( X )$ .It is known that $\operatorname { A d } \ Y = H ( X ) ^ { \circ } \subset \operatorname { I s } X = \operatorname { A u t } \ Y$ . Thus $H ( X )$ is identified with a group of finite index in the group of real points of an algebraic $\mathbf { R }$ -group, namely Aut $\mathfrak { h } _ { \mathrm { C } }$ . Assume that we have put on Aut $\mathfrak { h } _ { \mathrm { c } }$ a structure of $\mathbf { Q }$ group subordinated to its natural $\mathbf { R }$ -structure.
+This is equivalent to putting a $\mathbf { Q }$ structure on $\mathfrak { h }$ ; i.e.,fixing a Lie subalgebra $\mathfrak { h } _ { \mathbf { Q } }$ over $\mathbf { Q }$ of $\mathfrak { h }$ such that ${ \mathfrak { h } } =$ $\mathfrak { h } _ { \mathbf { Q } } \otimes \mathbf { q } ^ { \mathbf { R } }$ . An arithmetic subgroup $\mathbf { \Gamma } ^ { \Gamma }$ of $H ( X )$ is then an arithmetic subgroup of Aut $\mathfrak { h } _ { \mathrm { C } }$ ，viewed as a $\mathbf { Q }$ -group.
+More correctly，one should say that $\mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma }$ is arithmetically definable,since this definition presupposes the determination of a $\mathbf { Q }$ -structure,for which there is usually a wide choice.
+However,we shall just say arithmetic for the sake of brevity.It is then understood that $\operatorname { A d } { \mathfrak { h } } _ { \mathrm { C } }$ has been identified with a semi-simple $\mathbf { Q }$ group $G$ which has no center;i.e.,with $\operatorname { A d } { \mathfrak { g } } _ { \mathrm { c } }$ ,and $H ( X )$ with a subgroup of Aut ${ \mathfrak { g } } _ { \mathbf { R } }$ . The space $X$ is then the quotient of Aut ${ \mathfrak { g } } _ { \mathbf { R } }$ ,or $H ( X )$ ，or $\operatorname { A d } { \mathfrak { g } } _ { \mathbf { R } }$ , by a maximal compact subgroup.
 
-The group $G$ is the direct product of its normal simple $\mathbf { Q }$ groups $G _ { i }$ $( 1 \leq i \leq m$ ，and $X$ the product of the symmetric spaces $( K \cap G _ { i \mathbf { R } } ) \backslash G _ { i \mathbf { R } } $ ，which are then also bounded symmetric domains. Let $\Gamma _ { i } = \Gamma \cap G _ { i \mathbf { R } } ^ { 0 }$ $\left( 1 \leq i \leq m \right)$ and $\Gamma ^ { \prime }$ be the subgroup generated by the $\Gamma _ { i }$ .It is arithmetic,normal,of finite index,in $\mathbf { \Gamma } ^ { \Gamma }$
+The group $G$ is the direct product of its normal simple $\mathbf { Q }$ groups $G _ { i }$ $( 1 \leq i \leq m$ ，and $X$ the product of the symmetric spaces $( K \cap G _ { i \mathbf { R } } ) \backslash G _ { i \mathbf { R } } $ ，which are then also bounded symmetric domains.
+Let $\Gamma _ { i } = \Gamma \cap G _ { i \mathbf { R } } ^ { 0 }$ $\left( 1 \leq i \leq m \right)$ and $\Gamma ^ { \prime }$ be the subgroup generated by the $\Gamma _ { i }$ .It is arithmetic,normal,of finite index,in $\mathbf { \Gamma } ^ { \Gamma }$
 
 Our problem is the compactification of $X / \Gamma$ .It turns out that the passage from $X / \Gamma ^ { \prime }$ to $X / \Gamma$ offers no difficulty (cf.8.9). Since $X / \Gamma ^ { \prime }$ is the product of the $X _ { i } / \Gamma _ { i }$ ，the essential case to consider is when $G$ is simple over $\mathbf { Q }$ ,and $\mathbf { \Gamma } \Gamma \subset G _ { \mathbf { R } } ^ { o _ { 0 } }$
 
-(ii) We introduce some notation pertaining to our main case of interest. We keep the assumption of (i),and assume moreover $G$ to be simple over $\mathbf { Q }$ and $\Gamma \subset G _ { \mathbf { R } } ^ { 0 }$ . Then $G = R _ { k / \mathbf { q } } G ^ { \prime }$ ，where $G ^ { \prime }$ is an absolutely simple $k$ -group,and $k$ a totally real number field.Let $\Sigma$ be the set of distinct isomorphisms of $k$ into $\mathbf { R }$ .There is a 1-1 correspondence between elements of $\Sigma _ { I }$ and normalized archimedean valuations of $k$ given by $| a | _ { v } = | \sigma ( a ) | ( a \in k )$ ,and we have $G _ { k _ { v } } \cong$ $( ^ { \sigma } G ^ { \prime } ) _ { \bf { R } }$ ,[38, Ch.I]. We may then also write
+(ii) We introduce some notation pertaining to our main case of interest.
+We keep the assumption of (i),and assume moreover $G$ to be simple over $\mathbf { Q }$ and $\Gamma \subset G _ { \mathbf { R } } ^ { 0 }$ . Then $G = R _ { k / \mathbf { q } } G ^ { \prime }$ ，where $G ^ { \prime }$ is an absolutely simple $k$ -group,and $k$ a totally real number field.Let $\Sigma$ be the set of distinct isomorphisms of $k$ into $\mathbf { R }$ .There is a 1-1 correspondence between elements of $\Sigma _ { I }$ and normalized archimedean valuations of $k$ given by $| a | _ { v } = | \sigma ( a ) | ( a \in k )$ ,and we have $G _ { k _ { v } } \cong$ $( ^ { \sigma } G ^ { \prime } ) _ { \bf { R } }$ ,[38, Ch.I]. We may then also write
 
 $$
 \begin{array} { r } { X = \prod _ { \sigma \in \Sigma } X _ { \sigma } , \qquad ( X _ { \sigma } = K _ { \left( \sigma \right) } \backslash ^ { \sigma } G _ { \mathsf { R } } = K _ { \left( \sigma \right) } ^ { 0 } \backslash ^ { \sigma } G _ { \mathsf { R } } ^ { 0 } ) \mathrm { ~ , ~ } } \end{array}
@@ -1018,11 +1136,13 @@ where $X _ { \sigma }$ is an irreducible symmetric bounded domain.For simplicity
 
 We assume further that if $\mathbf { \Gamma } \Gamma$ is an arithmetic subgroup of $G$ ,then $X / \Gamma$ is not compact.This implies (3.2) that no $X _ { \sigma }$ is reduced to a point and that $G ^ { \prime }$ has a non-trivial maximal $k$ -split torus,say $S ^ { \prime }$ . Then $^ \sigma { } S ^ { \prime }$ is a maximal $\sigma ( k )$ 1 split torus of $^ \sigma G ^ { \prime }$ ; there is a canonical isomorphism $\varphi _ { \sigma } \colon S ^ { \prime } \to { } ^ { \sigma } S ^ { \prime }$ which induces an isomorphism of $\mathbf { \Lambda } _ { k } \Phi$ onto $\smash { \upsilon _ { ( k ) } \Phi \bigl (  { \boldsymbol { \sigma } } G ^ { \prime } \bigr ) =  { \boldsymbol { \mathbf { \mathit { \Phi } } } } _ { k } \Phi _ { \sigma } }$ . Furthermore the maximal $\mathbf { Q }$ -split subtorus $S$ of $\boldsymbol { R _ { k / \mathrm { 2 } } } \boldsymbol { S ^ { \prime } }$ is a maximal $\mathbf { Q }$ -split torus of $G$ . It is canonically isomorphic to $S ^ { \prime }$ and is diagonally embedded in $\boldsymbol { R _ { k / \mathrm { 2 } } S ^ { \prime } }$ . This means more precisely that the projection $\mathrm { p r } _ { \sigma }$ of $\boldsymbol { S }$ into $^ \sigma G ^ { \prime }$ is the composition of the canonical isomorphisms $\varphi$ $S \longrightarrow S ^ { \prime }$ and $\varphi _ { \sigma } \colon S ^ { \prime } \to { ^ { \sigma } S ^ { \prime } }$ . The isomorphism also induces an isomorphism of $\mathbf { { \_ { Q } } } \Phi ( G )$ onto ${ } _ { k } \Phi ( G ^ { \prime } )$ . We shall identify $\mathbf { \Sigma } _ { k } \Phi ( G ^ { \prime } )$ ， $_ { \sigma ( k ) } \Phi \bigl ( \vphantom { \sqrt { } } ^ { \sigma } G ^ { \prime } \bigr )$ ,and $\mathbf { q } ^ { \Phi ( G ) }$ by means of these isomorphisms.
 
-In each group $^ \sigma G ^ { \prime }$ ， we choose a maximal $\mathbf { R }$ -split torus $T _ { \sigma } \supset { } ^ { \sigma } S ^ { \prime }$ ,contained in a maximal torus defined over $\sigma ( k )$ (apply 2.6 to $Z ( ^ { \sigma } S ^ { \prime } ) )$ . We fix an ordering on $X ( S ^ { \prime } )$ , hence,using $\varphi$ and $\varphi _ { \sigma }$ ,also an ordering on $X ( ^ { \sigma } S ^ { \prime } )$ and $X ( S )$ .For each $\sigma$ ，choose an ordering on $X ( T _ { \sigma } )$ compatible with the given one on $X ( ^ { \sigma } S ^ { \prime } )$ ，and let $r \colon X ( T _ { \sigma } ) \longrightarrow X ( ^ { \sigma } S ^ { \prime } ) \cong X ( S )$ be the restriction homomorphism. By 2.9, the canonical numbering on the set ${ \bf \delta } _ { \bf R } \Delta _ { \sigma }$ of simple $\mathbf { R }$ -roots of $G$ with respect to $T _ { \sigma }$ is compatible by restriction with the canonical numbering of $\mathbf { \_ }$ ：
+In each group $^ \sigma G ^ { \prime }$ ， we choose a maximal $\mathbf { R }$ -split torus $T _ { \sigma } \supset { } ^ { \sigma } S ^ { \prime }$ ,contained in a maximal torus defined over $\sigma ( k )$ (apply 2.6 to $Z ( ^ { \sigma } S ^ { \prime } ) )$ . We fix an ordering on $X ( S ^ { \prime } )$ , hence,using $\varphi$ and $\varphi _ { \sigma }$ ,also an ordering on $X ( ^ { \sigma } S ^ { \prime } )$ and $X ( S )$ .For each $\sigma$ ，choose an ordering on $X ( T _ { \sigma } )$ compatible with the given one on $X ( ^ { \sigma } S ^ { \prime } )$ ，and let $r \colon X ( T _ { \sigma } ) \longrightarrow X ( ^ { \sigma } S ^ { \prime } ) \cong X ( S )$ be the restriction homomorphism.
+By 2.9, the canonical numbering on the set ${ \bf \delta } _ { \bf R } \Delta _ { \sigma }$ of simple $\mathbf { R }$ -roots of $G$ with respect to $T _ { \sigma }$ is compatible by restriction with the canonical numbering of $\mathbf { \_ }$ ：
 
 Let $\mathbf { \Phi } _ { k } \Delta = \{ \beta _ { 1 } , \cdots , \beta _ { s } \}$ .For $i$ between 1 and $\pmb { s }$ ，we let $c ( i , \sigma )$ be the index of the critical simple $\mathbf { R }$ -root of $^ { \sigma } G$ restricting on $\beta _ { i }$ . Then, the remark just made shows that $i < j$ implies $c ( i , \sigma ) < c ( j , \sigma )$ for all $\sigma \in \Sigma$
 
-A sequence of elements indexed by $\Sigma _ { I }$ will often be denoted in boldface and used as a multi-index or a multi-exponent. In particular, let $b$ be between 1 and s.Then
+A sequence of elements indexed by $\Sigma _ { I }$ will often be denoted in boldface and used as a multi-index or a multi-exponent.
+In particular, let $b$ be between 1 and s.Then
 
 $$
 \begin{array} { r } { F _ { \mathfrak { b } } = \prod _ { \sigma \in \Sigma } F _ { c ( b , \sigma ) } \ , } \end{array}
@@ -1030,7 +1150,8 @@ $$
 
 is the product of the standard boundary components $F _ { c ( b , \sigma ) }$ of $X _ { \sigma }$ ，where standard refers to the choice of $T _ { \sigma }$ and $\mathbf { \delta } _ { \mathbf { R } } \Delta _ { \sigma }$ . It is also understood that the Lie algebra of $K _ { \mathfrak { o } ) }$ is orthogonal to that of $T _ { \sigma }$ . Since $c ( j , \sigma )$ is an increasing function of $j$ ,for each $\sigma$ , we have $\bar { F } _ { \mathbf { j } } \subset \bar { F } _ { \mathbf { i } }$ $( 1  { i } \le { i } \le { j } \le { s } )$ ：
 
-Let $\begin{array} { r } { F = \prod _ { \sigma } F _ { i ( \sigma ) } } \end{array}$ be a product of standard boundary components. We let $S _ { F } = \Pi S _ { i ( \sigma ) }$ be the product of the unbounded realizations associated to the $F _ { i ( \sigma ) }$ ，(1.6), $J _ { { \scriptscriptstyle F } }$ be the functional determinant in $S _ { F }$ ,and $j _ { F }$ be the functional determinant in the Harish-Chandra bounded realization of $F$ If $F = F _ { \mathbf { b } }$ we also write $S _ { \mathbf { b } } , J _ { \mathbf { b } } , j _ { \mathbf { b } }$ for $S _ { F } , J _ { F }$ and $j _ { F }$ . In the notation of 1.8,we have therefore
+Let $\begin{array} { r } { F = \prod _ { \sigma } F _ { i ( \sigma ) } } \end{array}$ be a product of standard boundary components.
+We let $S _ { F } = \Pi S _ { i ( \sigma ) }$ be the product of the unbounded realizations associated to the $F _ { i ( \sigma ) }$ ，(1.6), $J _ { { \scriptscriptstyle F } }$ be the functional determinant in $S _ { F }$ ,and $j _ { F }$ be the functional determinant in the Harish-Chandra bounded realization of $F$ If $F = F _ { \mathbf { b } }$ we also write $S _ { \mathbf { b } } , J _ { \mathbf { b } } , j _ { \mathbf { b } }$ for $S _ { F } , J _ { F }$ and $j _ { F }$ . In the notation of 1.8,we have therefore
 
 $$
 \begin{array} { r l r l } & { J _ { F } ( x , g ) = \prod _ { o } J _ { i ( o ) } ( x _ { o } , g _ { o } ) } & & { \big ( x = ( x _ { o } ) , g = ( g _ { o } ) ; x _ { o } \in X _ { o } , g _ { o } \in G _ { o } \big ) , } \\ & { j _ { F } ( x , g ) = \prod _ { o } j _ { i ( o ) } ( x _ { o } , g _ { o } ) } & & { \big ( x = ( x _ { o } ) , g = ( g _ { o } ) ; x _ { o } \in F _ { i ( o ) } , g _ { o } \in L ( F _ { o } ) \big ) . } \end{array}
@@ -1052,19 +1173,28 @@ We recall that $G ( F _ { \mathbf { b } } ) = N ( F _ { \mathbf { b } } ) / Z ( 
 
 3.4. It wil be sometimes convenient to use the following variation on the notion of arithmetic group.
 
-Let $\pi$ be a connected real Lie group. A subgroup $\mathbf { \Gamma } ^ { \Gamma }$ is of arithmetic type，or arithmetically definable, if there exists a connected $\mathbf { Q }$ group $G$ ,a continuous surjective homomorphism $f \colon G _ { \mathbf { R } } ^ { 0 } \longrightarrow H$ with compact kernel $N$ and an arithmetic subgroup $\Gamma ^ { \prime }$ of $G$ such that $f ( \Gamma ^ { \prime } ) = \Gamma$ . Since $N$ is compact, the group $\mathbf { \Gamma } \Gamma$ is then obviously discrete.
+Let $\pi$ be a connected real Lie group.
+A subgroup $\mathbf { \Gamma } ^ { \Gamma }$ is of arithmetic type，or arithmetically definable, if there exists a connected $\mathbf { Q }$ group $G$ ,a continuous surjective homomorphism $f \colon G _ { \mathbf { R } } ^ { 0 } \longrightarrow H$ with compact kernel $N$ and an arithmetic subgroup $\Gamma ^ { \prime }$ of $G$ such that $f ( \Gamma ^ { \prime } ) = \Gamma$ . Since $N$ is compact, the group $\mathbf { \Gamma } \Gamma$ is then obviously discrete.
 
-Let $\pi$ be semi-simple. It is easily seen that,without restricting generality, $G$ may be assumed to be semi-simple,and to be almost simple over $\mathbf { Q }$ if $H$ is simple. If $G$ is simple over $\mathbf { Q }$ ,and dim $N > 0$ ,then $H / \Gamma$ is compact. In fact, we have in this case $G = R _ { k / \mathbf { Q } } G ^ { \prime }$ ，where $k$ is an algebraic number field, and $G ^ { \prime }$ an absolutely simple $k$ group. The group $G _ { \mathbf { R } }$ is the product of the groups $G _ { \boldsymbol { k } _ { v } } ^ { \prime }$ where $k _ { v }$ runs through the archimedean completions of $k$ ，and these are the simple normal subgroups of $G _ { \mathbf { R } }$ . Therefore $N$ contains at least one of them, $G _ { k } ^ { \prime }$ consists of semi-simple elements,and $G _ { \mathbf { R } } / \Gamma ^ { \prime }$ is compact [13, 11.6].This implies of course the compactness of $H / \Gamma$ and of $K \backslash H / \Gamma$ ，where $\kappa$ is a compact subgroup of $H$
+Let $\pi$ be semi-simple.
+It is easily seen that,without restricting generality, $G$ may be assumed to be semi-simple,and to be almost simple over $\mathbf { Q }$ if $H$ is simple.
+If $G$ is simple over $\mathbf { Q }$ ,and dim $N > 0$ ,then $H / \Gamma$ is compact.
+In fact, we have in this case $G = R _ { k / \mathbf { Q } } G ^ { \prime }$ ，where $k$ is an algebraic number field, and $G ^ { \prime }$ an absolutely simple $k$ group.
+The group $G _ { \mathbf { R } }$ is the product of the groups $G _ { \boldsymbol { k } _ { v } } ^ { \prime }$ where $k _ { v }$ runs through the archimedean completions of $k$ ，and these are the simple normal subgroups of $G _ { \mathbf { R } }$ . Therefore $N$ contains at least one of them, $G _ { k } ^ { \prime }$ consists of semi-simple elements,and $G _ { \mathbf { R } } / \Gamma ^ { \prime }$ is compact [13, 11.6].This implies of course the compactness of $H / \Gamma$ and of $K \backslash H / \Gamma$ ，where $\kappa$ is a compact subgroup of $H$
 
-3.5. Rational boundary components. Let $G$ be a connected semi-simple $\mathbf { Q }$ -group，whose symmetric space of non-compact type, $X = K \backslash G _ { \mathrm { R } }$ ，where $\kappa$ is a maximal compact subgroup of $G _ { \mathbf { R } }$ ,is a bounded symmetric domain. For a discrete subgroup $\mathbf { \Gamma } ^ { \Gamma }$ of $G _ { \mathbf { R } }$ and a boundary component $\pmb { F }$ of $X$ ,(1.2),we let $\Gamma ( F )$ be the image of $\Gamma \cap N ( F )$ in $G ( F ) = N ( F ) / Z ( F )$ by the natural projection．The component $F$ is said to be $\mathbf { \Gamma } ^ { \Gamma }$ -rational if
+3.5. Rational boundary components.
+Let $G$ be a connected semi-simple $\mathbf { Q }$ -group，whose symmetric space of non-compact type, $X = K \backslash G _ { \mathrm { R } }$ ，where $\kappa$ is a maximal compact subgroup of $G _ { \mathbf { R } }$ ,is a bounded symmetric domain.
+For a discrete subgroup $\mathbf { \Gamma } ^ { \Gamma }$ of $G _ { \mathbf { R } }$ and a boundary component $\pmb { F }$ of $X$ ,(1.2),we let $\Gamma ( F )$ be the image of $\Gamma \cap N ( F )$ in $G ( F ) = N ( F ) / Z ( F )$ by the natural projection．The component $F$ is said to be $\mathbf { \Gamma } ^ { \Gamma }$ -rational if
 
 (i） the quotient $U ( F ) / ( U ( F ) \cap \Gamma )$ is compact, (ii) the group $\Gamma ( F )$ is discrete.
 
 Clearly a $\mathbf { \Gamma } ^ { \Gamma }$ -rational component is $\Gamma ^ { \prime }$ -rational for any group $\Gamma ^ { \prime }$ commensurable with $\mathbf { \Gamma } ^ { \Gamma }$ . In particular, if $\pmb { F }$ is $\Gamma$ -rational for one arithmetic group $\Gamma$ ,it is so for all arithmetic groups； in that case,we shall drop the prefix $\Gamma \vdash$ and speak of rational boundary components.
 
-Let now $\Gamma$ be arithmetic. We remark first that (i) is equivalent to (i） $N ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ ：
+Let now $\Gamma$ be arithmetic.
+We remark first that (i) is equivalent to (i） $N ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ ：
 
-The implication $( \mathrm { i } ) ^ { \prime }  ( \mathrm { i } )$ follows from the standard fact that,if $U$ is a unipotent $\mathbf { Q }$ group and $\Gamma$ an arithmetic subgroup of $U$ ,then $U _ { \mathbf { R } } / \Gamma$ is compact. Assume now (i) to hold． Let $V$ be the smallest algebraic subgroup of $U ( F ) _ { \mathrm { c } }$ containing $U ( F ) \cap \Gamma$ . It is invariant under all automorphisms of C,since $\Gamma \subset G _ { \mathbf { Q } }$ ,hence it is defined over $\mathbf { Q }$ . Since $U ( F ) / \Gamma$ is compact,the quotient $U _ { \mathbf { R } } / V _ { \mathbf { R } }$ is compact，too.But $U _ { \mathbf { R } }$ and $V _ { \mathbf { R } }$ are homeomorphic to euclidean spaces,hence $U ( F ) _ { \mathrm { c } } = V$ ，which shows that $U ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ .The group $N ( F ) _ { \mathrm { c } }$ ,being equal to the normalizer of its unipotent radical,is then also defined over $\mathbf { Q }$ ：
+The implication $( \mathrm { i } ) ^ { \prime }  ( \mathrm { i } )$ follows from the standard fact that,if $U$ is a unipotent $\mathbf { Q }$ group and $\Gamma$ an arithmetic subgroup of $U$ ,then $U _ { \mathbf { R } } / \Gamma$ is compact.
+Assume now (i) to hold． Let $V$ be the smallest algebraic subgroup of $U ( F ) _ { \mathrm { c } }$ containing $U ( F ) \cap \Gamma$ . It is invariant under all automorphisms of C,since $\Gamma \subset G _ { \mathbf { Q } }$ ,hence it is defined over $\mathbf { Q }$ . Since $U ( F ) / \Gamma$ is compact,the quotient $U _ { \mathbf { R } } / V _ { \mathbf { R } }$ is compact，too.But $U _ { \mathbf { R } }$ and $V _ { \mathbf { R } }$ are homeomorphic to euclidean spaces,hence $U ( F ) _ { \mathrm { c } } = V$ ，which shows that $U ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ .The group $N ( F ) _ { \mathrm { c } }$ ,being equal to the normalizer of its unipotent radical,is then also defined over $\mathbf { Q }$ ：
 
 It will turn out that $( \mathrm { i } ) ^ { \prime } \Longrightarrow ( \mathrm { i i } )$ in our case; however we have preferred to start from a definition which makes sense for any symmetric space and any Satake compactification.
 
@@ -1076,45 +1206,60 @@ Assuming (i)，we now prove that (ii)’ is implied by either of the two followi
 
 (iv） There exists a connected normal $\mathbf { Q }$ -subgroup $B$ of $N ( F ) _ { \mathrm { c } }$ ,contained in $Z ( F ) _ { \mathrm { C } } ^ { 0 }$ ,containing $U ( F ) _ { \mathrm { c } }$ ,such that $Z ( F ) / ( B _ { \mathrm { R } } \cap G _ { \mathrm { R } } ^ { \scriptscriptstyle 0 } )$ is compact.²
 
-We show,to begin with,that (ii) and (iv) are equivalent.First assume (ii).Let $\boldsymbol { \mathit { \Pi } } _ { H }$ be a maximal connected reductive $\mathbf { Q }$ -subgroup of $C$ ，and $L$ a maximal connected reductive $\mathbf { Q }$ -subgroup of $N ( F ) _ { \mathrm { c } }$ containing $H$ . We may write $L = H \cdot H ^ { \prime }$ ，with $H ^ { \prime }$ normal, defined over $Q$ ，and $H \cap H ^ { \prime }$ finite.Then $D = H ^ { \prime } { \cdot } U ( F ) _ { \mathrm { c } }$ is a normal $\mathbf { Q }$ -subgroup such that $Z ( F ) / D _ { \mathbf { R } } ^ { 0 }$ is compact. Moreover, $D _ { \mathbf { R } } \cap G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 } \subset Z ( F )$ by (1)of 1.3,whence (iv). The other implication is proved in the same way.
+We show,to begin with,that (ii) and (iv) are equivalent.First assume (ii).Let $\boldsymbol { \mathit { \Pi } } _ { H }$ be a maximal connected reductive $\mathbf { Q }$ -subgroup of $C$ ，and $L$ a maximal connected reductive $\mathbf { Q }$ -subgroup of $N ( F ) _ { \mathrm { c } }$ containing $H$ . We may write $L = H \cdot H ^ { \prime }$ ，with $H ^ { \prime }$ normal, defined over $Q$ ，and $H \cap H ^ { \prime }$ finite.Then $D = H ^ { \prime } { \cdot } U ( F ) _ { \mathrm { c } }$ is a normal $\mathbf { Q }$ -subgroup such that $Z ( F ) / D _ { \mathbf { R } } ^ { 0 }$ is compact.
+Moreover, $D _ { \mathbf { R } } \cap G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 } \subset Z ( F )$ by (1)of 1.3,whence (iv).
+The other implication is proved in the same way.
 
-Assume (iv) holds. The projection $N ( F ) { \longrightarrow } G ( F )$ is then the composition of the restriction to $N ( F )$ of the $\mathbf { Q }$ -morphism $N ( F ) _ { \mathrm { c } } \longrightarrow N ( F ) _ { \mathrm { c } } / B$ with the projection of $N ( F ) / ( B _ { \mathbf { R } } \cap G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 } )$ onto $G ( F )$ ,which has a compact kernel,whence (i)'.
+Assume (iv) holds.
+The projection $N ( F ) { \longrightarrow } G ( F )$ is then the composition of the restriction to $N ( F )$ of the $\mathbf { Q }$ -morphism $N ( F ) _ { \mathrm { c } } \longrightarrow N ( F ) _ { \mathrm { c } } / B$ with the projection of $N ( F ) / ( B _ { \mathbf { R } } \cap G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 } )$ onto $G ( F )$ ,which has a compact kernel,whence (i)'.
 
 We note finally that if $G = G _ { 1 } \times \cdots \times G _ { m }$ is a direct product of normal $\mathbf { Q }$ -subgroups,then a boundary component $F = F _ { 1 } \times \cdots \times F _ { m }$ of $X$ is rational if and only if $F _ { i }$ is a rational boundary component of $X _ { i } = ( K \cap G _ { i } ) \backslash G _ { i \mathbf { R } }$ for all $i$ . This follows immediately from the two following facts: the parabolic subgroups of $G$ are the products of the parabolic subgroups of the $G _ { i }$ ； the group I is commensurable with the product of the groups Γ ∩ Gi, which are arithmetic (3.1).
 
-3.7. THEoREM. We keep the assumption of 3.3 (i). A boundary component F of X is rational if and only if N(F)c is defined over Q. If F is rational, Γ(F) is of arithmetic type. The map F→ N(F)c defnes a bijection of the set of proper rational boundary components onto the set of proper maximal parabolic $\mathbf { Q }$ -subgroups of $G _ { \mathrm { C } }$
+3.7. THEoREM. We keep the assumption of 3.3 (i). A boundary component F of X is rational if and only if N(F)c is defined over Q. If F is rational, Γ(F) is of arithmetic type.
+The map F→ N(F)c defnes a bijection of the set of proper rational boundary components onto the set of proper maximal parabolic $\mathbf { Q }$ -subgroups of $G _ { \mathrm { C } }$
 
 By the last remark of 3.6,we may assume $G$ to be simple over $\mathbf { Q }$ .If $X / \Gamma$ is compact,where $\Gamma$ is an arithmetic group,then $\mathbf { r } \mathbf { k } _ { \mathbf { Q } } ( G ) = 0$ [13,11.4, 11.6], $G$ has no proper parabolic $\mathbf { Q }$ -subgroup [14,8.3-5],and there is no proper rational boundary component.
 
-Assume now $X / \Gamma$ to be non-compact.In the notation of 3.3 (ii),we have $G = R _ { k / \mathrm { Q } } G ^ { \prime }$ with $G ^ { \prime }$ absolutely simple and $k$ totally real. Let $F$ be a boundary component of $X$ If $\pmb { F }$ is rational, then $N ( F ) _ { \mathrm { c } }$ isa $\mathbf { Q }$ -subgroup by $3 . 5 ~ ( \mathrm { i } ) ^ { \prime }$ Assume conversely that $N ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ .We have then $N ( F ) _ { \mathrm { c } } =$ $R _ { k / \mathbf { Q } } P$ ，where $P$ is a parabolic $k$ -subgroup of $G ^ { \prime }$ ,[14,6.19],hence
+Assume now $X / \Gamma$ to be non-compact.In the notation of 3.3 (ii),we have $G = R _ { k / \mathrm { Q } } G ^ { \prime }$ with $G ^ { \prime }$ absolutely simple and $k$ totally real.
+Let $F$ be a boundary component of $X$ If $\pmb { F }$ is rational, then $N ( F ) _ { \mathrm { c } }$ isa $\mathbf { Q }$ -subgroup by $3 . 5 ~ ( \mathrm { i } ) ^ { \prime }$ Assume conversely that $N ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ .We have then $N ( F ) _ { \mathrm { c } } =$ $R _ { k / \mathbf { Q } } P$ ，where $P$ is a parabolic $k$ -subgroup of $G ^ { \prime }$ ,[14,6.19],hence
 
 $$
 \begin{array} { l } { { F = \prod _ { \sigma \in \Sigma } F _ { \sigma } \ , \qquad N ( F ) = \prod N ( F _ { \sigma } ) \ , } } \\ { { \displaystyle \left( N ( F _ { \sigma } ) = ( ^ { \sigma } P ) _ { \bf R } \cap G _ { \sigma } , \sigma \in \Sigma \right) \ , } } \end{array}
 $$
 
-where F,is a boundary component of X.. Let V' be the center of the unipotent radical V'= Ru(P) of P,and C' the connected centralizer of V'in P. The groups $V ^ { \prime } , V _ { 0 } ^ { \prime }$ and $C ^ { \prime }$ are clearly defined over $k$ .It follows immediately from the properties of the functor $R _ { k / \mathbf { Q } }$ that $C = R _ { k / \mathbf { Q } } C ^ { \prime }$ is the centralizer in N(F)c of the center V。= Rk/qV'of the unipotent radical of N(F)c,and that CR =II.C&, where C, is the connected centralizer in N(F.) of the center of $U ( F _ { \sigma } )$ . By 1.20, $C _ { \sigma }$ contains $L ( F _ { \sigma } ) \cdot U ( F _ { \sigma } )$ and the quotient $C _ { \sigma } / L ( F _ { \sigma } ) \cdot U ( F _ { \sigma } )$ is compact. Therefore condition (ii) of 3.6 is fulfilled; since, together with (i), it implies (ii),(ii)',by 3.6,our first two assertions are proved.
+where F,is a boundary component of X.. Let V' be the center of the unipotent radical V'= Ru(P) of P,and C' the connected centralizer of V'in P. The groups $V ^ { \prime } , V _ { 0 } ^ { \prime }$ and $C ^ { \prime }$ are clearly defined over $k$ .It follows immediately from the properties of the functor $R _ { k / \mathbf { Q } }$ that $C = R _ { k / \mathbf { Q } } C ^ { \prime }$ is the centralizer in N(F)c of the center V。= Rk/qV'of the unipotent radical of N(F)c,and that CR =II.C&, where C, is the connected centralizer in N(F.) of the center of $U ( F _ { \sigma } )$ . By 1.20, $C _ { \sigma }$ contains $L ( F _ { \sigma } ) \cdot U ( F _ { \sigma } )$ and the quotient $C _ { \sigma } / L ( F _ { \sigma } ) \cdot U ( F _ { \sigma } )$ is compact.
+Therefore condition (ii) of 3.6 is fulfilled; since, together with (i), it implies (ii),(ii)',by 3.6,our first two assertions are proved.
 
 Let $F$ be rational． Then $\begin{array} { r } { N ( F ) _ { \mathrm { c } } = \prod _ { \sigma } N ( F _ { \sigma } ) _ { \mathrm { c } } } \end{array}$ and $N ( F _ { \sigma } ) _ { \mathrm { c } }$ is a propermaximal parabolic $\mathbf { R }$ -subgroup of $^ \sigma G ^ { \prime }$ ，hence $N ( F ) _ { \mathrm { c } }$ is a proper maximal para-bolic $\mathbf { Q }$ -subgroup of $G$ ：
 
-Conversely, let $P$ be a proper maximal parabolic $\mathbf { Q }$ -subgroup of $G$ .We have $P = R _ { k / \mathbf { Q } } P ^ { \prime }$ ，where $P ^ { \prime }$ is a proper maximal parabolic $k$ -subgroup of $G ^ { \prime }$ ， and therefore $\begin{array} { r } { P = \Pi _ { \sigma } { } ^ { \sigma } P ^ { \prime } } \end{array}$ ，and $^ { \sigma } P ^ { \prime }$ is a proper maximal parabolic $\sigma ( k )$ -subgroup of G'. By 2.10,°P' is also a proper maximal parabolic R-subgroup of $^ { \sigma } G ^ { \prime }$ ; consequently (1.5), ${ } ^ { \sigma } P _ { \bf R } ^ { \prime } \cap G _ { \bf R } ^ { \scriptscriptstyle 0 } = N ( F _ { \sigma } )$ where $F _ { \sigma }$ is a boundary component of X,and PR ∩ Gr = N(F),(F= II F.). The boundary component Fis then rational by the first part of the theorem. Since two boundary components with the same normalizer are identical, the proof of the theorem is complete.
+Conversely, let $P$ be a proper maximal parabolic $\mathbf { Q }$ -subgroup of $G$ .We have $P = R _ { k / \mathbf { Q } } P ^ { \prime }$ ，where $P ^ { \prime }$ is a proper maximal parabolic $k$ -subgroup of $G ^ { \prime }$ ， and therefore $\begin{array} { r } { P = \Pi _ { \sigma } { } ^ { \sigma } P ^ { \prime } } \end{array}$ ，and $^ { \sigma } P ^ { \prime }$ is a proper maximal parabolic $\sigma ( k )$ -subgroup of G'. By 2.10,°P' is also a proper maximal parabolic R-subgroup of $^ { \sigma } G ^ { \prime }$ ; consequently (1.5), ${ } ^ { \sigma } P _ { \bf R } ^ { \prime } \cap G _ { \bf R } ^ { \scriptscriptstyle 0 } = N ( F _ { \sigma } )$ where $F _ { \sigma }$ is a boundary component of X,and PR ∩ Gr = N(F),(F= II F.). The boundary component Fis then rational by the first part of the theorem.
+Since two boundary components with the same normalizer are identical, the proof of the theorem is complete.
 
-3.8. THEoREM. We keep the notation and conventions of 3.3 (ii). Let³ $\theta ( b ) = \{ \beta _ { b + 1 } , \cdot \cdot \cdot , \beta _ { s } \}$ ， $L _ { b } ^ { \prime } = \mathbf { \Phi } _ { k } L _ { \theta ( b ) }$ (cf.2.2) and $L _ { b } = R _ { k / \mathbf { Q } } L _ { b } ^ { \prime }$ ， $( 1 \leq j \leq s )$ .If $b \neq s$ ， then $( L _ { b , \mathbf { R } } ) ^ { 0 } \cong L ( F _ { \mathbf { b } } )$ . In particular $L ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ is defned over $\mathbf { Q }$ ,almost $\mathbf { Q }$ -simple, and its $\mathbf { Q }$ -rank is equal to $s - b$ . For any arithmetic subgroup $\mathbf { \Gamma } ^ { \Gamma }$ of $G$ ,the quotient $F _ { \mathrm { s } } / \Gamma ( F _ { \mathrm { s } } )$ is compact. Given a rational boundary component $F$ ,there exist one and only one index $b$ $\left( 1 \leq b \leq s \right)$ ）and an element $x \in G _ { \mathbf { Q } }$ such that $F = F _ { \mathbf { b } } \cdot x$ ：
+3.8. THEoREM. We keep the notation and conventions of 3.3 (ii).
+Let³ $\theta ( b ) = \{ \beta _ { b + 1 } , \cdot \cdot \cdot , \beta _ { s } \}$ ， $L _ { b } ^ { \prime } = \mathbf { \Phi } _ { k } L _ { \theta ( b ) }$ (cf.2.2) and $L _ { b } = R _ { k / \mathbf { Q } } L _ { b } ^ { \prime }$ ， $( 1 \leq j \leq s )$ .If $b \neq s$ ， then $( L _ { b , \mathbf { R } } ) ^ { 0 } \cong L ( F _ { \mathbf { b } } )$ . In particular $L ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ is defned over $\mathbf { Q }$ ,almost $\mathbf { Q }$ -simple, and its $\mathbf { Q }$ -rank is equal to $s - b$ . For any arithmetic subgroup $\mathbf { \Gamma } ^ { \Gamma }$ of $G$ ,the quotient $F _ { \mathrm { s } } / \Gamma ( F _ { \mathrm { s } } )$ is compact.
+Given a rational boundary component $F$ ,there exist one and only one index $b$ $\left( 1 \leq b \leq s \right)$ ）and an element $x \in G _ { \mathbf { Q } }$ such that $F = F _ { \mathbf { b } } \cdot x$ ：
 
-By 2.10 (b)，we have ${ \cal L } _ { b } ^ { \prime } = { \cal L } ( F _ { c ( b , \sigma ) } ) _ { \bf C }$ for all $\sigma \in \Sigma$ . Since $\begin{array} { r } { L _ { b } = \prod _ { \sigma } { ^ { \sigma } L _ { b } ^ { \prime } } } \end{array}$ this proves the first assertion. The set $\theta ( b )$ being connected, $L _ { b } ^ { \prime }$ is almost $k$ simple,(2.2),hence $L _ { b }$ is almost $\mathbf { Q }$ -simple [14,6.21 (ii)].
+By 2.10 (b)，we have ${ \cal L } _ { b } ^ { \prime } = { \cal L } ( F _ { c ( b , \sigma ) } ) _ { \bf C }$ for all $\sigma \in \Sigma$ . Since $\begin{array} { r } { L _ { b } = \prod _ { \sigma } { ^ { \sigma } L _ { b } ^ { \prime } } } \end{array}$ this proves the first assertion.
+The set $\theta ( b )$ being connected, $L _ { b } ^ { \prime }$ is almost $k$ simple,(2.2),hence $L _ { b }$ is almost $\mathbf { Q }$ -simple [14,6.21 (ii)].
 
-For each $\pmb { \sigma }$ ,the index $c ( s , \sigma )$ is the last critical index,therefore (1.3,1.5) $Z ( F _ { \mathrm { s } } )$ contains $S _ { \mathbf { R } } ^ { \prime }$ .Let $C$ be the connected centralizer in $N ( F _ { \mathrm { s } } ) _ { \mathrm { c } }$ of the center of the unipotent radical of $N ( F _ { \mathrm { s } } ) _ { \mathrm { c } }$ . By 1.20, the intersection of ${ } ^ { \sigma } G ^ { \prime } \cap C$ with $^ \sigma { S } ^ { \prime }$ is finite for every $\sigma \in \Sigma$ . In particular, $\boldsymbol { S }$ normalizes $C$ and $S \cap C$ is finite. This implies that the $\mathbf { Q }$ -rank of $C$ is zero,for otherwise there would exist a maximal $\mathbf { Q }$ -split subtorus $_ T$ of $N ( F ) _ { \mathrm { c } }$ with dim $( T \cap C ) \neq 0$ ,and it could not be conjugate to $\boldsymbol { S }$ (since $c$ is normal),contradicting the conjugacy theorem for maximal split tori. It follows then from [14,8.5] that the unipotent elements of $C _ { \mathbf { Q } }$ all belong to the unipotent radical of $C$ ,and that $X ( C ) _ { \mathbf { Q } } = 0$ The quotient $C _ { \mathbf { R } } / ( \Gamma \cap C )$ is then compact [13,11.8]. Since the projection $N ( F _ { \mathrm { s } } ) \longrightarrow G ( F _ { \mathrm { s } } )$ maps $C _ { \mathbf { R } } ^ { 0 }$ onto $G ( F _ { \mathbf { s } } )$ and $\mathbf { \Gamma } \Gamma \cap C _ { \mathbf { R } } ^ { 0 }$ into $\Gamma ( F _ { \mathrm { s } } )$ ，we see that $G ( F _ { \mathrm { s } } ) / \Gamma ( F _ { \mathrm { s } } )$ is compact, whence our second assertion.
+For each $\pmb { \sigma }$ ,the index $c ( s , \sigma )$ is the last critical index,therefore (1.3,1.5) $Z ( F _ { \mathrm { s } } )$ contains $S _ { \mathbf { R } } ^ { \prime }$ .Let $C$ be the connected centralizer in $N ( F _ { \mathrm { s } } ) _ { \mathrm { c } }$ of the center of the unipotent radical of $N ( F _ { \mathrm { s } } ) _ { \mathrm { c } }$ . By 1.20, the intersection of ${ } ^ { \sigma } G ^ { \prime } \cap C$ with $^ \sigma { S } ^ { \prime }$ is finite for every $\sigma \in \Sigma$ . In particular, $\boldsymbol { S }$ normalizes $C$ and $S \cap C$ is finite.
+This implies that the $\mathbf { Q }$ -rank of $C$ is zero,for otherwise there would exist a maximal $\mathbf { Q }$ -split subtorus $_ T$ of $N ( F ) _ { \mathrm { c } }$ with dim $( T \cap C ) \neq 0$ ,and it could not be conjugate to $\boldsymbol { S }$ (since $c$ is normal),contradicting the conjugacy theorem for maximal split tori.
+It follows then from [14,8.5] that the unipotent elements of $C _ { \mathbf { Q } }$ all belong to the unipotent radical of $C$ ,and that $X ( C ) _ { \mathbf { Q } } = 0$ The quotient $C _ { \mathbf { R } } / ( \Gamma \cap C )$ is then compact [13,11.8]. Since the projection $N ( F _ { \mathrm { s } } ) \longrightarrow G ( F _ { \mathrm { s } } )$ maps $C _ { \mathbf { R } } ^ { 0 }$ onto $G ( F _ { \mathbf { s } } )$ and $\mathbf { \Gamma } \Gamma \cap C _ { \mathbf { R } } ^ { 0 }$ into $\Gamma ( F _ { \mathrm { s } } )$ ，we see that $G ( F _ { \mathrm { s } } ) / \Gamma ( F _ { \mathrm { s } } )$ is compact, whence our second assertion.
 
-Let $\pmb { F }$ be a rational boundary component. Then $N ( F ) _ { \mathrm { c } }$ is a proper maximal parabolic $\mathbf { Q }$ -subgroup of $G$ . On the other hand, the group $N ( F _ { \mathbf { b } } ) _ { \mathrm { c } }$ is,in the notation of 2.2, the standard parabolic group $\mathbf { \boldsymbol { \mathbf { \rho } } } _ { \mathbf { \boldsymbol { \mathbf { \mathbf { Q } } } } } P _ { \psi ( b ) }$ ， $\left( \psi ( b ) = \mathbf { { q } } \Delta - \{ \beta _ { b } \} \right.$ $b = 1 , \cdots , s )$ . The groups $\mathbf { \boldsymbol { \mathbf { \rho } } } _ { \mathbf { \boldsymbol { \mathbf { Q } } } } P _ { \psi ( \mathcal { j } ) }$ $( j = 1 , \cdots , s )$ are all the proper standard maximal parabolic $\mathbf { Q }$ -subgroups (2.2); there exists therefore one and only one $b$ for which we may find $x \in G _ { \mathbf { Q } }$ such that $x \cdot N ( F ) _ { \mathrm { C } } { \cdot } x ^ { - 1 } = N ( F _ { \mathrm { b } } ) _ { \mathrm { C } }$ .We have then $F = F _ { \mathbf { b } } \cdot x$ ，which ends the proof.
+Let $\pmb { F }$ be a rational boundary component.
+Then $N ( F ) _ { \mathrm { c } }$ is a proper maximal parabolic $\mathbf { Q }$ -subgroup of $G$ . On the other hand, the group $N ( F _ { \mathbf { b } } ) _ { \mathrm { c } }$ is,in the notation of 2.2, the standard parabolic group $\mathbf { \boldsymbol { \mathbf { \rho } } } _ { \mathbf { \boldsymbol { \mathbf { \mathbf { Q } } } } } P _ { \psi ( b ) }$ ， $\left( \psi ( b ) = \mathbf { { q } } \Delta - \{ \beta _ { b } \} \right.$ $b = 1 , \cdots , s )$ . The groups $\mathbf { \boldsymbol { \mathbf { \rho } } } _ { \mathbf { \boldsymbol { \mathbf { Q } } } } P _ { \psi ( \mathcal { j } ) }$ $( j = 1 , \cdots , s )$ are all the proper standard maximal parabolic $\mathbf { Q }$ -subgroups (2.2); there exists therefore one and only one $b$ for which we may find $x \in G _ { \mathbf { Q } }$ such that $x \cdot N ( F ) _ { \mathrm { C } } { \cdot } x ^ { - 1 } = N ( F _ { \mathrm { b } } ) _ { \mathrm { C } }$ .We have then $F = F _ { \mathbf { b } } \cdot x$ ，which ends the proof.
 
 3.9.COROLLARY. Let $\pmb { F }$ $F ^ { \prime }$ be rational boundary components of $X$ such that $F ^ { \prime } \subset \bar { F }$ Let $b$ ,c be the integers such that $F \subset F _ { \mathbf { b } } { \cdot } G _ { \mathbf { Q } }$ and $F ^ { \prime } { \subset } F _ { \mathbf { c } } { \cdot } G _ { \mathbf { Q } }$ Then there exists $g \in G _ { \mathbf { Q } }$ such that $F \mathbf { \cdot } g = F _ { \mathbf { b } } , F ^ { \prime } { \cdot } g = F _ { \mathbf { c } }$
 
 There is nothing to prove unless $b \neq c$ ； in particular, we may assume $b \neq s$ . Therefore (3.8), $L ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ is defined over $\mathbf { Q }$ ，almost $\mathbf { Q }$ -simple,and we may apply 3.8 to $X = F _ { \mathbf { b } }$ . The proof of 3.9 is then the same as that of the similar remark made in 1.5,using 3.8 to insure that u,v may be taken in $G _ { \mathbf { Q } }$ and $L ( F _ { \mathbf { b } } ) _ { \mathbf { Q } }$ respectively.
 
-3.10.REMARKs.（1）The group $G ( F _ { \mathbf { b } } )$ is the quotient of $L ( F _ { \mathbf { b } } )$ by its center，which is finite;it may be identified with the adjoint group of $L ( F _ { \mathbf { b } } )$ Thus,if $b \neq s$ ,the group $G ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ may be viewed in a canonical way as a group defined over $\mathbf { Q }$ ,in such a way that $\mathfrak { \varpi } _ { \mathfrak { b } }$ induces a $\mathbf { Q }$ -morphism of $N ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ onto $G ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ ,and that $\Gamma ( F _ { \mathbf { b } } )$ is arithmetic. The images of $P \cap L ( F _ { \mathbf { b } } ) _ { \mathbf { c } }$ and $S \cap L ( F _ { \mathbf { b } } ) _ { \mathbf { c } }$ under ${ \mathfrak { W } } _ { \mathbf { b } }$ are a minimal parabolic $\mathbf { Q }$ -subgroup and a maximal $\mathbf { Q }$ -split torus respectively.
+3.10.REMARKs.（1）The group $G ( F _ { \mathbf { b } } )$ is the quotient of $L ( F _ { \mathbf { b } } )$ by its center，which is finite;it may be identified with the adjoint group of $L ( F _ { \mathbf { b } } )$ Thus,if $b \neq s$ ,the group $G ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ may be viewed in a canonical way as a group defined over $\mathbf { Q }$ ,in such a way that $\mathfrak { \varpi } _ { \mathfrak { b } }$ induces a $\mathbf { Q }$ -morphism of $N ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ onto $G ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ ,and that $\Gamma ( F _ { \mathbf { b } } )$ is arithmetic.
+The images of $P \cap L ( F _ { \mathbf { b } } ) _ { \mathbf { c } }$ and $S \cap L ( F _ { \mathbf { b } } ) _ { \mathbf { c } }$ under ${ \mathfrak { W } } _ { \mathbf { b } }$ are a minimal parabolic $\mathbf { Q }$ -subgroup and a maximal $\mathbf { Q }$ -split torus respectively.
 
 (2） Theorem 3.8 shows,independently of 3.7, that $F$ is rational if $N ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ and conjugate to one of the groups $N ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ with $b \neq s$ .Our original proof of 3.7 consisted of 3.8 and of a separate discussion of the case $b = \pmb { \mathscr { s } }$ . The proof of 3.7 given here,which is based on 1.20,was suggested by [31].
 
-3.11. ProPosITIoN. We keep the notation and assumptions of 3.3 (ii). Let $\chi _ { \mathfrak { b } } ( g ) = \operatorname* { d e t } \mathrm { A d } _ { \mathfrak { u } } g ( g \in N ( F _ { \mathfrak { b } } ) )$ ,where $\mathfrak { u } = \mathfrak { u } ( F _ { \mathfrak { b } } )$ is the Lie algebra of $U ( F _ { \mathbf { b } } )$ ， and let $\eta _ { \mathbf { b } }$ be the restriction to $Z ( F _ { \mathbf { b } } )$ of the functional determinant $J _ { \mathbf { b } }$ . Then there exists $^ { a }$ rational number $n _ { b } > 0$ such that
+3.11. ProPosITIoN. We keep the notation and assumptions of 3.3 (ii).
+Let $\chi _ { \mathfrak { b } } ( g ) = \operatorname* { d e t } \mathrm { A d } _ { \mathfrak { u } } g ( g \in N ( F _ { \mathfrak { b } } ) )$ ,where $\mathfrak { u } = \mathfrak { u } ( F _ { \mathfrak { b } } )$ is the Lie algebra of $U ( F _ { \mathbf { b } } )$ ， and let $\eta _ { \mathbf { b } }$ be the restriction to $Z ( F _ { \mathbf { b } } )$ of the functional determinant $J _ { \mathbf { b } }$ . Then there exists $^ { a }$ rational number $n _ { b } > 0$ such that
 
 $$
 \begin{array} { c } { { \eta _ { \mathbf { b } } ( g ) = \chi _ { \mathbf { b } } ( g ) ^ { - n _ { b } } } } \\ { { | \eta _ { \mathbf { b } } ( g ) | = | \chi _ { \mathbf { b } } ( g ) | ^ { - n _ { b } } } } \end{array}
@@ -1174,15 +1319,20 @@ $$
 | J _ { \mathbf { b } } ( x , g ) | = | j _ { r } ( \sigma _ { \mathbf { b } } ( x ) , g ) | ^ { \mathfrak { q } _ { b } } | \gamma _ { \mathbf { b } } ( g ) | ^ { - n _ { b } } , \qquad ( x \in S _ { \mathbf { b } } ; g \in N ( F _ { \mathbf { b } } ) )
 $$
 
-3.13. Let $B$ be a normal connected $\mathbf { Q }$ -subgroup of $N ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ satisfying (iv) of 3.6. We may write $B$ as a semi-direct product over $\mathbf { Q }$ of $S _ { \mathbf { b } } { \cdot } U ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ by a reductive $\mathbf { Q }$ group $H$ ， Write further $H = H ^ { \prime } \cdot { \mathcal { D } } H$ as an almost direct product of its connected center $H ^ { \prime }$ by its derived group $\textcircled { 1 } H$ . We know that $Z ( F _ { \mathbf { b } } ) / \thinspace U ( F _ { \mathbf { b } } )$ is the almost direct product of $B _ { \mathrm { R } } / U ( F _ { \mathrm { b } } )$ by a compact group. Furthermore, $Z ( F _ { \mathbf { b } } ) / { _ { \mathbf { Q } } } A _ { b } \cdot U ( F _ { \mathbf { b } } )$ modulo its derived group is compact. This follows from 1.3, 1.5,applied to each factor $N ( F _ { c ( b , \sigma ) } )$ . It follows then that $B _ { \mathbf { R } } / U ( F _ { \mathbf { b } } )$ modulo its derived group is compact, therefore $H _ { \mathbf { R } } ^ { \prime }$ is compact.Since $J _ { \mathbf { b } }$ and $\chi _ { \mathbf { b } }$ are both characters on $Z ( F _ { \mathbf { b } } )$ , they are equal to one on $\mathcal { D } \pmb { H }$ ，whence the equality
+3.13. Let $B$ be a normal connected $\mathbf { Q }$ -subgroup of $N ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ satisfying (iv) of 3.6. We may write $B$ as a semi-direct product over $\mathbf { Q }$ of $S _ { \mathbf { b } } { \cdot } U ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ by a reductive $\mathbf { Q }$ group $H$ ， Write further $H = H ^ { \prime } \cdot { \mathcal { D } } H$ as an almost direct product of its connected center $H ^ { \prime }$ by its derived group $\textcircled { 1 } H$ . We know that $Z ( F _ { \mathbf { b } } ) / \thinspace U ( F _ { \mathbf { b } } )$ is the almost direct product of $B _ { \mathrm { R } } / U ( F _ { \mathrm { b } } )$ by a compact group.
+Furthermore, $Z ( F _ { \mathbf { b } } ) / { _ { \mathbf { Q } } } A _ { b } \cdot U ( F _ { \mathbf { b } } )$ modulo its derived group is compact.
+This follows from 1.3, 1.5,applied to each factor $N ( F _ { c ( b , \sigma ) } )$ . It follows then that $B _ { \mathbf { R } } / U ( F _ { \mathbf { b } } )$ modulo its derived group is compact, therefore $H _ { \mathbf { R } } ^ { \prime }$ is compact.Since $J _ { \mathbf { b } }$ and $\chi _ { \mathbf { b } }$ are both characters on $Z ( F _ { \mathbf { b } } )$ , they are equal to one on $\mathcal { D } \pmb { H }$ ，whence the equality
 
 $$
 \chi _ { \mathfrak { b } } ( g ) ^ { - n _ { b } } = J _ { \mathfrak { b } } ( x , g ) \qquad \quad \qquad ( g \in ( \mathfrak { D } H ) \cdot _ { \mathbf { Q } } A _ { \mathfrak { b } } \cdot U ( F _ { \mathfrak { b } } ) ) \ .
 $$
 
-Let now $\Gamma _ { 0 }$ be an arithmetic subgroup of $N ( F _ { \mathbf { b } } ) _ { \mathrm { c } }$ . The group $\Gamma _ { 0 } \cap H$ is commensurable with $( \Gamma _ { \circ } \cap H ^ { \prime } ) { \cdot } ( \Gamma _ { \circ } \cap { \mathcal { D } } H )$ ，where both factors are arithmetic [13; 6.4, 6.11]. Since $H _ { \mathbf { R } } ^ { \prime }$ is compact, the group $\mathbf { \Gamma } _ { 0 } \cap H ^ { \prime }$ is finite. Of course, $\chi _ { \mathbf { b } }$ takes the values $\pm 1$ on $\Gamma _ { 0 }$ . It follows then that the image of $\mathbf { \Gamma } \Gamma _ { 0 } \cap B$ under $J _ { \mathbf { b } }$ is a finite group (of roots of unity). This proves therefore the
+Let now $\Gamma _ { 0 }$ be an arithmetic subgroup of $N ( F _ { \mathbf { b } } ) _ { \mathrm { c } }$ . The group $\Gamma _ { 0 } \cap H$ is commensurable with $( \Gamma _ { \circ } \cap H ^ { \prime } ) { \cdot } ( \Gamma _ { \circ } \cap { \mathcal { D } } H )$ ，where both factors are arithmetic [13; 6.4, 6.11]. Since $H _ { \mathbf { R } } ^ { \prime }$ is compact, the group $\mathbf { \Gamma } _ { 0 } \cap H ^ { \prime }$ is finite.
+Of course, $\chi _ { \mathbf { b } }$ takes the values $\pm 1$ on $\Gamma _ { 0 }$ . It follows then that the image of $\mathbf { \Gamma } \Gamma _ { 0 } \cap B$ under $J _ { \mathbf { b } }$ is a finite group (of roots of unity).
+This proves therefore the
 
-3.14. PRoPosITIoN. We keep the previous notation. Let $\Gamma _ { 0 }$ be an arithmetic subgroup of $N ( F _ { \mathfrak { b } } ) _ { \mathrm { c } }$ . Then there exists $a$ positive integer $d$ such that
+3.14. PRoPosITIoN. We keep the previous notation.
+Let $\Gamma _ { 0 }$ be an arithmetic subgroup of $N ( F _ { \mathfrak { b } } ) _ { \mathrm { c } }$ . Then there exists $a$ positive integer $d$ such that
 
 $$
 J _ { \mathrm { b } } ( x , g \cdot \gamma ) ^ { d } = J _ { \mathrm { b } } ( x , g ) ^ { d } \qquad \quad ( x \in X , g \in N ( F _ { \mathrm { b } } ) , \gamma \in \Gamma _ { 0 } \cap B ) \ .
@@ -1190,11 +1340,13 @@ $$
 
 3.15.PROPOSITION． Let $G$ be as in 3.3(i). Assume that $G$ has no normal $\mathbf { Q }$ -subgroup of dimension 3. Then every proper rational boundary component has complex codimension $\geq 2$ ·
 
-It suffices to prove this when $G$ is simple over $\mathbf { Q }$ .If it is absolutely simple, then our assertion follows from 1.5 (ii). Let now $G$ be not absolutely simple.Then the set $\boldsymbol { \Sigma }$ of 3.3 (ii) has at least two elements.By 3.7,a rational boundary component $\pmb { F }$ is a product $\Pi _ { \sigma } F _ { \sigma }$ ，where $F _ { \sigma }$ is a proper boundary component of $X _ { \sigma }$ . We have then $\dim _ { \operatorname { C } } X _ { \sigma } - \dim _ { \operatorname { C } } F _ { \sigma } \geq 1$ for each $\sigma$ ; since card $\Sigma \geq 2$ , we are done.
+It suffices to prove this when $G$ is simple over $\mathbf { Q }$ .If it is absolutely simple, then our assertion follows from 1.5 (ii).
+Let now $G$ be not absolutely simple.Then the set $\boldsymbol { \Sigma }$ of 3.3 (ii) has at least two elements.By 3.7,a rational boundary component $\pmb { F }$ is a product $\Pi _ { \sigma } F _ { \sigma }$ ，where $F _ { \sigma }$ is a proper boundary component of $X _ { \sigma }$ . We have then $\dim _ { \operatorname { C } } X _ { \sigma } - \dim _ { \operatorname { C } } F _ { \sigma } \geq 1$ for each $\sigma$ ; since card $\Sigma \geq 2$ , we are done.
 
 # 4.Fundamental sets and compactification
 
-4.1. Let $G$ be a connected semi-simple $\mathbf { Q }$ group,and $P$ a minimal parabolic $\mathbf { Q }$ -subgroup. We write $P = M \cdot S \cdot U$ as in 2.2 and let $\mathbf { \Delta q } \Delta$ be the set of simple $\mathbf { Q }$ -roots for the ordering associated to $U$ . Since $M$ centralizes $\boldsymbol { S }$ , we also have $P = S \cdot V$ where $V = M \cdot U$ is the semi-direct product of $M$ and $U$
+4.1. Let $G$ be a connected semi-simple $\mathbf { Q }$ group,and $P$ a minimal parabolic $\mathbf { Q }$ -subgroup.
+We write $P = M \cdot S \cdot U$ as in 2.2 and let $\mathbf { \Delta q } \Delta$ be the set of simple $\mathbf { Q }$ -roots for the ordering associated to $U$ . Since $M$ centralizes $\boldsymbol { S }$ , we also have $P = S \cdot V$ where $V = M \cdot U$ is the semi-direct product of $M$ and $U$
 
 We shall often write $\mathbf { \nabla } _ { \mathbf { Q } } A$ for $S _ { \mathbf { R } } ^ { \mathbf { \omega } _ { 0 } }$ .For $t > 0$ ,let
 
@@ -1238,15 +1390,19 @@ $$
 
 4.3. Let $\Gamma$ be an arithmetic subgroup of $G$ . It is known that there exists a Siegel domain $\mathfrak { S }$ and a finite subset $C \subset G _ { \mathbf { Q } }$ such that $\Omega = \mathfrak { S } { \cdot } C$ is a fundamental set for $\mathbf { \Gamma } \Gamma$ in $X$ ；i.e.，verifies
 
-(F1) $\Omega \cdot \Gamma = X$ and (F2） given $x \in G _ { \mathbf { Q } }$ ,the set of $\gamma \in \Gamma$ for which $\Omega x \cap \Omega \gamma \neq \emptyset$ is finite (the Siegel property). (See [20]. The result is stated there for $\Omega ^ { \prime } = \pi ^ { - 1 } ( \Omega )$ in $G _ { \mathbf { R } }$ ,but this is clearly equivalent.)
+(F1) $\Omega \cdot \Gamma = X$ and (F2） given $x \in G _ { \mathbf { Q } }$ ,the set of $\gamma \in \Gamma$ for which $\Omega x \cap \Omega \gamma \neq \emptyset$ is finite (the Siegel property).
+(See [20]. The result is stated there for $\Omega ^ { \prime } = \pi ^ { - 1 } ( \Omega )$ in $G _ { \mathbf { R } }$ ,but this is clearly equivalent.)
 
 If $S = \{ e \}$ ,then $X / \Gamma$ is compact,and conversely [13,11.6,11.4]. Of course any compact set has the Siegel property (for any discontinuous group $\Gamma$ ,and any ${ \boldsymbol { x } } \in G _ { \mathbf { R } }$ in fact),so that in this case,any compact set verifying (F1) is a fundamental set.Also,in this case,a(n open) Siegel domain is just a(n open relatively) compact set.
 
-REMARK. In considering later arithmetic subgroups of $H ( X )$ ，we shall implicitly use a slight extension of these results to non-connected semi-simple groups,which is not stated in the literature,but reduces readily to the connected case. Namely,if $G ^ { \prime }$ isa $\mathbf { Q }$ -group whose connected component is $G$ ，we replace $P$ and $\kappa$ by their normalizers in $G ^ { \prime }$ and $G _ { \mathbf { R } } ^ { \prime }$ respectively.Let $\mathbf { \Gamma } ^ { \Gamma }$ be an arithmetic subgroup of $G ^ { \prime }$ ． The only non-obvious point is to see that a Siegel domain has the Siegel property in $G ^ { \prime }$ . To see this,one uses the corresponding result in $G$ and the following facts:
+REMARK. In considering later arithmetic subgroups of $H ( X )$ ，we shall implicitly use a slight extension of these results to non-connected semi-simple groups,which is not stated in the literature,but reduces readily to the connected case.
+Namely,if $G ^ { \prime }$ isa $\mathbf { Q }$ -group whose connected component is $G$ ，we replace $P$ and $\kappa$ by their normalizers in $G ^ { \prime }$ and $G _ { \mathbf { R } } ^ { \prime }$ respectively.Let $\mathbf { \Gamma } ^ { \Gamma }$ be an arithmetic subgroup of $G ^ { \prime }$ ． The only non-obvious point is to see that a Siegel domain has the Siegel property in $G ^ { \prime }$ . To see this,one uses the corresponding result in $G$ and the following facts:
 
 (i） $G _ { \mathbf { Q } } ^ { \prime }$ is generated by $G _ { \mathbf { Q } }$ and $N ( P ) _ { \mathbf { Q } }$ ，which follows from [14, $\ S 4 . 1 3 ]$ (ii)）if $h \in N ( P ) _ { \mathbf { R } }$ ,then $\mathfrak { S } \cdot h$ is contained in a Siegel domain (with respect to $K , S , P )$ ：
 
-4.4.We now assume that $G$ is simple over $\mathbf { Q } , X$ is a bounded symmetric domain, $\Gamma \subset G _ { \mathbf { R } } ^ { 0 }$ and $X / \Gamma$ is not compact. We take the notation and conventions of 3.3 (ii). In each group $G _ { \sigma }$ ，we shall use the notation of $\ S 1$ . Putting
+4.4.We now assume that $G$ is simple over $\mathbf { Q } , X$ is a bounded symmetric domain, $\Gamma \subset G _ { \mathbf { R } } ^ { 0 }$ and $X / \Gamma$ is not compact.
+We take the notation and conventions of 3.3 (ii).
+In each group $G _ { \sigma }$ ，we shall use the notation of $\ S 1$ . Putting
 
 $$
 { \bf \Phi } _ { \mathbf { R } } \Delta _ { \sigma } = \{ \alpha _ { \sigma , 1 } , \ \cdot \cdot \cdot , \alpha _ { \sigma , t _ { \sigma } } \} \ ,
@@ -1296,7 +1452,8 @@ $$
 \gamma _ { \sigma , t _ { \sigma } } ( \log a _ { \sigma } ) \leq \log t ( \mathrm { r e s p . ~ } \gamma _ { \sigma , t _ { \sigma } } ( \log a _ { \sigma } ) \leq 2 \log t ) ,
 $$
 
-if $t _ { \sigma }$ is critical; i.e., if $t _ { \sigma } = c ( s , \sigma )$ ,and if ${ \bf \nabla } _ { \bf R } \Phi _ { \sigma }$ is of type $C$ (resp. $B C$ ）
+if $t _ { \sigma }$ is critical; i.e., if $t _ { \sigma } = c ( s , \sigma )$ ,and if ${ \bf \nabla } _ { \bf R } \Phi _ { \sigma }$ is of type $C$ (resp.
+$B C$ ）
 
 The subset $\mathbf { \sigma } _ { \mathbf { Q } } A _ { t } \cdot \omega ^ { \prime } = \mathfrak { S } ^ { \prime } \cap P$ is contained in every standard parabolic subgroup,in particular in the groups $N ( F _ { \mathbf { b } } )$ .From 3.8 and the construction of the groups $L ( F _ { \mathbf { b } } )$ ，we deduce immediately the following assertion: For $b \neq s$ ， ${ \mathfrak { S } } ^ { \prime } \cap L ( F _ { \mathbf { b } } )$ is a Siegel domain of $L ( F _ { \mathbf { b } } )$ with respect to $K \cap L ( F _ { \mathbf { b } } )$ ， $S \cap L ( F _ { \mathbf { b } } )$ ， and $U \cap L ( F _ { \mathbf { b } } )$ ; its image under $\mathfrak { \varpi } _ { \mathfrak { b } }$ is a Siegel domain of $G ( F _ { \mathbf { b } } )$ ; and
 
@@ -1310,7 +1467,8 @@ If $b = s$ ,then $F _ { \mathbf { b } } / \Gamma ( F _ { \mathbf { b } } )$ is c
 
 4.5. LEMMA. We keep the assumptions and notation of 4.4. The closure $\mathfrak { S }$ of a Siegel domain $\mathfrak { S }$ , in the natural compactifcation of $X$ , is contained in the union of the standard rational boundary components $F _ { \mathbf { b } }$ $\quad 0 \leq b \leq s , $ ). The intersection $F _ { \mathbf { b } } \cap \widetilde { \mathcal { S } }$ is equal to $O _ { \mathbf { b } } \cdot \widetilde { \mathbf { \Gamma } } { \boldsymbol { \mathbf { \mathit { w } } } } _ { \mathbf { \mathbf { \mathbf { \mathbf { b } } } } } ( \widetilde { \mathbf { \mathcal { S } } } ^ { \prime } )$ and is $a$ Siegel domain in $F _ { \mathbf { b } }$ $\left( 0 \leq b \leq s \right)$ ; moreover，any Siegel domain in $F _ { \mathbf { b } }$ is contained in $a$ Siegel domain obtained in this way by taking $\mathfrak { S }$ itself sufficiently large.
 
-Let $\pmb { a } _ { \nu }$ and $v _ { \nu }$ $( \mathfrak { z } = \mathbf { 1 } , \mathbf { 2 } , \cdots )$ ）be sequences of elements in ${ \bf _ { Q } } A _ { t }$ and $\omega$ respectively. We may assume that $v _ { \nu } \longrightarrow v$ and that $\operatorname* { l i m } a _ { \nu } ^ { \beta _ { j } } = d _ { j }$ exists for every $j \le s$ . If all the $d _ { j }$ are $> 0$ ,then $o \cdot a _ { \nu } \cdot v _ { \nu }$ tends to a point of $\mathfrak { S }$ itself.Otherwise let $b$ be the greatest index such that $d _ { b } = 0$ . It follows from 4.4 that
+Let $\pmb { a } _ { \nu }$ and $v _ { \nu }$ $( \mathfrak { z } = \mathbf { 1 } , \mathbf { 2 } , \cdots )$ ）be sequences of elements in ${ \bf _ { Q } } A _ { t }$ and $\omega$ respectively.
+We may assume that $v _ { \nu } \longrightarrow v$ and that $\operatorname* { l i m } a _ { \nu } ^ { \beta _ { j } } = d _ { j }$ exists for every $j \le s$ . If all the $d _ { j }$ are $> 0$ ,then $o \cdot a _ { \nu } \cdot v _ { \nu }$ tends to a point of $\mathfrak { S }$ itself.Otherwise let $b$ be the greatest index such that $d _ { b } = 0$ . It follows from 4.4 that
 
 $$
 \gamma _ { \sigma , i } ( \log a _ { \nu , \sigma } ) \to - \infty
@@ -1336,9 +1494,11 @@ Conversely, given $x \in \sigma _ { \mathbf { b } } \cdot \pi ( \mathbf { q } A 
 
 The following lemma is the analogue,in the present context,of Lemma 1 in [33].
 
-4.6. LEMmA. We keep the assumptions of 4.4. Let $\mathfrak { S }$ be a Siegel domain in $X$ ,C a finite subset of $G _ { \mathbf { Q } }$ ，and $\Omega = \mathfrak { S } { \cdot } C$ . Then $\bar { \Omega }$ is contained in the union of fnitely many rational boundary components. There exist finitely many elements $\gamma _ { i } \in \Gamma$ $\mathbf { 1 } \cong i \cong q$ ） having the following property: for every $\gamma \in \Gamma$ such that $\bar { \Omega } \gamma \cap \bar { \Omega } \neq \emptyset$ , there exists $\gamma _ { j }$ verifying the condition $a \cdot \gamma _ { j } =$ $a \cdot \gamma$ for every $a \in \overline { { \Omega } } \gamma ^ { - 1 } \cap \overline { { \Omega } }$
+4.6. LEMmA. We keep the assumptions of 4.4. Let $\mathfrak { S }$ be a Siegel domain in $X$ ,C a finite subset of $G _ { \mathbf { Q } }$ ，and $\Omega = \mathfrak { S } { \cdot } C$ . Then $\bar { \Omega }$ is contained in the union of fnitely many rational boundary components.
+There exist finitely many elements $\gamma _ { i } \in \Gamma$ $\mathbf { 1 } \cong i \cong q$ ） having the following property: for every $\gamma \in \Gamma$ such that $\bar { \Omega } \gamma \cap \bar { \Omega } \neq \emptyset$ , there exists $\gamma _ { j }$ verifying the condition $a \cdot \gamma _ { j } =$ $a \cdot \gamma$ for every $a \in \overline { { \Omega } } \gamma ^ { - 1 } \cap \overline { { \Omega } }$
 
-By 4.5, $\bar { \Omega }$ is contained in the union of the boundary components $F _ { \mathbf { b } } { \cdot } c ( c \in C )$ which are all rational. Moreover, if we put $\mathfrak { T } _ { b } = \mathfrak { S } \cap F _ { \mathfrak { b } }$ ,then we may write $\bar { \Omega } = \cup _ { \lambda } \mathfrak { T } _ { \lambda } { \cdot } c _ { \lambda }$ where $\lambda$ runs through a finite set $\Lambda , c _ { \lambda } \in C$ ,and $\mathfrak { T } _ { \lambda } = \mathfrak { T } _ { b ( \lambda ) }$ for a suitable $b ( \lambda )$ . Thus ${ \mathfrak { T } } _ { \lambda }$ is a Siegel domain of $F _ { b ( \lambda ) }$ and has the Siegel property (4.4, 4.5).
+By 4.5, $\bar { \Omega }$ is contained in the union of the boundary components $F _ { \mathbf { b } } { \cdot } c ( c \in C )$ which are all rational.
+Moreover, if we put $\mathfrak { T } _ { b } = \mathfrak { S } \cap F _ { \mathfrak { b } }$ ,then we may write $\bar { \Omega } = \cup _ { \lambda } \mathfrak { T } _ { \lambda } { \cdot } c _ { \lambda }$ where $\lambda$ runs through a finite set $\Lambda , c _ { \lambda } \in C$ ,and $\mathfrak { T } _ { \lambda } = \mathfrak { T } _ { b ( \lambda ) }$ for a suitable $b ( \lambda )$ . Thus ${ \mathfrak { T } } _ { \lambda }$ is a Siegel domain of $F _ { b ( \lambda ) }$ and has the Siegel property (4.4, 4.5).
 
 For each pair $\lambda$ ， $\mu \in \Lambda$ for which there exists $\gamma \in \Gamma$ verifying
 
@@ -1352,7 +1512,9 @@ $$
 \mathfrak { T } _ { \lambda } \cdot \mathfrak { m } _ { b } ( d _ { \lambda \mu } ) \cdot \mathfrak { m } _ { b } ( e _ { \lambda \mu } ( \gamma ) ) \cap \mathfrak { T } _ { \lambda } \neq \emptyset \ .
 $$
 
-If $b = s$ ,then ${ \mathfrak { T } } _ { \lambda }$ is relatively compact,and has trivially the Siegel property for any discontinuous group. If $b \neq \pmb { s }$ ,then $\mathcal { \widetilde { \mathbf { \Gamma } } } _ { \overline { { \mathbf { \Gamma } } } } ^ { \overline { { \mathbf { \Gamma } } } _ { b } }$ is canonically a $\mathbf { Q }$ -morphism (3.10 (1)). Since $c _ { \mu } \cdot \Gamma \cdot c _ { \mu } ^ { - 1 }$ is arithmetic [13, $\ S 6 . 4 ]$ and ${ \mathfrak { T } } _ { \lambda }$ is a Siegel domain (4.4)，the Siegel property obtains. In both cases,it shows that there are only finitely many possibilities for $\mathfrak { \varpi } _ { b } ( e _ { \lambda \mu } ( \gamma ) )$ when $\gamma$ varies through the elements of $\Gamma$ verifying (1). We have thus shown the existence of a finite subset $D _ { \lambda }$ of $c _ { \lambda } ^ { - 1 } ( { \cal N } ( F _ { { \bf b } ( \lambda ) } ) _ { \bf Q } ) c _ { \mu }$ such that (1) implies the existence of $\tau ( \gamma ) \in D _ { \lambda }$ verifying
+If $b = s$ ,then ${ \mathfrak { T } } _ { \lambda }$ is relatively compact,and has trivially the Siegel property for any discontinuous group.
+If $b \neq \pmb { s }$ ,then $\mathcal { \widetilde { \mathbf { \Gamma } } } _ { \overline { { \mathbf { \Gamma } } } } ^ { \overline { { \mathbf { \Gamma } } } _ { b } }$ is canonically a $\mathbf { Q }$ -morphism (3.10 (1)). Since $c _ { \mu } \cdot \Gamma \cdot c _ { \mu } ^ { - 1 }$ is arithmetic [13, $\ S 6 . 4 ]$ and ${ \mathfrak { T } } _ { \lambda }$ is a Siegel domain (4.4)，the Siegel property obtains.
+In both cases,it shows that there are only finitely many possibilities for $\mathfrak { \varpi } _ { b } ( e _ { \lambda \mu } ( \gamma ) )$ when $\gamma$ varies through the elements of $\Gamma$ verifying (1). We have thus shown the existence of a finite subset $D _ { \lambda }$ of $c _ { \lambda } ^ { - 1 } ( { \cal N } ( F _ { { \bf b } ( \lambda ) } ) _ { \bf Q } ) c _ { \mu }$ such that (1) implies the existence of $\tau ( \gamma ) \in D _ { \lambda }$ verifying
 
 $$
 x \cdot \tau ( \gamma ) = x \cdot \gamma ~ ,
@@ -1368,7 +1530,8 @@ This means that,if ${ \bar { \Omega } } \cdot \gamma \cap { \bar { \Omega } } \n
 
 By 4.6, we have ${ \overline { { \Omega } } } \subset X ^ { * }$ ,and hence ${ \bar { \Omega } } \cdot G _ { \mathbf { Q } } \subset X ^ { * }$ ,for every fundamental set of the type considered in 4.2.
 
-By 4.2,4.3,and 4.5， there exists a fundamental set $\Omega$ such that $\smash { \overline { { \Omega } } \cap F _ { \mathbf { b } } }$ is a fundamental set for $\Gamma ( F _ { \mathbf { b } } )$ $( 0 \leq b \leq s )$ ). For this set we have then $F _ { \mathbf { b } } \subset \bar { \Omega } ( \Gamma \cap N ( F _ { \mathbf { b } } ) )$ . Let now $\pmb { F }$ be a rational boundary component. There exists $c \in G _ { \mathbf { Q } }$ and $^ { b }$ such that $F = F _ { \mathbf { b } } { \cdot } c$ (3.8).Let $\gamma \in N ( F _ { \mathfrak { b } } ) \cap \Gamma$ By the Siegel property, there exists a finite subset $D$ of $\Gamma$ (depending on $\gamma$ ，such that
+By 4.2,4.3,and 4.5， there exists a fundamental set $\Omega$ such that $\smash { \overline { { \Omega } } \cap F _ { \mathbf { b } } }$ is a fundamental set for $\Gamma ( F _ { \mathbf { b } } )$ $( 0 \leq b \leq s )$ ). For this set we have then $F _ { \mathbf { b } } \subset \bar { \Omega } ( \Gamma \cap N ( F _ { \mathbf { b } } ) )$ . Let now $\pmb { F }$ be a rational boundary component.
+There exists $c \in G _ { \mathbf { Q } }$ and $^ { b }$ such that $F = F _ { \mathbf { b } } { \cdot } c$ (3.8).Let $\gamma \in N ( F _ { \mathfrak { b } } ) \cap \Gamma$ By the Siegel property, there exists a finite subset $D$ of $\Gamma$ (depending on $\gamma$ ，such that
 
 $$
 \Omega \cdot \gamma \cdot c \subset \Omega \cdot D \ .
@@ -1394,9 +1557,12 @@ and $X ^ { \ast } \subset \overline { { \Omega } } \cdot \Gamma$ ，which comple
 
 (iv) For each $x \in X ^ { * }$ , there exists a fundamental set of neighborhoods $\{ U \}$ of x such that $U { \cdot } \gamma = U$ if $\gamma \in \Gamma _ { x }$ ，and $U { \cdot } \gamma \cap U = \emptyset \ i f \ \gamma \not \in \Gamma _ { x }$
 
-PROOF.We wish to appeal to Theorem ${ \bf \Phi } _ { { \bf 1 } } \prime$ of [33]. We first consider a fundamental set as in 4.8,used to define the topology. As was remarked in 4.8,every element of $H ( X ) _ { \mathbf { Q } }$ operates continuously on $X ^ { \ast }$ ， viewed as a subspace of $\bar { X }$ in the natural topology,and this implies condition (2) of Theorem ${ \bf \vec { \mathbf { \mathbf { \mathbf { \mathbf { \mathbf { \mathbf { \Lambda } } } } } } } } ^ { \prime }$ ,loc.cit．As to the condition (3),it is just Lemma 4.6.Thus,Theorem $_ { 1 ^ { \prime } }$ applies.Also,by [33,Remark 2,p. 563], the topology induced by $\mathcal { S } ( \Omega , \Gamma )$ on $X$ is the natural one. This proves 4.9, with $H ( X ) _ { \mathbf { Q } }$ replaced by $\mathbf { \Gamma } ^ { \mathbf { \Gamma } }$ in (ii).
+PROOF.We wish to appeal to Theorem ${ \bf \Phi } _ { { \bf 1 } } \prime$ of [33]. We first consider a fundamental set as in 4.8,used to define the topology.
+As was remarked in 4.8,every element of $H ( X ) _ { \mathbf { Q } }$ operates continuously on $X ^ { \ast }$ ， viewed as a subspace of $\bar { X }$ in the natural topology,and this implies condition (2) of Theorem ${ \bf \vec { \mathbf { \mathbf { \mathbf { \mathbf { \mathbf { \mathbf { \Lambda } } } } } } } } ^ { \prime }$ ,loc.cit．As to the condition (3),it is just Lemma 4.6.Thus,Theorem $_ { 1 ^ { \prime } }$ applies.Also,by [33,Remark 2,p. 563], the topology induced by $\mathcal { S } ( \Omega , \Gamma )$ on $X$ is the natural one.
+This proves 4.9, with $H ( X ) _ { \mathbf { Q } }$ replaced by $\mathbf { \Gamma } ^ { \mathbf { \Gamma } }$ in (ii).
 
-Let now $c \in H ( X ) _ { \mathbf { Q } }$ ,and let $\Omega$ be a fundamental set for $c { \cdot } \Gamma { \cdot } c ^ { - 1 } \cap \Gamma$ .It is also one for $\mathbf { \Gamma } ^ { \mathbf { \Gamma } }$ and $c \cdot \Gamma \cdot c ^ { - 1 }$ in view of the Siegel property. It follows directly from the definitions,and from the fact that $c$ acts continuously on $\overleftarrow { X }$ ，that $c$ carries $\mathcal { S } ( c \cdot \Gamma \cdot c ^ { - 1 } , \Omega )$ onto $\operatorname { \mathbb { S } } ( \Gamma , \Omega \cdot c )$ ．However,as pointed out in [33,Remark 3,p. 563], these two topologies of $X ^ { * }$ are identical,whence (ii).
+Let now $c \in H ( X ) _ { \mathbf { Q } }$ ,and let $\Omega$ be a fundamental set for $c { \cdot } \Gamma { \cdot } c ^ { - 1 } \cap \Gamma$ .It is also one for $\mathbf { \Gamma } ^ { \mathbf { \Gamma } }$ and $c \cdot \Gamma \cdot c ^ { - 1 }$ in view of the Siegel property.
+It follows directly from the definitions,and from the fact that $c$ acts continuously on $\overleftarrow { X }$ ，that $c$ carries $\mathcal { S } ( c \cdot \Gamma \cdot c ^ { - 1 } , \Omega )$ onto $\operatorname { \mathbb { S } } ( \Gamma , \Omega \cdot c )$ ．However,as pointed out in [33,Remark 3,p. 563], these two topologies of $X ^ { * }$ are identical,whence (ii).
 
 In the sequel we shall also write $\mathfrak { S }$ for $\mathbb { S } ( \Omega , \Gamma )$
 
@@ -1406,21 +1572,34 @@ We let $\mathfrak { S }$ and $\mathcal { T }$ denote respectively the Satake top
 
 Let now $F ^ { \prime } \cap U \neq \emptyset$ .There exist then $\gamma \in \Gamma _ { x }$ and an index $i$ such that $F ^ { \prime } \cap U _ { i } \cdot \gamma \neq \emptyset$ ，whence $F ^ { \prime } { \cdot } \gamma ^ { - 1 } { \cdot } \gamma _ { i } \cap U _ { i } { \cdot } \gamma _ { i } { \neq } \emptyset$ ； by the condition just imposed $\mathsf { o n } U _ { i }$ ,this implies that $x \cdot y _ { i }$ belongs to the closure of $F ^ { \prime } { \cdot } \gamma ^ { - 1 } { \cdot } \gamma _ { i } \cap \bar { \Omega }$ , either in $\mathfrak { S }$ or $\mathcal { T }$ since both coincide on $\bar { \Omega }$
 
-Consequently $x$ belongs to the closure of $F ^ { \prime } { \cdot } \gamma ^ { - 1 }$ ,and hence to that of $F ^ { \prime }$ in both $\mathfrak { S }$ and $\mathcal { T }$ . This proves our first assertion and shows that if $x$ belongs to the closure of $F ^ { \prime }$ in $\mathfrak { S }$ ,then it does so in $\mathcal { T }$ ,too. To prove the converse, we may assume $G$ to be $\mathbf { Q }$ -simple,and $F = F _ { \mathbf { b } }$ to be standard. Then $\textstyle F _ { \mathrm { c } } \left( c \geq b \right)$ belongs to the closure of $F _ { \mathbf { b } }$ in both the $\mathfrak { S }$ and the $\mathcal { T }$ topologies.
+Consequently $x$ belongs to the closure of $F ^ { \prime } { \cdot } \gamma ^ { - 1 }$ ,and hence to that of $F ^ { \prime }$ in both $\mathfrak { S }$ and $\mathcal { T }$ . This proves our first assertion and shows that if $x$ belongs to the closure of $F ^ { \prime }$ in $\mathfrak { S }$ ,then it does so in $\mathcal { T }$ ,too.
+To prove the converse, we may assume $G$ to be $\mathbf { Q }$ -simple,and $F = F _ { \mathbf { b } }$ to be standard.
+Then $\textstyle F _ { \mathrm { c } } \left( c \geq b \right)$ belongs to the closure of $F _ { \mathbf { b } }$ in both the $\mathfrak { S }$ and the $\mathcal { T }$ topologies.
 
 Let $F ^ { \prime }$ be a rational boundary component contained in the $\mathcal { T }$ -closure of $F$ ，There exist $c \geq b$ and $g \in N ( F ) _ { \mathbf { Q } }$ such that $F ^ { \prime } { \cdot } g = F _ { \mathrm { { c } } }$ (3.8, 3.9). Since $g$ defines a homeomorphism in the $\mathfrak { S }$ -topology (4.9 (i))，it follows that $F ^ { \prime }$ is also in the $\mathfrak { S }$ -closure of $\pmb { F }$
 
-4.11. COROLLARY. The quotient $V ^ { * } = X ^ { * } / \Gamma$ ,endowed with the quotient topology，is a compact Hausdorf space. $V = X / \Gamma$ is an open everywhere dense subset. $V ^ { * }$ is the finite union of subspaces $V _ { i } = F _ { i } / \Gamma ( F _ { i } )$ ,where $\boldsymbol { F } _ { i }$ runs through $^ { a }$ set of representatives of equivalence classes modulo $\mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma }$ of rational boundary components. The closure of $V _ { i }$ is the union of $V _ { i }$ and of subspaces $V _ { j }$ of strictly smaller dimension.
+4.11. COROLLARY. The quotient $V ^ { * } = X ^ { * } / \Gamma$ ,endowed with the quotient topology，is a compact Hausdorf space.
+$V = X / \Gamma$ is an open everywhere dense subset.
+$V ^ { * }$ is the finite union of subspaces $V _ { i } = F _ { i } / \Gamma ( F _ { i } )$ ,where $\boldsymbol { F } _ { i }$ runs through $^ { a }$ set of representatives of equivalence classes modulo $\mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma } \mathbf { \Gamma }$ of rational boundary components.
+The closure of $V _ { i }$ is the union of $V _ { i }$ and of subspaces $V _ { j }$ of strictly smaller dimension.
 
-The first three assertions are obvious consequences of 4.9 and 4.10,once it is shown that,when $G$ is $\mathbf { Q }$ -simple, $F _ { \mathbf { b } } { \cdot } H ( X ) _ { \mathbf { Q } } / \Gamma$ is covered by the images of finitely many rational boundary components. Let $\Omega = \mathfrak { S } { \cdot } C$ be the fundamental set of 4.7, where $\mathfrak { S }$ is a Siegel domain and $C$ a finite subset of $G _ { \mathbf { Q } }$ Let $F$ be a rational boundary component of type $F _ { \mathbf { b } }$ . There exist $c \in C$ and $\gamma \in \Gamma$ such that $\vec { \mathfrak { S } } { \cdot } c { \cdot } \gamma \cap F \not = \emptyset$ .But the intersection of $\hat { \mathfrak { S } }$ with the orbit of $F _ { \mathbf { b } }$ under $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ is contained in $F _ { \mathbf { b } }$ by 4.5; therefore, $F _ { \mathbf { b } } { \cdot } c { \cdot } \gamma \cap F \neq \emptyset$ ,and $F _ { \mathbf { b } } { \cdot } c { \cdot } \gamma = F $ ，so that $F _ { \mathbf { b } } { \cdot } H ( X ) _ { \mathbf { Q } } / \Gamma$ is a quotient of $F _ { \mathbf { b } } { \cdot } C$
+The first three assertions are obvious consequences of 4.9 and 4.10,once it is shown that,when $G$ is $\mathbf { Q }$ -simple, $F _ { \mathbf { b } } { \cdot } H ( X ) _ { \mathbf { Q } } / \Gamma$ is covered by the images of finitely many rational boundary components.
+Let $\Omega = \mathfrak { S } { \cdot } C$ be the fundamental set of 4.7, where $\mathfrak { S }$ is a Siegel domain and $C$ a finite subset of $G _ { \mathbf { Q } }$ Let $F$ be a rational boundary component of type $F _ { \mathbf { b } }$ . There exist $c \in C$ and $\gamma \in \Gamma$ such that $\vec { \mathfrak { S } } { \cdot } c { \cdot } \gamma \cap F \not = \emptyset$ .But the intersection of $\hat { \mathfrak { S } }$ with the orbit of $F _ { \mathbf { b } }$ under $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ is contained in $F _ { \mathbf { b } }$ by 4.5; therefore, $F _ { \mathbf { b } } { \cdot } c { \cdot } \gamma \cap F \neq \emptyset$ ,and $F _ { \mathbf { b } } { \cdot } c { \cdot } \gamma = F $ ，so that $F _ { \mathbf { b } } { \cdot } H ( X ) _ { \mathbf { Q } } / \Gamma$ is a quotient of $F _ { \mathbf { b } } { \cdot } C$
 
 The last assertion of the corollary follows from 4.10,because in $\bar { X }$ ,the closure of a boundary component $F$ is the union of $F$ and of boundary components of strictly smaller dimension (1.5).
 
-REMARk. The proper rational boundary components correspond to the proper maximal parabolic $\mathbf { Q }$ -subgroups (3.7). Since parabolic $\mathbf { Q }$ -subgroups are conjugate if and only if they are conjugate by an element of $G _ { \mathbf { Q } }$ (2.2), the $V _ { i }$ 's of the corollary are in one-to-one correspondence with the orbits of $\Gamma$ in $G _ { \mathbf { Q } } / P _ { \mathbf { Q } }$ ，where $P$ runs through the standard maximal parabolic $\mathbf { Q }$ -subgroups.
+REMARk.
+The proper rational boundary components correspond to the proper maximal parabolic $\mathbf { Q }$ -subgroups (3.7). Since parabolic $\mathbf { Q }$ -subgroups are conjugate if and only if they are conjugate by an element of $G _ { \mathbf { Q } }$ (2.2), the $V _ { i }$ 's of the corollary are in one-to-one correspondence with the orbits of $\Gamma$ in $G _ { \mathbf { Q } } / P _ { \mathbf { Q } }$ ，where $P$ runs through the standard maximal parabolic $\mathbf { Q }$ -subgroups.
 
-Let $G$ be the quotient of the symplectic group $\mathbf { S p } ( 2 n , \mathbf { C } )$ by its center, and $\boldsymbol { \Gamma } = \bf { S p } ( 2 n , Z )$ be Siegel's modular group. The proper maximal parabolic $\mathbf { Q }$ -subgroups are the stability groups of the rational isotropic subspaces. It is elementary that two rational isotropic subspaces of the same dimension $q$ are transforms of each other by an element of $\mathbf { \Gamma } \Gamma$ ， so that we have $G _ { \mathbf { Q } } = \Gamma \cdot P _ { \mathbf { Q } }$ for every maximal parabolic $\mathbf { Q }$ -subgroup. The boundary component corresponding to such a subspace is isomorphic to Siegel's upper half-plane of degree $q$ and thus $V ^ { * } = \cap _ { \mathfrak { s } q \leq n } V _ { q }$ ，where $V _ { q }$ is the quotient of the Siegel upper half plane of degree $q$ by the corresponding modular group. We get therefore again the compactification introduced by Satake and later considered in [35].
+Let $G$ be the quotient of the symplectic group $\mathbf { S p } ( 2 n , \mathbf { C } )$ by its center, and $\boldsymbol { \Gamma } = \bf { S p } ( 2 n , Z )$ be Siegel's modular group.
+The proper maximal parabolic $\mathbf { Q }$ -subgroups are the stability groups of the rational isotropic subspaces.
+It is elementary that two rational isotropic subspaces of the same dimension $q$ are transforms of each other by an element of $\mathbf { \Gamma } \Gamma$ ， so that we have $G _ { \mathbf { Q } } = \Gamma \cdot P _ { \mathbf { Q } }$ for every maximal parabolic $\mathbf { Q }$ -subgroup.
+The boundary component corresponding to such a subspace is isomorphic to Siegel's upper half-plane of degree $q$ and thus $V ^ { * } = \cap _ { \mathfrak { s } q \leq n } V _ { q }$ ，where $V _ { q }$ is the quotient of the Siegel upper half plane of degree $q$ by the corresponding modular group.
+We get therefore again the compactification introduced by Satake and later considered in [35].
 
-4.12. Truncated Siegel domains. In order to give a more precise description of a fundamental set of neighborhoods of a point in $V ^ { * }$ ，we need to introduce certain subsets of a Siegel domain. To define them， we assume again, for convenience, that $G$ is simple over $\mathbf { Q }$ ：
+4.12. Truncated Siegel domains.
+In order to give a more precise description of a fundamental set of neighborhoods of a point in $V ^ { * }$ ，we need to introduce certain subsets of a Siegel domain.
+To define them， we assume again, for convenience, that $G$ is simple over $\mathbf { Q }$ ：
 
 Let $\mathfrak { S } ^ { \prime } = \mathbf { q } A _ { t } \cdot \omega$ be a Siegel domain in $P _ { \mathbf { R } }$ and ${ \mathfrak { S } } = o \cdot { \mathfrak { S } } ^ { \prime }$ the corresponding Siegel domain in $X$ (4.2). Fix an index $b \leq s$ . For a positive number $_ { u }$ and a subset $E \subset F _ { \mathbf { b } }$ ，we let
 
@@ -1434,7 +1613,8 @@ $$
 \mathfrak { S } _ { b } ( u , E ) = \mathfrak { o } \cdot \mathfrak { S } _ { b } ^ { \prime } ( u , E ) .
 $$
 
-The sets described by (1), (2) will be called $F _ { \mathbf { b } }$ -adapted truncated Siegel domains. The subscript $b$ will sometimes be omitted,if it is clear from the context,or replaced by $F$
+The sets described by (1), (2) will be called $F _ { \mathbf { b } }$ -adapted truncated Siegel domains.
+The subscript $b$ will sometimes be omitted,if it is clear from the context,or replaced by $F$
 
 An element $\mathbf { \boldsymbol { s } } \in \widetilde { \odot } ^ { \prime }$ can be written uniquely in the form
 
@@ -1442,9 +1622,12 @@ $$
 \begin{array} { r l r } { s = a _ { 1 } \cdot h _ { b } \cdot a _ { 2 } \cdot w } & { { } } & { ( a _ { 1 } \in \mathcal { Q } Z ( F _ { \mathbf { b } } ) \cap _ { \mathbf { q } } A , a _ { 2 } \in L ( F _ { \mathbf { b } } ) \cap _ { \mathbf { q } } A , h _ { b } \in _ { \mathbf { q } } A _ { b } , w \in \omega ) } \end{array}
 $$
 
-where ${ \bf \mathbf { \mathbf { Q } } } ^ { A _ { b } }$ is the kernel of all simple $\mathbf { Q }$ -roots $\beta _ { i }$ $( i \neq b )$ .Of course,all elements on the right hand side depend (continuously) on s. However,for simplicity,we shall not make this explicit in the notation as long as no confusion arises. We collect a few remarks about this decomposition.
+where ${ \bf \mathbf { \mathbf { Q } } } ^ { A _ { b } }$ is the kernel of all simple $\mathbf { Q }$ -roots $\beta _ { i }$ $( i \neq b )$ .Of course,all elements on the right hand side depend (continuously) on s. However,for simplicity,we shall not make this explicit in the notation as long as no confusion arises.
+We collect a few remarks about this decomposition.
 
-（i） The element $h _ { b }$ annihilates all simple $\mathbf { Q }$ -roots except $\beta _ { b }$ ，and ${ \pmb a } _ { 1 }$ (resp. $a _ { 2 } ^ { \phantom { \dagger } }$ ）annihilates $\beta _ { i }$ for $i \geq b + 1$ (resp. $i < b$ )；hence,
+（i） The element $h _ { b }$ annihilates all simple $\mathbf { Q }$ -roots except $\beta _ { b }$ ，and ${ \pmb a } _ { 1 }$ (resp.
+$a _ { 2 } ^ { \phantom { \dagger } }$ ）annihilates $\beta _ { i }$ for $i \geq b + 1$ (resp.
+$i < b$ )；hence,
 
 $$
 \begin{array} { l } { { \displaystyle s ^ { \beta i } = a _ { 1 } ^ { \beta _ { i } } \ : , } } \\ { { \displaystyle s ^ { \beta _ { i } } = a _ { 2 } ^ { \beta _ { i } } \ : , } } \end{array}
@@ -1454,7 +1637,8 @@ $$
 \begin{array} { l } { { ( i \equiv b - 1 ) } } \\ { { \ } } \\ { { ( i \equiv b + 1 ) . } } \end{array}
 $$
 
-If the roots $\beta _ { i }$ $( i \geq b + 1 )$ are multiplicatively bounded on $a _ { 2 }$ ，then $\pmb { { a } _ { 2 } }$ is bounded; hence, there exists $t ^ { \prime }$ such that the set of products $h \cdot a _ { 1 }$ is contained in ${ \bf { \sigma } } _ { \bf { Q } } A _ { t ^ { \prime } }$ . In view of 4.5,it is clear that the $\beta _ { i }$ 's $( i \geq b + 1 )$ are multiplicatively bounded if $E$ is relatively compact,as will be the case unless the contrary is stated. If so, the discussion of 4.5 implies
+If the roots $\beta _ { i }$ $( i \geq b + 1 )$ are multiplicatively bounded on $a _ { 2 }$ ，then $\pmb { { a } _ { 2 } }$ is bounded; hence, there exists $t ^ { \prime }$ such that the set of products $h \cdot a _ { 1 }$ is contained in ${ \bf { \sigma } } _ { \bf { Q } } A _ { t ^ { \prime } }$ . In view of 4.5,it is clear that the $\beta _ { i }$ 's $( i \geq b + 1 )$ are multiplicatively bounded if $E$ is relatively compact,as will be the case unless the contrary is stated.
+If so, the discussion of 4.5 implies
 
 $$
 \bigcap _ { u > 0 } \bar { \mathfrak { S } } _ { b } ^ { \prime } ( u , E ) = o _ { \mathbf { b } } { \cdot } \mathfrak { S } _ { b } ^ { \prime } ( u _ { 0 } , E )
@@ -1476,9 +1660,15 @@ $$
 \begin{array} { r } { \left( u > 0 \right) , } \\ { \left( u , v > 0 \right) . } \end{array}
 $$
 
-(ii） Let $( X _ { i } )$ be the basis of $\mathbf { Q } ^ { \mathfrak { a } }$ with respect to which the simple $\mathbf { Q }$ -roots are written as in 1.2. Then the Lie algebra of $\mathbf { \_ } A \cap \mathcal { D } Z ( F _ { \mathbf { b } } )$ (resp. ${ \bf _ { Q } } A \cap L ( F _ { \bf { b } } )$ ， resp. ${ \bf _ { Q } } A _ { b } .$ )is generated by $X _ { i } - X _ { i + 1 } ( i = 1 , \cdots , b - 1 )$ (resp. $X _ { i } ( i = b + 1 , \cdots , s )$ ， resp. $X _ { 1 } + \cdots + X _ { b } )$ ：
+(ii） Let $( X _ { i } )$ be the basis of $\mathbf { Q } ^ { \mathfrak { a } }$ with respect to which the simple $\mathbf { Q }$ -roots are written as in 1.2. Then the Lie algebra of $\mathbf { \_ } A \cap \mathcal { D } Z ( F _ { \mathbf { b } } )$ (resp.
+${ \bf _ { Q } } A \cap L ( F _ { \bf { b } } )$ ， resp.
+${ \bf _ { Q } } A _ { b } .$ )is generated by $X _ { i } - X _ { i + 1 } ( i = 1 , \cdots , b - 1 )$ (resp.
+$X _ { i } ( i = b + 1 , \cdots , s )$ ， resp.
+$X _ { 1 } + \cdots + X _ { b } )$ ：
 
-4.13. LEMMA. We keep the assumptions of 4.4. Let ${ \boldsymbol { x } } \in F _ { \mathbf { b } }$ ,and let $x ^ { * }$ be the image of $x$ in $V ^ { * }$ .Let $\Omega = { \mathfrak { S } } { \cdot } C$ be a fundamental set verifying 4.7, where $\mathfrak { S }$ is an open Siegel domain whose closure contains $x$ . Then there exist finitely many elements $e _ { i } \in N ( F _ { \mathbf { b } } ) _ { \mathbf { Q } }$ with the following property: the image $U$ in $V ^ { * }$ of $\begin{array} { r } { U ^ { \prime } = \bigcup _ { i } \hat { \mathfrak { S } } ( u , E _ { i } ) \cdot e _ { i } } \end{array}$ ,where $E _ { i }$ is $^ { a }$ relatively compact neighborhood of $x \cdot e _ { i } ^ { - 1 }$ in $F _ { \mathbf { b } }$ ，is $^ { a }$ neighborhood of $x ^ { * }$ ； the set $U$ (resp. $U ^ { \prime } \cdot \Gamma _ { x } )$ describes $^ { a }$ fundamental set of neighborhoods of $x ^ { * }$ in $V ^ { * }$ (resp. ${ \boldsymbol { x } } \in X ^ { * } )$ if $u \longrightarrow 0$ and,independently, $E _ { i }$ runs through a fundamental set of neighborhoods of $x \cdot e _ { i } ^ { - 1 }$ in $F _ { \mathbf { b } }$ . Furthermore, we get an equivalent set of neighborhoods of $x ^ { * }$ if we replace $\mathfrak { S }$ by any open Siegel domain ${ \mathfrak { S } } ^ { \prime } \supset { \mathfrak { S } }$
+4.13. LEMMA. We keep the assumptions of 4.4. Let ${ \boldsymbol { x } } \in F _ { \mathbf { b } }$ ,and let $x ^ { * }$ be the image of $x$ in $V ^ { * }$ .Let $\Omega = { \mathfrak { S } } { \cdot } C$ be a fundamental set verifying 4.7, where $\mathfrak { S }$ is an open Siegel domain whose closure contains $x$ . Then there exist finitely many elements $e _ { i } \in N ( F _ { \mathbf { b } } ) _ { \mathbf { Q } }$ with the following property: the image $U$ in $V ^ { * }$ of $\begin{array} { r } { U ^ { \prime } = \bigcup _ { i } \hat { \mathfrak { S } } ( u , E _ { i } ) \cdot e _ { i } } \end{array}$ ,where $E _ { i }$ is $^ { a }$ relatively compact neighborhood of $x \cdot e _ { i } ^ { - 1 }$ in $F _ { \mathbf { b } }$ ，is $^ { a }$ neighborhood of $x ^ { * }$ ； the set $U$ (resp.
+$U ^ { \prime } \cdot \Gamma _ { x } )$ describes $^ { a }$ fundamental set of neighborhoods of $x ^ { * }$ in $V ^ { * }$ (resp.
+${ \boldsymbol { x } } \in X ^ { * } )$ if $u \longrightarrow 0$ and,independently, $E _ { i }$ runs through a fundamental set of neighborhoods of $x \cdot e _ { i } ^ { - 1 }$ in $F _ { \mathbf { b } }$ . Furthermore, we get an equivalent set of neighborhoods of $x ^ { * }$ if we replace $\mathfrak { S }$ by any open Siegel domain ${ \mathfrak { S } } ^ { \prime } \supset { \mathfrak { S } }$
 
 It is clear from 4.5 that $\textstyle { \overline { { \mathfrak { S } } } } _ { b } ( u , E )$ contains an open neighborhood of $x$ in $\bar { \mathfrak { S } } _ { b }$ , and 4.12 shows that we get in this way a fundamental set of neighborhoods of $x$ in $\approxeq$ .We let $D$ be the finite set of elements $c \in C$ such that $x \in { \bar { \mathfrak { S } } } \cdot c$ · If $d \in D$ , then we get similarly a fundamental set of neighborhoods of $x$ in $\boldsymbol { \mathfrak { S } } { \cdot } \boldsymbol { d }$ by taking subsets $\mathfrak { S } _ { b } ( u , E ) \cdot d$ ,where $\pmb { { \cal E } }$ is a neighborhood of $x \cdot d ^ { - 1 }$ in $F _ { \mathbf { b } }$ Since $\bar { \Omega }$ is the finite union of the closed subsets $\boldsymbol { \mathfrak { S } } { \cdot } \boldsymbol { c }$ ， $( c \in C )$ ,it follows that $x$ has a fundamental set of neighborhoods in $\bar { \Omega }$ of the form $\begin{array} { r } { \bigcup _ { d } \mathcal { \vec { S } } _ { b } ( u , E _ { d } ) \cdot d _ { \mathrm { : } } } \end{array}$ where $d$ runs over $D$ and $E _ { d }$ isa neighborhood of $x \cdot d ^ { - 1 }$
 
@@ -1488,7 +1678,8 @@ As for the second assertion, the images of the sets $\cup _ { j } U _ { j } ^ { 
 
 REMARK.Let $E _ { n }$ $( n = 1 , \cdots )$ be a decreasing sequence of neighborhoods of $x$ in $F _ { \mathbf { b } }$ ，whose intersection is $x$ ,and let $u _ { n }$ be a sequence of real numbers tending to O. Then the images in $V ^ { * }$ of the sets $\begin{array} { r } { U _ { n } = \mathbf { U } _ { i } \mathfrak { S } ( u _ { n } , E _ { n } \cdot e _ { i } ^ { - 1 } ) \cdot e _ { i } } \end{array}$ form a fundamental set of neighborhoods of $x ^ { * }$ ·
 
-4.14.LEMMA. Let $b$ $\quad 1 \leq b \leq s , $ and $^ { a }$ Siegel domain $\mathfrak { S } _ { 0 } ^ { \prime }$ in $P _ { \mathbf { R } }$ be given. Then there exists a Siegel domain ${ \mathfrak { S } } ^ { \prime } \supset { \mathfrak { S } } _ { 0 } ^ { \prime }$ in $P _ { \mathrm { ~ R ~ } }$ such that $\begin{array} { r } { \mathfrak { S } _ { b } ( u , E ) = } \end{array}$ $\theta ^ { \bullet } \mathcal { ( } \boldsymbol { \mathscr { z } } ^ { \prime } ( \boldsymbol { u } , E )$ is connected for every $u > 0$ and every connected open subset $\mathbf { \delta } _ { E }$ of $o _ { \mathbf { b } } \cdot \widetilde { \mathcal { O } } ^ { \prime }$ ：
+4.14.LEMMA. Let $b$ $\quad 1 \leq b \leq s , $ and $^ { a }$ Siegel domain $\mathfrak { S } _ { 0 } ^ { \prime }$ in $P _ { \mathbf { R } }$ be given.
+Then there exists a Siegel domain ${ \mathfrak { S } } ^ { \prime } \supset { \mathfrak { S } } _ { 0 } ^ { \prime }$ in $P _ { \mathrm { ~ R ~ } }$ such that $\begin{array} { r } { \mathfrak { S } _ { b } ( u , E ) = } \end{array}$ $\theta ^ { \bullet } \mathcal { ( } \boldsymbol { \mathscr { z } } ^ { \prime } ( \boldsymbol { u } , E )$ is connected for every $u > 0$ and every connected open subset $\mathbf { \delta } _ { E }$ of $o _ { \mathbf { b } } \cdot \widetilde { \mathcal { O } } ^ { \prime }$ ：
 
 We choose an Iwasawa decomposition $P _ { \mathrm { { R } } } = K ^ { \prime } { \cdot } A { \cdot } N$ of $P _ { \mathbf { R } }$ where
 
@@ -1496,7 +1687,8 @@ $$
 K ^ { \prime } = K \cap P , \qquad A = ( M \cap A ) \times _ { \mathbf { q } } A , \qquad N = ( M \cap N ) \cdot U _ { \mathbf { R } } .
 $$
 
-We may assume as before that ${ \bf { q } } ^ { T \subset } { \bf { R } } ^ { T \subset T }$ ,and choose compatible orderings on the root systems. The groups $Z ( F _ { \mathfrak { b } } ) \cap A \cdot N$ and $L ( F _ { \mathbf { b } } ) \cap A \cdot N$ are connected (for otherwise they would have infinitely many components，which is impossible since $Z ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ ， $( A \cdot N ) _ { \mathrm { c } }$ ，and $L ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ are algebraic); they are also contractible,and the product mapping yields a homeomorphism of
+We may assume as before that ${ \bf { q } } ^ { T \subset } { \bf { R } } ^ { T \subset T }$ ,and choose compatible orderings on the root systems.
+The groups $Z ( F _ { \mathfrak { b } } ) \cap A \cdot N$ and $L ( F _ { \mathbf { b } } ) \cap A \cdot N$ are connected (for otherwise they would have infinitely many components，which is impossible since $Z ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ ， $( A \cdot N ) _ { \mathrm { c } }$ ，and $L ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ are algebraic); they are also contractible,and the product mapping yields a homeomorphism of
 
 $$
 \left( L ( F _ { \mathbf { b } } ) \cap A \cdot N \right) \times \left( Z ( F _ { \mathbf { b } } ) \cap A \cdot N \right)
@@ -1516,7 +1708,8 @@ $$
 
 where the homeomorphisms are given by the product mapping.
 
-Let us write $\widetilde { \mathcal { G } } _ { 0 } ^ { \prime } = K ^ { \prime } \cdot _ { \mathbf { q } } A _ { t _ { 0 } } \cdot \omega _ { 0 } ,$ $( \omega _ { 0 } \subset V _ { \mathbf { R } } )$ . We take $t > t _ { 0 }$ ，and choose $\omega _ { 2 } , \omega _ { 1 }$ open，relatively compact，and connected in $L ( F _ { \mathbf { b } } ) \cap V _ { \mathbf { R } } \cap A \cdot N$ and $Z ( F _ { \mathfrak { b } } ) \cap V _ { \mathbf { R } } \cap A { \cdot } N$ such that $K ^ { \prime } \cdot \omega _ { \scriptscriptstyle 1 } \cdot \omega _ { \scriptscriptstyle 2 } \supset K ^ { \prime } \cdot \omega _ { \scriptscriptstyle 0 }$ ，(note that $\kappa { ' }$ meets every connected component of $P _ { \mathbf { R } }$ ).We claim that $\mathcal { C } ^ { \prime } = \mathcal { O } _ { t , \omega } ^ { \prime }$ ， $( \omega = K ^ { \prime } \cdot \omega _ { \mathrm { 1 } } \cdot \omega _ { \mathrm { 2 } } )$ ，verifies our conditions. Since $\kappa { \prime }$ is contained in the isotropy group of $O _ { \mathbf { b } }$ in $P _ { \mathbf { R } }$ ，and is the isotropy group of o in $P _ { \mathbf { R } }$ ，an elementary argument shows that it suffices to prove that $K ^ { \prime } \backslash S _ { \mathbf { b } } ^ { \prime } ( u , x )$ is connected for every $u > 0$ and every
+Let us write $\widetilde { \mathcal { G } } _ { 0 } ^ { \prime } = K ^ { \prime } \cdot _ { \mathbf { q } } A _ { t _ { 0 } } \cdot \omega _ { 0 } ,$ $( \omega _ { 0 } \subset V _ { \mathbf { R } } )$ . We take $t > t _ { 0 }$ ，and choose $\omega _ { 2 } , \omega _ { 1 }$ open，relatively compact，and connected in $L ( F _ { \mathbf { b } } ) \cap V _ { \mathbf { R } } \cap A \cdot N$ and $Z ( F _ { \mathfrak { b } } ) \cap V _ { \mathbf { R } } \cap A { \cdot } N$ such that $K ^ { \prime } \cdot \omega _ { \scriptscriptstyle 1 } \cdot \omega _ { \scriptscriptstyle 2 } \supset K ^ { \prime } \cdot \omega _ { \scriptscriptstyle 0 }$ ，(note that $\kappa { ' }$ meets every connected component of $P _ { \mathbf { R } }$ ).We claim that $\mathcal { C } ^ { \prime } = \mathcal { O } _ { t , \omega } ^ { \prime }$ ， $( \omega = K ^ { \prime } \cdot \omega _ { \mathrm { 1 } } \cdot \omega _ { \mathrm { 2 } } )$ ，verifies our conditions.
+Since $\kappa { \prime }$ is contained in the isotropy group of $O _ { \mathbf { b } }$ in $P _ { \mathbf { R } }$ ，and is the isotropy group of o in $P _ { \mathbf { R } }$ ，an elementary argument shows that it suffices to prove that $K ^ { \prime } \backslash S _ { \mathbf { b } } ^ { \prime } ( u , x )$ is connected for every $u > 0$ and every
 
 $x \in o _ { \mathbf { b } } \cdot \mathfrak { S } ^ { \prime }$ . We may write
 
@@ -1560,7 +1753,8 @@ $$
 u _ { i } = k _ { i } ^ { \prime } \cdot k _ { i } ^ { \prime \prime } \cdot s _ { i } \qquad \quad ( k _ { i } ^ { \prime } \in K \cap L ( F _ { \mathbf { b } } ) ; k _ { i } ^ { \prime \prime } \in K \cap Z ( F _ { \mathbf { b } } ) ; s _ { i } \in Z ( F _ { \mathbf { b } } ) \cap P ) \ .
 $$
 
-Let ${ \mathfrak { S } } ^ { \prime }$ be an open Siegel domain in $P _ { \mathbf { R } }$ satisfying 4.14 which contains ${ \mathfrak { S } } _ { 0 } ^ { \prime }$ and the elements $s _ { i } \cdot g _ { 0 }$ . The images in $V ^ { * }$ of the sets $\begin{array} { r } { U = \bigcup _ { i } \mathcal { \bar { S } } _ { b } ( u , E ^ { \prime } { \cdot } e _ { i } ^ { - 1 } ) { \cdot } e _ { i } } \end{array}$ as $\boldsymbol { u }$ runs over all strictly positive numbers,and $E ^ { \prime }$ over a basis of connected open neighborhoods of $x$ contained in $\boldsymbol { \varepsilon }$ ,form a fundamental set of neighborhoods of $v ^ { * }$ ,and their interiors form a fundamental set of open neighborhoods.It is then enough to show that the interior of $U \cap X$ is connected. This latter set is the union over $\textit { i }$ , of the open sets $o \cdot \mathcal { \widetilde { O } } _ { b } ^ { \prime } ( \mathcal { u } , E \cdot e _ { i } ^ { - 1 } ) \cdot e _ { i }$ We are therefore reduced (4.14) to proving that
+Let ${ \mathfrak { S } } ^ { \prime }$ be an open Siegel domain in $P _ { \mathbf { R } }$ satisfying 4.14 which contains ${ \mathfrak { S } } _ { 0 } ^ { \prime }$ and the elements $s _ { i } \cdot g _ { 0 }$ . The images in $V ^ { * }$ of the sets $\begin{array} { r } { U = \bigcup _ { i } \mathcal { \bar { S } } _ { b } ( u , E ^ { \prime } { \cdot } e _ { i } ^ { - 1 } ) { \cdot } e _ { i } } \end{array}$ as $\boldsymbol { u }$ runs over all strictly positive numbers,and $E ^ { \prime }$ over a basis of connected open neighborhoods of $x$ contained in $\boldsymbol { \varepsilon }$ ,form a fundamental set of neighborhoods of $v ^ { * }$ ,and their interiors form a fundamental set of open neighborhoods.It is then enough to show that the interior of $U \cap X$ is connected.
+This latter set is the union over $\textit { i }$ , of the open sets $o \cdot \mathcal { \widetilde { O } } _ { b } ^ { \prime } ( \mathcal { u } , E \cdot e _ { i } ^ { - 1 } ) \cdot e _ { i }$ We are therefore reduced (4.14) to proving that
 
 $$
 \begin{array} { r } { o \cdot \mathfrak { S } _ { b } ^ { \prime } ( u , E ^ { \prime } \cdot e _ { i } ^ { - 1 } ) \cdot e _ { i } \cap o \cdot \mathfrak { S } _ { b } ^ { \prime } ( u , E ^ { \prime } ) \not = \emptyset ~ , } \end{array}
@@ -1596,7 +1790,8 @@ $$
 
 which,together with (2),proves (1).
 
-4.16. PRoPOsITIoN. We keep the previous notation. Let $J ( x , g )$ be the functional determinant function in the unbounded realization associated to the rational boundary component $F = F _ { \mathbf { b } }$ (3.3) and $g \in N ( F ) _ { \mathbf { Q } }$ . Then $J ( x , g )$ is multiplicatively bounded on ${ \mathfrak { S } } _ { F }$ , where $\mathfrak { S } _ { F } = \mathfrak { S } _ { b } ( u , E )$ （ $\boldsymbol { E }$ compact in $F$ ） is an ${ \pmb F }$ -adapted truncated Siegel domain.
+4.16. PRoPOsITIoN. We keep the previous notation.
+Let $J ( x , g )$ be the functional determinant function in the unbounded realization associated to the rational boundary component $F = F _ { \mathbf { b } }$ (3.3) and $g \in N ( F ) _ { \mathbf { Q } }$ . Then $J ( x , g )$ is multiplicatively bounded on ${ \mathfrak { S } } _ { F }$ , where $\mathfrak { S } _ { F } = \mathfrak { S } _ { b } ( u , E )$ （ $\boldsymbol { E }$ compact in $F$ ） is an ${ \pmb F }$ -adapted truncated Siegel domain.
 
 We have $\mathfrak { S } _ { F } = o \cdot \mathfrak { S } _ { F } ^ { \prime }$ ,and
 
@@ -1608,7 +1803,8 @@ $$
 ( s \in \widetilde { \mathcal { O } } _ { F } ^ { \prime } )
 $$
 
-We want to estimate both factors on the right hand side. We write as in 4.12,
+We want to estimate both factors on the right hand side.
+We write as in 4.12,
 
 $$
 \begin{array} { r } { s = a _ { 1 } \cdot h \cdot a _ { 2 } \cdot q \qquad \left( a _ { 1 } \in \triangle { Z } ( F ) \cap \mathrm { \ o q } A , a _ { 2 } \in L ( F ) \cap \mathrm { \ o q } A , h \in \mathrm { \ o Q } A _ { b } , q \in \omega \right) \ . } \end{array}
@@ -1666,7 +1862,8 @@ $$
 J ( o , s \cdot g ) = J ( o , d \cdot v ^ { \prime } ) \cdot J ( o , f ) \cdot J ( o , v ^ { \prime \prime } ) \ .
 $$
 
-But $v ^ { \prime }$ and $v ^ { \prime \prime }$ are fixed and $d$ varies in a compact set. Consequently
+But $v ^ { \prime }$ and $v ^ { \prime \prime }$ are fixed and $d$ varies in a compact set.
+Consequently
 
 $$
 J ( o , s \cdot g ) \asymp J ( o , f )
@@ -1676,7 +1873,8 @@ $$
 ( s \in { \mathfrak { S } } _ { F } ^ { \prime } ) \ .
 $$
 
-The restriction of $J ( o , g )$ to $Z ( F )$ is a character (1.8,1.11),which is of course equal to one on the derived group. Furthermore,the relative Weyl group of $N ( F )$ is generated by the symmetries with respect to the hyperplanes annihilating the simple $\mathbf { Q }$ -roots $\beta _ { i } \neq \beta _ { b }$ ,and hence it acts trivially on ${ \bf \mathbf { q } } A _ { b }$ . We have therefore
+The restriction of $J ( o , g )$ to $Z ( F )$ is a character (1.8,1.11),which is of course equal to one on the derived group.
+Furthermore,the relative Weyl group of $N ( F )$ is generated by the symmetries with respect to the hyperplanes annihilating the simple $\mathbf { Q }$ -roots $\beta _ { i } \neq \beta _ { b }$ ,and hence it acts trivially on ${ \bf \mathbf { q } } A _ { b }$ . We have therefore
 
 $$
 J ( o , f ) = J ( o , h ) ~ ,
@@ -1690,7 +1888,9 @@ and the proposition follows now from (1),(5),(7),and (8).
 
 5.1.In this section, $G$ is a complex connected reductive group defined over R，whose group of real points has a compact center,H,a subgroup of finite index of $G _ { \mathbf { R } } , K$ ,a maximal compact subgroup of $H , V$ ,a finite dimensional complex Hilbert space,and $\rho \colon K \longrightarrow \mathbf { G L } ( V )$ a unitary representation.
 
-A function $f \colon H \to V$ is of type $\rho$ on the left (resp.right） if $f ( k \cdot g ) =$ $\rho ( k ) \cdot f ( g )$ (resp. $f ( g \cdot k ) = \rho ( k ^ { - 1 } ) \cdot f ( g ) )$ $( g \in H , k \in K )$ . It is of finite type, with respect to $\kappa$ ,or $\kappa$ -finite,on the right (resp.left) if the set of right translates $r _ { k } f$ (resp.left translates ${ l _ { k } f } .$ of $f$ by elements of $\kappa$ spans a finite dimensional vector space over C of $V \mathrm { . }$ -valued functions. This is in particular the case if $f$ is of type $\rho$ ,and the general case can be subsumed into that one,at the cost of changing $V$ , as is easily seen.
+A function $f \colon H \to V$ is of type $\rho$ on the left (resp.right） if $f ( k \cdot g ) =$ $\rho ( k ) \cdot f ( g )$ (resp.
+$f ( g \cdot k ) = \rho ( k ^ { - 1 } ) \cdot f ( g ) )$ $( g \in H , k \in K )$ . It is of finite type, with respect to $\kappa$ ,or $\kappa$ -finite,on the right (resp.left) if the set of right translates $r _ { k } f$ (resp.left translates ${ l _ { k } f } .$ of $f$ by elements of $\kappa$ spans a finite dimensional vector space over C of $V \mathrm { . }$ -valued functions.
+This is in particular the case if $f$ is of type $\rho$ ,and the general case can be subsumed into that one,at the cost of changing $V$ , as is easily seen.
 
 5.2. The universal enveloping algebra ${ \mathfrak { e } } _ { \mathfrak { u } ( { \mathfrak { g } } ) }$ of $\mathfrak { g }$ is identified in the customary manner with the algebra of right invariant differential operators on $H$ ，In particular,if $X \in { \mathfrak { g } }$ and $f$ is a differentiable $V \mathrm { . }$ -valued function, then
 
@@ -1698,11 +1898,17 @@ $$
 X f ( g ) = \left. \left( { \frac { d } { d t } } f ( e ^ { t \cdot x } \cdot g ) \right) \right| _ { t = 0 } .
 $$
 
-The center $\mathcal { Z } ( { \mathfrak { g } } )$ of ${ \mathfrak { a } } ( { \mathfrak { g } } )$ is then identified with the algebra of left and right invariant differential operators on $H$ 。A smooth function (or a distribution) is called $\mathcal { Z } ( { \mathfrak { g } } )$ -finite if it is annihilated byan ideal $\mathfrak { e } _ { \mathrm { u } }$ of finite codimension of $\mathcal { Z } ( { \mathfrak { g } } )$ .If $\mathfrak { e } _ { \mathrm { u } }$ has codimension one,such a function is an eigenfunction of $\mathcal { Z } ( { \mathfrak { g } } )$ ， which is our main case of interest. It is known that if $f$ is $\mathcal { Z } ( { \mathfrak { g } } )$ -finite,and is $\kappa$ -finite on the right (resp.left),then it is annihilated by an elliptic right (resp.left) invariant,hence analytic,differential operator,and is consequently necessarily analytic. However,since analyticity is obvious for the functions to be considered later,we omit the proof. The convergence proofs for the Poincaré series could be based on that fact (and indeed are in [35,Exp. 10]).Here,we shall use instead the following result (in which,in fact, the assumptions on $\pi$ may be slightly relaxed) of Harish-Chandra [23, Th.1].
+The center $\mathcal { Z } ( { \mathfrak { g } } )$ of ${ \mathfrak { a } } ( { \mathfrak { g } } )$ is then identified with the algebra of left and right invariant differential operators on $H$ 。A smooth function (or a distribution) is called $\mathcal { Z } ( { \mathfrak { g } } )$ -finite if it is annihilated byan ideal $\mathfrak { e } _ { \mathrm { u } }$ of finite codimension of $\mathcal { Z } ( { \mathfrak { g } } )$ .If $\mathfrak { e } _ { \mathrm { u } }$ has codimension one,such a function is an eigenfunction of $\mathcal { Z } ( { \mathfrak { g } } )$ ， which is our main case of interest.
+It is known that if $f$ is $\mathcal { Z } ( { \mathfrak { g } } )$ -finite,and is $\kappa$ -finite on the right (resp.left),then it is annihilated by an elliptic right (resp.left) invariant,hence analytic,differential operator,and is consequently necessarily analytic.
+However,since analyticity is obvious for the functions to be considered later,we omit the proof.
+The convergence proofs for the Poincaré series could be based on that fact (and indeed are in [35,Exp. 10]).Here,we shall use instead the following result (in which,in fact, the assumptions on $\pi$ may be slightly relaxed) of Harish-Chandra [23, Th.1].
 
-5.3. LEMMA. Let $U$ be $^ { a }$ neighborhood of the identity in $H$ Let $f \colon H \to V$ be a $C ^ { \infty }$ function which is of finite type on the right (resp. left) with respect to $\kappa$ and is $\mathcal { Z } ( { \mathfrak { g } } )$ -finite. Then there exists $\alpha \in C _ { c } { ^ { \infty } } ( U )$ such that $\alpha ( k \cdot g \cdot k ^ { - 1 } ) = \alpha ( g ) \ ( g \in H , k \in K )$ and that $f = f * \alpha$ （ $( r e s p . f = \alpha * f )$
+5.3. LEMMA. Let $U$ be $^ { a }$ neighborhood of the identity in $H$ Let $f \colon H \to V$ be a $C ^ { \infty }$ function which is of finite type on the right (resp.
+left) with respect to $\kappa$ and is $\mathcal { Z } ( { \mathfrak { g } } )$ -finite.
+Then there exists $\alpha \in C _ { c } { ^ { \infty } } ( U )$ such that $\alpha ( k \cdot g \cdot k ^ { - 1 } ) = \alpha ( g ) \ ( g \in H , k \in K )$ and that $f = f * \alpha$ （ $( r e s p . f = \alpha * f )$
 
-As is usual, $C _ { c } ^ { \infty }$ refers to $C ^ { \infty }$ -functions with compact support,and $^ *$ stands for the convolution. Thus in particular
+As is usual, $C _ { c } ^ { \infty }$ refers to $C ^ { \infty }$ -functions with compact support,and $^ *$ stands for the convolution.
+Thus in particular
 
 $$
 f \ast \alpha ( g ) = \int _ { \cal { H } } f ( g \cdot h ^ { - 1 } ) \cdot \alpha ( h ) d h = \int _ { \cal { H } } f ( h ) \cdot \alpha ( h ^ { - 1 } \cdot g ) d h \ ,
@@ -1760,7 +1966,8 @@ $$
 | | f ( g \cdot \gamma ) | | \leq M { \Big \{ } _ { g \cdot \gamma \cdot U } | | f ( h ) | | d h ~ . 
 $$
 
-Let $\psi$ be the set of elements $\gamma \in \Gamma$ for which $C { \cdot } \gamma { \cdot } U \cap D \neq \emptyset$ ; it is finite. Given $g \in C$ ，the translates $g \cdot \gamma \cdot U ( \gamma \in \Gamma , \gamma \not \in \psi )$ are pairwise disjoint subsets of $H - D$ ,hence
+Let $\psi$ be the set of elements $\gamma \in \Gamma$ for which $C { \cdot } \gamma { \cdot } U \cap D \neq \emptyset$ ; it is finite.
+Given $g \in C$ ，the translates $g \cdot \gamma \cdot U ( \gamma \in \Gamma , \gamma \not \in \psi )$ are pairwise disjoint subsets of $H - D$ ,hence
 
 $$
 \begin{array} { r } { \sum _ { \gamma \in \Gamma - \psi } | | f ( g \cdot \gamma ) | | \leq M \cdot \bigg \rvert _ { { \boldsymbol { \pi } } - { \boldsymbol { \sigma } } } | | f ( h ) | | d h \leq M \cdot \varepsilon } \end{array}
@@ -1770,9 +1977,11 @@ from which the uniform convergence of $p _ { \vert \vert f \vert \vert }$ on $C$
 
 5.5.REMARks.（1） The above proof is due to Harish-Chandra.Our original argument was longer,and was a variation on one of Godement's [35,Exp. 10].
 
-(2）If $f$ is of finite type on the left,and satisfies the other assumptions of the theorem,then a similar argument,or the one of Godement,shows readily that $p _ { f }$ is absolutely and uniformly convergent on compact sets. However,it does not seem necessarily true then that $p _ { f }$ is bounded.
+(2）If $f$ is of finite type on the left,and satisfies the other assumptions of the theorem,then a similar argument,or the one of Godement,shows readily that $p _ { f }$ is absolutely and uniformly convergent on compact sets.
+However,it does not seem necessarily true then that $p _ { f }$ is bounded.
 
-5.6. The series $p _ { f }$ ,where $f$ satisfes the assumptions of 5.4, will be called a Poincaré series. Our next aim is to show that the usual Poincaré series on bounded symmetric domains are associated in a simple way to Poincaré series in the above sense.
+5.6. The series $p _ { f }$ ,where $f$ satisfes the assumptions of 5.4, will be called a Poincaré series.
+Our next aim is to show that the usual Poincaré series on bounded symmetric domains are associated in a simple way to Poincaré series in the above sense.
 
 Up to the end of this section，we assume that $X = K \backslash H$ is a bounded symmetric domain, let $H = G _ { \mathbf { R } } ^ { 0 }$ ,and use the notation of $\ S 1$ . Let, further,
 
@@ -1876,7 +2085,8 @@ $$
 \int _ { G _ { \mathrm { R } } } \vert J ( o , g ) \vert ^ { a } d g = \int _ { D } \vert J ( o , x ) \vert ^ { a } d x ~ ,
 $$
 
-where $d x$ is a suitable invariant volume element. Up to a positive factor,
+where $d x$ is a suitable invariant volume element.
+Up to a positive factor,
 
 $$
 d x = \mid J ( o , x ) \mid ^ { - 2 } \omega ~ ,
@@ -1884,7 +2094,8 @@ $$
 
 where $\omega$ is the euclidean volume element in ${ \mathfrak { p } } ^ { + }$ .The domain of integration being bounded,it is then enough to show that $\mid { \boldsymbol { \mathsf { J } } } ( o , { \boldsymbol { \mathsf { x } } } ) \mid$ is bounded on $D$ . Since $G _ { \mathrm { { R } } } = K \cdot A \cdot K$ ，it suffices to check this on $o \cdot A$ ，where it follows from 1.12.
 
-5.9. Let $X = X _ { 1 } \times \cdots \times X _ { q }$ be the decomposition of $X$ into irreducible bounded symmetric domains. The $X _ { i }$ s correspond canonically to the almost simple，non-compact，almost direct factors of the derived group of $G _ { \mathbf { R } }$ ,and are therefore stable under $G _ { \mathbf { R } }$ . Each $g \in G _ { \mathbf { R } } ^ { _ { 0 } }$ induces a complex analytic homeomorphism $g _ { i }$ of $X _ { i }$ such that
+5.9. Let $X = X _ { 1 } \times \cdots \times X _ { q }$ be the decomposition of $X$ into irreducible bounded symmetric domains.
+The $X _ { i }$ s correspond canonically to the almost simple，non-compact，almost direct factors of the derived group of $G _ { \mathbf { R } }$ ,and are therefore stable under $G _ { \mathbf { R } }$ . Each $g \in G _ { \mathbf { R } } ^ { _ { 0 } }$ induces a complex analytic homeomorphism $g _ { i }$ of $X _ { i }$ such that
 
 $$
 ( x _ { 1 } , \cdot \cdot \cdot , x _ { q } ) \cdot g = ( x _ { 1 } \cdot g _ { 1 } , \cdot \cdot \cdot , x _ { q } \cdot g _ { q } )
@@ -1906,13 +2117,15 @@ $$
 \begin{array} { r } { J ( x , g ) ^ { \mathbf { a } } = \prod _ { i } J _ { i } ( x _ { i } , g _ { i } ) ^ { a _ { i } } . } \end{array}
 $$
 
-Let $\mathbf { \Gamma } ^ { \Gamma }$ be a discrete subgroup of $H$ Let $\varphi \colon D \longrightarrow V$ be a polynomial mapping. Put
+Let $\mathbf { \Gamma } ^ { \Gamma }$ be a discrete subgroup of $H$ Let $\varphi \colon D \longrightarrow V$ be a polynomial mapping.
+Put
 
 $$
 \begin{array} { r } { P _ { \varphi } ( x ) = P ( x ) = \sum _ { \gamma \in \Gamma } J ( x , \gamma ) ^ { \mathtt { a } } { \cdot } \varphi ( x { \cdot } \gamma ) . } \end{array}
 $$
 
-Up to the fact that (for later use) we allow a multi-exponent a,this is just a Poincaré series in the usual sense. If it converges,it represents an automorphic form of weight a,i.e.,it verifies
+Up to the fact that (for later use) we allow a multi-exponent a,this is just a Poincaré series in the usual sense.
+If it converges,it represents an automorphic form of weight a,i.e.,it verifies
 
 $$
 P ( x ) = J ( x , \gamma ) ^ { \mathbf { a } } \cdot P ( x \cdot \gamma )
@@ -1922,7 +2135,8 @@ $$
 ( x \in X ; \gamma \in \Gamma ) \ ,
 $$
 
-as follows from the cocycle formula. To $\varphi$ we associate,as in 5.6, the function $f \colon H \to V$ defined by
+as follows from the cocycle formula.
+To $\varphi$ we associate,as in 5.6, the function $f \colon H \to V$ defined by
 
 $$
 f ( g ) = J ( o , g ) ^ { \mathbf { a } } \cdot \varphi ( \zeta ( g ) )
@@ -1946,13 +2160,17 @@ $$
 
 5.10.THEOREM．Assume $a _ { i } \geq 2 \ ( i = 1 , \cdots , q )$ . Then the series $p _ { f }$ is $^ { a }$ Poincaré series in the sense of 5.6. Consequently $P _ { \varphi } , p _ { f }$ and $p _ { | | f | | }$ converge absolutely and uniformly on compact sets, and $\mathcal { p } _ { | | f | | }$ is bounded on $H$
 
-By 5.6 (4), $f$ is of finite type on the left. Together with 5.7,this shows that $f$ is $\mathcal { Z } ( { \mathfrak { g } } )$ -finite. Since $\varphi$ is a polynomial mapping on $D$ ,it is bounded; hence, $f$ is in $L ^ { 1 } ( H ) \otimes V$ by 5.8. We have
+By 5.6 (4), $f$ is of finite type on the left.
+Together with 5.7,this shows that $f$ is $\mathcal { Z } ( { \mathfrak { g } } )$ -finite.
+Since $\varphi$ is a polynomial mapping on $D$ ,it is bounded; hence, $f$ is in $L ^ { 1 } ( H ) \otimes V$ by 5.8. We have
 
 $$
 \begin{array} { r } { J ( o , g \cdot k ) = J ( o , g ) \cdot \prod _ { i } \cdot ( \operatorname* { d e t } \mathrm { A d } k _ { i } ^ { - 1 } ) ^ { \alpha _ { i } } \qquad \quad ( k = ( k _ { 1 } , \cdots , k _ { q } ) , k _ { i } \in K _ { i } ) \ . } \end{array}
 $$
 
-On the other hand,since $k$ acts on $D$ by means of a linear transformation, namely $\mathrm { A d } _ { \mathfrak { p } + } k ^ { - 1 }$ ，it transforms $\varphi$ into a polynomial mapping of the same degree，hence the set of transforms of $\varphi$ under $\kappa$ is contained in a finite dimensional vector space. It follows then that $f$ is $\kappa \cdot$ -finite on the right, too. It satisfies therefore all the assumptions of 5.4.
+On the other hand,since $k$ acts on $D$ by means of a linear transformation, namely $\mathrm { A d } _ { \mathfrak { p } + } k ^ { - 1 }$ ，it transforms $\varphi$ into a polynomial mapping of the same degree，hence the set of transforms of $\varphi$ under $\kappa$ is contained in a finite dimensional vector space.
+It follows then that $f$ is $\kappa \cdot$ -finite on the right, too.
+It satisfies therefore all the assumptions of 5.4.
 
 5.1l. We conclude this paragraph with some remarks to be used in $\ S 1 0$ ,in the application of our main embedding theorem.Let $\nu$ be the one-dimensional representation $k \mapsto \operatorname* { d e t } \mathrm { A d } _ { \mathfrak { p } ^ { + } } k ^ { - 1 }$ of $K _ { \mathrm { c } }$ . Then,in the notation of 5.6, the automorphy factor $\boldsymbol { \mu } _ { \nu }$ is just the functional determinant $J$ in the bounded realization of $X$ 、Letting $\rho ( m ) \left( m \in \mathbf { Z } \right)$ stand for the tensor product $\rho \otimes \nu ^ { m }$ ，we have
 
@@ -2026,7 +2244,8 @@ $$
 ( g \in H )
 $$
 
-is called an Eisenstein series. It follows from a theorem of Godement (unpublished; for a sketch of the proof, see [12]) that this series converges absolutely and uniformly on compact sets if
+is called an Eisenstein series.
+It follows from a theorem of Godement (unpublished; for a sketch of the proof, see [12]) that this series converges absolutely and uniformly on compact sets if
 
 $$
 \mathcal R s _ { \alpha } > e _ { \alpha }
@@ -2044,7 +2263,8 @@ $$
 ( p \in P \cap H )
 $$
 
-is finite for every $g \in H$ , and is bounded on compact sets. If s verifies 6.1(4), then
+is finite for every $g \in H$ , and is bounded on compact sets.
+If s verifies 6.1(4), then
 
 $$
 \begin{array} { r } { E _ { f ^ { \prime } } = \sum _ { \gamma \in \Gamma / \Gamma _ { \infty } } f ^ { \prime } ( x \cdot \gamma ) \ , } \end{array}
@@ -2052,7 +2272,9 @@ $$
 
 converges absolutely and uniformly on compact sets.
 
-We only show how this reduces to the Godement theorem. Replacing $f ^ { \prime }$ by $\vert \vert f ^ { \prime } \vert \vert$ we may assume the $s _ { \alpha }$ to be real, and $f ^ { \prime }$ to be a real-valued positive function. Let $f ^ { \prime \prime }$ be a strictly positive continuous function on $\pi$ such that
+We only show how this reduces to the Godement theorem.
+Replacing $f ^ { \prime }$ by $\vert \vert f ^ { \prime } \vert \vert$ we may assume the $s _ { \alpha }$ to be real, and $f ^ { \prime }$ to be a real-valued positive function.
+Let $f ^ { \prime \prime }$ be a strictly positive continuous function on $\pi$ such that
 
 $$
 f ^ { \prime \prime } ( g \cdot p ) = f ^ { \prime \prime } ( g ) \cdot \Delta ( p , s ) \qquad \quad ( g \in H , p \in P _ { \mathbf { R } } \cap H )
@@ -2064,7 +2286,8 @@ $$
 f ^ { \prime } ( g ) \cdot ( f ^ { \prime \prime } ( g ) ) ^ { - 1 } = f ^ { \prime } ( k \cdot p ) \cdot \Delta ( p , s ) ^ { - 1 } \cdot f ^ { \prime \prime } ( k ) ^ { - 1 } .
 $$
 
-$f ^ { \prime \prime }$ has a strictly positive minimum on $\kappa$ ,and $f ^ { \prime } ( k \cdot p ) \Delta ( p , s ) ^ { - 1 }$ remains bounded when $k$ runs through $\kappa$ and $p$ through $P \cap H$ by assumption. There exists
+$f ^ { \prime \prime }$ has a strictly positive minimum on $\kappa$ ,and $f ^ { \prime } ( k \cdot p ) \Delta ( p , s ) ^ { - 1 }$ remains bounded when $k$ runs through $\kappa$ and $p$ through $P \cap H$ by assumption.
+There exists
 
 therefore a strictly positive constant $c$ such that
 
@@ -2090,11 +2313,13 @@ $$
 \begin{array} { r } { E _ { f } ( h ) = \sum _ { \gamma \in \Gamma / \Gamma _ { 0 } } f ( h \cdot \gamma ) } \end{array}
 $$
 
-6.4. THEoREM. We keep the notation of 6.3,and assume that $C _ { \mathbf { R } } ^ { \mathfrak { o } }$ has $^ { a }$ compact center. Let $f \colon H \to V$ and $f ^ { \prime } \colon C _ { 1 } \to V$ be continuous functions which verify
+6.4. THEoREM. We keep the notation of 6.3,and assume that $C _ { \mathbf { R } } ^ { \mathfrak { o } }$ has $^ { a }$ compact center.
+Let $f \colon H \to V$ and $f ^ { \prime } \colon C _ { 1 } \to V$ be continuous functions which verify
 
 (i) $| | f ( k \cdot h \cdot b ) \mid | = | | f ( h ) | | \cdot \Delta ( b , s ) ( k \in K , h \in H , b \in B \cap H )$ ,where $\begin{array} { r } { s = ( s _ { \alpha } ) } \end{array}$ is real, and
 
-(ii) the function $f ^ { \prime }$ belongs to $L ^ { 1 } ( C _ { 1 } ) \otimes V$ is $\mathcal { Z } ( \mathfrak { c } _ { 1 } )$ -finite (cf. 5.1), is of fnite type on the right with respect to some maximal compact subgroup, and is equal in norm to $f \cdot \Delta ( , s ) ^ { - 1 }$
+(ii) the function $f ^ { \prime }$ belongs to $L ^ { 1 } ( C _ { 1 } ) \otimes V$ is $\mathcal { Z } ( \mathfrak { c } _ { 1 } )$ -finite (cf.
+5.1), is of fnite type on the right with respect to some maximal compact subgroup, and is equal in norm to $f \cdot \Delta ( , s ) ^ { - 1 }$
 
 Then,if s satisfies 6.1 (4),the series 6.3(2) converges absolutely and uniformly on compact sets.
 
@@ -2142,7 +2367,8 @@ $$
 ( q \in P \cap H ) \ .
 $$
 
-By (ii) and 5.4,the series in (5) is uniformly bounded; therefore,the left hand side of (4) is bounded when $p$ varies in $P \cap H$ and $p _ { h }$ runs over a compact set. Moreover,(2) and (3) show that $p _ { f }$ is right invariant under $\Gamma _ { \infty }$ . We may write
+By (ii) and 5.4,the series in (5) is uniformly bounded; therefore,the left hand side of (4) is bounded when $p$ varies in $P \cap H$ and $p _ { h }$ runs over a compact set.
+Moreover,(2) and (3) show that $p _ { f }$ is right invariant under $\Gamma _ { \infty }$ . We may write
 
 $$
 \begin{array} { r } { \begin{array} { r } { E _ { f } = \sum _ { \gamma \in \Gamma / \Gamma _ { \infty } } p _ { f } ( h \cdot \gamma ) \ , } \\ { E _ { | | f | | } = \sum _ { \gamma \in \Gamma / \Gamma _ { \infty } } p _ { | | f | | } ( h \cdot \gamma ) \ , } \end{array} } \end{array}
@@ -2154,9 +2380,11 @@ so that the theorem now follows from 6.2.
 
 In this section, $G$ is a simple, connected $\mathbf { Q }$ -group satisfying the assumptions of 3.3 (ii); the notation $o f 3 . 3$ is used.
 
-7.1. Let $F = F _ { \mathbf { b } }$ $( 1 \leq b \leq s )$ ）be a standard rational boundary component, $\sigma _ { \mathrm { b } } \colon X \to F$ the canonical projection. The group $N ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ ,and has a connected normal $\mathbf { Q }$ -subgroup $B$ ,containing the split radical $S _ { \mathbf { b } } \cdot U _ { \mathbf { b } }$ of $N ( F ) _ { \mathrm { c } }$ ，such that $B _ { \mathbf { R } } ^ { 0 } \subset Z ( F )$ and $Z ( F ) / B _ { \mathrm { R } } ^ { \scriptscriptstyle 0 }$ is compact (3.6, 3.7).
+7.1. Let $F = F _ { \mathbf { b } }$ $( 1 \leq b \leq s )$ ）be a standard rational boundary component, $\sigma _ { \mathrm { b } } \colon X \to F$ the canonical projection.
+The group $N ( F ) _ { \mathrm { c } }$ is defined over $\mathbf { Q }$ ,and has a connected normal $\mathbf { Q }$ -subgroup $B$ ,containing the split radical $S _ { \mathbf { b } } \cdot U _ { \mathbf { b } }$ of $N ( F ) _ { \mathrm { c } }$ ，such that $B _ { \mathbf { R } } ^ { 0 } \subset Z ( F )$ and $Z ( F ) / B _ { \mathrm { R } } ^ { \scriptscriptstyle 0 }$ is compact (3.6, 3.7).
 
-Let $J _ { \scriptscriptstyle { F } }$ or ${ { J } _ { \mathbf { b } } }$ ,or simply $J$ ,be the functional determinant in the unbounded realization $S _ { \mathbf { b } }$ associated to $F$ and $\varphi$ a polynomial on $F$ ,in the coordinates of the canonical bounded realization of $\pmb { F }$ Let $\mathbf { \Gamma } ^ { \Gamma }$ be an arithmetic subgroup of $G$ ，contained in $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 } , \Gamma _ { \infty } = N ( F ) \cap \Gamma$ ，and ${ \Gamma _ { 0 } = B _ { \bf R } ^ { 0 } \cap \Gamma }$ ； let $ { l }$ be a positive integer. We shall consider the series
+Let $J _ { \scriptscriptstyle { F } }$ or ${ { J } _ { \mathbf { b } } }$ ,or simply $J$ ,be the functional determinant in the unbounded realization $S _ { \mathbf { b } }$ associated to $F$ and $\varphi$ a polynomial on $F$ ,in the coordinates of the canonical bounded realization of $\pmb { F }$ Let $\mathbf { \Gamma } ^ { \Gamma }$ be an arithmetic subgroup of $G$ ，contained in $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 } , \Gamma _ { \infty } = N ( F ) \cap \Gamma$ ，and ${ \Gamma _ { 0 } = B _ { \bf R } ^ { 0 } \cap \Gamma }$ ； let $ { l }$ be a positive integer.
+We shall consider the series
 
 $$
 \begin{array} { r } { E ( x ) = E _ { \varphi , \iota , \mathrm { r } } ( x ) = \sum _ { \gamma \in \Gamma / \Gamma _ { 0 } } \varphi ( \sigma _ { \mathrm { b } } ( x \cdot \gamma ) ) \cdot J _ { \mathit { r } } ( x , \gamma ) ^ { \iota } } \end{array}
@@ -2170,7 +2398,8 @@ $$
 
 Since $B _ { \mathbf { R } } ^ { \ast } \subset Z ( F )$ acts trivially on $\pmb { F }$ ,the invariance of the first factor is clear.For the second one,it is enough that $ { \boldsymbol { l } }$ be a multiple of the integer $\textit { d }$ of 3.14, as we shall assume.
 
-In what follows, $E$ may be supplied with a subscript consisting of any subset of $\{ \varphi , l , \Gamma \}$ sufficient to characterize it in a given context. It will be called a Poincaré-Eisenstein series (P-E series for short) adapted to $\pmb { F }$ . More generally， for any $g \in G _ { \mathbf { Q } }$ ， we shall also consider the transform $E \circ g$ of $E$ by $g$ , defined by
+In what follows, $E$ may be supplied with a subscript consisting of any subset of $\{ \varphi , l , \Gamma \}$ sufficient to characterize it in a given context.
+It will be called a Poincaré-Eisenstein series (P-E series for short) adapted to $\pmb { F }$ . More generally， for any $g \in G _ { \mathbf { Q } }$ ， we shall also consider the transform $E \circ g$ of $E$ by $g$ , defined by
 
 $$
 E \circ g ( x ) = J _ { \scriptscriptstyle F } ( x , g ^ { - 1 } ) ^ { \iota } \cdot E ( x \cdot g ^ { - 1 } )
@@ -2240,7 +2469,8 @@ $$
 ( g \in G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 } )
 $$
 
-converges absolutely and uniformly on compact subsets. Since
+converges absolutely and uniformly on compact subsets.
+Since
 
 $$
 E _ { \varphi , \iota } ( o \cdot g ) = J ( o , g ) ^ { - \iota } \cdot E _ { f } ( g ) \ ,
@@ -2298,7 +2528,8 @@ $$
 
 where $j$ is the functional determinant in the coordinates of the ambient vector space.
 
-By a slight abuse of language,we shall say that $\omega$ is a P-E series adapted to $F _ { \mathbf { b } }$ ,if it is represented by such a series in the unbounded realization $S _ { \mathbf { b } }$ associated to $F = F _ { \mathbf { b } }$ .Let $F ^ { * } = F _ { \mathbf { b } ^ { * } }$ be another standard rational boundary component.We let $\mathfrak { y } = \mathfrak { y } _ { \mathfrak { p } * \mathfrak { p } } = \mathfrak { y } _ { \mathfrak { b } ^ { * } } \circ \mathfrak { y } _ { \mathfrak { b } } ^ { - 1 }$ ，where $\nu _ { \mathrm { c } } \colon D \to S _ { \mathrm { c } }$ $\mathbf { \lambda } ^ { \prime } \mathbf { 1 } \le c \le s \rangle$ is the canonical isomorphism (cf. $\ S 1 )$ ．The P-E series $\pmb { { \cal E } }$ adapted to $\pmb { F }$ is then represented on $S _ { \mathbf { b } ^ { * } }$ by the function $E ^ { * }$ given by
+By a slight abuse of language,we shall say that $\omega$ is a P-E series adapted to $F _ { \mathbf { b } }$ ,if it is represented by such a series in the unbounded realization $S _ { \mathbf { b } }$ associated to $F = F _ { \mathbf { b } }$ .Let $F ^ { * } = F _ { \mathbf { b } ^ { * } }$ be another standard rational boundary component.We let $\mathfrak { y } = \mathfrak { y } _ { \mathfrak { p } * \mathfrak { p } } = \mathfrak { y } _ { \mathfrak { b } ^ { * } } \circ \mathfrak { y } _ { \mathfrak { b } } ^ { - 1 }$ ，where $\nu _ { \mathrm { c } } \colon D \to S _ { \mathrm { c } }$ $\mathbf { \lambda } ^ { \prime } \mathbf { 1 } \le c \le s \rangle$ is the canonical isomorphism (cf.
+$\ S 1 )$ ．The P-E series $\pmb { { \cal E } }$ adapted to $\pmb { F }$ is then represented on $S _ { \mathbf { b } ^ { * } }$ by the function $E ^ { * }$ given by
 
 $$
 E ^ { * } ( \mathfrak { v } ( x ) ) = j ( x , \mathfrak { v } ) ^ { - \iota } \cdot E ( x )
@@ -2356,7 +2587,8 @@ $$
 
 so that (7) follows from (6),and from the definition 7.1 (3) of $E \circ g$
 
-7.4. LEMMA4. We keep the notation of 7.3, ${ \mathcal { A } } x b , b ^ { * } , l$ ，put $\Lambda = l n _ { b } \cdot \chi _ { b } \ i f$ $b \geq 1$ ， $\Lambda _ { * } = l n _ { b ^ { * } } \cdot \mathcal { X } _ { b ^ { * } }$ if $b ^ { * } \geq 1$ ，and $\Lambda = 0$ ， $\Lambda _ { * } = 0$ otherwise. Let $\mathfrak { S } _ { b ^ { * } } ^ { \prime } = \mathfrak { S } ^ { * } \ b e$ an $\boldsymbol { F } _ { b ^ { * } }$ adapted truncated Siegel domain (4.12) in $P _ { \mathbf { R } } ^ { 0 }$ .For $s \in \mathfrak { S } ^ { * }$ ， we write $s = a ( s ) \cdot v ( s ) \ ( a ( s ) \in _ { \mathbf { q } } A , v ( s ) \in { \cal V } _ { \mathbf { R } } ) ,$ Then
+7.4. LEMMA4. We keep the notation of 7.3, ${ \mathcal { A } } x b , b ^ { * } , l$ ，put $\Lambda = l n _ { b } \cdot \chi _ { b } \ i f$ $b \geq 1$ ， $\Lambda _ { * } = l n _ { b ^ { * } } \cdot \mathcal { X } _ { b ^ { * } }$ if $b ^ { * } \geq 1$ ，and $\Lambda = 0$ ， $\Lambda _ { * } = 0$ otherwise.
+Let $\mathfrak { S } _ { b ^ { * } } ^ { \prime } = \mathfrak { S } ^ { * } \ b e$ an $\boldsymbol { F } _ { b ^ { * } }$ adapted truncated Siegel domain (4.12) in $P _ { \mathbf { R } } ^ { 0 }$ .For $s \in \mathfrak { S } ^ { * }$ ， we write $s = a ( s ) \cdot v ( s ) \ ( a ( s ) \in _ { \mathbf { q } } A , v ( s ) \in { \cal V } _ { \mathbf { R } } ) ,$ Then
 
 $$
 \begin{array} { r l } & { \alpha ^ { * } ( s ) \asymp \alpha ^ { * } ( a ( s ) ) \asymp \alpha ( s ) ^ { - \Lambda _ { * } } , ( s \in \mathfrak { S } ^ { * } ) } \\ & { \alpha ^ { * } ( a ( s ) ) \cdot a ( s ) ^ { \Lambda } \asymp 1 , ( b ^ { * } \mathbin { \leq } b ; s \in \mathfrak { S } ^ { * } ) } \\ & { \alpha ^ { * } ( a ( s ) ) \cdot a ( s ) ^ { \Lambda } \asymp \prod _ { b < i \leq b ^ { * } } a ( s ) ^ { - l _ { i } \beta _ { i } } \ ( b < b ^ { * } ; l _ { i } \in \mathbf { Z } , l _ { i } > 0 , ( b < i \mathbin { \leq } b ^ { * } ) ) . } \end{array}
@@ -2368,25 +2600,36 @@ $$
 \begin{array} { c } { { \mid \alpha ^ { * } ( s ) \mid = \mid j _ { F ^ { * } } ( \sigma _ { \mathrm { b } ^ { * } } ( o _ { * } ) , \mathbb { W } _ { \mathrm { b } ^ { * } } ( s ) ) \mid ^ { l \cdot q _ { \mathrm { b } ^ { * } } } \mid \chi _ { \mathrm { b } ^ { * } } ( s ) \mid ^ { - n _ { b } * l } } } \\ { { \mid \alpha ^ { * } ( a ( s ) ) \mid = \mid j _ { F ^ { * } } ( \sigma _ { \mathrm { b } ^ { * } } ( o _ { * } ) , \mathbb { W } _ { \mathrm { b } ^ { * } } ( a ( s ) ) \mid ^ { l \cdot q _ { \mathrm { b } } } \cdot \mid \chi _ { \mathrm { b } ^ { * } } ( a ( s ) ) \mid ^ { - n _ { b } * l } . } } \end{array}
 $$
 
-4 In this proof,s occurs in two capacities: as the $\mathbf { Q }$ -rank of $G$ and as an element of a truncated Siegel domain. We trust this will not cause any confusion.
+4 In this proof,s occurs in two capacities: as the $\mathbf { Q }$ -rank of $G$ and as an element of a truncated Siegel domain.
+We trust this will not cause any confusion.
 
-By the definition of a truncated Siegel domain, $\varpi _ { b ^ { * } } ( \mathfrak { S } ^ { * } )$ is a set of elements in $G ( F ^ { * } )$ which bring the origin into a compact set,and so is relatively compact. Since $v ( s )$ varies in a compact set, the set of elements $\varpi _ { b ^ { * } } ( v ( s ) )$ is then also relatively compact. Thus the factors $j _ { F ^ { * } }$ in the two above equalities are multiplicatively bounded on $\mathfrak { S } ^ { * }$ . Since ${ \chi _ { \mathrm { b } } * ( s ) = \chi _ { \mathrm { b } ^ { * } } ( a ( s ) ) }$ for any $s \in N ( F ^ { * } )$ ， this proves the first assertion.
+By the definition of a truncated Siegel domain, $\varpi _ { b ^ { * } } ( \mathfrak { S } ^ { * } )$ is a set of elements in $G ( F ^ { * } )$ which bring the origin into a compact set,and so is relatively compact.
+Since $v ( s )$ varies in a compact set, the set of elements $\varpi _ { b ^ { * } } ( v ( s ) )$ is then also relatively compact.
+Thus the factors $j _ { F ^ { * } }$ in the two above equalities are multiplicatively bounded on $\mathfrak { S } ^ { * }$ . Since ${ \chi _ { \mathrm { b } } * ( s ) = \chi _ { \mathrm { b } ^ { * } } ( a ( s ) ) }$ for any $s \in N ( F ^ { * } )$ ， this proves the first assertion.
 
-If $b ^ { * } = 0$ ,then $\mathfrak { S } ^ { * }$ is compact,and the remaining assertions are obvious. So we assume $b ^ { * } \geq 1$
+If $b ^ { * } = 0$ ,then $\mathfrak { S } ^ { * }$ is compact,and the remaining assertions are obvious.
+So we assume $b ^ { * } \geq 1$
 
-As in 4.12,we may write,with reference to the index $^ { b }$ ，an element $a \in { \mathbf { \Gamma } } _ { \mathbf { Q } } A$ as $a = a _ { 1 } { \cdot } h { \cdot } a _ { 2 }$ ；the set of all $\pmb { \mathrm { \Delta } } \ b { a } _ { 1 }$ (resp. $h$ ，resp. $\pmb { a } _ { 2 , \pmb { \imath } }$ ）which occur in this way form a subgroup $A _ { 1 }$ (resp. $H$ ,resp. $A _ { : 2 , }$ of $\mathbf { q } A$ ， we have
+As in 4.12,we may write,with reference to the index $^ { b }$ ，an element $a \in { \mathbf { \Gamma } } _ { \mathbf { Q } } A$ as $a = a _ { 1 } { \cdot } h { \cdot } a _ { 2 }$ ；the set of all $\pmb { \mathrm { \Delta } } \ b { a } _ { 1 }$ (resp.
+$h$ ，resp.
+$\pmb { a } _ { 2 , \pmb { \imath } }$ ）which occur in this way form a subgroup $A _ { 1 }$ (resp.
+$H$ ,resp.
+$A _ { : 2 , }$ of $\mathbf { q } A$ ， we have
 
 $$
 \begin{array} { r l } & { H = \phantom { } _ { \mathbf { q } } A _ { \mathbf { b } } \ , \qquad \quad A _ { 1 } { \cdot } H = Z ( F _ { \mathbf { b } } ) \cap \phantom { } _ { \mathbf { q } } A \ , } \\ & { A _ { \ b { \mathrm { z } } } = L ( F _ { \mathbf { b } } ) \cap \phantom { } _ { \mathbf { q } } A \ , \qquad \quad A _ { 1 } = \mathcal { D } Z ( F _ { \mathbf { b } } ) \cap \phantom { } _ { \mathbf { q } } A \ , } \end{array}
 $$
 
-and the rational character $\Lambda$ is trivial on $A _ { 1 } \cdot A _ { 2 }$ . We have $\beta _ { i } = ( \gamma _ { i } - \gamma _ { i + 1 } ) / 2$ $( 1 \leq i < s )$ ，and $\beta _ { s } = \gamma _ { s }$ (resp. $\beta _ { s } = \gamma _ { s } / 2 )$ in case $C _ { s }$ $( \mathrm { r e s p . ~ } B C _ { s } )$ . It is clear that any character $\chi$ of $\mathbf { \_ } A$ trivial on $A _ { 1 } { \cdot } A _ { 2 }$ is of the form $\chi = m ( \gamma _ { 1 } + \cdots + \gamma _ { b } )$ with some $\pmb { m } \in \mathbf { Q }$ . In particular $\Lambda = m _ { b } ( \gamma _ { 1 } + \dots + \gamma _ { b } )$ ，and $m _ { b } > 0$ ,if $b \geq 1$ ， because the simple $\mathbf { Q }$ -roots appear with positive coefficients in det $\mathbf { A d } _ { \mathfrak { u } } = \chi _ { b }$ ， where u is the Lie algebra of $U ( F )$ . We want to prove that $m _ { b }$ is independent of $^ { b }$ for $b \geq 1$ . We have
+and the rational character $\Lambda$ is trivial on $A _ { 1 } \cdot A _ { 2 }$ . We have $\beta _ { i } = ( \gamma _ { i } - \gamma _ { i + 1 } ) / 2$ $( 1 \leq i < s )$ ，and $\beta _ { s } = \gamma _ { s }$ (resp.
+$\beta _ { s } = \gamma _ { s } / 2 )$ in case $C _ { s }$ $( \mathrm { r e s p . ~ } B C _ { s } )$ . It is clear that any character $\chi$ of $\mathbf { \_ } A$ trivial on $A _ { 1 } { \cdot } A _ { 2 }$ is of the form $\chi = m ( \gamma _ { 1 } + \cdots + \gamma _ { b } )$ with some $\pmb { m } \in \mathbf { Q }$ . In particular $\Lambda = m _ { b } ( \gamma _ { 1 } + \dots + \gamma _ { b } )$ ，and $m _ { b } > 0$ ,if $b \geq 1$ ， because the simple $\mathbf { Q }$ -roots appear with positive coefficients in det $\mathbf { A d } _ { \mathfrak { u } } = \chi _ { b }$ ， where u is the Lie algebra of $U ( F )$ . We want to prove that $m _ { b }$ is independent of $^ { b }$ for $b \geq 1$ . We have
 
 $$
 \Lambda = 2 m _ { b } ( \beta _ { 1 } + 2 \cdot \beta _ { 2 } + \cdots + b ( \beta _ { b } + \cdots + \beta _ { s - 1 } ) + \nu \cdot b \cdot \beta _ { s } ) ,
 $$
 
-where $\nu = 1 / 2$ (resp. 1) in case $C _ { s }$ (resp. $B C _ { s . }$ ). There is an analogous formula for the restriction of $\Delta$ to each irreducible factor $^ \sigma G ^ { \prime }$ of $G$ (notation of 3.3 (ii)). Moreover (3.3 (ii)) the first simple $\sigma ( k )$ -root of $^ { \sigma } G ^ { \prime }$ is the restriction of only one simple $\mathbf { R }$ -root,with index $c ( 1 , \sigma )$ .Using the fact that $\mathbf { \_ } A$ is diagonally embedded in $( R _ { k / \mathbf { Q } } S ^ { \prime } ) _ { \mathbf { R } }$ and applying 1.12 to $G _ { \sigma } = ( ^ { \sigma } G ^ { \prime } ) _ { \bf R } ^ { 0 }$ for each $\sigma$ ， we see that
+where $\nu = 1 / 2$ (resp.
+1) in case $C _ { s }$ (resp.
+$B C _ { s . }$ ). There is an analogous formula for the restriction of $\Delta$ to each irreducible factor $^ \sigma G ^ { \prime }$ of $G$ (notation of 3.3 (ii)). Moreover (3.3 (ii)) the first simple $\sigma ( k )$ -root of $^ { \sigma } G ^ { \prime }$ is the restriction of only one simple $\mathbf { R }$ -root,with index $c ( 1 , \sigma )$ .Using the fact that $\mathbf { \_ } A$ is diagonally embedded in $( R _ { k / \mathbf { Q } } S ^ { \prime } ) _ { \mathbf { R } }$ and applying 1.12 to $G _ { \sigma } = ( ^ { \sigma } G ^ { \prime } ) _ { \bf R } ^ { 0 }$ for each $\sigma$ ， we see that
 
 $$
 \begin{array} { r } { m _ { b } = l { \cdot } \sum _ { \sigma } m _ { \nu , \sigma } { \cdot } c ( 1 , \sigma ) , } \end{array}
@@ -2428,7 +2671,8 @@ which proves (iii).
 
 7.5. Our main aim in this section is to study the behavior of P-E series near boundary components in $X ^ { * }$ . For this purpose,we need to construct a function that will help us to majorize these series in a certain way and to study them termwise.
 
-Let $\rho \colon G \longrightarrow \mathbf { G L } ( V )$ be an irreducible representation defined over $\mathbf { Q }$ ，with highest weight $\Lambda = l \cdot n _ { b } \cdot \chi _ { b }$ ，where $\boldsymbol { n } _ { b }$ is as in 3.11, such that $V _ { \mathbf { Q } }$ contains an element $e _ { 0 } \neq 0$ which spans a line stable under $N ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ ,and on which the latter group acts via its one dimensional representation $\Lambda$ . This always exists (2.3). We endow $V$ with a hermitian structure such that $\kappa$ and $S$ are represented by unitary and self-adjoint operators respectively，and such that $\scriptstyle { e _ { 0 } }$ has norm one. The function we shall use is defined by
+Let $\rho \colon G \longrightarrow \mathbf { G L } ( V )$ be an irreducible representation defined over $\mathbf { Q }$ ，with highest weight $\Lambda = l \cdot n _ { b } \cdot \chi _ { b }$ ，where $\boldsymbol { n } _ { b }$ is as in 3.11, such that $V _ { \mathbf { Q } }$ contains an element $e _ { 0 } \neq 0$ which spans a line stable under $N ( F _ { \mathbf { b } } ) _ { \mathbf { C } }$ ,and on which the latter group acts via its one dimensional representation $\Lambda$ . This always exists (2.3). We endow $V$ with a hermitian structure such that $\kappa$ and $S$ are represented by unitary and self-adjoint operators respectively，and such that $\scriptstyle { e _ { 0 } }$ has norm one.
+The function we shall use is defined by
 
 $$
 c ( g ) = \parallel \rho ( g ) \cdot e _ { 0 } \parallel ^ { - 1 }
@@ -2532,7 +2776,8 @@ $$
 c ( a \cdot g ) = c ( a \cdot u \cdot a ^ { - 1 } \cdot n _ { g } ) \cdot ( n _ { g } ^ { - 1 } \cdot a \cdot n _ { g } ) ^ { - \Lambda } \ .
 $$
 
-But (4.1), $a \cdot u \cdot a ^ { - 1 }$ remains in a relatively compact set, since $a \in \mathbf { \mathbf { \mathbf { \mathbf { q } } } } A _ { t }$ ，and so the first factor is multiplicatively bounded. Therefore，we are solely concerned with the behavior of
+But (4.1), $a \cdot u \cdot a ^ { - 1 }$ remains in a relatively compact set, since $a \in \mathbf { \mathbf { \mathbf { \mathbf { q } } } } A _ { t }$ ，and so the first factor is multiplicatively bounded.
+Therefore，we are solely concerned with the behavior of
 
 $$
 a ^ { \Lambda } \cdot ( n _ { g } ^ { - 1 } \cdot a \cdot n _ { g } ) ^ { - \Lambda } = a ^ { \Lambda } \cdot a ^ { - w _ { g } ( \Lambda ) } \ .
@@ -2646,7 +2891,8 @@ $$
 
 Let $b ^ { * } \leq b$ and $g \notin N ( F _ { \mathbf { b } ^ { * } } ) \cdot N ( F _ { \mathbf { b } } )$ .Then the first factor is one,and the second one tends to zero as $a ^ { \beta _ { \dot { o } ^ { * } } } \to 0$ by 7.6 (ii),which proves (ii).
 
-Let $b ^ { * } > b$ . Then ${ \mathit { l } } _ { b ^ { * } } > 0$ by 7.4; hence,the first factor tends to zero. The second one remains bounded by 7.6 (i),whence (ii).
+Let $b ^ { * } > b$ . Then ${ \mathit { l } } _ { b ^ { * } } > 0$ by 7.4; hence,the first factor tends to zero.
+The second one remains bounded by 7.6 (i),whence (ii).
 
 7.8.THEOREM．Let $\mathbf { \nabla } _ { E }$ and $E ^ { * }$ be as in 7.1, 7.4. Let ${ \widetilde { \mathcal { O } } _ { F ^ { * } } ^ { \prime } }$ be a truncated Siegel domain adapted to $\ b { F } ^ { * }$ ; let $\varepsilon > 0$ and $g \in G _ { \mathbf { Q } }$ be given.
 
@@ -2728,7 +2974,8 @@ which ends the proof of the proposition.
 
 # 8.The operator $\Phi$
 
-8.1.Up to 8.7,we keep the notation and assumptions of 3.3 (ii). As in 4.8, $X ^ { \ast }$ denotes the union of the rational boundary components of $X$ ,endowed with the Satake topology.A good neighborhood of ${ \boldsymbol { x } } \in X ^ { * }$ is one which verifes 4.9 (iv) and 4.10. We let $\pmb { F }$ denote a rational boundary component,and $\mathfrak {varpi } _ { \mathfrak { r } }$ be the canonical epimorphism of $N ( F )$ onto $G ( F )$
+8.1.Up to 8.7,we keep the notation and assumptions of 3.3 (ii).
+As in 4.8, $X ^ { \ast }$ denotes the union of the rational boundary components of $X$ ,endowed with the Satake topology.A good neighborhood of ${ \boldsymbol { x } } \in X ^ { * }$ is one which verifes 4.9 (iv) and 4.10. We let $\pmb { F }$ denote a rational boundary component,and $\mathfrak {varpi } _ { \mathfrak { r } }$ be the canonical epimorphism of $N ( F )$ onto $G ( F )$
 
 An automorphic form $\omega$ of weight $ { \boldsymbol { l } }$ ,for the arithmetic group $\mathbf { \Gamma } ^ { \Gamma }$ ，will be said to be a P-E series adapted to $F$ if its transform $\omega \circ g$ under some element $g \in G _ { \mathbf { Q } }$ which carries $\pmb { F }$ onto the rational boundary component $F _ { \mathbf { b } }$ is a P-E series adapted to $F _ { \mathbf { b } }$ for $\Gamma ^ { \boldsymbol { \sigma } }$ ， (7.6).
 
@@ -2760,11 +3007,13 @@ $$
 
 Let $g \in N ( F _ { \mathrm { c } } )$ . Then,using 1.11,we see that $J _ { \mathbf { b } } ( x , g )$ is constant along the fibres of the projection $\sigma _ { \mathrm { { c } } } \colon S _ { \mathrm { { c } } } \to F _ { \mathrm { { c } } }$ ,and hence defines an automorphy factor on $F _ { \mathbf { c } }$ ,and an action of $N ( F _ { \mathbf { c } } )$ on the trivial line bundle.However,(2） shows that the automorphy factors given by $J _ { \mathbf { b } }$ and $J _ { \mathbf { c } }$ are equivalent,and hence the $N ( F _ { \mathbf { c } } )$ -bundle just defined is isomorphic,as an $N ( F _ { \mathbf { c } } )$ -bundle, to $\xi _ { \mathbf { c } }$
 
-8.3. Let $U$ be an open subset of $X ^ { * }$ which intersects $F$ ,and $\Delta$ a discrete subgroup of $N ( F )$ leaving $U$ invariant. Let $\omega$ be an automorphic form of weight $ { l }$ for $\Delta$ in $U$ Let $g \in G _ { \mathbf { Q } }$ be such that $F \cdot g = F _ { \mathbf { b } }$ for some b. We say that $\omega$ extends to $F \cap U$ if $\omega \circ g$ is represented,in the unbounded realization $S _ { \mathbf { b } }$ ,by a function $f$ which extends by continuity to a holomorphic function $f ^ { \prime }$ on $( U \cap F ) \cdot g$ . The extension $f ^ { \prime }$ clearly represents an automorphic form $\pmb { \sigma }$ on $( U \cap F ) \cdot g$ of type $\hat { \xi } _ { \bf b } ^ { l }$ ,for $\Lambda ^ { \mathfrak { g } }$ ,or rather for the image $\widetilde { \pmb { \sigma } } _ { \mathbf { b } } ( \Lambda ^ { g } )$ of $\Lambda ^ { \mathfrak { g } }$ in $G ( F _ { \mathbf { b } } )$ Its transform $\omega ^ { \prime }$ under $g ^ { - 1 }$ is then an automorphic form of type $\hat { \xi } _ { F } ^ { l }$ for $\varpi _ { \boldsymbol { F } } ( \Lambda )$ ， to be called sometimes the extension of $\omega$ ． This form depends only on $\omega$ and $\pmb { F }$ In fact if $F \cdot g ^ { \prime } = F _ { \mathbf { b } } ( g ^ { \prime } \in G _ { \mathbf { 0 } } )$ ,then $g ^ { \prime } = g \cdot n \left( n \in N ( F _ { \mathbf { b } } ) _ { \mathbf { Q } } \right)$ ; hence, $\omega \circ g ^ { \prime }$ is represented by $f ^ { * } ( x ) = f ( x , \pi ^ { - 1 } ) \cdot J ( x , n ^ { - 1 } ) ^ { l }$ .The function $f ^ { * }$ extends by continuity to $f ^ { * \prime } = x \longmapsto f ^ { \prime } ( x , n ^ { - 1 } ) J _ { \mathbf { b } } ( x , \ n ^ { - 1 } ) ^ { l }$ ，which represents $\pmb { \sigma } \circ \pmb { \mathscr { n } }$ . Its transform under $g ^ { \prime - 1 }$ is then again $\omega ^ { \prime }$ (cf.Remark of 1.7).
+8.3. Let $U$ be an open subset of $X ^ { * }$ which intersects $F$ ,and $\Delta$ a discrete subgroup of $N ( F )$ leaving $U$ invariant.
+Let $\omega$ be an automorphic form of weight $ { l }$ for $\Delta$ in $U$ Let $g \in G _ { \mathbf { Q } }$ be such that $F \cdot g = F _ { \mathbf { b } }$ for some b. We say that $\omega$ extends to $F \cap U$ if $\omega \circ g$ is represented,in the unbounded realization $S _ { \mathbf { b } }$ ,by a function $f$ which extends by continuity to a holomorphic function $f ^ { \prime }$ on $( U \cap F ) \cdot g$ . The extension $f ^ { \prime }$ clearly represents an automorphic form $\pmb { \sigma }$ on $( U \cap F ) \cdot g$ of type $\hat { \xi } _ { \bf b } ^ { l }$ ,for $\Lambda ^ { \mathfrak { g } }$ ,or rather for the image $\widetilde { \pmb { \sigma } } _ { \mathbf { b } } ( \Lambda ^ { g } )$ of $\Lambda ^ { \mathfrak { g } }$ in $G ( F _ { \mathbf { b } } )$ Its transform $\omega ^ { \prime }$ under $g ^ { - 1 }$ is then an automorphic form of type $\hat { \xi } _ { F } ^ { l }$ for $\varpi _ { \boldsymbol { F } } ( \Lambda )$ ， to be called sometimes the extension of $\omega$ ． This form depends only on $\omega$ and $\pmb { F }$ In fact if $F \cdot g ^ { \prime } = F _ { \mathbf { b } } ( g ^ { \prime } \in G _ { \mathbf { 0 } } )$ ,then $g ^ { \prime } = g \cdot n \left( n \in N ( F _ { \mathbf { b } } ) _ { \mathbf { Q } } \right)$ ; hence, $\omega \circ g ^ { \prime }$ is represented by $f ^ { * } ( x ) = f ( x , \pi ^ { - 1 } ) \cdot J ( x , n ^ { - 1 } ) ^ { l }$ .The function $f ^ { * }$ extends by continuity to $f ^ { * \prime } = x \longmapsto f ^ { \prime } ( x , n ^ { - 1 } ) J _ { \mathbf { b } } ( x , \ n ^ { - 1 } ) ^ { l }$ ，which represents $\pmb { \sigma } \circ \pmb { \mathscr { n } }$ . Its transform under $g ^ { \prime - 1 }$ is then again $\omega ^ { \prime }$ (cf.Remark of 1.7).
 
 Let $d \geq b$ ,and $f _ { d }$ be the function which represents $\omega \circ g$ in the unbounded realisation $S _ { \mathbf { d } }$ associated to $F _ { \mathbf { d } }$ . Then $\omega$ extends to $F \cap U$ (where still $F \cdot g =$ $F _ { \mathbf { b } } )$ if and only if $f _ { a }$ extends by continuity to a holomorphic function $f _ { d } ^ { \prime }$ on $( U \cap F ) \cdot g$ .This follows from the equality $f _ { a } = f { \cdot } J ( \mathbf { \theta } , { \pmb { \nu } } _ { \mathbf { d } , \mathbf { b } } ) ^ { l }$ and the constancy of $J ( \mathbf { \theta } , \pmb { \nu } _ { \mathbf { d } , \mathbf { b } } )$ along the fbres of $\sigma _ { \mathbf { b } }$ .Thus,in order to check that $\omega$ extends to $U \cap F$ ，we may use any unbounded realization $S _ { \mathbf { d } }$ $( \mathbf { d } \equiv \mathbf { b } )$ . Furthermore,the last remark of 8.2 implies easily that $\omega ^ { \prime } \circ g$ is represented by $f _ { \mathbf { d } } ^ { \prime }$ in the trivialization of $\hat { \xi } _ { \bf d } ^ { l }$ which is given by $\mathbf { \nabla } J _ { d }$
 
-8.4. Local integral automorphic forms. Let $\mathbf { \Gamma } \Gamma$ be an arithmetic subgroup of $G$ ,and ${ \boldsymbol { x } } \in X ^ { * }$ . We suppose $x \in F$ 。An automorphic form $\omega$ of weight $ { \boldsymbol { l } }$ for $\Gamma _ { x }$ on $X \cap N ( x )$ ，where $N ( x )$ is a good neighborhood of $x$ ,is integral if it extends to an automorphic form for $\mathfrak { W } _ { F } ( N ( F ^ { \prime } ) \cap \Gamma )$ on $F ^ { \prime } \cap N ( x )$ for every rational boundary component $F ^ { \prime }$ which meets $N ( x )$
+8.4. Local integral automorphic forms.
+Let $\mathbf { \Gamma } \Gamma$ be an arithmetic subgroup of $G$ ,and ${ \boldsymbol { x } } \in X ^ { * }$ . We suppose $x \in F$ 。An automorphic form $\omega$ of weight $ { \boldsymbol { l } }$ for $\Gamma _ { x }$ on $X \cap N ( x )$ ，where $N ( x )$ is a good neighborhood of $x$ ,is integral if it extends to an automorphic form for $\mathfrak { W } _ { F } ( N ( F ^ { \prime } ) \cap \Gamma )$ on $F ^ { \prime } \cap N ( x )$ for every rational boundary component $F ^ { \prime }$ which meets $N ( x )$
 
 If $y \in N ( x )$ ，then $\Gamma _ { y } \subset \Gamma _ { x }$ by 4.9； therefore，the restriction to a good neighborhood $N ( y ) \subset N ( x )$ of $y$ of an integral automorphic form on $N ( x )$ is an integral automorphic form,whose extension to $N ( y ) \cap F ^ { \prime }$ is the restriction of the extension of $\omega$ to $F ^ { \prime } \cap N ( x )$
 
@@ -2772,21 +3021,26 @@ The form $\omega$ is integral on $N ( x )$ if and only if for every $g \in G _ {
 
 From 3.9 we also deduce that $\omega$ is integral if and only if for one $g \in G _ { \mathbf { q } }$ which maps $\pmb { F }$ onto $F _ { \mathbf { b } }$ ,the transform $\omega \circ g$ extends by continuity to $N ( x ) \cdot g$ and is holomorphic on $( F ^ { \prime } \cap N ( x ) ) \cdot g$ for every rational boundary component $F ^ { \prime }$ ：
 
-8.5. Integral automorphic forms. The operator $\Phi$ . An automorphic form $\omega$ on $X$ of weight $ { \boldsymbol { l } }$ ,for $\Gamma$ ,is integral if its restriction to $X \cap N ( x )$ is integral for every ${ \boldsymbol { x } } \in X ^ { * }$ and every good neighborhood $N ( x )$ of $\boldsymbol { x }$ .This is the case if and only if for every $\pmb { F }$ and $g \in G _ { \mathbf { Q } }$ such that $F { \cdot } g = F _ { \mathrm { \mathbf { b } } }$ is standard, the transform $\omega \circ g$ is represented on $S _ { \mathbf { b } }$ by a function which extends by continuity to a holomorphic function on $F _ { \mathbf { b } }$ .Then this function also extends by continuity to a holomorphic function on $F _ { \mathrm { c } }$ for every $\mathfrak { c } \le \mathfrak { b }$
+8.5. Integral automorphic forms.
+The operator $\Phi$ . An automorphic form $\omega$ on $X$ of weight $ { \boldsymbol { l } }$ ,for $\Gamma$ ,is integral if its restriction to $X \cap N ( x )$ is integral for every ${ \boldsymbol { x } } \in X ^ { * }$ and every good neighborhood $N ( x )$ of $\boldsymbol { x }$ .This is the case if and only if for every $\pmb { F }$ and $g \in G _ { \mathbf { Q } }$ such that $F { \cdot } g = F _ { \mathrm { \mathbf { b } } }$ is standard, the transform $\omega \circ g$ is represented on $S _ { \mathbf { b } }$ by a function which extends by continuity to a holomorphic function on $F _ { \mathbf { b } }$ .Then this function also extends by continuity to a holomorphic function on $F _ { \mathrm { c } }$ for every $\mathfrak { c } \le \mathfrak { b }$
 
-Let $\omega$ be integral. It then has an extension to any rational boundary component $\pmb { F }$ ，which is an automorphic form for $\Gamma ( F )$ of type $\hat { \xi } _ { F } ^ { l }$ ,and which will often be denoted by $\Phi _ { \ / F } \omega$ . The operator $\Phi$ is,by definition,the operator which associates to $\omega$ the collection of automorphic forms $\Phi _ { F } \omega$ . The definition of the extension of $\omega$ given in 8.3 implies that for any rational boundary component $\pmb { F }$ and $g \in G _ { \mathbf { q } }$
+Let $\omega$ be integral.
+It then has an extension to any rational boundary component $\pmb { F }$ ，which is an automorphic form for $\Gamma ( F )$ of type $\hat { \xi } _ { F } ^ { l }$ ,and which will often be denoted by $\Phi _ { \ / F } \omega$ . The operator $\Phi$ is,by definition,the operator which associates to $\omega$ the collection of automorphic forms $\Phi _ { F } \omega$ . The definition of the extension of $\omega$ given in 8.3 implies that for any rational boundary component $\pmb { F }$ and $g \in G _ { \mathbf { q } }$
 
 $$
 ( \Phi _ { F g ^ { - 1 } } \omega ) \circ g = \Phi _ { F } ( \omega \circ g ) \ .
 $$
 
-8.6.THEOREM.Let $E$ be $^ { a }$ P-E series adapted to the rational boundary component $\pmb { F }$ ， for the arithmetic group $\mathbf { \Gamma } \Gamma$ ，of weight $ { \boldsymbol { l } }$ . Then $E$ is an integral automorphic form. Let $F ^ { * }$ be a rational boundary component. Then $\Phi _ { E ^ { * } } E = 0$ if dim $F ^ { * } \leq \dim F$ and $F ^ { * } \not \subset F { \cdot } \Gamma$ . The operator $\Phi _ { F }$ maps the module of P-E series adapted to $\pmb { F }$ ，of weight $ { \boldsymbol { l } }$ ， onto the module of Poincaré series for $\Gamma ( F )$ ，of type $\hat { \xi } _ { F } ^ { l }$
+8.6.THEOREM.Let $E$ be $^ { a }$ P-E series adapted to the rational boundary component $\pmb { F }$ ， for the arithmetic group $\mathbf { \Gamma } \Gamma$ ，of weight $ { \boldsymbol { l } }$ . Then $E$ is an integral automorphic form.
+Let $F ^ { * }$ be a rational boundary component.
+Then $\Phi _ { E ^ { * } } E = 0$ if dim $F ^ { * } \leq \dim F$ and $F ^ { * } \not \subset F { \cdot } \Gamma$ . The operator $\Phi _ { F }$ maps the module of P-E series adapted to $\pmb { F }$ ，of weight $ { \boldsymbol { l } }$ ， onto the module of Poincaré series for $\Gamma ( F )$ ，of type $\hat { \xi } _ { F } ^ { l }$
 
 If the statement is true for $E , F , \Gamma$ ,then it is also true for ${ E \circ g , F \cdot g }$ and $\Gamma ^ { \boldsymbol { \mathfrak { g } } }$ $( g \in G _ { \mathbf { Q } } )$ . We may therefore,without loss of generality,assume that $F = F _ { \mathbf { b } }$ is a standard rational boundary component.
 
 In order to prove the first assertion,it is enough to show that, for any ${ \boldsymbol { x } } \in X ^ { * }$ and $g \in G _ { \mathbf { Q } }$ such that $x \cdot g \in F _ { \mathrm { c } }$ $\mathbf { \boldsymbol { \cdot } } \mathbf { \boldsymbol { 1 } } \triangleq c \leq s )$ ，the transform $E \circ g$ is represented on $S _ { \mathbf { c } }$ by a function which extends by continuity to a holomorphic function around $x \cdot g$ on $F _ { \mathrm { c } }$
 
-Let $E ^ { * }$ be the function which represents $E$ on $S _ { \mathbf { c } }$ . Then $E \circ g$ is represented by the function defined by $( E ^ { * } \circ g ) ( x ) = J _ { \mathrm { c } } ( x , g ^ { - 1 } ) ^ { l } \cdot E ^ { * } ( x \cdot g ^ { - 1 } )$ . Let ${ \mathfrak { S } } ^ { \prime }$ be a Siegel domain in $P$ such that $F _ { \mathrm { ~ c ~ } } \cap \mathcal { \bar { \infty } }$ ，where ${ \mathfrak { S } } = \circ \cdot { \mathfrak { S } } ^ { \prime }$ ， contains $x \cdot g$ in its interior. This is possible by 4.5. There exists a finite subset $C$ of $N ( F _ { \mathrm { c } } ) _ { \mathbf { Q } }$ containing the identity,such that $\overline { { \Omega } } \cdot \Gamma _ { x \cdot g }$ ，where $\Omega = \cup _ { a \in \sigma } { \mathfrak { S } } ( u , V _ { a } ) \cdot a$ ,runs through a fundamental set of neighborhoods of $x$ in $X ^ { \ast }$ when $u \longrightarrow 0$ and $V _ { a }$ runs through a fundamental set of neighborhoods of $x \cdot g \cdot a ^ { - 1 }$ (see 4.13). We have
+Let $E ^ { * }$ be the function which represents $E$ on $S _ { \mathbf { c } }$ . Then $E \circ g$ is represented by the function defined by $( E ^ { * } \circ g ) ( x ) = J _ { \mathrm { c } } ( x , g ^ { - 1 } ) ^ { l } \cdot E ^ { * } ( x \cdot g ^ { - 1 } )$ . Let ${ \mathfrak { S } } ^ { \prime }$ be a Siegel domain in $P$ such that $F _ { \mathrm { ~ c ~ } } \cap \mathcal { \bar { \infty } }$ ，where ${ \mathfrak { S } } = \circ \cdot { \mathfrak { S } } ^ { \prime }$ ， contains $x \cdot g$ in its interior.
+This is possible by 4.5. There exists a finite subset $C$ of $N ( F _ { \mathrm { c } } ) _ { \mathbf { Q } }$ containing the identity,such that $\overline { { \Omega } } \cdot \Gamma _ { x \cdot g }$ ，where $\Omega = \cup _ { a \in \sigma } { \mathfrak { S } } ( u , V _ { a } ) \cdot a$ ,runs through a fundamental set of neighborhoods of $x$ in $X ^ { \ast }$ when $u \longrightarrow 0$ and $V _ { a }$ runs through a fundamental set of neighborhoods of $x \cdot g \cdot a ^ { - 1 }$ (see 4.13). We have
 
 $$
 ( E ^ { * } \circ g ) ( s \cdot h ) = J _ { \mathrm { c } } ( s , h ) ^ { - \iota } \cdot ( E ^ { * } \circ g h ^ { - 1 } ) ( s ) \qquad \left( s \in \mathfrak { S } ( u , V _ { a } ) , h \in a \Gamma _ { \mathfrak { a } \cdot g } , a \in C \right) .
@@ -2820,7 +3074,9 @@ This means in particular that, for suitable $ { l }$ ，we may find $P$ which is
 
 This follows from 8.6 and the result of Cartan mentioned in 8.7 (1).
 
-8.9. We now want to extend 8.8 to the case where $G$ is not necessarily $\mathbf { Q }$ -simple,and where $\mathbf { \Gamma } ^ { \Gamma }$ is an arithmetic group of holomorphic automorphisms of $X$ ，The notation of 3.3 (i) is used. In particular, $X$ is the product of the spaces $X _ { i } = ( K \cap G _ { i \mathbf { R } } ) \backslash G _ { i \mathbf { R } }$ ，the space $X ^ { \ast }$ is the product of the $X _ { i } ^ { * }$ ，where $G _ { i }$ runs through the $\mathbf { Q }$ -simple factors of $G$ ,and $\Gamma ^ { \prime }$ is the product of the groups $\Gamma _ { i } = \Gamma \cap G _ { i \mathbf { R } } ^ { 0 }$ . We do not exclude the possibility that $X _ { i } / \Gamma _ { i }$ is compact for some $_ i$ , in which case $X _ { i } = X _ { i } ^ { * }$ . Let $\mathbf { p r } _ { i }$ ： $X ^ { * } \longrightarrow X _ { i } ^ { * }$ be the natural projection. The notion of an integral automorphic form on $X$ for $\mathbf { \Gamma } \Gamma$ is defined as in 8.5. If $E _ { i }$ is an integral automorphic form on $X _ { i }$ for $\Gamma _ { i }$ ,of weight $ { \boldsymbol { l } }$ ，then the product of the forms $E _ { i } \circ \mathfrak { p r } _ { i }$ is an integral automorphic form of weight $ { l }$ on $X$ for ${ \bf \delta T ^ { \prime } }$ . This shows first that 8.6,8.8 are valid for $\Gamma ^ { \prime }$
+8.9. We now want to extend 8.8 to the case where $G$ is not necessarily $\mathbf { Q }$ -simple,and where $\mathbf { \Gamma } ^ { \Gamma }$ is an arithmetic group of holomorphic automorphisms of $X$ ，The notation of 3.3 (i) is used.
+In particular, $X$ is the product of the spaces $X _ { i } = ( K \cap G _ { i \mathbf { R } } ) \backslash G _ { i \mathbf { R } }$ ，the space $X ^ { \ast }$ is the product of the $X _ { i } ^ { * }$ ，where $G _ { i }$ runs through the $\mathbf { Q }$ -simple factors of $G$ ,and $\Gamma ^ { \prime }$ is the product of the groups $\Gamma _ { i } = \Gamma \cap G _ { i \mathbf { R } } ^ { 0 }$ . We do not exclude the possibility that $X _ { i } / \Gamma _ { i }$ is compact for some $_ i$ , in which case $X _ { i } = X _ { i } ^ { * }$ . Let $\mathbf { p r } _ { i }$ ： $X ^ { * } \longrightarrow X _ { i } ^ { * }$ be the natural projection.
+The notion of an integral automorphic form on $X$ for $\mathbf { \Gamma } \Gamma$ is defined as in 8.5. If $E _ { i }$ is an integral automorphic form on $X _ { i }$ for $\Gamma _ { i }$ ,of weight $ { \boldsymbol { l } }$ ，then the product of the forms $E _ { i } \circ \mathfrak { p r } _ { i }$ is an integral automorphic form of weight $ { l }$ on $X$ for ${ \bf \delta T ^ { \prime } }$ . This shows first that 8.6,8.8 are valid for $\Gamma ^ { \prime }$
 
 Let $F , F ^ { \prime }$ be rational boundary components of $X$ ，such that $F ^ { \prime } \not \subset F \cdot \Gamma$ ， or $F = F ^ { \prime }$ ，dim $F ^ { \prime } \cong \dim F$ ，and let $x \in F$ $y \in F ^ { \prime }$ ， $y \notin x \cdot \Gamma$ .Let $\Gamma ( F ) _ { x }$ be the isotropy group of $x$ in $\Gamma ( F ) = ( N ( F ) \cap \Gamma ) / ( Z ( F ) \cap \Gamma )$ ，where $N ( F )$ and $Z ( F )$ are respectively the normalizer and the centralizer of $\pmb { F }$ in $H ( X )$ . The orbit of $x$ under $N ( F ) \cap \Gamma$ is the union of finitely many orbits of $N ( F ) \cap \Gamma ^ { \prime }$ .By 8.6, 8.8 for ${ \bf \delta T ^ { \prime } }$ ，there exists $l _ { 0 } ^ { \prime }$ such that for any multiple $ { l }$ of $l _ { 0 } ^ { \prime }$ we may find a P-E series $E ^ { \prime }$ adapted to $\pmb { F }$ of weight $ { \boldsymbol { l } }$ for $\Gamma ^ { \prime }$ verifying
 
@@ -2866,7 +3122,8 @@ If $\boldsymbol { x } \cdot \boldsymbol { \gamma } \notin \boldsymbol { x } \cdo
 
 8.10.Assume again for convenience, $G$ to be $\mathbf { Q }$ -simple.An automorphic form of weight $ { \boldsymbol { l } }$ is a cusp form if it belongs to the kernel of $\Phi$ ：
 
-It is known [35; Exp.10,§4] that every cusp form whose weight is a multiple of some suitable fixed integer $l _ { 0 }$ is a linear combination of Poincaré series;in particular,if $X / \Gamma$ is compact,every automorphic form of weight $m l _ { 0 }$ is a linear combination of Poincaré series. It follows therefore from 8.6, by an obvious induction procedure on $\dim { \cal F }$ ，that there exists an integer $l _ { 0 }$ with the following property: every automorphic form for $\Gamma$ ，of weight $\imath$ divisible by $l _ { 0 }$ , is a linear combination of transforms under elements of $G _ { \mathbf { Q } }$ of P-E series for conjugates of $\mathbf { r }$ under $G _ { \mathbf { Q } }$
+It is known [35; Exp.10,§4] that every cusp form whose weight is a multiple of some suitable fixed integer $l _ { 0 }$ is a linear combination of Poincaré series;in particular,if $X / \Gamma$ is compact,every automorphic form of weight $m l _ { 0 }$ is a linear combination of Poincaré series.
+It follows therefore from 8.6, by an obvious induction procedure on $\dim { \cal F }$ ，that there exists an integer $l _ { 0 }$ with the following property: every automorphic form for $\Gamma$ ，of weight $\imath$ divisible by $l _ { 0 }$ , is a linear combination of transforms under elements of $G _ { \mathbf { Q } }$ of P-E series for conjugates of $\mathbf { r }$ under $G _ { \mathbf { Q } }$
 
 # III. THE COMPACTIFICATION AS AN ANALYTIC SPACE
 
@@ -2874,7 +3131,8 @@ It is known [35; Exp.10,§4] that every cusp form whose weight is a multiple of 
 
 9.1.In this section, $V$ is a locally compact Hausdorff space,satisfying the second axiom of countability,which is the union of a locally finite countable family of disjcint subspaces $V _ { \circ } , V _ { 1 } , \cdots$ ,each of which is provided with the structure of an irreducible normal analytic space.
 
-An $\mathcal { \vec { \alpha } }$ -function on an open subset $U$ of $V$ is a complex valued continuous function on $\boldsymbol { U }$ whose restriction to $U \cap V _ { i }$ is analytic $( 0 \leq i \leq m$ .If we associate to $U$ the C-module of $\mathcal { \hat { \mathrm { ~ \small ~ G ~ } } }$ -functions defined on $U$ ，we get a presheaf which is easily seen to be a sheaf, the sheaf @ of germs of $\boldsymbol { \mathcal { \mathrm { \Omega } } }$ -functions. The continuous sections of $\mathcal { \vec { \mathrm { \mathrm { G } } } }$ over an open subset $U$ of $V$ are the $\boldsymbol { \mathcal { \mathrm { ~  ~ } } }$ -functions defined on $U$ We let ${ \mathcal { R } } _ { v }$ be the stalk of $\mathcal { \vec { \mathrm { G } } }$ at $v \in V$
+An $\mathcal { \vec { \alpha } }$ -function on an open subset $U$ of $V$ is a complex valued continuous function on $\boldsymbol { U }$ whose restriction to $U \cap V _ { i }$ is analytic $( 0 \leq i \leq m$ .If we associate to $U$ the C-module of $\mathcal { \hat { \mathrm { ~ \small ~ G ~ } } }$ -functions defined on $U$ ，we get a presheaf which is easily seen to be a sheaf, the sheaf @ of germs of $\boldsymbol { \mathcal { \mathrm { \Omega } } }$ -functions.
+The continuous sections of $\mathcal { \vec { \mathrm { \mathrm { G } } } }$ over an open subset $U$ of $V$ are the $\boldsymbol { \mathcal { \mathrm { ~  ~ } } }$ -functions defined on $U$ We let ${ \mathcal { R } } _ { v }$ be the stalk of $\mathcal { \vec { \mathrm { G } } }$ at $v \in V$
 
 9.2. THEoREM. We keep the notation of 9.1 and make the following assumptions: (i）For each positive integer $d$ ,the union $V _ { ( d ) }$ of the $V _ { i }$ s whose dimension is $\leq d$ is closed.dim $V _ { \circ } = \dim V$ ,dim $V _ { i } < \dim V _ { \mathfrak { o } }$ if $i \neq 0$ and $V _ { \mathfrak { o } }$ is dense in $V$ (ii）Each point $v \in V$ has $^ { a }$ fundamental set of open neighborhoods $( U _ { \alpha } )$ such that $U _ { \alpha } \cap V _ { 0 }$ is connected for every $\alpha$ ： (iii) The restrictions to $V _ { i }$ of local @-functions define the structural sheaf of $V _ { i }$ ：
 
@@ -2886,7 +3144,8 @@ The proof of 9.2,will be broken up into several lemmas,and will be concluded at 
 
 We shall use the following remark on normal analytic spaces.
 
-9.3. LEMMA. Let $Y$ be $^ { a }$ normal analytic space. Then the ring of analytic functions on $Y$ is integrally closed in the ring of complex-valued continuous functions on $Y$
+9.3. LEMMA. Let $Y$ be $^ { a }$ normal analytic space.
+Then the ring of analytic functions on $Y$ is integrally closed in the ring of complex-valued continuous functions on $Y$
 
 Being normal, $Y$ is the disjoint union of its irreducible components,which are open in $Y$ . We may therefore assume $Y$ to be irreducible.
 
@@ -2898,7 +3157,8 @@ $$
 
 where the $a _ { i }$ are analytic functions on $Y$
 
-Let $a \in Y , \mathcal { O } _ { a }$ be the local ring of $Y$ at $^ { a }$ ,and $K _ { a }$ be the field of quotients of ${ \mathfrak { O } } _ { a }$ .Let $P = P ( T ) = T ^ { n } + a _ { 1 } \cdot T ^ { n - 1 } + \cdots + a _ { n } \in \mathcal { O } _ { a } [ T ] ,$ ，where $a _ { i }$ also denotes the germ defined at $^ { a }$ by $\mathbf { \delta } _ { a _ { i } }$ . We assume $^ { a }$ to be a regular point. Using the Gauss factorization lemma,and (1),we can find a factor
+Let $a \in Y , \mathcal { O } _ { a }$ be the local ring of $Y$ at $^ { a }$ ,and $K _ { a }$ be the field of quotients of ${ \mathfrak { O } } _ { a }$ .Let $P = P ( T ) = T ^ { n } + a _ { 1 } \cdot T ^ { n - 1 } + \cdots + a _ { n } \in \mathcal { O } _ { a } [ T ] ,$ ，where $a _ { i }$ also denotes the germ defined at $^ { a }$ by $\mathbf { \delta } _ { a _ { i } }$ . We assume $^ { a }$ to be a regular point.
+Using the Gauss factorization lemma,and (1),we can find a factor
 
 $$
 Q = T ^ { m } + b _ { 1 } \cdot T ^ { m - 1 } + \cdots + b ^ { m } \in \mathcal { O } _ { a } [ T ]
@@ -2916,7 +3176,9 @@ where $U$ is a sufficiently small neighborhood of $^ { a }$ .Here $Q _ { y } \in
 
 Except for the use of 9.3, the proof is the same as that of the corresponding assertion in [35,Exp.11,p.7],and we describe it briefly.
 
-By (ii), $v$ has a fundamental system of neighborhoods $U$ such that $U \cap V _ { \mathfrak { o } }$ is an irreducible analytic space. Therefore,if $f , g$ are $\mathcal { \hat { \mathrm { ~ \small ~ G ~ } } }$ -functions on $U$ whose product is identically zero,then one of them must be identically zero on $U \cap V _ { \mathfrak { o } }$ ,hence on $U$ by continuity. This shows that ${ \mathcal { Q } } _ { v }$ is integral.
+By (ii), $v$ has a fundamental system of neighborhoods $U$ such that $U \cap V _ { \mathfrak { o } }$ is an irreducible analytic space.
+Therefore,if $f , g$ are $\mathcal { \hat { \mathrm { ~ \small ~ G ~ } } }$ -functions on $U$ whose product is identically zero,then one of them must be identically zero on $U \cap V _ { \mathfrak { o } }$ ,hence on $U$ by continuity.
+This shows that ${ \mathcal { Q } } _ { v }$ is integral.
 
 Let now $f , g \in { \mathcal { \mathrm { G } } } _ { v }$ with $g$ not identically zero and $f / g$ in the integral closure of ${ \mathcal { R } } _ { v }$ .There exists then a relation of the form
 
@@ -2950,9 +3212,11 @@ $$
 \varphi = f \times f \colon U ^ { \prime } \times U ^ { \prime } { \longrightarrow } \mathbf { C } ^ { s } \times \mathbf { C } ^ { s } \ .
 $$
 
-Let $\Delta$ and $D$ be the diagonals of $U ^ { \prime } \times U ^ { \prime }$ and $\mathbf { C } ^ { s } \times \mathbf { C } ^ { s }$ respectively. Clearly $\varphi ^ { - 1 } ( D ) \supset \Delta$ , and we have $\varphi ^ { - 1 } ( D ) = \Delta$ if and only if $f$ is injective.
+Let $\Delta$ and $D$ be the diagonals of $U ^ { \prime } \times U ^ { \prime }$ and $\mathbf { C } ^ { s } \times \mathbf { C } ^ { s }$ respectively.
+Clearly $\varphi ^ { - 1 } ( D ) \supset \Delta$ , and we have $\varphi ^ { - 1 } ( D ) = \Delta$ if and only if $f$ is injective.
 
-$U ^ { \prime } \times U ^ { \prime }$ is the disjoint union of the locally closed analytic spaces $( U ^ { \prime } \cap V _ { i } ) \times ( U ^ { \prime } \cap V _ { j } )$ . Similarly $( U ^ { \prime } \times U ^ { \prime } ) - \Delta$ is a disjoint union of locally closed subspaces,each endowed with the structure of a separable normal analytic space，namely the complements of the diagonal in the subspaces $( U ^ { \prime } \cap V _ { i } ) \times ( U ^ { \prime } \cap V _ { j } )$ .Therefore $U ^ { \prime } \times U ^ { \prime } - \Delta$ may be written as disjoint union of countably many subspaces $M _ { j }$ ，each of which is an irreducible analytic space,locally analytically embedded in some $V _ { i }$ . The restriction of $\varphi$ to $M _ { j }$ is analytic, hence $U \cap \varphi ^ { - 1 } ( D ) \cap M _ { j }$ is an analytic subspace. Let $M _ { j k }$
+$U ^ { \prime } \times U ^ { \prime }$ is the disjoint union of the locally closed analytic spaces $( U ^ { \prime } \cap V _ { i } ) \times ( U ^ { \prime } \cap V _ { j } )$ . Similarly $( U ^ { \prime } \times U ^ { \prime } ) - \Delta$ is a disjoint union of locally closed subspaces,each endowed with the structure of a separable normal analytic space，namely the complements of the diagonal in the subspaces $( U ^ { \prime } \cap V _ { i } ) \times ( U ^ { \prime } \cap V _ { j } )$ .Therefore $U ^ { \prime } \times U ^ { \prime } - \Delta$ may be written as disjoint union of countably many subspaces $M _ { j }$ ，each of which is an irreducible analytic space,locally analytically embedded in some $V _ { i }$ . The restriction of $\varphi$ to $M _ { j }$ is analytic, hence $U \cap \varphi ^ { - 1 } ( D ) \cap M _ { j }$ is an analytic subspace.
+Let $M _ { j k }$
 
 be its irreducible components,and let
 
@@ -2972,15 +3236,23 @@ $$
 ( 1 \leq i < m ) \ .
 $$
 
-Then the constants $c _ { i }$ are easily proven to satisfy our condition. In this case, $\begin{array} { r } { \pmb { g } = \sum c _ { i } \pmb { \cdot } \pmb { g } _ { i } } \end{array}$ converges uniformly on $U ^ { \prime \prime }$ and is an $\mathcal { \hat { \mathrm { ~ \small ~ G ~ } } }$ -function on $U ^ { \prime \prime }$ such that $g ^ { * } ( x , y ) = g ( x ) - g ( y )$ ， $( x , y \in U ^ { \prime \prime } )$ ．This implies that $g ( u _ { i } ) - g ( v _ { i } ) =$ $g ^ { \ast } ( u _ { i } , v _ { i } ) \neq 0$ $( i = 1 , \cdots )$ ,hence that
+Then the constants $c _ { i }$ are easily proven to satisfy our condition.
+In this case, $\begin{array} { r } { \pmb { g } = \sum c _ { i } \pmb { \cdot } \pmb { g } _ { i } } \end{array}$ converges uniformly on $U ^ { \prime \prime }$ and is an $\mathcal { \hat { \mathrm { ~ \small ~ G ~ } } }$ -function on $U ^ { \prime \prime }$ such that $g ^ { * } ( x , y ) = g ( x ) - g ( y )$ ， $( x , y \in U ^ { \prime \prime } )$ ．This implies that $g ( u _ { i } ) - g ( v _ { i } ) =$ $g ^ { \ast } ( u _ { i } , v _ { i } ) \neq 0$ $( i = 1 , \cdots )$ ,hence that
 
 $$
 \begin{array} { r } { \partial _ { U } ( f _ { 1 } , \cdot \cdot \cdot , f _ { s } , g ) < \partial _ { U } ( f _ { 1 } , \cdot \cdot \cdot , f _ { s } ) . } \end{array}
 $$
 
-9.6. LEMmA. We keep the notation of 9.1 and the assumptions 9.2 (i), 9.2 (ii). Let U be a relatively compact open neighborhood of $v \in V , f _ { 1 } , \cdots , f _ { s }$ $^ { a }$ finite set of $\mathcal { Q }$ functions on $\boldsymbol { U }$ which separate the points of $U$ ，and $f \colon u \mapsto ( f _ { 1 } ( u ) , \cdots , f _ { s } ( u ) )$ the associated mapping of $U$ into $\mathbf { C } ^ { s }$ . Then there exists $^ { a }$ relatively compact neighborhood $U ^ { \prime }$ of $v$ in $U$ such that $f$ induces $\pmb { a }$ homeomorphism of $U ^ { \prime }$ (resp. $U ^ { \prime } \cap V _ { i }$ ， $i = 0 , 1 , \cdots )$ onto an analytic (resp. locally analytic) set in some open domain $N$ of $\mathbf { C } ^ { s }$ ，and that $f ( U ^ { \prime } )$ is locally analytically irreducible at each of its points.
+9.6. LEMmA. We keep the notation of 9.1 and the assumptions 9.2 (i), 9.2 (ii).
+Let U be a relatively compact open neighborhood of $v \in V , f _ { 1 } , \cdots , f _ { s }$ $^ { a }$ finite set of $\mathcal { Q }$ functions on $\boldsymbol { U }$ which separate the points of $U$ ，and $f \colon u \mapsto ( f _ { 1 } ( u ) , \cdots , f _ { s } ( u ) )$ the associated mapping of $U$ into $\mathbf { C } ^ { s }$ . Then there exists $^ { a }$ relatively compact neighborhood $U ^ { \prime }$ of $v$ in $U$ such that $f$ induces $\pmb { a }$ homeomorphism of $U ^ { \prime }$ (resp.
+$U ^ { \prime } \cap V _ { i }$ ， $i = 0 , 1 , \cdots )$ onto an analytic (resp.
+locally analytic) set in some open domain $N$ of $\mathbf { C } ^ { s }$ ，and that $f ( U ^ { \prime } )$ is locally analytically irreducible at each of its points.
 
-Let $U _ { 1 }$ be an open neighborhood of $v$ such that $\overbar { U } _ { 1 }$ is contained in $U _ { ☉ }$ Since $f$ is injective on $U$ ,there is an open neighborhood $N$ of $f ( v )$ such that $f ( \overrightharpoon { U } _ { 1 } - U _ { 1 } ) \cap N$ is empty. Put $U ^ { \prime } = f ^ { - 1 } ( N ) \cap U _ { 1 }$ Let $C$ be compact in $_ N$ and $C ^ { \prime } = f ^ { - 1 } ( C ) \cap U ^ { \prime }$ .The set $C ^ { \prime }$ is contained in $f ^ { - 1 } ( C ) \cap { \vec { U } } _ { 1 }$ ，which is compact. Let $b$ belong to the closure of $C ^ { \prime }$ in $\overbar { U } _ { 1 }$ .Then $f ( b ) \in C \subset N$ s0 $b \in U _ { 1 } \cap f ^ { - 1 } ( C ) \subset U ^ { \prime }$ ；thus $b \in f ^ { - 1 } ( C ) \cap U ^ { \prime } = C ^ { \prime }$ ，S0 $C ^ { \prime }$ is compact. Consequently. $f$ is proper on $U ^ { \prime }$ ,and therefore is a homeomorphism of $U ^ { \prime }$ onto $f ( U ^ { \prime } ) \subset N$ Now,let $V _ { i _ { 1 } } , \cdots , V _ { i _ { r } }$ be those $V _ { i }$ of smallest dimension $d _ { \mathfrak { o } }$ which meet $U ^ { \prime }$ . By 9.2(i),the intersection of each with $U ^ { \prime }$ is closed in $U ^ { \prime }$ and since $f$ is proper on $U ^ { \prime }$ ,it follows that $f ( ( V _ { i _ { 1 } } \cap \cdots \cap V _ { i _ { r } } ) \cap U ^ { \prime } )$ is a closed analytic subset of dimension $d _ { \mathfrak { o } }$ of $N$ . Assume now that for some integer $d \gtrapprox d _ { 0 }$ we have proved that $S = f ( ( V _ { ( a ) } ) \cap U ^ { \prime } )$ is a closed analytic set in $N$ of dimension $\leq d$ Let $V _ { j }$ be of dimension $d + 1$ .By [21,Ch.V,C5,p.162] $f ( V _ { j } \cap U ^ { \prime } )$ is analytic of dimension $d + 1$ in $N - S$ . Then,by a theorem of RemmertStein [21, Ch.V, D5,p.169] the closure of $f ( V _ { j } \cap U )$ in $N$ is an analytic set in $N$ .The fact that $f ( U ^ { \prime } )$ is an analytic set now follows by induction on $d$ Since $f$ is bijective on $U ^ { \prime }$ and since each of its coordinates is an $\mathcal { \hat { \mathrm { \Omega } } }$ -function,it follows that for each $x \in U ^ { \prime }$ $f$ induces an injection of the local ring of $f ( U ^ { \prime } )$ at $f ( x )$ into ${ \mathcal { Q } } _ { x }$ ; the latter being an integral domain, we see that $f ( U ^ { \prime } )$ is irreducible at every point.
+Let $U _ { 1 }$ be an open neighborhood of $v$ such that $\overbar { U } _ { 1 }$ is contained in $U _ { ☉ }$ Since $f$ is injective on $U$ ,there is an open neighborhood $N$ of $f ( v )$ such that $f ( \overrightharpoon { U } _ { 1 } - U _ { 1 } ) \cap N$ is empty.
+Put $U ^ { \prime } = f ^ { - 1 } ( N ) \cap U _ { 1 }$ Let $C$ be compact in $_ N$ and $C ^ { \prime } = f ^ { - 1 } ( C ) \cap U ^ { \prime }$ .The set $C ^ { \prime }$ is contained in $f ^ { - 1 } ( C ) \cap { \vec { U } } _ { 1 }$ ，which is compact.
+Let $b$ belong to the closure of $C ^ { \prime }$ in $\overbar { U } _ { 1 }$ .Then $f ( b ) \in C \subset N$ s0 $b \in U _ { 1 } \cap f ^ { - 1 } ( C ) \subset U ^ { \prime }$ ；thus $b \in f ^ { - 1 } ( C ) \cap U ^ { \prime } = C ^ { \prime }$ ，S0 $C ^ { \prime }$ is compact.
+Consequently.
+$f$ is proper on $U ^ { \prime }$ ,and therefore is a homeomorphism of $U ^ { \prime }$ onto $f ( U ^ { \prime } ) \subset N$ Now,let $V _ { i _ { 1 } } , \cdots , V _ { i _ { r } }$ be those $V _ { i }$ of smallest dimension $d _ { \mathfrak { o } }$ which meet $U ^ { \prime }$ . By 9.2(i),the intersection of each with $U ^ { \prime }$ is closed in $U ^ { \prime }$ and since $f$ is proper on $U ^ { \prime }$ ,it follows that $f ( ( V _ { i _ { 1 } } \cap \cdots \cap V _ { i _ { r } } ) \cap U ^ { \prime } )$ is a closed analytic subset of dimension $d _ { \mathfrak { o } }$ of $N$ . Assume now that for some integer $d \gtrapprox d _ { 0 }$ we have proved that $S = f ( ( V _ { ( a ) } ) \cap U ^ { \prime } )$ is a closed analytic set in $N$ of dimension $\leq d$ Let $V _ { j }$ be of dimension $d + 1$ .By [21,Ch.V,C5,p.162] $f ( V _ { j } \cap U ^ { \prime } )$ is analytic of dimension $d + 1$ in $N - S$ . Then,by a theorem of RemmertStein [21, Ch.V, D5,p.169] the closure of $f ( V _ { j } \cap U )$ in $N$ is an analytic set in $N$ .The fact that $f ( U ^ { \prime } )$ is an analytic set now follows by induction on $d$ Since $f$ is bijective on $U ^ { \prime }$ and since each of its coordinates is an $\mathcal { \hat { \mathrm { \Omega } } }$ -function,it follows that for each $x \in U ^ { \prime }$ $f$ induces an injection of the local ring of $f ( U ^ { \prime } )$ at $f ( x )$ into ${ \mathcal { Q } } _ { x }$ ; the latter being an integral domain, we see that $f ( U ^ { \prime } )$ is irreducible at every point.
 
 9.7. LEMMA. We keep the notation of 9.1 and the assumptions of 9.2. Let $U ^ { \prime }$ be as in 9.6,and put $Y = f ( U ^ { \prime } )$ .Let $\widetilde { Y }$ be the normalization of $Y$ Then $f$ induces an isomorphism of ringed spaces of $( U ^ { \prime } , \mathcal { Q } \mid _ { v ^ { \prime } } )$ onto $\widetilde { Y }$
 
@@ -3004,7 +3276,9 @@ This follows from the theorem and the Riemann extension theorem.
 
 # 10. Analytic structure and projective embeddings of the compactification
 
-10.1. We now revert to the set up of 3.3 (i). In particular, $G$ is a connected semi-simple $\mathbf { Q }$ group, with center reduced to $\{ e \}$ , whose symmetric space $X = K \backslash G _ { \mathrm { R } }$ of non-compact type is a bounded domain and $H ( X )$ is the group of all holomorphic automorphisms of $X$ , in which $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ is of finite index. Moreover, $X ^ { * }$ is the union of the rational boundary components of $X$ ,endowed with the Satake topology (4.8), $\Gamma$ an arithmetic group of automorphisms of $X$ ， $V ^ { * } =$ $X ^ { * } / \Gamma$ the compactification of $V = X / \Gamma$ introduced in $\ S 4$ ,and $\pi \colon X ^ { * } \to V ^ { * }$ the canonical projection. There are finitely many rational boundary components $\boldsymbol { F } _ { i }$ $0 \leq i \leq m$ ， $F _ { 0 } = X$ ）such that $V ^ { * }$ is the disjoint union of the quotients $V _ { i } = F _ { i } / \Gamma ( F _ { i } )$ . Since $V _ { i } \neq V _ { j }$ if $i \neq j$ ，we have $F _ { i } \not \subset F _ { j } { \cdot } \Gamma ( i \not = j )$
+10.1. We now revert to the set up of 3.3 (i). In particular, $G$ is a connected semi-simple $\mathbf { Q }$ group, with center reduced to $\{ e \}$ , whose symmetric space $X = K \backslash G _ { \mathrm { R } }$ of non-compact type is a bounded domain and $H ( X )$ is the group of all holomorphic automorphisms of $X$ , in which $G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ is of finite index.
+Moreover, $X ^ { * }$ is the union of the rational boundary components of $X$ ,endowed with the Satake topology (4.8), $\Gamma$ an arithmetic group of automorphisms of $X$ ， $V ^ { * } =$ $X ^ { * } / \Gamma$ the compactification of $V = X / \Gamma$ introduced in $\ S 4$ ,and $\pi \colon X ^ { * } \to V ^ { * }$ the canonical projection.
+There are finitely many rational boundary components $\boldsymbol { F } _ { i }$ $0 \leq i \leq m$ ， $F _ { 0 } = X$ ）such that $V ^ { * }$ is the disjoint union of the quotients $V _ { i } = F _ { i } / \Gamma ( F _ { i } )$ . Since $V _ { i } \neq V _ { j }$ if $i \neq j$ ，we have $F _ { i } \not \subset F _ { j } { \cdot } \Gamma ( i \not = j )$
 
 10.2. The group $\Gamma ( F _ { i } )$ acts in a properly discontinuous fashion on $\boldsymbol { F } _ { i }$ hence, $V _ { i }$ is canonically endowed with the structure of an irreducible normal analytic space [17]. We are thus in the situation of 9.1 and introduce the sheaf $\mathcal { \vec { \mathrm { G } } }$ of germs of $\boldsymbol { \mathcal { \mathrm { { q } } } }$ -functions on $V ^ { * }$ .An $\boldsymbol { \mathcal { \mathrm { q } } }$ -function on an open subset $U$ of $V ^ { * }$ is a continuous complex-valued function whose restriction to $V _ { i } \cap U$ is analytic $0 \leq i \leq m$ ).
 
@@ -3030,13 +3304,15 @@ $$
 f \circ \pi \circ \sigma _ { F _ { i } , F _ { j } \cdot \gamma } ~ .
 $$
 
-10.4. THEoREm. We keep the assumptions and notation of 10.1,10.2. Then $( V ^ { * } , @ )$ is an irreducible normal analytic space, in which each $V _ { i }$ is embedded as a locally closed analytic space.
+10.4. THEoREm.
+We keep the assumptions and notation of 10.1,10.2. Then $( V ^ { * } , @ )$ is an irreducible normal analytic space, in which each $V _ { i }$ is embedded as a locally closed analytic space.
 
 To prove the theorem,it is enough to check that the conditions (i) to (iv) of 9.2, with $V$ and $V _ { \mathfrak { o } }$ replaced by $V ^ { * }$ and $V$ respectively,hold true in the present situation.
 
 Conditions (i)， (ii) and (ii) are consequences of 4.11，4.15 and 10.3, respectively.
 
-It remains to check the separation of points by $\mathcal { \hat { \mathrm { \mathrm { G } } } }$ -functions. Let $v \in V _ { i }$ and ${ \boldsymbol { x } } \in F _ { i }$ be such that $\pi ( x ) = v$ . By 8.8,8.9 there exists an integral automorphic form $E$ ,of some weight $ { l }$ ，such that $\Phi _ { F _ { i } } E ( x ) \neq 0$ .Let $U$ be a good neighborhood of $x$ in $X ^ { * }$ ，on which the extension of $E$ does not take the value zero,and let $U ^ { \prime } = \pi ( U )$ .Let $p ^ { \prime }$ $\prime , q \prime \in U ^ { \prime }$ and $j , k$ be the indices such that $p ^ { \prime } \in V _ { j }$ $q ^ { \prime } \in V _ { k }$ .Let $p \in F _ { j } \cap \pi ^ { - 1 } ( p ^ { \prime } )$ ， $q \in F _ { k } \cap \pi ^ { - 1 } ( q ^ { \prime } )$ . Assume dim $F _ { j } \equiv _ { }$ dim $\boldsymbol { F } _ { k }$ . Since，by construction we have either $j = k$ ，or $F _ { j } \notin F _ { k } \cdot \Gamma$ ，there exists (8.8,8.9) a multiple ${ \mathit { l } } ^ { \prime } = { \mathit { l } } \cdot { \mathit { m } }$ of $ { l }$ ,and an integral automorphic form $E ^ { \prime }$ of weight ${ \mathit { l } } ^ { \prime }$ for $\mathbf { \Gamma } ^ { \Gamma }$ ，such that
+It remains to check the separation of points by $\mathcal { \hat { \mathrm { \mathrm { G } } } }$ -functions.
+Let $v \in V _ { i }$ and ${ \boldsymbol { x } } \in F _ { i }$ be such that $\pi ( x ) = v$ . By 8.8,8.9 there exists an integral automorphic form $E$ ,of some weight $ { l }$ ，such that $\Phi _ { F _ { i } } E ( x ) \neq 0$ .Let $U$ be a good neighborhood of $x$ in $X ^ { * }$ ，on which the extension of $E$ does not take the value zero,and let $U ^ { \prime } = \pi ( U )$ .Let $p ^ { \prime }$ $\prime , q \prime \in U ^ { \prime }$ and $j , k$ be the indices such that $p ^ { \prime } \in V _ { j }$ $q ^ { \prime } \in V _ { k }$ .Let $p \in F _ { j } \cap \pi ^ { - 1 } ( p ^ { \prime } )$ ， $q \in F _ { k } \cap \pi ^ { - 1 } ( q ^ { \prime } )$ . Assume dim $F _ { j } \equiv _ { }$ dim $\boldsymbol { F } _ { k }$ . Since，by construction we have either $j = k$ ，or $F _ { j } \notin F _ { k } \cdot \Gamma$ ，there exists (8.8,8.9) a multiple ${ \mathit { l } } ^ { \prime } = { \mathit { l } } \cdot { \mathit { m } }$ of $ { l }$ ,and an integral automorphic form $E ^ { \prime }$ of weight ${ \mathit { l } } ^ { \prime }$ for $\mathbf { \Gamma } ^ { \Gamma }$ ，such that
 
 $$
 \Phi _ { { \scriptscriptstyle F } _ { j } } E ^ { \prime } ( p ) \not = 0 ~ , \qquad \Phi _ { { \scriptscriptstyle F } _ { k } } E ^ { \prime } ( q ) = 0 ~ .
@@ -3082,15 +3358,20 @@ $$
 ( f \in B _ { i } ; x \in X )
 $$
 
-where $J$ is the functional determinant in some realization of $X$ as a domain in euclidean space. Since $X$ is connected,it follows that $\mathcal { Q } ( \Gamma )$ is integrally closed [35,Exp.17,No.5]. We claim that the subring $\mathcal { \mathrm { { G ^ { \prime } } ( \Gamma ) } }$ of integral automorphic forms is also integrally closed. Since $\mathcal { Q } ( \Gamma )$ is,this amounts to showing that,if $h$ is an automorphic form of weight $ { \boldsymbol { l } }$ which verifies an integral dependence relation
+where $J$ is the functional determinant in some realization of $X$ as a domain in euclidean space.
+Since $X$ is connected,it follows that $\mathcal { Q } ( \Gamma )$ is integrally closed [35,Exp.17,No.5]. We claim that the subring $\mathcal { \mathrm { { G ^ { \prime } } ( \Gamma ) } }$ of integral automorphic forms is also integrally closed.
+Since $\mathcal { Q } ( \Gamma )$ is,this amounts to showing that,if $h$ is an automorphic form of weight $ { \boldsymbol { l } }$ which verifies an integral dependence relation
 
 $$
 \begin{array} { r } { h ^ { n } + \sum _ { 0 < i \leq n } a _ { i } ( x ) \cdot h ^ { n - i } = 0 \ , } \end{array}
 $$
 
-where $a _ { i }$ is an integral automorphic form of weight $l \cdot i$ ，then $h$ is integral. Let $x \in X ^ { * }$ and $U$ be a good neighborhood of $x$ . We may identify $h$ and the $\boldsymbol { a } _ { i } ^ { \ } \mathbf { s }$ with holomorphic functions on $X \cap U$ ，Moreover the $\boldsymbol { a } _ { i } ^ { \prime } \mathbf { s }$ extend by continuity to continuous functions whose restrictions to $F \cap U$ are holomorphic for any rational boundary component $F$ ，The relation (1） and the condition 9.2 (ii) imply again,as in 9.4,that $h$ extends by continuity to a continuous function on $U _ { ☉ }$ ，If follows then from 9.3 that $h$ is analytic on $F \cap U$ for every $\boldsymbol { F } ,$ Thus $h$ is integral.
+where $a _ { i }$ is an integral automorphic form of weight $l \cdot i$ ，then $h$ is integral.
+Let $x \in X ^ { * }$ and $U$ be a good neighborhood of $x$ . We may identify $h$ and the $\boldsymbol { a } _ { i } ^ { \ } \mathbf { s }$ with holomorphic functions on $X \cap U$ ，Moreover the $\boldsymbol { a } _ { i } ^ { \prime } \mathbf { s }$ extend by continuity to continuous functions whose restrictions to $F \cap U$ are holomorphic for any rational boundary component $F$ ，The relation (1） and the condition 9.2 (ii) imply again,as in 9.4,that $h$ extends by continuity to a continuous function on $U _ { ☉ }$ ，If follows then from 9.3 that $h$ is analytic on $F \cap U$ for every $\boldsymbol { F } ,$ Thus $h$ is integral.
 
-10.10.Let $( E _ { i } ) _ { 0 \leq i \leq N }$ be a set of integral automorphic forms verifying 10.8, $A$ be the subring of $A ^ { \prime } ( \Gamma )$ generated by the $E _ { i } ^ { \prime } { \bf s }$ ,and $\tilde { A }$ its integral closure. The latter is a finitely generated algebra over C [15,Ch.5,&3,No.2] and is contained in $A ^ { \prime } ( \Gamma )$ by 10.9.It is elementary that there exists an integer $d$ such that the subring $\widetilde { A } ^ { ( d ) }$ of elements in $\tilde { A }$ whose degree is a multiple of $d$ is generated by $\widetilde { A } _ { d }$ [15, Ch. 3, $\ S 1$ ,No.3, Prop.3]. Moreover, $\widetilde { A } ^ { ( d ) }$ is also integrally closed [15,Ch.5, $\ S 1$ ， No.8, Cor.3]. Therefore $\widetilde { A } ^ { ( d ) }$ is a normally projective algebra over C,in the sense of [35,Exp.17]. Let $E _ { i }$ $( 0 \leq i \leq M )$ be a basis of $\widetilde { A } _ { d }$ . Then $\widetilde { A } ^ { \langle d \rangle } \cong C [ T _ { 0 } , \cdots , T _ { x } ] / I ,$ where $I$ is the ideal of the relations between the $E _ { i }$ . The projective variety $V ( \widetilde { A } ^ { \scriptscriptstyle ( d ) } ) \subset { \mathbf { P } } ( M , { \mathbf { C } } )$ defined by $\boldsymbol { \mathit { I } }$ is then normally projective.The map $f \colon V ^ { * } \longrightarrow \mathbf { P } ( M , \mathbf { C } )$ associated to the $E _ { i } ^ { : }$ s is well-defined, injective;its image is an analytic,hence algebraic,variety, contained in $V ( \widetilde { A } ^ { ( d ) } )$ .It is in fact equal to $V ( \widetilde { A } ^ { ( d ) } )$ since otherwise there would exist a polynomial $P \in \mathbf { C } [ T _ { 0 } , \cdots , T _ { x } ]$ ,not contained in $\boldsymbol { \mathit { I } }$ ,such that $P ( E _ { 0 } , \cdots , E _ { x } )$ would be identically zero on $X$ ,in contradiction with the definition of $I .$ Thus $f$ is a bijective holomorphic map of $V ^ { * }$ onto $V ( \widetilde { A } ^ { ( d ) } )$ . Since both $V ^ { * }$ and $V ( \widetilde { A } ^ { ( d ) } )$ are normal analytic spaces, $f$ is an isomorphism of analytic spaces. Thus we have proved the following:
+10.10.Let $( E _ { i } ) _ { 0 \leq i \leq N }$ be a set of integral automorphic forms verifying 10.8, $A$ be the subring of $A ^ { \prime } ( \Gamma )$ generated by the $E _ { i } ^ { \prime } { \bf s }$ ,and $\tilde { A }$ its integral closure.
+The latter is a finitely generated algebra over C [15,Ch.5,&3,No.2] and is contained in $A ^ { \prime } ( \Gamma )$ by 10.9.It is elementary that there exists an integer $d$ such that the subring $\widetilde { A } ^ { ( d ) }$ of elements in $\tilde { A }$ whose degree is a multiple of $d$ is generated by $\widetilde { A } _ { d }$ [15, Ch. 3, $\ S 1$ ,No.3, Prop.3]. Moreover, $\widetilde { A } ^ { ( d ) }$ is also integrally closed [15,Ch.5, $\ S 1$ ， No.8, Cor.3]. Therefore $\widetilde { A } ^ { ( d ) }$ is a normally projective algebra over C,in the sense of [35,Exp.17]. Let $E _ { i }$ $( 0 \leq i \leq M )$ be a basis of $\widetilde { A } _ { d }$ . Then $\widetilde { A } ^ { \langle d \rangle } \cong C [ T _ { 0 } , \cdots , T _ { x } ] / I ,$ where $I$ is the ideal of the relations between the $E _ { i }$ . The projective variety $V ( \widetilde { A } ^ { \scriptscriptstyle ( d ) } ) \subset { \mathbf { P } } ( M , { \mathbf { C } } )$ defined by $\boldsymbol { \mathit { I } }$ is then normally projective.The map $f \colon V ^ { * } \longrightarrow \mathbf { P } ( M , \mathbf { C } )$ associated to the $E _ { i } ^ { : }$ s is well-defined, injective;its image is an analytic,hence algebraic,variety, contained in $V ( \widetilde { A } ^ { ( d ) } )$ .It is in fact equal to $V ( \widetilde { A } ^ { ( d ) } )$ since otherwise there would exist a polynomial $P \in \mathbf { C } [ T _ { 0 } , \cdots , T _ { x } ]$ ,not contained in $\boldsymbol { \mathit { I } }$ ,such that $P ( E _ { 0 } , \cdots , E _ { x } )$ would be identically zero on $X$ ,in contradiction with the definition of $I .$ Thus $f$ is a bijective holomorphic map of $V ^ { * }$ onto $V ( \widetilde { A } ^ { ( d ) } )$ . Since both $V ^ { * }$ and $V ( \widetilde { A } ^ { ( d ) } )$ are normal analytic spaces, $f$ is an isomorphism of analytic spaces.
+Thus we have proved the following:
 
 10.11. THEOREM. We keep the notation of 10.1, 10.2. There exist a weight l and fnitely many integral automorphic forms $E _ { i }$ of weight $ { \boldsymbol { l } }$ whose extensions to $X ^ { * }$ are nowhere simultaneously zero, such that the associated map $f$ $V ^ { * } \to \mathbf { P } ( N , \mathbf { C } )$ is an isomorphism of $V ^ { * }$ onto a normally projective subvariety of $\mathbf { P } ( N , \mathbf { C } )$
 
@@ -3122,9 +3403,14 @@ where $\mu _ { \rho }$ is the automorphy factor introduced in 5.6.We let ${ \mat
 
 REMARK. We have tacitly assumed that $\mathbf { \Gamma } \Gamma$ operates on $\tilde { \xi } _ { \rho }$ . This is certainly the case if $\Gamma \subset G _ { \mathbf { R } } ^ { 0 }$ . Otherwise we assume that $\rho$ extends to a subgroup $\kappa { \prime }$ of finite index of $K \cap H ( X )$ such that $\Gamma \subset K ^ { \prime } { \cdot } G _ { \mathbb { R } } ^ { \circ }$ . Replacing $K ^ { \mathfrak { o } }$ and $K _ { \mathrm { C } } ^ { 0 }$ by $K ^ { \prime }$ and $K _ { \mathrm { c } } ^ { \prime }$ respectively in the above construction，we see easily that the action of $G _ { \mathbf { R } } ^ { 0 }$ extends to one of $K ^ { \prime } G _ { \mathbf { R } } ^ { \scriptscriptstyle 0 }$ ：
 
-10.14.THEOREM.Assume that $G$ has no normal $\mathbf { Q }$ -subgroup of dimension 3,and let ${ \mathcal { Q } } _ { \rho }$ be as in 10.13. Then the direct image $i _ { * } @ _ { \mathfrak { p } }$ in $V ^ { * }$ of the sheaf of germs of automorphic forms of type $\tilde { \xi } _ { \rho }$ is an algebraic coherent sheaf. In particular， if $U$ is an open subset of $V ^ { * }$ ， every holomorphic section of ${ \mathcal { Q } } _ { \rho }$ over $U \cap V$ extends to a holomorphic section over $U$ 、 The space of automorphic forms of type $\tilde { \xi } _ { \rho }$ is canonically isomorphic to the space of holomorphic cross-sections of $i _ { * } @ _ { \mathfrak { p } }$ over $V ^ { * }$ ， and is finite dimensional. The ring of automorphic forms of positive weight is fnitely generated.
+10.14.THEOREM.Assume that $G$ has no normal $\mathbf { Q }$ -subgroup of dimension 3,and let ${ \mathcal { Q } } _ { \rho }$ be as in 10.13. Then the direct image $i _ { * } @ _ { \mathfrak { p } }$ in $V ^ { * }$ of the sheaf of germs of automorphic forms of type $\tilde { \xi } _ { \rho }$ is an algebraic coherent sheaf.
+In particular， if $U$ is an open subset of $V ^ { * }$ ， every holomorphic section of ${ \mathcal { Q } } _ { \rho }$ over $U \cap V$ extends to a holomorphic section over $U$ 、 The space of automorphic forms of type $\tilde { \xi } _ { \rho }$ is canonically isomorphic to the space of holomorphic cross-sections of $i _ { * } @ _ { \mathfrak { p } }$ over $V ^ { * }$ ， and is finite dimensional.
+The ring of automorphic forms of positive weight is fnitely generated.
 
-We identify $V ^ { * }$ with its image under the map of 10.11. Then the restriction to $V$ of the line bundle $\odot$ of $\mathbf { P } ( N , \mathbf { C } )$ attached to the divisor of a hyperplane is the sheaf ${ \mathcal { Q } } _ { a }$ of germs of automorphic forms of weight $d$ . We know (5.11) that if m is large enough, the product $J ^ { \boldsymbol { d } \cdot \boldsymbol { m } } \cdot \boldsymbol { \mu } _ { \rho }$ is an automorphy factor which satisfes the condition allowing one to construct Poincaré series. Therefore,Theorem 3 of [19] applies.It shows that given $x \in X / \Gamma$ ，there exist finitely many analytic cross-sections of the sheaf ${ \mathcal { \mathfrak { Q } } } _ { \mathfrak { p } } \otimes { \mathcal { \odot } } ^ { n }$ which generate the fibre of ${ \mathcal { Q } } _ { \rho }$ at $x$ .Since $V ^ { * } - V$ has codimension $\geq 2$ (3.15), Serre's extension theorem [36] applies,and yields the theorem，except for the last assertion. We now know that $A ( \Gamma ) = A ^ { \prime } ( \Gamma )$ . Let $ { l }$ and $E _ { i }$ be as in 10.11. The automorphic forms of weight $m \cdot l$ (m a positive integer) may be identified with the holomorphic cross-sections of ${ \mathfrak { O } } ^ { m }$ . They are therefore the polynomials of degree m in the $E _ { i } ^ { ~ , } { \bf s }$ 、This means that the algebra $A ( \mathbf { \Gamma } \Gamma ) ^ { ( l ) }$ is generated by the $E _ { i } ^ { ~ , } { \bf s }$ .Each space $A ( \Gamma ) _ { i }$ is finite dimensional. Therefore，in order to establish the second assertion,it suffices to show the existence of an integer $\boldsymbol { n } _ { 0 }$ such that
+We identify $V ^ { * }$ with its image under the map of 10.11. Then the restriction to $V$ of the line bundle $\odot$ of $\mathbf { P } ( N , \mathbf { C } )$ attached to the divisor of a hyperplane is the sheaf ${ \mathcal { Q } } _ { a }$ of germs of automorphic forms of weight $d$ . We know (5.11) that if m is large enough, the product $J ^ { \boldsymbol { d } \cdot \boldsymbol { m } } \cdot \boldsymbol { \mu } _ { \rho }$ is an automorphy factor which satisfes the condition allowing one to construct Poincaré series.
+Therefore,Theorem 3 of [19] applies.It shows that given $x \in X / \Gamma$ ，there exist finitely many analytic cross-sections of the sheaf ${ \mathcal { \mathfrak { Q } } } _ { \mathfrak { p } } \otimes { \mathcal { \odot } } ^ { n }$ which generate the fibre of ${ \mathcal { Q } } _ { \rho }$ at $x$ .Since $V ^ { * } - V$ has codimension $\geq 2$ (3.15), Serre's extension theorem [36] applies,and yields the theorem，except for the last assertion.
+We now know that $A ( \Gamma ) = A ^ { \prime } ( \Gamma )$ . Let $ { l }$ and $E _ { i }$ be as in 10.11. The automorphic forms of weight $m \cdot l$ (m a positive integer) may be identified with the holomorphic cross-sections of ${ \mathfrak { O } } ^ { m }$ . They are therefore the polynomials of degree m in the $E _ { i } ^ { ~ , } { \bf s }$ 、This means that the algebra $A ( \mathbf { \Gamma } \Gamma ) ^ { ( l ) }$ is generated by the $E _ { i } ^ { ~ , } { \bf s }$ .Each space $A ( \Gamma ) _ { i }$ is finite dimensional.
+Therefore，in order to establish the second assertion,it suffices to show the existence of an integer $\boldsymbol { n } _ { 0 }$ such that
 
 $$
 A ( \Gamma ) _ { l } \cdot A ( \Gamma ) _ { p + n \cdot l } = A ( \Gamma ) _ { p + ( n + 1 ) \cdot l }
@@ -3140,7 +3426,8 @@ Since the sheaves involved extend to algebraic coherent sheaves on a projective 
 
 # 1l. Connected components of &utomorphism groups
 
-In this section，we collect some partly known remarks on connected components,whose use in the preceding sections has allowed for some slight technical simplification. $X$ is a bounded symmetric domain, $H ( X )$ the group of complex analytic homeomorphisms (i.e.,of automorphisms) of $X$ ,and $\operatorname { I s } ( X )$ the group of isometries of $X$ with respect to the riemannian structure defined by the Bergman metric.
+In this section，we collect some partly known remarks on connected components,whose use in the preceding sections has allowed for some slight technical simplification.
+$X$ is a bounded symmetric domain, $H ( X )$ the group of complex analytic homeomorphisms (i.e.,of automorphisms) of $X$ ,and $\operatorname { I s } ( X )$ the group of isometries of $X$ with respect to the riemannian structure defined by the Bergman metric.
 
 11.1.As is well-known，Is $( X )$ and $H ( X )$ are semi-simple Lie groups, with finitely many connected components, $X$ is the quotient of Is $( X )$ by a maximal compact subgroup $\kappa$ ,and Is $( X ) ^ { 0 } = H ( X ) ^ { 0 }$ is a non-compact semisimple Lie group with center reduced to $\{ e \}$ . Thus I $\mathbf { s } ( X ) ^ { \flat } = \mathbf { A d } \mathfrak { g }$ where $\mathfrak { g }$ is the Lie algebra of Is $( X )$ . Furthermore,it is known that Is $( X ) \cong { \mathrm { A u t } } { \mathfrak { g } }$
 
@@ -3152,7 +3439,8 @@ $$
 
 and $H ( X )$ has index $\leq 2$ in $\operatorname { I s } \left( X \right)$ . On the other hand,there is clearly a linear orthogonal transformation $A$ on $X _ { \mathfrak { o } }$ which carries the given complex structure onto its conjugate.By standard facts on simply connected riemannian symmetric spaces, $A$ extends to an isometry of $X$ ,which is then anti-holomorphic, hence Is $( X ) \neq H ( X )$
 
-If $X$ is the product of $r$ irreducible components,it is clear that Is $( X )$ (resp. $H ( X ) )$ is generated by products of isometries (resp.automorphisms) of the different factors,and permutations of isomorphic factors.
+If $X$ is the product of $r$ irreducible components,it is clear that Is $( X )$ (resp.
+$H ( X ) )$ is generated by products of isometries (resp.automorphisms) of the different factors,and permutations of isomorphic factors.
 
 These remarks have already been made by E. Cartan, who has also given the structure of $H ( X )$ in all irreducible cases; it is connected,except in the cases mentioned in 11.4,where $H ( X ) ^ { \mathfrak { \circ } }$ has index two in $H ( X )$ ,[16, p. 152].
 
@@ -3160,67 +3448,89 @@ These remarks have already been made by E. Cartan, who has also given the struct
 
 It suffices to prove this for $K \cap H ( X )$ since $H ( X )$ is generated by this group and by $H ( X ) ^ { \scriptscriptstyle 0 }$ .But,if $k \in K \cap H ( X )$ ,then $k$ commutes with the element $\scriptstyle { \mathbf { { \mathit { s } } } } _ { 0 }$ considered in 11.1,and the extension to ${ \mathfrak { P } } _ { \mathbf { C } }$ of $\operatorname { A d } _ { \mathfrak { p } } k$ leaves the two subspaces ${ \mathfrak { p } } ^ { + }$ ， $\mathfrak { p } ^ { - }$ stable; hence,the action of $k$ on $X$ extends to a linear transformation of ${ \mathfrak { p } } ^ { + }$ . Therefore $k$ operates continuously on $\bar { D }$ 、Furthermore, the boundary components are open subsets of complex affne subspaces of ${ \mathfrak { p } } ^ { + }$ ; hence, the restriction of $k$ to such a component is holomorphic.
 
-11.3.PROPOSITION．Let $G$ be a connected simple algebraic group defined over R such that the symmetric space of non-compact type $X$ of $G _ { \mathbf { R } }$ is $^ { a }$ bounded symmetric domain. Then $H ( X ) \cap G _ { \mathrm { R } } = G _ { \mathrm { R } } ^ { \scriptscriptstyle 0 }$ . The group $G _ { \mathbf { R } }$ has either one or two connected components.
+11.3.PROPOSITION．Let $G$ be a connected simple algebraic group defined over R such that the symmetric space of non-compact type $X$ of $G _ { \mathbf { R } }$ is $^ { a }$ bounded symmetric domain.
+Then $H ( X ) \cap G _ { \mathrm { R } } = G _ { \mathrm { R } } ^ { \scriptscriptstyle 0 }$ . The group $G _ { \mathbf { R } }$ has either one or two connected components.
 
 Since $G$ is simple, $X$ is irreducible,and we may identify $G _ { \mathbf { R } }$ with a subgroup of $\operatorname { A u t } { \mathfrak { g } } _ { \mathtt { R } }$ ,namely $\operatorname { A d } _ { \mathfrak { g } _ { \mathrm { C } } } \cap \operatorname { A u t } _ { \mathfrak { g } _ { \mathbf { R } } }$ . We keep the notation of 11.1; in particular, $K \cap G _ { \mathbf { R } }$ is a maximal compact subgroup of $G _ { \mathbf { R } }$ ,and $G _ { \mathrm { R } } = ( K \cap G _ { \mathrm { R } } ) \cdot P .$
 
 The second assertion follows from the first one and 1l.1; in view of 11.1 (1),the first assertion is equivalent to: $G _ { \mathbb { R } } \cap Z ( S )$ is connected,which we now prove.
 
-Being the centralizer of a torus in $G _ { \mathbf { C } }$ ,the group $Z ( S ) _ { \mathrm { { C } } }$ is connected, since $G$ is (cf. $[ 9 , \ \ S 1 8 ] \rangle$ .It is defined over $\mathbf { R }$ ,and its Lie algebra is $\sharp _ { \mathbf { C } }$ . Therefore f is a compact real form of $\sharp _ { \mathrm { c } }$ ,and $K ^ { \mathfrak { o } }$ is the identity component of a maximal compact subgroup $L$ of $Z ( S ) _ { \mathrm { c } }$ . Since $Z ( S ) _ { \mathrm { c } }$ is connected, so must be $L$ ,whence $Z ( S ) \cap K = K ^ { 0 }$ ·
+Being the centralizer of a torus in $G _ { \mathbf { C } }$ ,the group $Z ( S ) _ { \mathrm { { C } } }$ is connected, since $G$ is (cf.
+$[ 9 , \ \ S 1 8 ] \rangle$ .It is defined over $\mathbf { R }$ ,and its Lie algebra is $\sharp _ { \mathbf { C } }$ . Therefore f is a compact real form of $\sharp _ { \mathrm { c } }$ ,and $K ^ { \mathfrak { o } }$ is the identity component of a maximal compact subgroup $L$ of $Z ( S ) _ { \mathrm { c } }$ . Since $Z ( S ) _ { \mathrm { c } }$ is connected, so must be $L$ ,whence $Z ( S ) \cap K = K ^ { 0 }$ ·
 
-11.4.REMARK．In the type $\operatorname { I V } _ { n }$ (IV refers to Siegel's notation; it is III in [16]) of bounded symmetric domains, $G = \mathrm { \bf P S O } ( n + 2 , { \bf C } )$ is the quotient of the special orthogonal group in $n + 2$ variables by its center, $G _ { \mathrm { R } } = \mathbf { P S 0 } ( n , 2 )$ and $K \cap G _ { \mathbf { k } }$ is the group of elements of determinant one in $\mathbf { 0 } ( n ) \times \mathbf { 0 } ( 2 )$ (divided by $\{ \pm 1 \}$ if $_ n$ is even). From this we see readily that
+11.4.REMARK．In the type $\operatorname { I V } _ { n }$ (IV refers to Siegel's notation; it is III in [16]) of bounded symmetric domains, $G = \mathrm { \bf P S O } ( n + 2 , { \bf C } )$ is the quotient of the special orthogonal group in $n + 2$ variables by its center, $G _ { \mathrm { R } } = \mathbf { P S 0 } ( n , 2 )$ and $K \cap G _ { \mathbf { k } }$ is the group of elements of determinant one in $\mathbf { 0 } ( n ) \times \mathbf { 0 } ( 2 )$ (divided by $\{ \pm 1 \}$ if $_ n$ is even).
+From this we see readily that
 
 (a)if $\mathscr { n }$ is odd, $G _ { \mathrm { { R } } } = \operatorname { I s } \left( X \right)$ $G _ { \bf R } ^ { \imath } = H ( X )$ ,and (b）if $\mathscr { n }$ is even, $\mathrm { I s } ( X ) / \mathrm { I s } ( X ) \mathrm { \mathrm { ^ \circ = } } \mathbf { Z } _ { \mathrm { ^ \circ } } + \mathbf { Z } _ { \mathrm { ^ \circ } }$ $G _ { \mathrm { { R } } } / G _ { \mathrm { { R } } } ^ { 0 } = \mathbf { Z } _ { 2 }$ ， $H ( X ) / H ( X ) ^ { 0 } = \mathbf { Z } _ { 2 } ,$ The situation (b) also occurs for type ${ \cal I } _ { n , n }$ $\mathbf { \bar { \rho } } _ { n } \gtrapprox 2$ ）
 
-11.5.LEMMA．Let $G$ be a connected semi-simple group defined over R. Assume that $G _ { \kappa } ^ { \phantom { } _ { 0 } }$ has $^ { a }$ center reduced to $\{ e \}$ , and has the same rank as its maximal compact subgroups. Then the center of $G _ { \mathrm { c } }$ is reduced to $\{ e \}$
+11.5.LEMMA．Let $G$ be a connected semi-simple group defined over R. Assume that $G _ { \kappa } ^ { \phantom { } _ { 0 } }$ has $^ { a }$ center reduced to $\{ e \}$ , and has the same rank as its maximal compact subgroups.
+Then the center of $G _ { \mathrm { c } }$ is reduced to $\{ e \}$
 
-Let t be a Cartan subalgebra of a maximal compact subgroup $\kappa$ of $G _ { \mathbf { R } }$ The assumption implies that $\mathrm { { { t } _ { C } } }$ is a Cartan subalgebra of $\mathfrak { g }$ .It is the Lie algebra of a maximal torus $T _ { \mathrm { { C } } }$ of $G _ { \mathrm { c } }$ ,which is defined over $\mathbf { R }$ ,and whose subgroup of real points is compact. The latter is then necessarily a maximal compact subgroup of $T _ { \mathrm { { C } } }$ ，and is connected and equal to expt. Let now $\pmb { z }$ be in the center of $G _ { \mathbf { C } }$ . It belongs to $T _ { \mathrm { { C } } }$ and is of finite order; hence, $\pmb { \mathscr { z } }$ and expt generate a compact subgroup of $T _ { \mathbf { C } }$ Thus $z \in \exp { \mathrm { t } } \cap G _ { \mathbf { R } } ^ { 0 }$ ,and $z = e$ ：
+Let t be a Cartan subalgebra of a maximal compact subgroup $\kappa$ of $G _ { \mathbf { R } }$ The assumption implies that $\mathrm { { { t } _ { C } } }$ is a Cartan subalgebra of $\mathfrak { g }$ .It is the Lie algebra of a maximal torus $T _ { \mathrm { { C } } }$ of $G _ { \mathrm { c } }$ ,which is defined over $\mathbf { R }$ ,and whose subgroup of real points is compact.
+The latter is then necessarily a maximal compact subgroup of $T _ { \mathrm { { C } } }$ ，and is connected and equal to expt.
+Let now $\pmb { z }$ be in the center of $G _ { \mathbf { C } }$ . It belongs to $T _ { \mathrm { { C } } }$ and is of finite order; hence, $\pmb { \mathscr { z } }$ and expt generate a compact subgroup of $T _ { \mathbf { C } }$ Thus $z \in \exp { \mathrm { t } } \cap G _ { \mathbf { R } } ^ { 0 }$ ,and $z = e$ ：
 
 REMARK. If we drop the assumption on the rank of $\kappa$ ,the lemma becomes false as is shown by the case where $G _ { \mathrm { { R } } } = { \bf { S 0 } } ( p , q )$ ， $( p , q { \mathrm { ~ o d d } } )$ ：
 
-11.6.We now revert to the notation of 1.3,1.5,and prove that $G ( F )$ is connected,as asserted in 1.5.An obvious reduction shows that it suffices to do this when $X$ is irreducible. In view of 1.5 (1),(2) this amounts to proving that the group ${ P _ { b } } / { Z _ { b } }$ of 1.3 is connected.
+11.6.We now revert to the notation of 1.3,1.5,and prove that $G ( F )$ is connected,as asserted in 1.5.An obvious reduction shows that it suffices to do this when $X$ is irreducible.
+In view of 1.5 (1),(2) this amounts to proving that the group ${ P _ { b } } / { Z _ { b } }$ of 1.3 is connected.
 
-The group $Q _ { \mathrm { C } } = { \cal P } _ { \mathrm { C } } / Z _ { b , \mathbf { C } }$ is almost simple,connected, defined over $\mathbf { R }$ ，and $Q _ { \mathbf { R } } ^ { 0 } = \mathbf { A d } l _ { b }$ . On the other hand, the symmetric space $\boldsymbol { F } _ { b }$ of non-compact type of $L _ { b }$ is a bounded symmetric domain;hence, $L _ { b }$ has the same rank as its maximal compact subgroups. By 11.5,we have then $Q _ { \mathrm { { C } } } = \mathbf { A d } \mathbf { q } _ { \mathrm { { C } } }$ ，which implies that $Q _ { \mathrm { R } }$ is a subgroup of Is $( F _ { b } )$ . By 11.4,all elements of $P _ { b }$ induce complex analytic homeomorphisms of $\boldsymbol { F } _ { b }$ ; therefore (11.3), the image of $P _ { b }$ in $Q _ { \mathbf { R } }$ is connected,equal to $\mathrm { \bf A d l } _ { b }$ ．The kernel of the homomorphism $P _ { b } \longrightarrow Q _ { \mathrm { \scriptscriptstyle R } }$ is $P _ { b } \cap Z _ { b , \mathbf { C } }$ . This is a normal subgroup of $P _ { b }$ ， with Lie algebra $\pmb { \hat { \delta } } _ { b }$ ,which contains $\boldsymbol { Z } _ { b }$ . It is therefore equal to $\boldsymbol { Z } _ { b }$ (see 1.3),whence the result.
+The group $Q _ { \mathrm { C } } = { \cal P } _ { \mathrm { C } } / Z _ { b , \mathbf { C } }$ is almost simple,connected, defined over $\mathbf { R }$ ，and $Q _ { \mathbf { R } } ^ { 0 } = \mathbf { A d } l _ { b }$ . On the other hand, the symmetric space $\boldsymbol { F } _ { b }$ of non-compact type of $L _ { b }$ is a bounded symmetric domain;hence, $L _ { b }$ has the same rank as its maximal compact subgroups.
+By 11.5,we have then $Q _ { \mathrm { { C } } } = \mathbf { A d } \mathbf { q } _ { \mathrm { { C } } }$ ，which implies that $Q _ { \mathrm { R } }$ is a subgroup of Is $( F _ { b } )$ . By 11.4,all elements of $P _ { b }$ induce complex analytic homeomorphisms of $\boldsymbol { F } _ { b }$ ; therefore (11.3), the image of $P _ { b }$ in $Q _ { \mathbf { R } }$ is connected,equal to $\mathrm { \bf A d l } _ { b }$ ．The kernel of the homomorphism $P _ { b } \longrightarrow Q _ { \mathrm { \scriptscriptstyle R } }$ is $P _ { b } \cap Z _ { b , \mathbf { C } }$ . This is a normal subgroup of $P _ { b }$ ， with Lie algebra $\pmb { \hat { \delta } } _ { b }$ ,which contains $\boldsymbol { Z } _ { b }$ . It is therefore equal to $\boldsymbol { Z } _ { b }$ (see 1.3),whence the result.
 
 UNIVERSITY OF CHICAGO INSTITUTE FOR ADVANCED STUDY
 
 # REFERENCES
 
-1.S.ABHYANKAR,Local Analytic Geometry，Academic Press,New York,1964.   
-2.W.L.BAILY,JR.,On Satake's compactification of $V _ { n }$ ,Amer.J.Math.,80 (1958),348-364.   
-3. -,On the Hilbert-Siegel modular space,ibid.,81 (1959),846-874.   
-4. -,On the theory of automorphic functions and the problem of moduli,Bull.Amer. Math.Soc.，69 (1963),727-732.   
-5. 一，“On compactification of orbit spaces of arithmetic discontinuous groups acting on bounded symmetric domains"，in Proc.Sympos.Pure Math.，vol.9,Amer. Math.Soc.,Providence,R. I.，1966,pp.   
-6. -,Fourier-Jacobi series,ibid.   
-7. -,and A.BoREL，On the compactification of arithmetically defined quotients of bounded symmetric domains,Bull.Amer.Math.Soc.，70 (1964)，588-593.   
-8. S.BoCHNER and W.T. MARTIN, Several Complex Variables,Princeton University Press, Princeton,1948.   
-9.A.BoREL,Groupes linéaires algebriques,Ann.of Math.(2),64 (1956),20-82.   
-10. ，“Ensembles fondamentaux pour les groupes arithmétiques”,Coll.s.l. théorie d.groupes algébriques,Bruxelles 1962,23-40.   
-11. -,Density and maximality of arithmetic subgroups,J.Reine.Angew.Math.(to appear).   
-12. “Introduction to automorphic forms",in Proc.Sympos.Pure Math.，vol.9, Amer.Math.Soc.,Providence,R.I.,1966.   
-13. A.BoREL,and HARIsH-CHANDRA, Arithmetic subgroups of algebraic groups,Ann. of Math. (2)，75 (1962)，485-535.   
-14.A.BoREL and J. TITs,“Groupes réductifs",in Publ.I.H.E.S.27,1965,55-150.   
-15. N.BoURBAKI, Algebre commutative,Chapters 3,4,Act. Sci. Ind. 1293, Chapters 5,6, Act.Sci.Ind.1308,Hermann,Paris.   
-16.E.CARTAN， Sur les domaines bornés homogenes de l'espace de n variables，Abh.Math. Sem.Hamburg，11 (1935),116-162.   
-17. -，“Quotient d'un espace analytique par un groupe d'automorphismes".in Symposium in honor of S.Lefschetz,Princeton University Press,Princeton,1957, 90-102.   
-18. ，Prolongement des espaces analytiques normaux,Math.Ann.,136 (1958),97-110.   
-19. -,Fonctions automorphes et séries de Poincareé,J.Analyse Math.,6 (1958),169-175.   
-20.R.GoDEMENT,Domaines fondamentaux des groupes arithmétiques， Sém. Bourbaki，15, 1962-63,Exp.257.   
-21.R.C.GUNNING and H.RossI, Analytic Functions of Several Complex Variables,PrenticeHall, 1965.   
-22. HARIsH-CHANDRA, Representations of semi-simple Lie groups: VI, Amer. J. Math.， 78 (1956), 564-628.   
-23. ,Discrete series for semi-simple Lie groups: II,Acta Math. (to appear).   
-24.S.HELGAsoN,Differential Geometry and Symmetric Spaces,Academic Press，New York,1962.   
-25. M.KNEsER,“Schwache Approximation in algebraischen Gruppen”,in Coll.s.l. théorie d.groupes algébriques,Bruxelles 1962,41-52.   
-26.A.KoRANYi, The Poisson integral for generalized half-planes and bounded symmetric domains，Ann.of Math.(2),82 (1965)，332-350.   
-27. -，and J. WoLF，Generalized Cayley transforms of bounded symmetric domains, Amer.J.Math.,87 (1965),899-939.   
-28.H.MAAss， Ueber die Darstellung der Modulformen n-ten Grades durch Poincarésche Reihen，Math.Ann.，123 (1951)，125-151.   
-29. C.C. MooRE, Compactifications of symmetric spaces I: The Cartan domains， Amer. J. Math.,86 (1964),358-378.   
-30.I.I.PYATECKI1-SHAPIRo,Geometry of Classical Domains and Automorphic Functions (Russian),Fizmatgiz,Moscow,1961.   
-31. -，Arithmetic groups on complex domains, Uspehi Mat.Nauk.,XIX (6)(1964),93- 121,translated in Russian Mathematical Surveys XIX (6)，pp.83,ff.   
-32. M. RosENLIcHT， Some rationality questions on algebraic groups,Annali di Mat. (IV),63 (1957)，25-50.   
-33. I. SATAkE， On compactifications of the quotient spaces for arithmetically defined discontinuous groups，Ann.of Math.(2)，72 (1960),555-580.   
-34.SEMINAIRE E.N. S.PARIS,6ieme année,1953-54.   
-35. ，10ieme année，1957-58.   
-36. J. P. SERRE, Prolongement de faisceaux cohérents (to appear).   
-37. G.SHIMURA,On the field of defnition for a field of automorphic functions, Ann. of Math.(2),80 (1964),160-189.   
+1.S.ABHYANKAR,Local Analytic Geometry，Academic Press,New York,1964.\
+2.W.L.BAILY,JR.,On Satake's compactification of $V _ { n }$ ,Amer.J.Math.,80 (1958),348-364.\
+3. -,On the Hilbert-Siegel modular space,ibid.,81 (1959),846-874.\
+4. -,On the theory of automorphic functions and the problem of moduli,Bull.Amer.
+Math.Soc.，69 (1963),727-732.\
+5. 一，“On compactification of orbit spaces of arithmetic discontinuous groups acting on bounded symmetric domains"，in Proc.Sympos.Pure Math.，vol.9,Amer.
+Math.Soc.,Providence,R. I.，1966,pp.\
+6. -,Fourier-Jacobi series,ibid.\
+7. -,and A.BoREL，On the compactification of arithmetically defined quotients of bounded symmetric domains,Bull.Amer.Math.Soc.，70 (1964)，588-593.\
+8. S.BoCHNER and W.T. MARTIN, Several Complex Variables,Princeton University Press, Princeton,1948.\
+9.A.BoREL,Groupes linéaires algebriques,Ann.of Math.(2),64 (1956),20-82.\
+10. ，“Ensembles fondamentaux pour les groupes arithmétiques”,Coll.s.l. théorie d.groupes algébriques,Bruxelles 1962,23-40.\
+11. -,Density and maximality of arithmetic subgroups,J.Reine.Angew.Math.(to appear).\
+12. “Introduction to automorphic forms",in Proc.Sympos.Pure Math.，vol.9, Amer.Math.Soc.,Providence,R.I.,1966.\
+13. A.BoREL,and HARIsH-CHANDRA, Arithmetic subgroups of algebraic groups,Ann.
+of Math.
+(2)，75 (1962)，485-535.\
+14.A.BoREL and J. TITs,“Groupes réductifs",in Publ.I.H.E.S.27,1965,55-150.\
+15. N.BoURBAKI, Algebre commutative,Chapters 3,4,Act.
+Sci.
+Ind.
+1293, Chapters 5,6, Act.Sci.Ind.1308,Hermann,Paris.\
+16.E.CARTAN， Sur les domaines bornés homogenes de l'espace de n variables，Abh.Math.
+Sem.Hamburg，11 (1935),116-162.\
+17. -，“Quotient d'un espace analytique par un groupe d'automorphismes".in Symposium in honor of S.Lefschetz,Princeton University Press,Princeton,1957, 90-102.\
+18. ，Prolongement des espaces analytiques normaux,Math.Ann.,136 (1958),97-110.\
+19. -,Fonctions automorphes et séries de Poincareé,J.Analyse Math.,6 (1958),169-175.\
+20.R.GoDEMENT,Domaines fondamentaux des groupes arithmétiques， Sém.
+Bourbaki，15, 1962-63,Exp.257.\
+21.R.C.GUNNING and H.RossI, Analytic Functions of Several Complex Variables,PrenticeHall, 1965.\
+22. HARIsH-CHANDRA, Representations of semi-simple Lie groups: VI, Amer.
+J. Math.， 78 (1956), 564-628.\
+23. ,Discrete series for semi-simple Lie groups: II,Acta Math.
+(to appear).\
+24.S.HELGAsoN,Differential Geometry and Symmetric Spaces,Academic Press，New York,1962.\
+25. M.KNEsER,“Schwache Approximation in algebraischen Gruppen”,in Coll.s.l. théorie d.groupes algébriques,Bruxelles 1962,41-52.\
+26.A.KoRANYi, The Poisson integral for generalized half-planes and bounded symmetric domains，Ann.of Math.(2),82 (1965)，332-350.\
+27. -，and J. WoLF，Generalized Cayley transforms of bounded symmetric domains, Amer.J.Math.,87 (1965),899-939.\
+28.H.MAAss， Ueber die Darstellung der Modulformen n-ten Grades durch Poincarésche Reihen，Math.Ann.，123 (1951)，125-151.\
+29. C.C. MooRE, Compactifications of symmetric spaces I: The Cartan domains， Amer.
+J. Math.,86 (1964),358-378.\
+30.I.I.PYATECKI1-SHAPIRo,Geometry of Classical Domains and Automorphic Functions (Russian),Fizmatgiz,Moscow,1961.\
+31. -，Arithmetic groups on complex domains, Uspehi Mat.Nauk.,XIX (6)(1964),93- 121,translated in Russian Mathematical Surveys XIX (6)，pp.83,ff.\
+32. M. RosENLIcHT， Some rationality questions on algebraic groups,Annali di Mat.
+(IV),63 (1957)，25-50.\
+33. I. SATAkE， On compactifications of the quotient spaces for arithmetically defined discontinuous groups，Ann.of Math.(2)，72 (1960),555-580.\
+34.SEMINAIRE E.N. S.PARIS,6ieme année,1953-54.\
+35. ，10ieme année，1957-58.\
+36. J. P. SERRE, Prolongement de faisceaux cohérents (to appear).\
+37. G.SHIMURA,On the field of defnition for a field of automorphic functions, Ann.
+of Math.(2),80 (1964),160-189.\
 38.A.WEIL,Adeles and Algebraic Groups,Notes by M. Demazure and T. Ono,Institute for Advanced Study,Princeton,1961.

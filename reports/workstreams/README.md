@@ -1,8 +1,7 @@
 # Workstream Reports
 
 Each substantial research workstream produces a report here or in a subdirectory here.
-The report is the branch-level native artifact; cards route the branch, and the living
-paper synthesizes branch results.
+The report is the branch-level native artifact; cards route the branch, and the living paper synthesizes branch results.
 
 Required report sections:
 
@@ -15,5 +14,4 @@ Required report sections:
 - review status and unresolved objections;
 - paper sections or anchors updated.
 
-Reports should be concise enough for the user to steer from them without reading raw
-agent logs.
+Reports should be concise enough for the user to steer from them without reading raw agent logs.

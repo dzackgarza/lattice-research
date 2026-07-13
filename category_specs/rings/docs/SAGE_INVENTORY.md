@@ -1,8 +1,7 @@
 # Rings Sage Inventory
 
-This inventory records Sage ring-category and constructor surfaces. It is
-source-facing: mathematical mappings belong in `MAPPING.md`; implementation status,
-blockers, and deferred work belong in Nimbalyst tracker items.
+This inventory records Sage ring-category and constructor surfaces.
+It is source-facing: mathematical mappings belong in `MAPPING.md`; implementation status, blockers, and deferred work belong in Nimbalyst tracker items.
 
 ## Category Surfaces
 
@@ -45,9 +44,6 @@ These surfaces are category-level structure, not named ring constructors.
 ## Additional Sage Source Areas
 
 - `sage/categories/rings.py` parent, element, morphism, homset, and quotient methods.
-- `sage/rings/ideal.py` and concrete ideal families for ideal and quotient-ring
-  surfaces.
-- Sage ring-family sources for fields, number fields, finite fields, p-adic rings,
-  polynomial rings, series rings, and matrix rings.
-- Sage construction-category sources inherited by ring categories: subobjects,
-  quotients, subquotients, isomorphic objects, Cartesian products, and realizations.
+- `sage/rings/ideal.py` and concrete ideal families for ideal and quotient-ring surfaces.
+- Sage ring-family sources for fields, number fields, finite fields, p-adic rings, polynomial rings, series rings, and matrix rings.
+- Sage construction-category sources inherited by ring categories: subobjects, quotients, subquotients, isomorphic objects, Cartesian products, and realizations.

@@ -6,8 +6,8 @@ Primary source:
 - Sage docs: <https://doc.sagemath.org/html/en/reference/tensor_free_modules/sage/tensor/modules/tensor_with_indices.html>
 - Sage docs: <https://doc.sagemath.org/html/en/reference/tensor_free_modules/sage/tensor/modules/finite_rank_free_module.html>
 
-This inventory is intentionally narrow. It records the Sage facts needed to scaffold
-the project `TensorAlgebraComponents` subtree and the central `Tensor` type.
+This inventory is intentionally narrow.
+It records the Sage facts needed to scaffold the project `TensorAlgebraComponents` subtree and the central `Tensor` type.
 
 ## Sage Objects
 
@@ -25,9 +25,9 @@ Sage defines a tensor of type `(k,l)` on `M` as a multilinear map
 (M*)^k x M^l -> R
 ```
 
-where `M* = Hom_R(M, R)`. Thus `k` counts contravariant slots and `l` counts
-covariant slots. Sage calls `k + l` the tensor rank. The tuple `(k,l)` is
-available through `tensor_type()`.
+where `M* = Hom_R(M, R)`. Thus `k` counts contravariant slots and `l` counts covariant slots.
+Sage calls `k + l` the tensor rank.
+The tuple `(k,l)` is available through `tensor_type()`.
 
 ## Construction And Recovery
 
@@ -53,16 +53,13 @@ Sage component assignment is coordinate interop, not the public mathematical obj
 | `matrix(t.comp(basis))` | For rank-two tensors, views components as a matrix over the base ring. |
 | `Components` | Sage storage object for nonzero coordinate components. |
 
-The project constructors preserve useful interop shapes such as nested lists and
-lists of matrices, but map them to tensor elements rather than admitting raw
-component containers as category objects.
+The project constructors preserve useful interop shapes such as nested lists and lists of matrices, but map them to tensor elements rather than admitting raw component containers as category objects.
 
 Sage's component storage facts that matter for this subtree:
 
 - `Components` is the storage class behind basis-indexed coordinate data.
 - only nonzero components are stored internally;
-- basis-specific component dictionaries and `display_comp(...)` are rendering or
-  storage interop, not the mathematical tensor object.
+- basis-specific component dictionaries and `display_comp(...)` are rendering or storage interop, not the mathematical tensor object.
 
 Project-specific constructor shapes built from this inventory:
 

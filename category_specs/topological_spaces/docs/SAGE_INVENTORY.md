@@ -2,13 +2,8 @@
 
 Sources for this pass:
 
-- Sage docs: `sage.categories.topological_spaces`, `sage.categories.metric_spaces`, and
-  `sage.sets.real_set`.
-- Installed Sage source:
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/topological_spaces.py`,
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/metric_spaces.py`,
-  and
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/real_set.py`.
+- Sage docs: `sage.categories.topological_spaces`, `sage.categories.metric_spaces`, and `sage.sets.real_set`.
+- Installed Sage source: `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/topological_spaces.py`, `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/metric_spaces.py`, and `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/real_set.py`.
 - Sage observation commands run with `/home/dzack/miniforge3/envs/sage/bin/sage -c`.
 
 ## Category Surfaces
@@ -67,8 +62,7 @@ Sources for this pass:
 
 ## Excluded Structured Geometric Surfaces
 
-The following Sage surfaces are visible in the same documentation/search space but are
-outside this pure topological-space inventory by directive:
+The following Sage surfaces are visible in the same documentation/search space but are outside this pure topological-space inventory by directive:
 
 | Sage surface | Source evidence | Reason for exclusion from this inventory |
 | --- | --- | --- |
@@ -79,10 +73,8 @@ outside this pure topological-space inventory by directive:
 
 ## Inventory Gaps
 
-- Sage does not expose a standalone pure `TopologicalSpace(...)` constructor in the
-  inventoried category source.
+- Sage does not expose a standalone pure `TopologicalSpace(...)` constructor in the inventoried category source.
 - The pure `RealSet` constructor is variadic.
-  Its named interval constructors provide the finite candidate list for future closed
-  overloads.
-- Sage's numeric interval and ball rings are inventoried here only as topology-bearing
-  evidence. Their algebraic constructors are owned by ring/field inventory.
+  Its named interval constructors provide the finite candidate list for future closed overloads.
+- Sage's numeric interval and ball rings are inventoried here only as topology-bearing evidence.
+  Their algebraic constructors are owned by ring/field inventory.

@@ -2,8 +2,7 @@
 
 ## 1. Category Hierarchy for Sets
 
-The category framework for sets is rooted in `Sets` (`sets_cat.py`) and forms the
-following hierarchy:
+The category framework for sets is rooted in `Sets` (`sets_cat.py`) and forms the following hierarchy:
 
 ```mermaid
 graph TD
@@ -85,11 +84,9 @@ Axiom: `Finite`. Super category: `Sets()`.
 `ParentMethods`:
 - `is_finite()` — always returns `True`
 
-`Subquotients` — adds `FiniteSets()` as extra super category (subquotient of a finite
-set is finite).
+`Subquotients` — adds `FiniteSets()` as extra super category (subquotient of a finite set is finite).
 
-`Algebras` — adds `ModulesWithBasis(base_ring).FiniteDimensional()` as extra super
-category.
+`Algebras` — adds `ModulesWithBasis(base_ring).FiniteDimensional()` as extra super category.
 
 [4](#0-3)
 
@@ -200,8 +197,7 @@ The `Set(X)` factory returns one of several concrete classes depending on `X`:
 
 #### `Set_object` — general wrapper
 
-Category: `Sets()` (or `Sets().Finite()`, `Sets().Infinite()`, `Sets().Enumerated()`
-inferred from wrapped object).
+Category: `Sets()` (or `Sets().Finite()`, `Sets().Infinite()`, `Sets().Enumerated()` inferred from wrapped object).
 
 | Method | Description |
 | --- | --- |
@@ -262,8 +258,7 @@ All extend `Set_object` and are created lazily by `Set_base` methods:
 
 Category: `FiniteEnumeratedSets().Facade()`. Backed by a tuple stored in memory.
 Unique representation.
-Key methods: `list()`, `cardinality()`, `random_element()`, `first()`, `__iter__()`,
-`__contains__()`, `rank()`, `unrank()`.
+Key methods: `list()`, `cardinality()`, `random_element()`, `first()`, `__iter__()`, `__contains__()`, `rank()`, `unrank()`.
 
 [17](#0-16)
 
@@ -280,8 +275,7 @@ Factory returning one of three subclasses:
 | `IntegerRangeFromMiddle` | `middle_point` is given |
 
 Category: `FiniteEnumeratedSets()` or `InfiniteEnumeratedSets()` depending on bounds.
-Key methods: `rank(x)`, `unrank(n)`, `first()`, `next(x)`, `cardinality()`,
-`__iter__()`, `__contains__()`, `__len__()`.
+Key methods: `rank(x)`, `unrank(n)`, `first()`, `next(x)`, `cardinality()`, `__iter__()`, `__contains__()`, `__len__()`.
 
 [18](#0-17)
 
@@ -289,9 +283,7 @@ Key methods: `rank(x)`, `unrank(n)`, `first()`, `next(x)`, `cardinality()`,
 
 ### `NonNegativeIntegers` — `src/sage/sets/non_negative_integers.py`
 
-Category: `InfiniteEnumeratedSets().Facade()`. Elements are plain `Integer` objects with
-parent `ZZ`. Key methods: `__iter__()`, `first()`, `next(x)`, `cardinality()`,
-`__contains__()`, `an_element()`.
+Category: `InfiniteEnumeratedSets().Facade()`. Elements are plain `Integer` objects with parent `ZZ`. Key methods: `__iter__()`, `first()`, `next(x)`, `cardinality()`, `__contains__()`, `an_element()`.
 
 [19](#0-18)
 
@@ -299,9 +291,7 @@ parent `ZZ`. Key methods: `__iter__()`, `first()`, `next(x)`, `cardinality()`,
 
 ### `PositiveIntegers` — `src/sage/sets/positive_integers.py`
 
-Subclass of `IntegerRangeInfinite`. Category: `InfiniteEnumeratedSets().Facade()`.
-Additional methods: `_repr_()`, `an_element()` (returns 42), `_sympy_()` (returns SymPy
-`Naturals`).
+Subclass of `IntegerRangeInfinite`. Category: `InfiniteEnumeratedSets().Facade()`. Additional methods: `_repr_()`, `an_element()` (returns 42), `_sympy_()` (returns SymPy `Naturals`).
 
 [20](#0-19)
 
@@ -309,11 +299,8 @@ Additional methods: `_repr_()`, `an_element()` (returns 42), `_sympy_()` (return
 
 ### `Primes` — `src/sage/sets/primes.py`
 
-Category for the full Sage `Primes()` parent: `InfiniteEnumeratedSets().Facade()`.
-Hosted docs mention congruence data for prime subsets; the installed source inspected in
-this environment exposes the full `Primes()` parent.
-Key methods: `__contains__(x)`, `__iter__()`, `cardinality()`, `first()`, `next(x)`,
-`an_element()`, `unrank(n)`.
+Category for the full Sage `Primes()` parent: `InfiniteEnumeratedSets().Facade()`. Hosted docs mention congruence data for prime subsets; the installed source inspected in this environment exposes the full `Primes()` parent.
+Key methods: `__contains__(x)`, `__iter__()`, `cardinality()`, `first()`, `next(x)`, `an_element()`, `unrank(n)`.
 
 [21](#0-20)
 
@@ -340,23 +327,15 @@ Category: `TopologicalSpaces()`.
 | `RealSet.unbounded_above_closed(a)` | `[a, +oo)` |
 | `RealSet.interval(a, b, lower_closed, upper_closed)` | General interval |
 
-**Instance methods — owned by `Sets()`:** `cardinality`, `is_empty`, `is_finite`,
-`__contains__`, `_an_element_`, `_sympy_`, `is_subset` — inherited from `Sets()`.
+**Instance methods — owned by `Sets()`:** `cardinality`, `is_empty`, `is_finite`, `__contains__`, `_an_element_`, `_sympy_`, `is_subset` — inherited from `Sets()`.
 
-**Instance methods — owned by `Sets().Subobjects()`:** `ambient`, `lift`, `retract`,
-`union`, `intersection`, `complement`, `difference`, `symmetric_difference`,
-`is_universe` — inherited from `Sets().Subobjects()`.
+**Instance methods — owned by `Sets().Subobjects()`:** `ambient`, `lift`, `retract`, `union`, `intersection`, `complement`, `difference`, `symmetric_difference`, `is_universe` — inherited from `Sets().Subobjects()`.
 
-**Instance methods — owned by `TopologicalSpaces()`:** `is_connected` — inherited from
-`TopologicalSpaces()`.
+**Instance methods — owned by `TopologicalSpaces()`:** `is_connected` — inherited from `TopologicalSpaces()`.
 
-**Instance methods — owned by `TopologicalSpaces().Subobjects()`:** `closure`,
-`interior`, `boundary`, `is_open`, `is_closed` — inherited from
-`TopologicalSpaces().Subobjects()`.
+**Instance methods — owned by `TopologicalSpaces().Subobjects()`:** `closure`, `interior`, `boundary`, `is_open`, `is_closed` — inherited from `TopologicalSpaces().Subobjects()`.
 
-**Instance methods — owned by `_RealSets` (this spec):** `inf`, `sup`, `is_compact`
-(concrete, derived from `inf`/`sup`), `interval_components()` (returns the finite set of
-interval basis elements).
+**Instance methods — owned by `_RealSets` (this spec):** `inf`, `sup`, `is_compact` (concrete, derived from `inf`/`sup`), `interval_components()` (returns the finite set of interval basis elements).
 
 **`InternalRealInterval`** (internal component class):
 
@@ -402,10 +381,9 @@ Key methods:
 
 ### `DisjointUnionEnumeratedSets` — `src/sage/sets/disjoint_union_enumerated_sets.py`
 
-Category: `FiniteEnumeratedSets()` or `InfiniteEnumeratedSets()` depending on the
-family. Options: `keepkey=True` (returns `(key, element)` pairs), `facade=False` (wraps
-elements). Key methods: `__iter__()`, `cardinality()`, `an_element()`, `first()`,
-`__contains__()`.
+Category: `FiniteEnumeratedSets()` or `InfiniteEnumeratedSets()` depending on the family.
+Options: `keepkey=True` (returns `(key, element)` pairs), `facade=False` (wraps elements).
+Key methods: `__iter__()`, `cardinality()`, `an_element()`, `first()`, `__contains__()`.
 
 [24](#0-23)
 
@@ -415,8 +393,7 @@ elements). Key methods: `__iter__()`, `cardinality()`, `an_element()`, `first()`
 
 Raw data structure for Cartesian products.
 Use `cartesian_product(...)` at the user level.
-Key methods: `cartesian_factors()`, `cardinality()`, `random_element()`, `an_element()`,
-`__iter__()`, `__contains__()`, `_cartesian_product_of_elements(...)`.
+Key methods: `cartesian_factors()`, `cardinality()`, `random_element()`, `an_element()`, `__iter__()`, `__contains__()`, `_cartesian_product_of_elements(...)`.
 
 [25](#0-24)
 
@@ -432,8 +409,7 @@ Evens = ConditionSet(ZZ, is_even)
 SmallOdds = ConditionSet(ZZ, is_odd, abs(y) <= 11, vars=[y])
 ```
 
-Key methods: `__contains__(x)` (applies all predicates), `ambient()`, `arguments()`,
-`_sympy_()`.
+Key methods: `__contains__(x)` (applies all predicates), `ambient()`, `arguments()`, `_sympy_()`.
 
 [26](#0-25)
 
@@ -442,12 +418,9 @@ Key methods: `__contains__(x)` (applies all predicates), `ambient()`, `arguments
 ### `ImageSubobject` — `src/sage/sets/image_set.py`
 
 The image `{f(x) | x ∈ X}` of a set under a map.
-Options: `is_injective` (`None`, `False`, `True`, `'check'`), `inverse`. Key methods:
-`ambient()`, `lift(x)`, `retract(x)`, `__iter__()`, `__contains__(x)`, `cardinality()`,
-`an_element()`, `_sympy_()`, equality, and hash.
+Options: `is_injective` (`None`, `False`, `True`, `'check'`), `inverse`. Key methods: `ambient()`, `lift(x)`, `retract(x)`, `__iter__()`, `__contains__(x)`, `cardinality()`, `an_element()`, `_sympy_()`, equality, and hash.
 The ambient is the codomain of the defining map when the map has one.
-Sage can wrap arbitrary callables and non-parent domains; the project public constructor
-does not expose that fallback.
+Sage can wrap arbitrary callables and non-parent domains; the project public constructor does not expose that fallback.
 
 [27](#0-26)
 
@@ -456,10 +429,7 @@ does not expose that fallback.
 ### `TotallyOrderedFiniteSet` — `src/sage/sets/totally_ordered_finite_set.py`
 
 A finite set with a user-specified total order.
-Category: `FiniteEnumeratedSets()` and `Posets()`. Elements are
-`TotallyOrderedFiniteSetElement` objects (when `facade=False`) supporting `<`, `<=`,
-`>`, `>=`. Key methods: `__iter__()`, `cardinality()`, `rank(x)`, `unrank(n)`,
-`__contains__()`.
+Category: `FiniteEnumeratedSets()` and `Posets()`. Elements are `TotallyOrderedFiniteSetElement` objects (when `facade=False`) supporting `<`, `<=`, `>`, `>=`. Key methods: `__iter__()`, `cardinality()`, `rank(x)`, `unrank(n)`, `__contains__()`.
 
 [28](#0-27)
 
@@ -468,9 +438,7 @@ Category: `FiniteEnumeratedSets()` and `Posets()`. Elements are
 ### `FiniteSetMaps` — `src/sage/sets/finite_set_maps.py`
 
 The set of all maps between two finite sets.
-Category: `FiniteMonoids()` (for endo-maps) or `FiniteEnumeratedSets()`. Key methods:
-`cardinality()`, `__iter__()`, `an_element()`, `identity()` (for endo-maps), `__mul__`
-(composition).
+Category: `FiniteMonoids()` (for endo-maps) or `FiniteEnumeratedSets()`. Key methods: `cardinality()`, `__iter__()`, `an_element()`, `identity()` (for endo-maps), `__mul__` (composition).
 
 [29](#0-28)
 
@@ -501,11 +469,9 @@ Key methods:
 ### `SetPartition` / `SetPartitions` — `src/sage/combinat/set_partition.py`
 
 `SetPartition` is an immutable partition of a finite set.
-Sage represents a partition as a set of pairwise disjoint nonempty subsets whose union
-is the base set. `SetPartitions(s)` is the `Parent` of all partitions of `s`;
-`SetPartitions(n)` uses `{1, ..., n}` as the base set.
-`SetPartitions(s, k)` restricts to partitions into `k` blocks, and
-`SetPartitions(s, part)` restricts to partitions with the given block sizes.
+Sage represents a partition as a set of pairwise disjoint nonempty subsets whose union is the base set.
+`SetPartitions(s)` is the `Parent` of all partitions of `s`; `SetPartitions(n)` uses `{1, ..., n}` as the base set.
+`SetPartitions(s, k)` restricts to partitions into `k` blocks, and `SetPartitions(s, part)` restricts to partitions with the given block sizes.
 
 `SetPartitions()` is the countable parent of all finite set partitions.
 Fixed-base parents are finite enumerated sets.
@@ -562,8 +528,7 @@ Factory for indexed families `(f_i)_{i ∈ I}`. Returns one of several internal 
 | `LazyFamily` | Infinite or lazy function-based family |
 | `EnumeratedFamily` | Wraps an enumerated set |
 
-Key methods: `keys()`, `values()`, `__getitem__(i)`, `__iter__()`, `cardinality()`,
-`list()`, `map(f)`, `zip(other)`.
+Key methods: `keys()`, `values()`, `__getitem__(i)`, `__iter__()`, `cardinality()`, `list()`, `map(f)`, `zip(other)`.
 
 [31](#0-30)
 
@@ -573,8 +538,7 @@ Key methods: `keys()`, `values()`, `__getitem__(i)`, `__iter__()`, `cardinality(
 
 Builds an enumerated set from a callable that returns an iterator.
 Supports optional caching.
-Also provides decorators `@set_from_function` and `@set_from_method`. Key methods:
-`__iter__()`, `cardinality()`, `an_element()`, `unrank(n)`.
+Also provides decorators `@set_from_function` and `@set_from_method`. Key methods: `__iter__()`, `cardinality()`, `an_element()`, `unrank(n)`.
 
 [32](#0-31)
 
@@ -656,14 +620,10 @@ This section maps reference markers to their source files and line numbers.
 ## 6. Ground-Up Inventory Delta
 
 Source pass:
-- Official docs: `doc.sagemath.org` pages for `Sets`, `EnumeratedSets`,
-  `FiniteEnumeratedSets`, `InfiniteEnumeratedSets`, `FacadeSets`, set partitions, and
-  the public `sage.sets` constructors.
+- Official docs: `doc.sagemath.org` pages for `Sets`, `EnumeratedSets`, `FiniteEnumeratedSets`, `InfiniteEnumeratedSets`, `FacadeSets`, set partitions, and the public `sage.sets` constructors.
 - Context7: `/sagemath/documentation` for category and set constructor pages.
 - DeepWiki: `sagemath/sage`, question on set/enumerated-set public method surfaces.
-- Local Sage source:
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/` and
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/`.
+- Local Sage source: `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/` and `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/`.
 
 This section is the working Sage inventory for the redesign pass.
 It records Sage classes, categories, constructors, and methods.
@@ -709,21 +669,14 @@ It records Sage classes, categories, constructors, and methods.
 ### Sage Source Caveats
 
 - `Topological()` and `Metric()` are Sage category navigation methods.
-  `RealSet` lives in `TopologicalSpaces()`; the spec decomposes its method surface by
-  mathematical owner: `Sets()` (set predicates), `Sets().Subobjects()` (set operations
-  and subobject structure), `TopologicalSpaces()` (connectivity),
-  `TopologicalSpaces().Subobjects()` (subspace topology), and `_RealSets` (infimum,
-  supremum, the interval-component basis expression).
-- Sage `EnumeratedSets` includes finite and countable sets or multisets with a canonical
-  enumeration.
+  `RealSet` lives in `TopologicalSpaces()`; the spec decomposes its method surface by mathematical owner: `Sets()` (set predicates), `Sets().Subobjects()` (set operations and subobject structure), `TopologicalSpaces()` (connectivity), `TopologicalSpaces().Subobjects()` (subspace topology), and `_RealSets` (infimum, supremum, the interval-component basis expression).
+- Sage `EnumeratedSets` includes finite and countable sets or multisets with a canonical enumeration.
 - Sage boolean mixins are implementation artifacts on concrete set parents.
-- Installed Sage source for `Primes` exposes the full-prime-set parent methods above;
-  hosted docs describe congruence-data prime subsets as an additional surface.
+- Installed Sage source for `Primes` exposes the full-prime-set parent methods above; hosted docs describe congruence-data prime subsets as an additional surface.
 
 ## Wider Construction Inventory
 
-This inventory is anchored in the Sage develop source for `sage/sets/set.py` and the
-category docs for `sage.categories.sets_cat`.
+This inventory is anchored in the Sage develop source for `sage/sets/set.py` and the category docs for `sage.categories.sets_cat`.
 
 ### Functorial and categorical constructions
 
