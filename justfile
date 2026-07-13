@@ -134,14 +134,14 @@ test: _clean
             "$status"
     }
     trap 'status=$?; trap - EXIT; record_timing "$status"; exit "$status"' EXIT
-    just -f ~/ai-review-ci/justfiles/sage.just -d {{justfile_directory()}} test
+    just -f ~/ai-review-ci/justfiles/sage.just -d . test
     just _clean
 
 test-ci: _clean
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
-    just test
+    just -f ~/ai-review-ci/justfiles/sage.just -d . test-ci
 
 test-spec-core-vertical-slice: _clean
     #!/usr/bin/env bash
